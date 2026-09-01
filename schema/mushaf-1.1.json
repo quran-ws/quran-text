@@ -1,0 +1,150 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/quranpedia/quran-word-index/schema/mushaf-1.1.json",
+  "title": "quran-mushaf 1.1",
+  "description": "Additive slot/position form. Legacy word identifiers remain aliases of slot identifiers.",
+  "type": "object",
+  "required": [
+    "format",
+    "format_version",
+    "generated",
+    "mushaf",
+    "provenance",
+    "spine",
+    "suras",
+    "ayat",
+    "words",
+    "resegmentation"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "format": { "const": "quran-mushaf" },
+    "format_version": { "const": "1.1" },
+    "generated": { "type": "string", "format": "date" },
+    "variant": { "const": "minimal" },
+    "mushaf": { "$ref": "mushaf-1.0.json#/properties/mushaf" },
+    "provenance": { "$ref": "mushaf-1.0.json#/properties/provenance" },
+    "layers": { "$ref": "mushaf-1.0.json#/properties/layers" },
+    "mark_signs": { "$ref": "mushaf-1.0.json#/properties/mark_signs" },
+    "line_disagreements": { "$ref": "mushaf-1.0.json#/properties/line_disagreements" },
+    "spine": {
+      "type": "object",
+      "required": ["word_id_range", "slot_id_range"],
+      "additionalProperties": false,
+      "properties": {
+        "word_id_range": { "$ref": "#/$defs/span" },
+        "slot_id_range": { "$ref": "#/$defs/span" },
+        "note": { "type": "string" }
+      }
+    },
+    "suras": {
+      "type": "array",
+      "minItems": 114,
+      "maxItems": 114,
+      "items": {
+        "type": "object",
+        "required": ["n", "name_ar", "name_en", "basmalah", "ayat", "words", "slots"],
+        "additionalProperties": false,
+        "properties": {
+          "n": { "type": "integer", "minimum": 1, "maximum": 114 },
+          "name_ar": { "type": "string" },
+          "name_en": { "type": "string" },
+          "revelation": { "enum": ["makki", "madani"] },
+          "basmalah": { "type": "boolean" },
+          "ayat": { "type": "integer", "minimum": 1 },
+          "words": { "$ref": "#/$defs/span" },
+          "slots": { "$ref": "#/$defs/span" },
+          "pages": { "$ref": "#/$defs/span" }
+        }
+      }
+    },
+    "ayat": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["sura", "n", "words", "slots"],
+        "additionalProperties": false,
+        "properties": {
+          "sura": { "type": "integer", "minimum": 1, "maximum": 114 },
+          "n": { "type": "integer", "minimum": 0 },
+          "words": { "$ref": "#/$defs/span" },
+          "slots": { "$ref": "#/$defs/span" }
+        }
+      }
+    },
+    "pages": { "$ref": "#/$defs/numbered_spans" },
+    "juz": { "$ref": "#/$defs/numbered_spans" },
+    "resegmentation": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["words", "slots", "sura", "ayah", "kind", "source_text", "emitted"],
+        "additionalProperties": false,
+        "properties": {
+          "words": { "type": "array", "items": { "type": "integer" } },
+          "slots": { "type": "array", "items": { "type": "integer" } },
+          "sura": { "type": "integer" },
+          "ayah": { "type": "integer" },
+          "kind": { "enum": ["joined_in_source", "split_in_source", "unresolved_boundary"] },
+          "source_text": { "type": "string" },
+          "emitted": { "type": "array", "items": { "type": "string" } },
+          "riwayat_agree": { "type": "boolean" }
+        }
+      }
+    },
+    "words": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["w", "s", "p", "t"],
+        "additionalProperties": false,
+        "properties": {
+          "w": {
+            "description": "Legacy 1.0 alias of s.",
+            "type": "integer",
+            "minimum": 1
+          },
+          "s": {
+            "description": "Shared slot ID; gaps are valid within one muṣḥaf.",
+            "type": "integer",
+            "minimum": 1
+          },
+          "p": {
+            "description": "Dense global word position in this muṣḥaf.",
+            "type": "integer",
+            "minimum": 1
+          },
+          "t": { "type": "string" },
+          "pg": { "type": "integer", "minimum": 1 },
+          "ln": { "type": "integer", "minimum": 1 },
+          "e": { "type": "string" },
+          "resegmented": { "const": true },
+          "marks": { "$ref": "mushaf-1.0.json#/properties/words/items/properties/marks" }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "span": {
+      "description": "[first, last], inclusive.",
+      "type": "array",
+      "items": { "type": "integer" },
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "numbered_spans": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["n", "words", "slots"],
+        "additionalProperties": false,
+        "properties": {
+          "n": { "type": "integer", "minimum": 1 },
+          "words": { "$ref": "#/$defs/span" },
+          "slots": { "$ref": "#/$defs/span" }
+        }
+      }
+    }
+  }
+}

@@ -6,10 +6,10 @@ each remaining riwāyah with a diff over the *rasm* (consonantal skeleton) and
 extend the spine with a new column wherever a riwāyah has a word the spine does
 not.
 
-The result is a list of :class:`Column` per sūrah.  A column is one canonical
-word: it carries at most one token from each riwāyah, and its index in the list
-is the word's fixed ID.  Words that only some riwāyāt have still get a column,
-so an ID means the same word everywhere it exists.
+The result is a list of :class:`Column` per sūrah. A column is one shared slot:
+it carries at most one token from each riwāyah. Words that only some riwāyāt
+have still get a slot, and exceptional n:m wording is recorded over a range of
+slots instead of pretending that every column is an independent 1:1 pairing.
 """
 
 from __future__ import annotations
@@ -24,11 +24,16 @@ from .tokenize import Token
 
 @dataclass(eq=False)   # identity, not value, semantics: columns are shared and mutated
 class Column:
-    """One canonical word position, shared by all riwāyāt that have it."""
+    """One shared slot, carrying at most one token from each riwāyah."""
 
     tokens: dict[str, Token] = field(default_factory=dict)
     #: Riwāyāt whose word here was produced by splitting or merging.
     boundary: dict[str, str] = field(default_factory=dict)
+    #: Unequal genuine-wording replacements this slot participates in.  The
+    #: markers are identity objects because progressive alignment may discover
+    #: the same final interval more than once; :func:`alignment_ranges` merges
+    #: only markers whose final intervals actually overlap.
+    alignment_markers: set[AlignmentMarker] = field(default_factory=set)
 
     @property
     def rasm(self) -> str:
@@ -42,6 +47,13 @@ class Column:
             if counts[tok.rasm] == top:
                 return tok.rasm
         return ""
+
+
+@dataclass(eq=False, frozen=True)
+class AlignmentMarker:
+    """One raw n:m wording event discovered while folding in a riwāyah."""
+
+    riwaya: str
 
 
 def _retoken(tok: Token, text: str, pos: int) -> Token:
@@ -99,14 +111,20 @@ def _pair_replace(cols: list[Column], toks: list[Token], key: str,
 
     if "".join(c.rasm for c in cols) != "".join(t.rasm for t in toks):
         # Genuinely different wording: pair as far as the shorter side goes,
-        # then let the remainder stand as present on one side only.
+        # then let the remainder stand as present on one side only.  Keep an
+        # event marker across the whole block so the published slot layer can
+        # say honestly that this is n:m alignment rather than independent 1:1
+        # word correspondences.
+        marker = AlignmentMarker(key)
         n = min(len(cols), len(toks))
         for i in range(n):
             cols[i].tokens[key] = toks[i]
-            out.append(cols[i])
-        out.extend(cols[n:])
+        block = list(cols)
         for tok in toks[n:]:
-            out.append(Column(tokens={key: tok}))
+            block.append(Column(tokens={key: tok}))
+        for col in block:
+            col.alignment_markers.add(marker)
+        out.extend(block)
         return
 
     for group_cols, group_toks in _distribute(cols, toks):
@@ -174,3 +192,26 @@ def build_spine(streams: dict[str, list[Token]], order: list[str]) -> list[Colum
     for key in order[1:]:
         spine = merge(spine, key, streams[key])
     return spine
+
+
+def alignment_ranges(spine: list[Column]) -> list[tuple[int, int]]:
+    """Return final 0-based inclusive intervals for genuine n:m replacements.
+
+    A progressive merge can rediscover one region for several riwāyāt.  Raw
+    markers are translated to their positions only after the spine is final,
+    then overlapping intervals are coalesced.  Merely adjacent events remain
+    distinct; adjacency alone is not evidence that two variants are one span.
+    """
+    positions: dict[AlignmentMarker, list[int]] = {}
+    for index, col in enumerate(spine):
+        for marker in col.alignment_markers:
+            positions.setdefault(marker, []).append(index)
+    intervals = sorted((min(xs), max(xs)) for xs in positions.values() if xs)
+    merged: list[tuple[int, int]] = []
+    for start, end in intervals:
+        if merged and start <= merged[-1][1]:
+            old_start, old_end = merged[-1]
+            merged[-1] = (old_start, max(old_end, end))
+        else:
+            merged.append((start, end))
+    return merged

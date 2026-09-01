@@ -1,8 +1,7 @@
 # quran-word-index
 
-A **flat, word-level representation of the Uthmānī Qur'anic text** in which every
-word carries one fixed ID that means the same word across all seven riwāyāt
-available in `data/`.
+A **flat, word-level representation of the Uthmānī Qur'anic text** built on a
+shared slot spine across all seven riwāyāt available in `data/`.
 
 ```
 sūrah  →  [ word, word, word, … ]
@@ -20,12 +19,24 @@ than they disagree about words:
 | Baṣrī (Sūsī) | 6,218 | Sūsī |
 | Makkī | 6,220 | Bazzī |
 
-Nesting words under āyāt would make an ID mean a different word in each
-riwāyah. Flattening to the sūrah makes one ID stable across all of them, and
+Nesting words under āyāt would make a coordinate mean a different word in each
+riwāyah. Flattening to the sūrah makes one slot stable across all of them, and
 the āyah boundaries become their own layer over the word index:
 [`out/fawasil.json`](out/fawasil.json).
 
-## What makes an ID mean one word
+## Slot, token, position, and span
+
+- A **slot** is the shared cross-riwāyah coordinate. `slot_id` is numbered
+  `1 … 77434`; gaps inside one muṣḥaf are valid. Legacy `id`, `w`, and
+  `word_id` fields remain exact aliases.
+- A **token** is a word actually present in one riwāyah at a slot.
+- A **position** is that token's dense global ordinal inside its own muṣḥaf.
+  It is always `1 … word_count`, even where the slot sequence has a gap.
+- An **alignment span** is a rare n:m relationship between contiguous slots
+  where the readings cannot honestly be paired word for word. The slots remain
+  addressable; the span supplies the larger correspondence.
+
+## What usually makes one slot mean one word
 
 Words are identified by their **bare ʿUthmānic rasm** — undotted, unvowelled,
 without hamza — because that is what the seven riwāyāt actually share. The
@@ -34,7 +45,7 @@ on purpose:
 
 ```
 تَعۡمَلُونَ  ┐
-           ├─►  ٮعملوں   one rasm, one ID, two readings
+           ├─►  ٮعملوں   one rasm, one slot, two readings
 يَعۡمَلُونَ  ┘
 ```
 
@@ -53,6 +64,8 @@ of a word's identity. Each riwāyah's own spelling is kept in `forms`.
 | `out/conflicts.csv` / `.json` | only the words that disagree |
 | `out/fawasil.json` | where each counting tradition ends its āyāt |
 | `out/boundaries.csv` | every word-boundary disagreement, in full |
+| `out/slot-model.json` | positions, partial slots, and n:m alignment spans |
+| `out/SLOT-MODEL.md` | persistent before/after review of the migration |
 | `out/COMPARISON.md` | the cross-riwāyah comparison report |
 | `out/compare.html` | interactive word-by-word comparison — open it in a browser |
 
@@ -76,13 +89,14 @@ and why it lacks the rest, and lists every place this build changed the source's
 own word spacing. Only `out/mushaf/<key>.json` is normative — the rest are
 generated views of it. The format is specified in
 [`docs/MUSHAF-FORMAT.md`](docs/MUSHAF-FORMAT.md) and checkable against
-[`schema/mushaf-1.0.json`](schema/mushaf-1.0.json).
+[`schema/mushaf-1.1.json`](schema/mushaf-1.1.json). The 1.0 schema remains for
+already-published files and consumers.
 | `out/rasm-variants.md` | every letter-level disagreement, listed |
 | `out/agreement-matrix.csv` | pairwise agreement between riwāyāt |
 
 ## Headline numbers
 
-**77,434** canonical words · **114** sūrahs · **7** riwāyāt.
+**77,434** shared slots · **114** sūrahs · **7** riwāyāt.
 
 | status | words | share | meaning |
 |---|---|---|---|
@@ -108,17 +122,19 @@ publisher. Rasm agreement between any two riwāyāt is **99.5 %–100 %**.
 
 ```json
 {
- "id": 11, "i": 11, "key": "1:مالك#1",
+ "id": 11, "slot_id": 11, "i": 11, "key": "1:مالك#1",
  "rasm": "ملك", "pointed": "مالك", "uthmani": "مَٰلِكِ", "simple": "مالك",
- "status": "dotting_variant",
+ "status": "alif_variant",
  "aya":   { "hafs": 4, "shuba": 4, "warsh": 3, "qaloun": 3,
             "douri": 3, "sousi": 3, "bazzi": 4 },
+ "position": { "hafs": 11, "shuba": 11, "warsh": 11, "qaloun": 11,
+               "douri": 11, "sousi": 11, "bazzi": 11 },
  "forms": { "hafs": "مَٰلِكِ", "shuba": "مَٰلِكِ", "warsh": "مَلِكِ", "qaloun": "مَلِكِ",
             "douri": "مَلِكِ", "sousi": "مَّلِكِ", "bazzi": "مَلِكِ" }
 }
 ```
 
-One ID, one word. `aya` records that this word is in āyah 4 for the Kūfī and
+One shared slot, with one token per reading here. `aya` records that this word is in āyah 4 for the Kūfī and
 Makkī counts and āyah 3 for the Madanī and Baṣrī ones. `forms` records that
 Ḥafṣ and Shuʿbah read *māliki* where the rest read *maliki* — and `rasm` records
 that the codex writes `ملك` either way. Ḥafṣ's ā is printed as a superscript
@@ -131,7 +147,7 @@ No dependencies beyond the Python standard library (3.11+).
 
 ```sh
 python3 build.py                            # ~60 s, writes out/
-python3 -m unittest discover -s tests        # 24 tests
+python3 -m unittest discover -s tests        # unit suite
 ```
 
 ## Read next

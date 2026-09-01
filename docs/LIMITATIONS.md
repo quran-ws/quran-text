@@ -93,13 +93,19 @@ in the 2022 Ḥafṣ CSV, separated in the 2026 Ḥafṣ document). Twelve words
 re-segmented by this build. Any downstream use that depends on exact word
 boundaries should read `out/COMPARISON.md` first.
 
-## IDs are stable across rebuilds, not across releases
+## Slot IDs are stable across rebuilds, not across source releases
 
-`id` is a position. If KFGQPC ships a release that adds or removes a word, every
-`id` after it shifts. Use **`key`** (`sūrah:rasm#occurrence`) as the join key for
-anything long-lived — it is derived from content, not position, and survives
-insertions elsewhere in the sūrah. Neither identifier is a KFGQPC identifier;
+`slot_id` is a dataset-version-local coordinate; legacy `id`, `w`, and
+`word_id` are aliases of it, not separate identifiers. If a future KFGQPC
+release adds or removes a word and the dataset deliberately rebuilds its spine,
+later slot IDs may shift. Use **`key`** (`sūrah:pointed#occurrence`) when a
+content-derived reference is more appropriate, and always pin the dataset
+version for long-lived citations. Neither identifier is a KFGQPC identifier;
 they exist only in this repository.
+
+The dense per-riwāyah `position` is intentionally not a cross-muṣḥaf join key.
+It answers “which word number is this inside this muṣḥaf?” and changes whenever
+an earlier token is inserted or removed in that riwāyah.
 
 ## What "identical" means
 
@@ -127,6 +133,12 @@ total in the boundary and partial buckets) the difference is unlikely to matter,
 but the order of `ORDER` in `src/quranidx/build.py` is a parameter of the result
 rather than a neutral choice.
 
+Unequal token-count replacements whose concatenated rasms also differ are
+published as `alignment_span` records in `out/slot-model.json`. A span is an
+honest n:m correspondence over a range; it does not prove a linguistic pairing
+between the individual slots inside it. Pure presence/absence and same-letter
+join/split events are deliberately excluded from this class.
+
 ## Not linguistically annotated
 
 There is no root, lemma, part of speech, morphology or translation here, and no
@@ -139,8 +151,8 @@ word level.
 ## Verification is internal
 
 The checks prove the index is faithful to the packages in `data/` — round-trip
-of every letter of every riwāyah, contiguous IDs, āyah totals against the
-classical counting traditions. They do **not** prove the packages are faithful
+of every letter of every riwāyah, contiguous slots and dense per-riwāyah
+positions, plus internally contiguous āyah numbering. They do **not** prove the packages are faithful
 to a printed muṣḥaf. The 260 letter-level variants in `out/rasm-variants.md` —
 62 `rasm_variant` and 198 `alif_variant` — have not been checked against the
 qirāʾāt literature one by one; spot checks against

@@ -190,24 +190,35 @@ Each diff opcode has one meaning:
 
 - `equal` — the riwāyah joins the existing columns;
 - `insert` — the riwāyah has a word the spine lacks, so a new column is created
-  (this is how Bazzī's `مِن` at 9:101 gets an ID that the others simply do not use);
+  (this is how Bazzī's `مِن` at 9:101 gets a slot that the others simply do not use);
 - `delete` — the riwāyah has no word at that column;
 - `replace` — the same slot, spelled differently.
 
-`replace` blocks of unequal length are the interesting case, and are almost
-always a **word-boundary disagreement** rather than a different reading. When
-the letters on both sides agree, the block is re-segmented: a word one source
-printed joined (`كَانُواْيَعۡمَلُونَ`) is split back apart at the right offset, with
-marks staying on the letter they sit on. Without this, the next word is falsely
-reported absent from that riwāyah.
+An unequal `replace` block is handled according to its letters:
 
-The result is one `Column` per canonical word, holding at most one token from
-each riwāyah. Its position is the word's ID.
+- if the concatenated rasms agree, it is a **boundary/resegmentation event**;
+  a word one source printed joined (`كَانُواْيَعۡمَلُونَ`) is split back apart at
+  the right offset, with marks staying on the letter they sit on;
+- if the concatenated rasms differ, it is a genuine **n:m alignment span**.
+  The individual slots remain addressable, but the span records that the whole
+  sequence corresponds and that no independent word-to-word pairing is claimed.
+
+Pure insertions and deletions remain atomic partial slots. Raw n:m events are
+translated to final slot ranges after progressive alignment and overlapping
+ranges are merged; merely adjacent events are not.
+
+The result is one `Column` per shared slot, holding at most one token from each
+riwāyah, plus the exceptional alignment spans.
 
 ## Identifiers
 
-- **`id`** — a running integer over the whole corpus, `1 … 77434`.
-- **`i`** — the word's 1-based position within its sūrah.
+- **`slot_id`** — the shared running coordinate, `1 … 77434`. A muṣḥaf may
+  leave it empty. Legacy **`id`**, compact **`w`**, and CSV/SQLite **`word_id`**
+  remain exact aliases.
+- **`position`** — a dense global token ordinal inside one riwāyah, always
+  `1 … word_count`; it does not count empty slots.
+- **`i`** — the slot's 1-based index within the shared sūrah spine. It is not a
+  per-muṣḥaf dense position.
 - **`key`** — `sūrah:pointed#occurrence`, e.g. `1:مالك#1`. This is rebuild-stable
   and does not shift if a future release adds or removes a word earlier in the
   sūrah, so it is the safer join key for long-lived references. It is built from
@@ -227,7 +238,8 @@ Baṣrī but part company at exactly one fāṣilah, which is the whole of the
 
 `python3 build.py` runs three families of check and prints what it finds.
 
-1. **Structural** — IDs contiguous, `key` unique, `i` contiguous per sūrah.
+1. **Structural** — slot IDs contiguous, `key` unique, `i` contiguous per
+   sūrah, and every riwāyah's dense positions exactly `1 … word_count`.
 2. **Round-trip** — for each riwāyah, the concatenated rasm of every form in the
    index must equal the concatenated rasm of tokenising that riwāyah's source
    directly. Comparing letters rather than word counts makes the check
