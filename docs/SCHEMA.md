@@ -44,7 +44,7 @@ One file per sūrah, `001.json` … `114.json`.
 | `id` | ✓ | running integer over the whole corpus, `1 … 77434` |
 | `i` | ✓ | 1-based position within the sūrah |
 | `key` | ✓ | `sūrah:pointed#occurrence` — content-derived, stable across rebuilds |
-| `rasm` | ✓ | bare ʿUthmānic skeleton — undotted, unvowelled, no hamza. The alignment key: every riwāyah sharing an `id` shares this exactly, except in the 266 `rasm_variant` words |
+| `rasm` | ✓ | bare ʿUthmānic skeleton — undotted, unvowelled, no hamza. The alignment key: every riwāyah sharing an `id` shares this exactly, except in the 232 `rasm_variant` words |
 | `pointed` | ✓ | the same skeleton with its dots, from the canonical spelling |
 | `uthmani` | ✓ | canonical display form — Ḥafṣ's spelling where Ḥafṣ has the word, else the most common |
 | `simple` | ✓ | plain spelling for search: no diacritics, superscript alif written out |
@@ -74,9 +74,9 @@ scan, and its mere presence means the riwāyāt part company here.
 | value | words | meaning |
 |---|---|---|
 | `identical` | 40,558 | same reading and spelling in all seven, after notation folding |
-| `diacritic_variant` | 36,425 | same letters *and* dots — the vowelling differs |
-| `dotting_variant` | 168 | one rasm, pointed differently: `تَعۡمَلُونَ` against `يَعۡمَلُونَ` |
-| `rasm_variant` | 266 | the codices disagree about the letters on the line |
+| `diacritic_variant` | 36,458 | same letters *and* dots — the vowelling differs |
+| `dotting_variant` | 169 | one rasm, pointed differently: `تَعۡمَلُونَ` against `يَعۡمَلُونَ` |
+| `rasm_variant` | 232 | the codices disagree about the letters on the line |
 | `word_boundary` | 12 | a source prints the word joined to its neighbour |
 | `partial` | 5 | the word is absent from at least one riwāyah |
 
@@ -156,7 +156,7 @@ rather than a muṣḥaf that really prints the words joined.
 
 ## `out/conflicts.csv` and `out/conflicts.json`
 
-Only the 283 words with `status` of `rasm_variant`, `word_boundary` or
+Only the 249 words with `status` of `rasm_variant`, `word_boundary` or
 `partial`. The CSV groups identical spellings so one row shows who reads what:
 
 ```
@@ -179,7 +179,7 @@ level, then gives the inventory, counting traditions, status distribution,
 pairwise agreement, every rasm disagreement, every boundary event shown run by
 run with each riwāyah's own text, every absent word, the fawāṣil systems and
 how far apart they are, source-integrity cross-checks, and a per-sūrah density
-table. `rasm-variants.md` lists all 266 letter-level disagreements.
+table. `rasm-variants.md` lists all 232 letter-level disagreements.
 
 ## `out/compare.html`
 

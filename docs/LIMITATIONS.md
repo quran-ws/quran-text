@@ -34,8 +34,7 @@ The `rasm` field is derived by normalising KFGQPC's vowelled text — dropping
 dots, hamza and vowels, and folding the dagger alif to a written alef. It is
 **not** a transcription of any ʿUthmānic codex. Where the packages themselves
 disagree about a letter, the disagreement is reported; where they agree, the
-result is only as good as the reconstruction, and 34 words are known to be
-wrong (see the `أَرَءَيۡتَ` family in `docs/ISSUES.md`).
+result is only as good as the reconstruction.
 
 Two normalisation decisions are judgement calls that a different project could
 reasonably make differently:

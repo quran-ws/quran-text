@@ -56,6 +56,27 @@ class TestNormalize(unittest.TestCase):
         # separate letters, and collapsing them would break 75:1.
         self.assertEqual(rasm("لَأُاْقۡسِمُ"), rasm("لَآ") + rasm("أُقۡسِمُ"))
 
+    def test_dagger_standing_in_for_a_suppressed_hamza_is_not_an_alef(self):
+        # Warsh's tashīl drops the hamza of أَرَءَيۡتَ and leaves its madd on a
+        # dagger alif.  A madd with no hamza after it is notating a hamza, not
+        # an ā, and hamza is not rasm.
+        self.assertEqual(rasm("أَرَءَيۡتَ"), rasm("ࡰرَٰٓيْتَ"))
+        self.assertEqual(rasm("أَرَءَيۡتَكُمۡ"), rasm("أَرَٰ۬يْتَكُمْ"))
+
+    def test_a_madd_that_does_have_its_hamza_is_still_an_alef(self):
+        self.assertEqual(rasm("إِسۡرَٰٓءِيلَ"), rasm("إِسْرَآءِيلَ"))
+        self.assertEqual(rasm("هَٰٓؤُلَآءِ"), rasm("هَٰؤُلَآࢇ"))
+
+    def test_madd_lazim_over_a_shadda_is_still_an_alef(self):
+        # تَتَّبِعَٰٓنِّ and فَذَٰٓنِّكَ put the madd over a doubled letter, not a
+        # hamza: a real long ā that other packages write on the line.
+        self.assertEqual(rasm("تَتَّبِعَآنِّ"), rasm("تَتَّبِعَٰٓنِّ"))
+        self.assertEqual(rasm("فَذَٰنِكَ"), rasm("فَذَٰٓنِّكَ"))
+
+    def test_a_word_final_madd_keeps_its_alef(self):
+        # عَلَىٰٓ is ʿalā and عَلَيَّ is ʿalayya — a real variant at 7:105.
+        self.assertNotEqual(rasm("عَلَىٰٓ"), rasm("عَلَيَّ"))
+
     def test_rasm_keeps_real_letter_differences(self):
         # Bazzī reads قَالَ where the others read قُلۡ: different letters.
         self.assertNotEqual(rasm("قُلۡ"), rasm("قَالَ"))

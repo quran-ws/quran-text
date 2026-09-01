@@ -373,9 +373,6 @@ def write_report(words: list[Word], riwayat: list[Riwaya]) -> None:
          "letters on the line, in order. Dots, hamza, vowelling and the dagger "
          "alif have already been set aside, so every row here is a difference "
          "between the codices rather than between the typesettings.", "",
-         "Known residual: 34 rows are the `أَرَءَيۡتَ` / `ࡰرَٰٓيْتَ` family, where Warsh "
-         "writes the tashīl'd hamza as a dagger alif and Ḥafṣ writes it as a "
-         "hamza. The rasm is the same in both; see `docs/ISSUES.md`.", "",
          "Machine-readable: `conflicts.csv`, `conflicts.json`.", ""]
     rows = []
     for w in rasm_v:

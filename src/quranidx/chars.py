@@ -190,6 +190,23 @@ RASM_KEEP_MARKS_FOLD = {
 #: separates مَٰلِكِ from مَلِكِ, دِفَٰعُ from دَفۡعُ and ٱلرِّيَٰحُ from ٱلرِّيحُ.
 SUPERSCRIPT_ALEF = "ٰ"
 
+#: Marks a dagger alif can carry that make it a madd *over something* — the
+#: maddah, and the rounded high stop the Warsh/Qālūn family uses for the same
+#: job.  What the madd is over decides whether the dagger is a written ā at
+#: all: see :data:`HAMZA_ANY`.
+HAMZA_MADD_MARKS = {"ٓ", "۬"}
+
+#: Hamza in every form it is written: bare, on a seat, and combining.  Used to
+#: read the one context where a dagger alif is not an ā.
+#:
+#: ``ٰٓ`` marks a madd over a hamza.  Where the hamza is there — ``إِسۡرَٰٓءِيلَ``,
+#: ``هَٰٓؤُلَآءِ``, ``مَلَٰٓئِكَةِ`` — the dagger is a genuine written ā and Warsh
+#: prints an alef in its place.  Where a plain letter follows instead, there is
+#: no hamza for the madd to be over, because the reading has suppressed it: in
+#: Warsh's ``ࡰرَٰٓيْتَ`` the dagger *is* the tashīl'd hamza of Ḥafṣ's ``أَرَءَيۡتَ``.
+#: Hamza is not part of the rasm, so neither is that dagger.
+HAMZA_ANY = {"ء", "أ", "إ", "ؤ", "ئ", "آ", "ٱ", "ࢇ", "ٔ", "ٕ", "ۓ"}
+
 # --- iʿjām (pointing) -----------------------------------------------------
 # The ʿUthmānic codices were written without dots.  One skeleton therefore
 # carries several readings by design: تَعۡمَلُونَ and يَعۡمَلُونَ are not two rasms,

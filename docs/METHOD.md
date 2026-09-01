@@ -110,6 +110,14 @@ that keeps what was added later is not a rasm:
   `مالك`/`ملك` at 1:4 — the best-known variant in the Qurʾān — was previously
   filed as a mere difference of vowelling.
 
+  One exception, and it is the only place the rasm needs to look at more than a
+  character and its neighbour: `ٰٓ` is a madd *over* something, and what it is
+  over decides. Over a hamza (`إِسۡرَٰٓءِيلَ`), over a doubled letter
+  (`تَتَّبِعَٰٓنِّ`, madd lāzim), or at the end of a word (`عَلَىٰٓ`), the dagger is a
+  written ā. Over a plain undoubled letter there is no hamza for the madd to be
+  over, because the reading suppressed it — Warsh's `ࡰرَٰٓيْتَ` against Ḥafṣ's
+  `أَرَءَيۡتَ` — so the dagger *is* the hamza, and hamza is not rasm.
+
 `pointed` keeps the dots and is otherwise the same. The gap between the two is
 itself a category of variation, and it gets its own status, `dotting_variant`.
 
