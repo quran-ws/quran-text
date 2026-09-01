@@ -1,4 +1,4 @@
-# quran-index
+# quran-word-index
 
 A **flat, word-level representation of the Uthmānī Qur'anic text** in which every
 word carries one fixed ID that means the same word across all seven riwāyāt
