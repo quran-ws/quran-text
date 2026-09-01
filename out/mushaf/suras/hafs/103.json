@@ -1,0 +1,177 @@
+{
+ "format": "quran-mushaf",
+ "format_version": "1.0",
+ "view_of": "out/mushaf/hafs.json",
+ "view": "sura-shard",
+ "mushaf": "hafs",
+ "provenance": {
+  "text": {
+   "package": "UthmanicHafs-v-3.0.zip",
+   "member": "UthmanicHafs-v-3.0.docx",
+   "release_year": 2026,
+   "sha256": "cdec7341b7c684e7b8dd469c4b68988914d2784e924c7e6cbb9cb4b57c24f013"
+  },
+  "policy": "within one riwāyah the later release is a correction; across riwāyāt nothing is assumed",
+  "layout": {
+   "package": "UthmanicHafs_v2-0.zip",
+   "member": "UthmanicHafs_v2-0 data/hafsData_v2-0.csv",
+   "release_year": 2022,
+   "sha256": "a7b0e5591945712ec5e4d6142938ae4d1e9b49bdc89dff06222789bfebdfd72c",
+   "used_for": [
+    "juz",
+    "line_check"
+   ]
+  }
+ },
+ "sura": {
+  "n": 103,
+  "name_ar": "العَصر",
+  "name_en": "Al-‘Aṣr",
+  "revelation": "makki",
+  "basmalah": true,
+  "ayat": 3,
+  "words": [
+   77187,
+   77200
+  ],
+  "pages": [
+   601,
+   601
+  ]
+ },
+ "ayat": [
+  {
+   "sura": 103,
+   "n": 1,
+   "words": [
+    77187,
+    77187
+   ]
+  },
+  {
+   "sura": 103,
+   "n": 2,
+   "words": [
+    77188,
+    77191
+   ]
+  },
+  {
+   "sura": 103,
+   "n": 3,
+   "words": [
+    77192,
+    77200
+   ]
+  }
+ ],
+ "pages": [
+  {
+   "n": 601,
+   "words": [
+    77187,
+    77256
+   ]
+  }
+ ],
+ "words": [
+  {
+   "w": 77187,
+   "t": "وَٱلۡعَصۡرِ",
+   "pg": 601,
+   "ln": 3,
+   "e": "والعصر"
+  },
+  {
+   "w": 77188,
+   "t": "إِنَّ",
+   "pg": 601,
+   "ln": 3,
+   "e": "إن"
+  },
+  {
+   "w": 77189,
+   "t": "ٱلۡإِنسَٰنَ",
+   "pg": 601,
+   "ln": 3,
+   "e": "الإنسان"
+  },
+  {
+   "w": 77190,
+   "t": "لَفِي",
+   "pg": 601,
+   "ln": 3,
+   "e": "لفي"
+  },
+  {
+   "w": 77191,
+   "t": "خُسۡرٍ",
+   "pg": 601,
+   "ln": 3,
+   "e": "خسر"
+  },
+  {
+   "w": 77192,
+   "t": "إِلَّا",
+   "pg": 601,
+   "ln": 3,
+   "e": "إلا"
+  },
+  {
+   "w": 77193,
+   "t": "ٱلَّذِينَ",
+   "pg": 601,
+   "ln": 3,
+   "e": "الذين"
+  },
+  {
+   "w": 77194,
+   "t": "ءَامَنُواْ",
+   "pg": 601,
+   "ln": 3,
+   "e": "آمنوا"
+  },
+  {
+   "w": 77195,
+   "t": "وَعَمِلُواْ",
+   "pg": 601,
+   "ln": 4,
+   "e": "وعملوا"
+  },
+  {
+   "w": 77196,
+   "t": "ٱلصَّٰلِحَٰتِ",
+   "pg": 601,
+   "ln": 4,
+   "e": "الصالحات"
+  },
+  {
+   "w": 77197,
+   "t": "وَتَوَاصَوۡاْ",
+   "pg": 601,
+   "ln": 4,
+   "e": "وتواصوا"
+  },
+  {
+   "w": 77198,
+   "t": "بِٱلۡحَقِّ",
+   "pg": 601,
+   "ln": 4,
+   "e": "بالحق"
+  },
+  {
+   "w": 77199,
+   "t": "وَتَوَاصَوۡاْ",
+   "pg": 601,
+   "ln": 4,
+   "e": "وتواصوا"
+  },
+  {
+   "w": 77200,
+   "t": "بِٱلصَّبۡرِ",
+   "pg": 601,
+   "ln": 4,
+   "e": "بالصبر"
+  }
+ ]
+}

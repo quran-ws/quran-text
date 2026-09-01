@@ -30,6 +30,8 @@ class Token:
     waqf: str = ""           # pause marks that trailed the word
     hizb: bool = False       # a rub-el-ḥizb symbol precedes this word
     sajdah: bool = False     # a sajdah symbol trails this word
+    page: int = 0            # printed page, read from the source typesetting
+    line: int = 0            # printed line, *reconstructed* — see layout.py
     notes: list[str] = field(default_factory=list)
 
     @property
@@ -37,11 +39,22 @@ class Token:
         return f"{self.sura}:{self.aya}:{self.pos}"
 
 
-def tokenize_ayah(sura: int, aya: int, text: str) -> list[Token]:
+def tokenize_ayah(sura: int, aya: int, text: str,
+                  places: list | None = None) -> list[Token]:
+    """Split one āyah into words.
+
+    ``places`` is one :class:`quranidx.layout.Place` per whitespace-delimited
+    token of ``text``, in order.  It is threaded in rather than looked up
+    because only the ``.docx`` releases carry typesetting, and the position of a
+    word has to survive the peeling of the marks around it: a standalone ۞ is
+    consumed without producing a word, so positions cannot be matched to the
+    output by index afterwards.
+    """
     tokens: list[Token] = []
     pending_hizb = False
 
-    for raw in strip_controls(text).split():
+    for i, raw in enumerate(strip_controls(text).split()):
+        place = places[i] if places and i < len(places) else None
         # A rub-el-ḥizb symbol stands alone between words.
         stripped = raw.replace(chars.RUB_EL_HIZB, "")
         if stripped != raw:
@@ -73,6 +86,8 @@ def tokenize_ayah(sura: int, aya: int, text: str) -> list[Token]:
             waqf=waqf,
             hizb=pending_hizb,
             sajdah=chars.SAJDAH in waqf,
+            page=place.page if place else 0,
+            line=place.line if place else 0,
         )
         pending_hizb = False
         tokens.append(tok)
@@ -80,8 +95,19 @@ def tokenize_ayah(sura: int, aya: int, text: str) -> list[Token]:
     return tokens
 
 
-def tokenize(ayat) -> list[Token]:
+def tokenize(ayat, places: list | None = None) -> list[Token]:
+    """Tokenise a stream of āyāt, optionally placing every word on the page.
+
+    ``places`` is the flat, document-order position list from
+    :func:`quranidx.layout.word_places`.  It is consumed āyah by āyah in step
+    with the token counts, which is sound only because the two streams are
+    identical — asserted by :func:`quranidx.validate.check_layout_alignment`.
+    """
     out: list[Token] = []
+    at = 0
     for a in ayat:
-        out.extend(tokenize_ayah(a.sura, a.aya, a.text))
+        n = len(strip_controls(a.text).split())
+        window = places[at:at + n] if places else None
+        at += n
+        out.extend(tokenize_ayah(a.sura, a.aya, a.text, window))
     return out

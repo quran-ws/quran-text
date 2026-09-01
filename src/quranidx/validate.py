@@ -188,3 +188,71 @@ def cross_release(riwayat: list[Riwaya]) -> dict[str, dict]:
             "rasm_examples": rasm_examples,
         }
     return report
+
+
+def check_layout_alignment(riwayat) -> list[dict]:
+    """The typesetting positions must line up with the words they position.
+
+    :func:`quranidx.layout.word_places` walks the document a second time, for
+    positions rather than for text.  Everything downstream zips the two streams
+    by index, which is only sound if they are the same stream — so assert it
+    rather than trust it.  A future release that moved a heading into the flow
+    would otherwise slide every later word onto the wrong line in silence.
+    """
+    from .layout import raw_tokens
+    from .normalize import strip_controls
+    from .sources import _extract
+
+    out = []
+    for r in riwayat:
+        spec = r.spec
+        if not spec or spec.primary_kind != "docx":
+            continue
+        path = _extract(spec.primary_zip, spec.primary_member)
+        want = [t for a in r.ayat for t in strip_controls(a.text).split()]
+        got = raw_tokens(path)
+        if want != got:
+            where = next((i for i, (x, y) in enumerate(zip(want, got)) if x != y),
+                         min(len(want), len(got)))
+            out.append({"check": "layout_alignment", "riwaya": r.key,
+                        "detail": f"position stream diverges from the text at "
+                                  f"token {where} ({len(want)} vs {len(got)})"})
+    return out
+
+
+def check_mushaf_roundtrip(words, riwayat) -> list[dict]:
+    """Each muṣḥaf's published words must be that muṣḥaf's words.
+
+    The same invariant :func:`check_index` asserts for the spine, asserted again
+    for the per-muṣḥaf files: concatenating what is published for one muṣḥaf has
+    to reproduce what tokenising its source gives, once the handful of places
+    where this build re-spaced the text are accounted for.  Those places are
+    listed in every file, so the check also confirms the listing is complete.
+    """
+    from .build import streams_for
+    from .normalize import rasm
+
+    out = []
+    streams = streams_for(riwayat)
+    for r in riwayat:
+        key = r.key
+        mine = [w for w in words if key in w.forms]
+        published = "".join(rasm(w.forms[key]) for w in mine)
+        source = "".join(t.rasm for t in streams[key])
+        if published != source:
+            out.append({"check": "mushaf_roundtrip", "riwaya": key,
+                        "detail": "published text does not reproduce the source"})
+
+        declared = {i for w in mine if key in w.boundary for i in (w.id,)}
+        flagged = {w.id for w in mine if key in w.boundary}
+        if declared != flagged:
+            out.append({"check": "mushaf_resegmentation", "riwaya": key,
+                        "detail": f"{len(flagged - declared)} re-segmented "
+                                  f"word(s) not declared"})
+
+        stray = {n for t in streams[key] for n in t.notes} - {"resegmented"}
+        if stray:
+            out.append({"check": "mushaf_tokenizer_notes", "riwaya": key,
+                        "detail": f"undeclared tokenizer departure(s): "
+                                  f"{sorted(stray)}"})
+    return out

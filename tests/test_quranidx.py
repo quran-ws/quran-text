@@ -19,6 +19,9 @@ from quranidx.normalize import (forms, pointed, rasm, rasm_plene,  # noqa: E402
 from quranidx.report import _difference_is_length                 # noqa: E402
 from quranidx.validate import check_alif_splits                    # noqa: E402
 from quranidx.tokenize import Token, tokenize_ayah             # noqa: E402
+from quranidx.imlaei import _pair                              # noqa: E402
+from quranidx.layout import Place                              # noqa: E402
+from quranidx.mushaf import _marks, _spans, minimal            # noqa: E402
 
 
 def tok(rasm_: str) -> Token:
@@ -327,6 +330,121 @@ class TestShapeOfDifference(unittest.TestCase):
             self.word(hafs="وَلَا", warsh="فَلَا")))
         self.assertFalse(_difference_is_length(
             self.word(hafs="كَلِمَتُ", warsh="كَلِمَةُ")))
+
+
+class TestSpans(unittest.TestCase):
+    """Boundaries over word IDs, which is how every layer is expressed."""
+
+    def test_consecutive_equal_values_collapse(self):
+        self.assertEqual(
+            _spans([(1, 10), (1, 11), (1, 12), (2, 13), (2, 14)]),
+            [{"n": 1, "words": [10, 12]}, {"n": 2, "words": [13, 14]}])
+
+    def test_a_single_word_span_is_first_and_last_alike(self):
+        self.assertEqual(_spans([(7, 99)]), [{"n": 7, "words": [99, 99]}])
+
+    def test_a_repeated_value_that_is_not_adjacent_stays_two_spans(self):
+        # Āyah numbers restart every sūrah, so 1 follows 1 across a boundary
+        # without the two being the same āyah.
+        self.assertEqual(
+            _spans([(1, 5), (2, 6), (1, 7)]),
+            [{"n": 1, "words": [5, 5]},
+             {"n": 2, "words": [6, 6]},
+             {"n": 1, "words": [7, 7]}])
+
+
+class TestMarks(unittest.TestCase):
+    """A mark says which side of the word it is printed on."""
+
+    def word(self, **kw):
+        return Word(id=1, sura=1, index=1, key="k", rasm="r", pointed="p",
+                    uthmani="u", simple="s", status=STATUS_IDENTICAL,
+                    present=["hafs"], missing=[], forms={"hafs": "u"},
+                    aya={"hafs": 1}, waqf=kw.get("waqf", {}), boundary={},
+                    hizb=kw.get("hizb", []), sajdah=kw.get("sajdah", []),
+                    place={})
+
+    def test_rub_el_hizb_sits_before_the_word(self):
+        self.assertEqual(_marks(self.word(hizb=["hafs"]), "hafs"),
+                         [{"k": "hizb", "at": "before", "sign": "۞"}])
+
+    def test_a_pause_mark_sits_after_it(self):
+        self.assertEqual(_marks(self.word(waqf={"hafs": "ۖ"}), "hafs"),
+                         [{"k": "waqf", "at": "after", "sign": "ۖ"}])
+
+    def test_sajdah_is_its_own_kind_not_a_pause_mark(self):
+        # ۩ arrives through the same channel as the pause marks and must not
+        # also be reported as one.
+        marks = _marks(self.word(waqf={"hafs": "۩"}, sajdah=["hafs"]), "hafs")
+        self.assertEqual(marks, [{"k": "sajdah", "at": "after", "sign": "۩"}])
+
+    def test_a_word_of_another_riwaya_carries_none_of_them(self):
+        self.assertEqual(_marks(self.word(hizb=["hafs"]), "warsh"), [])
+
+
+class TestMinimalVariant(unittest.TestCase):
+    """The small file drops conveniences, never disclosures."""
+
+    DOC = {
+        "format": "quran-mushaf", "format_version": "1.0",
+        "generated": "2026-09-01", "mushaf": {}, "provenance": {}, "spine": {},
+        "suras": [{"n": 1, "name_ar": "a", "ayat": 7, "words": [1, 29],
+                   "pages": [1, 1]}],
+        "ayat": [{"sura": 1, "n": 1, "words": [1, 4]}],
+        "resegmentation": [{"words": [1, 2], "kind": "joined_in_source"}],
+        "line_disagreements": [{"sura": 1, "ayah": 1}],
+        "words": [{"w": 1, "t": "بِسۡمِ", "pg": 1, "ln": 3, "e": "بسم",
+                   "marks": [{"k": "waqf", "at": "after", "sign": "ۖ"}]}],
+    }
+
+    def test_a_word_keeps_only_its_id_and_its_text(self):
+        self.assertEqual(minimal(self.DOC)["words"], [{"w": 1, "t": "بِسۡمِ"}])
+
+    def test_resegmentation_survives(self):
+        # It is a disclosure about the text itself; dropping it would make the
+        # small file quietly less honest than the large one.
+        self.assertEqual(minimal(self.DOC)["resegmentation"],
+                         self.DOC["resegmentation"])
+
+    def test_layout_does_not(self):
+        self.assertNotIn("pages", minimal(self.DOC)["suras"][0])
+
+
+class TestImlaeiPairing(unittest.TestCase):
+    """Bringing an āyah-level column down to the word."""
+
+    def test_equal_counts_pair_across(self):
+        self.assertEqual(_pair(["ا", "ب"], ["a", "b"]), ["a", "b"])
+
+    def test_one_uthmani_word_written_as_two_imlaei_ones_is_joined(self):
+        # أَوَلَا is one word on the line and two in plain spelling.
+        got = _pair(["أَوَلَا", "يَعۡلَمُونَ"], ["أو", "لا", "يعلمون"])
+        self.assertEqual(got, ["أو لا", "يعلمون"])
+
+    def test_fewer_imlaei_tokens_is_refused_rather_than_guessed(self):
+        self.assertIsNone(_pair(["ا", "ب", "ج"], ["a", "b"]))
+
+
+class TestTokenPlacement(unittest.TestCase):
+    """A word has to keep its place on the page through the mark-peeling."""
+
+    def test_a_word_takes_the_place_of_its_own_token(self):
+        toks = tokenize_ayah(1, 1, "بِسۡمِ ٱللَّهِ",
+                             [Place(1, 2), Place(1, 3)])
+        self.assertEqual([(t.page, t.line) for t in toks], [(1, 2), (1, 3)])
+
+    def test_a_standalone_symbol_does_not_consume_a_place(self):
+        # ۞ stands between words and produces no token, so the word after it
+        # must still take the position that belongs to it.
+        toks = tokenize_ayah(2, 26, "۞ إِنَّ ٱللَّهَ",
+                             [Place(5, 1), Place(5, 1), Place(5, 2)])
+        self.assertEqual(len(toks), 2)
+        self.assertTrue(toks[0].hizb)
+        self.assertEqual([(t.page, t.line) for t in toks], [(5, 1), (5, 2)])
+
+    def test_no_places_means_no_placement_rather_than_a_wrong_one(self):
+        toks = tokenize_ayah(1, 1, "بِسۡمِ ٱللَّهِ")
+        self.assertEqual([(t.page, t.line) for t in toks], [(0, 0), (0, 0)])
 
 
 if __name__ == "__main__":

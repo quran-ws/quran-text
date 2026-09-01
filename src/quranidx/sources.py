@@ -57,6 +57,12 @@ class Riwaya:
     crosscheck_source: str = ""
     release_year: int = 0
     crosscheck_year: int = 0
+    #: One :class:`quranidx.layout.Place` per token of :attr:`ayat`, flat and in
+    #: document order.  Empty for a riwāyah whose primary release is a CSV,
+    #: which carries no typesetting.
+    places: list = field(default_factory=list)
+    #: The registry entry this riwāyah was built from, for the provenance block.
+    spec: object = None
 
 
 # --------------------------------------------------------------------------
@@ -314,6 +320,10 @@ def load_all() -> list[Riwaya]:
         r = Riwaya(spec.key, spec.name_en, spec.name_ar, spec.qari_en,
                    spec.qari_ar, spec.counting, source, ayat)
         r.release_year = spec.primary_year
+        r.spec = spec
+        if spec.primary_kind == "docx":
+            from .layout import word_places
+            r.places = word_places(path)
 
         if spec.csv_zip and spec.csv_member:
             csv_path = _extract(spec.csv_zip, spec.csv_member)
