@@ -86,6 +86,19 @@ def _is_heading(para: str) -> bool:
     return bool(_SURA_HEAD.match(para)) and not re.search(rf"[{_AR_NUM}]", para)
 
 
+#: A sūrah heading stranded at the end of the previous sūrah's paragraph.
+#: The v3.0 Qālūn document types "سُورَةُ البَقَرَةِ" after Al-Fātiḥah's last āyah
+#: mark rather than in its own paragraph, which would otherwise prepend two
+#: heading words to Al-Baqarah 2:1.  Anchoring on "text after the final āyah
+#: mark of a paragraph" keeps 24:1 ("سُورَةٌ أَنزَلۡنَٰهَا"), which is scripture,
+#: safely out of reach.
+_TRAILING_HEAD = re.compile(rf"(?<=[{_AR_NUM}])(\s*سُ?ورَ?ةُ\s+[^{_AR_NUM}۝]{{1,40}})$")
+
+
+def _strip_trailing_heading(para: str) -> str:
+    return _TRAILING_HEAD.sub("", para)
+
+
 def _is_bare_basmalah(para: str) -> bool:
     """A basmalah printed as a sūrah opening rather than counted as an āyah."""
     if re.search(rf"[{_AR_NUM}]", para):
@@ -97,36 +110,59 @@ def _is_bare_basmalah(para: str) -> bool:
 def load_docx(path: Path) -> list[Ayah]:
     """Split a KFGQPC Word mushaf into āyāt.
 
-    Sūrah boundaries are taken from resets in the āyah numbering, not from the
+    Sūrah boundaries come from resets in the āyah numbering, not from the
     headings: the v3.0 Qālūn document is missing the heading for Al-Baqarah, so
     heading-driven segmentation silently shifts every sūrah after it by one.
-    Numbering resets are intrinsic to the text and let us assert 114 sūrahs of
-    contiguous 1..N āyāt at the end.
-    """
-    body = " ".join(
-        para for para in docx_paragraphs(path)
-        if not _is_heading(para) and not _is_bare_basmalah(para)
-    )
-    body = strip_controls(body)
+    Numbering resets are intrinsic to the text, and let us assert at the end
+    that there are 114 sūrahs of contiguous 1..N āyāt.
 
-    numbered: list[tuple[int, str]] = []
+    A basmalah that is printed above a sūrah without a number of its own is
+    emitted as āyah ``0``.  Whether it counts as an āyah is a property of the
+    counting tradition, not of the text: Ḥafṣ, Shuʿbah and Bazzī number the
+    basmalah of Al-Fātiḥah as 1:1, the others print the same words unnumbered.
+    Keeping it as āyah 0 lets the builder decide, rather than losing the words.
+    """
+    # A sentinel that cannot occur in Arabic text, used to remember where an
+    # unnumbered basmalah sat once the paragraphs are joined into one stream.
+    MARK = "\x00"
+
+    parts = []
+    for para in docx_paragraphs(path):
+        if _is_heading(para):
+            continue
+        if _is_bare_basmalah(para):
+            parts.append(MARK + strip_controls(para).strip() + MARK)
+            continue
+        parts.append(_strip_trailing_heading(para))
+    body = strip_controls(" ".join(parts))
+
+    # Walk the numbered āyāt, remembering any unnumbered basmalah seen first.
+    chunks: list[tuple[int, str, str]] = []      # (number, text, opening)
     pos = 0
     for m in _AYAH_MARK.finditer(body):
-        numbered.append((_arabic_int(m.group(1)), body[pos:m.start()].strip()))
+        raw = body[pos:m.start()]
         pos = m.end()
-    tail = body[pos:].strip()
+        opening = ""
+        if MARK in raw:
+            before, _, raw = raw.partition(MARK)[0], None, raw
+            head, _, rest = raw.partition(MARK)
+            opening, _, rest = rest.partition(MARK)
+            raw = head + " " + rest
+        chunks.append((_arabic_int(m.group(1)), raw.strip(), opening.strip()))
+    tail = body[pos:].strip().strip(MARK)
     if tail:
         raise ValueError(f"{path.name}: {len(tail)} chars trail the last āyah mark: {tail[:80]!r}")
 
     ayat: list[Ayah] = []
-    sura = 0
-    prev = 1 << 30            # force the first āyah to open sūrah 1
-    for n, text in numbered:
+    sura, prev = 0, 1 << 30      # force the first āyah to open sūrah 1
+    for n, text, opening in chunks:
         if n <= prev:            # numbering restarted -> next sūrah
             sura += 1
             prev = 0
         if n != prev + 1:
             raise ValueError(f"{path.name}: sūrah {sura} jumps from āyah {prev} to {n}")
+        if opening:
+            ayat.append(Ayah(sura, 0, opening))
         ayat.append(Ayah(sura, n, text))
         prev = n
     if sura != 114:

@@ -1,0 +1,2140 @@
+{
+ "schema_version": "1.0",
+ "generated": "2026-09-01",
+ "word_count": 77434,
+ "sura_count": 114,
+ "riwayat": [
+  {
+   "key": "hafs",
+   "name_en": "Ḥafṣ",
+   "name_ar": "حفص",
+   "qari_en": "ʿĀṣim al-Kūfī",
+   "qari_ar": "عاصم الكوفي",
+   "counting": "kufi",
+   "ayah_count": 6236,
+   "source": "UthmanicHafs-v-3.0.zip :: UthmanicHafs-v-3.0.docx",
+   "crosscheck_source": "UthmanicHafs_v2-0.zip :: UthmanicHafs_v2-0 data/hafsData_v2-0.csv"
+  },
+  {
+   "key": "shuba",
+   "name_en": "Shuʿbah",
+   "name_ar": "شعبة",
+   "qari_en": "ʿĀṣim al-Kūfī",
+   "qari_ar": "عاصم الكوفي",
+   "counting": "kufi",
+   "ayah_count": 6236,
+   "source": "UthmanicShubah-v-3.0.zip :: UthmanicShubah-v-3.0.docx",
+   "crosscheck_source": "UthmanicShuba_v2-0.zip :: UthmanicShuba_v2-0 data/shubaData_v2-0.csv"
+  },
+  {
+   "key": "warsh",
+   "name_en": "Warsh",
+   "name_ar": "ورش",
+   "qari_en": "Nāfiʿ al-Madanī",
+   "qari_ar": "نافع المدني",
+   "counting": "madani",
+   "ayah_count": 6214,
+   "source": "UthmanicWarsh-v-3.0.zip :: UthmanicWarsh-v-3.0.docx",
+   "crosscheck_source": "UthmanicWarsh_v2-1.zip :: UthmanicWarsh_v2-1 data/warshData_v2-1.csv"
+  },
+  {
+   "key": "qaloun",
+   "name_en": "Qālūn",
+   "name_ar": "قالون",
+   "qari_en": "Nāfiʿ al-Madanī",
+   "qari_ar": "نافع المدني",
+   "counting": "madani",
+   "ayah_count": 6214,
+   "source": "UthmanicQaloun-v-3.0.zip :: UthmanicQaloun-v-3.0.docx",
+   "crosscheck_source": "UthmanicQaloun_v2-1.zip :: UthmanicQaloun_v2-1 data/QalounData_v2-1.csv"
+  },
+  {
+   "key": "douri",
+   "name_en": "Dūrī",
+   "name_ar": "الدوري",
+   "qari_en": "Abū ʿAmr al-Baṣrī",
+   "qari_ar": "أبو عمرو البصري",
+   "counting": "basri",
+   "ayah_count": 6217,
+   "source": "UthmanicDouri_V20.zip :: UthmanicDouri V20.docx",
+   "crosscheck_source": "UthmanicDouri_v2-0.zip :: UthmanicDouri_v2-0 data/DouriData_v2-0.csv"
+  },
+  {
+   "key": "sousi",
+   "name_en": "Sūsī",
+   "name_ar": "السوسي",
+   "qari_en": "Abū ʿAmr al-Baṣrī",
+   "qari_ar": "أبو عمرو البصري",
+   "counting": "basri",
+   "ayah_count": 6218,
+   "source": "UthmanicSousi-v-3.0.zip :: UthmanicSousi-v-3.0.docx",
+   "crosscheck_source": "UthmanicSousi_v2-0.zip :: UthmanicSousi_v2-0 data/SousiData_v2-0.csv"
+  },
+  {
+   "key": "bazzi",
+   "name_en": "Bazzī",
+   "name_ar": "البزي",
+   "qari_en": "Ibn Kathīr al-Makkī",
+   "qari_ar": "ابن كثير المكي",
+   "counting": "makki",
+   "ayah_count": 6220,
+   "source": "UthmanicBazzi-v-3.0.zip :: UthmanicBazzi-v-3.0.docx",
+   "crosscheck_source": ""
+  }
+ ],
+ "model": "A sūrah is a flat list of words.  The āyah number is an attribute of a word, not a level of nesting, because the riwāyāt disagree about where āyāt end but agree about the sequence of words.",
+ "suras": [
+  {
+   "sura": 1,
+   "name_ar": "الفَاتِحة",
+   "name_en": "Al-Fātiḥah",
+   "revelation": "makki",
+   "word_count": 29,
+   "first_word_id": 1,
+   "last_word_id": 29,
+   "ayah_count": {
+    "hafs": 7,
+    "shuba": 7,
+    "warsh": 7,
+    "qaloun": 7,
+    "douri": 7,
+    "sousi": 7,
+    "bazzi": 7
+   }
+  },
+  {
+   "sura": 2,
+   "name_ar": "البَقَرَة",
+   "name_en": "Al-Baqarah",
+   "revelation": "madani",
+   "word_count": 6117,
+   "first_word_id": 30,
+   "last_word_id": 6146,
+   "ayah_count": {
+    "hafs": 286,
+    "shuba": 286,
+    "warsh": 285,
+    "qaloun": 285,
+    "douri": 285,
+    "sousi": 285,
+    "bazzi": 285
+   }
+  },
+  {
+   "sura": 3,
+   "name_ar": "آل عِمران",
+   "name_en": "Āl-‘Imrān",
+   "revelation": "madani",
+   "word_count": 3481,
+   "first_word_id": 6147,
+   "last_word_id": 9627,
+   "ayah_count": {
+    "hafs": 200,
+    "shuba": 200,
+    "warsh": 200,
+    "qaloun": 200,
+    "douri": 200,
+    "sousi": 200,
+    "bazzi": 200
+   }
+  },
+  {
+   "sura": 4,
+   "name_ar": "النِّسَاء",
+   "name_en": "An-Nisā’",
+   "revelation": "madani",
+   "word_count": 3747,
+   "first_word_id": 9628,
+   "last_word_id": 13374,
+   "ayah_count": {
+    "hafs": 176,
+    "shuba": 176,
+    "warsh": 175,
+    "qaloun": 175,
+    "douri": 175,
+    "sousi": 175,
+    "bazzi": 175
+   }
+  },
+  {
+   "sura": 5,
+   "name_ar": "المَائدة",
+   "name_en": "Al-Mā’idah",
+   "revelation": "madani",
+   "word_count": 2804,
+   "first_word_id": 13375,
+   "last_word_id": 16178,
+   "ayah_count": {
+    "hafs": 120,
+    "shuba": 120,
+    "warsh": 122,
+    "qaloun": 122,
+    "douri": 122,
+    "sousi": 122,
+    "bazzi": 122
+   }
+  },
+  {
+   "sura": 6,
+   "name_ar": "الأنعَام",
+   "name_en": "Al-An‘ām",
+   "revelation": "makki",
+   "word_count": 3050,
+   "first_word_id": 16179,
+   "last_word_id": 19228,
+   "ayah_count": {
+    "hafs": 165,
+    "shuba": 165,
+    "warsh": 167,
+    "qaloun": 167,
+    "douri": 167,
+    "sousi": 167,
+    "bazzi": 167
+   }
+  },
+  {
+   "sura": 7,
+   "name_ar": "الأعرَاف",
+   "name_en": "Al-A‘rāf",
+   "revelation": "makki",
+   "word_count": 3320,
+   "first_word_id": 19229,
+   "last_word_id": 22548,
+   "ayah_count": {
+    "hafs": 206,
+    "shuba": 206,
+    "warsh": 206,
+    "qaloun": 206,
+    "douri": 206,
+    "sousi": 206,
+    "bazzi": 206
+   }
+  },
+  {
+   "sura": 8,
+   "name_ar": "الأنفَال",
+   "name_en": "Al-Anfāl",
+   "revelation": "madani",
+   "word_count": 1234,
+   "first_word_id": 22549,
+   "last_word_id": 23782,
+   "ayah_count": {
+    "hafs": 75,
+    "shuba": 75,
+    "warsh": 76,
+    "qaloun": 76,
+    "douri": 76,
+    "sousi": 76,
+    "bazzi": 76
+   }
+  },
+  {
+   "sura": 9,
+   "name_ar": "التوبَة",
+   "name_en": "At-Taubah",
+   "revelation": "madani",
+   "word_count": 2499,
+   "first_word_id": 23783,
+   "last_word_id": 26281,
+   "ayah_count": {
+    "hafs": 129,
+    "shuba": 129,
+    "warsh": 130,
+    "qaloun": 130,
+    "douri": 130,
+    "sousi": 130,
+    "bazzi": 130
+   }
+  },
+  {
+   "sura": 10,
+   "name_ar": "يُونس",
+   "name_en": "Yūnus",
+   "revelation": "makki",
+   "word_count": 1833,
+   "first_word_id": 26282,
+   "last_word_id": 28114,
+   "ayah_count": {
+    "hafs": 109,
+    "shuba": 109,
+    "warsh": 109,
+    "qaloun": 109,
+    "douri": 109,
+    "sousi": 109,
+    "bazzi": 109
+   }
+  },
+  {
+   "sura": 11,
+   "name_ar": "هُود",
+   "name_en": "Hūd",
+   "revelation": "makki",
+   "word_count": 1917,
+   "first_word_id": 28115,
+   "last_word_id": 30031,
+   "ayah_count": {
+    "hafs": 123,
+    "shuba": 123,
+    "warsh": 121,
+    "qaloun": 121,
+    "douri": 122,
+    "sousi": 122,
+    "bazzi": 121
+   }
+  },
+  {
+   "sura": 12,
+   "name_ar": "يُوسُف",
+   "name_en": "Yūsuf",
+   "revelation": "makki",
+   "word_count": 1777,
+   "first_word_id": 30032,
+   "last_word_id": 31808,
+   "ayah_count": {
+    "hafs": 111,
+    "shuba": 111,
+    "warsh": 111,
+    "qaloun": 111,
+    "douri": 111,
+    "sousi": 111,
+    "bazzi": 111
+   }
+  },
+  {
+   "sura": 13,
+   "name_ar": "الرَّعد",
+   "name_en": "Ar-Ra‘d",
+   "revelation": "madani",
+   "word_count": 854,
+   "first_word_id": 31809,
+   "last_word_id": 32662,
+   "ayah_count": {
+    "hafs": 43,
+    "shuba": 43,
+    "warsh": 44,
+    "qaloun": 44,
+    "douri": 44,
+    "sousi": 44,
+    "bazzi": 44
+   }
+  },
+  {
+   "sura": 14,
+   "name_ar": "إبراهِيم",
+   "name_en": "Ibrāhīm",
+   "revelation": "makki",
+   "word_count": 830,
+   "first_word_id": 32663,
+   "last_word_id": 33492,
+   "ayah_count": {
+    "hafs": 52,
+    "shuba": 52,
+    "warsh": 54,
+    "qaloun": 54,
+    "douri": 54,
+    "sousi": 54,
+    "bazzi": 54
+   }
+  },
+  {
+   "sura": 15,
+   "name_ar": "الحِجر",
+   "name_en": "Al-Ḥijr",
+   "revelation": "makki",
+   "word_count": 654,
+   "first_word_id": 33493,
+   "last_word_id": 34146,
+   "ayah_count": {
+    "hafs": 99,
+    "shuba": 99,
+    "warsh": 99,
+    "qaloun": 99,
+    "douri": 99,
+    "sousi": 99,
+    "bazzi": 99
+   }
+  },
+  {
+   "sura": 16,
+   "name_ar": "النَّحل",
+   "name_en": "An-Naḥl",
+   "revelation": "makki",
+   "word_count": 1844,
+   "first_word_id": 34147,
+   "last_word_id": 35990,
+   "ayah_count": {
+    "hafs": 128,
+    "shuba": 128,
+    "warsh": 128,
+    "qaloun": 128,
+    "douri": 128,
+    "sousi": 128,
+    "bazzi": 128
+   }
+  },
+  {
+   "sura": 17,
+   "name_ar": "الإسرَاء",
+   "name_en": "Al-Isrā’",
+   "revelation": "makki",
+   "word_count": 1556,
+   "first_word_id": 35991,
+   "last_word_id": 37546,
+   "ayah_count": {
+    "hafs": 111,
+    "shuba": 111,
+    "warsh": 110,
+    "qaloun": 110,
+    "douri": 110,
+    "sousi": 110,
+    "bazzi": 110
+   }
+  },
+  {
+   "sura": 18,
+   "name_ar": "الكَهف",
+   "name_en": "Al-Kahf",
+   "revelation": "makki",
+   "word_count": 1579,
+   "first_word_id": 37547,
+   "last_word_id": 39125,
+   "ayah_count": {
+    "hafs": 110,
+    "shuba": 110,
+    "warsh": 105,
+    "qaloun": 105,
+    "douri": 105,
+    "sousi": 105,
+    "bazzi": 105
+   }
+  },
+  {
+   "sura": 19,
+   "name_ar": "مَريَم",
+   "name_en": "Maryam",
+   "revelation": "makki",
+   "word_count": 961,
+   "first_word_id": 39126,
+   "last_word_id": 40086,
+   "ayah_count": {
+    "hafs": 98,
+    "shuba": 98,
+    "warsh": 99,
+    "qaloun": 99,
+    "douri": 98,
+    "sousi": 98,
+    "bazzi": 99
+   }
+  },
+  {
+   "sura": 20,
+   "name_ar": "طه",
+   "name_en": "Ṭā-Hā",
+   "revelation": "makki",
+   "word_count": 1335,
+   "first_word_id": 40087,
+   "last_word_id": 41421,
+   "ayah_count": {
+    "hafs": 135,
+    "shuba": 135,
+    "warsh": 134,
+    "qaloun": 134,
+    "douri": 134,
+    "sousi": 134,
+    "bazzi": 134
+   }
+  },
+  {
+   "sura": 21,
+   "name_ar": "الأنبيَاء",
+   "name_en": "Al-Anbiyā’",
+   "revelation": "makki",
+   "word_count": 1169,
+   "first_word_id": 41422,
+   "last_word_id": 42590,
+   "ayah_count": {
+    "hafs": 112,
+    "shuba": 112,
+    "warsh": 111,
+    "qaloun": 111,
+    "douri": 111,
+    "sousi": 111,
+    "bazzi": 111
+   }
+  },
+  {
+   "sura": 22,
+   "name_ar": "الحج",
+   "name_en": "Al-Ḥajj",
+   "revelation": "makki",
+   "word_count": 1274,
+   "first_word_id": 42591,
+   "last_word_id": 43864,
+   "ayah_count": {
+    "hafs": 78,
+    "shuba": 78,
+    "warsh": 76,
+    "qaloun": 76,
+    "douri": 76,
+    "sousi": 76,
+    "bazzi": 77
+   }
+  },
+  {
+   "sura": 23,
+   "name_ar": "المؤمنُون",
+   "name_en": "Al-Mu’minūn",
+   "revelation": "makki",
+   "word_count": 1050,
+   "first_word_id": 43865,
+   "last_word_id": 44914,
+   "ayah_count": {
+    "hafs": 118,
+    "shuba": 118,
+    "warsh": 119,
+    "qaloun": 119,
+    "douri": 119,
+    "sousi": 119,
+    "bazzi": 119
+   }
+  },
+  {
+   "sura": 24,
+   "name_ar": "النور",
+   "name_en": "An-Nūr",
+   "revelation": "madani",
+   "word_count": 1316,
+   "first_word_id": 44915,
+   "last_word_id": 46230,
+   "ayah_count": {
+    "hafs": 64,
+    "shuba": 64,
+    "warsh": 62,
+    "qaloun": 62,
+    "douri": 62,
+    "sousi": 62,
+    "bazzi": 62
+   }
+  },
+  {
+   "sura": 25,
+   "name_ar": "الفُرقَان",
+   "name_en": "Al-Furqān",
+   "revelation": "makki",
+   "word_count": 893,
+   "first_word_id": 46231,
+   "last_word_id": 47123,
+   "ayah_count": {
+    "hafs": 77,
+    "shuba": 77,
+    "warsh": 77,
+    "qaloun": 77,
+    "douri": 77,
+    "sousi": 77,
+    "bazzi": 77
+   }
+  },
+  {
+   "sura": 26,
+   "name_ar": "الشعراء",
+   "name_en": "Ash-Shu‘arā’",
+   "revelation": "makki",
+   "word_count": 1318,
+   "first_word_id": 47124,
+   "last_word_id": 48441,
+   "ayah_count": {
+    "hafs": 227,
+    "shuba": 227,
+    "warsh": 226,
+    "qaloun": 226,
+    "douri": 227,
+    "sousi": 227,
+    "bazzi": 226
+   }
+  },
+  {
+   "sura": 27,
+   "name_ar": "النَّمل",
+   "name_en": "An-Naml",
+   "revelation": "makki",
+   "word_count": 1151,
+   "first_word_id": 48442,
+   "last_word_id": 49592,
+   "ayah_count": {
+    "hafs": 93,
+    "shuba": 93,
+    "warsh": 95,
+    "qaloun": 95,
+    "douri": 95,
+    "sousi": 95,
+    "bazzi": 95
+   }
+  },
+  {
+   "sura": 28,
+   "name_ar": "القَصَص",
+   "name_en": "Al-Qaṣaṣ",
+   "revelation": "makki",
+   "word_count": 1430,
+   "first_word_id": 49593,
+   "last_word_id": 51022,
+   "ayah_count": {
+    "hafs": 88,
+    "shuba": 88,
+    "warsh": 88,
+    "qaloun": 88,
+    "douri": 88,
+    "sousi": 88,
+    "bazzi": 88
+   }
+  },
+  {
+   "sura": 29,
+   "name_ar": "العَنكبُوت",
+   "name_en": "Al-‘Ankabūt",
+   "revelation": "makki",
+   "word_count": 976,
+   "first_word_id": 51023,
+   "last_word_id": 51998,
+   "ayah_count": {
+    "hafs": 69,
+    "shuba": 69,
+    "warsh": 69,
+    "qaloun": 69,
+    "douri": 69,
+    "sousi": 69,
+    "bazzi": 69
+   }
+  },
+  {
+   "sura": 30,
+   "name_ar": "الرُّوم",
+   "name_en": "Ar-Rūm",
+   "revelation": "makki",
+   "word_count": 817,
+   "first_word_id": 51999,
+   "last_word_id": 52815,
+   "ayah_count": {
+    "hafs": 60,
+    "shuba": 60,
+    "warsh": 59,
+    "qaloun": 59,
+    "douri": 60,
+    "sousi": 60,
+    "bazzi": 59
+   }
+  },
+  {
+   "sura": 31,
+   "name_ar": "لُقمَان",
+   "name_en": "Luqmān",
+   "revelation": "makki",
+   "word_count": 546,
+   "first_word_id": 52816,
+   "last_word_id": 53361,
+   "ayah_count": {
+    "hafs": 34,
+    "shuba": 34,
+    "warsh": 33,
+    "qaloun": 33,
+    "douri": 33,
+    "sousi": 33,
+    "bazzi": 33
+   }
+  },
+  {
+   "sura": 32,
+   "name_ar": "السَّجدة",
+   "name_en": "As-Sajdah",
+   "revelation": "makki",
+   "word_count": 372,
+   "first_word_id": 53362,
+   "last_word_id": 53733,
+   "ayah_count": {
+    "hafs": 30,
+    "shuba": 30,
+    "warsh": 30,
+    "qaloun": 30,
+    "douri": 30,
+    "sousi": 30,
+    "bazzi": 30
+   }
+  },
+  {
+   "sura": 33,
+   "name_ar": "الأحزَاب",
+   "name_en": "Al-Aḥzāb",
+   "revelation": "madani",
+   "word_count": 1287,
+   "first_word_id": 53734,
+   "last_word_id": 55020,
+   "ayah_count": {
+    "hafs": 73,
+    "shuba": 73,
+    "warsh": 73,
+    "qaloun": 73,
+    "douri": 73,
+    "sousi": 73,
+    "bazzi": 73
+   }
+  },
+  {
+   "sura": 34,
+   "name_ar": "سَبإ",
+   "name_en": "Saba’",
+   "revelation": "makki",
+   "word_count": 883,
+   "first_word_id": 55021,
+   "last_word_id": 55903,
+   "ayah_count": {
+    "hafs": 54,
+    "shuba": 54,
+    "warsh": 54,
+    "qaloun": 54,
+    "douri": 54,
+    "sousi": 54,
+    "bazzi": 54
+   }
+  },
+  {
+   "sura": 35,
+   "name_ar": "فَاطِر",
+   "name_en": "Fāṭir",
+   "revelation": "makki",
+   "word_count": 775,
+   "first_word_id": 55904,
+   "last_word_id": 56678,
+   "ayah_count": {
+    "hafs": 45,
+    "shuba": 45,
+    "warsh": 46,
+    "qaloun": 46,
+    "douri": 45,
+    "sousi": 45,
+    "bazzi": 45
+   }
+  },
+  {
+   "sura": 36,
+   "name_ar": "يسٓ",
+   "name_en": "Yā-Sīn",
+   "revelation": "makki",
+   "word_count": 725,
+   "first_word_id": 56679,
+   "last_word_id": 57403,
+   "ayah_count": {
+    "hafs": 83,
+    "shuba": 83,
+    "warsh": 82,
+    "qaloun": 82,
+    "douri": 82,
+    "sousi": 82,
+    "bazzi": 82
+   }
+  },
+  {
+   "sura": 37,
+   "name_ar": "الصَّافَات",
+   "name_en": "Aṣ-Ṣāffāt",
+   "revelation": "makki",
+   "word_count": 861,
+   "first_word_id": 57404,
+   "last_word_id": 58264,
+   "ayah_count": {
+    "hafs": 182,
+    "shuba": 182,
+    "warsh": 182,
+    "qaloun": 182,
+    "douri": 182,
+    "sousi": 182,
+    "bazzi": 182
+   }
+  },
+  {
+   "sura": 38,
+   "name_ar": "صٓ",
+   "name_en": "Ṣād",
+   "revelation": "makki",
+   "word_count": 733,
+   "first_word_id": 58265,
+   "last_word_id": 58997,
+   "ayah_count": {
+    "hafs": 88,
+    "shuba": 88,
+    "warsh": 86,
+    "qaloun": 86,
+    "douri": 86,
+    "sousi": 86,
+    "bazzi": 86
+   }
+  },
+  {
+   "sura": 39,
+   "name_ar": "الزُّمَر",
+   "name_en": "Az-Zumar",
+   "revelation": "makki",
+   "word_count": 1172,
+   "first_word_id": 58998,
+   "last_word_id": 60169,
+   "ayah_count": {
+    "hafs": 75,
+    "shuba": 75,
+    "warsh": 72,
+    "qaloun": 72,
+    "douri": 72,
+    "sousi": 72,
+    "bazzi": 72
+   }
+  },
+  {
+   "sura": 40,
+   "name_ar": "غَافِر",
+   "name_en": "Ghāfir",
+   "revelation": "makki",
+   "word_count": 1219,
+   "first_word_id": 60170,
+   "last_word_id": 61388,
+   "ayah_count": {
+    "hafs": 85,
+    "shuba": 85,
+    "warsh": 84,
+    "qaloun": 84,
+    "douri": 84,
+    "sousi": 84,
+    "bazzi": 84
+   }
+  },
+  {
+   "sura": 41,
+   "name_ar": "فُصِّلَت",
+   "name_en": "Fuṣṣilat",
+   "revelation": "makki",
+   "word_count": 794,
+   "first_word_id": 61389,
+   "last_word_id": 62182,
+   "ayah_count": {
+    "hafs": 54,
+    "shuba": 54,
+    "warsh": 53,
+    "qaloun": 53,
+    "douri": 53,
+    "sousi": 53,
+    "bazzi": 53
+   }
+  },
+  {
+   "sura": 42,
+   "name_ar": "الشُّوري",
+   "name_en": "Ash-Shūra",
+   "revelation": "makki",
+   "word_count": 860,
+   "first_word_id": 62183,
+   "last_word_id": 63042,
+   "ayah_count": {
+    "hafs": 53,
+    "shuba": 53,
+    "warsh": 50,
+    "qaloun": 50,
+    "douri": 50,
+    "sousi": 50,
+    "bazzi": 50
+   }
+  },
+  {
+   "sura": 43,
+   "name_ar": "الزُّخرُف",
+   "name_en": "Az-Zukhruf",
+   "revelation": "makki",
+   "word_count": 830,
+   "first_word_id": 63043,
+   "last_word_id": 63872,
+   "ayah_count": {
+    "hafs": 89,
+    "shuba": 89,
+    "warsh": 89,
+    "qaloun": 89,
+    "douri": 89,
+    "sousi": 89,
+    "bazzi": 89
+   }
+  },
+  {
+   "sura": 44,
+   "name_ar": "الدُّخان",
+   "name_en": "Ad-Dukhān",
+   "revelation": "makki",
+   "word_count": 346,
+   "first_word_id": 63873,
+   "last_word_id": 64218,
+   "ayah_count": {
+    "hafs": 59,
+    "shuba": 59,
+    "warsh": 56,
+    "qaloun": 56,
+    "douri": 56,
+    "sousi": 56,
+    "bazzi": 56
+   }
+  },
+  {
+   "sura": 45,
+   "name_ar": "الجاثِية",
+   "name_en": "Al-Jāthiyah",
+   "revelation": "makki",
+   "word_count": 488,
+   "first_word_id": 64219,
+   "last_word_id": 64706,
+   "ayah_count": {
+    "hafs": 37,
+    "shuba": 37,
+    "warsh": 36,
+    "qaloun": 36,
+    "douri": 36,
+    "sousi": 36,
+    "bazzi": 36
+   }
+  },
+  {
+   "sura": 46,
+   "name_ar": "الأحقَاف",
+   "name_en": "Al-Aḥqāf",
+   "revelation": "makki",
+   "word_count": 643,
+   "first_word_id": 64707,
+   "last_word_id": 65349,
+   "ayah_count": {
+    "hafs": 35,
+    "shuba": 35,
+    "warsh": 34,
+    "qaloun": 34,
+    "douri": 34,
+    "sousi": 34,
+    "bazzi": 34
+   }
+  },
+  {
+   "sura": 47,
+   "name_ar": "مُحمد",
+   "name_en": "Muḥammad",
+   "revelation": "madani",
+   "word_count": 539,
+   "first_word_id": 65350,
+   "last_word_id": 65888,
+   "ayah_count": {
+    "hafs": 38,
+    "shuba": 38,
+    "warsh": 39,
+    "qaloun": 39,
+    "douri": 39,
+    "sousi": 39,
+    "bazzi": 39
+   }
+  },
+  {
+   "sura": 48,
+   "name_ar": "الفَتح",
+   "name_en": "Al-Fatḥ",
+   "revelation": "madani",
+   "word_count": 560,
+   "first_word_id": 65889,
+   "last_word_id": 66448,
+   "ayah_count": {
+    "hafs": 29,
+    "shuba": 29,
+    "warsh": 29,
+    "qaloun": 29,
+    "douri": 29,
+    "sousi": 29,
+    "bazzi": 29
+   }
+  },
+  {
+   "sura": 49,
+   "name_ar": "الحُجُرَات",
+   "name_en": "Al-Ḥujurāt",
+   "revelation": "madani",
+   "word_count": 347,
+   "first_word_id": 66449,
+   "last_word_id": 66795,
+   "ayah_count": {
+    "hafs": 18,
+    "shuba": 18,
+    "warsh": 18,
+    "qaloun": 18,
+    "douri": 18,
+    "sousi": 18,
+    "bazzi": 18
+   }
+  },
+  {
+   "sura": 50,
+   "name_ar": "قٓ",
+   "name_en": "Qāf",
+   "revelation": "makki",
+   "word_count": 373,
+   "first_word_id": 66796,
+   "last_word_id": 67168,
+   "ayah_count": {
+    "hafs": 45,
+    "shuba": 45,
+    "warsh": 45,
+    "qaloun": 45,
+    "douri": 45,
+    "sousi": 45,
+    "bazzi": 45
+   }
+  },
+  {
+   "sura": 51,
+   "name_ar": "الذَّاريَات",
+   "name_en": "Adh-Dhāriyāt",
+   "revelation": "makki",
+   "word_count": 360,
+   "first_word_id": 67169,
+   "last_word_id": 67528,
+   "ayah_count": {
+    "hafs": 60,
+    "shuba": 60,
+    "warsh": 60,
+    "qaloun": 60,
+    "douri": 60,
+    "sousi": 60,
+    "bazzi": 60
+   }
+  },
+  {
+   "sura": 52,
+   "name_ar": "الطُّور",
+   "name_en": "Aṭ-Ṭūr",
+   "revelation": "makki",
+   "word_count": 312,
+   "first_word_id": 67529,
+   "last_word_id": 67840,
+   "ayah_count": {
+    "hafs": 49,
+    "shuba": 49,
+    "warsh": 47,
+    "qaloun": 47,
+    "douri": 47,
+    "sousi": 47,
+    "bazzi": 47
+   }
+  },
+  {
+   "sura": 53,
+   "name_ar": "النَّجم",
+   "name_en": "An-Najm",
+   "revelation": "makki",
+   "word_count": 360,
+   "first_word_id": 67841,
+   "last_word_id": 68200,
+   "ayah_count": {
+    "hafs": 62,
+    "shuba": 62,
+    "warsh": 61,
+    "qaloun": 61,
+    "douri": 61,
+    "sousi": 61,
+    "bazzi": 61
+   }
+  },
+  {
+   "sura": 54,
+   "name_ar": "القَمَر",
+   "name_en": "Al-Qamar",
+   "revelation": "makki",
+   "word_count": 342,
+   "first_word_id": 68201,
+   "last_word_id": 68542,
+   "ayah_count": {
+    "hafs": 55,
+    "shuba": 55,
+    "warsh": 55,
+    "qaloun": 55,
+    "douri": 55,
+    "sousi": 55,
+    "bazzi": 55
+   }
+  },
+  {
+   "sura": 55,
+   "name_ar": "الرَّحمٰن",
+   "name_en": "Ar-Raḥmān",
+   "revelation": "makki",
+   "word_count": 351,
+   "first_word_id": 68543,
+   "last_word_id": 68893,
+   "ayah_count": {
+    "hafs": 78,
+    "shuba": 78,
+    "warsh": 77,
+    "qaloun": 77,
+    "douri": 77,
+    "sousi": 77,
+    "bazzi": 77
+   }
+  },
+  {
+   "sura": 56,
+   "name_ar": "الوَاقِعة",
+   "name_en": "Al-Wāqi‘ah",
+   "revelation": "makki",
+   "word_count": 379,
+   "first_word_id": 68894,
+   "last_word_id": 69272,
+   "ayah_count": {
+    "hafs": 96,
+    "shuba": 96,
+    "warsh": 99,
+    "qaloun": 99,
+    "douri": 99,
+    "sousi": 99,
+    "bazzi": 99
+   }
+  },
+  {
+   "sura": 57,
+   "name_ar": "الحدِيد",
+   "name_en": "Al-Ḥadīd",
+   "revelation": "madani",
+   "word_count": 574,
+   "first_word_id": 69273,
+   "last_word_id": 69846,
+   "ayah_count": {
+    "hafs": 29,
+    "shuba": 29,
+    "warsh": 28,
+    "qaloun": 28,
+    "douri": 28,
+    "sousi": 28,
+    "bazzi": 28
+   }
+  },
+  {
+   "sura": 58,
+   "name_ar": "المُجَادلة",
+   "name_en": "Al-Mujādilah",
+   "revelation": "madani",
+   "word_count": 472,
+   "first_word_id": 69847,
+   "last_word_id": 70318,
+   "ayah_count": {
+    "hafs": 22,
+    "shuba": 22,
+    "warsh": 21,
+    "qaloun": 21,
+    "douri": 22,
+    "sousi": 22,
+    "bazzi": 21
+   }
+  },
+  {
+   "sura": 59,
+   "name_ar": "الحَشر",
+   "name_en": "Al-Ḥashr",
+   "revelation": "madani",
+   "word_count": 445,
+   "first_word_id": 70319,
+   "last_word_id": 70763,
+   "ayah_count": {
+    "hafs": 24,
+    "shuba": 24,
+    "warsh": 24,
+    "qaloun": 24,
+    "douri": 24,
+    "sousi": 24,
+    "bazzi": 24
+   }
+  },
+  {
+   "sura": 60,
+   "name_ar": "المُمتَحنَة",
+   "name_en": "Al-Mumtaḥanah",
+   "revelation": "madani",
+   "word_count": 348,
+   "first_word_id": 70764,
+   "last_word_id": 71111,
+   "ayah_count": {
+    "hafs": 13,
+    "shuba": 13,
+    "warsh": 13,
+    "qaloun": 13,
+    "douri": 13,
+    "sousi": 13,
+    "bazzi": 13
+   }
+  },
+  {
+   "sura": 61,
+   "name_ar": "الصَّف",
+   "name_en": "Aṣ-Ṣaff",
+   "revelation": "madani",
+   "word_count": 221,
+   "first_word_id": 71112,
+   "last_word_id": 71332,
+   "ayah_count": {
+    "hafs": 14,
+    "shuba": 14,
+    "warsh": 14,
+    "qaloun": 14,
+    "douri": 14,
+    "sousi": 14,
+    "bazzi": 14
+   }
+  },
+  {
+   "sura": 62,
+   "name_ar": "الجُمعَة",
+   "name_en": "Al-Jumu‘ah",
+   "revelation": "madani",
+   "word_count": 175,
+   "first_word_id": 71333,
+   "last_word_id": 71507,
+   "ayah_count": {
+    "hafs": 11,
+    "shuba": 11,
+    "warsh": 11,
+    "qaloun": 11,
+    "douri": 11,
+    "sousi": 11,
+    "bazzi": 11
+   }
+  },
+  {
+   "sura": 63,
+   "name_ar": "المُنَافِقُونَ",
+   "name_en": "Al-Munāfiqūn",
+   "revelation": "madani",
+   "word_count": 180,
+   "first_word_id": 71508,
+   "last_word_id": 71687,
+   "ayah_count": {
+    "hafs": 11,
+    "shuba": 11,
+    "warsh": 11,
+    "qaloun": 11,
+    "douri": 11,
+    "sousi": 11,
+    "bazzi": 11
+   }
+  },
+  {
+   "sura": 64,
+   "name_ar": "التغَابُن",
+   "name_en": "At-Taghābun",
+   "revelation": "madani",
+   "word_count": 241,
+   "first_word_id": 71688,
+   "last_word_id": 71928,
+   "ayah_count": {
+    "hafs": 18,
+    "shuba": 18,
+    "warsh": 18,
+    "qaloun": 18,
+    "douri": 18,
+    "sousi": 18,
+    "bazzi": 18
+   }
+  },
+  {
+   "sura": 65,
+   "name_ar": "الطَّلَاق",
+   "name_en": "Aṭ-Ṭalāq",
+   "revelation": "madani",
+   "word_count": 287,
+   "first_word_id": 71929,
+   "last_word_id": 72215,
+   "ayah_count": {
+    "hafs": 12,
+    "shuba": 12,
+    "warsh": 12,
+    "qaloun": 12,
+    "douri": 12,
+    "sousi": 12,
+    "bazzi": 12
+   }
+  },
+  {
+   "sura": 66,
+   "name_ar": "التَّحرِيم",
+   "name_en": "At-Taḥrīm",
+   "revelation": "madani",
+   "word_count": 249,
+   "first_word_id": 72216,
+   "last_word_id": 72464,
+   "ayah_count": {
+    "hafs": 12,
+    "shuba": 12,
+    "warsh": 12,
+    "qaloun": 12,
+    "douri": 12,
+    "sousi": 12,
+    "bazzi": 12
+   }
+  },
+  {
+   "sura": 67,
+   "name_ar": "المُلك",
+   "name_en": "Al-Mulk",
+   "revelation": "makki",
+   "word_count": 333,
+   "first_word_id": 72465,
+   "last_word_id": 72797,
+   "ayah_count": {
+    "hafs": 30,
+    "shuba": 30,
+    "warsh": 31,
+    "qaloun": 31,
+    "douri": 30,
+    "sousi": 31,
+    "bazzi": 31
+   }
+  },
+  {
+   "sura": 68,
+   "name_ar": "القَلَم",
+   "name_en": "Al-Qalam",
+   "revelation": "makki",
+   "word_count": 300,
+   "first_word_id": 72798,
+   "last_word_id": 73097,
+   "ayah_count": {
+    "hafs": 52,
+    "shuba": 52,
+    "warsh": 52,
+    "qaloun": 52,
+    "douri": 52,
+    "sousi": 52,
+    "bazzi": 52
+   }
+  },
+  {
+   "sura": 69,
+   "name_ar": "الحَاقة",
+   "name_en": "Al-Ḥāqqah",
+   "revelation": "makki",
+   "word_count": 258,
+   "first_word_id": 73098,
+   "last_word_id": 73355,
+   "ayah_count": {
+    "hafs": 52,
+    "shuba": 52,
+    "warsh": 52,
+    "qaloun": 52,
+    "douri": 52,
+    "sousi": 52,
+    "bazzi": 52
+   }
+  },
+  {
+   "sura": 70,
+   "name_ar": "المَعَارج",
+   "name_en": "Al-Ma‘ārij",
+   "revelation": "makki",
+   "word_count": 217,
+   "first_word_id": 73356,
+   "last_word_id": 73572,
+   "ayah_count": {
+    "hafs": 44,
+    "shuba": 44,
+    "warsh": 44,
+    "qaloun": 44,
+    "douri": 44,
+    "sousi": 44,
+    "bazzi": 44
+   }
+  },
+  {
+   "sura": 71,
+   "name_ar": "نُوح",
+   "name_en": "Nūḥ",
+   "revelation": "makki",
+   "word_count": 226,
+   "first_word_id": 73573,
+   "last_word_id": 73798,
+   "ayah_count": {
+    "hafs": 28,
+    "shuba": 28,
+    "warsh": 30,
+    "qaloun": 30,
+    "douri": 30,
+    "sousi": 30,
+    "bazzi": 30
+   }
+  },
+  {
+   "sura": 72,
+   "name_ar": "الجِن",
+   "name_en": "Al-Jinn",
+   "revelation": "makki",
+   "word_count": 286,
+   "first_word_id": 73799,
+   "last_word_id": 74084,
+   "ayah_count": {
+    "hafs": 28,
+    "shuba": 28,
+    "warsh": 28,
+    "qaloun": 28,
+    "douri": 28,
+    "sousi": 28,
+    "bazzi": 28
+   }
+  },
+  {
+   "sura": 73,
+   "name_ar": "المُزمل",
+   "name_en": "Al-Muzzammil",
+   "revelation": "makki",
+   "word_count": 199,
+   "first_word_id": 74085,
+   "last_word_id": 74283,
+   "ayah_count": {
+    "hafs": 20,
+    "shuba": 20,
+    "warsh": 18,
+    "qaloun": 18,
+    "douri": 20,
+    "sousi": 20,
+    "bazzi": 20
+   }
+  },
+  {
+   "sura": 74,
+   "name_ar": "المُدثر",
+   "name_en": "Al-Muddaththir",
+   "revelation": "makki",
+   "word_count": 255,
+   "first_word_id": 74284,
+   "last_word_id": 74538,
+   "ayah_count": {
+    "hafs": 56,
+    "shuba": 56,
+    "warsh": 55,
+    "qaloun": 55,
+    "douri": 56,
+    "sousi": 56,
+    "bazzi": 55
+   }
+  },
+  {
+   "sura": 75,
+   "name_ar": "القِيَامة",
+   "name_en": "Al-Qiyāmah",
+   "revelation": "makki",
+   "word_count": 164,
+   "first_word_id": 74539,
+   "last_word_id": 74702,
+   "ayah_count": {
+    "hafs": 40,
+    "shuba": 40,
+    "warsh": 39,
+    "qaloun": 39,
+    "douri": 39,
+    "sousi": 39,
+    "bazzi": 39
+   }
+  },
+  {
+   "sura": 76,
+   "name_ar": "الإنسَان",
+   "name_en": "Al-Insān",
+   "revelation": "makki",
+   "word_count": 243,
+   "first_word_id": 74703,
+   "last_word_id": 74945,
+   "ayah_count": {
+    "hafs": 31,
+    "shuba": 31,
+    "warsh": 31,
+    "qaloun": 31,
+    "douri": 31,
+    "sousi": 31,
+    "bazzi": 31
+   }
+  },
+  {
+   "sura": 77,
+   "name_ar": "المُرسَلات",
+   "name_en": "Al-Mursalāt",
+   "revelation": "makki",
+   "word_count": 181,
+   "first_word_id": 74946,
+   "last_word_id": 75126,
+   "ayah_count": {
+    "hafs": 50,
+    "shuba": 50,
+    "warsh": 50,
+    "qaloun": 50,
+    "douri": 50,
+    "sousi": 50,
+    "bazzi": 50
+   }
+  },
+  {
+   "sura": 78,
+   "name_ar": "النَّبَإ",
+   "name_en": "An-Naba’",
+   "revelation": "makki",
+   "word_count": 173,
+   "first_word_id": 75127,
+   "last_word_id": 75299,
+   "ayah_count": {
+    "hafs": 40,
+    "shuba": 40,
+    "warsh": 40,
+    "qaloun": 40,
+    "douri": 40,
+    "sousi": 40,
+    "bazzi": 41
+   }
+  },
+  {
+   "sura": 79,
+   "name_ar": "النَّازعَات",
+   "name_en": "An-Nāzi‘āt",
+   "revelation": "makki",
+   "word_count": 179,
+   "first_word_id": 75300,
+   "last_word_id": 75478,
+   "ayah_count": {
+    "hafs": 46,
+    "shuba": 46,
+    "warsh": 45,
+    "qaloun": 45,
+    "douri": 45,
+    "sousi": 45,
+    "bazzi": 45
+   }
+  },
+  {
+   "sura": 80,
+   "name_ar": "عَبَسَ",
+   "name_en": "‘Abasa",
+   "revelation": "makki",
+   "word_count": 133,
+   "first_word_id": 75479,
+   "last_word_id": 75611,
+   "ayah_count": {
+    "hafs": 42,
+    "shuba": 42,
+    "warsh": 42,
+    "qaloun": 42,
+    "douri": 42,
+    "sousi": 42,
+    "bazzi": 42
+   }
+  },
+  {
+   "sura": 81,
+   "name_ar": "التَّكوير",
+   "name_en": "At-Takwīr",
+   "revelation": "makki",
+   "word_count": 104,
+   "first_word_id": 75612,
+   "last_word_id": 75715,
+   "ayah_count": {
+    "hafs": 29,
+    "shuba": 29,
+    "warsh": 29,
+    "qaloun": 29,
+    "douri": 29,
+    "sousi": 29,
+    "bazzi": 29
+   }
+  },
+  {
+   "sura": 82,
+   "name_ar": "الانفِطَار",
+   "name_en": "Al-Infiṭār",
+   "revelation": "makki",
+   "word_count": 80,
+   "first_word_id": 75716,
+   "last_word_id": 75795,
+   "ayah_count": {
+    "hafs": 19,
+    "shuba": 19,
+    "warsh": 19,
+    "qaloun": 19,
+    "douri": 19,
+    "sousi": 19,
+    "bazzi": 19
+   }
+  },
+  {
+   "sura": 83,
+   "name_ar": "المُطَففين",
+   "name_en": "Al-Muṭaffifīn",
+   "revelation": "makki",
+   "word_count": 169,
+   "first_word_id": 75796,
+   "last_word_id": 75964,
+   "ayah_count": {
+    "hafs": 36,
+    "shuba": 36,
+    "warsh": 36,
+    "qaloun": 36,
+    "douri": 36,
+    "sousi": 36,
+    "bazzi": 36
+   }
+  },
+  {
+   "sura": 84,
+   "name_ar": "الانشِقَاق",
+   "name_en": "Al-Inshiqāq",
+   "revelation": "makki",
+   "word_count": 107,
+   "first_word_id": 75965,
+   "last_word_id": 76071,
+   "ayah_count": {
+    "hafs": 25,
+    "shuba": 25,
+    "warsh": 25,
+    "qaloun": 25,
+    "douri": 25,
+    "sousi": 25,
+    "bazzi": 25
+   }
+  },
+  {
+   "sura": 85,
+   "name_ar": "البُرُوج",
+   "name_en": "Al-Burūj",
+   "revelation": "makki",
+   "word_count": 109,
+   "first_word_id": 76072,
+   "last_word_id": 76180,
+   "ayah_count": {
+    "hafs": 22,
+    "shuba": 22,
+    "warsh": 22,
+    "qaloun": 22,
+    "douri": 22,
+    "sousi": 22,
+    "bazzi": 22
+   }
+  },
+  {
+   "sura": 86,
+   "name_ar": "الطَّارق",
+   "name_en": "Aṭ-Ṭāriq",
+   "revelation": "makki",
+   "word_count": 61,
+   "first_word_id": 76181,
+   "last_word_id": 76241,
+   "ayah_count": {
+    "hafs": 17,
+    "shuba": 17,
+    "warsh": 17,
+    "qaloun": 17,
+    "douri": 16,
+    "sousi": 16,
+    "bazzi": 17
+   }
+  },
+  {
+   "sura": 87,
+   "name_ar": "الأعلى",
+   "name_en": "Al-A‘lā",
+   "revelation": "makki",
+   "word_count": 72,
+   "first_word_id": 76242,
+   "last_word_id": 76313,
+   "ayah_count": {
+    "hafs": 19,
+    "shuba": 19,
+    "warsh": 19,
+    "qaloun": 19,
+    "douri": 19,
+    "sousi": 19,
+    "bazzi": 19
+   }
+  },
+  {
+   "sura": 88,
+   "name_ar": "الغَاشِية",
+   "name_en": "Al-Ghāshiyah",
+   "revelation": "makki",
+   "word_count": 92,
+   "first_word_id": 76314,
+   "last_word_id": 76405,
+   "ayah_count": {
+    "hafs": 26,
+    "shuba": 26,
+    "warsh": 26,
+    "qaloun": 26,
+    "douri": 26,
+    "sousi": 26,
+    "bazzi": 26
+   }
+  },
+  {
+   "sura": 89,
+   "name_ar": "الفَجر",
+   "name_en": "Al-Fajr",
+   "revelation": "makki",
+   "word_count": 137,
+   "first_word_id": 76406,
+   "last_word_id": 76542,
+   "ayah_count": {
+    "hafs": 30,
+    "shuba": 30,
+    "warsh": 32,
+    "qaloun": 32,
+    "douri": 32,
+    "sousi": 32,
+    "bazzi": 32
+   }
+  },
+  {
+   "sura": 90,
+   "name_ar": "البَلَد",
+   "name_en": "Al-Balad",
+   "revelation": "makki",
+   "word_count": 82,
+   "first_word_id": 76543,
+   "last_word_id": 76624,
+   "ayah_count": {
+    "hafs": 20,
+    "shuba": 20,
+    "warsh": 20,
+    "qaloun": 20,
+    "douri": 20,
+    "sousi": 20,
+    "bazzi": 20
+   }
+  },
+  {
+   "sura": 91,
+   "name_ar": "الشَّمس",
+   "name_en": "Ash-Shams",
+   "revelation": "makki",
+   "word_count": 54,
+   "first_word_id": 76625,
+   "last_word_id": 76678,
+   "ayah_count": {
+    "hafs": 15,
+    "shuba": 15,
+    "warsh": 15,
+    "qaloun": 15,
+    "douri": 16,
+    "sousi": 16,
+    "bazzi": 15
+   }
+  },
+  {
+   "sura": 92,
+   "name_ar": "اللَّيل",
+   "name_en": "Al-Lail",
+   "revelation": "makki",
+   "word_count": 71,
+   "first_word_id": 76679,
+   "last_word_id": 76749,
+   "ayah_count": {
+    "hafs": 21,
+    "shuba": 21,
+    "warsh": 21,
+    "qaloun": 21,
+    "douri": 21,
+    "sousi": 21,
+    "bazzi": 21
+   }
+  },
+  {
+   "sura": 93,
+   "name_ar": "الضُّحى",
+   "name_en": "Aḍ-Ḍuḥā",
+   "revelation": "makki",
+   "word_count": 40,
+   "first_word_id": 76750,
+   "last_word_id": 76789,
+   "ayah_count": {
+    "hafs": 11,
+    "shuba": 11,
+    "warsh": 11,
+    "qaloun": 11,
+    "douri": 11,
+    "sousi": 11,
+    "bazzi": 11
+   }
+  },
+  {
+   "sura": 94,
+   "name_ar": "الشَّرح",
+   "name_en": "Ash-Sharḥ",
+   "revelation": "makki",
+   "word_count": 27,
+   "first_word_id": 76790,
+   "last_word_id": 76816,
+   "ayah_count": {
+    "hafs": 8,
+    "shuba": 8,
+    "warsh": 8,
+    "qaloun": 8,
+    "douri": 8,
+    "sousi": 8,
+    "bazzi": 8
+   }
+  },
+  {
+   "sura": 95,
+   "name_ar": "التِّين",
+   "name_en": "At-Tīn",
+   "revelation": "makki",
+   "word_count": 34,
+   "first_word_id": 76817,
+   "last_word_id": 76850,
+   "ayah_count": {
+    "hafs": 8,
+    "shuba": 8,
+    "warsh": 8,
+    "qaloun": 8,
+    "douri": 8,
+    "sousi": 8,
+    "bazzi": 8
+   }
+  },
+  {
+   "sura": 96,
+   "name_ar": "العَلَق",
+   "name_en": "Al-‘Alaq",
+   "revelation": "makki",
+   "word_count": 72,
+   "first_word_id": 76851,
+   "last_word_id": 76922,
+   "ayah_count": {
+    "hafs": 19,
+    "shuba": 19,
+    "warsh": 20,
+    "qaloun": 20,
+    "douri": 20,
+    "sousi": 20,
+    "bazzi": 20
+   }
+  },
+  {
+   "sura": 97,
+   "name_ar": "القَدر",
+   "name_en": "Al-Qadr",
+   "revelation": "makki",
+   "word_count": 30,
+   "first_word_id": 76923,
+   "last_word_id": 76952,
+   "ayah_count": {
+    "hafs": 5,
+    "shuba": 5,
+    "warsh": 5,
+    "qaloun": 5,
+    "douri": 5,
+    "sousi": 5,
+    "bazzi": 6
+   }
+  },
+  {
+   "sura": 98,
+   "name_ar": "البَينَة",
+   "name_en": "Al-Bayyinah",
+   "revelation": "madani",
+   "word_count": 94,
+   "first_word_id": 76953,
+   "last_word_id": 77046,
+   "ayah_count": {
+    "hafs": 8,
+    "shuba": 8,
+    "warsh": 8,
+    "qaloun": 8,
+    "douri": 8,
+    "sousi": 8,
+    "bazzi": 8
+   }
+  },
+  {
+   "sura": 99,
+   "name_ar": "الزَّلزَلة",
+   "name_en": "Az-Zalzalah",
+   "revelation": "madani",
+   "word_count": 36,
+   "first_word_id": 77047,
+   "last_word_id": 77082,
+   "ayah_count": {
+    "hafs": 8,
+    "shuba": 8,
+    "warsh": 9,
+    "qaloun": 9,
+    "douri": 8,
+    "sousi": 8,
+    "bazzi": 9
+   }
+  },
+  {
+   "sura": 100,
+   "name_ar": "العَاديَات",
+   "name_en": "Al-‘Ādiyāt",
+   "revelation": "makki",
+   "word_count": 40,
+   "first_word_id": 77083,
+   "last_word_id": 77122,
+   "ayah_count": {
+    "hafs": 11,
+    "shuba": 11,
+    "warsh": 11,
+    "qaloun": 11,
+    "douri": 11,
+    "sousi": 11,
+    "bazzi": 11
+   }
+  },
+  {
+   "sura": 101,
+   "name_ar": "القَارعَة",
+   "name_en": "Al-Qāri‘ah",
+   "revelation": "makki",
+   "word_count": 36,
+   "first_word_id": 77123,
+   "last_word_id": 77158,
+   "ayah_count": {
+    "hafs": 11,
+    "shuba": 11,
+    "warsh": 10,
+    "qaloun": 10,
+    "douri": 10,
+    "sousi": 10,
+    "bazzi": 10
+   }
+  },
+  {
+   "sura": 102,
+   "name_ar": "التَّكاثُر",
+   "name_en": "At-Takāthur",
+   "revelation": "makki",
+   "word_count": 28,
+   "first_word_id": 77159,
+   "last_word_id": 77186,
+   "ayah_count": {
+    "hafs": 8,
+    "shuba": 8,
+    "warsh": 8,
+    "qaloun": 8,
+    "douri": 8,
+    "sousi": 8,
+    "bazzi": 8
+   }
+  },
+  {
+   "sura": 103,
+   "name_ar": "العَصر",
+   "name_en": "Al-‘Aṣr",
+   "revelation": "makki",
+   "word_count": 14,
+   "first_word_id": 77187,
+   "last_word_id": 77200,
+   "ayah_count": {
+    "hafs": 3,
+    "shuba": 3,
+    "warsh": 3,
+    "qaloun": 3,
+    "douri": 3,
+    "sousi": 3,
+    "bazzi": 3
+   }
+  },
+  {
+   "sura": 104,
+   "name_ar": "الهُمَزة",
+   "name_en": "Al-Humazah",
+   "revelation": "makki",
+   "word_count": 33,
+   "first_word_id": 77201,
+   "last_word_id": 77233,
+   "ayah_count": {
+    "hafs": 9,
+    "shuba": 9,
+    "warsh": 9,
+    "qaloun": 9,
+    "douri": 9,
+    "sousi": 9,
+    "bazzi": 9
+   }
+  },
+  {
+   "sura": 105,
+   "name_ar": "الفِيل",
+   "name_en": "Al-Fīl",
+   "revelation": "makki",
+   "word_count": 23,
+   "first_word_id": 77234,
+   "last_word_id": 77256,
+   "ayah_count": {
+    "hafs": 5,
+    "shuba": 5,
+    "warsh": 5,
+    "qaloun": 5,
+    "douri": 5,
+    "sousi": 5,
+    "bazzi": 5
+   }
+  },
+  {
+   "sura": 106,
+   "name_ar": "قُرَيش",
+   "name_en": "Quraish",
+   "revelation": "makki",
+   "word_count": 17,
+   "first_word_id": 77257,
+   "last_word_id": 77273,
+   "ayah_count": {
+    "hafs": 4,
+    "shuba": 4,
+    "warsh": 5,
+    "qaloun": 5,
+    "douri": 5,
+    "sousi": 5,
+    "bazzi": 5
+   }
+  },
+  {
+   "sura": 107,
+   "name_ar": "المَاعُون",
+   "name_en": "Al-Mā‘ūn",
+   "revelation": "makki",
+   "word_count": 25,
+   "first_word_id": 77274,
+   "last_word_id": 77298,
+   "ayah_count": {
+    "hafs": 7,
+    "shuba": 7,
+    "warsh": 6,
+    "qaloun": 6,
+    "douri": 6,
+    "sousi": 6,
+    "bazzi": 6
+   }
+  },
+  {
+   "sura": 108,
+   "name_ar": "الكَوثر",
+   "name_en": "Al-Kauthar",
+   "revelation": "makki",
+   "word_count": 10,
+   "first_word_id": 77299,
+   "last_word_id": 77308,
+   "ayah_count": {
+    "hafs": 3,
+    "shuba": 3,
+    "warsh": 3,
+    "qaloun": 3,
+    "douri": 3,
+    "sousi": 3,
+    "bazzi": 3
+   }
+  },
+  {
+   "sura": 109,
+   "name_ar": "الكافِرون",
+   "name_en": "Al-Kāfirūn",
+   "revelation": "makki",
+   "word_count": 26,
+   "first_word_id": 77309,
+   "last_word_id": 77334,
+   "ayah_count": {
+    "hafs": 6,
+    "shuba": 6,
+    "warsh": 6,
+    "qaloun": 6,
+    "douri": 6,
+    "sousi": 6,
+    "bazzi": 6
+   }
+  },
+  {
+   "sura": 110,
+   "name_ar": "النَّصر",
+   "name_en": "An-Naṣr",
+   "revelation": "madani",
+   "word_count": 19,
+   "first_word_id": 77335,
+   "last_word_id": 77353,
+   "ayah_count": {
+    "hafs": 3,
+    "shuba": 3,
+    "warsh": 3,
+    "qaloun": 3,
+    "douri": 3,
+    "sousi": 3,
+    "bazzi": 3
+   }
+  },
+  {
+   "sura": 111,
+   "name_ar": "المَسَد",
+   "name_en": "Al-Masad",
+   "revelation": "makki",
+   "word_count": 23,
+   "first_word_id": 77354,
+   "last_word_id": 77376,
+   "ayah_count": {
+    "hafs": 5,
+    "shuba": 5,
+    "warsh": 5,
+    "qaloun": 5,
+    "douri": 5,
+    "sousi": 5,
+    "bazzi": 5
+   }
+  },
+  {
+   "sura": 112,
+   "name_ar": "الإخلَاص",
+   "name_en": "Al-Ikhlāṣ",
+   "revelation": "makki",
+   "word_count": 15,
+   "first_word_id": 77377,
+   "last_word_id": 77391,
+   "ayah_count": {
+    "hafs": 4,
+    "shuba": 4,
+    "warsh": 4,
+    "qaloun": 4,
+    "douri": 4,
+    "sousi": 4,
+    "bazzi": 5
+   }
+  },
+  {
+   "sura": 113,
+   "name_ar": "الفَلَق",
+   "name_en": "Al-Falaq",
+   "revelation": "makki",
+   "word_count": 23,
+   "first_word_id": 77392,
+   "last_word_id": 77414,
+   "ayah_count": {
+    "hafs": 5,
+    "shuba": 5,
+    "warsh": 5,
+    "qaloun": 5,
+    "douri": 5,
+    "sousi": 5,
+    "bazzi": 5
+   }
+  },
+  {
+   "sura": 114,
+   "name_ar": "النَّاس",
+   "name_en": "An-Nās",
+   "revelation": "makki",
+   "word_count": 20,
+   "first_word_id": 77415,
+   "last_word_id": 77434,
+   "ayah_count": {
+    "hafs": 6,
+    "shuba": 6,
+    "warsh": 6,
+    "qaloun": 6,
+    "douri": 6,
+    "sousi": 6,
+    "bazzi": 7
+   }
+  }
+ ]
+}

@@ -1,0 +1,812 @@
+{
+ "sura": 1,
+ "name_ar": "الفَاتِحة",
+ "name_en": "Al-Fātiḥah",
+ "revelation": "makki",
+ "word_count": 29,
+ "first_word_id": 1,
+ "last_word_id": 29,
+ "ayah_count": {
+  "hafs": 7,
+  "shuba": 7,
+  "warsh": 7,
+  "qaloun": 7,
+  "douri": 7,
+  "sousi": 7,
+  "bazzi": 7
+ },
+ "words": [
+  {
+   "id": 1,
+   "i": 1,
+   "key": "1:بسم#1",
+   "rasm": "بسم",
+   "uthmani": "بِسۡمِ",
+   "simple": "بسم",
+   "status": "identical",
+   "aya": {
+    "hafs": 1,
+    "shuba": 1,
+    "warsh": 0,
+    "qaloun": 0,
+    "douri": 0,
+    "sousi": 0,
+    "bazzi": 1
+   },
+   "forms": {
+    "hafs": "بِسۡمِ",
+    "shuba": "بِسۡمِ",
+    "warsh": "بِسْمِ",
+    "qaloun": "بِسْمِ",
+    "douri": "بِسۡمِ",
+    "sousi": "بِسۡمِ",
+    "bazzi": "بِسۡمِ"
+   }
+  },
+  {
+   "id": 2,
+   "i": 2,
+   "key": "1:الله#1",
+   "rasm": "الله",
+   "uthmani": "ٱللَّهِ",
+   "simple": "اللّه",
+   "status": "diacritic_variant",
+   "aya": {
+    "hafs": 1,
+    "shuba": 1,
+    "warsh": 0,
+    "qaloun": 0,
+    "douri": 0,
+    "sousi": 0,
+    "bazzi": 1
+   },
+   "forms": {
+    "hafs": "ٱللَّهِ",
+    "shuba": "ٱللَّهِ",
+    "warsh": "ࡴ۬للَّهِ",
+    "qaloun": "ࡴ۬للَّهِ",
+    "douri": "اِ۬للَّهِ",
+    "sousi": "ࡵ۬للَّهِ",
+    "bazzi": "ٱللَّهِ"
+   }
+  },
+  {
+   "id": 3,
+   "i": 3,
+   "key": "1:الرحمن#1",
+   "rasm": "الرحمن",
+   "uthmani": "ٱلرَّحۡمَٰنِ",
+   "simple": "الرّحمان",
+   "status": "diacritic_variant",
+   "aya": {
+    "hafs": 1,
+    "shuba": 1,
+    "warsh": 0,
+    "qaloun": 0,
+    "douri": 0,
+    "sousi": 0,
+    "bazzi": 1
+   },
+   "forms": {
+    "hafs": "ٱلرَّحۡمَٰنِ",
+    "shuba": "ٱلرَّحۡمَٰنِ",
+    "warsh": "ࡴ۬لرَّحْمَٰنِ",
+    "qaloun": "ࡴ۬لرَّحْمَٰنِ",
+    "douri": "اِ۬لرَّحۡمَٰنِ",
+    "sousi": "ࡵ۬لرَّحۡمَٰنِ",
+    "bazzi": "ٱلرَّحۡمَٰنِ"
+   }
+  },
+  {
+   "id": 4,
+   "i": 4,
+   "key": "1:الرحيم#1",
+   "rasm": "الرحيم",
+   "uthmani": "ٱلرَّحِيمِ",
+   "simple": "الرّحيم",
+   "status": "diacritic_variant",
+   "aya": {
+    "hafs": 1,
+    "shuba": 1,
+    "warsh": 0,
+    "qaloun": 0,
+    "douri": 0,
+    "sousi": 0,
+    "bazzi": 1
+   },
+   "forms": {
+    "hafs": "ٱلرَّحِيمِ",
+    "shuba": "ٱلرَّحِيمِ",
+    "warsh": "ࡴ۬لرَّحِيمِ",
+    "qaloun": "ࡴ۬لرَّحِيمِ",
+    "douri": "اِ۬لرَّحِيمِ",
+    "sousi": "ࡵ۬لرَّحِيمِ",
+    "bazzi": "ٱلرَّحِيمِ"
+   }
+  },
+  {
+   "id": 5,
+   "i": 5,
+   "key": "1:الحمد#1",
+   "rasm": "الحمد",
+   "uthmani": "ٱلۡحَمۡدُ",
+   "simple": "الحمد",
+   "status": "diacritic_variant",
+   "aya": {
+    "hafs": 2,
+    "shuba": 2,
+    "warsh": 1,
+    "qaloun": 1,
+    "douri": 1,
+    "sousi": 1,
+    "bazzi": 2
+   },
+   "forms": {
+    "hafs": "ٱلۡحَمۡدُ",
+    "shuba": "ٱلۡحَمۡدُ",
+    "warsh": "ࡴ۬لْحَمْدُ",
+    "qaloun": "ࡴ۬لْحَمْدُ",
+    "douri": "اِ۬لۡحَمۡدُ",
+    "sousi": "ࡵ۬لۡحَمۡدُ",
+    "bazzi": "ٱلۡحَمۡدُ"
+   }
+  },
+  {
+   "id": 6,
+   "i": 6,
+   "key": "1:لله#1",
+   "rasm": "لله",
+   "uthmani": "لِلَّهِ",
+   "simple": "للّه",
+   "status": "diacritic_variant",
+   "aya": {
+    "hafs": 2,
+    "shuba": 2,
+    "warsh": 1,
+    "qaloun": 1,
+    "douri": 1,
+    "sousi": 1,
+    "bazzi": 2
+   },
+   "forms": {
+    "hafs": "لِلَّهِ",
+    "shuba": "لِلَّهِ",
+    "warsh": "لِلهِ",
+    "qaloun": "لِلهِ",
+    "douri": "لِلَّهِ",
+    "sousi": "لِلَّهِ",
+    "bazzi": "لِلَّهِ"
+   }
+  },
+  {
+   "id": 7,
+   "i": 7,
+   "key": "1:رب#1",
+   "rasm": "رب",
+   "uthmani": "رَبِّ",
+   "simple": "ربّ",
+   "status": "identical",
+   "aya": {
+    "hafs": 2,
+    "shuba": 2,
+    "warsh": 1,
+    "qaloun": 1,
+    "douri": 1,
+    "sousi": 1,
+    "bazzi": 2
+   },
+   "forms": {
+    "hafs": "رَبِّ",
+    "shuba": "رَبِّ",
+    "warsh": "رَبِّ",
+    "qaloun": "رَبِّ",
+    "douri": "رَبِّ",
+    "sousi": "رَبِّ",
+    "bazzi": "رَبِّ"
+   }
+  },
+  {
+   "id": 8,
+   "i": 8,
+   "key": "1:العلمين#1",
+   "rasm": "العلمين",
+   "uthmani": "ٱلۡعَٰلَمِينَ",
+   "simple": "العالمين",
+   "status": "diacritic_variant",
+   "aya": {
+    "hafs": 2,
+    "shuba": 2,
+    "warsh": 1,
+    "qaloun": 1,
+    "douri": 1,
+    "sousi": 1,
+    "bazzi": 2
+   },
+   "forms": {
+    "hafs": "ٱلۡعَٰلَمِينَ",
+    "shuba": "ٱلۡعَٰلَمِينَ",
+    "warsh": "ࡴ۬لْعَٰلَمِينَ",
+    "qaloun": "ࡴ۬لْعَٰلَمِينَ",
+    "douri": "اِ۬لۡعَٰلَمِينَ",
+    "sousi": "ࡵ۬لۡعَٰلَمِينَ",
+    "bazzi": "ٱلۡعَٰلَمِينَ"
+   }
+  },
+  {
+   "id": 9,
+   "i": 9,
+   "key": "1:الرحمن#2",
+   "rasm": "الرحمن",
+   "uthmani": "ٱلرَّحۡمَٰنِ",
+   "simple": "الرّحمان",
+   "status": "diacritic_variant",
+   "aya": {
+    "hafs": 3,
+    "shuba": 3,
+    "warsh": 2,
+    "qaloun": 2,
+    "douri": 2,
+    "sousi": 2,
+    "bazzi": 3
+   },
+   "forms": {
+    "hafs": "ٱلرَّحۡمَٰنِ",
+    "shuba": "ٱلرَّحۡمَٰنِ",
+    "warsh": "ࡰ۬لرَّحْمَٰنِ",
+    "qaloun": "ࡰ۬لرَّحْمَٰنِ",
+    "douri": "اَ۬لرَّحۡمَٰنِ",
+    "sousi": "ࡱ۬لرَّحۡمَٰنِ",
+    "bazzi": "ٱلرَّحۡمَٰنِ"
+   }
+  },
+  {
+   "id": 10,
+   "i": 10,
+   "key": "1:الرحيم#2",
+   "rasm": "الرحيم",
+   "uthmani": "ٱلرَّحِيمِ",
+   "simple": "الرّحيم",
+   "status": "diacritic_variant",
+   "aya": {
+    "hafs": 3,
+    "shuba": 3,
+    "warsh": 2,
+    "qaloun": 2,
+    "douri": 2,
+    "sousi": 2,
+    "bazzi": 3
+   },
+   "forms": {
+    "hafs": "ٱلرَّحِيمِ",
+    "shuba": "ٱلرَّحِيمِ",
+    "warsh": "ࡴ۬لرَّحِيمِ",
+    "qaloun": "ࡴ۬لرَّحِيمِ",
+    "douri": "اِ۬لرَّحِيمِ",
+    "sousi": "ࡵ۬لرَّحِيم",
+    "bazzi": "ٱلرَّحِيمِ"
+   }
+  },
+  {
+   "id": 11,
+   "i": 11,
+   "key": "1:ملك#1",
+   "rasm": "ملك",
+   "uthmani": "مَٰلِكِ",
+   "simple": "مالك",
+   "status": "diacritic_variant",
+   "aya": {
+    "hafs": 4,
+    "shuba": 4,
+    "warsh": 3,
+    "qaloun": 3,
+    "douri": 3,
+    "sousi": 3,
+    "bazzi": 4
+   },
+   "forms": {
+    "hafs": "مَٰلِكِ",
+    "shuba": "مَٰلِكِ",
+    "warsh": "مَلِكِ",
+    "qaloun": "مَلِكِ",
+    "douri": "مَلِكِ",
+    "sousi": "مَّلِكِ",
+    "bazzi": "مَلِكِ"
+   }
+  },
+  {
+   "id": 12,
+   "i": 12,
+   "key": "1:يوم#1",
+   "rasm": "يوم",
+   "uthmani": "يَوۡمِ",
+   "simple": "يوم",
+   "status": "identical",
+   "aya": {
+    "hafs": 4,
+    "shuba": 4,
+    "warsh": 3,
+    "qaloun": 3,
+    "douri": 3,
+    "sousi": 3,
+    "bazzi": 4
+   },
+   "forms": {
+    "hafs": "يَوۡمِ",
+    "shuba": "يَوۡمِ",
+    "warsh": "يَوْمِ",
+    "qaloun": "يَوْمِ",
+    "douri": "يَوۡمِ",
+    "sousi": "يَوۡمِ",
+    "bazzi": "يَوۡمِ"
+   }
+  },
+  {
+   "id": 13,
+   "i": 13,
+   "key": "1:الدين#1",
+   "rasm": "الدين",
+   "uthmani": "ٱلدِّينِ",
+   "simple": "الدّين",
+   "status": "diacritic_variant",
+   "aya": {
+    "hafs": 4,
+    "shuba": 4,
+    "warsh": 3,
+    "qaloun": 3,
+    "douri": 3,
+    "sousi": 3,
+    "bazzi": 4
+   },
+   "forms": {
+    "hafs": "ٱلدِّينِ",
+    "shuba": "ٱلدِّينِ",
+    "warsh": "ࡴ۬لدِّينِ࣌",
+    "qaloun": "ࡴ۬لدِّينِ",
+    "douri": "اِ۬لدِّينِ",
+    "sousi": "ࡵ۬لدِّينِ",
+    "bazzi": "ٱلدِّينِ"
+   },
+   "waqf": {
+    "qaloun": "ۖ"
+   }
+  },
+  {
+   "id": 14,
+   "i": 14,
+   "key": "1:اياك#1",
+   "rasm": "اياك",
+   "uthmani": "إِيَّاكَ",
+   "simple": "إيّاك",
+   "status": "identical",
+   "aya": {
+    "hafs": 5,
+    "shuba": 5,
+    "warsh": 4,
+    "qaloun": 4,
+    "douri": 4,
+    "sousi": 4,
+    "bazzi": 5
+   },
+   "forms": {
+    "hafs": "إِيَّاكَ",
+    "shuba": "إِيَّاكَ",
+    "warsh": "إِيَّاكَ",
+    "qaloun": "إِيَّاكَ",
+    "douri": "إِيَّاكَ",
+    "sousi": "إِيَّاكَ",
+    "bazzi": "إِيَّاكَ"
+   }
+  },
+  {
+   "id": 15,
+   "i": 15,
+   "key": "1:نعبد#1",
+   "rasm": "نعبد",
+   "uthmani": "نَعۡبُدُ",
+   "simple": "نعبد",
+   "status": "identical",
+   "aya": {
+    "hafs": 5,
+    "shuba": 5,
+    "warsh": 4,
+    "qaloun": 4,
+    "douri": 4,
+    "sousi": 4,
+    "bazzi": 5
+   },
+   "forms": {
+    "hafs": "نَعۡبُدُ",
+    "shuba": "نَعۡبُدُ",
+    "warsh": "نَعْبُدُ",
+    "qaloun": "نَعْبُدُ",
+    "douri": "نَعۡبُدُ",
+    "sousi": "نَعۡبُدُ",
+    "bazzi": "نَعۡبُدُ"
+   }
+  },
+  {
+   "id": 16,
+   "i": 16,
+   "key": "1:واياك#1",
+   "rasm": "واياك",
+   "uthmani": "وَإِيَّاكَ",
+   "simple": "وإيّاك",
+   "status": "identical",
+   "aya": {
+    "hafs": 5,
+    "shuba": 5,
+    "warsh": 4,
+    "qaloun": 4,
+    "douri": 4,
+    "sousi": 4,
+    "bazzi": 5
+   },
+   "forms": {
+    "hafs": "وَإِيَّاكَ",
+    "shuba": "وَإِيَّاكَ",
+    "warsh": "وَإِيَّاكَ",
+    "qaloun": "وَإِيَّاكَ",
+    "douri": "وَإِيَّاكَ",
+    "sousi": "وَإِيَّاكَ",
+    "bazzi": "وَإِيَّاكَ"
+   }
+  },
+  {
+   "id": 17,
+   "i": 17,
+   "key": "1:نستعين#1",
+   "rasm": "نستعين",
+   "uthmani": "نَسۡتَعِينُ",
+   "simple": "نستعين",
+   "status": "diacritic_variant",
+   "aya": {
+    "hafs": 5,
+    "shuba": 5,
+    "warsh": 4,
+    "qaloun": 4,
+    "douri": 4,
+    "sousi": 4,
+    "bazzi": 5
+   },
+   "forms": {
+    "hafs": "نَسۡتَعِينُ",
+    "shuba": "نَسۡتَعِينُ",
+    "warsh": "نَسْتَعِينُ࣌",
+    "qaloun": "نَسْتَعِينُ",
+    "douri": "نَسۡتَعِينُ",
+    "sousi": "نَسۡتَعِينُ",
+    "bazzi": "نَسۡتَعِينُ"
+   },
+   "waqf": {
+    "qaloun": "ۖ"
+   }
+  },
+  {
+   "id": 18,
+   "i": 18,
+   "key": "1:اهدنا#1",
+   "rasm": "اهدنا",
+   "uthmani": "ٱهۡدِنَا",
+   "simple": "اهدنا",
+   "status": "diacritic_variant",
+   "aya": {
+    "hafs": 6,
+    "shuba": 6,
+    "warsh": 5,
+    "qaloun": 5,
+    "douri": 5,
+    "sousi": 5,
+    "bazzi": 6
+   },
+   "forms": {
+    "hafs": "ٱهۡدِنَا",
+    "shuba": "ٱهۡدِنَا",
+    "warsh": "ࡲٜهْدِنَا",
+    "qaloun": "ࡲٜهْدِنَا",
+    "douri": "اُ۪هۡدِنَا",
+    "sousi": "ࡲٜهۡدِنَا",
+    "bazzi": "ٱهۡدِنَا"
+   }
+  },
+  {
+   "id": 19,
+   "i": 19,
+   "key": "1:الصرط#1",
+   "rasm": "الصرط",
+   "uthmani": "ٱلصِّرَٰطَ",
+   "simple": "الصّراط",
+   "status": "diacritic_variant",
+   "aya": {
+    "hafs": 6,
+    "shuba": 6,
+    "warsh": 5,
+    "qaloun": 5,
+    "douri": 5,
+    "sousi": 5,
+    "bazzi": 6
+   },
+   "forms": {
+    "hafs": "ٱلصِّرَٰطَ",
+    "shuba": "ٱلصِّرَٰطَ",
+    "warsh": "ࡰ۬لصِّرَٰطَ",
+    "qaloun": "ࡰ۬لصِّرَٰطَ",
+    "douri": "اَ۬لصِّرَٰطَ",
+    "sousi": "ࡱ۬لصِّرَٰطَ",
+    "bazzi": "ٱلصِّرَٰطَ"
+   }
+  },
+  {
+   "id": 20,
+   "i": 20,
+   "key": "1:المستقيم#1",
+   "rasm": "المستقيم",
+   "uthmani": "ٱلۡمُسۡتَقِيمَ",
+   "simple": "المستقيم",
+   "status": "diacritic_variant",
+   "aya": {
+    "hafs": 6,
+    "shuba": 6,
+    "warsh": 5,
+    "qaloun": 5,
+    "douri": 5,
+    "sousi": 5,
+    "bazzi": 6
+   },
+   "forms": {
+    "hafs": "ٱلۡمُسۡتَقِيمَ",
+    "shuba": "ٱلۡمُسۡتَقِيمَ",
+    "warsh": "ࡰ۬لْمُسْتَقِيمَ",
+    "qaloun": "ࡰ۬لْمُسْتَقِيمَ",
+    "douri": "اَ۬لۡمُسۡتَقِيمَ",
+    "sousi": "ࡱ۬لۡمُسۡتَقِيمَ",
+    "bazzi": "ٱلۡمُسۡتَقِيمَ"
+   }
+  },
+  {
+   "id": 21,
+   "i": 21,
+   "key": "1:صرط#1",
+   "rasm": "صرط",
+   "uthmani": "صِرَٰطَ",
+   "simple": "صراط",
+   "status": "identical",
+   "aya": {
+    "hafs": 7,
+    "shuba": 7,
+    "warsh": 6,
+    "qaloun": 6,
+    "douri": 6,
+    "sousi": 6,
+    "bazzi": 7
+   },
+   "forms": {
+    "hafs": "صِرَٰطَ",
+    "shuba": "صِرَٰطَ",
+    "warsh": "صِرَٰطَ",
+    "qaloun": "صِرَٰطَ",
+    "douri": "صِرَٰطَ",
+    "sousi": "صِرَٰطَ",
+    "bazzi": "صِرَٰطَ"
+   }
+  },
+  {
+   "id": 22,
+   "i": 22,
+   "key": "1:الذين#1",
+   "rasm": "الذين",
+   "uthmani": "ٱلَّذِينَ",
+   "simple": "الّذين",
+   "status": "diacritic_variant",
+   "aya": {
+    "hafs": 7,
+    "shuba": 7,
+    "warsh": 6,
+    "qaloun": 6,
+    "douri": 6,
+    "sousi": 6,
+    "bazzi": 7
+   },
+   "forms": {
+    "hafs": "ٱلَّذِينَ",
+    "shuba": "ٱلَّذِينَ",
+    "warsh": "ࡰ۬لذِينَ",
+    "qaloun": "ࡰ۬لذِينَ",
+    "douri": "اَ۬لَّذِينَ",
+    "sousi": "ࡱ۬لَّذِينَ",
+    "bazzi": "ٱلَّذِينَ"
+   }
+  },
+  {
+   "id": 23,
+   "i": 23,
+   "key": "1:انعمت#1",
+   "rasm": "انعمت",
+   "uthmani": "أَنۡعَمۡتَ",
+   "simple": "أنعمت",
+   "status": "identical",
+   "aya": {
+    "hafs": 7,
+    "shuba": 7,
+    "warsh": 6,
+    "qaloun": 6,
+    "douri": 6,
+    "sousi": 6,
+    "bazzi": 7
+   },
+   "forms": {
+    "hafs": "أَنۡعَمۡتَ",
+    "shuba": "أَنۡعَمۡتَ",
+    "warsh": "أَنْعَمْتَ",
+    "qaloun": "أَنْعَمْتَ",
+    "douri": "أَنۡعَمۡتَ",
+    "sousi": "أَنۡعَمۡتَ",
+    "bazzi": "أَنۡعَمۡتَ"
+   }
+  },
+  {
+   "id": 24,
+   "i": 24,
+   "key": "1:عليهم#1",
+   "rasm": "عليهم",
+   "uthmani": "عَلَيۡهِمۡ",
+   "simple": "عليهم",
+   "status": "diacritic_variant",
+   "aya": {
+    "hafs": 7,
+    "shuba": 7,
+    "warsh": 6,
+    "qaloun": 6,
+    "douri": 6,
+    "sousi": 6,
+    "bazzi": 7
+   },
+   "forms": {
+    "hafs": "عَلَيۡهِمۡ",
+    "shuba": "عَلَيۡهِمۡ",
+    "warsh": "عَلَيْهِمْ",
+    "qaloun": "عَلَيْهِمْ",
+    "douri": "عَلَيۡهِمۡ",
+    "sousi": "عَلَيۡهِمۡ",
+    "bazzi": "عَلَيۡهِمُۥ"
+   }
+  },
+  {
+   "id": 25,
+   "i": 25,
+   "key": "1:غير#1",
+   "rasm": "غير",
+   "uthmani": "غَيۡرِ",
+   "simple": "غير",
+   "status": "identical",
+   "aya": {
+    "hafs": 7,
+    "shuba": 7,
+    "warsh": 7,
+    "qaloun": 7,
+    "douri": 7,
+    "sousi": 7,
+    "bazzi": 7
+   },
+   "forms": {
+    "hafs": "غَيۡرِ",
+    "shuba": "غَيۡرِ",
+    "warsh": "غَيْرِ",
+    "qaloun": "غَيْرِ",
+    "douri": "غَيۡرِ",
+    "sousi": "غَيۡرِ",
+    "bazzi": "غَيۡرِ"
+   }
+  },
+  {
+   "id": 26,
+   "i": 26,
+   "key": "1:المغضوب#1",
+   "rasm": "المغضوب",
+   "uthmani": "ٱلۡمَغۡضُوبِ",
+   "simple": "المغضوب",
+   "status": "diacritic_variant",
+   "aya": {
+    "hafs": 7,
+    "shuba": 7,
+    "warsh": 7,
+    "qaloun": 7,
+    "douri": 7,
+    "sousi": 7,
+    "bazzi": 7
+   },
+   "forms": {
+    "hafs": "ٱلۡمَغۡضُوبِ",
+    "shuba": "ٱلۡمَغۡضُوبِ",
+    "warsh": "ࡴ۬لْمَغْضُوبِ",
+    "qaloun": "ࡴ۬لْمَغْضُوبِ",
+    "douri": "اِ۬لۡمَغۡضُوبِ",
+    "sousi": "ࡵ۬لۡمَغۡضُوبِ",
+    "bazzi": "ٱلۡمَغۡضُوبِ"
+   }
+  },
+  {
+   "id": 27,
+   "i": 27,
+   "key": "1:عليهم#2",
+   "rasm": "عليهم",
+   "uthmani": "عَلَيۡهِمۡ",
+   "simple": "عليهم",
+   "status": "diacritic_variant",
+   "aya": {
+    "hafs": 7,
+    "shuba": 7,
+    "warsh": 7,
+    "qaloun": 7,
+    "douri": 7,
+    "sousi": 7,
+    "bazzi": 7
+   },
+   "forms": {
+    "hafs": "عَلَيۡهِمۡ",
+    "shuba": "عَلَيۡهِمۡ",
+    "warsh": "عَلَيْهِمْ",
+    "qaloun": "عَلَيْهِمْ",
+    "douri": "عَلَيۡهِمۡ",
+    "sousi": "عَلَيۡهِمۡ",
+    "bazzi": "عَلَيۡهِمُۥ"
+   }
+  },
+  {
+   "id": 28,
+   "i": 28,
+   "key": "1:ولا#1",
+   "rasm": "ولا",
+   "uthmani": "وَلَا",
+   "simple": "ولا",
+   "status": "identical",
+   "aya": {
+    "hafs": 7,
+    "shuba": 7,
+    "warsh": 7,
+    "qaloun": 7,
+    "douri": 7,
+    "sousi": 7,
+    "bazzi": 7
+   },
+   "forms": {
+    "hafs": "وَلَا",
+    "shuba": "وَلَا",
+    "warsh": "وَلَا",
+    "qaloun": "وَلَا",
+    "douri": "وَلَا",
+    "sousi": "وَلَا",
+    "bazzi": "وَلَا"
+   }
+  },
+  {
+   "id": 29,
+   "i": 29,
+   "key": "1:الضالين#1",
+   "rasm": "الضالين",
+   "uthmani": "ٱلضَّآلِّينَ",
+   "simple": "الضّآلّين",
+   "status": "diacritic_variant",
+   "aya": {
+    "hafs": 7,
+    "shuba": 7,
+    "warsh": 7,
+    "qaloun": 7,
+    "douri": 7,
+    "sousi": 7,
+    "bazzi": 7
+   },
+   "forms": {
+    "hafs": "ٱلضَّآلِّينَ",
+    "shuba": "ٱلضَّآلِّينَ",
+    "warsh": "ࡰ۬لضَّآلِّينَ࣌",
+    "qaloun": "ࡰ۬لضَّآلِّينَ",
+    "douri": "اَ۬لضَّآلِّينَ",
+    "sousi": "ࡱ۬لضَّآلِّينَ",
+    "bazzi": "ٱلضَّآلِّينَ"
+   },
+   "waqf": {
+    "qaloun": "ۖ"
+   }
+  }
+ ]
+}

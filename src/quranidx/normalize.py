@@ -71,9 +71,6 @@ _SIMPLE_DROP = chars.ALL_MARKS - {"ّ"}
 
 _SIMPLE_FOLD = {
     "ٱ": "ا",
-    "ى": "ى",
-    "ۥ": "ه",
-    "ۦ": "ه",
     "ے": "ي",
     "ۑ": "ي",
     "ࢇ": "",
@@ -104,3 +101,33 @@ def forms(word: str) -> dict[str, str]:
         "rasm": rasm(u),
         "simple": simple(u),
     }
+
+
+def contributes_to_rasm(ch: str) -> bool:
+    """True when ``ch`` produces a letter in the rasm."""
+    if ch in chars.ALL_MARKS and ch not in chars.RASM_KEEP_MARKS:
+        return False
+    return bool(chars.RASM_FOLD.get(ch, ch))
+
+
+def split_by_rasm(word: str, lengths: list[int]) -> list[str]:
+    """Cut ``word`` into pieces whose rasms have the given lengths.
+
+    Used to repair words that a source printed without the space between them
+    (``كَانُواْيَعۡمَلُونَ``).  The cut falls *after* any marks trailing the last
+    letter of a piece, since a mark belongs to the letter it sits on.
+    """
+    pieces: list[str] = []
+    i = 0
+    for length in lengths[:-1]:
+        seen = 0
+        while i < len(word) and seen < length:
+            if contributes_to_rasm(word[i]):
+                seen += 1
+            i += 1
+        # Carry trailing marks into the piece just closed.
+        while i < len(word) and not contributes_to_rasm(word[i]):
+            i += 1
+        pieces.append(word[:i] if not pieces else word[sum(len(p) for p in pieces):i])
+    pieces.append(word[sum(len(p) for p in pieces):])
+    return pieces
