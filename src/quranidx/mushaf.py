@@ -3,11 +3,11 @@
 ``out/`` already answers *how do the muṣḥafs differ?*  It does not answer *give
 me Warsh*: a consumer who wants one muṣḥaf has to take the comparison and
 project it back out.  This module writes the other view — one self-contained
-file per muṣḥaf, every word carrying the global ID that means the same word in
-all seven.
+file per muṣḥaf, every token carrying both its shared slot ID and its dense
+position in this muṣḥaf.
 
 The shape is flat.  A muṣḥaf is an ordered list of words, and the structures
-above a word — āyah, juz, page — are lists of boundaries over word IDs rather
+above a word — āyah, juz, page — are lists of boundaries over slot IDs rather
 than levels of nesting.  That is the same model as ``out/fawasil.json`` and it
 is what keeps the seven files comparable while they count 6,214 to 6,236 āyāt:
 nesting words under āyāt would make one path mean a different word in each
@@ -16,7 +16,8 @@ muṣḥaf, which is exactly what the global ID exists to prevent.
 Only ``out/mushaf/<key>.json`` is normative.  The nested, sharded, CSV and
 SQLite forms in :mod:`quranidx.views` are generated from the same build and are
 labelled views, so that whichever one turns out to be most convenient cannot
-quietly become the standard.
+quietly become the standard. Format 1.1 retains all 1.0 word-ID fields as
+aliases of the new slot fields.
 
 Nothing here is asserted that the packages do not say.  Where a fact is derived
 rather than read it is marked derived, where it is unavailable the field is
@@ -38,7 +39,7 @@ from .sources import DATA, RELEASE_POLICY, Riwaya
 from .suras import names
 
 FORMAT = "quran-mushaf"
-FORMAT_VERSION = "1.0"
+FORMAT_VERSION = "1.1"
 
 MUSHAF_DIR = OUT / "mushaf"
 
@@ -110,13 +111,17 @@ def _marks(w: Word, key: str) -> list[dict]:
 
 
 def _spans(pairs: list[tuple[int, int]]) -> list[dict]:
-    """Collapse ``(value, word_id)`` into ``{n, words:[first,last]}`` runs."""
+    """Collapse ``(value, slot_id)`` into inclusive slot-range runs.
+
+    ``words`` is retained as the 1.0 compatibility alias for ``slots``.
+    """
     out: list[dict] = []
     for value, wid in pairs:
         if out and out[-1]["n"] == value:
             out[-1]["words"][1] = wid
+            out[-1]["slots"][1] = wid
         else:
-            out.append({"n": value, "words": [wid, wid]})
+            out.append({"n": value, "words": [wid, wid], "slots": [wid, wid]})
     return out
 
 
@@ -144,6 +149,7 @@ def _suras(key: str, mine: list[Word], r: Riwaya) -> list[dict]:
             "basmalah": sura in printed,
             "ayat": max(w.aya.get(key, 0) for w in ws),
             "words": [ws[0].id, ws[-1].id],
+            "slots": [ws[0].id, ws[-1].id],
         }
         if pages:
             row["pages"] = [min(pages), max(pages)]
@@ -154,7 +160,7 @@ def _suras(key: str, mine: list[Word], r: Riwaya) -> list[dict]:
 def _resegmentation(key: str, words: list[Word]) -> list[dict]:
     """Every place this build changed the source's own word spacing.
 
-    A global word ID is only stable because the alignment occasionally overrides
+    A shared slot is only stable because the alignment occasionally overrides
     a package's spacing — joining what one muṣḥaf splits, or splitting what it
     joins — so a file claiming to *be* that muṣḥaf has to say where it did so.
     The list is present even when empty, so silence is never ambiguous.
@@ -168,6 +174,7 @@ def _resegmentation(key: str, words: list[Word]) -> list[dict]:
         source = next((t for t, ks in event["texts"].items() if key in ks), "")
         out.append({
             "words": ids,
+            "slots": ids,
             "sura": event["sura"],
             "ayah": event["aya"],
             "kind": event["kind"],
@@ -252,7 +259,8 @@ def _layers(key: str, r: Riwaya, line_check: dict) -> dict:
 
 
 def _word(w: Word, key: str, imlaei: dict[int, str] | None) -> dict:
-    rec: dict = {"w": w.id, "t": w.forms[key]}
+    rec: dict = {"w": w.id, "s": w.id, "p": w.position[key],
+                 "t": w.forms[key]}
     if key in w.place:
         page, line = w.place[key]
         rec["pg"] = page
@@ -296,15 +304,18 @@ def document(words: list[Word], r: Riwaya,
         "provenance": _provenance(r),
         "spine": {
             "word_id_range": [words[0].id, words[-1].id],
-            "note": "`w` is the global word ID. The same `w` is the same word "
-                    "in every muṣḥaf that has it. Words absent from this muṣḥaf "
-                    "leave gaps in the sequence.",
+            "slot_id_range": [words[0].id, words[-1].id],
+            "note": "`s` is the shared slot ID and `p` is the dense position "
+                    "inside this muṣḥaf. `w` is the 1.0 compatibility alias "
+                    "for `s`; an absent word leaves a slot gap but never a "
+                    "position gap.",
         },
         "layers": _layers(key, r, line_check),
         "mark_signs": {s: {"cp": f"U+{ord(s):04X}", "unicode_name": n}
                        for s, n in MARK_NAMES.items()},
         "suras": _suras(key, mine, r),
-        "ayat": [{"sura": s["sura"], "n": s["n"], "words": s["words"]}
+        "ayat": [{"sura": s["sura"], "n": s["n"], "words": s["words"],
+                  "slots": s["slots"]}
                  for s in ayat],
         "pages": _spans([(w.place[key][0], w.id) for w in mine if key in w.place]),
         "resegmentation": _resegmentation(key, words),
@@ -333,7 +344,8 @@ def minimal(doc: dict) -> dict:
                   for s in doc["suras"]],
         "ayat": doc["ayat"],
         "resegmentation": doc["resegmentation"],
-        "words": [{"w": w["w"], "t": w["t"]} for w in doc["words"]],
+        "words": [{"w": w["w"], "s": w["s"], "p": w["p"], "t": w["t"]}
+                  for w in doc["words"]],
     }
 
 

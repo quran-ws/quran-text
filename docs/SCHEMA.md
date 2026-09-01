@@ -1,7 +1,15 @@
 # Output schema
 
 Everything is written to `out/` by `python3 build.py`. All text is UTF-8, NFC,
-with no BOM.
+with no BOM. Comparison schema **2.1** is additive: `id` and all existing word
+collections remain; `slot_id` names the shared coordinate explicitly and
+`position` supplies dense per-riwāyah token ordinals.
+
+In this documentation, a **slot** is a shared cross-riwāyah coordinate, a
+**token** is a word actually present in one riwāyah, a **position** is that
+token's dense global ordinal in its muṣḥaf, and an **alignment span** is a rare
+n:m correspondence that cannot honestly be expressed as independent 1:1 word
+pairings.
 
 ## `out/suras/NNN.json` — the index
 
@@ -26,14 +34,17 @@ One file per sūrah, `001.json` … `114.json`.
 ```json
 {
   "id": 11,
+  "slot_id": 11,
   "i": 11,
   "key": "1:مالك#1",
-  "rasm": "مالك",
+  "rasm": "ملك",
   "pointed": "مالك",
   "uthmani": "مَٰلِكِ",
   "simple": "مالك",
-  "status": "rasm_variant",
+  "status": "alif_variant",
   "aya":   { "hafs": 4, "shuba": 4, "warsh": 3, "qaloun": 3, "douri": 3, "sousi": 3, "bazzi": 4 },
+  "position": { "hafs": 11, "shuba": 11, "warsh": 11, "qaloun": 11,
+                "douri": 11, "sousi": 11, "bazzi": 11 },
   "forms": { "hafs": "مَٰلِكِ", "shuba": "مَٰلِكِ", "warsh": "مَلِكِ", "qaloun": "مَلِكِ",
              "douri": "مَلِكِ", "sousi": "مَّلِكِ", "bazzi": "مَلِكِ" }
 }
@@ -41,8 +52,9 @@ One file per sūrah, `001.json` … `114.json`.
 
 | field | always | meaning |
 |---|---|---|
-| `id` | ✓ | running integer over the whole corpus, `1 … 77434` |
-| `i` | ✓ | 1-based position within the sūrah |
+| `id` | ✓ | legacy alias of `slot_id`, unchanged in 2.1 |
+| `slot_id` | ✓ | shared coordinate over the corpus, `1 … 77434`; a riwāyah may have no token at it |
+| `i` | ✓ | 1-based index within the shared sūrah spine, not a dense muṣḥaf position |
 | `key` | ✓ | `sūrah:pointed#occurrence` — content-derived, stable across rebuilds |
 | `rasm` | ✓ | bare ʿUthmānic skeleton — undotted, unvowelled, no hamza, no dagger alif. The alignment key: every riwāyah sharing an `id` shares this exactly, except in the 62 `rasm_variant` and 198 `alif_variant` words |
 | `pointed` | ✓ | the same skeleton with its dots, from the canonical spelling |
@@ -50,6 +62,7 @@ One file per sūrah, `001.json` … `114.json`.
 | `simple` | ✓ | plain spelling for search: no diacritics, superscript alif written out |
 | `status` | ✓ | see below |
 | `aya` | ✓ | āyah number **per riwāyah**; `0` means printed but unnumbered (the basmalah) |
+| `position` | ✓ | dense global token position per present riwāyah; missing riwāyāt are absent from the map |
 | `forms` | ✓ | each riwāyah's own spelling; a riwāyah is absent from this map iff it lacks the word |
 | `missing` | — | riwāyāt that lack the word |
 | `waqf` | — | pause marks that trailed the word, per riwāyah |
@@ -117,7 +130,8 @@ still set either way; `out/boundaries.csv` says which is which.
 
 ## `out/index.json`
 
-The same sūrah headers with `words` omitted, plus corpus metadata and the
+The same sūrah headers with `words` omitted, plus corpus metadata (`word_count`
+and its equal `slot_count`) and the
 riwāyah registry (name, qāriʾ, counting tradition, āyah count, source file).
 Small; read this to discover the corpus without loading it.
 
@@ -136,7 +150,8 @@ One row per canonical word — the whole index as a flat table.
 
 ```
 word_id, sura, word_index, key, rasm, pointed, uthmani, simple, status,
-present_count, aya_hafs … aya_bazzi, form_hafs … form_bazzi
+present_count, aya_hafs … aya_bazzi, form_hafs … form_bazzi,
+slot_id, position_hafs … position_bazzi
 ```
 
 ## `out/variants.csv`
@@ -146,7 +161,7 @@ than `words.csv` when you only care about disagreement.
 
 ```
 word_id, sura, word_index, riwaya, aya, canonical_uthmani, riwaya_uthmani,
-same_rasm, status
+same_rasm, status, slot_id, position
 ```
 
 ## `out/fawasil.json`
@@ -176,7 +191,7 @@ One row per word-boundary event — never per word, because a boundary
 disagreement is about the space *between* two words.
 
 ```
-word_ids, sura, aya_hafs, kind, riwayat, riwayat_agree, forms
+word_ids, sura, aya_hafs, kind, riwayat, riwayat_agree, forms, slot_ids
 ```
 
 `riwayat_agree` is the column that matters: `1` means every riwāyah reads the
@@ -211,11 +226,21 @@ how far apart they are, source-integrity cross-checks, and a per-sūrah density
 table. `rasm-variants.md` lists every letter-level disagreement in full:
 the 62 `rasm_variant` words first, then the 198 `alif_variant` ones.
 
+## `out/slot-model.json` and `out/SLOT-MODEL.md`
+
+The machine-readable and human-readable migration inventory. They record slot
+and per-riwāyah position counts, all five partial slots with present/missing
+readings, and every detected n:m alignment span with its slot range and token
+sequence per riwāyah. They also assert that every legacy ID remains equal to
+its new slot ID. In the current data this makes Bazzī's `مِن` at 9:101 visibly
+a sparse slot and groups `أَوْ أَن` / `وَأَن` at 40:26 as one span.
+
 ## `out/mushaf/`
 
-Each muṣḥaf on its own, with every word carrying the same global `id` used here.
+Each muṣḥaf on its own, with every token carrying shared `s` (`w` compatibility
+alias) and dense `p`.
 Specified separately in [`MUSHAF-FORMAT.md`](MUSHAF-FORMAT.md), with a JSON
-Schema in `schema/mushaf-1.0.json`.
+Schema in `schema/mushaf-1.1.json`. The 1.0 schema is retained.
 
 The files above compare the seven muṣḥafs; those publish one at a time, and add
 what only makes sense for a single muṣḥaf: the page each word is printed on, the

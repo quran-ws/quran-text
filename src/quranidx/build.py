@@ -15,7 +15,7 @@ from collections import Counter
 from dataclasses import dataclass, field
 from pathlib import Path
 
-from .align import Column, build_spine
+from .align import Column, alignment_ranges, build_spine
 from .sources import Riwaya, load_all
 from .tokenize import Token, tokenize
 
@@ -62,6 +62,28 @@ class Word:
     #: riwāyah -> (page, line) in that muṣḥaf's own typesetting.  The page is
     #: read from the release; the line is reconstructed.  See ``layout.py``.
     place: dict[str, tuple[int, int]] = field(default_factory=dict)
+    #: Riwāyah -> dense 1-based position in that muṣḥaf.  Unlike the shared
+    #: slot ID, this never has gaps.
+    position: dict[str, int] = field(default_factory=dict)
+
+
+@dataclass(frozen=True)
+class AlignmentSpan:
+    """A contiguous slot range whose readings do not align word-for-word."""
+
+    sura: int
+    first_slot: int
+    last_slot: int
+
+    @property
+    def id(self) -> str:
+        return f"{self.sura}:{self.first_slot}-{self.last_slot}"
+
+
+@dataclass
+class BuildResult:
+    words: list[Word]
+    alignment_spans: list[AlignmentSpan]
 
 
 def streams_for(riwayat: list[Riwaya]) -> dict[str, list[Token]]:
@@ -189,20 +211,28 @@ def canonical_form(col: Column) -> Token:
     return next(iter(col.tokens.values()))
 
 
-def build_words(riwayat: list[Riwaya]) -> list[Word]:
+def build_index(riwayat: list[Riwaya]) -> BuildResult:
     streams = streams_for(riwayat)
     keys = [r.key for r in riwayat]
 
     words: list[Word] = []
+    spans: list[AlignmentSpan] = []
+    positions: Counter[str] = Counter()
     next_id = 1
     for sura in range(1, 115):
         per_sura = {k: [t for t in streams[k] if t.sura == sura] for k in ORDER}
         spine = build_spine(per_sura, ORDER)
+        raw_spans = alignment_ranges(spine)
+        first_sura_slot = next_id
 
         seen: Counter[str] = Counter()
         for index, col in enumerate(spine, start=1):
             canon = canonical_form(col)
             present = [k for k in keys if k in col.tokens]
+            word_positions = {}
+            for key in present:
+                positions[key] += 1
+                word_positions[key] = positions[key]
             # The key is built from the *pointed* skeleton, not the bare rasm:
             # `2:تعملون#1` is legible where `2:ٮعملوں#1` is not, and it is just
             # as stable, since it comes from one canonical spelling.
@@ -228,6 +258,17 @@ def build_words(riwayat: list[Riwaya]) -> list[Word]:
                 sajdah=[k for k in present if col.tokens[k].sajdah],
                 place={k: (col.tokens[k].page, col.tokens[k].line)
                        for k in present if col.tokens[k].page},
+                position=word_positions,
             ))
             next_id += 1
-    return words
+        spans.extend(AlignmentSpan(
+            sura=sura,
+            first_slot=first_sura_slot + start,
+            last_slot=first_sura_slot + end,
+        ) for start, end in raw_spans)
+    return BuildResult(words=words, alignment_spans=spans)
+
+
+def build_words(riwayat: list[Riwaya]) -> list[Word]:
+    """Compatibility wrapper for callers interested only in the word slots."""
+    return build_index(riwayat).words

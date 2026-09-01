@@ -1,7 +1,8 @@
 # The muṣḥaf format
 
-`out/mushaf/<key>.json` publishes one muṣḥaf on its own, with every word carrying
-the global ID that means the same word in all seven.
+`out/mushaf/<key>.json` publishes one muṣḥaf on its own. Format **1.1** gives
+every token both its shared slot ID and its dense position in this muṣḥaf.
+It is an additive successor to 1.0: all 1.0 identifiers and ranges remain.
 
 This document is the specification. **Only `out/mushaf/<key>.json` is
 normative.** The nested, sharded, CSV and SQLite forms are generated from it and
@@ -10,8 +11,8 @@ refers to the file above.
 
 ## The shape
 
-A muṣḥaf is an **ordered list of words**. The structures above a word — āyah,
-juz, page — are lists of boundaries over word IDs, not levels of nesting.
+A muṣḥaf is an **ordered list of tokens**. The structures above a token — āyah,
+juz, page — are lists of boundaries over shared slot IDs, not levels of nesting.
 
 ```
 words:  [ w1, w2, w3, w4, w5, w6, w7, w8, … ]
@@ -21,8 +22,8 @@ pages:  [ ─────────── 1 ───────────]
 
 The reason is the one this project is built on, stated in the README: *the āyah
 is an attribute of a word, not a level of nesting.* The muṣḥafs count 6,214 to
-6,236 āyāt, so `2:255:3` names a different word in each of them, while `w` names
-the same word in all of them. Nesting words under āyāt would put the unstable
+6,236 āyāt, so `2:255:3` names a different word in each of them, while `s` names
+the same slot in all of them. Nesting words under āyāt would put the unstable
 coordinate on the outside and make the seven files incomparable.
 
 Reconstructing a nested view takes three lines, and `out/mushaf/nested/` ships
@@ -30,10 +31,12 @@ one already.
 
 ## Identity
 
-`w` is the global word ID, `1 … 77434`, the same integer as `word_id` in
-`out/words.csv`. **A muṣḥaf that lacks a word leaves a gap in the sequence**;
-IDs are never renumbered per muṣḥaf, because that would defeat the point of
-having them.
+`s` is the shared `slot_id`, `1 … 77434`. `w` is its 1.0 compatibility alias,
+and both equal `word_id` in CSV and SQLite views. **A muṣḥaf that lacks a word
+leaves a gap in `s`/`w`**; slots are never renumbered per muṣḥaf.
+
+`p` is the dense global position of an actual token inside this muṣḥaf. It is
+exactly `1 … word_count`, so a missing slot does not create a position gap.
 
 IDs are stable across rebuilds of the same sources. They are *not* promised
 across a future KFGQPC release — see `docs/LIMITATIONS.md`.
@@ -41,13 +44,15 @@ across a future KFGQPC release — see `docs/LIMITATIONS.md`.
 ## A word
 
 ```json
-{ "w": 13, "t": "ٱلدِّينِ", "pg": 1, "ln": 5, "e": "الدين",
+{ "w": 13, "s": 13, "p": 13, "t": "ٱلدِّينِ", "pg": 1, "ln": 5, "e": "الدين",
   "marks": [ { "k": "waqf", "at": "after", "sign": "ۖ" } ] }
 ```
 
 | field | always | meaning |
 |---|---|---|
-| `w` | ✓ | global word ID — the join key |
+| `w` | ✓ | legacy 1.0 alias of `s` |
+| `s` | ✓ | shared slot ID — the cross-muṣḥaf join key |
+| `p` | ✓ | dense global token position inside this muṣḥaf |
 | `t` | ✓ | ʿUthmānī text exactly as this muṣḥaf prints it |
 | `pg` | — | printed page, **read** from the release |
 | `ln` | — | printed line, **reconstructed** — see below |
@@ -81,12 +86,15 @@ any package and this project does not add data its sources do not carry.
 ## Layers
 
 ```json
-"ayat":  [ { "sura": 1, "n": 1, "words": [1, 4] } ],
-"pages": [ { "n": 1, "words": [1, 29] } ],
-"juz":   [ { "n": 1, "words": [1, 2522] } ]
+"ayat":  [ { "sura": 1, "n": 1, "words": [1, 4], "slots": [1, 4] } ],
+"pages": [ { "n": 1, "words": [1, 29], "slots": [1, 29] } ],
+"juz":   [ { "n": 1, "words": [1, 2522], "slots": [1, 2522] } ]
 ```
 
-`words` is `[first_word_id, last_word_id]`, inclusive.
+`slots` is `[first_slot_id, last_slot_id]`, inclusive. `words` is retained and
+must contain the exact same pair. The same alias policy applies to sūrah and
+resegmentation ranges. At the document level, `spine.slot_id_range` equals the
+legacy `spine.word_id_range`.
 
 `ayat[].n` of **`0`** means *printed but not numbered* — Al-Fātiḥah's basmalah in
 Warsh, Qālūn, Dūrī and Sūsī, which print the words without counting them as an
@@ -132,7 +140,8 @@ to *be* that muṣḥaf has to say where that happened, so every one is listed:
 
 ```json
 "resegmentation": [
-  { "words": [11634, 11635], "sura": 4, "ayah": 91,
+  { "words": [11634, 11635], "slots": [11634, 11635],
+    "sura": 4, "ayah": 91,
     "kind": "joined_in_source",
     "source_text": "مَا رُدُّوٓاْ",
     "emitted": ["مَا", "رُدُّوٓاْ"],
@@ -185,8 +194,8 @@ Bazzī still has `pg`, because page comes from the `.docx` that every muṣḥaf
 
 ## The minimal variant
 
-`out/mushaf/<key>.min.json` is the text and the IDs and nothing else — no marks,
-no layout, no imlāʾī. `resegmentation` stays, because it is a disclosure about
+`out/mushaf/<key>.min.json` is the text, slot IDs, and dense positions and
+nothing else — no marks, no layout, no imlāʾī. `resegmentation` stays, because it is a disclosure about
 the text itself and dropping it would make the small file quietly less honest
 than the large one.
 
@@ -197,7 +206,7 @@ than the large one.
 | `out/mushaf/nested/<key>.json` | sūrah → āyah → words |
 | `out/mushaf/suras/<key>/NNN.json` | the canonical shape, one sūrah per file |
 | `out/mushaf/<key>.csv` | one row per word |
-| `out/quran.sqlite` | all seven plus the spine, queryable |
+| `out/quran.sqlite.gz` | all seven plus the spine, queryable after decompression |
 
 Comparing two muṣḥafs in SQL:
 
@@ -206,6 +215,14 @@ SELECT a.word_id, a.uthmani, b.uthmani
 FROM word a JOIN word b USING (word_id)
 WHERE a.mushaf = 'hafs' AND b.mushaf = 'warsh' AND a.uthmani <> b.uthmani;
 ```
+
+The CSV and SQLite word views retain `word_id` and add `slot_id` plus the dense
+global `position`. Their `pos` column is different: it is the dense ordinal
+inside one āyah, counting only tokens present in that muṣḥaf. SQLite enforces
+`UNIQUE (mushaf, position)` in addition to its legacy primary key.
+
+The 1.1 format is checkable against `schema/mushaf-1.1.json`; the retained 1.0
+schema documents the previous version.
 
 ## Known issues
 

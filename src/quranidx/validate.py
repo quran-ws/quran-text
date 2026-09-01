@@ -60,6 +60,15 @@ def check_index(words: list[Word], riwayat: list[Riwaya]) -> list[dict]:
             problems.append({"check": "index_contiguous", "sura": sura,
                              "detail": "word_index is not 1..n"})
 
+    # Slot IDs are shared and may have gaps in one muṣḥaf.  Its own word
+    # positions must not: they count only tokens that are actually present.
+    for r in riwayat:
+        got = [w.position[r.key] for w in words if r.key in w.position]
+        want = list(range(1, len(got) + 1))
+        if got != want:
+            problems.append({"check": "position_contiguous", "riwaya": r.key,
+                             "detail": "dense positions are not 1..word_count"})
+
     # Every letter of every riwāyah must survive into the index, in order.
     # Comparing the concatenated rasm rather than the word count makes the
     # check indifferent to words the builder re-segmented.

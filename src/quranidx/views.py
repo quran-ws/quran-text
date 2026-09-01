@@ -27,12 +27,24 @@ from .mushaf import FORMAT, FORMAT_VERSION, MUSHAF_DIR
 
 
 def _coords(doc: dict) -> dict[int, tuple[int, int, int]]:
-    """word id -> (sura, ayah, position within the āyah)."""
+    """slot id -> (sura, ayah, dense token position within the āyah).
+
+    A slot range can contain gaps for words this muṣḥaf lacks.  Counting the
+    integers in the range therefore inflates positions after a gap; enumerate
+    only this document's actual word records instead.
+    """
     out: dict[int, tuple[int, int, int]] = {}
+    slot_ids = [w.get("s", w["w"]) for w in doc["words"]]
+    at = 0
     for span in doc["ayat"]:
-        first, last = span["words"]
-        for pos, wid in enumerate(range(first, last + 1), start=1):
-            out[wid] = (span["sura"], span["n"], pos)
+        first, last = span.get("slots", span["words"])
+        while at < len(slot_ids) and slot_ids[at] < first:
+            at += 1
+        pos = 1
+        while at < len(slot_ids) and slot_ids[at] <= last:
+            out[slot_ids[at]] = (span["sura"], span["n"], pos)
+            at += 1
+            pos += 1
     return out
 
 
@@ -137,7 +149,8 @@ def write_shards(docs: dict[str, dict]) -> None:
 # --------------------------------------------------------------------------
 
 COLUMNS = ["word_id", "sura", "ayah", "pos", "uthmani", "imlaei",
-           "page", "line", "juz", "marks", "resegmented"]
+           "page", "line", "juz", "marks", "resegmented",
+           "slot_id", "position"]
 
 
 def write_csv(docs: dict[str, dict]) -> None:
@@ -153,7 +166,8 @@ def write_csv(docs: dict[str, dict]) -> None:
                 wr.writerow([word["w"], sura, ayah, pos, word["t"],
                              word.get("e", ""), word.get("pg", ""),
                              word.get("ln", ""), juz.get(word["w"], ""),
-                             _mark_text(word), int(word.get("resegmented", False))])
+                             _mark_text(word), int(word.get("resegmented", False)),
+                             word.get("s", word["w"]), word["p"]])
 
 
 # --------------------------------------------------------------------------
@@ -172,7 +186,7 @@ CREATE TABLE sura (
 CREATE TABLE word (
   mushaf TEXT, word_id INTEGER, sura INTEGER, ayah INTEGER, pos INTEGER,
   uthmani TEXT, imlaei TEXT, page INTEGER, line INTEGER, juz INTEGER,
-  resegmented INTEGER,
+  resegmented INTEGER, slot_id INTEGER, position INTEGER,
   PRIMARY KEY (mushaf, word_id));
 CREATE TABLE mark (
   mushaf TEXT, word_id INTEGER, kind TEXT, side TEXT, sign TEXT);
@@ -184,6 +198,7 @@ CREATE TABLE line_disagreement (
 CREATE INDEX word_by_id ON word (word_id);
 CREATE INDEX word_by_ref ON word (mushaf, sura, ayah);
 CREATE INDEX mark_by_word ON mark (mushaf, word_id);
+CREATE UNIQUE INDEX word_by_position ON word (mushaf, position);
 """
 
 
@@ -211,9 +226,10 @@ def write_sqlite(docs: dict[str, dict], path: Path) -> None:
             for r in doc["suras"]])
 
         coords, juz = _coords(doc), _juz_of(doc)
-        db.executemany("INSERT INTO word VALUES (?,?,?,?,?,?,?,?,?,?,?)", [
+        db.executemany("INSERT INTO word VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)", [
             (key, w["w"], *coords[w["w"]], w["t"], w.get("e"), w.get("pg"),
-             w.get("ln"), juz.get(w["w"]), int(w.get("resegmented", False)))
+             w.get("ln"), juz.get(w["w"]), int(w.get("resegmented", False)),
+             w.get("s", w["w"]), w["p"])
             for w in doc["words"]])
         db.executemany("INSERT INTO mark VALUES (?,?,?,?,?)", [
             (key, w["w"], mk["k"], mk["at"], mk["sign"])
