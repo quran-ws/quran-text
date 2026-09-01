@@ -55,6 +55,28 @@ of a word's identity. Each riwāyah's own spelling is kept in `forms`.
 | `out/boundaries.csv` | every word-boundary disagreement, in full |
 | `out/COMPARISON.md` | the cross-riwāyah comparison report |
 | `out/compare.html` | interactive word-by-word comparison — open it in a browser |
+
+### One muṣḥaf at a time
+
+The tables above compare the seven. To take just one — Warsh, on its own, with
+its own pages and pause marks — read `out/mushaf/`:
+
+| path | what |
+|---|---|
+| `out/mushaf/warsh.json` | the whole muṣḥaf, every word carrying its global ID |
+| `out/mushaf/warsh.min.json` | the same text and IDs, nothing else |
+| `out/mushaf/suras/warsh/002.json` | one sūrah, for a page that fetches what it shows |
+| `out/mushaf/nested/warsh.json.gz` | sūrah → āyah → word, for verse-level consumers |
+| `out/mushaf/warsh.csv.gz` | one row per word |
+| `out/quran.sqlite.gz` | all seven plus the spine, queryable in SQL |
+| `out/mushaf/manifest.json` | every file and every source package, with SHA-256 |
+
+Each file names the KFGQPC release it came from, says which layers it carries
+and why it lacks the rest, and lists every place this build changed the source's
+own word spacing. Only `out/mushaf/<key>.json` is normative — the rest are
+generated views of it. The format is specified in
+[`docs/MUSHAF-FORMAT.md`](docs/MUSHAF-FORMAT.md) and checkable against
+[`schema/mushaf-1.0.json`](schema/mushaf-1.0.json).
 | `out/rasm-variants.md` | every letter-level disagreement, listed |
 | `out/agreement-matrix.csv` | pairwise agreement between riwāyāt |
 

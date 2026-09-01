@@ -12,7 +12,7 @@ from __future__ import annotations
 import csv
 import json
 from collections import Counter
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 
 from .align import Column, build_spine
@@ -59,6 +59,9 @@ class Word:
     boundary: dict[str, str]
     hizb: list[str]
     sajdah: list[str]
+    #: riwāyah -> (page, line) in that muṣḥaf's own typesetting.  The page is
+    #: read from the release; the line is reconstructed.  See ``layout.py``.
+    place: dict[str, tuple[int, int]] = field(default_factory=dict)
 
 
 def streams_for(riwayat: list[Riwaya]) -> dict[str, list[Token]]:
@@ -72,8 +75,12 @@ def streams_for(riwayat: list[Riwaya]) -> dict[str, list[Token]]:
     """
     out = {}
     for r in riwayat:
-        keep = [a for a in r.ayat if a.aya > 0 or a.sura == 1]
-        out[r.key] = tokenize(keep)
+        # Tokenise the *whole* stream before filtering.  The typesetting
+        # positions are a flat list over every āyah the document prints,
+        # including the 112 unnumbered basmalahs, so dropping āyāt first would
+        # slide every later word onto the wrong line.
+        toks = tokenize(r.ayat, r.places or None)
+        out[r.key] = [t for t in toks if t.aya > 0 or t.sura == 1]
     return out
 
 
@@ -219,6 +226,8 @@ def build_words(riwayat: list[Riwaya]) -> list[Word]:
                 boundary=dict(col.boundary),
                 hizb=[k for k in present if col.tokens[k].hizb],
                 sajdah=[k for k in present if col.tokens[k].sajdah],
+                place={k: (col.tokens[k].page, col.tokens[k].line)
+                       for k in present if col.tokens[k].page},
             ))
             next_id += 1
     return words

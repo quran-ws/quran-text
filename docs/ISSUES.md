@@ -142,6 +142,85 @@ now stripped with the structural symbols.
 
 ---
 
+### 6. Printed lines are not encoded in any release
+
+The `.docx` releases mark their **page** turns explicitly — 603
+`<w:br w:type="page"/>` elements, giving 604 pages — so a word's page is read
+from the file. Its **line** is not there. What the document has is line breaks,
+paragraph boundaries and headings, from which the printed line can be inferred
+but not read.
+
+The inference reaches about **98.3%**:
+
+| method | āyāt whose line matches the v2 CSV |
+|---|---|
+| line breaks alone | 5,079 / 6,236 |
+| + paragraph boundaries and headings | **6,131 / 6,236** ← shipped |
+
+The residual overshoots by one or two on pages the publisher sets specially,
+Al-Fātiḥah above all, whose decorative frame the document flow does not
+describe. One further rule was tried and rejected: treating a heading at the top
+of a page as sitting in the page's ornamental band rather than on a ruled line.
+It fixed the 105 and broke 1,001, so headings at a page top evidently do take a
+line in most pages and the exception is narrower than that.
+
+This is a **reconstruction, and the format says so**: `ln` is declared under
+`layers.derived`, scored against the release that states it, and every
+disagreeing āyah is listed in `line_disagreements` so a consumer can exclude
+them rather than discover them. Bazzī has no v2 release, so its lines cannot be
+checked at all and its file says `"validated": false` rather than implying the
+same confidence as the rest.
+
+Per the standing rule above, none of this is called a defect in the packages.
+Typesetting software has no reason to record a line number; the releases were
+not made to answer this question.
+
+### 7. The ۞ symbol is printed a different number of times in each release
+
+| release | ۞ |
+|---|---|
+| Ḥafṣ, Shuʿbah, Bazzī | 199 |
+| Dūrī, Sūsī | 433 |
+| Warsh | 435 |
+| Qālūn | 437 |
+
+The conventional division is 240 arbāʿ, and no release prints that many. The
+symbol is emitted here exactly as each release prints it and **is not
+reconciled**, because 240 is not a number any package in `data/` states, and
+inventing the missing marks would be this project adding data its sources do not
+carry.
+
+### 8. Pause-mark conventions are not comparable between muṣḥafs
+
+Warsh and Qālūn print one general pause sign 9,948 times. Ḥafṣ, Dūrī and Sūsī
+print seven distinct ones — ۖ ۗ ۘ ۚ ۛ ۜ and ۩ — totalling far fewer. A consumer
+diffing the `waqf` layers of Ḥafṣ and Warsh is comparing publishing conventions,
+not readings.
+
+Nothing here normalises them. There is no mapping in the sources from Warsh's
+general sign to the Ḥafṣ set, and any mapping this project supplied would be its
+own claim about where a reciter may stop.
+
+### 9. Bazzī has no v2 release, so it has no juz layer
+
+`data/` has `UthmanicBazzi-v-3.0.zip` and no `BazziData` package. The juz number
+comes from the v2 CSVs, so Bazzī has none, and its file names the absence in
+`layers.absent` rather than emitting nulls. Its **pages are unaffected** — those
+come from the `.docx`, which every muṣḥaf has.
+
+### 10. Imlāʾī exists for one release only
+
+Only `hafsData_v2-0.csv` carries an `aya_text_emlaey` column. Warsh, Qālūn, Dūrī
+and Sūsī all have a v2 release and none of them has the column, so having a v2
+package is not the test — having something in the column is.
+
+Bringing it down from the āyah to the word is new work, and it does not fully
+close: 77,356 of Ḥafṣ's 77,432 words are mapped, 4 āyāt cannot be paired and 2
+cannot be aligned to the spine. Those words get no `e` field at all. An absent
+spelling is recoverable; a guessed one is not.
+
+---
+
 ## Mistakes made building this
 
 Recorded because each cost real time and each would recur.

@@ -156,12 +156,16 @@ over the word index rather than a property of it.
 
 ```json
 { "systems": {
-    "kufi":        { "riwayat": ["hafs", "shuba"],  "ayah_count": 6236, "ends": [7, 25, …] },
-    "madani":      { "riwayat": ["warsh", "qaloun"], "ayah_count": 6214, "ends": [ … ] },
-    "basri_douri": { "riwayat": ["douri"],           "ayah_count": 6217, "ends": [ … ] },
-    "basri_sousi": { "riwayat": ["sousi"],           "ayah_count": 6218, "ends": [ … ] },
-    "makki":       { "riwayat": ["bazzi"],           "ayah_count": 6220, "ends": [ … ] } } }
+    "hafs+shuba":   { "mushaf": ["hafs", "shuba"],   "ayah_count": 6236, "ends": [4, 8, …] },
+    "bazzi":        { "mushaf": ["bazzi"],           "ayah_count": 6220, "ends": [ … ] },
+    "qaloun+warsh": { "mushaf": ["qaloun", "warsh"], "ayah_count": 6214, "ends": [ … ] },
+    "douri":        { "mushaf": ["douri"],           "ayah_count": 6217, "ends": [ … ] },
+    "sousi":        { "mushaf": ["sousi"],           "ayah_count": 6218, "ends": [ … ] } } }
 ```
+
+A system is keyed and named by the muṣḥaf(s) that use it, never by a counting
+tradition, and the member list is `mushaf` for the same reason: the fawāṣil
+belong to the printed muṣḥaf rather than to the qirāʾah. See `build.fawasil`.
 
 `ends[n]` is the `id` of the last word of āyah *n+1*. Five systems, not four:
 Dūrī and Sūsī are both Baṣrī but differ at exactly one fāṣilah.
@@ -206,6 +210,16 @@ run with each riwāyah's own text, every absent word, the fawāṣil systems and
 how far apart they are, source-integrity cross-checks, and a per-sūrah density
 table. `rasm-variants.md` lists every letter-level disagreement in full:
 the 62 `rasm_variant` words first, then the 198 `alif_variant` ones.
+
+## `out/mushaf/`
+
+Each muṣḥaf on its own, with every word carrying the same global `id` used here.
+Specified separately in [`MUSHAF-FORMAT.md`](MUSHAF-FORMAT.md), with a JSON
+Schema in `schema/mushaf-1.0.json`.
+
+The files above compare the seven muṣḥafs; those publish one at a time, and add
+what only makes sense for a single muṣḥaf: the page each word is printed on, the
+line it falls on, its juz, and the pause marks in that muṣḥaf's own convention.
 
 ## `out/compare.html`
 
