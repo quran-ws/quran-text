@@ -68,11 +68,14 @@ Five forms are derived from every word, each answering a different question.
 
 | form | question | example |
 |---|---|---|
-| `uthmani` | how is it printed? | `مَٰلِكِ` |
-| `folded` | what does it say, ignoring which codepoints the release used? | `مَٰلِكِ` |
-| `pointed` | which letters, dots and all? | `مالك` |
-| `rasm` | what is on the line in the codex? | `مالك` |
-| `simple` | how would you type it plainly? | `مالك` |
+| `uthmani` | how is it printed? | `ٱلرَّحۡمَٰنِ` |
+| `folded` | what does it say, ignoring which codepoints the release used? | `الرَّحْمَٰنِ` |
+| `pointed` | which letters, dots and all, as the word is *read*? | `الرحمان` |
+| `rasm` | what is on the line in the codex? | `الرحمں` |
+| `simple` | how would you type it plainly? | `الرّحمان` |
+
+`pointed` and `rasm` part company over the dagger alif: the ā of `ٱلرَّحۡمَٰنِ` is
+read, so `pointed` writes it, and it is not on the line, so `rasm` does not.
 
 **`folded` exists because the packages spell the same reading differently.** It
 neutralises three things:
@@ -103,20 +106,40 @@ that keeps what was added later is not a rasm:
   their shapes merge, which depends on position — `ب ت ث ن ي` share one tooth
   medially but part company at the end of a word, where `ب ت ث` keep the bowl,
   `ن` takes its own curve and `ي` its own tail.
-- **the dagger alif** is a written alef by another name: KFGQPC's Warsh/Qālūn set
-  prints `هَارُوتَ` where the Kūfī set prints `هَٰرُوتَ`. Folding them is not merely
-  tidy — keeping them apart *hides* real variants, because the same fold is what
-  separates `مَٰلِكِ` from `مَلِكِ`, `دِفَٰعُ` from `دَفۡعُ`, and `ٱلرِّيَٰحُ` from `ٱلرِّيحُ`.
-  `مالك`/`ملك` at 1:4 — the best-known variant in the Qurʾān — was previously
-  filed as a mere difference of vowelling.
+- **the dagger alif** is, by definition, an alef the scribe did *not* write on
+  the line. It is the reader's cue for ḥadhf al-alif, and it is the mechanism by
+  which one skeleton carries two readings: `ملك` is what every codex has at 1:4,
+  and it is written that way so as to be read both `مَٰلِكِ` and `مَلِكِ`. The same
+  goes for `دفع` (`دِفَٰعُ`/`دَفۡعُ`), `الريح` (`ٱلرِّيَٰحَ`/`ٱلرِّيحَ`), `كلمٮ`
+  (`كَلِمَٰتُ`/`كَلِمَتُ`) and `طٮرا` (`طَٰٓئِراً`/`طَيۡرًا`). Counting the dagger as a
+  letter reports all of those as disagreements between codices that agree, and
+  it is what the build used to do: 170 of the 232 rasm disagreements it reported
+  were this and nothing else. The ā is not lost — it is read, so `pointed` keeps
+  it, and 1:4 is a `dotting_variant`: one rasm, two readings.
 
-  One exception, and it is the only place the rasm needs to look at more than a
-  character and its neighbour: `ٰٓ` is a madd *over* something, and what it is
-  over decides. Over a hamza (`إِسۡرَٰٓءِيلَ`), over a doubled letter
-  (`تَتَّبِعَٰٓنِّ`, madd lāzim), or at the end of a word (`عَلَىٰٓ`), the dagger is a
-  written ā. Over a plain undoubled letter there is no hamza for the madd to be
-  over, because the reading suppressed it — Warsh's `ࡰرَٰٓيْتَ` against Ḥafṣ's
-  `أَرَءَيۡتَ` — so the dagger *is* the hamza, and hamza is not rasm.
+  A dagger riding on a final `ى` was also emitted as a *second* letter, so
+  `عَلَىٰٓ` came out `علٮا` and 34:17 `يُجَٰزَىٰ` came out six letters long. 3,071
+  word positions carried an inflated skeleton for this reason.
+
+  `pointed` still counts the dagger, since it spells the reading, and there it
+  needs the one rule that looks further than a character and its neighbour: `ٰٓ`
+  is a madd *over* something, and what it is over decides. Over a hamza
+  (`إِسۡرَٰٓءِيلَ`), over a doubled letter (`تَتَّبِعَٰٓنِّ`, madd lāzim), or at the end
+  of a word (`عَلَىٰٓ`), the dagger is a real ā. Over a plain undoubled letter
+  there is no hamza for the madd to be over, because the reading suppressed it —
+  Warsh's `ࡰرَٰٓيْتَ` against Ḥafṣ's `أَرَءَيۡتَ` — so the dagger *is* the hamza, and
+  hamza is not part of the reading's letters either.
+
+**What the bare rasm cannot settle on its own** is which ā a codex put on the
+line, because the two typesettings disagree about that in both directions: the
+Warsh/Qālūn set prints `هَارُوتَ` where the Kūfī set prints `هَٰرُوتَ`, and
+`مُبَٰرَك` where it prints `مُبَارَك`. A sixth form, `rasm_plene`, spells every ā
+out and so makes the two hands comparable. Where the skeletons agree once every
+ā is written, the difference is one of hand and is labelled `madd_alif` — 198
+words, kept and counted, not folded into agreement. Where they still disagree,
+a letter is genuinely in one codex and not the other, and that is a
+`rasm_variant` — 62 words, which is the received list: `ووصى`/`وأوصى` at 2:132,
+`قال`/`قل` at 21:4 and 23:112, `لله`/`الله` at 23:87, `كلمت`/`كلمة` at 7:137.
 
 `pointed` keeps the dots and is otherwise the same. The gap between the two is
 itself a category of variation, and it gets its own status, `dotting_variant`.

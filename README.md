@@ -55,7 +55,7 @@ of a word's identity. Each riwāyah's own spelling is kept in `forms`.
 | `out/boundaries.csv` | every word-boundary disagreement, in full |
 | `out/COMPARISON.md` | the cross-riwāyah comparison report |
 | `out/compare.html` | interactive word-by-word comparison — open it in a browser |
-| `out/rasm-variants.md` | all 232 letter-level disagreements, listed |
+| `out/rasm-variants.md` | all 62 letter-level disagreements, listed |
 | `out/agreement-matrix.csv` | pairwise agreement between riwāyāt |
 
 ## Headline numbers
@@ -65,22 +65,24 @@ of a word's identity. Each riwāyah's own spelling is kept in `forms`.
 | status | words | share | meaning |
 |---|---|---|---|
 | `identical` | 40,558 | 52.4% | one reading, one spelling, everywhere |
-| `diacritic_variant` | 36,458 | 47.1% | same letters and dots — the vowelling differs |
-| `dotting_variant` | 169 | 0.22% | one rasm, pointed two ways |
-| `rasm_variant` | 232 | 0.30% | the codices disagree about the letters |
+| `diacritic_variant` | 36,261 | 46.8% | same letters and dots — the vowelling differs |
+| `dotting_variant` | 338 | 0.44% | one rasm, pointed two ways |
+| `madd_alif` | 198 | 0.26% | the same ā, on the line in one hand, above it in the other |
+| `rasm_variant` | 62 | 0.08% | the codices disagree about the letters |
 | `word_boundary` | 12 | 0.02% | a source joins the word to its neighbour |
 | `partial` | 5 | 0.01% | the word is absent from some riwāyah |
 
-So **418 words in 77,434** — one in 185 — are anything more than a difference
-of vowelling. Rasm agreement between any two riwāyāt is **99.5 %–100 %**.
+So **615 words in 77,434** — one in 126 — are anything more than a difference
+of vowelling, and only **62** are a letter one codex has and another does not.
+Rasm agreement between any two riwāyāt is **99.5 %–100 %**.
 
 ## A word
 
 ```json
 {
  "id": 11, "i": 11, "key": "1:مالك#1",
- "rasm": "مالك", "pointed": "مالك", "uthmani": "مَٰلِكِ", "simple": "مالك",
- "status": "rasm_variant",
+ "rasm": "ملك", "pointed": "مالك", "uthmani": "مَٰلِكِ", "simple": "مالك",
+ "status": "dotting_variant",
  "aya":   { "hafs": 4, "shuba": 4, "warsh": 3, "qaloun": 3,
             "douri": 3, "sousi": 3, "bazzi": 4 },
  "forms": { "hafs": "مَٰلِكِ", "shuba": "مَٰلِكِ", "warsh": "مَلِكِ", "qaloun": "مَلِكِ",
@@ -90,9 +92,10 @@ of vowelling. Rasm agreement between any two riwāyāt is **99.5 %–100 %**.
 
 One ID, one word. `aya` records that this word is in āyah 4 for the Kūfī and
 Makkī counts and āyah 3 for the Madanī and Baṣrī ones. `forms` records that
-Ḥafṣ and Shuʿbah read *māliki* where the rest read *maliki* — and because that
-ā is written on the line in one and absent in the other, it is a difference in
-the codex, not merely in the vowelling.
+Ḥafṣ and Shuʿbah read *māliki* where the rest read *maliki* — and `rasm` records
+that the codex writes `ملك` either way. Ḥafṣ's ā is printed as a superscript
+alef, which is precisely the scribal cue that it is *not* on the line: one
+skeleton, deliberately written to carry both readings.
 
 ## Build it
 
