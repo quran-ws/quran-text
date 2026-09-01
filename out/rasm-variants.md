@@ -1,14 +1,14 @@
 # Rasm disagreements — full listing
 
-Every word where the seven riwāyāt disagree about the letters on the line, in order. Dots, hamza and vowelling have all been set aside, and so has the dagger alif — a superscript alef is by definition an alef the scribe did not write on the line.
+Every kalimah where the seven riwayahs disagree about the harfs on the line, in order. Dots, hamza and vowelling have all been set aside, and so has the dagger alif — a superscript alef is by definition an alef the scribe did not write on the line.
 
-The 62 `rasm_variant` words come first: a letter one riwāyah has and another does not, splitting the seven 14 different ways. The 198 `alif_variant` words follow: one skeleton once every ā is spelled out, differing only in where the ā was written, and splitting the seven exactly one way. See *The ā on the line or above it* in `COMPARISON.md` for why that difference is reported apart.
+The 62 `rasm_variant` kalimahs come first: a harf one riwayah has and another does not, splitting the seven 14 different ways. The 198 `alif_variant` kalimahs follow: one skeleton once every ā is spelled out, differing only in where the ā was written, and splitting the seven exactly one way. See *The ā on the line or above it* in `COMPARISON.md` for why that difference is reported apart.
 
 Machine-readable: `conflicts.csv`, `conflicts.json`.
 
-## Letters — 62
+## Harfs — 62
 
-| word id | sūrah:āyah | word # | rasm on each side | as printed |
+| kalimah id | surah:ayah | kalimah # | rasm on each side | as printed |
 |---|---|---|---|---|
 | 2331 | 2:132 | 2302 | `ووصى` hafs,shuba,bazzi,douri,sousi  ·  `واوصى` qaloun,warsh | **وَوَصَّىٰ** hafs,shuba,bazzi,douri,sousi  ·  **وَأَوْصَىٰ** qaloun  ·  **وَأَوْصٜىٰ** warsh |
 | 8353 | 3:133 | 2207 | `وسارعوا` hafs,shuba,bazzi,douri,sousi  ·  `سارعوا` qaloun,warsh | **وَسَارِعُوٓاْ** hafs,shuba,douri  ·  **وَسَارِعُواْ** bazzi,sousi  ·  **سَارِعُواْ** qaloun  ·  **سَارِعُوٓاْ** warsh |
@@ -75,7 +75,7 @@ Machine-readable: `conflicts.csv`, `conflicts.json`.
 
 ## The ā — 198
 
-| word id | sūrah:āyah | word # | rasm on each side | as printed |
+| kalimah id | surah:ayah | kalimah # | rasm on each side | as printed |
 |---|---|---|---|---|
 | 425 | 2:28 | 396 | `ڡاحٮكم` hafs,shuba,bazzi,douri,sousi  ·  `ڡاحٮاكم` qaloun,warsh | **فَأَحۡيَٰكُمۡ** hafs,shuba,douri,sousi  ·  **فَأَحۡيَٰكُمُۥ** bazzi  ·  **فَأَحْيَاكُمْ** qaloun  ·  **فَأَحْيٜاكُمْ** warsh |
 | 618 | 2:40 | 589 | `اسرٮل` hafs,shuba,bazzi,douri,sousi  ·  `اسراٮل` qaloun,warsh | **إِسۡرَٰٓءِيلَ** hafs,shuba,bazzi,douri,sousi  ·  **إِسْرَآءِيلَ** qaloun,warsh |

@@ -1,10 +1,10 @@
-"""Build the flat word index and every derived artefact.
+"""Build the flat kalimah index and every derived artefact.
 
-The output model is deliberately *flat*: a sūrah is a list of words, and the
-āyah number is an attribute of a word rather than a level of nesting.  That is
-what makes one ID usable across all seven riwāyāt — the riwāyāt disagree about
-where āyāt end (Kūfī counts 6236, Madanī 6214, Baṣrī 6217, Makkī 6220) but they
-agree, almost everywhere, about the sequence of words.
+The output model is deliberately *flat*: a surah is a list of kalimahs, and the
+ayah number is an attribute of a kalimah rather than a level of nesting.  That is
+what makes one ID usable across all seven riwayahs — the riwayahs disagree about
+where ayahs end (Kūfī counts 6236, Madanī 6214, Baṣrī 6217, Makkī 6220) but they
+agree, almost everywhere, about the sequence of kalimahs.
 """
 
 from __future__ import annotations
@@ -16,7 +16,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 from .align import Column, build_spine
-from .sources import Riwaya, load_all
+from .sources import Riwayah, load_all
 from .tokenize import Token, tokenize
 
 OUT = Path("out")
@@ -25,92 +25,92 @@ OUT = Path("out")
 #: starting spine; the rest follow so that the closest relatives merge early.
 ORDER = ["hafs", "shuba", "bazzi", "qaloun", "warsh", "douri", "sousi"]
 
-# Status of a canonical word, most specific first.
+# Status of a canonical kalimah, most specific first.
 STATUS_RASM = "rasm_variant"
 STATUS_ALIF = "alif_variant"
 STATUS_PARTIAL = "partial"
-STATUS_BOUNDARY = "word_boundary"
+STATUS_BOUNDARY = "kalimah_boundary"
 STATUS_DOTTING = "dotting_variant"
 STATUS_DIACRITIC = "diacritic_variant"
 STATUS_IDENTICAL = "identical"
 
 #: Traditions of ʿadd al-āy, for reference only.  They are *not* the identity
-#: of a fawāṣil system: see :func:`fawasil`.
+#: of a fasilahs system: see :func:`fasilahs`.
 COUNTING_TRADITIONS = {"kufi": "Kūfī", "madani": "Madanī",
                        "basri": "Baṣrī", "makki": "Makkī"}
 
 
 @dataclass
-class Word:
+class Kalimah:
     id: int
-    sura: int
-    index: int            # 1-based position within the sūrah
-    key: str              # rebuild-stable identity: "sura:pointed#occurrence"
-    rasm: str             # bare ʿUthmānic skeleton, shared by every riwāyah
-    pointed: str          # canonical word's dotted skeleton
+    surah: int
+    index: int            # 1-based position within the surah
+    key: str              # rebuild-stable identity: "surah:pointed#occurrence"
+    rasm: str             # bare Uthmani skeleton, shared by every riwayah
+    pointed: str          # canonical kalimah's dotted skeleton
     uthmani: str
     simple: str
     status: str
     present: list[str]
     missing: list[str]
     forms: dict[str, str]
-    aya: dict[str, int]
+    ayah: dict[str, int]
     waqf: dict[str, str]
     boundary: dict[str, str]
     hizb: list[str]
     sajdah: list[str]
-    #: riwāyah -> (page, line) in that muṣḥaf's own typesetting.  The page is
+    #: riwayah -> (safhah, line) in that mushaf's own typesetting.  The safhah is
     #: read from the release; the line is reconstructed.  See ``layout.py``.
     place: dict[str, tuple[int, int]] = field(default_factory=dict)
 
 
-def streams_for(riwayat: list[Riwaya]) -> dict[str, list[Token]]:
-    """Tokenise each riwāyah, keeping only words that some riwāyah numbers.
+def streams_for(riwayahs: list[Riwayah]) -> dict[str, list[Token]]:
+    """Tokenise each riwayah, keeping only kalimahs that some riwayah numbers.
 
-    Every sūrah but at-Tawbah is printed with a basmalah above it.  Only
-    Al-Fātiḥah's is *numbered* as an āyah, and only by Ḥafṣ, Shuʿbah and Bazzī.
-    A word belongs in the index when any riwāyah numbers it, so Al-Fātiḥah's
+    Every surah but at-Tawbah is printed with a basmalah above it.  Only
+    Al-Fātiḥah's is *numbered* as an ayah, and only by Ḥafṣ, Shuʿbah and Bazzī.
+    A kalimah belongs in the index when any riwayah numbers it, so Al-Fātiḥah's
     basmalah is in (for all seven, unnumbered where it is unnumbered) and the
-    other 112 openings stay out, recorded as sūrah metadata instead.
+    other 112 openings stay out, recorded as surah metadata instead.
     """
     out = {}
-    for r in riwayat:
+    for r in riwayahs:
         # Tokenise the *whole* stream before filtering.  The typesetting
-        # positions are a flat list over every āyah the document prints,
-        # including the 112 unnumbered basmalahs, so dropping āyāt first would
-        # slide every later word onto the wrong line.
-        toks = tokenize(r.ayat, r.places or None)
-        out[r.key] = [t for t in toks if t.aya > 0 or t.sura == 1]
+        # positions are a flat list over every ayah the document prints,
+        # including the 112 unnumbered basmalahs, so dropping ayahs first would
+        # slide every later kalimah onto the wrong line.
+        toks = tokenize(r.ayahs, r.places or None)
+        out[r.key] = [t for t in toks if t.ayah > 0 or t.surah == 1]
     return out
 
 
 def classify(col: Column, all_keys: list[str]) -> str:
-    """Name the strongest kind of disagreement this word carries.
+    """Name the strongest kind of disagreement this kalimah carries.
 
-    The order matters and used to be wrong: ``word_boundary`` was returned
-    before the words were compared at all, so five of the six boundary events
-    in the corpus were reported as disagreements when in fact all seven riwāyāt
+    The order matters and used to be wrong: ``kalimah_boundary`` was returned
+    before the kalimahs were compared at all, so five of the six boundary events
+    in the corpus were reported as disagreements when in fact all seven riwayahs
     read them identically and one *source* had merely lost a space.  Content is
-    now decided first; the boundary stays on the word as an annotation either
-    way, and ``word_boundary`` is reserved for a word that is otherwise in
+    now decided first; the boundary stays on the kalimah as an annotation either
+    way, and ``kalimah_boundary`` is reserved for a kalimah that is otherwise in
     agreement but printed joined somewhere.
 
-    A difference in the letters on the line is a ``rasm_variant`` — unless the
-    only letter in question is an ā that one hand puts on the line and the other
+    A difference in the harfs on the line is a ``rasm_variant`` — unless the
+    only harf in question is an ā that one hand puts on the line and the other
     puts above it, which is ``alif_variant``.  The split is not a matter of
-    taste.  The corpus decides it: all 198 plene/defective words partition the
-    seven riwāyāt along exactly one line, {warsh, qālūn} against the other five,
-    in both directions and without a single exception, while the 62 words whose
+    taste.  The corpus decides it: all 198 plene/defective kalimahs partition the
+    seven riwayahs along exactly one line, {warsh, qālūn} against the other five,
+    in both directions and without a single exception, while the 62 kalimahs whose
     skeletons differ once every ā is spelled out partition them fourteen
     different ways — Bazzī alone seven times, Ḥafṣ+Shuʿbah alone six, Qālūn
-    alone five.  Ḥadhf/ithbāt al-alif between the codices of the amṣār would not
+    alone five.  Ḥadhf/ithbāt al-alif between the mushafs of the amṣār would not
     put Makkah with Madinah 198 times out of 198; a publisher's house style
-    would, and does.  So the ā is reported, but not as the codices disagreeing.
+    would, and does.  So the ā is reported, but not as the mushafs disagreeing.
 
-    ``rasm_plene`` is what draws the line: it spells every ā out, so two words
+    ``rasm_plene`` is what draws the line: it spells every ā out, so two kalimahs
     that agree there and differ in ``rasm`` differ only about where the ā was
     written.  The bare ``rasm`` keeps the distinction, because inside any one
-    muṣḥaf it is real — Ḥafṣ writes قال plene 412 times and defective 4, and
+    mushaf it is real — Ḥafṣ writes قال plene 412 times and defective 4, and
     that is its own ḥadhf, faithfully carried.
     """
     present = [k for k in all_keys if k in col.tokens]
@@ -129,36 +129,36 @@ def classify(col: Column, all_keys: list[str]) -> str:
     return STATUS_IDENTICAL
 
 
-def ayah_ends(words: list[Word], key: str) -> list[int]:
-    """The ID of the last word of every āyah, for one riwāyah's muṣḥaf."""
+def ayah_ends(kalimahs: list[Kalimah], key: str) -> list[int]:
+    """The ID of the last kalimah of every ayah, for one riwayah's mushaf."""
     ends: list[int] = []
-    run = [w for w in words if w.aya.get(key, 0) > 0]
+    run = [w for w in kalimahs if w.ayah.get(key, 0) > 0]
     for i, w in enumerate(run):
         nxt = run[i + 1] if i + 1 < len(run) else None
-        if nxt is None or (nxt.sura, nxt.aya[key]) != (w.sura, w.aya[key]):
+        if nxt is None or (nxt.surah, nxt.ayah[key]) != (w.surah, w.ayah[key]):
             ends.append(w.id)
     return ends
 
 
-def fawasil(words: list[Word]) -> dict[str, dict]:
-    """Where each muṣḥaf ends its āyāt, as canonical word IDs.
+def fasilahs(kalimahs: list[Kalimah]) -> dict[str, dict]:
+    """Where each mushaf ends its ayahs, as canonical kalimah IDs.
 
-    **The fawāṣil belong to the printed muṣḥaf, not to the qirāʾah.**  This is
-    not a nicety.  Many fawāṣil are مختلف فيها — al-Dānī records 67:9
+    **The fasilahs belong to the printed mushaf, not to the qira'ah.**  This is
+    not a nicety.  Many fasilahs are مختلف فيها — al-Dānī records 67:9
     «قد جاءنا نذير» as counted by المدني الأخير والمكي and by Shayba, and not
     counted by the rest — so an edition has to *choose*, and different editions
-    of the same riwāyah choose differently.  KFGQPC's own Dūrī printings show
+    of the same riwayah choose differently.  KFGQPC's own Dūrī printings show
     it plainly: 1429 AH and 1443 AH split 67:9 and give a colophon total of
     6214, while 1436 AH does not split it and states 6217.  Same publisher,
-    same riwāyah, three printings, two different divisions.
+    same riwayah, three printings, two different divisions.
 
     So a system is not named for a counting tradition and is not derived from
-    one.  It is read off the packages themselves, and riwāyāt are grouped only
-    where their fawāṣil turn out to be identical.  If a future package moves a
-    single fāṣilah, it splits into its own system here rather than being
+    one.  It is read off the packages themselves, and riwayahs are grouped only
+    where their fasilahs turn out to be identical.  If a future package moves a
+    single fasilah, it splits into its own system here rather than being
     quietly averaged into a tradition it does not actually follow.
     """
-    ends = {key: ayah_ends(words, key) for key in ORDER}
+    ends = {key: ayah_ends(kalimahs, key) for key in ORDER}
     systems: dict[str, dict] = {}
     for key in ORDER:
         for system in systems.values():
@@ -168,15 +168,15 @@ def fawasil(words: list[Word]) -> dict[str, dict]:
         else:
             systems[key] = {"mushaf": [key], "ayah_count": len(ends[key]),
                             "ends": ends[key]}
-    # Name each system after the muṣḥaf(s) that use it, not after a tradition.
+    # Name each system after the mushaf(s) that use it, not after a tradition.
     return {"+".join(s["mushaf"]): s for s in systems.values()}
 
 
 def canonical_form(col: Column) -> Token:
     """The token whose spelling represents the column.
 
-    Ḥafṣ when it has the word, since it is the reference text most consumers
-    expect; otherwise the most common spelling, then the earliest riwāyah.
+    Ḥafṣ when it has the kalimah, since it is the reference text most consumers
+    expect; otherwise the most common spelling, then the earliest riwayah.
     """
     if "hafs" in col.tokens:
         return col.tokens["hafs"]
@@ -189,15 +189,15 @@ def canonical_form(col: Column) -> Token:
     return next(iter(col.tokens.values()))
 
 
-def build_words(riwayat: list[Riwaya]) -> list[Word]:
-    streams = streams_for(riwayat)
-    keys = [r.key for r in riwayat]
+def build_kalimahs(riwayahs: list[Riwayah]) -> list[Kalimah]:
+    streams = streams_for(riwayahs)
+    keys = [r.key for r in riwayahs]
 
-    words: list[Word] = []
+    kalimahs: list[Kalimah] = []
     next_id = 1
-    for sura in range(1, 115):
-        per_sura = {k: [t for t in streams[k] if t.sura == sura] for k in ORDER}
-        spine = build_spine(per_sura, ORDER)
+    for surah in range(1, 115):
+        per_surah = {k: [t for t in streams[k] if t.surah == surah] for k in ORDER}
+        spine = build_spine(per_surah, ORDER)
 
         seen: Counter[str] = Counter()
         for index, col in enumerate(spine, start=1):
@@ -208,11 +208,11 @@ def build_words(riwayat: list[Riwaya]) -> list[Word]:
             # as stable, since it comes from one canonical spelling.
             seen[canon.pointed] += 1
             forms = {k: col.tokens[k].uthmani for k in present}
-            words.append(Word(
+            kalimahs.append(Kalimah(
                 id=next_id,
-                sura=sura,
+                surah=surah,
                 index=index,
-                key=f"{sura}:{canon.pointed}#{seen[canon.pointed]}",
+                key=f"{surah}:{canon.pointed}#{seen[canon.pointed]}",
                 rasm=col.rasm,
                 pointed=canon.pointed,
                 uthmani=canon.uthmani,
@@ -221,13 +221,13 @@ def build_words(riwayat: list[Riwaya]) -> list[Word]:
                 present=present,
                 missing=[k for k in keys if k not in col.tokens],
                 forms=forms,
-                aya={k: col.tokens[k].aya for k in present},
+                ayah={k: col.tokens[k].ayah for k in present},
                 waqf={k: col.tokens[k].waqf for k in present if col.tokens[k].waqf},
                 boundary=dict(col.boundary),
                 hizb=[k for k in present if col.tokens[k].hizb],
                 sajdah=[k for k in present if col.tokens[k].sajdah],
-                place={k: (col.tokens[k].page, col.tokens[k].line)
-                       for k in present if col.tokens[k].page},
+                place={k: (col.tokens[k].safhah, col.tokens[k].line)
+                       for k in present if col.tokens[k].safhah},
             ))
             next_id += 1
-    return words
+    return kalimahs

@@ -1,17 +1,17 @@
-"""Publish each muṣḥaf on its own, keyed to the shared word index.
+"""Publish each mushaf on its own, keyed to the shared kalimah index.
 
-``out/`` already answers *how do the muṣḥafs differ?*  It does not answer *give
-me Warsh*: a consumer who wants one muṣḥaf has to take the comparison and
+``out/`` already answers *how do the mushafs differ?*  It does not answer *give
+me Warsh*: a consumer who wants one mushaf has to take the comparison and
 project it back out.  This module writes the other view — one self-contained
-file per muṣḥaf, every word carrying the global ID that means the same word in
+file per mushaf, every kalimah carrying the global ID that means the same kalimah in
 all seven.
 
-The shape is flat.  A muṣḥaf is an ordered list of words, and the structures
-above a word — āyah, juz, page — are lists of boundaries over word IDs rather
-than levels of nesting.  That is the same model as ``out/fawasil.json`` and it
-is what keeps the seven files comparable while they count 6,214 to 6,236 āyāt:
-nesting words under āyāt would make one path mean a different word in each
-muṣḥaf, which is exactly what the global ID exists to prevent.
+The shape is flat.  A mushaf is an ordered list of kalimahs, and the structures
+above a kalimah — ayah, juz, safhah — are lists of boundaries over kalimah IDs rather
+than levels of nesting.  That is the same model as ``out/fasilahs.json`` and it
+is what keeps the seven files comparable while they count 6,214 to 6,236 ayahs:
+nesting kalimahs under ayahs would make one path mean a different kalimah in each
+mushaf, which is exactly what the global ID exists to prevent.
 
 Only ``out/mushaf/<key>.json`` is normative.  The nested, sharded, CSV and
 SQLite forms in :mod:`quranidx.views` are generated from the same build and are
@@ -21,7 +21,7 @@ quietly become the standard.
 Nothing here is asserted that the packages do not say.  Where a fact is derived
 rather than read it is marked derived, where it is unavailable the field is
 absent and the absence is explained, and where this build departs from the
-source's own word spacing every instance is listed in the file itself.
+source's own kalimah spacing every instance is listed in the file itself.
 """
 
 from __future__ import annotations
@@ -32,17 +32,17 @@ from collections import defaultdict
 from datetime import date
 from pathlib import Path
 
-from .build import OUT, Word
+from .build import OUT, Kalimah
 from .output import boundary_events
-from .sources import DATA, RELEASE_POLICY, Riwaya
-from .suras import names
+from .sources import DATA, RELEASE_POLICY, Riwayah
+from .surahs import names
 
 FORMAT = "quran-mushaf"
-FORMAT_VERSION = "1.0"
+FORMAT_VERSION = "2.0"
 
 MUSHAF_DIR = OUT / "mushaf"
 
-#: Signs that can attach to a word, with the Unicode name of each.  Emitted in
+#: Signs that can attach to a kalimah, with the Unicode name of each.  Emitted in
 #: every file so a consumer never has to hard-code a codepoint table.
 MARK_NAMES = {
     "ۖ": "ARABIC SMALL HIGH LIGATURE SAD WITH LAM WITH ALEF MAKSURA",
@@ -65,10 +65,10 @@ def _sha256(path: Path) -> str:
     return h.hexdigest()
 
 
-def _provenance(r: Riwaya) -> dict:
+def _provenance(r: Riwayah) -> dict:
     """Which KFGQPC release every part of this file came from.
 
-    Recorded in the file itself and not only in the manifest, because a muṣḥaf
+    Recorded in the file itself and not only in the manifest, because a mushaf
     file will be copied, mirrored and vendored on its own, and a text whose
     edition cannot be named is not a citable one.
     """
@@ -95,8 +95,8 @@ def _provenance(r: Riwaya) -> dict:
     return out
 
 
-def _marks(w: Word, key: str) -> list[dict]:
-    """Every sign printed against this word, with the side it sits on."""
+def _marks(w: Kalimah, key: str) -> list[dict]:
+    """Every sign printed against this kalimah, with the side it sits on."""
     out = []
     if key in w.hizb:
         out.append({"k": "hizb", "at": "before", "sign": "۞"})
@@ -110,90 +110,90 @@ def _marks(w: Word, key: str) -> list[dict]:
 
 
 def _spans(pairs: list[tuple[int, int]]) -> list[dict]:
-    """Collapse ``(value, word_id)`` into ``{n, words:[first,last]}`` runs."""
+    """Collapse ``(value, kalimah_id)`` into ``{n, kalimahs:[first,last]}`` runs."""
     out: list[dict] = []
     for value, wid in pairs:
         if out and out[-1]["n"] == value:
-            out[-1]["words"][1] = wid
+            out[-1]["kalimahs"][1] = wid
         else:
-            out.append({"n": value, "words": [wid, wid]})
+            out.append({"n": value, "kalimahs": [wid, wid]})
     return out
 
 
-def _suras(key: str, mine: list[Word], r: Riwaya) -> list[dict]:
-    """The 114-row sūrah header, in full, in every muṣḥaf's own file.
+def _surahs(key: str, mine: list[Kalimah], r: Riwayah) -> list[dict]:
+    """The 114-row surah header, in full, in every mushaf's own file.
 
     Duplicated across the seven rather than shared, because a file that needs a
-    second download before it can name a sūrah is not a muṣḥaf that ships alone.
-    It costs 114 rows against 77,000 words.
+    second download before it can name a surah is not a mushaf that ships alone.
+    It costs 114 rows against 77,000 kalimahs.
     """
-    printed = {a.sura for a in r.ayat if a.aya == 0} | {1}
-    by_sura: dict[int, list[Word]] = defaultdict(list)
+    printed = {a.surah for a in r.ayahs if a.ayah == 0} | {1}
+    by_surah: dict[int, list[Kalimah]] = defaultdict(list)
     for w in mine:
-        by_sura[w.sura].append(w)
+        by_surah[w.surah].append(w)
 
     out = []
-    for sura, ws in sorted(by_sura.items()):
-        info = names()[sura]
-        pages = [w.place[key][0] for w in ws if key in w.place]
+    for surah, ws in sorted(by_surah.items()):
+        info = names()[surah]
+        safhahs = [w.place[key][0] for w in ws if key in w.place]
         row = {
-            "n": sura,
+            "n": surah,
             "name_ar": info["name_ar"],
             "name_en": info["name_en"],
             "revelation": info["revelation"],
-            "basmalah": sura in printed,
-            "ayat": max(w.aya.get(key, 0) for w in ws),
-            "words": [ws[0].id, ws[-1].id],
+            "basmalah": surah in printed,
+            "ayahs": max(w.ayah.get(key, 0) for w in ws),
+            "kalimahs": [ws[0].id, ws[-1].id],
         }
-        if pages:
-            row["pages"] = [min(pages), max(pages)]
+        if safhahs:
+            row["safhahs"] = [min(safhahs), max(safhahs)]
         out.append(row)
     return out
 
 
-def _resegmentation(key: str, words: list[Word]) -> list[dict]:
-    """Every place this build changed the source's own word spacing.
+def _resegmentation(key: str, kalimahs: list[Kalimah]) -> list[dict]:
+    """Every place this build changed the source's own kalimah spacing.
 
-    A global word ID is only stable because the alignment occasionally overrides
-    a package's spacing — joining what one muṣḥaf splits, or splitting what it
-    joins — so a file claiming to *be* that muṣḥaf has to say where it did so.
+    A global kalimah ID is only stable because the alignment occasionally overrides
+    a package's spacing — joining what one mushaf splits, or splitting what it
+    joins — so a file claiming to *be* that mushaf has to say where it did so.
     The list is present even when empty, so silence is never ambiguous.
     """
     out = []
-    for event in boundary_events(words):
-        if key not in event["riwayat"]:
+    for event in boundary_events(kalimahs):
+        if key not in event["riwayahs"]:
             continue
-        ids = [i for i in event["word_ids"]]
-        mine = [w for w in words if w.id in set(ids) and key in w.forms]
+        ids = [i for i in event["kalimah_ids"]]
+        mine = [w for w in kalimahs if w.id in set(ids) and key in w.forms]
         source = next((t for t, ks in event["texts"].items() if key in ks), "")
         out.append({
-            "words": ids,
-            "sura": event["sura"],
-            "ayah": event["aya"],
+            "kalimahs": ids,
+            "surah": event["surah"],
+            "ayah": event["ayah"],
             "kind": event["kind"],
             "source_text": source,
             "emitted": [w.forms[key] for w in mine],
-            "riwayat_agree": event["agree"],
+            "riwayahs_agree": event["agree"],
         })
     return out
 
 
-def _line_check(key: str, mine: list[Word], r: Riwaya) -> dict:
+def _line_check(key: str, mine: list[Kalimah], r: Riwayah) -> dict:
     """Re-check the reconstructed lines against the release that states them.
 
-    The page is read from the document; the line is inferred from its flow (see
-    :mod:`quranidx.layout`).  The v2 CSV states the line of every āyah, so the
-    inference can be scored rather than merely asserted — and the āyāt it gets
+    The safhah is read from the document; the line is inferred from its flow (see
+    :mod:`quranidx.layout`).  The v2 CSV states the line of every ayah, so the
+    inference can be scored rather than merely asserted — and the ayahs it gets
     wrong are listed, so a consumer can exclude them instead of discovering them.
     Bazzī has no v2 release, so its lines cannot be checked at all.
     """
     if not r.meta:
         return {"validated": False,
-                "reason": "no v2 package released for this riwāyah"}
+                "reason": "no v2 package released for this riwayah"}
 
-    by_ayah: dict[tuple[int, int], list[Word]] = defaultdict(list)
+    by_ayah: dict[tuple[int, int], list[Kalimah]] = defaultdict(list)
     for w in mine:
-        by_ayah[(w.sura, w.aya[key])].append(w)
+        by_ayah[(w.surah, w.ayah[key])].append(w)
 
     checked = agreed = 0
     wrong = []
@@ -207,25 +207,25 @@ def _line_check(key: str, mine: list[Word], r: Riwaya) -> dict:
         if got == want:
             agreed += 1
         else:
-            wrong.append({"sura": k[0], "ayah": k[1], "derived": got, "source": want})
+            wrong.append({"surah": k[0], "ayah": k[1], "derived": got, "source": want})
     return {
         "validated": True,
         "against": r.crosscheck_source,
-        "ayat_checked": checked,
-        "ayat_agreeing": agreed,
+        "ayahs_checked": checked,
+        "ayahs_agreeing": agreed,
         "disagreements": wrong,
     }
 
 
-def _layers(key: str, r: Riwaya, line_check: dict) -> dict:
+def _layers(key: str, r: Riwayah, line_check: dict) -> dict:
     """What this file carries, and why it lacks whatever it lacks."""
-    present = ["suras", "ayat", "pages", "marks"]
+    present = ["surahs", "ayahs", "safhahs", "marks"]
     absent: dict[str, str] = {}
     if r.meta:
         present.append("juz")
     else:
-        absent["juz"] = "no v2 package released for this riwāyah"
-    absent["imlaei"] = "column not present in this riwāyah's release"
+        absent["juz"] = "no v2 package released for this riwayah"
+    absent["imlaei"] = "column not present in this riwayah's release"
 
     return {
         "present": present,
@@ -233,14 +233,14 @@ def _layers(key: str, r: Riwaya, line_check: dict) -> dict:
         "derived": {
             "line": {
                 "how": "reconstructed from the document's line breaks, "
-                       "paragraph boundaries and sūrah headings; printed lines "
+                       "paragraph boundaries and surah headings; printed lines "
                        "are not encoded in the release",
                 **{k: v for k, v in line_check.items() if k != "disagreements"},
             },
         },
         "notes": {
-            "page": "read from explicit page breaks in the release, not inferred",
-            "waqf": "pause-mark conventions differ by muṣḥaf and are not "
+            "safhah": "read from explicit safhah breaks in the release, not inferred",
+            "waqf": "pause-mark conventions differ by mushaf and are not "
                     "comparable across them: Warsh and Qālūn print one general "
                     "sign where Ḥafṣ, Dūrī and Sūsī print seven distinct ones",
             "hizb": "the ۞ symbol is emitted exactly as the release prints it. "
@@ -251,11 +251,11 @@ def _layers(key: str, r: Riwaya, line_check: dict) -> dict:
     }
 
 
-def _word(w: Word, key: str, imlaei: dict[int, str] | None) -> dict:
+def _kalimah(w: Kalimah, key: str, imlaei: dict[int, str] | None) -> dict:
     rec: dict = {"w": w.id, "t": w.forms[key]}
     if key in w.place:
-        page, line = w.place[key]
-        rec["pg"] = page
+        safhah, line = w.place[key]
+        rec["pg"] = safhah
         rec["ln"] = line
     if imlaei and w.id in imlaei:
         rec["e"] = imlaei[w.id]
@@ -267,17 +267,17 @@ def _word(w: Word, key: str, imlaei: dict[int, str] | None) -> dict:
     return rec
 
 
-def document(words: list[Word], r: Riwaya,
+def document(kalimahs: list[Kalimah], r: Riwayah,
              imlaei: dict[int, str] | None = None) -> dict:
-    """The whole of one muṣḥaf, in the canonical shape."""
+    """The whole of one mushaf, in the canonical shape."""
     key = r.key
-    mine = [w for w in words if key in w.forms]
+    mine = [w for w in kalimahs if key in w.forms]
 
     line_check = _line_check(key, mine, r)
-    ayat = _spans([(w.aya[key], w.id) for w in mine])
-    sura_of = {w.id: w.sura for w in mine}
-    for span in ayat:
-        span["sura"] = sura_of[span["words"][0]]
+    ayahs = _spans([(w.ayah[key], w.id) for w in mine])
+    surah_of = {w.id: w.surah for w in mine}
+    for span in ayahs:
+        span["surah"] = surah_of[span["kalimahs"][0]]
 
     doc = {
         "format": FORMAT,
@@ -290,32 +290,32 @@ def document(words: list[Word], r: Riwaya,
             "qari_en": r.qari_en,
             "qari_ar": r.qari_ar,
             "counting": r.counting,
-            "ayah_count": sum(1 for a in r.ayat if a.aya > 0),
-            "word_count": len(mine),
+            "ayah_count": sum(1 for a in r.ayahs if a.ayah > 0),
+            "kalimah_count": len(mine),
         },
         "provenance": _provenance(r),
         "spine": {
-            "word_id_range": [words[0].id, words[-1].id],
-            "note": "`w` is the global word ID. The same `w` is the same word "
-                    "in every muṣḥaf that has it. Words absent from this muṣḥaf "
+            "kalimah_id_range": [kalimahs[0].id, kalimahs[-1].id],
+            "note": "`w` is the global kalimah ID. The same `w` is the same kalimah "
+                    "in every mushaf that has it. Kalimahs absent from this mushaf "
                     "leave gaps in the sequence.",
         },
         "layers": _layers(key, r, line_check),
         "mark_signs": {s: {"cp": f"U+{ord(s):04X}", "unicode_name": n}
                        for s, n in MARK_NAMES.items()},
-        "suras": _suras(key, mine, r),
-        "ayat": [{"sura": s["sura"], "n": s["n"], "words": s["words"]}
-                 for s in ayat],
-        "pages": _spans([(w.place[key][0], w.id) for w in mine if key in w.place]),
-        "resegmentation": _resegmentation(key, words),
+        "surahs": _surahs(key, mine, r),
+        "ayahs": [{"surah": s["surah"], "n": s["n"], "kalimahs": s["kalimahs"]}
+                  for s in ayahs],
+        "safhahs": _spans([(w.place[key][0], w.id) for w in mine if key in w.place]),
+        "resegmentation": _resegmentation(key, kalimahs),
         "line_disagreements": line_check.get("disagreements", []),
-        "words": [_word(w, key, imlaei) for w in mine],
+        "kalimahs": [_kalimah(w, key, imlaei) for w in mine],
     }
     if r.meta:
-        doc["juz"] = _spans([(int(r.meta[(w.sura, w.aya[key])]["jozz"]), w.id)
+        doc["juz"] = _spans([(int(r.meta[(w.surah, w.ayah[key])]["jozz"]), w.id)
                              for w in mine
-                             if (w.sura, w.aya[key]) in r.meta
-                             and r.meta[(w.sura, w.aya[key])]["jozz"].isdigit()])
+                             if (w.surah, w.ayah[key]) in r.meta
+                             and r.meta[(w.surah, w.ayah[key])]["jozz"].isdigit()])
     return doc
 
 
@@ -329,11 +329,11 @@ def minimal(doc: dict) -> dict:
         **{k: doc[k] for k in ("format", "format_version", "generated",
                                "mushaf", "provenance", "spine")},
         "variant": "minimal",
-        "suras": [{k: v for k, v in s.items() if k != "pages"}
-                  for s in doc["suras"]],
-        "ayat": doc["ayat"],
+        "surahs": [{k: v for k, v in s.items() if k != "safhahs"}
+                   for s in doc["surahs"]],
+        "ayahs": doc["ayahs"],
         "resegmentation": doc["resegmentation"],
-        "words": [{"w": w["w"], "t": w["t"]} for w in doc["words"]],
+        "kalimahs": [{"w": w["w"], "t": w["t"]} for w in doc["kalimahs"]],
     }
 
 
@@ -342,15 +342,15 @@ def _dump(path: Path, doc: dict) -> None:
                     encoding="utf-8")
 
 
-def write_mushafs(words: list[Word], riwayat: list[Riwaya],
+def write_mushafs(kalimahs: list[Kalimah], riwayahs: list[Riwayah],
                   imlaei: dict[str, dict[int, str]] | None = None,
                   reports: dict | None = None) -> dict:
-    """Write every muṣḥaf's own file, and return what was written."""
+    """Write every mushaf's own file, and return what was written."""
     MUSHAF_DIR.mkdir(parents=True, exist_ok=True)
     imlaei = imlaei or {}
     docs = {}
-    for r in riwayat:
-        doc = document(words, r, imlaei.get(r.key))
+    for r in riwayahs:
+        doc = document(kalimahs, r, imlaei.get(r.key))
         if reports and r.key in reports:
             doc["layers"]["derived"]["imlaei"] = reports[r.key]
             if reports[r.key].get("available"):

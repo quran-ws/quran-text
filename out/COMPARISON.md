@@ -1,27 +1,27 @@
-# Cross-riwāyah comparison
+# Cross-riwayah comparison
 
-Generated 2026-09-01 from the KFGQPC packages in `data/`. 77,434 canonical words across 114 sūrahs and 7 riwāyāt.
+Generated 2026-09-02 from the KFGQPC packages in `data/`. 77,434 canonical kalimahs across 114 surahs and 7 riwayahs.
 
-Every word carries one ID that means the same word in every riwāyah that has it. Where the riwāyāt disagree, the disagreement is recorded against that ID rather than hidden by it.
+Every kalimah carries one ID that means the same kalimah in every riwayah that has it. Where the riwayahs disagree, the disagreement is recorded against that ID rather than hidden by it.
 
 ## What is being compared
 
-A word is never compared as raw text. Four forms are derived from every spelling, each stripping one more layer of what a scribe added after the codices were written. Two riwāyāt are said to agree *at a level* when their forms at that level are identical.
+A kalimah is never compared as raw text. Four forms are derived from every spelling, each stripping one more layer of what a scribe added after the mushafs were written. Two riwayahs are said to agree *at a level* when their forms at that level are identical.
 
 | form | question it answers | example | and what it drops |
 |---|---|---|---|
 | `uthmani` | how is it printed? | `ٱلرَّحۡمَٰنِ` | — |
-| `folded` | what does it say, ignoring which codepoints the release chose? | `الرَّحْمَٰنِ` | release notation, attached-alef letters, editorial marks |
-| `pointed` | which letters, dots and all? | `الرحمان` | vowels, hamza, madd, ṣilah |
-| `rasm` | what is on the line in the codex? | `الرحماں` | the dots |
+| `folded` | what does it say, ignoring which codepoints the release chose? | `الرَّحْمَٰنِ` | release notation, attached-alef harfs, editorial marks |
+| `pointed` | which harfs, dots and all? | `الرحمان` | vowels, hamza, madd, ṣilah |
+| `rasm` | what is on the line in the mushaf? | `الرحماں` | the dots |
 
-The two skeletons are separate on purpose. `تَعۡمَلُونَ` and `يَعۡمَلُونَ` have different `pointed` forms but one `rasm` — `ٮعملوں` — because the codices were written undotted and carry both readings by design. Calling that a rasm variant would be a category error; calling it vowelling would hide a real reading. It is named **`dotting_variant`**.
+The two skeletons are separate on purpose. `تَعۡمَلُونَ` and `يَعۡمَلُونَ` have different `pointed` forms but one `rasm` — `ٮعملوں` — because the mushafs were written undotted and carry both qira'ahs by design. Calling that a rasm variant would be a category error; calling it vowelling would hide a real qira'ah. It is named **`dotting_variant`**.
 
-`rasm` drops hamza and every hamza carrier reduces to its seat, because hamza is post-ʿUthmānic notation: `يَسۡتَهۡزِئُ` and `يَسْتَهْزِۓُ` are one word. It also drops the dagger alif, which is by definition an alef the scribe did *not* write on the line, so `هَٰرُوتَ` and `هَارُوتَ` do **not** share a rasm: `هروٮ` against `هاروٮ`. That difference is real inside any one muṣḥaf and is kept, but between these two typesettings it is a house style rather than a codex — see [the ā on the line or above it](#the-ā-on-the-line-or-above-it).
+`rasm` drops hamza and every hamza carrier reduces to its seat, because hamza is post-Uthmani notation: `يَسۡتَهۡزِئُ` and `يَسْتَهْزِۓُ` are one kalimah. It also drops the dagger alif, which is by definition an alef the scribe did *not* write on the line, so `هَٰرُوتَ` and `هَارُوتَ` do **not** share a rasm: `هروٮ` against `هاروٮ`. That difference is real inside any one mushaf and is kept, but between these two typesettings it is a house style rather than a mushaf — see [the ā on the line or above it](#the-ā-on-the-line-or-above-it).
 
-## The riwāyāt
+## The riwayahs
 
-| key | riwāyah | الرواية | qāriʾ | counting | āyāt | words |
+| key | riwayah | الرواية | qari | counting | ayahs | kalimahs |
 |---|---|---|---|---|---|---|
 | hafs | Ḥafṣ | حفص | ʿĀṣim al-Kūfī | kufi | 6,236 | 77,432 |
 | shuba | Shuʿbah | شعبة | ʿĀṣim al-Kūfī | kufi | 6,236 | 77,432 |
@@ -31,27 +31,27 @@ The two skeletons are separate on purpose. `تَعۡمَلُونَ` and `يَع�
 | sousi | Sūsī | السوسي | Abū ʿAmr al-Baṣrī | basri | 6,218 | 77,431 |
 | bazzi | Bazzī | البزي | Ibn Kathīr al-Makkī | makki | 6,220 | 77,432 |
 
-The āyah totals are not errors and not deducible from the qāriʾ. Many fawāṣil are مختلف فيها, so every printed muṣḥaf chooses, and the `counting` column above is a conventional label rather than a claim about this package. That is exactly why the index is flat, and why the āyah boundaries are read off each muṣḥaf rather than assumed: see [the fawāṣil](#fawāṣil-where-the-āyāt-end) below.
+The ayah totals are not errors and not deducible from the qari. Many fasilahs are مختلف فيها, so every printed mushaf chooses, and the `counting` column above is a conventional label rather than a claim about this package. That is exactly why the index is flat, and why the ayah boundaries are read off each mushaf rather than assumed: see [the fasilahs](#fasilahs-where-the-ayahs-end) below.
 
-## How the words compare
+## How the kalimahs compare
 
-| status | words | share | meaning |
+| status | kalimahs | share | meaning |
 |---|---|---|---|
-| `identical` | 40,558 | 52.38% | one reading, one spelling, in all seven |
-| `diacritic_variant` | 36,261 | 46.83% | same letters and same dots — the vowelling differs |
+| `identical` | 40,558 | 52.38% | one qira'ah, one spelling, in all seven |
+| `diacritic_variant` | 36,261 | 46.83% | same harfs and same dots — the vowelling differs |
 | `dotting_variant` | 338 | 0.44% | one rasm, pointed differently: تَعۡمَلُونَ against يَعۡمَلُونَ |
 | `alif_variant` | 198 | 0.26% | one skeleton, one ā: on the line in one hand, above it in the other |
-| `rasm_variant` | 62 | 0.08% | the codices disagree about the letters on the line |
-| `word_boundary` | 12 | 0.02% | a source prints the word joined to its neighbour |
-| `partial` | 5 | 0.01% | the word is absent from at least one riwāyah |
+| `rasm_variant` | 62 | 0.08% | the mushafs disagree about the harfs on the line |
+| `kalimah_boundary` | 12 | 0.02% | a source prints the kalimah joined to its neighbour |
+| `partial` | 5 | 0.01% | the kalimah is absent from at least one riwayah |
 
-Each word gets the *strongest* label that applies, tested in this order: rasm, ā, absence, boundary, dotting, vowelling. So a `dotting_variant` is guaranteed to share one rasm across all seven, an `alif_variant` to share one skeleton once every ā is spelled out, and an `identical` word is identical after notation folding — the raw spelling of every riwāyah is always kept in `forms`, whatever the label.
+Each kalimah gets the *strongest* label that applies, tested in this order: rasm, ā, absence, boundary, dotting, vowelling. So a `dotting_variant` is guaranteed to share one rasm across all seven, an `alif_variant` to share one skeleton once every ā is spelled out, and an `identical` kalimah is identical after notation folding — the raw spelling of every riwayah is always kept in `forms`, whatever the label.
 
 ## Pairwise agreement
 
-Share of the words two riwāyāt both have, where they agree at each level.
+Share of the kalimahs two riwayahs both have, where they agree at each level.
 
-| pair | shared words | same spelling | same reading | same letters | same rasm |
+| pair | shared kalimahs | same spelling | same qira'ah | same harfs | same rasm |
 |---|---|---|---|---|---|
 | douri–sousi | 77,431 | 66.7% | 82.8% | 99.97% | 100.00% |
 | warsh–qaloun | 77,431 | 85.2% | 87.5% | 99.95% | 99.99% |
@@ -75,28 +75,28 @@ Share of the words two riwāyāt both have, where they agree at each level.
 | qaloun–douri | 77,430 | 36.8% | 78.5% | 99.75% | 99.69% |
 | qaloun–sousi | 77,430 | 42.6% | 84.4% | 99.72% | 99.69% |
 
-Rasm agreement never drops below 99.5%: the seven riwāyāt are one text. Spelling agreement is far lower because the packages were typeset in different years with different conventions — which is what the `folded` and `pointed` columns strip away.
+Rasm agreement never drops below 99.5%: the seven riwayahs are one text. Spelling agreement is far lower because the packages were typeset in different years with different conventions — which is what the `folded` and `pointed` columns strip away.
 
-## Where the riwāyāt genuinely disagree
+## Where the riwayahs genuinely disagree
 
-Three things can differ once spelling, vowelling and pointing are set aside: the letters, the word boundaries, and whether a word is there at all. Together they account for 79 of 77,434 words. A fourth kind is listed with them and counted apart: 198 words where the disagreement is only about whether an ā sits on the line or above it.
+Three things can differ once spelling, vowelling and pointing are set aside: the harfs, the kalimah boundaries, and whether a kalimah is there at all. Together they account for 79 of 77,434 kalimahs. A fourth kind is listed with them and counted apart: 198 kalimahs where the disagreement is only about whether an ā sits on the line or above it.
 
 | kind | count | status | what it means |
 |---|---|---|---|
-| letters differ | 62 | `rasm_variant` | a letter one codex has on the line and another does not — 56 of them one letter more, 6 one letter for another |
+| harfs differ | 62 | `rasm_variant` | a harf one mushaf has on the line and another does not — 56 of them one harf more, 6 one harf for another |
 | the ā is placed differently | 198 | `alif_variant` | one skeleton once every ā is spelled out; the two hands disagree about which ā to write on the line |
-| boundaries differ | 6 events | `word_boundary` | one source prints two words as one |
-| word absent | 5 | `partial` | a riwāyah does not have the word at all |
+| boundaries differ | 6 events | `kalimah_boundary` | one source prints two kalimahs as one |
+| kalimah absent | 5 | `partial` | a riwayah does not have the kalimah at all |
 
-### Letters — rasm disagreements
+### Harfs — rasm disagreements
 
-62 words where the riwāyāt disagree about the letters on the line, after dots, hamza, vowelling and the ā have all been set aside. These are the differences the sources can be trusted on: they split the seven riwāyāt 14 different ways — by miṣr, not by publisher — and they are the khilāf the rasm literature names. All 62 are listed below, grouped by what the difference *is*. Machine-readable: [`rasm-variants.md`](rasm-variants.md), [`conflicts.csv`](conflicts.csv).
+62 kalimahs where the riwayahs disagree about the harfs on the line, after dots, hamza, vowelling and the ā have all been set aside. These are the differences the sources can be trusted on: they split the seven riwayahs 14 different ways — by miṣr, not by publisher — and they are the khilāf the rasm literature names. All 62 are listed below, grouped by what the difference *is*. Machine-readable: [`rasm-variants.md`](rasm-variants.md), [`conflicts.csv`](conflicts.csv).
 
-#### One skeleton, one letter more
+#### One skeleton, one harf more
 
-56 of the 62. Both sides write the same letters in the same order and one side writes a letter the other does not: `ٮرٮد`/`ٮرٮدد` — يَرۡتَدَّ against يَرۡتَدِدۡ at 5:54 — or `ٮسٮهى`/`ٮسٮهٮه`, تَشۡتَهِي against تَشۡتَهِيهِ at 43:71. Nothing is replaced; the skeletons nest.
+56 of the 62. Both sides write the same harfs in the same order and one side writes a harf the other does not: `ٮرٮد`/`ٮرٮدد` — يَرۡتَدَّ against يَرۡتَدِدۡ at 5:54 — or `ٮسٮهى`/`ٮسٮهٮه`, تَشۡتَهِي against تَشۡتَهِيهِ at 43:71. Nothing is replaced; the skeletons nest.
 
-| word id | sūrah:āyah | rasm on each side | as printed |
+| kalimah id | surah:ayah | rasm on each side | as printed |
 |---|---|---|---|
 | 2331 | 2:132 | `ووصى` hafs,shuba,bazzi,douri,sousi  ·  `واوصى` qaloun,warsh | **وَوَصَّىٰ** hafs,shuba,bazzi,douri,sousi  ·  **وَأَوْصَىٰ** qaloun  ·  **وَأَوْصٜىٰ** warsh |
 | 8353 | 3:133 | `وسارعوا` hafs,shuba,bazzi,douri,sousi  ·  `سارعوا` qaloun,warsh | **وَسَارِعُوٓاْ** hafs,shuba,douri  ·  **وَسَارِعُواْ** bazzi,sousi  ·  **سَارِعُواْ** qaloun  ·  **سَارِعُوٓاْ** warsh |
@@ -155,11 +155,11 @@ Three things can differ once spelling, vowelling and pointing are set aside: the
 | 76592 | 90:14 | `اطعم` hafs,shuba,bazzi,douri,sousi  ·  `اطعام` qaloun,warsh | **إِطۡعَٰمࣱ** hafs,shuba  ·  **أَطۡعَمَ** bazzi,douri,sousi  ·  **إِطْعَامࣱ** qaloun  ·  **ࡴطْعَامࣱ** warsh |
 | 77259 | 106:2 | `الڡهم` hafs,shuba,bazzi,douri,sousi  ·  `اٮلڡهم` qaloun,warsh | **إِۦلَٰفِهِمۡ** hafs,shuba,douri,sousi  ·  **إِۦلَٰفِهِمُۥ** bazzi  ·  **إِيلَٰفِهِمْ** qaloun  ·  **ࡴيلَٰفِهِمْ** warsh |
 
-#### One letter for another
+#### One harf for another
 
-6 of the 62, where a letter is not added but exchanged — `ولا`/`ڡلا` (وَلَا against فَلَا, 91:15), `كلمٮ`/`كلمه` (the open against the tied tāʾ, 7:137).
+6 of the 62, where a harf is not added but exchanged — `ولا`/`ڡلا` (وَلَا against فَلَا, 91:15), `كلمٮ`/`كلمه` (the open against the tied tāʾ, 7:137).
 
-| word id | sūrah:āyah | rasm on each side | as printed |
+| kalimah id | surah:ayah | rasm on each side | as printed |
 |---|---|---|---|
 | 21269 | 7:137 | `كلمٮ` hafs,shuba,bazzi,douri,sousi  ·  `كلمه` qaloun,warsh | **كَلِمَتُ** hafs,shuba,bazzi,douri,sousi  ·  **كَلِمَةُ** qaloun,warsh |
 | 48378 | 26:217 | `وٮوكل` hafs,shuba,bazzi,douri,sousi  ·  `ڡٮوكل` qaloun,warsh | **وَتَوَكَّلۡ** hafs,shuba,bazzi,douri,sousi  ·  **فَتَوَكَّلْ** qaloun,warsh |
@@ -170,13 +170,13 @@ Three things can differ once spelling, vowelling and pointing are set aside: the
 
 ### The ā on the line or above it
 
-198 words whose skeletons agree once every ā is spelled out, and differ only because one hand wrote that ā on the line and the other wrote it above: the Warsh/Qālūn set prints `هَارُوتَ` and `مُبَٰرَك` where the Kūfī set prints `هَٰرُوتَ` and `مُبَارَك`.
+198 kalimahs whose skeletons agree once every ā is spelled out, and differ only because one hand wrote that ā on the line and the other wrote it above: the Warsh/Qālūn set prints `هَارُوتَ` and `مُبَٰرَك` where the Kūfī set prints `هَٰرُوتَ` and `مُبَارَك`.
 
-They are not counted as the codices disagreeing, and the reason is in the data rather than in a judgement about it. **All 198 split the seven riwāyāt along exactly one line — `bazzi,douri,hafs,shuba,sousi` against `qaloun,warsh` — in both directions and without one exception.** The 62 real letter differences split them 14 different ways. Ḥadhf and ithbāt al-alif do vary between the codices of the amṣār, but they do not put Makkah with Madinah 198 times out of 198 and never once apart; a publisher's house style does. Bazzī goes its own way 7 times among the 62 and not once among these.
+They are not counted as the mushafs disagreeing, and the reason is in the data rather than in a judgement about it. **All 198 split the seven riwayahs along exactly one line — `bazzi,douri,hafs,shuba,sousi` against `qaloun,warsh` — in both directions and without one exception.** The 62 real harf differences split them 14 different ways. Ḥadhf and ithbāt al-alif do vary between the mushafs of the amṣār, but they do not put Makkah with Madinah 198 times out of 198 and never once apart; a publisher's house style does. Bazzī goes its own way 7 times among the 62 and not once among these.
 
-The distinction is still kept in `rasm`, because inside any one muṣḥaf it is that muṣḥaf's own ḥadhf, carried consistently: Ḥafṣ writes قال plene 412 times and defective 4, سبحان defective 12 and plene once, and 175 of these 198 words show the identical split at *every* occurrence of the word in the corpus. What the sources cannot answer is which of the two hands is the codex's. A sample:
+The distinction is still kept in `rasm`, because inside any one mushaf it is that mushaf's own ḥadhf, carried consistently: Ḥafṣ writes قال plene 412 times and defective 4, سبحان defective 12 and plene once, and 175 of these 198 kalimahs show the identical split at *every* occurrence of the kalimah in the corpus. What the sources cannot answer is which of the two hands is the mushaf's. A sample:
 
-| word id | sūrah:āyah | rasm on each side | as printed |
+| kalimah id | surah:ayah | rasm on each side | as printed |
 |---|---|---|---|
 | 425 | 2:28 | `ڡاحٮكم` hafs,shuba,bazzi,douri,sousi  ·  `ڡاحٮاكم` qaloun,warsh | **فَأَحۡيَٰكُمۡ** hafs,shuba,douri,sousi  ·  **فَأَحۡيَٰكُمُۥ** bazzi  ·  **فَأَحْيَاكُمْ** qaloun  ·  **فَأَحْيٜاكُمْ** warsh |
 | 618 | 2:40 | `اسرٮل` hafs,shuba,bazzi,douri,sousi  ·  `اسراٮل` qaloun,warsh | **إِسۡرَٰٓءِيلَ** hafs,shuba,bazzi,douri,sousi  ·  **إِسْرَآءِيلَ** qaloun,warsh |
@@ -194,11 +194,11 @@ The distinction is still kept in `rasm`, because inside any one muṣḥaf it is
 | 3929 | 2:210 | `العمام` hafs,shuba,bazzi,douri,sousi  ·  `العمم` qaloun,warsh | **ٱلۡغَمَامِ** hafs,shuba,bazzi  ·  **ࡰ۬لْغَمَٰمِ** qaloun,warsh  ·  **اَ۬لۡغَمَامِ** douri  ·  **ࡱ۬لۡغَمَامِ** sousi |
 | 3939 | 2:211 | `اسرٮل` hafs,shuba,bazzi,douri,sousi  ·  `اسراٮل` qaloun,warsh | **إِسۡرَٰٓءِيلَ** hafs,shuba,bazzi,douri,sousi  ·  **إِسْرَآءِيلَ** qaloun,warsh |
 
-### Pointing — one rasm, two readings
+### Pointing — one rasm, two qira'ahs
 
-338 words share a rasm but are pointed differently. These are real differences in reading, not in the codex: an undotted skeleton carries them all. A sample:
+338 kalimahs share a rasm but are pointed differently. These are real differences in qira'ah, not in the mushaf: an undotted skeleton carries them all. A sample:
 
-| word id | sūrah:āyah | shared rasm | pointed as |
+| kalimah id | surah:ayah | shared rasm | pointed as |
 |---|---|---|---|
 | 11 | 1:4 | `ملك` | **مالك** hafs,shuba  ·  **ملك** bazzi,qaloun,warsh,douri,sousi |
 | 105 | 2:9 | `ٮحدعوں` | **يخدعون** hafs,shuba  ·  **يخادعون** bazzi,qaloun,warsh,douri,sousi |
@@ -218,46 +218,46 @@ The distinction is still kept in `rasm`, because inside any one muṣḥaf it is
 
 ### Boundaries — where the space falls
 
-A boundary disagreement is never about one word; it is about the space between two. Each event below shows the whole run, exactly as each riwāyah prints it. The last column is the one that matters: **agree** means every riwāyah reads the run identically once it is re-segmented, so the flag is a *source* that lost a space, not a muṣḥaf that really prints the words joined.
+A boundary disagreement is never about one kalimah; it is about the space between two. Each event below shows the whole run, exactly as each riwayah prints it. The last column is the one that matters: **agree** means every riwayah reads the run identically once it is re-segmented, so the flag is a *source* that lost a space, not a mushaf that really prints the kalimahs joined.
 
-**4:91** — word ids 11634, 11635 · joined in `douri`, `qaloun` · **all riwāyāt agree** (a dropped space in the source)
+**4:91** — kalimah ids 11634, 11635 · joined in `douri`, `qaloun` · **all riwayahs agree** (a dropped space in the source)
 
-| riwāyāt | as printed |
+| riwayahs | as printed |
 |---|---|
 | `hafs,shuba,warsh,douri` | مَا رُدُّوٓاْ |
 | `bazzi,qaloun,sousi` | مَا رُدُّواْ |
 
-**10:26** — word ids 26811, 26812 · joined in `douri` · **all riwāyāt agree** (a dropped space in the source)
+**10:26** — kalimah ids 26811, 26812 · joined in `douri` · **all riwayahs agree** (a dropped space in the source)
 
-| riwāyāt | as printed |
+| riwayahs | as printed |
 |---|---|
 | `hafs,shuba,bazzi,qaloun,warsh,sousi` | قَتَرࣱ وَلَا |
 | `douri` | قَتَرٞ وَلَا |
 
-**11:78** — word ids 29368, 29369 · joined in `douri` · **all riwāyāt agree** (a dropped space in the source)
+**11:78** — kalimah ids 29368, 29369 · joined in `douri` · **all riwayahs agree** (a dropped space in the source)
 
-| riwāyāt | as printed |
+| riwayahs | as printed |
 |---|---|
 | `hafs,shuba,bazzi,douri,sousi` | كَانُواْ يَعۡمَلُونَ |
 | `qaloun,warsh` | كَانُواْ يَعْمَلُونَ |
 
-**27:20** — word ids 48679, 48680 · joined in `bazzi`, `douri` · **all riwāyāt agree** (a dropped space in the source)
+**27:20** — kalimah ids 48679, 48680 · joined in `bazzi`, `douri` · **all riwayahs agree** (a dropped space in the source)
 
-| riwāyāt | as printed |
+| riwayahs | as printed |
 |---|---|
 | `hafs,shuba,bazzi` | مَا لِيَ |
 | `qaloun,warsh` | مَا لِے |
 | `douri,sousi` | مَا لِي |
 
-**36:22** — word ids 56845, 56846 · joined in `bazzi`, `douri` · **all riwāyāt agree** (a dropped space in the source)
+**36:22** — kalimah ids 56845, 56846 · joined in `bazzi`, `douri` · **all riwayahs agree** (a dropped space in the source)
 
-| riwāyāt | as printed |
+| riwayahs | as printed |
 |---|---|
 | `hafs,shuba,bazzi,qaloun,warsh,douri,sousi` | وَمَا لِيَ |
 
-**75:1** — word ids 74539, 74540 · joined in `bazzi` · **all riwāyāt agree** (a dropped space in the source)
+**75:1** — kalimah ids 74539, 74540 · joined in `bazzi` · **all riwayahs agree** (a dropped space in the source)
 
-| riwāyāt | as printed |
+| riwayahs | as printed |
 |---|---|
 | `hafs,shuba,douri` | لَآ أُقۡسِمُ |
 | `bazzi` | لَأُ اْقۡسِمُ |
@@ -267,11 +267,11 @@ A boundary disagreement is never about one word; it is about the space between t
 
 Machine-readable: [`boundaries.csv`](boundaries.csv).
 
-### Absence — words not every riwāyah has
+### Absence — kalimahs not every riwayah has
 
-Each is well attested: Ibn Kathīr's `مِن` at 9:100, and Nāfiʿ reading `فإن الله الغني` at 57:24 where the others read `فإن الله هو الغني`. The rest are words one riwāyah writes joined to its neighbour and another writes separately, so the count of words genuinely differs.
+Each is well attested: Ibn Kathīr's `مِن` at 9:100, and Nāfiʿ reading `فإن الله الغني` at 57:24 where the others read `فإن الله هو الغني`. The rest are kalimahs one riwayah writes joined to its neighbour and another writes separately, so the count of kalimahs genuinely differs.
 
-| word id | sūrah:āyah | rasm | present in | absent from | as printed |
+| kalimah id | surah:ayah | rasm | present in | absent from | as printed |
 |---|---|---|---|---|---|
 | 25685 | 9:101 | `مں` | bazzi | hafs, shuba, warsh, qaloun, douri, sousi | **مِن** bazzi |
 | 60523 | 40:26 | `اں` | hafs, shuba | warsh, qaloun, douri, sousi, bazzi | **أَن** hafs,shuba |
@@ -279,13 +279,13 @@ Each is well attested: Ibn Kathīr's `مِن` at 9:100, and Nāfiʿ reading `ف�
 | 73951 | 72:16 | `لو` | warsh, qaloun, douri, sousi | hafs, shuba, bazzi | **لَّوِ** qaloun,warsh,douri,sousi |
 | 74227 | 73:20 | `لں` | hafs, shuba, warsh, qaloun, bazzi | douri, sousi | **لَّن** hafs,shuba,bazzi,qaloun,warsh |
 
-## Fawāṣil: where the āyāt end
+## Fasilahs: where the ayahs end
 
-The āyah boundaries are a layer *over* the word index, not a property of it, and **they belong to the printed muṣḥaf rather than to the qirāʾah**. Many fawāṣil are مختلف فيها: al-Dānī records Al-Mulk 67:9 «قد جاءنا نذير» as counted by المدني الأخير والمكي and by Shayba and not by the rest, and four of the seven packages here count it. An edition has to choose, and editions of the same riwāyah choose differently — KFGQPC's own Dūrī printings all state they follow المدني الأول and still total 6,218 (1429 AH), 6,217 (1436) and 6,214 (1443).
+The ayah boundaries are a layer *over* the kalimah index, not a property of it, and **they belong to the printed mushaf rather than to the qira'ah**. Many fasilahs are مختلف فيها: al-Dānī records Al-Mulk 67:9 «قد جاءنا نذير» as counted by المدني الأخير والمكي and by Shayba and not by the rest, and four of the seven packages here count it. An edition has to choose, and editions of the same riwayah choose differently — KFGQPC's own Dūrī printings all state they follow المدني الأول and still total 6,218 (1429 AH), 6,217 (1436) and 6,214 (1443).
 
-So the systems below are not counting traditions and are not derived from any. They are read off the packages, and two riwāyāt are grouped only where their fawāṣil are identical. Machine-readable: [`fawasil.json`](fawasil.json).
+So the systems below are not counting traditions and are not derived from any. They are read off the packages, and two riwayahs are grouped only where their fasilahs are identical. Machine-readable: [`fasilahs.json`](fasilahs.json).
 
-| system | muṣḥaf | āyāt |
+| system | mushaf | ayahs |
 |---|---|---|
 | `hafs+shuba` | hafs, shuba | 6,236 |
 | `bazzi` | bazzi | 6,220 |
@@ -301,15 +301,15 @@ So the systems below are not counting traditions and are not derived from any. T
 | `douri` | 133 | 39 | 57 | — | 1 |
 | `sousi` | 134 | 38 | 56 | 1 | — |
 
-Positions where two systems put a fāṣilah differently. Dūrī and Sūsī are both conventionally labelled Baṣrī and part company at exactly one place — 67:9 — which is the whole of the 6,217/6,218 difference between them, and is a documented خلافي point rather than a mistake by either.
+Positions where two systems put a fasilah differently. Dūrī and Sūsī are both conventionally labelled Baṣrī and part company at exactly one place — 67:9 — which is the whole of the 6,217/6,218 difference between them, and is a documented خلافي point rather than a mistake by either.
 
 ## Source integrity
 
-Six riwāyāt ship two releases. Comparing them is the sharpest available check on each, since the publisher is the same.
+Six riwayahs ship two releases. Comparing them is the sharpest available check on each, since the publisher is the same.
 
 **Where the two releases disagree, the later one is the text.** KFGQPC revises these documents deliberately: the 2026 Ḥafṣ separates `مَا لِيَ` where Ḥafṣ's own 2022 CSV joins it as `مَالِيَ`. That is a change of convention, not a defect, and the newer convention is the one published here. The earlier release is never merged into the text — it is only compared against it, below. The rule cannot discriminate for Dūrī, whose two packages are both from 2022; its three dropped spaces are recorded as boundary events instead.
 
-| riwāyah | āyāt compared | byte-identical | notation only | marks/vowels only | rasm differs |
+| riwayah | ayahs compared | byte-identical | notation only | marks/vowels only | rasm differs |
 |---|---|---|---|---|---|
 | hafs | 6,236 | 2,715 | 700 | 2,819 | 2 |
 | shuba | 6,236 | 2,715 | 697 | 2,822 | 2 |
@@ -318,15 +318,15 @@ Six riwāyāt ship two releases. Comparing them is the sharpest available check 
 | douri | 6,217 | 6,214 | 0 | 0 | 3 |
 | sousi | 6,217 | 508 | 1,916 | 3,768 | 25 |
 
-`notation only` is dominated by the 2026 files adopting the Arabic Extended-B alif letters (`U+0870`–`U+0882`), which fold an alef and its vowel into one codepoint where the 2022 files used an alef plus combining marks. The `folded` form decomposes them again, so none of it reaches the word index.
+`notation only` is dominated by the 2026 files adopting the Arabic Extended-B alif harfs (`U+0870`–`U+0882`), which fold an alef and its vowel into one codepoint where the 2022 files used an alef plus combining marks. The `folded` form decomposes them again, so none of it reaches the kalimah index.
 
 ### Checks
 
 All checks pass.
 
-## Per sūrah
+## Per surah
 
-| sūrah | name | words | identical | diacritic | dotting | ā | rasm | boundary/absent | per 1000 |
+| surah | name | kalimahs | identical | diacritic | dotting | ā | rasm | boundary/absent | per 1000 |
 |---|---|---|---|---|---|---|---|---|---|
 | 1 | Al-Fātiḥah | 29 | 11 | 17 | 1 | 0 | 0 | 0 | 0.0 |
 | 2 | Al-Baqarah | 6,117 | 3181 | 2890 | 21 | 24 | 1 | 0 | 0.2 |

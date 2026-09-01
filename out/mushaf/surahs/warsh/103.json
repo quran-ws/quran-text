@@ -1,0 +1,163 @@
+{
+ "format": "quran-mushaf",
+ "format_version": "2.0",
+ "view_of": "out/mushaf/warsh.json",
+ "view": "surah-shard",
+ "mushaf": "warsh",
+ "provenance": {
+  "text": {
+   "package": "UthmanicWarsh-v-3.0.zip",
+   "member": "UthmanicWarsh-v-3.0.docx",
+   "release_year": 2026,
+   "sha256": "68e2f1c7a504a8dde797346fd63054c744e073917380f9c56360306b28907e37"
+  },
+  "policy": "within one riwayah the later release is a correction; across riwayahs nothing is assumed",
+  "layout": {
+   "package": "UthmanicWarsh_v2-1.zip",
+   "member": "UthmanicWarsh_v2-1 data/warshData_v2-1.csv",
+   "release_year": 2022,
+   "sha256": "d847a7e7002dfbed5d28db6684fd1d9c3d50b8bb63ad64cb38a46b9dad788b47",
+   "used_for": [
+    "juz",
+    "line_check"
+   ]
+  }
+ },
+ "surah": {
+  "n": 103,
+  "name_ar": "العَصر",
+  "name_en": "Al-‘Aṣr",
+  "revelation": "makki",
+  "basmalah": true,
+  "ayahs": 3,
+  "kalimahs": [
+   77187,
+   77200
+  ],
+  "safhahs": [
+   601,
+   601
+  ]
+ },
+ "ayahs": [
+  {
+   "surah": 103,
+   "n": 1,
+   "kalimahs": [
+    77187,
+    77191
+   ]
+  },
+  {
+   "surah": 103,
+   "n": 2,
+   "kalimahs": [
+    77192,
+    77198
+   ]
+  },
+  {
+   "surah": 103,
+   "n": 3,
+   "kalimahs": [
+    77199,
+    77200
+   ]
+  }
+ ],
+ "safhahs": [
+  {
+   "n": 601,
+   "kalimahs": [
+    77187,
+    77256
+   ]
+  }
+ ],
+ "kalimahs": [
+  {
+   "w": 77187,
+   "t": "وَالْعَصْرِ",
+   "pg": 601,
+   "ln": 3
+  },
+  {
+   "w": 77188,
+   "t": "إِنَّ",
+   "pg": 601,
+   "ln": 3
+  },
+  {
+   "w": 77189,
+   "t": "ࡰ۬لِانسَٰنَ",
+   "pg": 601,
+   "ln": 3
+  },
+  {
+   "w": 77190,
+   "t": "لَفِے",
+   "pg": 601,
+   "ln": 3
+  },
+  {
+   "w": 77191,
+   "t": "خُسْرٍ",
+   "pg": 601,
+   "ln": 3
+  },
+  {
+   "w": 77192,
+   "t": "ࡴلَّا",
+   "pg": 601,
+   "ln": 3
+  },
+  {
+   "w": 77193,
+   "t": "ࡰ۬لذِينَ",
+   "pg": 601,
+   "ln": 3
+  },
+  {
+   "w": 77194,
+   "t": "ءَامَنُواْ",
+   "pg": 601,
+   "ln": 3
+  },
+  {
+   "w": 77195,
+   "t": "وَعَمِلُواْ",
+   "pg": 601,
+   "ln": 4
+  },
+  {
+   "w": 77196,
+   "t": "ࡲ۬لصَّٰلِحَٰتِ",
+   "pg": 601,
+   "ln": 4
+  },
+  {
+   "w": 77197,
+   "t": "وَتَوَاصَوْاْ",
+   "pg": 601,
+   "ln": 4
+  },
+  {
+   "w": 77198,
+   "t": "بِالْحَقِّ",
+   "pg": 601,
+   "ln": 4
+  },
+  {
+   "w": 77199,
+   "t": "وَتَوَاصَوْاْ",
+   "pg": 601,
+   "ln": 4
+  },
+  {
+   "w": 77200,
+   "t": "بِالصَّبْرِ",
+   "pg": 601,
+   "ln": 4
+  }
+ ]
+}

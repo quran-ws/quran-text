@@ -2,9 +2,9 @@
 
 Two independent questions are asked here:
 
-* Is the *index* self-consistent — contiguous IDs, every riwāyah accounted
-  for, āyah numbering intact?
-* Do the *sources* agree with themselves — where a riwāyah ships both a 2022
+* Is the *index* self-consistent — contiguous IDs, every riwayah accounted
+  for, ayah numbering intact?
+* Do the *sources* agree with themselves — where a riwayah ships both a 2022
   and a 2026 release, do the two say the same thing?
 
 The second question is the more interesting one, and its answers become the
@@ -15,17 +15,17 @@ from __future__ import annotations
 
 from collections import Counter, defaultdict
 
-from .build import Word
+from .build import Kalimah
 from .normalize import fold_notation, rasm, uthmani
-from .sources import Riwaya
+from .sources import Riwayah
 from .tokenize import tokenize
 
-# There is deliberately no table of expected āyah totals here.
+# There is deliberately no table of expected ayah totals here.
 #
 # An earlier version asserted {"kufi": 6236, "madani": 6214, "basri": 6217} and
 # reported Sūsī's 6,218 as a defect.  Both the premise and the conclusion were
-# wrong.  Many fawāṣil are مختلف فيها, so a printed muṣḥaf has to choose, and
-# the qirāʾah does not determine the choice: KFGQPC's own Dūrī printings state
+# wrong.  Many fasilahs are مختلف فيها, so a printed mushaf has to choose, and
+# the qira'ah does not determine the choice: KFGQPC's own Dūrī printings state
 # they follow المدني الأول and yet total 6,218 (1429 AH), 6,217 (1436) and
 # 6,214 (1443).  Al-Mulk 67:9 «قد جاءنا نذير» is one such point — al-Dānī has
 # it counted by المدني الأخير والمكي and by Shayba — and four of the seven
@@ -36,64 +36,64 @@ from .tokenize import tokenize
 # coherent, which is what remains below.
 
 
-def check_index(words: list[Word], riwayat: list[Riwaya]) -> list[dict]:
+def check_index(kalimahs: list[Kalimah], riwayahs: list[Riwayah]) -> list[dict]:
     problems: list[dict] = []
 
-    for i, w in enumerate(words, start=1):
+    for i, w in enumerate(kalimahs, start=1):
         if w.id != i:
-            problems.append({"check": "id_contiguous", "word_id": w.id,
+            problems.append({"check": "id_contiguous", "kalimah_id": w.id,
                              "detail": f"expected {i}"})
             break
 
-    seen: Counter[str] = Counter(w.key for w in words)
+    seen: Counter[str] = Counter(w.key for w in kalimahs)
     dupes = [k for k, n in seen.items() if n > 1]
     if dupes:
         problems.append({"check": "key_unique",
                          "detail": f"{len(dupes)} duplicate stability keys, "
                                    f"e.g. {dupes[:3]}"})
 
-    by_sura: dict[int, list[Word]] = defaultdict(list)
-    for w in words:
-        by_sura[w.sura].append(w)
-    for sura, ws in sorted(by_sura.items()):
+    by_surah: dict[int, list[Kalimah]] = defaultdict(list)
+    for w in kalimahs:
+        by_surah[w.surah].append(w)
+    for surah, ws in sorted(by_surah.items()):
         if [w.index for w in ws] != list(range(1, len(ws) + 1)):
-            problems.append({"check": "index_contiguous", "sura": sura,
-                             "detail": "word_index is not 1..n"})
+            problems.append({"check": "index_contiguous", "surah": surah,
+                             "detail": "kalimah_index is not 1..n"})
 
-    # Every letter of every riwāyah must survive into the index, in order.
-    # Comparing the concatenated rasm rather than the word count makes the
-    # check indifferent to words the builder re-segmented.
-    for r in riwayat:
-        source = [a for a in r.ayat if a.aya > 0 or a.sura == 1]
-        got = "".join(rasm(w.forms[r.key]) for w in words if r.key in w.forms)
+    # Every harf of every riwayah must survive into the index, in order.
+    # Comparing the concatenated rasm rather than the kalimah count makes the
+    # check indifferent to kalimahs the builder re-segmented.
+    for r in riwayahs:
+        source = [a for a in r.ayahs if a.ayah > 0 or a.surah == 1]
+        got = "".join(rasm(w.forms[r.key]) for w in kalimahs if r.key in w.forms)
         want = "".join(t.rasm for t in tokenize(source))
         if got != want:
             at = next((i for i, (x, y) in enumerate(zip(got, want)) if x != y),
                       min(len(got), len(want)))
             problems.append({
-                "check": "roundtrip_rasm", "riwaya": r.key,
-                "detail": f"letter streams diverge at offset {at}: index has "
+                "check": "roundtrip_rasm", "riwayah": r.key,
+                "detail": f"harf streams diverge at offset {at}: index has "
                           f"{got[at:at + 30]!r}, source has {want[at:at + 30]!r}",
             })
     return problems
 
 
-def check_alif_splits(words: list[Word]) -> list[dict]:
-    """The plene/defective ā must divide the riwāyāt exactly one way.
+def check_alif_splits(kalimahs: list[Kalimah]) -> list[dict]:
+    """The plene/defective ā must divide the riwayahs exactly one way.
 
     This is the ground ``alif_variant`` stands on rather than a nicety.  Every
-    one of these words puts {warsh, qālūn} on one side and the other five on the
+    one of these kalimahs puts {warsh, qālūn} on one side and the other five on the
     other — in both directions, 198 times out of 198 — and a khilāf of the amṣār
     would not do that, since Bazzī is Makkī and Makkah sides with Madinah on
     ḥadhf al-alif as often as not.  One partition means the class tracks the
-    publisher's hand, which is why it is reported apart from the letters the
-    codices disagree about.  If a future package ever splits one of these words
+    publisher's hand, which is why it is reported apart from the harfs the
+    mushafs disagree about.  If a future package ever splits one of these kalimahs
     some other way, that inference has lost its warrant and should be revisited
     rather than quietly kept, so it is asserted here instead of being left in a
     paragraph.
     """
     splits: dict[frozenset, list[int]] = defaultdict(list)
-    for w in words:
+    for w in kalimahs:
         if w.status != "alif_variant":
             continue
         groups: dict[str, list[str]] = defaultdict(list)
@@ -103,58 +103,58 @@ def check_alif_splits(words: list[Word]) -> list[dict]:
     if len(splits) <= 1:
         return []
     return [{"check": "alif_splits_one_way",
-             "detail": f"{len(splits)} distinct riwāyah partitions among the "
+             "detail": f"{len(splits)} distinct riwayah partitions among the "
                        f"{sum(len(v) for v in splits.values())} plene/defective "
-                       f"words; first word of each: "
+                       f"kalimahs; first kalimah of each: "
                        f"{sorted(ids[0] for ids in splits.values())}"}]
 
 
-def check_release_policy(riwayat: list[Riwaya]) -> list[dict]:
-    """The text must come from each riwāyah's *latest* release.
+def check_release_policy(riwayahs: list[Riwayah]) -> list[dict]:
+    """The text must come from each riwayah's *latest* release.
 
     KFGQPC revises these documents deliberately — the 2026 Ḥafṣ separates
     ``مَا لِيَ`` where the 2022 CSV joins it as ``مَالِيَ`` — so where two releases
-    of one riwāyah disagree, the later one is the text and the earlier one is a
+    of one riwayah disagree, the later one is the text and the earlier one is a
     cross-check.  Loading them the other way round would publish a superseded
     convention while still passing every structural check, so it is asserted
     rather than assumed.
     """
     out = []
-    for r in riwayat:
+    for r in riwayahs:
         if r.crosscheck and r.crosscheck_year > r.release_year:
-            out.append({"check": "release_policy", "riwaya": r.key,
+            out.append({"check": "release_policy", "riwayah": r.key,
                         "detail": f"the text is loaded from the {r.release_year} "
                                   f"release but a {r.crosscheck_year} one exists"})
     return out
 
 
-def check_counting(riwayat: list[Riwaya]) -> list[dict]:
-    """Each muṣḥaf's numbering must be internally coherent — nothing more.
+def check_counting(riwayahs: list[Riwayah]) -> list[dict]:
+    """Each mushaf's numbering must be internally coherent — nothing more.
 
     See the note above on why no total is asserted.
     """
     out = []
-    for r in riwayat:
-        for sura, n in Counter(a.sura for a in r.ayat if a.aya > 0).items():
-            nums = sorted(a.aya for a in r.ayat if a.sura == sura and a.aya > 0)
+    for r in riwayahs:
+        for surah, n in Counter(a.surah for a in r.ayahs if a.ayah > 0).items():
+            nums = sorted(a.ayah for a in r.ayahs if a.surah == surah and a.ayah > 0)
             if nums != list(range(1, n + 1)):
-                out.append({"check": "ayah_contiguous", "riwaya": r.key,
-                            "sura": sura, "detail": "āyah numbers are not 1..n"})
+                out.append({"check": "ayah_contiguous", "riwayah": r.key,
+                            "surah": surah, "detail": "ayah numbers are not 1..n"})
     return out
 
 
-def cross_release(riwayat: list[Riwaya]) -> dict[str, dict]:
-    """Compare each riwāyah's primary release against its other release.
+def cross_release(riwayahs: list[Riwayah]) -> dict[str, dict]:
+    """Compare each riwayah's primary release against its other release.
 
     Differences split three ways: pure notation (the 2026 files use the Unicode
     codepoints added for open tanwīn where the 2022 files reused others),
     vowelling, and rasm.  Only the last two are textual.
     """
     report: dict[str, dict] = {}
-    for r in riwayat:
+    for r in riwayahs:
         if not r.crosscheck:
             continue
-        primary = {(a.sura, a.aya): a.text for a in r.ayat if a.aya > 0}
+        primary = {(a.surah, a.ayah): a.text for a in r.ayahs if a.ayah > 0}
         shared = primary.keys() & r.crosscheck.keys()
         notation = vowel = rasm_diff = 0
         examples: list[dict] = []
@@ -177,7 +177,7 @@ def cross_release(riwayat: list[Riwaya]) -> dict[str, dict]:
         report[r.key] = {
             "primary": r.source,
             "other": r.crosscheck_source,
-            "ayat_compared": len(shared),
+            "ayahs_compared": len(shared),
             "only_in_primary": len(primary.keys() - r.crosscheck.keys()),
             "only_in_other": len(r.crosscheck.keys() - primary.keys()),
             "identical": len(shared) - notation - vowel - rasm_diff,
@@ -190,41 +190,41 @@ def cross_release(riwayat: list[Riwaya]) -> dict[str, dict]:
     return report
 
 
-def check_layout_alignment(riwayat) -> list[dict]:
-    """The typesetting positions must line up with the words they position.
+def check_layout_alignment(riwayahs) -> list[dict]:
+    """The typesetting positions must line up with the kalimahs they position.
 
-    :func:`quranidx.layout.word_places` walks the document a second time, for
+    :func:`quranidx.layout.kalimah_places` walks the document a second time, for
     positions rather than for text.  Everything downstream zips the two streams
     by index, which is only sound if they are the same stream — so assert it
     rather than trust it.  A future release that moved a heading into the flow
-    would otherwise slide every later word onto the wrong line in silence.
+    would otherwise slide every later kalimah onto the wrong line in silence.
     """
     from .layout import raw_tokens
     from .normalize import strip_controls
     from .sources import _extract
 
     out = []
-    for r in riwayat:
+    for r in riwayahs:
         spec = r.spec
         if not spec or spec.primary_kind != "docx":
             continue
         path = _extract(spec.primary_zip, spec.primary_member)
-        want = [t for a in r.ayat for t in strip_controls(a.text).split()]
+        want = [t for a in r.ayahs for t in strip_controls(a.text).split()]
         got = raw_tokens(path)
         if want != got:
             where = next((i for i, (x, y) in enumerate(zip(want, got)) if x != y),
                          min(len(want), len(got)))
-            out.append({"check": "layout_alignment", "riwaya": r.key,
+            out.append({"check": "layout_alignment", "riwayah": r.key,
                         "detail": f"position stream diverges from the text at "
                                   f"token {where} ({len(want)} vs {len(got)})"})
     return out
 
 
-def check_mushaf_roundtrip(words, riwayat) -> list[dict]:
-    """Each muṣḥaf's published words must be that muṣḥaf's words.
+def check_mushaf_roundtrip(kalimahs, riwayahs) -> list[dict]:
+    """Each mushaf's published kalimahs must be that mushaf's kalimahs.
 
     The same invariant :func:`check_index` asserts for the spine, asserted again
-    for the per-muṣḥaf files: concatenating what is published for one muṣḥaf has
+    for the per-mushaf files: concatenating what is published for one mushaf has
     to reproduce what tokenising its source gives, once the handful of places
     where this build re-spaced the text are accounted for.  Those places are
     listed in every file, so the check also confirms the listing is complete.
@@ -233,26 +233,26 @@ def check_mushaf_roundtrip(words, riwayat) -> list[dict]:
     from .normalize import rasm
 
     out = []
-    streams = streams_for(riwayat)
-    for r in riwayat:
+    streams = streams_for(riwayahs)
+    for r in riwayahs:
         key = r.key
-        mine = [w for w in words if key in w.forms]
+        mine = [w for w in kalimahs if key in w.forms]
         published = "".join(rasm(w.forms[key]) for w in mine)
         source = "".join(t.rasm for t in streams[key])
         if published != source:
-            out.append({"check": "mushaf_roundtrip", "riwaya": key,
+            out.append({"check": "mushaf_roundtrip", "riwayah": key,
                         "detail": "published text does not reproduce the source"})
 
         declared = {i for w in mine if key in w.boundary for i in (w.id,)}
         flagged = {w.id for w in mine if key in w.boundary}
         if declared != flagged:
-            out.append({"check": "mushaf_resegmentation", "riwaya": key,
+            out.append({"check": "mushaf_resegmentation", "riwayah": key,
                         "detail": f"{len(flagged - declared)} re-segmented "
-                                  f"word(s) not declared"})
+                                  f"kalimah(s) not declared"})
 
         stray = {n for t in streams[key] for n in t.notes} - {"resegmented"}
         if stray:
-            out.append({"check": "mushaf_tokenizer_notes", "riwaya": key,
+            out.append({"check": "mushaf_tokenizer_notes", "riwayah": key,
                         "detail": f"undeclared tokenizer departure(s): "
                                   f"{sorted(stray)}"})
     return out

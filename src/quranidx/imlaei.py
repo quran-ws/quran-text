@@ -1,27 +1,27 @@
-"""Word-level imlāʾī, for the one release that supplies it.
+"""Kalimah-level imlāʾī, for the one release that supplies it.
 
-The Ḥafṣ v2 release carries an ``aya_text_emlaey`` column — the same āyāt in
+The Ḥafṣ v2 release carries an ``aya_text_emlaey`` column — the same ayahs in
 plain modern spelling.  No other package has it.  So imlāʾī is published for
 Ḥafṣ and for nobody else, and it is never generated: deriving it by rule for the
 other six would be this project asserting a spelling no source states.
 
-The column is per āyah, so it has to be brought down to the word.  That is not
+The column is per ayah, so it has to be brought down to the kalimah.  That is not
 a re-export and it has not been attempted here before, so it is done
 conservatively and every step is checked:
 
-* Strip the āyah-number glyph and the standalone ۞ / ۩ from the ʿUthmānī side,
-  since neither is a word.  **6,175 of 6,236 āyāt** then hold exactly as many
-  imlāʾī tokens as ʿUthmānī ones, and map across position for position.
+* Strip the ayah-number glyph and the standalone ۞ / ۩ from the Uthmani side,
+  since neither is a kalimah.  **6,175 of 6,236 ayahs** then hold exactly as many
+  imlāʾī tokens as Uthmani ones, and map across position for position.
 * In the remaining **61**, imlāʾī always has *more* tokens, never fewer, because
-  it writes as two words what the ʿUthmānī line writes as one — ``أَوَلَا`` for
+  it writes as two kalimahs what the Uthmani line writes as one — ``أَوَلَا`` for
   ``أو لا``.  Those are matched on the dotted skeleton and the extra tokens are
-  joined with a space, so ``e`` is always one string per word.
+  joined with a space, so ``e`` is always one string per kalimah.
 * The Ḥafṣ text of record is the 2026 ``.docx``, not this 2022 CSV, and the two
   tokenise differently in a few places.  The last hop aligns the CSV's tokens
-  onto the spine on the rasm, the same key the muṣḥafs themselves are aligned
+  onto the spine on the rasm, the same key the mushafs themselves are aligned
   on.
 
-A word the chain cannot resolve gets no ``e`` field at all, and the count of
+A kalimah the chain cannot resolve gets no ``e`` field at all, and the count of
 those is reported by the build.  An absent spelling is recoverable; a guessed
 one is not.
 """
@@ -32,13 +32,13 @@ import difflib
 from collections import defaultdict
 
 from . import chars
-from .build import Word
+from .build import Kalimah
 from .normalize import pointed, rasm
-from .sources import Riwaya
+from .sources import Riwayah
 from .tokenize import tokenize_ayah
 
-#: Symbols that stand between words rather than being part of one.
-_STANDALONE = (chars.RUB_EL_HIZB, chars.SAJDAH)
+#: Symbols that stand between kalimahs rather than being part of one.
+_STANDALONE = (chars.RUB_AL_HIZB, chars.SAJDAH)
 
 
 def _uthmani_tokens(text: str) -> list[str]:
@@ -48,10 +48,10 @@ def _uthmani_tokens(text: str) -> list[str]:
 
 
 def _pair(uth: list[str], iml: list[str]) -> list[str] | None:
-    """One imlāʾī string per ʿUthmānī token, or ``None`` if they cannot be paired.
+    """One imlāʾī string per Uthmani token, or ``None`` if they cannot be paired.
 
     Equal counts pair by position.  Where imlāʾī has more tokens, the extra ones
-    are attached to the ʿUthmānī word whose skeleton they continue, which is
+    are attached to the Uthmani kalimah whose skeleton they continue, which is
     decided by matching skeletons rather than by counting.
     """
     if len(uth) == len(iml):
@@ -68,7 +68,7 @@ def _pair(uth: list[str], iml: list[str]) -> list[str] | None:
             for off in range(i2 - i1):
                 out[i1 + off] = iml[j1 + off]
         elif tag == "replace" and i2 - i1 == 1:
-            # One ʿUthmānī word written as several imlāʾī ones.
+            # One Uthmani kalimah written as several imlāʾī ones.
             out[i1] = " ".join(iml[j1:j2])
         elif tag == "replace" and i2 - i1 == j2 - j1:
             for off in range(i2 - i1):
@@ -83,31 +83,31 @@ def _skeleton(token: str) -> str:
     return pointed(token).replace("ٱ", "ا").replace("أ", "ا").replace("إ", "ا")
 
 
-def for_riwaya(words: list[Word], riwaya: Riwaya) -> tuple[dict[int, str], dict]:
-    """``word id -> imlāʾī``, with a report of what could not be mapped.
+def for_riwayah(kalimahs: list[Kalimah], riwayah: Riwayah) -> tuple[dict[int, str], dict]:
+    """``kalimah id -> imlāʾī``, with a report of what could not be mapped.
 
-    Asked of every riwāyah and answered for the one that can answer.  Having a
+    Asked of every riwayah and answered for the one that can answer.  Having a
     v2 release is not enough — Warsh, Qālūn, Dūrī and Sūsī all have one, and
     none of them carries the column — so the test is whether the column holds
     anything, not whether it exists.
     """
-    if not any((m.get("emlaey") or "").strip() for m in riwaya.meta.values()):
+    if not any((m.get("emlaey") or "").strip() for m in riwayah.meta.values()):
         return {}, {"available": False,
                     "reason": "release carries no imlāʾī column"}
 
-    key = riwaya.key
-    spine: dict[tuple[int, int], list[Word]] = defaultdict(list)
-    for w in words:
+    key = riwayah.key
+    spine: dict[tuple[int, int], list[Kalimah]] = defaultdict(list)
+    for w in kalimahs:
         if key in w.forms:
-            spine[(w.sura, w.aya[key])].append(w)
+            spine[(w.surah, w.ayah[key])].append(w)
 
     out: dict[int, str] = {}
     unpaired = unaligned = 0
     joined = 0
-    for (sura, aya), meta in riwaya.meta.items():
+    for (surah, ayah), meta in riwayah.meta.items():
         emlaey = (meta.get("emlaey") or "").split()
-        source = riwaya.crosscheck.get((sura, aya))
-        target = spine.get((sura, aya))
+        source = riwayah.crosscheck.get((surah, ayah))
+        target = spine.get((surah, ayah))
         if not emlaey or not source or not target:
             continue
 
@@ -120,7 +120,7 @@ def for_riwaya(words: list[Word], riwaya: Riwaya) -> tuple[dict[int, str], dict]
             joined += 1
 
         # The CSV is a different release from the text of record; align on rasm.
-        csv_toks = tokenize_ayah(sura, aya, " ".join(uth))
+        csv_toks = tokenize_ayah(surah, ayah, " ".join(uth))
         if len(csv_toks) != len(paired):
             unaligned += 1
             continue
@@ -136,12 +136,12 @@ def for_riwaya(words: list[Word], riwaya: Riwaya) -> tuple[dict[int, str], dict]
 
     return out, {
         "available": True,
-        "source": riwaya.crosscheck_source,
+        "source": riwayah.crosscheck_source,
         "column": "aya_text_emlaey",
-        "words_mapped": len(out),
-        "ayat_needing_join": joined,
-        "ayat_unpaired": unpaired,
-        "ayat_unaligned": unaligned,
+        "kalimahs_mapped": len(out),
+        "ayahs_needing_join": joined,
+        "ayahs_unpaired": unpaired,
+        "ayahs_unaligned": unaligned,
         "note": "imlāʾī is published only where a release supplies it; it is "
                 "never derived by rule",
     }

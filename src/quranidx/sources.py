@@ -1,9 +1,9 @@
 """Loaders for the KFGQPC packages shipped in ``data/``.
 
-None of the packages contain word-level data — every one of them is
-āyah-level.  These loaders bring each release into one shape,
+None of the packages contain kalimah-level data — every one of them is
+ayah-level.  These loaders bring each release into one shape,
 ``list[Ayah]``, so the tokeniser downstream never has to care whether a
-riwāyah arrived as a 2022 CSV or a 2026 Word document.
+riwayah arrived as a 2022 CSV or a 2026 Word document.
 """
 
 from __future__ import annotations
@@ -28,40 +28,40 @@ WORK = Path("work/raw")
 
 @dataclass(frozen=True)
 class Ayah:
-    sura: int
-    aya: int
+    surah: int
+    ayah: int
     text: str
 
 
 @dataclass
-class Riwaya:
+class Riwayah:
     key: str
     name_en: str
     name_ar: str
     qari_en: str
     qari_ar: str
-    #: The tradition of ʿadd al-āy this riwāyah is *conventionally* associated
+    #: The tradition of ʿadd al-āy this riwayah is *conventionally* associated
     #: with.  A label for grouping and display only — emphatically **not** a
-    #: claim about where this package puts its fawāṣil.  The qirāʾah does not
+    #: claim about where this package puts its fasilahs.  The qira'ah does not
     #: determine the count: KFGQPC's Dūrī printings all state المدني الأول and
     #: still total 6,218, 6,217 and 6,214 across three printings.  For where
-    #: the āyāt actually end, read ``out/fawasil.json``, which is derived from
+    #: the ayahs actually end, read ``out/fasilahs.json``, which is derived from
     #: the packages themselves.
     counting: str            # conventional label only — see SourceSpec.counting
-    source: str              # provenance of ``ayat``
-    ayat: list[Ayah] = field(default_factory=list)
-    #: (sura, aya) -> {jozz, page, line_start, line_end}, from the v2 CSVs.
+    source: str              # provenance of ``ayahs``
+    ayahs: list[Ayah] = field(default_factory=list)
+    #: (surah, ayah) -> {juz, safhah, line_start, line_end}, from the v2 CSVs.
     meta: dict[tuple[int, int], dict] = field(default_factory=dict)
-    #: (sura, aya) -> text, from the *other* release of the same riwāyah.
+    #: (surah, ayah) -> text, from the *other* release of the same riwayah.
     crosscheck: dict[tuple[int, int], str] = field(default_factory=dict)
     crosscheck_source: str = ""
     release_year: int = 0
     crosscheck_year: int = 0
-    #: One :class:`quranidx.layout.Place` per token of :attr:`ayat`, flat and in
-    #: document order.  Empty for a riwāyah whose primary release is a CSV,
+    #: One :class:`quranidx.layout.Place` per token of :attr:`ayahs`, flat and in
+    #: document order.  Empty for a riwayah whose primary release is a CSV,
     #: which carries no typesetting.
     places: list = field(default_factory=list)
-    #: The registry entry this riwāyah was built from, for the provenance block.
+    #: The registry entry this riwayah was built from, for the provenance block.
     spec: object = None
 
 
@@ -83,17 +83,17 @@ def docx_paragraphs(path: Path) -> list[str]:
     return out
 
 
-_SURA_HEAD = re.compile(r"^\s*سُ?ورَ?ةُ?\s")
+_SURAH_HEAD = re.compile(r"^\s*سُ?ورَ?ةُ?\s")
 _AR_NUM = "".join(chars.ARABIC_DIGITS)
 
-# v3.0 marks an āyah with NBSP + U+06DD + digits; the 2022 Dūrī release omits
+# v3.0 marks an ayah with NBSP + U+06DD + digits; the 2022 Dūrī release omits
 # the U+06DD and leaves only NBSP + digits.
 _AYAH_MARK = re.compile(rf"[  ]?۝?([{_AR_NUM}]+)")
 
 #: The basmalah as printed, from which the needle is derived at run time.
 #: Deriving it rather than hard-coding a skeleton is deliberate: a literal
 #: skeleton silently stops matching the day the normalisation changes, and when
-#: it did, 113 sūrahs quietly absorbed their opening basmalah into āyah 1.
+#: it did, 113 surahs quietly absorbed their opening basmalah into ayah 1.
 _BASMALAH_REFERENCE = "بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ"
 
 
@@ -102,13 +102,13 @@ def _arabic_int(s: str) -> int:
 
 
 def _is_heading(para: str) -> bool:
-    return bool(_SURA_HEAD.match(para)) and not re.search(rf"[{_AR_NUM}]", para)
+    return bool(_SURAH_HEAD.match(para)) and not re.search(rf"[{_AR_NUM}]", para)
 
 
-#: A sūrah heading stranded at the end of the previous sūrah's paragraph.
-#: The v3.0 Qālūn document types "سُورَةُ البَقَرَةِ" after Al-Fātiḥah's last āyah
+#: A surah heading stranded at the end of the previous surah's paragraph.
+#: The v3.0 Qālūn document types "سُورَةُ البَقَرَةِ" after Al-Fātiḥah's last ayah
 #: mark rather than in its own paragraph, which would otherwise prepend two
-#: heading words to Al-Baqarah 2:1.  Anchoring on "text after the final āyah
+#: heading kalimahs to Al-Baqarah 2:1.  Anchoring on "text after the final ayah
 #: mark of a paragraph" keeps 24:1 ("سُورَةٌ أَنزَلۡنَٰهَا"), which is scripture,
 #: safely out of reach.
 _TRAILING_HEAD = re.compile(rf"(?<=[{_AR_NUM}])(\s*سُ?ورَ?ةُ\s+[^{_AR_NUM}۝]{{1,40}})$")
@@ -119,9 +119,9 @@ def _strip_trailing_heading(para: str) -> str:
 
 
 def _is_bare_basmalah(para: str) -> bool:
-    """A basmalah printed as a sūrah opening rather than counted as an āyah."""
+    """A basmalah printed as a surah opening rather than counted as an ayah."""
     if re.search(rf"[{_AR_NUM}]", para):
-        return False          # numbered: it *is* āyah 1 (Kufi/Makki Al-Fātiḥah)
+        return False          # numbered: it *is* ayah 1 (Kufi/Makki Al-Fātiḥah)
     from .normalize import pointed
     return pointed(para).replace(" ", "") == _basmalah_needle()
 
@@ -133,19 +133,19 @@ def _basmalah_needle() -> str:
 
 
 def load_docx(path: Path) -> list[Ayah]:
-    """Split a KFGQPC Word mushaf into āyāt.
+    """Split a KFGQPC Word mushaf into ayahs.
 
-    Sūrah boundaries come from resets in the āyah numbering, not from the
+    Surah boundaries come from resets in the ayah numbering, not from the
     headings: the v3.0 Qālūn document is missing the heading for Al-Baqarah, so
-    heading-driven segmentation silently shifts every sūrah after it by one.
+    heading-driven segmentation silently shifts every surah after it by one.
     Numbering resets are intrinsic to the text, and let us assert at the end
-    that there are 114 sūrahs of contiguous 1..N āyāt.
+    that there are 114 surahs of contiguous 1..N ayahs.
 
-    A basmalah that is printed above a sūrah without a number of its own is
-    emitted as āyah ``0``.  Whether it counts as an āyah is a property of the
+    A basmalah that is printed above a surah without a number of its own is
+    emitted as ayah ``0``.  Whether it counts as an ayah is a property of the
     counting tradition, not of the text: Ḥafṣ, Shuʿbah and Bazzī number the
-    basmalah of Al-Fātiḥah as 1:1, the others print the same words unnumbered.
-    Keeping it as āyah 0 lets the builder decide, rather than losing the words.
+    basmalah of Al-Fātiḥah as 1:1, the others print the same kalimahs unnumbered.
+    Keeping it as ayah 0 lets the builder decide, rather than losing the kalimahs.
     """
     # A sentinel that cannot occur in Arabic text, used to remember where an
     # unnumbered basmalah sat once the paragraphs are joined into one stream.
@@ -161,7 +161,7 @@ def load_docx(path: Path) -> list[Ayah]:
         parts.append(_strip_trailing_heading(para))
     body = strip_controls(" ".join(parts))
 
-    # Walk the numbered āyāt, remembering any unnumbered basmalah seen first.
+    # Walk the numbered ayahs, remembering any unnumbered basmalah seen first.
     chunks: list[tuple[int, str, str]] = []      # (number, text, opening)
     pos = 0
     for m in _AYAH_MARK.finditer(body):
@@ -176,23 +176,23 @@ def load_docx(path: Path) -> list[Ayah]:
         chunks.append((_arabic_int(m.group(1)), raw.strip(), opening.strip()))
     tail = body[pos:].strip().strip(MARK)
     if tail:
-        raise ValueError(f"{path.name}: {len(tail)} chars trail the last āyah mark: {tail[:80]!r}")
+        raise ValueError(f"{path.name}: {len(tail)} chars trail the last ayah mark: {tail[:80]!r}")
 
-    ayat: list[Ayah] = []
-    sura, prev = 0, 1 << 30      # force the first āyah to open sūrah 1
+    ayahs: list[Ayah] = []
+    surah, prev = 0, 1 << 30      # force the first ayah to open surah 1
     for n, text, opening in chunks:
-        if n <= prev:            # numbering restarted -> next sūrah
-            sura += 1
+        if n <= prev:            # numbering restarted -> next surah
+            surah += 1
             prev = 0
         if n != prev + 1:
-            raise ValueError(f"{path.name}: sūrah {sura} jumps from āyah {prev} to {n}")
+            raise ValueError(f"{path.name}: surah {surah} jumps from ayah {prev} to {n}")
         if opening:
-            ayat.append(Ayah(sura, 0, opening))
-        ayat.append(Ayah(sura, n, text))
+            ayahs.append(Ayah(surah, 0, opening))
+        ayahs.append(Ayah(surah, n, text))
         prev = n
-    if sura != 114:
-        raise ValueError(f"{path.name}: found {sura} sūrahs, expected 114")
-    return ayat
+    if surah != 114:
+        raise ValueError(f"{path.name}: found {surah} surahs, expected 114")
+    return ayahs
 
 
 # --------------------------------------------------------------------------
@@ -202,28 +202,28 @@ def load_docx(path: Path) -> list[Ayah]:
 def load_csv(path: Path) -> tuple[list[Ayah], dict[tuple[int, int], dict]]:
     """Read a ``*Data_v2-*.csv`` release.
 
-    The v2 files encode the āyah number as a single Arabic Presentation
+    The v2 files encode the ayah number as a single Arabic Presentation
     Forms-A codepoint (U+FC00 + n - 1).  It is stripped here and, since the
     row already carries ``aya_no``, used only as a consistency check.
     """
-    ayat: list[Ayah] = []
+    ayahs: list[Ayah] = []
     meta: dict[tuple[int, int], dict] = {}
     with path.open(encoding="utf-8-sig", newline="") as fh:
         for row in csv.DictReader(fh):
-            sura, aya = int(row["sura_no"]), int(row["aya_no"])
+            surah, ayah = int(row["sura_no"]), int(row["aya_no"])
             text = "".join(
                 ch for ch in row["aya_text"]
                 if chars.ayah_number_from_ligature(ch) is None
             )
-            ayat.append(Ayah(sura, aya, strip_controls(text).strip()))
-            meta[(sura, aya)] = {
+            ayahs.append(Ayah(surah, ayah, strip_controls(text).strip()))
+            meta[(surah, ayah)] = {
                 "jozz": row.get("jozz", ""),
-                "page": row.get("page", ""),
+                "safhah": row.get("page", ""),
                 "line_start": row.get("line_start", ""),
                 "line_end": row.get("line_end", ""),
                 "emlaey": row.get("aya_text_emlaey", ""),
             }
-    return ayat, meta
+    return ayahs, meta
 
 
 # --------------------------------------------------------------------------
@@ -244,29 +244,29 @@ class SourceSpec:
     csv_zip: str | None = None
     csv_member: str | None = None
     #: Release years, used to decide which spelling wins when the two releases
-    #: of one riwāyah disagree.  See ``RELEASE_POLICY``.
+    #: of one riwayah disagree.  See ``RELEASE_POLICY``.
     primary_year: int = 2026
     csv_year: int = 2022
 
 
 #: **The one place this pipeline assumes anything about the sources.**
 #:
-#: When two files *for the same riwāyah* conflict, the later release is taken
+#: When two files *for the same riwayah* conflict, the later release is taken
 #: as a correction of the earlier one, and the later one is the text.  The 2026
 #: Ḥafṣ separates ``مَا لِيَ`` where the 2022 CSV joins it as ``مَالِيَ``; the
-#: newer reading is the publisher's own latest word on its own muṣḥaf, so it is
+#: newer qira'ah is the publisher's own latest verdict on its own mushaf, so it is
 #: the one published here.
 #:
-#: The assumption is deliberately narrow and applies **only within a riwāyah**.
-#: Nothing is inferred from one riwāyah about another, and no difference
-#: between packages is treated as a mistake by either: fawāṣil, orthography and
+#: The assumption is deliberately narrow and applies **only within a riwayah**.
+#: Nothing is inferred from one riwayah about another, and no difference
+#: between packages is treated as a mistake by either: fasilahs, orthography and
 #: spacing are editorial choices the publisher is entitled to make differently
-#: in different muṣḥafs.  See the standing rule in ``docs/ISSUES.md``.
+#: in different mushafs.  See the standing rule in ``docs/ISSUES.md``.
 #:
 #: It also cannot discriminate for Dūrī, whose two packages are both from 2022.
-#: There the differing word boundaries are recorded and left alone.
-RELEASE_POLICY = ("within one riwāyah the later release is a correction; "
-                  "across riwāyāt nothing is assumed")
+#: There the differing kalimah boundaries are recorded and left alone.
+RELEASE_POLICY = ("within one riwayah the later release is a correction; "
+                  "across riwayahs nothing is assumed")
 
 
 REGISTRY: list[SourceSpec] = [
@@ -306,31 +306,31 @@ def _extract(zip_name: str, member: str) -> Path:
     return dest
 
 
-def load_all() -> list[Riwaya]:
-    riwayat = []
+def load_all() -> list[Riwayah]:
+    riwayahs = []
     for spec in REGISTRY:
         path = _extract(spec.primary_zip, spec.primary_member)
         if spec.primary_kind == "docx":
-            ayat = load_docx(path)
+            ayahs = load_docx(path)
             source = f"{spec.primary_zip}.zip :: {spec.primary_member}"
         else:
-            ayat, _ = load_csv(path)
+            ayahs, _ = load_csv(path)
             source = f"{spec.primary_zip}.zip :: {spec.primary_member}"
 
-        r = Riwaya(spec.key, spec.name_en, spec.name_ar, spec.qari_en,
-                   spec.qari_ar, spec.counting, source, ayat)
+        r = Riwayah(spec.key, spec.name_en, spec.name_ar, spec.qari_en,
+                    spec.qari_ar, spec.counting, source, ayahs)
         r.release_year = spec.primary_year
         r.spec = spec
         if spec.primary_kind == "docx":
-            from .layout import word_places
-            r.places = word_places(path)
+            from .layout import kalimah_places
+            r.places = kalimah_places(path)
 
         if spec.csv_zip and spec.csv_member:
             csv_path = _extract(spec.csv_zip, spec.csv_member)
-            csv_ayat, meta = load_csv(csv_path)
+            csv_ayahs, meta = load_csv(csv_path)
             r.meta = meta
-            r.crosscheck = {(a.sura, a.aya): a.text for a in csv_ayat}
+            r.crosscheck = {(a.surah, a.ayah): a.text for a in csv_ayahs}
             r.crosscheck_source = f"{spec.csv_zip}.zip :: {spec.csv_member}"
             r.crosscheck_year = spec.csv_year
-        riwayat.append(r)
-    return riwayat
+        riwayahs.append(r)
+    return riwayahs

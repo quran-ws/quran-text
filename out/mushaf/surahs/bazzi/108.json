@@ -1,0 +1,129 @@
+{
+ "format": "quran-mushaf",
+ "format_version": "2.0",
+ "view_of": "out/mushaf/bazzi.json",
+ "view": "surah-shard",
+ "mushaf": "bazzi",
+ "provenance": {
+  "text": {
+   "package": "UthmanicBazzi-v-3.0.zip",
+   "member": "UthmanicBazzi-v-3.0.docx",
+   "release_year": 2026,
+   "sha256": "63083df98ed0015a6e44b3a5e8f67b1b3d84246ebc69d04c9eabe8982314030c"
+  },
+  "policy": "within one riwayah the later release is a correction; across riwayahs nothing is assumed"
+ },
+ "surah": {
+  "n": 108,
+  "name_ar": "الكَوثر",
+  "name_en": "Al-Kauthar",
+  "revelation": "makki",
+  "basmalah": true,
+  "ayahs": 3,
+  "kalimahs": [
+   77299,
+   77308
+  ],
+  "safhahs": [
+   602,
+   602
+  ]
+ },
+ "ayahs": [
+  {
+   "surah": 108,
+   "n": 1,
+   "kalimahs": [
+    77299,
+    77301
+   ]
+  },
+  {
+   "surah": 108,
+   "n": 2,
+   "kalimahs": [
+    77302,
+    77304
+   ]
+  },
+  {
+   "surah": 108,
+   "n": 3,
+   "kalimahs": [
+    77305,
+    77308
+   ]
+  }
+ ],
+ "safhahs": [
+  {
+   "n": 602,
+   "kalimahs": [
+    77257,
+    77308
+   ]
+  }
+ ],
+ "kalimahs": [
+  {
+   "w": 77299,
+   "t": "إِنَّا",
+   "pg": 602,
+   "ln": 16
+  },
+  {
+   "w": 77300,
+   "t": "أَعۡطَيۡنَٰكَ",
+   "pg": 602,
+   "ln": 16
+  },
+  {
+   "w": 77301,
+   "t": "ٱلۡكَوۡثَرَ",
+   "pg": 602,
+   "ln": 16
+  },
+  {
+   "w": 77302,
+   "t": "فَصَلِّ",
+   "pg": 602,
+   "ln": 16
+  },
+  {
+   "w": 77303,
+   "t": "لِرَبِّكَ",
+   "pg": 602,
+   "ln": 16
+  },
+  {
+   "w": 77304,
+   "t": "وَٱنۡحَرۡ",
+   "pg": 602,
+   "ln": 16
+  },
+  {
+   "w": 77305,
+   "t": "إِنَّ",
+   "pg": 602,
+   "ln": 17
+  },
+  {
+   "w": 77306,
+   "t": "شَانِئَكَ",
+   "pg": 602,
+   "ln": 17
+  },
+  {
+   "w": 77307,
+   "t": "هُوَ",
+   "pg": 602,
+   "ln": 17
+  },
+  {
+   "w": 77308,
+   "t": "ٱلۡأَبۡتَرُ",
+   "pg": 602,
+   "ln": 17
+  }
+ ]
+}

@@ -1,0 +1,192 @@
+{
+ "format": "quran-mushaf",
+ "format_version": "2.0",
+ "view_of": "out/mushaf/hafs.json",
+ "view": "surah-shard",
+ "mushaf": "hafs",
+ "provenance": {
+  "text": {
+   "package": "UthmanicHafs-v-3.0.zip",
+   "member": "UthmanicHafs-v-3.0.docx",
+   "release_year": 2026,
+   "sha256": "cdec7341b7c684e7b8dd469c4b68988914d2784e924c7e6cbb9cb4b57c24f013"
+  },
+  "policy": "within one riwayah the later release is a correction; across riwayahs nothing is assumed",
+  "layout": {
+   "package": "UthmanicHafs_v2-0.zip",
+   "member": "UthmanicHafs_v2-0 data/hafsData_v2-0.csv",
+   "release_year": 2022,
+   "sha256": "a7b0e5591945712ec5e4d6142938ae4d1e9b49bdc89dff06222789bfebdfd72c",
+   "used_for": [
+    "juz",
+    "line_check"
+   ]
+  }
+ },
+ "surah": {
+  "n": 112,
+  "name_ar": "الإخلَاص",
+  "name_en": "Al-Ikhlāṣ",
+  "revelation": "makki",
+  "basmalah": true,
+  "ayahs": 4,
+  "kalimahs": [
+   77377,
+   77391
+  ],
+  "safhahs": [
+   604,
+   604
+  ]
+ },
+ "ayahs": [
+  {
+   "surah": 112,
+   "n": 1,
+   "kalimahs": [
+    77377,
+    77380
+   ]
+  },
+  {
+   "surah": 112,
+   "n": 2,
+   "kalimahs": [
+    77381,
+    77382
+   ]
+  },
+  {
+   "surah": 112,
+   "n": 3,
+   "kalimahs": [
+    77383,
+    77386
+   ]
+  },
+  {
+   "surah": 112,
+   "n": 4,
+   "kalimahs": [
+    77387,
+    77391
+   ]
+  }
+ ],
+ "safhahs": [
+  {
+   "n": 604,
+   "kalimahs": [
+    77377,
+    77434
+   ]
+  }
+ ],
+ "kalimahs": [
+  {
+   "w": 77377,
+   "t": "قُلۡ",
+   "pg": 604,
+   "ln": 3,
+   "e": "قل"
+  },
+  {
+   "w": 77378,
+   "t": "هُوَ",
+   "pg": 604,
+   "ln": 3,
+   "e": "هو"
+  },
+  {
+   "w": 77379,
+   "t": "ٱللَّهُ",
+   "pg": 604,
+   "ln": 3,
+   "e": "الله"
+  },
+  {
+   "w": 77380,
+   "t": "أَحَدٌ",
+   "pg": 604,
+   "ln": 3,
+   "e": "أحد"
+  },
+  {
+   "w": 77381,
+   "t": "ٱللَّهُ",
+   "pg": 604,
+   "ln": 3,
+   "e": "الله"
+  },
+  {
+   "w": 77382,
+   "t": "ٱلصَّمَدُ",
+   "pg": 604,
+   "ln": 3,
+   "e": "الصمد"
+  },
+  {
+   "w": 77383,
+   "t": "لَمۡ",
+   "pg": 604,
+   "ln": 3,
+   "e": "لم"
+  },
+  {
+   "w": 77384,
+   "t": "يَلِدۡ",
+   "pg": 604,
+   "ln": 3,
+   "e": "يلد"
+  },
+  {
+   "w": 77385,
+   "t": "وَلَمۡ",
+   "pg": 604,
+   "ln": 3,
+   "e": "ولم"
+  },
+  {
+   "w": 77386,
+   "t": "يُولَدۡ",
+   "pg": 604,
+   "ln": 3,
+   "e": "يولد"
+  },
+  {
+   "w": 77387,
+   "t": "وَلَمۡ",
+   "pg": 604,
+   "ln": 4,
+   "e": "ولم"
+  },
+  {
+   "w": 77388,
+   "t": "يَكُن",
+   "pg": 604,
+   "ln": 4,
+   "e": "يكن"
+  },
+  {
+   "w": 77389,
+   "t": "لَّهُۥ",
+   "pg": 604,
+   "ln": 4,
+   "e": "له"
+  },
+  {
+   "w": 77390,
+   "t": "كُفُوًا",
+   "pg": 604,
+   "ln": 4,
+   "e": "كفوا"
+  },
+  {
+   "w": 77391,
+   "t": "أَحَدُۢ",
+   "pg": 604,
+   "ln": 4,
+   "e": "أحد"
+  }
+ ]
+}

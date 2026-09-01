@@ -1,0 +1,200 @@
+{
+ "format": "quran-mushaf",
+ "format_version": "2.0",
+ "view_of": "out/mushaf/sousi.json",
+ "view": "surah-shard",
+ "mushaf": "sousi",
+ "provenance": {
+  "text": {
+   "package": "UthmanicSousi-v-3.0.zip",
+   "member": "UthmanicSousi-v-3.0.docx",
+   "release_year": 2026,
+   "sha256": "1fe37644546506715cb81eb2e3154567c4df9f256a77e9d523bb12d836b06e0d"
+  },
+  "policy": "within one riwayah the later release is a correction; across riwayahs nothing is assumed",
+  "layout": {
+   "package": "UthmanicSousi_v2-0.zip",
+   "member": "UthmanicSousi_v2-0 data/SousiData_v2-0.csv",
+   "release_year": 2022,
+   "sha256": "e912273b3863bbf97ec4a7b1134967e3cdf21de7fcc06df9dee42bce655ce472",
+   "used_for": [
+    "juz",
+    "line_check"
+   ]
+  }
+ },
+ "surah": {
+  "n": 110,
+  "name_ar": "النَّصر",
+  "name_en": "An-Naṣr",
+  "revelation": "madani",
+  "basmalah": true,
+  "ayahs": 3,
+  "kalimahs": [
+   77335,
+   77353
+  ],
+  "safhahs": [
+   603,
+   603
+  ]
+ },
+ "ayahs": [
+  {
+   "surah": 110,
+   "n": 1,
+   "kalimahs": [
+    77335,
+    77339
+   ]
+  },
+  {
+   "surah": 110,
+   "n": 2,
+   "kalimahs": [
+    77340,
+    77346
+   ]
+  },
+  {
+   "surah": 110,
+   "n": 3,
+   "kalimahs": [
+    77347,
+    77353
+   ]
+  }
+ ],
+ "safhahs": [
+  {
+   "n": 603,
+   "kalimahs": [
+    77309,
+    77376
+   ]
+  }
+ ],
+ "kalimahs": [
+  {
+   "w": 77335,
+   "t": "إِذَا",
+   "pg": 603,
+   "ln": 9
+  },
+  {
+   "w": 77336,
+   "t": "جَآءَ",
+   "pg": 603,
+   "ln": 9
+  },
+  {
+   "w": 77337,
+   "t": "نَصۡرُ",
+   "pg": 603,
+   "ln": 9
+  },
+  {
+   "w": 77338,
+   "t": "ࡲ۬للَّهِ",
+   "pg": 603,
+   "ln": 9
+  },
+  {
+   "w": 77339,
+   "t": "وَࡱلۡفَتۡحُ",
+   "pg": 603,
+   "ln": 9
+  },
+  {
+   "w": 77340,
+   "t": "وَرَأَيۡتَ",
+   "pg": 603,
+   "ln": 9
+  },
+  {
+   "w": 77341,
+   "t": "ࡱ۬لنَّاسَ",
+   "pg": 603,
+   "ln": 9
+  },
+  {
+   "w": 77342,
+   "t": "يَدۡخُلُونَ",
+   "pg": 603,
+   "ln": 10
+  },
+  {
+   "w": 77343,
+   "t": "فِي",
+   "pg": 603,
+   "ln": 10
+  },
+  {
+   "w": 77344,
+   "t": "دِينِ",
+   "pg": 603,
+   "ln": 10
+  },
+  {
+   "w": 77345,
+   "t": "ࡵ۬للَّهِ",
+   "pg": 603,
+   "ln": 10
+  },
+  {
+   "w": 77346,
+   "t": "أَفۡوَاجࣰا",
+   "pg": 603,
+   "ln": 10
+  },
+  {
+   "w": 77347,
+   "t": "فَسَبِّحۡ",
+   "pg": 603,
+   "ln": 10
+  },
+  {
+   "w": 77348,
+   "t": "بِحَمۡدِ",
+   "pg": 603,
+   "ln": 10
+  },
+  {
+   "w": 77349,
+   "t": "رَبِّكَ",
+   "pg": 603,
+   "ln": 10
+  },
+  {
+   "w": 77350,
+   "t": "وَࡱسۡتَغۡفِرۡهُ",
+   "pg": 603,
+   "ln": 11,
+   "marks": [
+    {
+     "k": "waqf",
+     "at": "after",
+     "sign": "ۚ"
+    }
+   ]
+  },
+  {
+   "w": 77351,
+   "t": "إِنَّهُۥ",
+   "pg": 603,
+   "ln": 11
+  },
+  {
+   "w": 77352,
+   "t": "كَانَ",
+   "pg": 603,
+   "ln": 11
+  },
+  {
+   "w": 77353,
+   "t": "تَوَّابَۢا",
+   "pg": 603,
+   "ln": 11
+  }
+ ]
+}

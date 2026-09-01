@@ -1,0 +1,233 @@
+{
+ "format": "quran-mushaf",
+ "format_version": "2.0",
+ "view_of": "out/mushaf/sousi.json",
+ "view": "surah-shard",
+ "mushaf": "sousi",
+ "provenance": {
+  "text": {
+   "package": "UthmanicSousi-v-3.0.zip",
+   "member": "UthmanicSousi-v-3.0.docx",
+   "release_year": 2026,
+   "sha256": "1fe37644546506715cb81eb2e3154567c4df9f256a77e9d523bb12d836b06e0d"
+  },
+  "policy": "within one riwayah the later release is a correction; across riwayahs nothing is assumed",
+  "layout": {
+   "package": "UthmanicSousi_v2-0.zip",
+   "member": "UthmanicSousi_v2-0 data/SousiData_v2-0.csv",
+   "release_year": 2022,
+   "sha256": "e912273b3863bbf97ec4a7b1134967e3cdf21de7fcc06df9dee42bce655ce472",
+   "used_for": [
+    "juz",
+    "line_check"
+   ]
+  }
+ },
+ "surah": {
+  "n": 111,
+  "name_ar": "المَسَد",
+  "name_en": "Al-Masad",
+  "revelation": "makki",
+  "basmalah": true,
+  "ayahs": 5,
+  "kalimahs": [
+   77354,
+   77376
+  ],
+  "safhahs": [
+   603,
+   603
+  ]
+ },
+ "ayahs": [
+  {
+   "surah": 111,
+   "n": 1,
+   "kalimahs": [
+    77354,
+    77358
+   ]
+  },
+  {
+   "surah": 111,
+   "n": 2,
+   "kalimahs": [
+    77359,
+    77364
+   ]
+  },
+  {
+   "surah": 111,
+   "n": 3,
+   "kalimahs": [
+    77365,
+    77368
+   ]
+  },
+  {
+   "surah": 111,
+   "n": 4,
+   "kalimahs": [
+    77369,
+    77371
+   ]
+  },
+  {
+   "surah": 111,
+   "n": 5,
+   "kalimahs": [
+    77372,
+    77376
+   ]
+  }
+ ],
+ "safhahs": [
+  {
+   "n": 603,
+   "kalimahs": [
+    77309,
+    77376
+   ]
+  }
+ ],
+ "kalimahs": [
+  {
+   "w": 77354,
+   "t": "تَبَّتۡ",
+   "pg": 603,
+   "ln": 15
+  },
+  {
+   "w": 77355,
+   "t": "يَدَا",
+   "pg": 603,
+   "ln": 15
+  },
+  {
+   "w": 77356,
+   "t": "أَبِي",
+   "pg": 603,
+   "ln": 15
+  },
+  {
+   "w": 77357,
+   "t": "لَهَبࣲ",
+   "pg": 603,
+   "ln": 15
+  },
+  {
+   "w": 77358,
+   "t": "وَتَبَّ",
+   "pg": 603,
+   "ln": 15
+  },
+  {
+   "w": 77359,
+   "t": "مَا",
+   "pg": 603,
+   "ln": 15
+  },
+  {
+   "w": 77360,
+   "t": "أَغۡنَىٰ",
+   "pg": 603,
+   "ln": 15
+  },
+  {
+   "w": 77361,
+   "t": "عَنۡهُ",
+   "pg": 603,
+   "ln": 15
+  },
+  {
+   "w": 77362,
+   "t": "مَالُهُۥ",
+   "pg": 603,
+   "ln": 15
+  },
+  {
+   "w": 77363,
+   "t": "وَمَا",
+   "pg": 603,
+   "ln": 15
+  },
+  {
+   "w": 77364,
+   "t": "كَسَبَ",
+   "pg": 603,
+   "ln": 15
+  },
+  {
+   "w": 77365,
+   "t": "سَيَصۡلَىٰ",
+   "pg": 603,
+   "ln": 16
+  },
+  {
+   "w": 77366,
+   "t": "نَارࣰا",
+   "pg": 603,
+   "ln": 16
+  },
+  {
+   "w": 77367,
+   "t": "ذَاتَ",
+   "pg": 603,
+   "ln": 16
+  },
+  {
+   "w": 77368,
+   "t": "لَهَبࣲ",
+   "pg": 603,
+   "ln": 16
+  },
+  {
+   "w": 77369,
+   "t": "وَࡱمۡرَأَتُهُۥ",
+   "pg": 603,
+   "ln": 16
+  },
+  {
+   "w": 77370,
+   "t": "حَمَّالَةُ",
+   "pg": 603,
+   "ln": 16
+  },
+  {
+   "w": 77371,
+   "t": "ࡲ۬لۡحَطَبِ",
+   "pg": 603,
+   "ln": 16
+  },
+  {
+   "w": 77372,
+   "t": "فِي",
+   "pg": 603,
+   "ln": 17
+  },
+  {
+   "w": 77373,
+   "t": "جِيدِهَا",
+   "pg": 603,
+   "ln": 17
+  },
+  {
+   "w": 77374,
+   "t": "حَبۡلࣱ",
+   "pg": 603,
+   "ln": 17
+  },
+  {
+   "w": 77375,
+   "t": "مِّن",
+   "pg": 603,
+   "ln": 17
+  },
+  {
+   "w": 77376,
+   "t": "مَّسَدِۭ",
+   "pg": 603,
+   "ln": 17
+  }
+ ]
+}

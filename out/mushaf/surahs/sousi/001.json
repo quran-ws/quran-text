@@ -1,0 +1,293 @@
+{
+ "format": "quran-mushaf",
+ "format_version": "2.0",
+ "view_of": "out/mushaf/sousi.json",
+ "view": "surah-shard",
+ "mushaf": "sousi",
+ "provenance": {
+  "text": {
+   "package": "UthmanicSousi-v-3.0.zip",
+   "member": "UthmanicSousi-v-3.0.docx",
+   "release_year": 2026,
+   "sha256": "1fe37644546506715cb81eb2e3154567c4df9f256a77e9d523bb12d836b06e0d"
+  },
+  "policy": "within one riwayah the later release is a correction; across riwayahs nothing is assumed",
+  "layout": {
+   "package": "UthmanicSousi_v2-0.zip",
+   "member": "UthmanicSousi_v2-0 data/SousiData_v2-0.csv",
+   "release_year": 2022,
+   "sha256": "e912273b3863bbf97ec4a7b1134967e3cdf21de7fcc06df9dee42bce655ce472",
+   "used_for": [
+    "juz",
+    "line_check"
+   ]
+  }
+ },
+ "surah": {
+  "n": 1,
+  "name_ar": "الفَاتِحة",
+  "name_en": "Al-Fātiḥah",
+  "revelation": "makki",
+  "basmalah": true,
+  "ayahs": 7,
+  "kalimahs": [
+   1,
+   29
+  ],
+  "safhahs": [
+   1,
+   1
+  ]
+ },
+ "ayahs": [
+  {
+   "surah": 1,
+   "n": 0,
+   "kalimahs": [
+    1,
+    4
+   ]
+  },
+  {
+   "surah": 1,
+   "n": 1,
+   "kalimahs": [
+    5,
+    8
+   ]
+  },
+  {
+   "surah": 1,
+   "n": 2,
+   "kalimahs": [
+    9,
+    10
+   ]
+  },
+  {
+   "surah": 1,
+   "n": 3,
+   "kalimahs": [
+    11,
+    13
+   ]
+  },
+  {
+   "surah": 1,
+   "n": 4,
+   "kalimahs": [
+    14,
+    17
+   ]
+  },
+  {
+   "surah": 1,
+   "n": 5,
+   "kalimahs": [
+    18,
+    20
+   ]
+  },
+  {
+   "surah": 1,
+   "n": 6,
+   "kalimahs": [
+    21,
+    24
+   ]
+  },
+  {
+   "surah": 1,
+   "n": 7,
+   "kalimahs": [
+    25,
+    29
+   ]
+  }
+ ],
+ "safhahs": [
+  {
+   "n": 1,
+   "kalimahs": [
+    1,
+    29
+   ]
+  }
+ ],
+ "kalimahs": [
+  {
+   "w": 1,
+   "t": "بِسۡمِ",
+   "pg": 1,
+   "ln": 3
+  },
+  {
+   "w": 2,
+   "t": "ࡵ۬للَّهِ",
+   "pg": 1,
+   "ln": 3
+  },
+  {
+   "w": 3,
+   "t": "ࡵ۬لرَّحۡمَٰنِ",
+   "pg": 1,
+   "ln": 3
+  },
+  {
+   "w": 4,
+   "t": "ࡵ۬لرَّحِيمِ",
+   "pg": 1,
+   "ln": 3
+  },
+  {
+   "w": 5,
+   "t": "ࡵ۬لۡحَمۡدُ",
+   "pg": 1,
+   "ln": 4
+  },
+  {
+   "w": 6,
+   "t": "لِلَّهِ",
+   "pg": 1,
+   "ln": 4
+  },
+  {
+   "w": 7,
+   "t": "رَبِّ",
+   "pg": 1,
+   "ln": 4
+  },
+  {
+   "w": 8,
+   "t": "ࡵ۬لۡعَٰلَمِينَ",
+   "pg": 1,
+   "ln": 4
+  },
+  {
+   "w": 9,
+   "t": "ࡱ۬لرَّحۡمَٰنِ",
+   "pg": 1,
+   "ln": 5
+  },
+  {
+   "w": 10,
+   "t": "ࡵ۬لرَّحِيم",
+   "pg": 1,
+   "ln": 5
+  },
+  {
+   "w": 11,
+   "t": "مَّلِكِ",
+   "pg": 1,
+   "ln": 5
+  },
+  {
+   "w": 12,
+   "t": "يَوۡمِ",
+   "pg": 1,
+   "ln": 5
+  },
+  {
+   "w": 13,
+   "t": "ࡵ۬لدِّينِ",
+   "pg": 1,
+   "ln": 5
+  },
+  {
+   "w": 14,
+   "t": "إِيَّاكَ",
+   "pg": 1,
+   "ln": 6
+  },
+  {
+   "w": 15,
+   "t": "نَعۡبُدُ",
+   "pg": 1,
+   "ln": 6
+  },
+  {
+   "w": 16,
+   "t": "وَإِيَّاكَ",
+   "pg": 1,
+   "ln": 6
+  },
+  {
+   "w": 17,
+   "t": "نَسۡتَعِينُ",
+   "pg": 1,
+   "ln": 6
+  },
+  {
+   "w": 18,
+   "t": "ࡲٜهۡدِنَا",
+   "pg": 1,
+   "ln": 6
+  },
+  {
+   "w": 19,
+   "t": "ࡱ۬لصِّرَٰطَ",
+   "pg": 1,
+   "ln": 7
+  },
+  {
+   "w": 20,
+   "t": "ࡱ۬لۡمُسۡتَقِيمَ",
+   "pg": 1,
+   "ln": 7
+  },
+  {
+   "w": 21,
+   "t": "صِرَٰطَ",
+   "pg": 1,
+   "ln": 7
+  },
+  {
+   "w": 22,
+   "t": "ࡱ۬لَّذِينَ",
+   "pg": 1,
+   "ln": 7
+  },
+  {
+   "w": 23,
+   "t": "أَنۡعَمۡتَ",
+   "pg": 1,
+   "ln": 7
+  },
+  {
+   "w": 24,
+   "t": "عَلَيۡهِمۡ",
+   "pg": 1,
+   "ln": 8
+  },
+  {
+   "w": 25,
+   "t": "غَيۡرِ",
+   "pg": 1,
+   "ln": 8
+  },
+  {
+   "w": 26,
+   "t": "ࡵ۬لۡمَغۡضُوبِ",
+   "pg": 1,
+   "ln": 8
+  },
+  {
+   "w": 27,
+   "t": "عَلَيۡهِمۡ",
+   "pg": 1,
+   "ln": 8
+  },
+  {
+   "w": 28,
+   "t": "وَلَا",
+   "pg": 1,
+   "ln": 9
+  },
+  {
+   "w": 29,
+   "t": "ࡱ۬لضَّآلِّينَ",
+   "pg": 1,
+   "ln": 9
+  }
+ ]
+}

@@ -1,13 +1,13 @@
-"""Build ``out/compare.html`` — a self-contained word-by-word comparison.
+"""Build ``out/compare.html`` — a self-contained kalimah-by-kalimah comparison.
 
 The whole corpus is 36 MB of JSON, which is too much to paste into a page, and
-a page that fetched the per-sūrah files would need a web server to escape the
+a page that fetched the per-surah files would need a web server to escape the
 ``file://`` origin.  So the data is packed to about a tenth of its size, gzipped,
 base64'd, and inflated in the browser with ``DecompressionStream``.
 
-The packing is where the saving is: a word is stored as its *distinct*
-spellings, each with a bitmask of the riwāyāt that use it, rather than as seven
-separate strings.  Most words have two or three distinct spellings, not seven.
+The packing is where the saving is: a kalimah is stored as its *distinct*
+spellings, each with a bitmask of the riwayahs that use it, rather than as seven
+separate strings.  Most kalimahs have two or three distinct spellings, not seven.
 """
 
 from __future__ import annotations
@@ -17,37 +17,37 @@ import gzip
 import json
 from datetime import date
 
-from .build import ORDER, OUT, Word, fawasil
-from .sources import Riwaya
-from .suras import names
+from .build import ORDER, OUT, Kalimah, fasilahs
+from .sources import Riwayah
+from .surahs import names
 
 #: Status codes, packed as an index into this list.
 STATUSES = ["identical", "diacritic_variant", "dotting_variant",
-            "alif_variant", "rasm_variant", "word_boundary", "partial"]
+            "alif_variant", "rasm_variant", "kalimah_boundary", "partial"]
 
 
-def _pack(words: list[Word]) -> dict:
+def _pack(kalimahs: list[Kalimah]) -> dict:
     """The corpus in the smallest shape the page can still read."""
     bit = {k: 1 << i for i, k in enumerate(ORDER)}
-    suras: dict[str, list] = {}
-    for w in words:
+    surahs: dict[str, list] = {}
+    for w in kalimahs:
         groups: dict[str, int] = {}
         for k in ORDER:
             if k in w.forms:
                 groups[w.forms[k]] = groups.get(w.forms[k], 0) | bit[k]
-        # aya numbers: one per riwāyah, but they are equal far more often than
+        # ayah numbers: one per riwayah, but they are equal far more often than
         # not, so store the distinct values with their masks too.
-        ayat: dict[int, int] = {}
+        ayahs: dict[int, int] = {}
         for k in ORDER:
-            if k in w.aya:
-                ayat[w.aya[k]] = ayat.get(w.aya[k], 0) | bit[k]
+            if k in w.ayah:
+                ayahs[w.ayah[k]] = ayahs.get(w.ayah[k], 0) | bit[k]
         rec = [
             w.index,
             w.id,
             w.rasm,
             STATUSES.index(w.status),
             [[t, m] for t, m in groups.items()],
-            [[a, m] for a, m in ayat.items()],
+            [[a, m] for a, m in ayahs.items()],
         ]
         extra = 0
         if w.boundary:
@@ -56,29 +56,29 @@ def _pack(words: list[Word]) -> dict:
             extra |= 2
         if extra:
             rec.append(extra)
-        suras.setdefault(str(w.sura), []).append(rec)
-    return suras
+        surahs.setdefault(str(w.surah), []).append(rec)
+    return surahs
 
 
-def write_viewer(words: list[Word], riwayat: list[Riwaya]) -> None:
+def write_viewer(kalimahs: list[Kalimah], riwayahs: list[Riwayah]) -> None:
     payload = {
         "generated": date.today().isoformat(),
         "order": ORDER,
         "statuses": STATUSES,
-        "riwayat": {r.key: {"en": r.name_en, "ar": r.name_ar,
-                            "qari": r.qari_en, "counting": r.counting}
-                    for r in riwayat},
-        "systems": {name: v["mushaf"] for name, v in fawasil(words).items()},
-        "suras": {str(s): {"name_ar": names()[s]["name_ar"],
-                           "name_en": names()[s]["name_en"]}
-                  for s in range(1, 115)},
-        "words": _pack(words),
+        "riwayahs": {r.key: {"en": r.name_en, "ar": r.name_ar,
+                             "qari": r.qari_en, "counting": r.counting}
+                     for r in riwayahs},
+        "systems": {name: v["mushaf"] for name, v in fasilahs(kalimahs).items()},
+        "surahs": {str(s): {"name_ar": names()[s]["name_ar"],
+                            "name_en": names()[s]["name_en"]}
+                   for s in range(1, 115)},
+        "kalimahs": _pack(kalimahs),
     }
     raw = json.dumps(payload, ensure_ascii=False, separators=(",", ":"))
     blob = base64.b64encode(
         gzip.compress(raw.encode("utf-8"), 9)).decode("ascii")
     (OUT / "compare.html").write_text(
-        _TEMPLATE.replace("__DATA__", blob).replace("__WORDS__", f"{len(words):,}"),
+        _TEMPLATE.replace("__DATA__", blob).replace("__KALIMAHS__", f"{len(kalimahs):,}"),
         encoding="utf-8")
 
 
@@ -87,7 +87,7 @@ _TEMPLATE = r"""<!doctype html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Qur'anic word index — cross-riwāyah comparison</title>
+<title>Quranic kalimah index — cross-riwayah comparison</title>
 <style>
 :root{
   --bg:#fbfaf7; --panel:#fff; --ink:#1b1a17; --dim:#6b675f; --line:#e3ded4;
@@ -117,7 +117,7 @@ input[type=search]{min-width:190px}
 .f[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
 .f .n{opacity:.6;margin-inline-start:5px;font-variant-numeric:tabular-nums}
 main{padding:14px 20px 60px;max-width:1180px}
-.word{background:var(--panel);border:1px solid var(--line);border-radius:11px;
+.kalimah{background:var(--panel);border:1px solid var(--line);border-radius:11px;
   margin-bottom:9px;overflow:hidden}
 .whead{display:flex;gap:14px;align-items:baseline;padding:10px 14px;cursor:pointer}
 .ref{color:var(--dim);font-size:12px;font-variant-numeric:tabular-nums;
@@ -130,7 +130,7 @@ main{padding:14px 20px 60px;max-width:1180px}
 .tag.rasm_variant{background:var(--rasm);color:#fff}
 .tag.alif_variant{background:var(--alif);color:#1b1a17}
 .tag.dotting_variant{background:var(--dotting);color:#1b1a17}
-.tag.word_boundary{background:var(--boundary);color:#fff}
+.tag.kalimah_boundary{background:var(--boundary);color:#fff}
 .tag.partial{background:var(--partial);color:#fff}
 .tag.diacritic_variant{background:var(--diacritic);color:#fff}
 .groups{display:flex;flex-wrap:wrap;gap:8px;flex:1;justify-content:flex-end}
@@ -140,7 +140,7 @@ main{padding:14px 20px 60px;max-width:1180px}
   font-family:"Scheherazade New","Amiri","Noto Naskh Arabic",serif}
 .g span{font-size:10.5px;color:var(--dim);letter-spacing:.02em}
 .detail{border-top:1px solid var(--line);padding:6px 14px 12px;display:none}
-.word.open .detail{display:block}
+.kalimah.open .detail{display:block}
 table{border-collapse:collapse;width:100%}
 td{padding:5px 8px;border-bottom:1px solid var(--line);vertical-align:middle}
 td.k{color:var(--dim);font-size:12px;width:150px}
@@ -155,13 +155,13 @@ kbd{background:var(--chip);border-radius:4px;padding:1px 5px;font-size:11px}
 </head>
 <body>
 <header>
-  <h1>Qur'anic word index — cross-riwāyah comparison</h1>
-  <div class="sub">__WORDS__ words · 114 sūrahs · 7 riwāyāt. One ID means one
-    word in every riwāyah that has it. Click a word for the full breakdown.</div>
+  <h1>Quranic kalimah index — cross-riwayah comparison</h1>
+  <div class="sub">__KALIMAHS__ kalimahs · 114 surahs · 7 riwayahs. One ID means one
+    kalimah in every riwayah that has it. Click a kalimah for the full breakdown.</div>
 </header>
 
 <div class="bar">
-  <select id="sura"></select>
+  <select id="surah"></select>
   <input type="search" id="q" placeholder="search rasm or spelling…">
   <div class="filters" id="filters"></div>
 </div>
@@ -184,7 +184,7 @@ async function load(){
   return JSON.parse(await new Response(stream).text());
 }
 
-let D, state = {sura: 1, status: null, q: ''};
+let D, state = {surah: 1, status: null, q: ''};
 
 const has = (mask, i) => (mask >> i) & 1;
 const namesOf = mask => D.order.filter((_, i) => has(mask, i));
@@ -196,7 +196,7 @@ function counts(rows){
 }
 
 function render(){
-  const rows = D.words[state.sura] || [];
+  const rows = D.kalimahs[state.surah] || [];
   const q = state.q.trim();
   const shown = rows.filter(r =>
     (!state.status || D.statuses[r[3]] === state.status) &&
@@ -208,16 +208,16 @@ function render(){
       s.replace(/_/g,' ')}<span class="n">${c[s]||0}</span></button>`).join('');
 
   document.getElementById('note').textContent =
-    `${shown.length} of ${rows.length} words shown.` +
+    `${shown.length} of ${rows.length} kalimahs shown.` +
     (state.status ? ` Filtered to ${state.status.replace(/_/g,' ')}.` : '');
 
   document.getElementById('list').innerHTML = shown.length ? shown.map(r => {
-    const [i, id, rasm, st, groups, ayat] = r;
+    const [i, id, rasm, st, groups, ayahs] = r;
     const status = D.statuses[st];
-    const aya = ayat.map(a => a[0]);
-    const ref = aya.every(a => a === aya[0])
-      ? `${state.sura}:${aya[0]}` : `${state.sura}:${Math.min(...aya)}–${Math.max(...aya)}`;
-    return `<div class="word" data-id="${id}">
+    const ayah = ayahs.map(a => a[0]);
+    const ref = ayah.every(a => a === ayah[0])
+      ? `${state.surah}:${ayah[0]}` : `${state.surah}:${Math.min(...ayah)}–${Math.max(...ayah)}`;
+    return `<div class="kalimah" data-id="${id}">
       <div class="whead">
         <span class="ref">${ref} · #${i}</span>
         <span class="rasm">${rasm}</span>
@@ -231,22 +231,22 @@ function render(){
 }
 
 function detail(el, id){
-  const r = (D.words[state.sura] || []).find(x => x[1] === +id);
+  const r = (D.kalimahs[state.surah] || []).find(x => x[1] === +id);
   if (!r) return;
-  const [i, wid, rasm, st, groups, ayat] = r;
-  const spelling = {}, aya = {};
+  const [i, wid, rasm, st, groups, ayahs] = r;
+  const spelling = {}, ayah = {};
   for (const [t, m] of groups) namesOf(m).forEach(k => spelling[k] = t);
-  for (const [a, m] of ayat) namesOf(m).forEach(k => aya[k] = a);
+  for (const [a, m] of ayahs) namesOf(m).forEach(k => ayah[k] = a);
   const many = groups.length > 1;
   el.innerHTML = `<table>${D.order.map(k => {
     const s = spelling[k];
     const differs = many && s !== groups[0][0];
     return `<tr class="${differs ? 'differs' : ''}">
-      <td class="k">${D.riwayat[k].en} · ${D.riwayat[k].ar}</td>
+      <td class="k">${D.riwayahs[k].en} · ${D.riwayahs[k].ar}</td>
       <td class="v">${s === undefined ? '—' : s}</td>
-      <td class="a">${aya[k] === undefined ? '' : 'āyah ' + aya[k]}</td></tr>`;
+      <td class="a">${ayah[k] === undefined ? '' : 'ayah ' + ayah[k]}</td></tr>`;
   }).join('')}</table>
-  <p class="note" style="margin:9px 0 0">word id <b>${wid}</b> · rasm <b>${rasm}</b>
+  <p class="note" style="margin:9px 0 0">kalimah id <b>${wid}</b> · rasm <b>${rasm}</b>
    · ${groups.length} distinct spelling${groups.length > 1 ? 's' : ''}</p>`;
 }
 
@@ -264,10 +264,10 @@ document.addEventListener('click', e => {
 
 load().then(data => {
   D = data;
-  const sel = document.getElementById('sura');
-  sel.innerHTML = Object.entries(D.suras).map(([n, s]) =>
+  const sel = document.getElementById('surah');
+  sel.innerHTML = Object.entries(D.surahs).map(([n, s]) =>
     `<option value="${n}">${n}. ${s.name_en} — ${s.name_ar}</option>`).join('');
-  sel.onchange = () => { state.sura = sel.value; render(); };
+  sel.onchange = () => { state.surah = sel.value; render(); };
   document.getElementById('q').oninput = e => { state.q = e.target.value; render(); };
   render();
 }).catch(err => {

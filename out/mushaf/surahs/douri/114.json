@@ -1,0 +1,223 @@
+{
+ "format": "quran-mushaf",
+ "format_version": "2.0",
+ "view_of": "out/mushaf/douri.json",
+ "view": "surah-shard",
+ "mushaf": "douri",
+ "provenance": {
+  "text": {
+   "package": "UthmanicDouri_V20.zip",
+   "member": "UthmanicDouri V20.docx",
+   "release_year": 2022,
+   "sha256": "89fe6773ada1a8c153d24005453fa8c183bc33919887664c102e5a9c9c2c5e67"
+  },
+  "policy": "within one riwayah the later release is a correction; across riwayahs nothing is assumed",
+  "layout": {
+   "package": "UthmanicDouri_v2-0.zip",
+   "member": "UthmanicDouri_v2-0 data/DouriData_v2-0.csv",
+   "release_year": 2022,
+   "sha256": "84e5569790f96b05896b8f44ebe8d82d98377a929ac0e87dd8af4dbec52cb0c1",
+   "used_for": [
+    "juz",
+    "line_check"
+   ]
+  }
+ },
+ "surah": {
+  "n": 114,
+  "name_ar": "النَّاس",
+  "name_en": "An-Nās",
+  "revelation": "makki",
+  "basmalah": true,
+  "ayahs": 6,
+  "kalimahs": [
+   77415,
+   77434
+  ],
+  "safhahs": [
+   604,
+   604
+  ]
+ },
+ "ayahs": [
+  {
+   "surah": 114,
+   "n": 1,
+   "kalimahs": [
+    77415,
+    77418
+   ]
+  },
+  {
+   "surah": 114,
+   "n": 2,
+   "kalimahs": [
+    77419,
+    77420
+   ]
+  },
+  {
+   "surah": 114,
+   "n": 3,
+   "kalimahs": [
+    77421,
+    77422
+   ]
+  },
+  {
+   "surah": 114,
+   "n": 4,
+   "kalimahs": [
+    77423,
+    77426
+   ]
+  },
+  {
+   "surah": 114,
+   "n": 5,
+   "kalimahs": [
+    77427,
+    77431
+   ]
+  },
+  {
+   "surah": 114,
+   "n": 6,
+   "kalimahs": [
+    77432,
+    77434
+   ]
+  }
+ ],
+ "safhahs": [
+  {
+   "n": 604,
+   "kalimahs": [
+    77377,
+    77434
+   ]
+  }
+ ],
+ "kalimahs": [
+  {
+   "w": 77415,
+   "t": "قُلۡ",
+   "pg": 604,
+   "ln": 14
+  },
+  {
+   "w": 77416,
+   "t": "أَعُوذُ",
+   "pg": 604,
+   "ln": 14
+  },
+  {
+   "w": 77417,
+   "t": "بِرَبِّ",
+   "pg": 604,
+   "ln": 14
+  },
+  {
+   "w": 77418,
+   "t": "اِ۬لنّ۪اسِ",
+   "pg": 604,
+   "ln": 14
+  },
+  {
+   "w": 77419,
+   "t": "مَلِكِ",
+   "pg": 604,
+   "ln": 14
+  },
+  {
+   "w": 77420,
+   "t": "اِ۬لنّ۪اسِ",
+   "pg": 604,
+   "ln": 14
+  },
+  {
+   "w": 77421,
+   "t": "إِلَٰهِ",
+   "pg": 604,
+   "ln": 14
+  },
+  {
+   "w": 77422,
+   "t": "اِ۬لنّ۪اسِ",
+   "pg": 604,
+   "ln": 15
+  },
+  {
+   "w": 77423,
+   "t": "مِن",
+   "pg": 604,
+   "ln": 15
+  },
+  {
+   "w": 77424,
+   "t": "شَرِّ",
+   "pg": 604,
+   "ln": 15
+  },
+  {
+   "w": 77425,
+   "t": "اِ۬لۡوَسۡوَاسِ",
+   "pg": 604,
+   "ln": 15
+  },
+  {
+   "w": 77426,
+   "t": "اِ۬لۡخَنَّاسِ",
+   "pg": 604,
+   "ln": 15
+  },
+  {
+   "w": 77427,
+   "t": "اِ۬لَّذِي",
+   "pg": 604,
+   "ln": 15
+  },
+  {
+   "w": 77428,
+   "t": "يُوَسۡوِسُ",
+   "pg": 604,
+   "ln": 16
+  },
+  {
+   "w": 77429,
+   "t": "فِي",
+   "pg": 604,
+   "ln": 16
+  },
+  {
+   "w": 77430,
+   "t": "صُدُورِ",
+   "pg": 604,
+   "ln": 16
+  },
+  {
+   "w": 77431,
+   "t": "اِ۬لنّ۪اسِ",
+   "pg": 604,
+   "ln": 16
+  },
+  {
+   "w": 77432,
+   "t": "مِنَ",
+   "pg": 604,
+   "ln": 17
+  },
+  {
+   "w": 77433,
+   "t": "اَ۬لۡجِنَّةِ",
+   "pg": 604,
+   "ln": 17
+  },
+  {
+   "w": 77434,
+   "t": "وَاَلنّ۪اسِ",
+   "pg": 604,
+   "ln": 17
+  }
+ ]
+}

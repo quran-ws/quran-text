@@ -1,0 +1,197 @@
+{
+ "format": "quran-mushaf",
+ "format_version": "2.0",
+ "view_of": "out/mushaf/sousi.json",
+ "view": "surah-shard",
+ "mushaf": "sousi",
+ "provenance": {
+  "text": {
+   "package": "UthmanicSousi-v-3.0.zip",
+   "member": "UthmanicSousi-v-3.0.docx",
+   "release_year": 2026,
+   "sha256": "1fe37644546506715cb81eb2e3154567c4df9f256a77e9d523bb12d836b06e0d"
+  },
+  "policy": "within one riwayah the later release is a correction; across riwayahs nothing is assumed",
+  "layout": {
+   "package": "UthmanicSousi_v2-0.zip",
+   "member": "UthmanicSousi_v2-0 data/SousiData_v2-0.csv",
+   "release_year": 2022,
+   "sha256": "e912273b3863bbf97ec4a7b1134967e3cdf21de7fcc06df9dee42bce655ce472",
+   "used_for": [
+    "juz",
+    "line_check"
+   ]
+  }
+ },
+ "surah": {
+  "n": 106,
+  "name_ar": "قُرَيش",
+  "name_en": "Quraish",
+  "revelation": "makki",
+  "basmalah": true,
+  "ayahs": 5,
+  "kalimahs": [
+   77257,
+   77273
+  ],
+  "safhahs": [
+   602,
+   602
+  ]
+ },
+ "ayahs": [
+  {
+   "surah": 106,
+   "n": 1,
+   "kalimahs": [
+    77257,
+    77258
+   ]
+  },
+  {
+   "surah": 106,
+   "n": 2,
+   "kalimahs": [
+    77259,
+    77262
+   ]
+  },
+  {
+   "surah": 106,
+   "n": 3,
+   "kalimahs": [
+    77263,
+    77266
+   ]
+  },
+  {
+   "surah": 106,
+   "n": 4,
+   "kalimahs": [
+    77267,
+    77270
+   ]
+  },
+  {
+   "surah": 106,
+   "n": 5,
+   "kalimahs": [
+    77271,
+    77273
+   ]
+  }
+ ],
+ "safhahs": [
+  {
+   "n": 602,
+   "kalimahs": [
+    77257,
+    77308
+   ]
+  }
+ ],
+ "kalimahs": [
+  {
+   "w": 77257,
+   "t": "لِإِيلَٰفِ",
+   "pg": 602,
+   "ln": 3
+  },
+  {
+   "w": 77258,
+   "t": "قُرَيۡشٍ",
+   "pg": 602,
+   "ln": 3
+  },
+  {
+   "w": 77259,
+   "t": "إِۦلَٰفِهِمۡ",
+   "pg": 602,
+   "ln": 3
+  },
+  {
+   "w": 77260,
+   "t": "رِحۡلَةَ",
+   "pg": 602,
+   "ln": 3
+  },
+  {
+   "w": 77261,
+   "t": "ࡱ۬لشِّتَآءِ",
+   "pg": 602,
+   "ln": 3
+  },
+  {
+   "w": 77262,
+   "t": "وَࡱلصَّيۡف",
+   "pg": 602,
+   "ln": 3
+  },
+  {
+   "w": 77263,
+   "t": "فَّلۡيَعۡبُدُواْ",
+   "pg": 602,
+   "ln": 4
+  },
+  {
+   "w": 77264,
+   "t": "رَبَّ",
+   "pg": 602,
+   "ln": 4
+  },
+  {
+   "w": 77265,
+   "t": "هَٰذَا",
+   "pg": 602,
+   "ln": 4
+  },
+  {
+   "w": 77266,
+   "t": "ࡱ۬لۡبَيۡتِ",
+   "pg": 602,
+   "ln": 4
+  },
+  {
+   "w": 77267,
+   "t": "ࡵ۬لَّذِي",
+   "pg": 602,
+   "ln": 4
+  },
+  {
+   "w": 77268,
+   "t": "أَطۡعَمَهُم",
+   "pg": 602,
+   "ln": 4
+  },
+  {
+   "w": 77269,
+   "t": "مِّن",
+   "pg": 602,
+   "ln": 5
+  },
+  {
+   "w": 77270,
+   "t": "جُوعࣲ",
+   "pg": 602,
+   "ln": 5
+  },
+  {
+   "w": 77271,
+   "t": "وَءَامَنَهُم",
+   "pg": 602,
+   "ln": 5
+  },
+  {
+   "w": 77272,
+   "t": "مِّنۡ",
+   "pg": 602,
+   "ln": 5
+  },
+  {
+   "w": 77273,
+   "t": "خَوۡفِۭ",
+   "pg": 602,
+   "ln": 5
+  }
+ ]
+}

@@ -1,15 +1,15 @@
-"""Multiple-sequence alignment of the riwāyāt into one word spine.
+"""Multiple-sequence alignment of the riwayahs into one kalimah spine.
 
-The seven riwāyāt share a rasm that is identical almost everywhere, so a
+The seven riwayahs share a rasm that is identical almost everywhere, so a
 progressive alignment is enough: take Ḥafṣ as the initial spine, then fold in
-each remaining riwāyah with a diff over the *rasm* (consonantal skeleton) and
-extend the spine with a new column wherever a riwāyah has a word the spine does
+each remaining riwayah with a diff over the *rasm* (consonantal skeleton) and
+extend the spine with a new column wherever a riwayah has a kalimah the spine does
 not.
 
-The result is a list of :class:`Column` per sūrah.  A column is one canonical
-word: it carries at most one token from each riwāyah, and its index in the list
-is the word's fixed ID.  Words that only some riwāyāt have still get a column,
-so an ID means the same word everywhere it exists.
+The result is a list of :class:`Column` per surah.  A column is one canonical
+kalimah: it carries at most one token from each riwayah, and its index in the list
+is the kalimah's fixed ID.  Kalimahs that only some riwayahs have still get a column,
+so an ID means the same kalimah everywhere it exists.
 """
 
 from __future__ import annotations
@@ -24,20 +24,20 @@ from .tokenize import Token
 
 @dataclass(eq=False)   # identity, not value, semantics: columns are shared and mutated
 class Column:
-    """One canonical word position, shared by all riwāyāt that have it."""
+    """One canonical kalimah position, shared by all riwayahs that have it."""
 
     tokens: dict[str, Token] = field(default_factory=dict)
-    #: Riwāyāt whose word here was produced by splitting or merging.
+    #: Riwayahs whose kalimah here was produced by splitting or merging.
     boundary: dict[str, str] = field(default_factory=dict)
 
     @property
     def rasm(self) -> str:
-        """Majority rasm across the riwāyāt present — the column's identity."""
+        """Majority rasm across the riwayahs present — the column's identity."""
         if not self.tokens:
             return ""
         counts = Counter(t.rasm for t in self.tokens.values())
         top = max(counts.values())
-        # Ties break on the earliest riwāyah, keeping the result deterministic.
+        # Ties break on the earliest riwayah, keeping the result deterministic.
         for tok in self.tokens.values():
             if counts[tok.rasm] == top:
                 return tok.rasm
@@ -54,11 +54,11 @@ def _retoken(tok: Token, text: str, pos: int) -> Token:
 
 
 def _distribute(cols: list[Column], toks: list[Token]) -> list[tuple[list[Column], list[Token]]]:
-    """Group columns and tokens that cover the same letters.
+    """Group columns and tokens that cover the same harfs.
 
     Walks both sides, extending whichever side is short, so a group is 1:1,
-    n:1 (the source dropped a space between two words) or 1:n (the source
-    split one word in two).
+    n:1 (the source dropped a space between two kalimahs) or 1:n (the source
+    split one kalimah in two).
     """
     groups: list[tuple[list[Column], list[Token]]] = []
     i = j = 0
@@ -86,10 +86,10 @@ def _pair_replace(cols: list[Column], toks: list[Token], key: str,
     """Resolve a replaced block: the same slot, spelled differently.
 
     Equal-length blocks pair one-to-one.  Unequal blocks are the interesting
-    case, and are almost always a word-boundary disagreement rather than a
-    different reading — most often a source that printed two words with no
-    space between them.  When the letters on both sides agree, the words are
-    re-segmented so the spine keeps one column per word.
+    case, and are almost always a kalimah-boundary disagreement rather than a
+    different qira'ah — most often a source that printed two kalimahs with no
+    space between them.  When the harfs on both sides agree, the kalimahs are
+    re-segmented so the spine keeps one column per kalimah.
     """
     if len(cols) == len(toks):
         for col, tok in zip(cols, toks):
@@ -115,10 +115,10 @@ def _pair_replace(cols: list[Column], toks: list[Token], key: str,
                 col.tokens[key] = tok
                 out.append(col)
         elif len(group_toks) == 1 and len(group_cols) > 1:
-            # One printed word covering several canonical words.  Sometimes
+            # One printed kalimah covering several canonical kalimahs.  Sometimes
             # that is the source's own orthography (Bazzī's لَأُاْقۡسِمُ), sometimes
-            # a dropped space (Dūrī's كَانُواْيَعۡمَلُونَ); either way the words are
-            # split apart so the spine keeps one column per word, and the
+            # a dropped space (Dūrī's كَانُواْيَعۡمَلُونَ); either way the kalimahs are
+            # split apart so the spine keeps one column per kalimah, and the
             # join is recorded for review rather than judged here.
             tok = group_toks[0]
             pieces = split_by_rasm(tok.uthmani, [len(c.rasm) for c in group_cols])
@@ -127,7 +127,7 @@ def _pair_replace(cols: list[Column], toks: list[Token], key: str,
                 col.boundary[key] = "joined_in_source"
                 out.append(col)
         elif len(group_cols) == 1 and len(group_toks) > 1:
-            # The source writes as two words what the spine holds as one.
+            # The source writes as two kalimahs what the spine holds as one.
             for offset, tok in enumerate(group_toks):
                 col = group_cols[0] if offset == 0 else Column()
                 col.tokens[key] = tok
@@ -145,7 +145,7 @@ def _pair_replace(cols: list[Column], toks: list[Token], key: str,
 
 
 def merge(spine: list[Column], key: str, tokens: list[Token]) -> list[Column]:
-    """Fold one riwāyah's word list into the spine."""
+    """Fold one riwayah's kalimah list into the spine."""
     a = [c.rasm for c in spine]
     b = [t.rasm for t in tokens]
     out: list[Column] = []
@@ -158,9 +158,9 @@ def merge(spine: list[Column], key: str, tokens: list[Token]) -> list[Column]:
         elif op == "replace":
             _pair_replace(spine[i1:i2], tokens[j1:j2], key, out)
         elif op == "delete":
-            out.extend(spine[i1:i2])          # riwāyah has no word here
+            out.extend(spine[i1:i2])          # riwayah has no kalimah here
         elif op == "insert":
-            for tok in tokens[j1:j2]:         # riwāyah has a word the spine lacks
+            for tok in tokens[j1:j2]:         # riwayah has a kalimah the spine lacks
                 col = Column()
                 col.tokens[key] = tok
                 out.append(col)
@@ -168,7 +168,7 @@ def merge(spine: list[Column], key: str, tokens: list[Token]) -> list[Column]:
 
 
 def build_spine(streams: dict[str, list[Token]], order: list[str]) -> list[Column]:
-    """Align every riwāyah in ``order`` into one list of columns."""
+    """Align every riwayah in ``order`` into one list of columns."""
     first = order[0]
     spine = [Column(tokens={first: tok}) for tok in streams[first]]
     for key in order[1:]:

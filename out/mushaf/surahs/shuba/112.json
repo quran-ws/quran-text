@@ -1,0 +1,177 @@
+{
+ "format": "quran-mushaf",
+ "format_version": "2.0",
+ "view_of": "out/mushaf/shuba.json",
+ "view": "surah-shard",
+ "mushaf": "shuba",
+ "provenance": {
+  "text": {
+   "package": "UthmanicShubah-v-3.0.zip",
+   "member": "UthmanicShubah-v-3.0.docx",
+   "release_year": 2026,
+   "sha256": "28be7e6ac5b3af9b5064c1cb6fc733e7c0d120d453a8894db0ddb01a7f110396"
+  },
+  "policy": "within one riwayah the later release is a correction; across riwayahs nothing is assumed",
+  "layout": {
+   "package": "UthmanicShuba_v2-0.zip",
+   "member": "UthmanicShuba_v2-0 data/shubaData_v2-0.csv",
+   "release_year": 2022,
+   "sha256": "977e64f3f889c084dc82aec4e97092836ca61777cdc93c3ee7da6f59592efbcf",
+   "used_for": [
+    "juz",
+    "line_check"
+   ]
+  }
+ },
+ "surah": {
+  "n": 112,
+  "name_ar": "الإخلَاص",
+  "name_en": "Al-Ikhlāṣ",
+  "revelation": "makki",
+  "basmalah": true,
+  "ayahs": 4,
+  "kalimahs": [
+   77377,
+   77391
+  ],
+  "safhahs": [
+   604,
+   604
+  ]
+ },
+ "ayahs": [
+  {
+   "surah": 112,
+   "n": 1,
+   "kalimahs": [
+    77377,
+    77380
+   ]
+  },
+  {
+   "surah": 112,
+   "n": 2,
+   "kalimahs": [
+    77381,
+    77382
+   ]
+  },
+  {
+   "surah": 112,
+   "n": 3,
+   "kalimahs": [
+    77383,
+    77386
+   ]
+  },
+  {
+   "surah": 112,
+   "n": 4,
+   "kalimahs": [
+    77387,
+    77391
+   ]
+  }
+ ],
+ "safhahs": [
+  {
+   "n": 604,
+   "kalimahs": [
+    77377,
+    77434
+   ]
+  }
+ ],
+ "kalimahs": [
+  {
+   "w": 77377,
+   "t": "قُلۡ",
+   "pg": 604,
+   "ln": 3
+  },
+  {
+   "w": 77378,
+   "t": "هُوَ",
+   "pg": 604,
+   "ln": 3
+  },
+  {
+   "w": 77379,
+   "t": "ٱللَّهُ",
+   "pg": 604,
+   "ln": 3
+  },
+  {
+   "w": 77380,
+   "t": "أَحَدٌ",
+   "pg": 604,
+   "ln": 3
+  },
+  {
+   "w": 77381,
+   "t": "ٱللَّهُ",
+   "pg": 604,
+   "ln": 3
+  },
+  {
+   "w": 77382,
+   "t": "ٱلصَّمَدُ",
+   "pg": 604,
+   "ln": 3
+  },
+  {
+   "w": 77383,
+   "t": "لَمۡ",
+   "pg": 604,
+   "ln": 3
+  },
+  {
+   "w": 77384,
+   "t": "يَلِدۡ",
+   "pg": 604,
+   "ln": 3
+  },
+  {
+   "w": 77385,
+   "t": "وَلَمۡ",
+   "pg": 604,
+   "ln": 3
+  },
+  {
+   "w": 77386,
+   "t": "يُولَدۡ",
+   "pg": 604,
+   "ln": 3
+  },
+  {
+   "w": 77387,
+   "t": "وَلَمۡ",
+   "pg": 604,
+   "ln": 4
+  },
+  {
+   "w": 77388,
+   "t": "يَكُن",
+   "pg": 604,
+   "ln": 4
+  },
+  {
+   "w": 77389,
+   "t": "لَّهُۥ",
+   "pg": 604,
+   "ln": 4
+  },
+  {
+   "w": 77390,
+   "t": "كُفُؤًا",
+   "pg": 604,
+   "ln": 4
+  },
+  {
+   "w": 77391,
+   "t": "أَحَدُۢ",
+   "pg": 604,
+   "ln": 4
+  }
+ ]
+}

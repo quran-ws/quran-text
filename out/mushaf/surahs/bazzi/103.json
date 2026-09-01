@@ -1,0 +1,153 @@
+{
+ "format": "quran-mushaf",
+ "format_version": "2.0",
+ "view_of": "out/mushaf/bazzi.json",
+ "view": "surah-shard",
+ "mushaf": "bazzi",
+ "provenance": {
+  "text": {
+   "package": "UthmanicBazzi-v-3.0.zip",
+   "member": "UthmanicBazzi-v-3.0.docx",
+   "release_year": 2026,
+   "sha256": "63083df98ed0015a6e44b3a5e8f67b1b3d84246ebc69d04c9eabe8982314030c"
+  },
+  "policy": "within one riwayah the later release is a correction; across riwayahs nothing is assumed"
+ },
+ "surah": {
+  "n": 103,
+  "name_ar": "العَصر",
+  "name_en": "Al-‘Aṣr",
+  "revelation": "makki",
+  "basmalah": true,
+  "ayahs": 3,
+  "kalimahs": [
+   77187,
+   77200
+  ],
+  "safhahs": [
+   601,
+   601
+  ]
+ },
+ "ayahs": [
+  {
+   "surah": 103,
+   "n": 1,
+   "kalimahs": [
+    77187,
+    77187
+   ]
+  },
+  {
+   "surah": 103,
+   "n": 2,
+   "kalimahs": [
+    77188,
+    77191
+   ]
+  },
+  {
+   "surah": 103,
+   "n": 3,
+   "kalimahs": [
+    77192,
+    77200
+   ]
+  }
+ ],
+ "safhahs": [
+  {
+   "n": 601,
+   "kalimahs": [
+    77187,
+    77256
+   ]
+  }
+ ],
+ "kalimahs": [
+  {
+   "w": 77187,
+   "t": "وَٱلۡعَصۡرِ",
+   "pg": 601,
+   "ln": 3
+  },
+  {
+   "w": 77188,
+   "t": "إِنَّ",
+   "pg": 601,
+   "ln": 3
+  },
+  {
+   "w": 77189,
+   "t": "ٱلۡإِنسَٰنَ",
+   "pg": 601,
+   "ln": 3
+  },
+  {
+   "w": 77190,
+   "t": "لَفِي",
+   "pg": 601,
+   "ln": 3
+  },
+  {
+   "w": 77191,
+   "t": "خُسۡرٍ",
+   "pg": 601,
+   "ln": 3
+  },
+  {
+   "w": 77192,
+   "t": "إِلَّا",
+   "pg": 601,
+   "ln": 3
+  },
+  {
+   "w": 77193,
+   "t": "ٱلَّذِينَ",
+   "pg": 601,
+   "ln": 3
+  },
+  {
+   "w": 77194,
+   "t": "ءَامَنُواْ",
+   "pg": 601,
+   "ln": 3
+  },
+  {
+   "w": 77195,
+   "t": "وَعَمِلُواْ",
+   "pg": 601,
+   "ln": 4
+  },
+  {
+   "w": 77196,
+   "t": "ٱلصَّٰلِحَٰتِ",
+   "pg": 601,
+   "ln": 4
+  },
+  {
+   "w": 77197,
+   "t": "وَتَوَاصَوۡاْ",
+   "pg": 601,
+   "ln": 4
+  },
+  {
+   "w": 77198,
+   "t": "بِٱلۡحَقِّ",
+   "pg": 601,
+   "ln": 4
+  },
+  {
+   "w": 77199,
+   "t": "وَتَوَاصَوۡاْ",
+   "pg": 601,
+   "ln": 4
+  },
+  {
+   "w": 77200,
+   "t": "بِٱلصَّبۡرِ",
+   "pg": 601,
+   "ln": 4
+  }
+ ]
+}
