@@ -233,6 +233,58 @@ Result: 232 → 260 `rasm_variant`, of which 62 are a letter one codex simply
 lacks and 198 are the plene/defective class; 170 false positives removed, 3,071
 skeletons corrected, none newly flagged.
 
+**Revised by the entry below**, which asked the corpus a question this reasoning
+never put to it.
+
+### "These sources cannot answer it" — they could, and the answer was in the split
+
+The entry above settled for a shrug: two hands disagree about the ā in both
+directions, so how much is codex and how much is typesetter is unanswerable
+here, and all 198 stay `rasm_variant`. Both halves of that are wrong. The
+directions were counted — 134 one way, 64 the other — but *who* was on each side
+was never counted at all, and that is the whole question.
+
+**All 198 split the seven riwāyāt along exactly one line: `qaloun,warsh` against
+the other five. One partition, 198 words, no exception. The 62 real letter
+differences split them 14 ways** — Bazzī alone 7 times, Ḥafṣ+Shuʿbah alone 6,
+Qālūn alone 5, Sūsī alone once, and eight more shapes besides.
+
+That settles it. Ḥadhf and ithbāt al-alif do vary between the codices of the
+amṣār — it is a whole bāb in al-Dānī's المقنع — but a khilāf of the amṣār has no
+reason to put Makkah with Madinah every single time and never once apart, and
+Bazzī is Makkī. What does partition perfectly by publisher is the publisher.
+Note the shape of the evidence: it is not that folding is convenient or that the
+number looks better, it is that the variable which explains all 198 is the file
+they were typeset in, and the variable which explains the 62 is the miṣr.
+
+So the 198 became `alif_variant` — reported, listed in full, counted apart from
+the letters the codices actually disagree about. The bare `rasm` still keeps the
+distinction, because within any one muṣḥaf it is that muṣḥaf's own ḥadhf and it
+is carried faithfully: Ḥafṣ writes قال plene 412 times and defective 4, سبحان
+defective 12 and plene once, and 175 of the 198 words show the identical split
+at *every* occurrence in the corpus. Each book is self-consistent. It is only
+between the two typesettings that the choice stops tracking anything textual.
+
+The one-partition fact is now a check rather than a paragraph
+(`validate.check_alif_splits`), because it is the ground the status stands on:
+if a future package ever splits one of these words Makkah-from-Madinah, the
+classification has lost its warrant and the report says so.
+
+Result: 260 → 62 `rasm_variant` + 198 `alif_variant`. Nothing dropped, nothing
+folded, one number replaced by two that mean different things.
+
+### A letter added read as a letter exchanged
+
+Grouping the 62 by what the difference *is* — one skeleton with a letter more,
+against one letter swapped for another — put `ٮسٮهى`/`ٮسٮهٮه`
+(تَشۡتَهِي/تَشۡتَهِيهِ, 43:71) in the wrong group. The rasm keeps the final letter
+shapes because the codices did: a yāʾ ending a word is `ى`, medially it is `ٮ`.
+Appending the hāʾ therefore moves the yāʾ off the end and changes its shape, so
+a character diff sees a substitution *and* an insertion where there is only an
+added hāʾ. `normalize.unpositioned` folds the final shapes back into their class
+for that comparison and nothing else — position is not identity. Two words moved
+groups: 54/8 became 56/6.
+
 ### Dropping the dagger alif hid the most famous variant of all
 
 **Superseded by the entry above.** Kept because the argument is a good example

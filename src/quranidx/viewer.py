@@ -23,7 +23,7 @@ from .suras import names
 
 #: Status codes, packed as an index into this list.
 STATUSES = ["identical", "diacritic_variant", "dotting_variant",
-            "rasm_variant", "word_boundary", "partial"]
+            "alif_variant", "rasm_variant", "word_boundary", "partial"]
 
 
 def _pack(words: list[Word]) -> dict:
@@ -93,7 +93,7 @@ _TEMPLATE = r"""<!doctype html>
   --bg:#fbfaf7; --panel:#fff; --ink:#1b1a17; --dim:#6b675f; --line:#e3ded4;
   --accent:#7a5c2e; --chip:#f1ece1;
   --identical:#9aa79a; --diacritic:#7f9bb5; --dotting:#c08a3e;
-  --rasm:#b5543f; --boundary:#8a6bb0; --partial:#4f8a7b;
+  --rasm:#b5543f; --alif:#c2857a; --boundary:#8a6bb0; --partial:#4f8a7b;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme=light]){
   --bg:#14140f; --panel:#1c1c17; --ink:#eae6dc; --dim:#9c968a; --line:#2e2d26;
@@ -128,6 +128,7 @@ main{padding:14px 20px 60px;max-width:1180px}
   padding:2px 8px;border-radius:999px;background:var(--chip);color:var(--dim);
   flex:none;align-self:center}
 .tag.rasm_variant{background:var(--rasm);color:#fff}
+.tag.alif_variant{background:var(--alif);color:#1b1a17}
 .tag.dotting_variant{background:var(--dotting);color:#1b1a17}
 .tag.word_boundary{background:var(--boundary);color:#fff}
 .tag.partial{background:var(--partial);color:#fff}

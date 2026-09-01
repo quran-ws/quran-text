@@ -5,23 +5,26 @@ from __future__ import annotations
 import csv
 from collections import Counter, defaultdict
 from datetime import date
+from difflib import SequenceMatcher
 from itertools import combinations
 
 from .build import ORDER, OUT, Word, fawasil
-from .normalize import fold_notation, pointed, rasm, rasm_plene
+from .chars import HARAKAT, OPEN_TANWEEN
+from .normalize import fold_notation, pointed, rasm, unpositioned
 from .output import boundary_events
 from .sources import Riwaya
 from .suras import names
-from .validate import (check_counting, check_index, check_release_policy,
-                       cross_release)
+from .validate import (check_alif_splits, check_counting, check_index,
+                       check_release_policy, cross_release)
 
 STATUS_ORDER = ["identical", "diacritic_variant", "dotting_variant",
-                "rasm_variant", "word_boundary", "partial"]
+                "alif_variant", "rasm_variant", "word_boundary", "partial"]
 
 STATUS_BLURB = {
     "identical": "one reading, one spelling, in all seven",
     "diacritic_variant": "same letters and same dots — the vowelling differs",
     "dotting_variant": "one rasm, pointed differently: تَعۡمَلُونَ against يَعۡمَلُونَ",
+    "alif_variant": "one skeleton, one ā: on the line in one hand, above it in the other",
     "rasm_variant": "the codices disagree about the letters on the line",
     "word_boundary": "a source prints the word joined to its neighbour",
     "partial": "the word is absent from at least one riwāyah",
@@ -47,6 +50,72 @@ def _groups(w: Word) -> dict[str, list[str]]:
 
 def _forms_cell(w: Word) -> str:
     return "  ·  ".join(f"**{v}** {','.join(ks)}" for v, ks in _groups(w).items())
+
+
+def _by_rasm(w: Word) -> dict[str, list[str]]:
+    """The distinct skeletons of one word, each with the riwāyāt that write it."""
+    out: dict[str, list[str]] = defaultdict(list)
+    for k in ORDER:
+        if k in w.forms:
+            out[rasm(w.forms[k])].append(k)
+    return dict(out)
+
+
+def _rasm_rows(ws: list[Word]) -> list[list]:
+    return [[w.id, f"{w.sura}:{w.aya.get('hafs', '—')}",
+             "  ·  ".join(f"`{r}` {','.join(ks)}"
+                          for r, ks in _by_rasm(w).items()),
+             _forms_cell(w)] for w in ws]
+
+
+def _difference_is_length(w: Word) -> bool:
+    """True when one side simply writes a letter the other does not.
+
+    ``ٮرٮد``/``ٮرٮدد`` and ``ٮسٮهى``/``ٮسٮهٮه`` are of this kind; ``ولا``/``ڡلا``
+    and ``كلمٮ``/``كلمه`` are not, because there a letter is exchanged rather
+    than added.  Compared with the final shapes folded away — see
+    :func:`normalize.unpositioned` — since a suffix moves the letter before it
+    off the end of the word and would otherwise read as a substitution too.
+    """
+    skeletons = sorted({unpositioned(r) for r in _by_rasm(w)})
+    return all(tag != "replace"
+               for a, b in combinations(skeletons, 2)
+               for tag, *_ in SequenceMatcher(None, a, b).get_opcodes())
+
+
+def _partition(w: Word) -> frozenset[frozenset[str]]:
+    """How a word divides the riwāyāt: the groups that share a skeleton."""
+    return frozenset(frozenset(ks) for ks in _by_rasm(w).values())
+
+
+def _partitions(ws: list[Word]) -> set:
+    return {_partition(w) for w in ws}
+
+
+def _alone(w: Word, key: str) -> bool:
+    """True when ``key`` is the only riwāyah on its side of the difference."""
+    return any(ks == [key] for ks in _by_rasm(w).values())
+
+
+def _systematic(ws: list[Word], words: list[Word]) -> int:
+    """How many of ``ws`` split the riwāyāt the same way at every occurrence.
+
+    A word whose plene/defective split is the same everywhere it appears is a
+    convention each muṣḥaf keeps, not a one-off setting; the count is what the
+    report cites for the ā section.  Occurrences are matched on the reading —
+    the pointed letters and the vowels — so that عَلَىٰ and عَلِيࣰّا, which share a
+    pointed skeleton, are not counted as one word.
+    """
+    def reading(w: Word) -> str:
+        form = w.forms.get("hafs") or next(iter(w.forms.values()))
+        marks = "".join(c for c in fold_notation(form)
+                        if c in HARAKAT or c in OPEN_TANWEEN)
+        return pointed(form) + "|" + marks
+
+    same: dict[str, set] = defaultdict(set)
+    for w in words:
+        same[reading(w)].add(_partition(w))
+    return sum(1 for w in ws if len(same[reading(w)]) == 1)
 
 
 def _pairwise(words: list[Word], keys: list[str]) -> list[dict]:
@@ -115,8 +184,12 @@ def write_report(words: list[Word], riwayat: list[Riwaya]) -> None:
     add("")
     add("`rasm` drops hamza and every hamza carrier reduces to its seat, because "
         "hamza is post-ʿUthmānic notation: `يَسۡتَهۡزِئُ` and `يَسْتَهْزِۓُ` are one "
-        "word. Dagger alif and written alef are also one ā — `هَٰرُوتَ` and "
-        "`هَارُوتَ` — since the packages differ only in where the publisher put it.")
+        "word. It also drops the dagger alif, which is by definition an alef the "
+        "scribe did *not* write on the line, so `هَٰرُوتَ` and `هَارُوتَ` do **not** "
+        "share a rasm: `هروٮ` against `هاروٮ`. That difference is real inside any "
+        "one muṣḥaf and is kept, but between these two typesettings it is a house "
+        "style rather than a codex — see "
+        "[the ā on the line or above it](#the-ā-on-the-line-or-above-it).")
     add("")
 
     # --- inventory --------------------------------------------------------
@@ -145,10 +218,11 @@ def write_report(words: list[Word], riwayat: list[Riwaya]) -> None:
                ["status", "words", "share", "meaning"]))
     add("")
     add("Each word gets the *strongest* label that applies, tested in this order: "
-        "rasm, absence, boundary, dotting, vowelling. So a `dotting_variant` is "
-        "guaranteed to share one rasm across all seven, and an `identical` word is "
-        "identical after notation folding — the raw spelling of every riwāyah is "
-        "always kept in `forms`, whatever the label.")
+        "rasm, ā, absence, boundary, dotting, vowelling. So a `dotting_variant` "
+        "is guaranteed to share one rasm across all seven, an `alif_variant` to "
+        "share one skeleton once every ā is spelled out, and an `identical` word "
+        "is identical after notation folding — the raw spelling of every riwāyah "
+        "is always kept in `forms`, whatever the label.")
     add("")
 
     # --- pairwise ---------------------------------------------------------
@@ -172,29 +246,32 @@ def write_report(words: list[Word], riwayat: list[Riwaya]) -> None:
         "and `pointed` columns strip away.")
     add("")
 
-    # --- the three real disagreements -------------------------------------
+    # --- the real disagreements -------------------------------------------
     rasm_v = [w for w in words if w.status == "rasm_variant"]
-    #: The sub-class of ``rasm_v`` where the two hands disagree only about
-    #: whether to put an ā on the line or above it — see the section below.
-    madd_v = [w for w in rasm_v
-              if len({rasm_plene(f) for f in w.forms.values()}) == 1]
+    alif_v = [w for w in words if w.status == "alif_variant"]
     absent = [w for w in words if w.status == "partial"]
     events = boundary_events(words)
+    longer = [w for w in rasm_v if _difference_is_length(w)]
+    swapped = [w for w in rasm_v if not _difference_is_length(w)]
 
     add("## Where the riwāyāt genuinely disagree")
     add("")
     add(f"Three things can differ once spelling, vowelling and pointing are set "
-        f"aside: the letters, the word boundaries, and whether a word is there at "
-        f"all. Together they account for "
+        f"aside: the letters, the word boundaries, and whether a word is there "
+        f"at all. Together they account for "
         f"{len(rasm_v) + len(absent) + sum(len(e['word_ids']) for e in events):,} "
-        f"of {len(words):,} words — though {len(madd_v):,} of the letter "
-        f"differences are a disagreement between the two typesettings rather "
-        f"than between the codices, and are picked out below.")
+        f"of {len(words):,} words. A fourth kind is listed with them and counted "
+        f"apart: {len(alif_v):,} words where the disagreement is only about "
+        f"whether an ā sits on the line or above it.")
     add("")
     add(_table([
         ["letters differ", f"{len(rasm_v):,}", "`rasm_variant`",
          f"a letter one codex has on the line and another does not — "
-         f"{len(madd_v):,} of them an ā the two hands place differently"],
+         f"{len(longer):,} of them one letter more, {len(swapped):,} one letter "
+         f"for another"],
+        ["the ā is placed differently", f"{len(alif_v):,}", "`alif_variant`",
+         "one skeleton once every ā is spelled out; the two hands disagree "
+         "about which ā to write on the line"],
         ["boundaries differ", f"{len(events)} events",
          "`word_boundary`", "one source prints two words as one"],
         ["word absent", f"{len(absent)}", "`partial`",
@@ -206,45 +283,78 @@ def write_report(words: list[Word], riwayat: list[Riwaya]) -> None:
     add("### Letters — rasm disagreements")
     add("")
     add(f"{len(rasm_v):,} words where the riwāyāt disagree about the letters on "
-        f"the line, after dots, hamza, vowelling and the dagger alif have been "
-        f"set aside. The full list is in [`rasm-variants.md`](rasm-variants.md) "
-        f"and [`conflicts.csv`](conflicts.csv); the first 25 follow.")
-    add("")
-    rows = []
-    for w in rasm_v[:25]:
-        by_rasm: dict[str, list[str]] = defaultdict(list)
-        for k in ORDER:
-            if k in w.forms:
-                by_rasm[rasm(w.forms[k])].append(k)
-        rows.append([w.id, f"{w.sura}:{w.aya.get('hafs', '—')}",
-                     "  ·  ".join(f"`{r}` {','.join(ks)}" for r, ks in by_rasm.items()),
-                     _forms_cell(w)])
-    add(_table(rows, ["word id", "sūrah:āyah", "rasm on each side", "as printed"]))
+        f"the line, after dots, hamza, vowelling and the ā have all been set "
+        f"aside. These are the differences the sources can be trusted on: they "
+        f"split the seven riwāyāt {len(_partitions(rasm_v))} different ways — by "
+        f"miṣr, not by publisher — and they are the khilāf the rasm literature "
+        f"names. All {len(rasm_v):,} are listed "
+        f"below, grouped by what the difference *is*. Machine-readable: "
+        f"[`rasm-variants.md`](rasm-variants.md), "
+        f"[`conflicts.csv`](conflicts.csv).")
     add("")
 
-    # --- madd alif --------------------------------------------------------
-    add("### Of those, the ā on the line or above it")
+    add("#### One skeleton, one letter more")
     add("")
-    add(f"{len(madd_v):,} of the {len(rasm_v):,} are words whose skeletons differ "
-        f"only by an alef that one hand prints on the line and the other prints "
-        f"as a dagger above it. A written alef is part of the bare rasm whichever "
-        f"hand wrote it, so they are counted as rasm disagreements — but the two "
-        f"KFGQPC typesettings disagree in **both** directions, the Warsh/Qālūn "
-        f"set printing `هَارُوتَ` where the Kūfī set prints `هَٰرُوتَ` and `مُبَٰرَك` "
-        f"where it prints `مُبَارَك`, so how much of this is ḥadhf vs ithbāt "
-        f"al-alif in the codices and how much is the hand of the typesetter is a "
-        f"question these sources cannot answer. A sample:")
+    add(f"{len(longer):,} of the {len(rasm_v):,}. Both sides write the same "
+        f"letters in the same order and one side writes a letter the other does "
+        f"not: `ٮرٮد`/`ٮرٮدد` — يَرۡتَدَّ against يَرۡتَدِدۡ at 5:54 — or "
+        f"`ٮسٮهى`/`ٮسٮهٮه`, تَشۡتَهِي against تَشۡتَهِيهِ at 43:71. Nothing is "
+        f"replaced; the skeletons nest.")
     add("")
-    rows = []
-    for w in madd_v[:15]:
-        by_rasm: dict[str, list[str]] = defaultdict(list)
-        for k in ORDER:
-            if k in w.forms:
-                by_rasm[rasm(w.forms[k])].append(k)
-        rows.append([w.id, f"{w.sura}:{w.aya.get('hafs', '—')}",
-                     "  ·  ".join(f"`{r}` {','.join(ks)}" for r, ks in by_rasm.items()),
-                     _forms_cell(w)])
-    add(_table(rows, ["word id", "sūrah:āyah", "rasm on each side", "as printed"]))
+    add(_table(_rasm_rows(longer),
+               ["word id", "sūrah:āyah", "rasm on each side", "as printed"]))
+    add("")
+
+    add("#### One letter for another")
+    add("")
+    add(f"{len(swapped):,} of the {len(rasm_v):,}, where a letter is not added "
+        f"but exchanged — `ولا`/`ڡلا` (وَلَا against فَلَا, 91:15), `كلمٮ`/`كلمه` "
+        f"(the open against the tied tāʾ, 7:137).")
+    add("")
+    add(_table(_rasm_rows(swapped),
+               ["word id", "sūrah:āyah", "rasm on each side", "as printed"]))
+    add("")
+
+    # --- the alif --------------------------------------------------------
+    add("### The ā on the line or above it")
+    add("")
+    add(f"{len(alif_v):,} words whose skeletons agree once every ā is spelled "
+        f"out, and differ only because one hand wrote that ā on the line and the "
+        f"other wrote it above: the Warsh/Qālūn set prints `هَارُوتَ` and "
+        f"`مُبَٰرَك` where the Kūfī set prints `هَٰرُوتَ` and `مُبَارَك`.")
+    add("")
+    # Stated from the data, not asserted: if a future package ever splits these
+    # words more than one way the sentence says so, and `check_alif_splits`
+    # flags it in the Checks section above.
+    parts = _partitions(alif_v)
+    if len(parts) == 1:
+        sides = sorted(next(iter(parts)), key=len, reverse=True)
+        one_line = ("along exactly one line — "
+                    + " against ".join(f"`{','.join(sorted(g))}`" for g in sides)
+                    + " — in both directions and without one exception")
+    else:
+        one_line = f"{len(parts)} different ways"
+    add(f"They are not counted as the codices disagreeing, and the reason is in "
+        f"the data rather than in a judgement about it. **All "
+        f"{len(alif_v):,} split the seven riwāyāt {one_line}.** The "
+        f"{len(rasm_v):,} real letter differences split "
+        f"them {len(_partitions(rasm_v))} different ways. Ḥadhf and ithbāt "
+        f"al-alif do vary between the codices of the amṣār, but they do not put "
+        f"Makkah with Madinah {len(alif_v):,} times out of {len(alif_v):,} and "
+        f"never once apart; a publisher's house style does. Bazzī goes its own "
+        f"way {sum(1 for w in rasm_v if _alone(w, 'bazzi'))} times among the "
+        f"{len(rasm_v):,} and not once among these.")
+    add("")
+    add(f"The distinction is still kept in `rasm`, because inside any one muṣḥaf "
+        f"it is that muṣḥaf's own ḥadhf, carried consistently: Ḥafṣ writes قال "
+        f"plene 412 times and defective 4, سبحان defective 12 and plene once, "
+        f"and {_systematic(alif_v, words)} of these {len(alif_v):,} words show "
+        f"the identical split at *every* occurrence of the word in the corpus. "
+        f"What the sources cannot answer is which of the two hands is the "
+        f"codex's. A sample:")
+    add("")
+    add(_table(_rasm_rows(alif_v[:15]),
+               ["word id", "sūrah:āyah", "rasm on each side", "as printed"]))
     add("")
 
     # --- dotting variants -------------------------------------------------
@@ -368,7 +478,7 @@ def write_report(words: list[Word], riwayat: list[Riwaya]) -> None:
         "word index.")
     add("")
     problems = (check_index(words, riwayat) + check_counting(riwayat)
-                + check_release_policy(riwayat))
+                + check_release_policy(riwayat) + check_alif_splits(words))
     add("### Checks")
     add("")
     if problems:
@@ -391,35 +501,38 @@ def write_report(words: list[Word], riwayat: list[Riwaya]) -> None:
         hard = c["rasm_variant"] + c["word_boundary"] + c["partial"]
         rows.append([s, names()[s]["name_en"], f"{c['total']:,}",
                      c["identical"], c["diacritic_variant"], c["dotting_variant"],
-                     c["rasm_variant"], c["word_boundary"] + c["partial"],
+                     c["alif_variant"], c["rasm_variant"],
+                     c["word_boundary"] + c["partial"],
                      f"{1000 * hard / c['total']:.1f}"])
     add(_table(rows, ["sūrah", "name", "words", "identical", "diacritic",
-                      "dotting", "rasm", "boundary/absent", "per 1000"]))
+                      "dotting", "ā", "rasm", "boundary/absent", "per 1000"]))
     add("")
 
     (OUT / "COMPARISON.md").write_text("\n".join(L), encoding="utf-8")
 
     # --- full rasm variant listing ---------------------------------------
     V = ["# Rasm disagreements — full listing", "",
-         f"All {len(rasm_v):,} words where the seven riwāyāt disagree about the "
-         "letters on the line, in order. Dots, hamza, vowelling and the dagger "
-         "alif have all been set aside — a superscript alef is by definition an "
-         "alef the scribe did not write on the line — so every row here is a "
-         "letter one riwāyah has on the line and another does not. 198 of them "
-         "are an ā that the two typesettings place differently; see *Of those, "
-         "the ā on the line or above it* in `COMPARISON.md`.", "",
+         f"Every word where the seven riwāyāt disagree about the letters on the "
+         f"line, in order. Dots, hamza and vowelling have all been set aside, "
+         f"and so has the dagger alif — a superscript alef is by definition an "
+         f"alef the scribe did not write on the line.", "",
+         f"The {len(rasm_v):,} `rasm_variant` words come first: a letter one "
+         f"riwāyah has and another does not, splitting the seven "
+         f"{len(_partitions(rasm_v))} different ways. The {len(alif_v):,} "
+         f"`alif_variant` words follow: one skeleton once every ā is spelled "
+         f"out, differing only in where the ā was written, and splitting the "
+         f"seven exactly one way. See *The ā on the line or above it* in "
+         f"`COMPARISON.md` for why that difference is reported apart.", "",
          "Machine-readable: `conflicts.csv`, `conflicts.json`.", ""]
-    rows = []
-    for w in rasm_v:
-        by_rasm = defaultdict(list)
-        for k in ORDER:
-            if k in w.forms:
-                by_rasm[rasm(w.forms[k])].append(k)
-        rows.append([w.id, f"{w.sura}:{w.aya.get('hafs', '—')}", w.index,
-                     "  ·  ".join(f"`{r}` {','.join(ks)}" for r, ks in by_rasm.items()),
-                     _forms_cell(w)])
-    V.append(_table(rows, ["word id", "sūrah:āyah", "word #", "rasm on each side",
-                           "as printed"]))
+    for title, ws in (("Letters", rasm_v), ("The ā", alif_v)):
+        V += [f"## {title} — {len(ws):,}", ""]
+        V.append(_table([[w.id, f"{w.sura}:{w.aya.get('hafs', '—')}", w.index,
+                          "  ·  ".join(f"`{r}` {','.join(ks)}"
+                                       for r, ks in _by_rasm(w).items()),
+                          _forms_cell(w)] for w in ws],
+                        ["word id", "sūrah:āyah", "word #", "rasm on each side",
+                         "as printed"]))
+        V.append("")
     (OUT / "rasm-variants.md").write_text("\n".join(V), encoding="utf-8")
 
     # --- matrix as csv ----------------------------------------------------

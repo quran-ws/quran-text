@@ -44,11 +44,14 @@ reasonably make differently:
   place where these sources cannot be taken at their word: the two typesettings
   disagree about it in *both* directions, the Warsh/Qālūn set printing `هَارُوتَ`
   where the Kūfī set prints `هَٰرُوتَ` and `مُبَٰرَك` where it prints `مُبَارَك`.
-  198 words are affected. They are counted as `rasm_variant` — an alef on the
-  line is part of the bare rasm whoever wrote it — and identified separately in
-  `COMPARISON.md`, because deciding how much of the class is codex and how much
-  is typesetter needs a manuscript, not a font. A project working from
-  manuscripts should decide these case by case.
+  198 words are affected, and they get their own status, `alif_variant`, rather
+  than being counted among the letters the codices disagree about — because all
+  198 divide the seven riwāyāt along one line, Warsh+Qālūn against the rest,
+  where the 62 real letter differences divide them fourteen ways. That is enough
+  to say the class tracks the publisher; it is **not** enough to say which of
+  the two hands is the codex's, or that no genuine ḥadhf khilāf is hiding inside
+  the class. Deciding that needs a manuscript, not a font, and a project working
+  from manuscripts should take these case by case.
 - **Hamza is dropped entirely.** Correct for a rasm, but it means `النبي` and
   `النبيء` compare equal at the rasm level. The reading difference survives in
   `pointed` and in `forms`, but not in the word's identity.
@@ -138,8 +141,9 @@ word level.
 The checks prove the index is faithful to the packages in `data/` — round-trip
 of every letter of every riwāyah, contiguous IDs, āyah totals against the
 classical counting traditions. They do **not** prove the packages are faithful
-to a printed muṣḥaf. The 968 rasm variants in `out/rasm-variants.md` have not
-been checked against the qirāʾāt literature one by one; spot checks against
+to a printed muṣḥaf. The 260 letter-level variants in `out/rasm-variants.md` —
+62 `rasm_variant` and 198 `alif_variant` — have not been checked against the
+qirāʾāt literature one by one; spot checks against
 well-known variants (9:101 Ibn Kathīr's `مِن`, 57:23 the Madanī rasm omitting
 `هُوَ`, `مَٰلِكِ`/`مَلِكِ`, Bazzī's ṣilat al-mīm) all came out right, which is
 evidence but not an audit.

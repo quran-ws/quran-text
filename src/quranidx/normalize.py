@@ -215,6 +215,21 @@ def rasm_plene(word: str) -> str:
     return _undot(pointed(word))
 
 
+def unpositioned(skeleton: str) -> str:
+    """A rasm with the final shapes folded back into their class.
+
+    ``ں`` and ``ى`` are a nūn and a yāʾ that happen to end a word; medially the
+    same letters are ``ٮ``.  Two skeletons that differ by a suffix therefore
+    differ in the letter before it too, which makes an added letter look like an
+    added *and* a substituted one.  Folding the final shapes is what lets
+    ``ٮسٮهى``/``ٮسٮهٮه`` (تشتهي/تشتهيه) be read as the one added hāʾ it is.
+
+    For describing a difference only.  The rasm keeps the final shapes, because
+    the codices did: ``ٮعملوں`` ends in a nūn's own curve.
+    """
+    return "".join(chars.FINAL_SHAPE_FOLD.get(c, c) for c in skeleton)
+
+
 #: Marks kept when producing the plain-spelling form.
 _SIMPLE_DROP = chars.ALL_MARKS - {"ّ"}
 

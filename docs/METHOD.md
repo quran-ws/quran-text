@@ -130,16 +130,46 @@ that keeps what was added later is not a rasm:
   Warsh's `ࡰرَٰٓيْتَ` against Ḥafṣ's `أَرَءَيۡتَ` — so the dagger *is* the hamza, and
   hamza is not part of the reading's letters either.
 
-An alef that *is* on the line stays, whichever hand wrote it, so a difference
-in one is a `rasm_variant` — 260 words. But **the bare rasm cannot settle on its
-own which ā a codex put there**, because the two typesettings disagree about
-that in both directions: the Warsh/Qālūn set prints `هَارُوتَ` where the Kūfī set
-prints `هَٰرُوتَ`, and `مُبَٰرَك` where it prints `مُبَارَك`. A sixth form,
-`rasm_plene`, spells every ā out and so makes the two hands comparable; the 198
-words whose skeletons agree once it is applied are exactly that sub-class, and
-the report lists them apart. The 62 that remain are the received list:
-`ووصى`/`وأوصى` at 2:132, `قال`/`قل` at 21:4 and 23:112, `لله`/`الله` at 23:87,
-`كلمت`/`كلمة` at 7:137.
+An alef that *is* on the line stays, whichever hand wrote it, so a difference in
+one is a difference in the rasm — 260 words. But **the bare rasm cannot settle
+on its own which ā a codex put there**, because the two typesettings disagree
+about that in both directions: the Warsh/Qālūn set prints `هَارُوتَ` where the
+Kūfī set prints `هَٰرُوتَ`, and `مُبَٰرَك` where it prints `مُبَارَك`. A sixth form,
+`rasm_plene`, spells every ā out and so makes the two hands comparable. The 198
+words whose skeletons agree once it is applied get their own status,
+`alif_variant`; the 62 that remain are `rasm_variant`.
+
+That split is drawn by the corpus, not chosen. **All 198 plene/defective words
+divide the seven riwāyāt along exactly one line — Warsh+Qālūn against the other
+five — in both directions and without a single exception. The 62 divide them
+fourteen different ways**: Bazzī alone seven times, Ḥafṣ+Shuʿbah alone six,
+Qālūn alone five, Sūsī alone once. Ḥadhf and ithbāt al-alif genuinely do vary
+between the codices of the amṣār — but a khilāf of the amṣār would sometimes put
+Makkah with Madinah, and this one never does, 198 times out of 198. What
+partitions by publisher is the publisher's hand. `validate.check_alif_splits`
+asserts the one-partition fact so that a future package cannot quietly break the
+ground the status stands on.
+
+The bare `rasm` keeps the distinction all the same, because inside one muṣḥaf it
+is that muṣḥaf's own ḥadhf and it is kept faithfully: Ḥafṣ writes قال plene 412
+times and defective 4, سبحان defective 12 and plene once, and 175 of the 198
+words show the identical split at every occurrence in the corpus. Each book is
+consistent with itself. What no font can say is which of the two hands is the
+codex's.
+
+The 62 `rasm_variant` words are the received list, and the report tables them by
+what the difference is. 56 are one skeleton with one letter more —
+`ووصى`/`وأوصى` at 2:132, `ٮرٮد`/`ٮرٮدد` (يَرۡتَدَّ/يَرۡتَدِدۡ) at 5:54,
+`ٮسٮهى`/`ٮسٮهٮه` (تَشۡتَهِي/تَشۡتَهِيهِ) at 43:71, `قال`/`قل` at 21:4 and 23:112,
+`لله`/`الله` at 23:87. 6 are one letter exchanged for another:
+`كلمت`/`كلمة` at 7:137, `ولا`/`فلا` at 91:15.
+
+Telling those two apart needs one more fold. The rasm keeps the final letter
+shapes, because the codices did — a nūn ending a word has its own curve, `ں`,
+where medially it is a tooth, `ٮ` — so appending a hāʾ to `ٮسٮهى` moves the yāʾ
+off the end of the word and changes its shape too, and a plain character diff
+reads the added letter as a substitution as well. `normalize.unpositioned` folds
+the final shapes back into their class for the comparison, and only for it.
 
 `pointed` keeps the dots and is otherwise the same. The gap between the two is
 itself a category of variation, and it gets its own status, `dotting_variant`.
