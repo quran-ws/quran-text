@@ -150,12 +150,13 @@ def write_report(words: list[Word], riwayat: list[Riwaya]) -> None:
     add("# Cross-riwāyah comparison")
     add("")
     add(f"Generated {date.today().isoformat()} from the KFGQPC packages in `data/`. "
-        f"{len(words):,} canonical words across {len({w.sura for w in words})} sūrahs "
+        f"{len(words):,} shared slots across {len({w.sura for w in words})} sūrahs "
         f"and {len(keys)} riwāyāt.")
     add("")
-    add("Every word carries one ID that means the same word in every riwāyah that "
-        "has it. Where the riwāyāt disagree, the disagreement is recorded against "
-        "that ID rather than hidden by it.")
+    add("Every slot carries one ID that names the same coordinate in all seven. "
+        "Each present token also has a dense per-riwāyah position. Rare n:m wording "
+        "is inventoried in `SLOT-MODEL.md`; it is not hidden behind a claimed 1:1 "
+        "word pairing.")
     add("")
 
     # --- what is actually being compared ----------------------------------

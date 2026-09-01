@@ -1,0 +1,1314 @@
+{
+ "format": "quran-slot-model",
+ "schema_version": "1.0",
+ "generated": "2026-09-02",
+ "model": "slot_id is the shared cross-riwayah coordinate; position is the dense word ordinal inside one riwayah; an alignment span groups the rare contiguous slots whose readings do not align 1:1.",
+ "slot_count": 77434,
+ "slot_id_range": [
+  1,
+  77434
+ ],
+ "slot_ids_contiguous": true,
+ "legacy_aliases": {
+  "id_equals_slot_id": true,
+  "w_equals_s": true,
+  "word_id_equals_slot_id": true
+ },
+ "positions": {
+  "hafs": {
+   "word_count": 77432,
+   "empty_slot_count": 2,
+   "first": 1,
+   "last": 77432,
+   "contiguous": true
+  },
+  "shuba": {
+   "word_count": 77432,
+   "empty_slot_count": 2,
+   "first": 1,
+   "last": 77432,
+   "contiguous": true
+  },
+  "bazzi": {
+   "word_count": 77432,
+   "empty_slot_count": 2,
+   "first": 1,
+   "last": 77432,
+   "contiguous": true
+  },
+  "qaloun": {
+   "word_count": 77431,
+   "empty_slot_count": 3,
+   "first": 1,
+   "last": 77431,
+   "contiguous": true
+  },
+  "warsh": {
+   "word_count": 77431,
+   "empty_slot_count": 3,
+   "first": 1,
+   "last": 77431,
+   "contiguous": true
+  },
+  "douri": {
+   "word_count": 77431,
+   "empty_slot_count": 3,
+   "first": 1,
+   "last": 77431,
+   "contiguous": true
+  },
+  "sousi": {
+   "word_count": 77431,
+   "empty_slot_count": 3,
+   "first": 1,
+   "last": 77431,
+   "contiguous": true
+  }
+ },
+ "partial_slot_count": 5,
+ "partial_slots": [
+  {
+   "slot_id": 25685,
+   "legacy_word_id": 25685,
+   "key": "9:من#50",
+   "sura": 9,
+   "present": [
+    "bazzi"
+   ],
+   "missing": [
+    "hafs",
+    "shuba",
+    "warsh",
+    "qaloun",
+    "douri",
+    "sousi"
+   ],
+   "readings": {
+    "bazzi": {
+     "ayah": 101,
+     "position": 25685,
+     "text": "مِن"
+    }
+   },
+   "neighborhood": {
+    "hafs": {
+     "before": {
+      "slot_id": 25684,
+      "position": 25684,
+      "ayah": 100,
+      "text": "تَجۡرِي"
+     },
+     "at": null,
+     "after": {
+      "slot_id": 25686,
+      "position": 25685,
+      "ayah": 100,
+      "text": "تَحۡتَهَا"
+     }
+    },
+    "shuba": {
+     "before": {
+      "slot_id": 25684,
+      "position": 25684,
+      "ayah": 100,
+      "text": "تَجۡرِي"
+     },
+     "at": null,
+     "after": {
+      "slot_id": 25686,
+      "position": 25685,
+      "ayah": 100,
+      "text": "تَحۡتَهَا"
+     }
+    },
+    "bazzi": {
+     "before": {
+      "slot_id": 25684,
+      "position": 25684,
+      "ayah": 101,
+      "text": "تَجۡرِي"
+     },
+     "at": {
+      "slot_id": 25685,
+      "position": 25685,
+      "ayah": 101,
+      "text": "مِن"
+     },
+     "after": {
+      "slot_id": 25686,
+      "position": 25686,
+      "ayah": 101,
+      "text": "تَحۡتِهَا"
+     }
+    },
+    "qaloun": {
+     "before": {
+      "slot_id": 25684,
+      "position": 25684,
+      "ayah": 101,
+      "text": "تَجْرِے"
+     },
+     "at": null,
+     "after": {
+      "slot_id": 25686,
+      "position": 25685,
+      "ayah": 101,
+      "text": "تَحْتَهَا"
+     }
+    },
+    "warsh": {
+     "before": {
+      "slot_id": 25684,
+      "position": 25684,
+      "ayah": 101,
+      "text": "تَجْرِے"
+     },
+     "at": null,
+     "after": {
+      "slot_id": 25686,
+      "position": 25685,
+      "ayah": 101,
+      "text": "تَحْتَهَا"
+     }
+    },
+    "douri": {
+     "before": {
+      "slot_id": 25684,
+      "position": 25684,
+      "ayah": 101,
+      "text": "تَجۡرِي"
+     },
+     "at": null,
+     "after": {
+      "slot_id": 25686,
+      "position": 25685,
+      "ayah": 101,
+      "text": "تَحۡتَهَا"
+     }
+    },
+    "sousi": {
+     "before": {
+      "slot_id": 25684,
+      "position": 25684,
+      "ayah": 101,
+      "text": "تَجۡرِي"
+     },
+     "at": null,
+     "after": {
+      "slot_id": 25686,
+      "position": 25685,
+      "ayah": 101,
+      "text": "تَحۡتَهَا"
+     }
+    }
+   }
+  },
+  {
+   "slot_id": 60523,
+   "legacy_word_id": 60523,
+   "key": "40:ان#5",
+   "sura": 40,
+   "present": [
+    "hafs",
+    "shuba"
+   ],
+   "missing": [
+    "warsh",
+    "qaloun",
+    "douri",
+    "sousi",
+    "bazzi"
+   ],
+   "readings": {
+    "hafs": {
+     "ayah": 26,
+     "position": 60522,
+     "text": "أَن"
+    },
+    "shuba": {
+     "ayah": 26,
+     "position": 60522,
+     "text": "أَن"
+    }
+   },
+   "neighborhood": {
+    "hafs": {
+     "before": {
+      "slot_id": 60522,
+      "position": 60521,
+      "ayah": 26,
+      "text": "أَوۡ"
+     },
+     "at": {
+      "slot_id": 60523,
+      "position": 60522,
+      "ayah": 26,
+      "text": "أَن"
+     },
+     "after": {
+      "slot_id": 60524,
+      "position": 60523,
+      "ayah": 26,
+      "text": "يُظۡهِرَ"
+     }
+    },
+    "shuba": {
+     "before": {
+      "slot_id": 60522,
+      "position": 60521,
+      "ayah": 26,
+      "text": "أَوۡ"
+     },
+     "at": {
+      "slot_id": 60523,
+      "position": 60522,
+      "ayah": 26,
+      "text": "أَن"
+     },
+     "after": {
+      "slot_id": 60524,
+      "position": 60523,
+      "ayah": 26,
+      "text": "يَظۡهَرَ"
+     }
+    },
+    "bazzi": {
+     "before": {
+      "slot_id": 60522,
+      "position": 60522,
+      "ayah": 26,
+      "text": "وَأَن"
+     },
+     "at": null,
+     "after": {
+      "slot_id": 60524,
+      "position": 60523,
+      "ayah": 26,
+      "text": "يَظۡهَرَ"
+     }
+    },
+    "qaloun": {
+     "before": {
+      "slot_id": 60522,
+      "position": 60521,
+      "ayah": 26,
+      "text": "وَأَنْ"
+     },
+     "at": null,
+     "after": {
+      "slot_id": 60524,
+      "position": 60522,
+      "ayah": 26,
+      "text": "يُّظْهِرَ"
+     }
+    },
+    "warsh": {
+     "before": {
+      "slot_id": 60522,
+      "position": 60521,
+      "ayah": 26,
+      "text": "وَأَنْ"
+     },
+     "at": null,
+     "after": {
+      "slot_id": 60524,
+      "position": 60522,
+      "ayah": 26,
+      "text": "يُّظْهِرَ"
+     }
+    },
+    "douri": {
+     "before": {
+      "slot_id": 60522,
+      "position": 60521,
+      "ayah": 26,
+      "text": "وَأَن"
+     },
+     "at": null,
+     "after": {
+      "slot_id": 60524,
+      "position": 60522,
+      "ayah": 26,
+      "text": "يُظۡهِرَ"
+     }
+    },
+    "sousi": {
+     "before": {
+      "slot_id": 60522,
+      "position": 60521,
+      "ayah": 26,
+      "text": "وَأَن"
+     },
+     "at": null,
+     "after": {
+      "slot_id": 60524,
+      "position": 60522,
+      "ayah": 26,
+      "text": "يُظۡهِرَ"
+     }
+    }
+   }
+  },
+  {
+   "slot_id": 69720,
+   "legacy_word_id": 69720,
+   "key": "57:هو#5",
+   "sura": 57,
+   "present": [
+    "hafs",
+    "shuba",
+    "douri",
+    "sousi",
+    "bazzi"
+   ],
+   "missing": [
+    "warsh",
+    "qaloun"
+   ],
+   "readings": {
+    "hafs": {
+     "ayah": 24,
+     "position": 69719,
+     "text": "هُوَ"
+    },
+    "shuba": {
+     "ayah": 24,
+     "position": 69719,
+     "text": "هُوَ"
+    },
+    "douri": {
+     "ayah": 23,
+     "position": 69718,
+     "text": "هُوَ"
+    },
+    "sousi": {
+     "ayah": 23,
+     "position": 69718,
+     "text": "هُّوَ"
+    },
+    "bazzi": {
+     "ayah": 23,
+     "position": 69719,
+     "text": "هُوَ"
+    }
+   },
+   "neighborhood": {
+    "hafs": {
+     "before": {
+      "slot_id": 69719,
+      "position": 69718,
+      "ayah": 24,
+      "text": "ٱللَّهَ"
+     },
+     "at": {
+      "slot_id": 69720,
+      "position": 69719,
+      "ayah": 24,
+      "text": "هُوَ"
+     },
+     "after": {
+      "slot_id": 69721,
+      "position": 69720,
+      "ayah": 24,
+      "text": "ٱلۡغَنِيُّ"
+     }
+    },
+    "shuba": {
+     "before": {
+      "slot_id": 69719,
+      "position": 69718,
+      "ayah": 24,
+      "text": "ٱللَّهَ"
+     },
+     "at": {
+      "slot_id": 69720,
+      "position": 69719,
+      "ayah": 24,
+      "text": "هُوَ"
+     },
+     "after": {
+      "slot_id": 69721,
+      "position": 69720,
+      "ayah": 24,
+      "text": "ٱلۡغَنِيُّ"
+     }
+    },
+    "bazzi": {
+     "before": {
+      "slot_id": 69719,
+      "position": 69718,
+      "ayah": 23,
+      "text": "ٱللَّهَ"
+     },
+     "at": {
+      "slot_id": 69720,
+      "position": 69719,
+      "ayah": 23,
+      "text": "هُوَ"
+     },
+     "after": {
+      "slot_id": 69721,
+      "position": 69720,
+      "ayah": 23,
+      "text": "ٱلۡغَنِيُّ"
+     }
+    },
+    "qaloun": {
+     "before": {
+      "slot_id": 69719,
+      "position": 69717,
+      "ayah": 23,
+      "text": "ࡰ۬للَّهَ"
+     },
+     "at": null,
+     "after": {
+      "slot_id": 69721,
+      "position": 69718,
+      "ayah": 23,
+      "text": "ࡰ۬لْغَنِيُّ"
+     }
+    },
+    "warsh": {
+     "before": {
+      "slot_id": 69719,
+      "position": 69717,
+      "ayah": 23,
+      "text": "ࡰ۬للَّهَ"
+     },
+     "at": null,
+     "after": {
+      "slot_id": 69721,
+      "position": 69718,
+      "ayah": 23,
+      "text": "ࡰ۬لْغَنِيُّ"
+     }
+    },
+    "douri": {
+     "before": {
+      "slot_id": 69719,
+      "position": 69717,
+      "ayah": 23,
+      "text": "اَ۬للَّهَ"
+     },
+     "at": {
+      "slot_id": 69720,
+      "position": 69718,
+      "ayah": 23,
+      "text": "هُوَ"
+     },
+     "after": {
+      "slot_id": 69721,
+      "position": 69719,
+      "ayah": 23,
+      "text": "اَ۬لۡغَنِيُّ"
+     }
+    },
+    "sousi": {
+     "before": {
+      "slot_id": 69719,
+      "position": 69717,
+      "ayah": 23,
+      "text": "ࡱ۬للَّه"
+     },
+     "at": {
+      "slot_id": 69720,
+      "position": 69718,
+      "ayah": 23,
+      "text": "هُّوَ"
+     },
+     "after": {
+      "slot_id": 69721,
+      "position": 69719,
+      "ayah": 23,
+      "text": "ࡱ۬لۡغَنِيُّ"
+     }
+    }
+   }
+  },
+  {
+   "slot_id": 73951,
+   "legacy_word_id": 73951,
+   "key": "72:لو#1",
+   "sura": 72,
+   "present": [
+    "warsh",
+    "qaloun",
+    "douri",
+    "sousi"
+   ],
+   "missing": [
+    "hafs",
+    "shuba",
+    "bazzi"
+   ],
+   "readings": {
+    "warsh": {
+     "ayah": 16,
+     "position": 73948,
+     "text": "لَّوِ"
+    },
+    "qaloun": {
+     "ayah": 16,
+     "position": 73948,
+     "text": "لَّوِ"
+    },
+    "douri": {
+     "ayah": 16,
+     "position": 73949,
+     "text": "لَّوِ"
+    },
+    "sousi": {
+     "ayah": 16,
+     "position": 73949,
+     "text": "لَّوِ"
+    }
+   },
+   "neighborhood": {
+    "hafs": {
+     "before": {
+      "slot_id": 73950,
+      "position": 73949,
+      "ayah": 16,
+      "text": "وَأَلَّوِ"
+     },
+     "at": null,
+     "after": {
+      "slot_id": 73952,
+      "position": 73950,
+      "ayah": 16,
+      "text": "ٱسۡتَقَٰمُواْ"
+     }
+    },
+    "shuba": {
+     "before": {
+      "slot_id": 73950,
+      "position": 73949,
+      "ayah": 16,
+      "text": "وَأَلَّوِ"
+     },
+     "at": null,
+     "after": {
+      "slot_id": 73952,
+      "position": 73950,
+      "ayah": 16,
+      "text": "ٱسۡتَقَٰمُواْ"
+     }
+    },
+    "bazzi": {
+     "before": {
+      "slot_id": 73950,
+      "position": 73949,
+      "ayah": 16,
+      "text": "وَأَلَّوِ"
+     },
+     "at": null,
+     "after": {
+      "slot_id": 73952,
+      "position": 73950,
+      "ayah": 16,
+      "text": "ٱسۡتَقَٰمُواْ"
+     }
+    },
+    "qaloun": {
+     "before": {
+      "slot_id": 73950,
+      "position": 73947,
+      "ayah": 16,
+      "text": "وَأَن"
+     },
+     "at": {
+      "slot_id": 73951,
+      "position": 73948,
+      "ayah": 16,
+      "text": "لَّوِ"
+     },
+     "after": {
+      "slot_id": 73952,
+      "position": 73949,
+      "ayah": 16,
+      "text": "ࡴٜسْتَقَٰمُواْ"
+     }
+    },
+    "warsh": {
+     "before": {
+      "slot_id": 73950,
+      "position": 73947,
+      "ayah": 16,
+      "text": "وَأَن"
+     },
+     "at": {
+      "slot_id": 73951,
+      "position": 73948,
+      "ayah": 16,
+      "text": "لَّوِ"
+     },
+     "after": {
+      "slot_id": 73952,
+      "position": 73949,
+      "ayah": 16,
+      "text": "ࡴٜسْتَقَٰمُواْ"
+     }
+    },
+    "douri": {
+     "before": {
+      "slot_id": 73950,
+      "position": 73948,
+      "ayah": 16,
+      "text": "وَأَن"
+     },
+     "at": {
+      "slot_id": 73951,
+      "position": 73949,
+      "ayah": 16,
+      "text": "لَّوِ"
+     },
+     "after": {
+      "slot_id": 73952,
+      "position": 73950,
+      "ayah": 16,
+      "text": "اِ۪سۡتَقَٰمُواْ"
+     }
+    },
+    "sousi": {
+     "before": {
+      "slot_id": 73950,
+      "position": 73948,
+      "ayah": 16,
+      "text": "وَأَن"
+     },
+     "at": {
+      "slot_id": 73951,
+      "position": 73949,
+      "ayah": 16,
+      "text": "لَّوِ"
+     },
+     "after": {
+      "slot_id": 73952,
+      "position": 73950,
+      "ayah": 16,
+      "text": "ࡵٜسۡتَقَٰمُواْ"
+     }
+    }
+   }
+  },
+  {
+   "slot_id": 74227,
+   "legacy_word_id": 74227,
+   "key": "73:لن#1",
+   "sura": 73,
+   "present": [
+    "hafs",
+    "shuba",
+    "warsh",
+    "qaloun",
+    "bazzi"
+   ],
+   "missing": [
+    "douri",
+    "sousi"
+   ],
+   "readings": {
+    "hafs": {
+     "ayah": 20,
+     "position": 74225,
+     "text": "لَّن"
+    },
+    "shuba": {
+     "ayah": 20,
+     "position": 74225,
+     "text": "لَّن"
+    },
+    "warsh": {
+     "ayah": 18,
+     "position": 74224,
+     "text": "لَّن"
+    },
+    "qaloun": {
+     "ayah": 18,
+     "position": 74224,
+     "text": "لَّن"
+    },
+    "bazzi": {
+     "ayah": 20,
+     "position": 74225,
+     "text": "لَّن"
+    }
+   },
+   "neighborhood": {
+    "hafs": {
+     "before": {
+      "slot_id": 74226,
+      "position": 74224,
+      "ayah": 20,
+      "text": "أَن"
+     },
+     "at": {
+      "slot_id": 74227,
+      "position": 74225,
+      "ayah": 20,
+      "text": "لَّن"
+     },
+     "after": {
+      "slot_id": 74228,
+      "position": 74226,
+      "ayah": 20,
+      "text": "تُحۡصُوهُ"
+     }
+    },
+    "shuba": {
+     "before": {
+      "slot_id": 74226,
+      "position": 74224,
+      "ayah": 20,
+      "text": "أَن"
+     },
+     "at": {
+      "slot_id": 74227,
+      "position": 74225,
+      "ayah": 20,
+      "text": "لَّن"
+     },
+     "after": {
+      "slot_id": 74228,
+      "position": 74226,
+      "ayah": 20,
+      "text": "تُحۡصُوهُ"
+     }
+    },
+    "bazzi": {
+     "before": {
+      "slot_id": 74226,
+      "position": 74224,
+      "ayah": 20,
+      "text": "أَن"
+     },
+     "at": {
+      "slot_id": 74227,
+      "position": 74225,
+      "ayah": 20,
+      "text": "لَّن"
+     },
+     "after": {
+      "slot_id": 74228,
+      "position": 74226,
+      "ayah": 20,
+      "text": "تُحۡصُوهُۥ"
+     }
+    },
+    "qaloun": {
+     "before": {
+      "slot_id": 74226,
+      "position": 74223,
+      "ayah": 18,
+      "text": "أَن"
+     },
+     "at": {
+      "slot_id": 74227,
+      "position": 74224,
+      "ayah": 18,
+      "text": "لَّن"
+     },
+     "after": {
+      "slot_id": 74228,
+      "position": 74225,
+      "ayah": 18,
+      "text": "تُحْصُوهُ"
+     }
+    },
+    "warsh": {
+     "before": {
+      "slot_id": 74226,
+      "position": 74223,
+      "ayah": 18,
+      "text": "أَن"
+     },
+     "at": {
+      "slot_id": 74227,
+      "position": 74224,
+      "ayah": 18,
+      "text": "لَّن"
+     },
+     "after": {
+      "slot_id": 74228,
+      "position": 74225,
+      "ayah": 18,
+      "text": "تُحْصُوهُ"
+     }
+    },
+    "douri": {
+     "before": {
+      "slot_id": 74226,
+      "position": 74224,
+      "ayah": 20,
+      "text": "أَلَّن"
+     },
+     "at": null,
+     "after": {
+      "slot_id": 74228,
+      "position": 74225,
+      "ayah": 20,
+      "text": "تُحۡصُوهُ"
+     }
+    },
+    "sousi": {
+     "before": {
+      "slot_id": 74226,
+      "position": 74224,
+      "ayah": 20,
+      "text": "أَلَّن"
+     },
+     "at": null,
+     "after": {
+      "slot_id": 74228,
+      "position": 74225,
+      "ayah": 20,
+      "text": "تُحۡصُوهُ"
+     }
+    }
+   }
+  }
+ ],
+ "alignment_span_count": 3,
+ "alignment_spans": [
+  {
+   "id": "40:60522-60523",
+   "kind": "n_to_m",
+   "sura": 40,
+   "slots": [
+    60522,
+    60523
+   ],
+   "slot_ids": [
+    60522,
+    60523
+   ],
+   "legacy_word_ids": [
+    60522,
+    60523
+   ],
+   "token_count_distribution": {
+    "1": 5,
+    "2": 2
+   },
+   "readings": {
+    "hafs": {
+     "ayahs": [
+      26
+     ],
+     "tokens": [
+      {
+       "slot_id": 60522,
+       "legacy_word_id": 60522,
+       "position": 60521,
+       "ayah": 26,
+       "text": "أَوۡ"
+      },
+      {
+       "slot_id": 60523,
+       "legacy_word_id": 60523,
+       "position": 60522,
+       "ayah": 26,
+       "text": "أَن"
+      }
+     ]
+    },
+    "shuba": {
+     "ayahs": [
+      26
+     ],
+     "tokens": [
+      {
+       "slot_id": 60522,
+       "legacy_word_id": 60522,
+       "position": 60521,
+       "ayah": 26,
+       "text": "أَوۡ"
+      },
+      {
+       "slot_id": 60523,
+       "legacy_word_id": 60523,
+       "position": 60522,
+       "ayah": 26,
+       "text": "أَن"
+      }
+     ]
+    },
+    "bazzi": {
+     "ayahs": [
+      26
+     ],
+     "tokens": [
+      {
+       "slot_id": 60522,
+       "legacy_word_id": 60522,
+       "position": 60522,
+       "ayah": 26,
+       "text": "وَأَن"
+      }
+     ]
+    },
+    "qaloun": {
+     "ayahs": [
+      26
+     ],
+     "tokens": [
+      {
+       "slot_id": 60522,
+       "legacy_word_id": 60522,
+       "position": 60521,
+       "ayah": 26,
+       "text": "وَأَنْ"
+      }
+     ]
+    },
+    "warsh": {
+     "ayahs": [
+      26
+     ],
+     "tokens": [
+      {
+       "slot_id": 60522,
+       "legacy_word_id": 60522,
+       "position": 60521,
+       "ayah": 26,
+       "text": "وَأَنْ"
+      }
+     ]
+    },
+    "douri": {
+     "ayahs": [
+      26
+     ],
+     "tokens": [
+      {
+       "slot_id": 60522,
+       "legacy_word_id": 60522,
+       "position": 60521,
+       "ayah": 26,
+       "text": "وَأَن"
+      }
+     ]
+    },
+    "sousi": {
+     "ayahs": [
+      26
+     ],
+     "tokens": [
+      {
+       "slot_id": 60522,
+       "legacy_word_id": 60522,
+       "position": 60521,
+       "ayah": 26,
+       "text": "وَأَن"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "72:73950-73951",
+   "kind": "n_to_m",
+   "sura": 72,
+   "slots": [
+    73950,
+    73951
+   ],
+   "slot_ids": [
+    73950,
+    73951
+   ],
+   "legacy_word_ids": [
+    73950,
+    73951
+   ],
+   "token_count_distribution": {
+    "1": 3,
+    "2": 4
+   },
+   "readings": {
+    "hafs": {
+     "ayahs": [
+      16
+     ],
+     "tokens": [
+      {
+       "slot_id": 73950,
+       "legacy_word_id": 73950,
+       "position": 73949,
+       "ayah": 16,
+       "text": "وَأَلَّوِ"
+      }
+     ]
+    },
+    "shuba": {
+     "ayahs": [
+      16
+     ],
+     "tokens": [
+      {
+       "slot_id": 73950,
+       "legacy_word_id": 73950,
+       "position": 73949,
+       "ayah": 16,
+       "text": "وَأَلَّوِ"
+      }
+     ]
+    },
+    "bazzi": {
+     "ayahs": [
+      16
+     ],
+     "tokens": [
+      {
+       "slot_id": 73950,
+       "legacy_word_id": 73950,
+       "position": 73949,
+       "ayah": 16,
+       "text": "وَأَلَّوِ"
+      }
+     ]
+    },
+    "qaloun": {
+     "ayahs": [
+      16
+     ],
+     "tokens": [
+      {
+       "slot_id": 73950,
+       "legacy_word_id": 73950,
+       "position": 73947,
+       "ayah": 16,
+       "text": "وَأَن"
+      },
+      {
+       "slot_id": 73951,
+       "legacy_word_id": 73951,
+       "position": 73948,
+       "ayah": 16,
+       "text": "لَّوِ"
+      }
+     ]
+    },
+    "warsh": {
+     "ayahs": [
+      16
+     ],
+     "tokens": [
+      {
+       "slot_id": 73950,
+       "legacy_word_id": 73950,
+       "position": 73947,
+       "ayah": 16,
+       "text": "وَأَن"
+      },
+      {
+       "slot_id": 73951,
+       "legacy_word_id": 73951,
+       "position": 73948,
+       "ayah": 16,
+       "text": "لَّوِ"
+      }
+     ]
+    },
+    "douri": {
+     "ayahs": [
+      16
+     ],
+     "tokens": [
+      {
+       "slot_id": 73950,
+       "legacy_word_id": 73950,
+       "position": 73948,
+       "ayah": 16,
+       "text": "وَأَن"
+      },
+      {
+       "slot_id": 73951,
+       "legacy_word_id": 73951,
+       "position": 73949,
+       "ayah": 16,
+       "text": "لَّوِ"
+      }
+     ]
+    },
+    "sousi": {
+     "ayahs": [
+      16
+     ],
+     "tokens": [
+      {
+       "slot_id": 73950,
+       "legacy_word_id": 73950,
+       "position": 73948,
+       "ayah": 16,
+       "text": "وَأَن"
+      },
+      {
+       "slot_id": 73951,
+       "legacy_word_id": 73951,
+       "position": 73949,
+       "ayah": 16,
+       "text": "لَّوِ"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "73:74226-74227",
+   "kind": "n_to_m",
+   "sura": 73,
+   "slots": [
+    74226,
+    74227
+   ],
+   "slot_ids": [
+    74226,
+    74227
+   ],
+   "legacy_word_ids": [
+    74226,
+    74227
+   ],
+   "token_count_distribution": {
+    "1": 2,
+    "2": 5
+   },
+   "readings": {
+    "hafs": {
+     "ayahs": [
+      20
+     ],
+     "tokens": [
+      {
+       "slot_id": 74226,
+       "legacy_word_id": 74226,
+       "position": 74224,
+       "ayah": 20,
+       "text": "أَن"
+      },
+      {
+       "slot_id": 74227,
+       "legacy_word_id": 74227,
+       "position": 74225,
+       "ayah": 20,
+       "text": "لَّن"
+      }
+     ]
+    },
+    "shuba": {
+     "ayahs": [
+      20
+     ],
+     "tokens": [
+      {
+       "slot_id": 74226,
+       "legacy_word_id": 74226,
+       "position": 74224,
+       "ayah": 20,
+       "text": "أَن"
+      },
+      {
+       "slot_id": 74227,
+       "legacy_word_id": 74227,
+       "position": 74225,
+       "ayah": 20,
+       "text": "لَّن"
+      }
+     ]
+    },
+    "bazzi": {
+     "ayahs": [
+      20
+     ],
+     "tokens": [
+      {
+       "slot_id": 74226,
+       "legacy_word_id": 74226,
+       "position": 74224,
+       "ayah": 20,
+       "text": "أَن"
+      },
+      {
+       "slot_id": 74227,
+       "legacy_word_id": 74227,
+       "position": 74225,
+       "ayah": 20,
+       "text": "لَّن"
+      }
+     ]
+    },
+    "qaloun": {
+     "ayahs": [
+      18
+     ],
+     "tokens": [
+      {
+       "slot_id": 74226,
+       "legacy_word_id": 74226,
+       "position": 74223,
+       "ayah": 18,
+       "text": "أَن"
+      },
+      {
+       "slot_id": 74227,
+       "legacy_word_id": 74227,
+       "position": 74224,
+       "ayah": 18,
+       "text": "لَّن"
+      }
+     ]
+    },
+    "warsh": {
+     "ayahs": [
+      18
+     ],
+     "tokens": [
+      {
+       "slot_id": 74226,
+       "legacy_word_id": 74226,
+       "position": 74223,
+       "ayah": 18,
+       "text": "أَن"
+      },
+      {
+       "slot_id": 74227,
+       "legacy_word_id": 74227,
+       "position": 74224,
+       "ayah": 18,
+       "text": "لَّن"
+      }
+     ]
+    },
+    "douri": {
+     "ayahs": [
+      20
+     ],
+     "tokens": [
+      {
+       "slot_id": 74226,
+       "legacy_word_id": 74226,
+       "position": 74224,
+       "ayah": 20,
+       "text": "أَلَّن"
+      }
+     ]
+    },
+    "sousi": {
+     "ayahs": [
+      20
+     ],
+     "tokens": [
+      {
+       "slot_id": 74226,
+       "legacy_word_id": 74226,
+       "position": 74224,
+       "ayah": 20,
+       "text": "أَلَّن"
+      }
+     ]
+    }
+   }
+  }
+ ]
+}

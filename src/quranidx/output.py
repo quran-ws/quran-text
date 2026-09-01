@@ -13,7 +13,7 @@ from .build import ORDER, OUT, Word, fawasil
 from .sources import Riwaya
 from .suras import names
 
-SCHEMA_VERSION = "2.0"
+SCHEMA_VERSION = "2.1"
 
 
 def _riwaya_meta(riwayat: list[Riwaya]) -> list[dict]:
@@ -54,6 +54,7 @@ def _word_json(w: Word) -> dict:
     """
     rec = {
         "id": w.id,
+        "slot_id": w.id,
         "i": w.index,
         "key": w.key,
         "rasm": w.rasm,
@@ -62,6 +63,7 @@ def _word_json(w: Word) -> dict:
         "simple": w.simple,
         "status": w.status,
         "aya": w.aya,
+        "position": w.position,
         "forms": w.forms,
     }
     groups = _groups(w)
@@ -92,15 +94,17 @@ def write_all(words: list[Word], riwayat: list[Riwaya]) -> dict:
         "schema_version": SCHEMA_VERSION,
         "generated": date.today().isoformat(),
         "word_count": len(words),
+        "slot_count": len(words),
         "sura_count": len(by_sura),
         "riwayat": _riwaya_meta(riwayat),
         "model": (
-            "A sūrah is a flat list of words.  One ID means one word in every "
-            "riwāyah that has it, because words are identified by their bare "
-            "ʿUthmānic rasm — undotted, unvowelled, no hamza — which is what "
-            "the seven riwāyāt actually share.  How each riwāyah spells that "
-            "word is in `forms`; where each counting tradition ends its āyāt "
-            "is in `fawasil.json`."
+            "A sūrah is a flat list of shared slots. `slot_id` is the explicit "
+            "name of the cross-riwāyah coordinate and `id` is its compatibility "
+            "alias. `position` gives each present token's dense ordinal in its "
+            "own muṣḥaf, so an absent token leaves a slot gap but no position "
+            "gap. How each riwāyah spells the token is in `forms`; rare unequal "
+            "wordings are inventoried as alignment spans in slot-model.json; "
+            "fawāṣil remain a layer over the slots in fawasil.json."
         ),
     }
 
@@ -141,18 +145,21 @@ def write_all(words: list[Word], riwayat: list[Riwaya]) -> dict:
         wr = csv.writer(fh)
         wr.writerow(["word_id", "sura", "word_index", "key", "rasm", "pointed",
                      "uthmani", "simple", "status", "present_count"]
-                    + [f"aya_{k}" for k in keys] + [f"form_{k}" for k in keys])
+                    + [f"aya_{k}" for k in keys] + [f"form_{k}" for k in keys]
+                    + ["slot_id"] + [f"position_{k}" for k in keys])
         for w in words:
             wr.writerow([w.id, w.sura, w.index, w.key, w.rasm, w.pointed,
                          w.uthmani, w.simple, w.status, len(w.present)]
                         + [w.aya.get(k, "") for k in keys]
-                        + [w.forms.get(k, "") for k in keys])
+                        + [w.forms.get(k, "") for k in keys]
+                        + [w.id] + [w.position.get(k, "") for k in keys])
 
     # --- variants: only where a riwāyah departs from the canonical form ----
     with (OUT / "variants.csv").open("w", encoding="utf-8", newline="") as fh:
         wr = csv.writer(fh)
         wr.writerow(["word_id", "sura", "word_index", "riwaya", "aya",
-                     "canonical_uthmani", "riwaya_uthmani", "same_rasm", "status"])
+                     "canonical_uthmani", "riwaya_uthmani", "same_rasm", "status",
+                     "slot_id", "position"])
         for w in words:
             for k in keys:
                 form = w.forms.get(k)
@@ -160,7 +167,8 @@ def write_all(words: list[Word], riwayat: list[Riwaya]) -> dict:
                     continue
                 wr.writerow([w.id, w.sura, w.index, k, w.aya.get(k, ""),
                              w.uthmani, form,
-                             int(w.rasm == _rasm_of(w, k)), w.status])
+                             int(w.rasm == _rasm_of(w, k)), w.status,
+                             w.id, w.position[k]])
 
     # --- conflicts / issues ------------------------------------------------
     flagged = [w for w in words
@@ -169,7 +177,8 @@ def write_all(words: list[Word], riwayat: list[Riwaya]) -> dict:
     with (OUT / "conflicts.csv").open("w", encoding="utf-8", newline="") as fh:
         wr = csv.writer(fh)
         wr.writerow(["word_id", "sura", "word_index", "aya_hafs", "status",
-                     "rasm", "missing_in", "joined_in", "distinct_forms", "forms"])
+                     "rasm", "missing_in", "joined_in", "distinct_forms", "forms",
+                     "slot_id", "positions"])
         for w in flagged:
             groups = _groups(w)
             wr.writerow([
@@ -177,6 +186,8 @@ def write_all(words: list[Word], riwayat: list[Riwaya]) -> dict:
                 "|".join(w.missing), "|".join(sorted(w.boundary)), len(groups),
                 "  ||  ".join(f"{g['text']} [{','.join(g['riwayat'])}]"
                               for g in groups),
+                w.id, "|".join(f"{k}:{w.position[k]}" for k in keys
+                               if k in w.position),
             ])
 
     (OUT / "conflicts.json").write_text(
@@ -191,7 +202,8 @@ def write_all(words: list[Word], riwayat: list[Riwaya]) -> dict:
         json.dumps({
             "generated": date.today().isoformat(),
             "model": (
-                "Each system lists the ID of the last word of every āyah, in "
+                "Each system lists the slot ID (legacy word ID) of the last "
+                "word of every āyah, in "
                 "order. The riwāyāt following one system agree on all of them."
             ),
             "systems": systems,
@@ -201,7 +213,7 @@ def write_all(words: list[Word], riwayat: list[Riwaya]) -> dict:
     with (OUT / "boundaries.csv").open("w", encoding="utf-8", newline="") as fh:
         wr = csv.writer(fh)
         wr.writerow(["word_ids", "sura", "aya_hafs", "kind", "riwayat",
-                     "riwayat_agree", "forms"])
+                     "riwayat_agree", "forms", "slot_ids"])
         for event in boundary_events(words):
             wr.writerow([
                 "|".join(str(i) for i in event["word_ids"]), event["sura"],
@@ -209,6 +221,7 @@ def write_all(words: list[Word], riwayat: list[Riwaya]) -> dict:
                 int(event["agree"]),
                 "  ||  ".join(f"{t} [{','.join(ks)}]"
                               for t, ks in event["texts"].items()),
+                "|".join(str(i) for i in event["word_ids"]),
             ])
     return meta
 

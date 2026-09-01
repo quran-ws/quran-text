@@ -1,0 +1,6 @@
+# Published build artifacts. Keep them versioned, but collapse their diffs on GitHub.
+out/** linguist-generated=true
+
+# These small migration reports are intended for human and machine review.
+out/SLOT-MODEL.md -linguist-generated
+out/slot-model.json -linguist-generated

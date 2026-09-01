@@ -48,6 +48,7 @@ def _pack(words: list[Word]) -> dict:
             STATUSES.index(w.status),
             [[t, m] for t, m in groups.items()],
             [[a, m] for a, m in ayat.items()],
+            [w.position.get(k) for k in ORDER],
         ]
         extra = 0
         if w.boundary:
@@ -156,8 +157,8 @@ kbd{background:var(--chip);border-radius:4px;padding:1px 5px;font-size:11px}
 <body>
 <header>
   <h1>Qur'anic word index — cross-riwāyah comparison</h1>
-  <div class="sub">__WORDS__ words · 114 sūrahs · 7 riwāyāt. One ID means one
-    word in every riwāyah that has it. Click a word for the full breakdown.</div>
+  <div class="sub">__WORDS__ word slots · 114 sūrahs · 7 riwāyāt. A slot is
+    shared; each riwāyah also has its own dense word position.</div>
 </header>
 
 <div class="bar">
@@ -233,7 +234,7 @@ function render(){
 function detail(el, id){
   const r = (D.words[state.sura] || []).find(x => x[1] === +id);
   if (!r) return;
-  const [i, wid, rasm, st, groups, ayat] = r;
+  const [i, wid, rasm, st, groups, ayat, positions] = r;
   const spelling = {}, aya = {};
   for (const [t, m] of groups) namesOf(m).forEach(k => spelling[k] = t);
   for (const [a, m] of ayat) namesOf(m).forEach(k => aya[k] = a);
@@ -244,9 +245,10 @@ function detail(el, id){
     return `<tr class="${differs ? 'differs' : ''}">
       <td class="k">${D.riwayat[k].en} · ${D.riwayat[k].ar}</td>
       <td class="v">${s === undefined ? '—' : s}</td>
-      <td class="a">${aya[k] === undefined ? '' : 'āyah ' + aya[k]}</td></tr>`;
+      <td class="a">${s === undefined ? '' : 'p' + positions[D.order.indexOf(k)] +
+        ' · āyah ' + aya[k]}</td></tr>`;
   }).join('')}</table>
-  <p class="note" style="margin:9px 0 0">word id <b>${wid}</b> · rasm <b>${rasm}</b>
+  <p class="note" style="margin:9px 0 0">slot id <b>${wid}</b> · legacy word id <b>${wid}</b> · rasm <b>${rasm}</b>
    · ${groups.length} distinct spelling${groups.length > 1 ? 's' : ''}</p>`;
 }
 

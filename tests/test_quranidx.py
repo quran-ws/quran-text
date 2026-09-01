@@ -9,9 +9,10 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
-from quranidx.align import Column, _distribute, merge          # noqa: E402
+from quranidx.align import (AlignmentMarker, Column, _distribute,  # noqa: E402
+                            alignment_ranges, merge)
 from quranidx.build import (STATUS_ALIF, STATUS_IDENTICAL,     # noqa: E402
-                            STATUS_RASM, Word,
+                            STATUS_RASM, AlignmentSpan, Word,
                             classify)
 from quranidx.normalize import (forms, pointed, rasm, rasm_plene,  # noqa: E402
                                 simple, split_by_rasm, split_trailing_waqf,
@@ -21,7 +22,10 @@ from quranidx.validate import check_alif_splits                    # noqa: E402
 from quranidx.tokenize import Token, tokenize_ayah             # noqa: E402
 from quranidx.imlaei import _pair                              # noqa: E402
 from quranidx.layout import Place                              # noqa: E402
-from quranidx.mushaf import _marks, _spans, minimal            # noqa: E402
+from quranidx.mushaf import _marks, _spans, _word, minimal     # noqa: E402
+from quranidx.output import _word_json                         # noqa: E402
+from quranidx.slots import slot_model                          # noqa: E402
+from quranidx.views import _coords                             # noqa: E402
 
 
 def tok(rasm_: str) -> Token:
@@ -212,18 +216,47 @@ class TestAlign(unittest.TestCase):
         self.assertTrue(all("b" in c.tokens for c in out))
         self.assertEqual([c.boundary["b"] for c in out],
                          ["joined_in_source"] * 2)
+        self.assertEqual(alignment_ranges(out), [])
 
     def test_an_inserted_word_gets_its_own_column(self):
         spine = [Column(tokens={"a": tok("تجري")}), Column(tokens={"a": tok("تحتها")})]
         out = merge(spine, "b", [tok("تجري"), tok("من"), tok("تحتها")])
         self.assertEqual([c.rasm for c in out], ["تجري", "من", "تحتها"])
         self.assertNotIn("a", out[1].tokens)      # only Bazzī has مِن at 9:101
+        self.assertEqual(alignment_ranges(out), [])
+
+    def test_a_deleted_word_is_partial_not_an_alignment_span(self):
+        spine = [Column(tokens={"a": tok("تجري")}),
+                 Column(tokens={"a": tok("من")}),
+                 Column(tokens={"a": tok("تحتها")})]
+        out = merge(spine, "b", [tok("تجري"), tok("تحتها")])
+        self.assertNotIn("b", out[1].tokens)
+        self.assertEqual(alignment_ranges(out), [])
+
+    def test_unequal_wording_is_one_n_to_m_span(self):
+        # 40:26: Ḥafṣ/Shuʿbah أَوْ أَن against the other readings' وَأَن.
+        spine = [Column(tokens={"hafs": tok("او")}),
+                 Column(tokens={"hafs": tok("ان")})]
+        out = merge(spine, "warsh", [tok("وان")])
+        self.assertEqual(alignment_ranges(out), [(0, 1)])
+        self.assertEqual([len(c.tokens) for c in out], [2, 1])
 
     def test_distribute_groups_by_letters_not_by_position(self):
         cols = [Column(tokens={"a": tok("ما")}), Column(tokens={"a": tok("لي")})]
         groups = _distribute(cols, [tok("مالي")])
         self.assertEqual(len(groups), 1)
         self.assertEqual((len(groups[0][0]), len(groups[0][1])), (2, 1))
+
+    def test_alignment_ranges_merge_overlap_but_not_adjacency(self):
+        overlap_a, overlap_b = AlignmentMarker("a"), AlignmentMarker("b")
+        adjacent = AlignmentMarker("c")
+        spine = [
+            Column(alignment_markers={overlap_a}),
+            Column(alignment_markers={overlap_a, overlap_b}),
+            Column(alignment_markers={overlap_b}),
+            Column(alignment_markers={adjacent}),
+        ]
+        self.assertEqual(alignment_ranges(spine), [(0, 2), (3, 3)])
 
 
 class TestClassify(unittest.TestCase):
@@ -338,19 +371,31 @@ class TestSpans(unittest.TestCase):
     def test_consecutive_equal_values_collapse(self):
         self.assertEqual(
             _spans([(1, 10), (1, 11), (1, 12), (2, 13), (2, 14)]),
-            [{"n": 1, "words": [10, 12]}, {"n": 2, "words": [13, 14]}])
+            [{"n": 1, "words": [10, 12], "slots": [10, 12]},
+             {"n": 2, "words": [13, 14], "slots": [13, 14]}])
 
     def test_a_single_word_span_is_first_and_last_alike(self):
-        self.assertEqual(_spans([(7, 99)]), [{"n": 7, "words": [99, 99]}])
+        self.assertEqual(_spans([(7, 99)]),
+                         [{"n": 7, "words": [99, 99], "slots": [99, 99]}])
 
     def test_a_repeated_value_that_is_not_adjacent_stays_two_spans(self):
         # Āyah numbers restart every sūrah, so 1 follows 1 across a boundary
         # without the two being the same āyah.
         self.assertEqual(
             _spans([(1, 5), (2, 6), (1, 7)]),
-            [{"n": 1, "words": [5, 5]},
-             {"n": 2, "words": [6, 6]},
-             {"n": 1, "words": [7, 7]}])
+            [{"n": 1, "words": [5, 5], "slots": [5, 5]},
+             {"n": 2, "words": [6, 6], "slots": [6, 6]},
+             {"n": 1, "words": [7, 7], "slots": [7, 7]}])
+
+
+class TestDenseCoordinates(unittest.TestCase):
+    def test_missing_slot_does_not_inflate_ayah_position(self):
+        doc = {
+            "ayat": [{"sura": 9, "n": 101, "words": [10, 12],
+                      "slots": [10, 12]}],
+            "words": [{"w": 10, "s": 10}, {"w": 12, "s": 12}],
+        }
+        self.assertEqual(_coords(doc), {10: (9, 101, 1), 12: (9, 101, 2)})
 
 
 class TestMarks(unittest.TestCase):
@@ -362,7 +407,13 @@ class TestMarks(unittest.TestCase):
                     present=["hafs"], missing=[], forms={"hafs": "u"},
                     aya={"hafs": 1}, waqf=kw.get("waqf", {}), boundary={},
                     hizb=kw.get("hizb", []), sajdah=kw.get("sajdah", []),
-                    place={})
+                    place={}, position={"hafs": 1})
+
+    def test_public_aliases_are_equal(self):
+        word = self.word()
+        self.assertEqual(_word(word, "hafs", None)["w"],
+                         _word(word, "hafs", None)["s"])
+        self.assertEqual(_word_json(word)["id"], _word_json(word)["slot_id"])
 
     def test_rub_el_hizb_sits_before_the_word(self):
         self.assertEqual(_marks(self.word(hizb=["hafs"]), "hafs"),
@@ -386,19 +437,29 @@ class TestMinimalVariant(unittest.TestCase):
     """The small file drops conveniences, never disclosures."""
 
     DOC = {
-        "format": "quran-mushaf", "format_version": "1.0",
+        "format": "quran-mushaf", "format_version": "1.1",
         "generated": "2026-09-01", "mushaf": {}, "provenance": {}, "spine": {},
         "suras": [{"n": 1, "name_ar": "a", "ayat": 7, "words": [1, 29],
-                   "pages": [1, 1]}],
-        "ayat": [{"sura": 1, "n": 1, "words": [1, 4]}],
-        "resegmentation": [{"words": [1, 2], "kind": "joined_in_source"}],
+                   "slots": [1, 29], "pages": [1, 1]}],
+        "ayat": [{"sura": 1, "n": 1, "words": [1, 4], "slots": [1, 4]}],
+        "resegmentation": [{"words": [1, 2], "slots": [1, 2],
+                            "kind": "joined_in_source"}],
         "line_disagreements": [{"sura": 1, "ayah": 1}],
-        "words": [{"w": 1, "t": "بِسۡمِ", "pg": 1, "ln": 3, "e": "بسم",
+        "words": [{"w": 1, "s": 1, "p": 1, "t": "بِسۡمِ", "pg": 1,
+                   "ln": 3, "e": "بسم",
                    "marks": [{"k": "waqf", "at": "after", "sign": "ۖ"}]}],
     }
 
-    def test_a_word_keeps_only_its_id_and_its_text(self):
-        self.assertEqual(minimal(self.DOC)["words"], [{"w": 1, "t": "بِسۡمِ"}])
+    def test_a_word_keeps_both_ids_its_position_and_its_text(self):
+        self.assertEqual(minimal(self.DOC)["words"],
+                         [{"w": 1, "s": 1, "p": 1, "t": "بِسۡمِ"}])
+
+    def test_legacy_and_slot_ranges_are_equal(self):
+        small = minimal(self.DOC)
+        self.assertEqual(small["suras"][0]["words"],
+                         small["suras"][0]["slots"])
+        self.assertEqual(small["ayat"][0]["words"],
+                         small["ayat"][0]["slots"])
 
     def test_resegmentation_survives(self):
         # It is a disclosure about the text itself; dropping it would make the
@@ -408,6 +469,33 @@ class TestMinimalVariant(unittest.TestCase):
 
     def test_layout_does_not(self):
         self.assertNotIn("pages", minimal(self.DOC)["suras"][0])
+
+
+class TestSlotModel(unittest.TestCase):
+    def word(self, id_: int, forms_: dict[str, str],
+             positions: dict[str, int]) -> Word:
+        return Word(id=id_, sura=1, index=id_, key=f"1:k#{id_}", rasm="r",
+                    pointed="p", uthmani=next(iter(forms_.values())), simple="s",
+                    status="partial" if len(forms_) < 2 else STATUS_IDENTICAL,
+                    present=list(forms_),
+                    missing=[k for k in ("hafs", "warsh") if k not in forms_],
+                    forms=forms_, aya={k: 1 for k in forms_}, waqf={}, boundary={},
+                    hizb=[], sajdah=[], position=positions)
+
+    def test_slots_stay_shared_while_positions_are_dense(self):
+        words = [
+            self.word(1, {"hafs": "ا", "bazzi": "ا"}, {"hafs": 1, "bazzi": 1}),
+            self.word(2, {"bazzi": "مِن"}, {"bazzi": 2}),
+            self.word(3, {"hafs": "ب", "bazzi": "ب"}, {"hafs": 2, "bazzi": 3}),
+        ]
+        model = slot_model(words, [AlignmentSpan(1, 1, 2)])
+        self.assertEqual([w.id for w in words], [1, 2, 3])
+        self.assertTrue(model["slot_ids_contiguous"])
+        self.assertTrue(model["positions"]["hafs"]["contiguous"])
+        self.assertTrue(model["positions"]["bazzi"]["contiguous"])
+        self.assertEqual(model["partial_slots"][0]["slot_id"], 2)
+        self.assertEqual(model["partial_slots"][0]["present"], ["bazzi"])
+        self.assertEqual(model["alignment_spans"][0]["slots"], [1, 2])
 
 
 class TestImlaeiPairing(unittest.TestCase):
