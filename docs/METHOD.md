@@ -130,16 +130,16 @@ that keeps what was added later is not a rasm:
   Warsh's `ࡰرَٰٓيْتَ` against Ḥafṣ's `أَرَءَيۡتَ` — so the dagger *is* the hamza, and
   hamza is not part of the reading's letters either.
 
-**What the bare rasm cannot settle on its own** is which ā a codex put on the
-line, because the two typesettings disagree about that in both directions: the
-Warsh/Qālūn set prints `هَارُوتَ` where the Kūfī set prints `هَٰرُوتَ`, and
-`مُبَٰرَك` where it prints `مُبَارَك`. A sixth form, `rasm_plene`, spells every ā
-out and so makes the two hands comparable. Where the skeletons agree once every
-ā is written, the difference is one of hand and is labelled `madd_alif` — 198
-words, kept and counted, not folded into agreement. Where they still disagree,
-a letter is genuinely in one codex and not the other, and that is a
-`rasm_variant` — 62 words, which is the received list: `ووصى`/`وأوصى` at 2:132,
-`قال`/`قل` at 21:4 and 23:112, `لله`/`الله` at 23:87, `كلمت`/`كلمة` at 7:137.
+An alef that *is* on the line stays, whichever hand wrote it, so a difference
+in one is a `rasm_variant` — 260 words. But **the bare rasm cannot settle on its
+own which ā a codex put there**, because the two typesettings disagree about
+that in both directions: the Warsh/Qālūn set prints `هَارُوتَ` where the Kūfī set
+prints `هَٰرُوتَ`, and `مُبَٰرَك` where it prints `مُبَارَك`. A sixth form,
+`rasm_plene`, spells every ā out and so makes the two hands comparable; the 198
+words whose skeletons agree once it is applied are exactly that sub-class, and
+the report lists them apart. The 62 that remain are the received list:
+`ووصى`/`وأوصى` at 2:132, `قال`/`قل` at 21:4 and 23:112, `لله`/`الله` at 23:87,
+`كلمت`/`كلمة` at 7:137.
 
 `pointed` keeps the dots and is otherwise the same. The gap between the two is
 itself a category of variation, and it gets its own status, `dotting_variant`.

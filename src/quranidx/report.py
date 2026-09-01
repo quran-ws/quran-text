@@ -8,7 +8,7 @@ from datetime import date
 from itertools import combinations
 
 from .build import ORDER, OUT, Word, fawasil
-from .normalize import fold_notation, pointed, rasm
+from .normalize import fold_notation, pointed, rasm, rasm_plene
 from .output import boundary_events
 from .sources import Riwaya
 from .suras import names
@@ -16,13 +16,12 @@ from .validate import (check_counting, check_index, check_release_policy,
                        cross_release)
 
 STATUS_ORDER = ["identical", "diacritic_variant", "dotting_variant",
-                "madd_alif", "rasm_variant", "word_boundary", "partial"]
+                "rasm_variant", "word_boundary", "partial"]
 
 STATUS_BLURB = {
     "identical": "one reading, one spelling, in all seven",
     "diacritic_variant": "same letters and same dots — the vowelling differs",
     "dotting_variant": "one rasm, pointed differently: تَعۡمَلُونَ against يَعۡمَلُونَ",
-    "madd_alif": "the two hands put the same ā on the line or above it",
     "rasm_variant": "the codices disagree about the letters on the line",
     "word_boundary": "a source prints the word joined to its neighbour",
     "partial": "the word is absent from at least one riwāyah",
@@ -175,7 +174,10 @@ def write_report(words: list[Word], riwayat: list[Riwaya]) -> None:
 
     # --- the three real disagreements -------------------------------------
     rasm_v = [w for w in words if w.status == "rasm_variant"]
-    madd_v = [w for w in words if w.status == "madd_alif"]
+    #: The sub-class of ``rasm_v`` where the two hands disagree only about
+    #: whether to put an ā on the line or above it — see the section below.
+    madd_v = [w for w in rasm_v
+              if len({rasm_plene(f) for f in w.forms.values()}) == 1]
     absent = [w for w in words if w.status == "partial"]
     events = boundary_events(words)
 
@@ -184,16 +186,15 @@ def write_report(words: list[Word], riwayat: list[Riwaya]) -> None:
     add(f"Three things can differ once spelling, vowelling and pointing are set "
         f"aside: the letters, the word boundaries, and whether a word is there at "
         f"all. Together they account for "
-        f"{len(rasm_v) + len(madd_v) + len(absent) + sum(len(e['word_ids']) for e in events):,} "
-        f"of {len(words):,} words — and the largest group of them, `madd_alif`, "
-        f"is a disagreement between the two typesettings rather than between the "
-        f"codices.")
+        f"{len(rasm_v) + len(absent) + sum(len(e['word_ids']) for e in events):,} "
+        f"of {len(words):,} words — though {len(madd_v):,} of the letter "
+        f"differences are a disagreement between the two typesettings rather "
+        f"than between the codices, and are picked out below.")
     add("")
     add(_table([
         ["letters differ", f"{len(rasm_v):,}", "`rasm_variant`",
-         "a letter one codex has on the line, another does not"],
-        ["ā on the line or above it", f"{len(madd_v):,}", "`madd_alif`",
-         "the same ā, printed plene by one hand and defective by the other"],
+         f"a letter one codex has on the line and another does not — "
+         f"{len(madd_v):,} of them an ā the two hands place differently"],
         ["boundaries differ", f"{len(events)} events",
          "`word_boundary`", "one source prints two words as one"],
         ["word absent", f"{len(absent)}", "`partial`",
@@ -222,17 +223,17 @@ def write_report(words: list[Word], riwayat: list[Riwaya]) -> None:
     add("")
 
     # --- madd alif --------------------------------------------------------
-    add("### The ā on the line, or above it")
+    add("### Of those, the ā on the line or above it")
     add("")
-    add(f"{len(madd_v):,} words where the skeletons differ only by an alef that "
-        f"one hand prints on the line and the other prints as a dagger above it. "
-        f"The two KFGQPC typesettings disagree in **both** directions — the "
-        f"Warsh/Qālūn set prints `هَارُوتَ` where the Kūfī set prints `هَٰرُوتَ`, and "
-        f"`مُبَٰرَك` where it prints `مُبَارَك` — so this is a difference of hand, "
-        f"and whether any of it is a difference of codex is a question these "
-        f"sources cannot answer. They are counted apart from `rasm_variant` "
-        f"rather than folded into agreement. Filter `conflicts.csv` on "
-        f"`status = madd_alif` for the full set; a sample:")
+    add(f"{len(madd_v):,} of the {len(rasm_v):,} are words whose skeletons differ "
+        f"only by an alef that one hand prints on the line and the other prints "
+        f"as a dagger above it. A written alef is part of the bare rasm whichever "
+        f"hand wrote it, so they are counted as rasm disagreements — but the two "
+        f"KFGQPC typesettings disagree in **both** directions, the Warsh/Qālūn "
+        f"set printing `هَارُوتَ` where the Kūfī set prints `هَٰرُوتَ` and `مُبَٰرَك` "
+        f"where it prints `مُبَارَك`, so how much of this is ḥadhf vs ithbāt "
+        f"al-alif in the codices and how much is the hand of the typesetter is a "
+        f"question these sources cannot answer. A sample:")
     add("")
     rows = []
     for w in madd_v[:15]:
@@ -390,12 +391,10 @@ def write_report(words: list[Word], riwayat: list[Riwaya]) -> None:
         hard = c["rasm_variant"] + c["word_boundary"] + c["partial"]
         rows.append([s, names()[s]["name_en"], f"{c['total']:,}",
                      c["identical"], c["diacritic_variant"], c["dotting_variant"],
-                     c["madd_alif"], c["rasm_variant"],
-                     c["word_boundary"] + c["partial"],
+                     c["rasm_variant"], c["word_boundary"] + c["partial"],
                      f"{1000 * hard / c['total']:.1f}"])
     add(_table(rows, ["sūrah", "name", "words", "identical", "diacritic",
-                      "dotting", "madd alif", "rasm", "boundary/absent",
-                      "per 1000"]))
+                      "dotting", "rasm", "boundary/absent", "per 1000"]))
     add("")
 
     (OUT / "COMPARISON.md").write_text("\n".join(L), encoding="utf-8")
@@ -405,10 +404,10 @@ def write_report(words: list[Word], riwayat: list[Riwaya]) -> None:
          f"All {len(rasm_v):,} words where the seven riwāyāt disagree about the "
          "letters on the line, in order. Dots, hamza, vowelling and the dagger "
          "alif have all been set aside — a superscript alef is by definition an "
-         "alef the scribe did not write on the line — and so has the plene/"
-         "defective difference between the two typesettings, which is counted "
-         "separately as `madd_alif`. Every row here is a letter one codex has "
-         "and another does not.", "",
+         "alef the scribe did not write on the line — so every row here is a "
+         "letter one riwāyah has on the line and another does not. 198 of them "
+         "are an ā that the two typesettings place differently; see *Of those, "
+         "the ā on the line or above it* in `COMPARISON.md`.", "",
          "Machine-readable: `conflicts.csv`, `conflicts.json`.", ""]
     rows = []
     for w in rasm_v:

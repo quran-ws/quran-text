@@ -164,8 +164,7 @@ def write_all(words: list[Word], riwayat: list[Riwaya]) -> dict:
 
     # --- conflicts / issues ------------------------------------------------
     flagged = [w for w in words
-               if w.status in ("rasm_variant", "madd_alif", "partial",
-                               "word_boundary")]
+               if w.status in ("rasm_variant", "partial", "word_boundary")]
     with (OUT / "conflicts.csv").open("w", encoding="utf-8", newline="") as fh:
         wr = csv.writer(fh)
         wr.writerow(["word_id", "sura", "word_index", "aya_hafs", "status",

@@ -44,11 +44,11 @@ reasonably make differently:
   place where these sources cannot be taken at their word: the two typesettings
   disagree about it in *both* directions, the Warsh/Qālūn set printing `هَارُوتَ`
   where the Kūfī set prints `هَٰرُوتَ` and `مُبَٰرَك` where it prints `مُبَارَك`.
-  198 words are affected. They are given their own status, `madd_alif`, rather
-  than either being folded into agreement or counted among the `rasm_variant`
-  words — because on this evidence the difference is one of hand, and whether
-  any of it is also one of codex needs a manuscript, not a font. A project
-  working from manuscripts should decide these case by case.
+  198 words are affected. They are counted as `rasm_variant` — an alef on the
+  line is part of the bare rasm whoever wrote it — and identified separately in
+  `COMPARISON.md`, because deciding how much of the class is codex and how much
+  is typesetter needs a manuscript, not a font. A project working from
+  manuscripts should decide these case by case.
 - **Hamza is dropped entirely.** Correct for a rasm, but it means `النبي` and
   `النبيء` compare equal at the rasm level. The reading difference survives in
   `pointed` and in `forms`, but not in the word's identity.
