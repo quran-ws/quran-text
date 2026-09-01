@@ -135,10 +135,13 @@ RASM_FOLD.update({
     "ة": "ه",               # ة -> ه
     "ٮ": "ب",               # ٮ dotless beh -> ب
     "ࢇ": "",                     # baseline round dot: not a consonant
-    "ۥ": "و",               # ۥ small waw is a written ṣilah
-    "ۦ": "ي",               # ۦ small yeh is a written ṣilah
-    "ࣉ": "ي",               # small farsi yeh
 })
+
+# The ṣilah waw and yeh (ۥ ۦ), the small high yeh (ۧ) and the small farsi yeh
+# (ࣉ) are superscript: they mark a vowel that is pronounced but *not* written
+# on the line, so they are marks rather than letters and never enter the rasm.
+# That is what lets Bazzī's عَلَيۡهِمُۥ align with عَلَيۡهِمۡ as one word read two
+# ways, instead of splitting into two unrelated words.
 
 #: Marks that survive into the rasm because they stand for an elided letter.
 #: (Superscript alif is *not* one of them: the rasm is defined by what is
