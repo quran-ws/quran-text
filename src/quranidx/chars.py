@@ -193,8 +193,13 @@ RASM_KEEP_MARKS_FOLD = {
 #:
 #: What the two typesettings *do* disagree about is which ā to put on the line —
 #: the Warsh/Qālūn set prints هَارُوتَ and مُبَٰرَك where the Kūfī set prints هَٰرُوتَ
-#: and مُبَارَك.  That is a difference of hand, not of codex, and it is told apart
-#: from a real one by :func:`normalize.rasm_plene`.
+#: and مُبَارَك.  That is a difference of hand, not of codex — the corpus says so
+#: outright: all 198 such words split the seven riwāyāt along exactly one line,
+#: {warsh, qālūn} against the other five, in both directions and without a
+#: single exception, while the 62 real letter differences split fourteen
+#: different ways.  Ḥadhf/ithbāt khilāf between the amṣār does not partition by
+#: publisher; a house style does.  :func:`normalize.rasm_plene` is what tells
+#: the two apart, and :data:`build.STATUS_ALIF` is what it is called.
 SUPERSCRIPT_ALEF = "ٰ"
 
 #: Marks a dagger alif can carry that make it a madd *over something* — the
@@ -249,6 +254,14 @@ DOT_FOLD_FINAL = {
     "ي": "ى",
     "ف": "ڡ", "ق": "ٯ",
 }
+
+#: The final shapes above, folded back to the class they belong to.  Position is
+#: not identity: the yāʾ of ``ٮسٮهى`` and the yāʾ of ``ٮسٮهٮه`` are the same
+#: letter, and it is only the suffix that moves one of them off the end of the
+#: word.  Comparing two skeletons of different length letter by letter needs
+#: that undone first, or every added suffix reads as a substitution as well.
+#: Used only for describing a difference, never for the rasm itself.
+FINAL_SHAPE_FOLD = {"ں": "ٮ", "ى": "ٮ", "ٯ": "ڡ"}
 
 #: Marks that survive into the rasm, because in these packages they stand in
 #: for a letter another package writes on the line.  See

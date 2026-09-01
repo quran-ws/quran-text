@@ -10,10 +10,14 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 from quranidx.align import Column, _distribute, merge          # noqa: E402
-from quranidx.build import (STATUS_IDENTICAL, STATUS_RASM,     # noqa: E402
+from quranidx.build import (STATUS_ALIF, STATUS_IDENTICAL,     # noqa: E402
+                            STATUS_RASM, Word,
                             classify)
 from quranidx.normalize import (forms, pointed, rasm, rasm_plene,  # noqa: E402
-                                simple, split_by_rasm, split_trailing_waqf)
+                                simple, split_by_rasm, split_trailing_waqf,
+                                unpositioned)
+from quranidx.report import _difference_is_length                 # noqa: E402
+from quranidx.validate import check_alif_splits                    # noqa: E402
 from quranidx.tokenize import Token, tokenize_ayah             # noqa: E402
 
 
@@ -227,19 +231,30 @@ class TestClassify(unittest.TestCase):
     def column(self, hafs: str, warsh: str) -> Column:
         return Column(tokens={"hafs": real(hafs), "warsh": real(warsh)})
 
-    def test_plene_against_defective_is_a_letter_difference(self):
-        # A written alef is part of the bare rasm whichever hand wrote it, so
-        # هَٰرُوتَ against هَارُوتَ is reported — even though the two typesettings
-        # disagree in both directions, which is why `rasm_plene` keeps the
-        # sub-class findable.
+    def test_plene_against_defective_is_its_own_status(self):
+        # هَٰرُوتَ against هَارُوتَ is a difference of hand, not of codex: the two
+        # typesettings disagree in both directions and every such word in the
+        # corpus splits the seven the same single way.  It is reported, but
+        # apart from the letters the codices actually disagree about.
         self.assertEqual(classify(self.column("هَٰرُوتَ", "هَارُوتَ"), self.KEYS),
-                         STATUS_RASM)
+                         STATUS_ALIF)
         self.assertEqual(classify(self.column("مُبَارَكࣰا", "مُبَٰرَكاࣰ"), self.KEYS),
-                         STATUS_RASM)
+                         STATUS_ALIF)
         self.assertEqual(rasm_plene("هَٰرُوتَ"), rasm_plene("هَارُوتَ"))
+        # The bare rasm still keeps it: within one muṣḥaf it is that muṣḥaf's
+        # own ḥadhf.
+        self.assertNotEqual(rasm("هَٰرُوتَ"), rasm("هَارُوتَ"))
 
     def test_a_letter_one_codex_lacks_is_a_rasm_variant(self):
         self.assertEqual(classify(self.column("قُلۡ", "قَالَ"), self.KEYS),
+                         STATUS_RASM)
+
+    def test_a_letter_added_is_a_rasm_variant_not_an_alif_one(self):
+        # 5:54 يَرۡتَدَّ / يَرۡتَدِدۡ and 43:71 تَشۡتَهِيهِ / تَشۡتَهِي: a letter on the line
+        # that the other codex does not have at all.
+        self.assertEqual(classify(self.column("يَرۡتَدَّ", "يَرۡتَدِدۡ"), self.KEYS),
+                         STATUS_RASM)
+        self.assertEqual(classify(self.column("تَشۡتَهِيهِ", "تَشۡتَهِي"), self.KEYS),
                          STATUS_RASM)
 
     def test_a_dagger_against_nothing_is_not_a_rasm_variant(self):
@@ -249,6 +264,69 @@ class TestClassify(unittest.TestCase):
                             STATUS_RASM)
         self.assertNotEqual(classify(self.column("مَٰلِكِ", "مَلِكِ"), self.KEYS),
                             STATUS_IDENTICAL)
+
+
+class TestAlifSplitsOneWay(unittest.TestCase):
+    """The one fact `alif_variant` rests on, asserted rather than assumed."""
+
+    def word(self, id_: int, **forms_: str) -> Word:
+        return Word(id=id_, sura=1, index=id_, key=f"k{id_}", rasm="", pointed="",
+                    uthmani="", simple="", status="alif_variant",
+                    present=list(forms_), missing=[], forms=forms_, aya={},
+                    waqf={}, boundary={}, hizb=[], sajdah=[])
+
+    def test_one_partition_passes(self):
+        # Both directions are fine — what matters is who is on each side.
+        words = [self.word(1, hafs="هَٰرُوتَ", bazzi="هَٰرُوتَ", warsh="هَارُوتَ"),
+                 self.word(2, hafs="مُبَارَك", bazzi="مُبَارَك", warsh="مُبَٰرَك")]
+        self.assertEqual(check_alif_splits(words), [])
+
+    def test_makkah_leaving_the_kufi_side_is_reported(self):
+        # Bazzī is Makkī.  A plene/defective word that puts it with Madinah is a
+        # khilāf of the amṣār, not a house style, and the status would no longer
+        # be warranted.
+        words = [self.word(1, hafs="هَٰرُوتَ", bazzi="هَٰرُوتَ", warsh="هَارُوتَ"),
+                 self.word(2, hafs="هَٰرُوتَ", bazzi="هَارُوتَ", warsh="هَارُوتَ")]
+        problems = check_alif_splits(words)
+        self.assertEqual([p["check"] for p in problems], ["alif_splits_one_way"])
+
+    def test_other_statuses_are_not_its_business(self):
+        words = [self.word(1, hafs="قُلۡ", warsh="قَالَ")]
+        words[0].status = "rasm_variant"
+        self.assertEqual(check_alif_splits(words), [])
+
+
+class TestShapeOfDifference(unittest.TestCase):
+    """What kind of letter difference a rasm variant is."""
+
+    def word(self, **forms_: str) -> Word:
+        return Word(id=1, sura=1, index=1, key="k",
+                    rasm=rasm(next(iter(forms_.values()))), pointed="", uthmani="",
+                    simple="", status=STATUS_RASM, present=list(forms_),
+                    missing=[], forms=forms_, aya={}, waqf={}, boundary={},
+                    hizb=[], sajdah=[])
+
+    def test_final_shapes_fold_to_their_class(self):
+        # ں and ى are a nūn and a yāʾ at the end of a word; medially both are ٮ.
+        self.assertEqual(unpositioned("ٮسٮهى"), "ٮسٮهٮ")
+        self.assertEqual(unpositioned("ٮعملوں"), "ٮعملوٮ")
+        self.assertEqual(unpositioned("ٮعملوٮ"), "ٮعملوٮ")
+
+    def test_one_letter_more(self):
+        # 5:54 يَرۡتَدَّ/يَرۡتَدِدۡ — a dāl added, nothing exchanged.
+        self.assertTrue(_difference_is_length(
+            self.word(hafs="يَرۡتَدَّ", warsh="يَرۡتَدِدۡ")))
+        # 43:71 تَشۡتَهِيهِ/تَشۡتَهِي — a hāʾ added.  Only the final-shape fold makes
+        # that visible: ٮسٮهى against ٮسٮهٮه would otherwise read as a swap too.
+        self.assertTrue(_difference_is_length(
+            self.word(hafs="تَشۡتَهِيهِ", warsh="تَشۡتَهِي")))
+
+    def test_one_letter_for_another(self):
+        # 91:15 وَلَا/فَلَا and 7:137 كَلِمَتُ/كَلِمَةُ — exchanged, not added.
+        self.assertFalse(_difference_is_length(
+            self.word(hafs="وَلَا", warsh="فَلَا")))
+        self.assertFalse(_difference_is_length(
+            self.word(hafs="كَلِمَتُ", warsh="كَلِمَةُ")))
 
 
 if __name__ == "__main__":

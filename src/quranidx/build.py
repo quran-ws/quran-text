@@ -27,6 +27,7 @@ ORDER = ["hafs", "shuba", "bazzi", "qaloun", "warsh", "douri", "sousi"]
 
 # Status of a canonical word, most specific first.
 STATUS_RASM = "rasm_variant"
+STATUS_ALIF = "alif_variant"
 STATUS_PARTIAL = "partial"
 STATUS_BOUNDARY = "word_boundary"
 STATUS_DOTTING = "dotting_variant"
@@ -87,16 +88,29 @@ def classify(col: Column, all_keys: list[str]) -> str:
     way, and ``word_boundary`` is reserved for a word that is otherwise in
     agreement but printed joined somewhere.
 
-    Any difference in the letters on the line is a ``rasm_variant``, including
-    the 198 words where the two typesettings disagree only about whether to put
-    an ā on the line or above it.  That sub-class is worth knowing about — see
-    :func:`normalize.rasm_plene`, which is what identifies it, and the report
-    section that lists it — but it is not a separate verdict: a written alef is
-    part of the bare rasm whichever hand wrote it.
+    A difference in the letters on the line is a ``rasm_variant`` — unless the
+    only letter in question is an ā that one hand puts on the line and the other
+    puts above it, which is ``alif_variant``.  The split is not a matter of
+    taste.  The corpus decides it: all 198 plene/defective words partition the
+    seven riwāyāt along exactly one line, {warsh, qālūn} against the other five,
+    in both directions and without a single exception, while the 62 words whose
+    skeletons differ once every ā is spelled out partition them fourteen
+    different ways — Bazzī alone seven times, Ḥafṣ+Shuʿbah alone six, Qālūn
+    alone five.  Ḥadhf/ithbāt al-alif between the codices of the amṣār would not
+    put Makkah with Madinah 198 times out of 198; a publisher's house style
+    would, and does.  So the ā is reported, but not as the codices disagreeing.
+
+    ``rasm_plene`` is what draws the line: it spells every ā out, so two words
+    that agree there and differ in ``rasm`` differ only about where the ā was
+    written.  The bare ``rasm`` keeps the distinction, because inside any one
+    muṣḥaf it is real — Ḥafṣ writes قال plene 412 times and defective 4, and
+    that is its own ḥadhf, faithfully carried.
     """
     present = [k for k in all_keys if k in col.tokens]
     if len({col.tokens[k].rasm for k in present}) > 1:
-        return STATUS_RASM
+        if len({col.tokens[k].rasm_plene for k in present}) > 1:
+            return STATUS_RASM
+        return STATUS_ALIF
     if len(present) < len(all_keys):
         return STATUS_PARTIAL
     if col.boundary:

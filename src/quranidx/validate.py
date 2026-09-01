@@ -78,6 +78,37 @@ def check_index(words: list[Word], riwayat: list[Riwaya]) -> list[dict]:
     return problems
 
 
+def check_alif_splits(words: list[Word]) -> list[dict]:
+    """The plene/defective ā must divide the riwāyāt exactly one way.
+
+    This is the ground ``alif_variant`` stands on rather than a nicety.  Every
+    one of these words puts {warsh, qālūn} on one side and the other five on the
+    other — in both directions, 198 times out of 198 — and a khilāf of the amṣār
+    would not do that, since Bazzī is Makkī and Makkah sides with Madinah on
+    ḥadhf al-alif as often as not.  One partition means the class tracks the
+    publisher's hand, which is why it is reported apart from the letters the
+    codices disagree about.  If a future package ever splits one of these words
+    some other way, that inference has lost its warrant and should be revisited
+    rather than quietly kept, so it is asserted here instead of being left in a
+    paragraph.
+    """
+    splits: dict[frozenset, list[int]] = defaultdict(list)
+    for w in words:
+        if w.status != "alif_variant":
+            continue
+        groups: dict[str, list[str]] = defaultdict(list)
+        for key, form in w.forms.items():
+            groups[rasm(form)].append(key)
+        splits[frozenset(frozenset(v) for v in groups.values())].append(w.id)
+    if len(splits) <= 1:
+        return []
+    return [{"check": "alif_splits_one_way",
+             "detail": f"{len(splits)} distinct riwāyah partitions among the "
+                       f"{sum(len(v) for v in splits.values())} plene/defective "
+                       f"words; first word of each: "
+                       f"{sorted(ids[0] for ids in splits.values())}"}]
+
+
 def check_release_policy(riwayat: list[Riwaya]) -> list[dict]:
     """The text must come from each riwāyah's *latest* release.
 
