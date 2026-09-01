@@ -20,9 +20,20 @@ from .normalize import fold_notation, rasm, uthmani
 from .sources import Riwaya
 from .tokenize import tokenize
 
-#: Āyah totals of the classical counting traditions, for checking the parsed
-#: sources against something external to them.
-COUNTING_TOTALS = {"kufi": 6236, "madani": 6214, "basri": 6217}
+# There is deliberately no table of expected āyah totals here.
+#
+# An earlier version asserted {"kufi": 6236, "madani": 6214, "basri": 6217} and
+# reported Sūsī's 6,218 as a defect.  Both the premise and the conclusion were
+# wrong.  Many fawāṣil are مختلف فيها, so a printed muṣḥaf has to choose, and
+# the qirāʾah does not determine the choice: KFGQPC's own Dūrī printings state
+# they follow المدني الأول and yet total 6,218 (1429 AH), 6,217 (1436) and
+# 6,214 (1443).  Al-Mulk 67:9 «قد جاءنا نذير» is one such point — al-Dānī has
+# it counted by المدني الأخير والمكي and by Shayba — and four of the seven
+# packages here count it.  Sūsī was never an outlier.
+#
+# Asserting a total per tradition therefore measures the assumption, not the
+# data.  What is still worth asserting is that the numbering is *internally*
+# coherent, which is what remains below.
 
 
 def check_index(words: list[Word], riwayat: list[Riwaya]) -> list[dict]:
@@ -87,14 +98,12 @@ def check_release_policy(riwayat: list[Riwaya]) -> list[dict]:
 
 
 def check_counting(riwayat: list[Riwaya]) -> list[dict]:
+    """Each muṣḥaf's numbering must be internally coherent — nothing more.
+
+    See the note above on why no total is asserted.
+    """
     out = []
     for r in riwayat:
-        total = sum(1 for a in r.ayat if a.aya > 0)
-        expected = COUNTING_TOTALS.get(r.counting)
-        if expected is not None and total != expected:
-            out.append({"check": "counting_total", "riwaya": r.key,
-                        "detail": f"the {r.counting} tradition totals {expected} "
-                                  f"āyāt; this release has {total}"})
         for sura, n in Counter(a.sura for a in r.ayat if a.aya > 0).items():
             nums = sorted(a.aya for a in r.ayat if a.sura == sura and a.aya > 0)
             if nums != list(range(1, n + 1)):

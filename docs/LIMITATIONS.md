@@ -70,12 +70,13 @@ own latest word — but it is **not** a claim that the older spelling is wrong,
 and a reader who wants the traditional joined form will not find it here. Both
 spellings are visible in the *Source integrity* section of `out/COMPARISON.md`.
 
-The rule does not resolve everything. Dūrī's two packages are both from 2022, so
-"later" cannot discriminate, and its three dropped spaces (4:90, 10:26, 11:77)
-are recorded as boundary events instead of corrected — even though the other
-package has the spaces and they are almost certainly typographic defects. That
-is deliberate: correcting them means asserting which package is right, which is
-an editorial judgement rather than a build step.
+The assumption is narrow on purpose: it applies only *within* one riwāyah, where
+a later file can reasonably be read as correcting an earlier one. Nothing is
+assumed across riwāyāt, and no difference between packages is treated as a
+mistake by either. It also cannot discriminate for Dūrī, whose two packages are
+both from 2022; there the differing spacing at 4:90, 10:26 and 11:77 is recorded
+and left alone, because choosing between them would be an editorial judgement
+rather than a build step.
 
 ## The word index is derived, not authoritative
 

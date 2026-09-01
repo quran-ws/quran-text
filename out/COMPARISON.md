@@ -31,7 +31,7 @@ The two skeletons are separate on purpose. `تَعۡمَلُونَ` and `يَع�
 | sousi | Sūsī | السوسي | Abū ʿAmr al-Baṣrī | basri | 6,218 | 77,431 |
 | bazzi | Bazzī | البزي | Ibn Kathīr al-Makkī | makki | 6,220 | 77,432 |
 
-The āyah totals are not errors: the riwāyāt follow different counting traditions. That is exactly why the index is flat — the riwāyāt disagree about where āyāt end far more than about words. See [the fawāṣil](#fawāṣil-where-the-āyāt-end) below.
+The āyah totals are not errors and not deducible from the qāriʾ. Many fawāṣil are مختلف فيها, so every printed muṣḥaf chooses, and the `counting` column above is a conventional label rather than a claim about this package. That is exactly why the index is flat, and why the āyah boundaries are read off each muṣḥaf rather than assumed: see [the fawāṣil](#fawāṣil-where-the-āyāt-end) below.
 
 ## How the words compare
 
@@ -205,25 +205,27 @@ Each is well attested: Ibn Kathīr's `مِن` at 9:100, and Nāfiʿ reading `ف�
 
 ## Fawāṣil: where the āyāt end
 
-The āyah boundaries are a layer *over* the word index, not a property of it. Each system below lists the ID of the last word of every āyah; the riwāyāt sharing a system agree on all of them. Machine-readable: [`fawasil.json`](fawasil.json).
+The āyah boundaries are a layer *over* the word index, not a property of it, and **they belong to the printed muṣḥaf rather than to the qirāʾah**. Many fawāṣil are مختلف فيها: al-Dānī records Al-Mulk 67:9 «قد جاءنا نذير» as counted by المدني الأخير والمكي and by Shayba and not by the rest, and four of the seven packages here count it. An edition has to choose, and editions of the same riwāyah choose differently — KFGQPC's own Dūrī printings all state they follow المدني الأول and still total 6,218 (1429 AH), 6,217 (1436) and 6,214 (1443).
 
-| system | riwāyāt | āyāt |
+So the systems below are not counting traditions and are not derived from any. They are read off the packages, and two riwāyāt are grouped only where their fawāṣil are identical. Machine-readable: [`fawasil.json`](fawasil.json).
+
+| system | muṣḥaf | āyāt |
 |---|---|---|
-| `kufi` | hafs, shuba | 6,236 |
-| `madani` | warsh, qaloun | 6,214 |
-| `basri_douri` | douri | 6,217 |
-| `basri_sousi` | sousi | 6,218 |
-| `makki` | bazzi | 6,220 |
+| `hafs+shuba` | hafs, shuba | 6,236 |
+| `bazzi` | bazzi | 6,220 |
+| `qaloun+warsh` | qaloun, warsh | 6,214 |
+| `douri` | douri | 6,217 |
+| `sousi` | sousi | 6,218 |
 
-| system | `kufi` | `madani` | `basri_douri` | `basri_sousi` | `makki` |
+| system | `hafs+shuba` | `bazzi` | `qaloun+warsh` | `douri` | `sousi` |
 |---|---|---|---|---|---|
-| `kufi` | — | 140 | 133 | 134 | 150 |
-| `madani` | 140 | — | 57 | 56 | 48 |
-| `basri_douri` | 133 | 57 | — | 1 | 39 |
-| `basri_sousi` | 134 | 56 | 1 | — | 38 |
-| `makki` | 150 | 48 | 39 | 38 | — |
+| `hafs+shuba` | — | 150 | 140 | 133 | 134 |
+| `bazzi` | 150 | — | 48 | 39 | 38 |
+| `qaloun+warsh` | 140 | 48 | — | 57 | 56 |
+| `douri` | 133 | 39 | 57 | — | 1 |
+| `sousi` | 134 | 38 | 56 | 1 | — |
 
-Positions where two systems put a fāṣilah differently. Dūrī and Sūsī are both Baṣrī and part company at exactly one place, which is the whole of the 6217/6218 difference between them.
+Positions where two systems put a fāṣilah differently. Dūrī and Sūsī are both conventionally labelled Baṣrī and part company at exactly one place — 67:9 — which is the whole of the 6,217/6,218 difference between them, and is a documented خلافي point rather than a mistake by either.
 
 ## Source integrity
 
@@ -244,9 +246,7 @@ Six riwāyāt ship two releases. Comparing them is the sharpest available check 
 
 ### Checks
 
-| check | riwāyah | detail |
-|---|---|---|
-| counting_total | sousi | the basri tradition totals 6217 āyāt; this release has 6218 |
+All checks pass.
 
 ## Per sūrah
 

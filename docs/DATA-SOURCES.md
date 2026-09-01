@@ -45,7 +45,8 @@ Dūrī alone still carries the older notation (see `docs/METHOD.md`).
 The `*Data_v2-*` CSV releases, for the six riwāyāt that have them. They supply
 juz'/page/line metadata and the Ḥafṣ imlāʾī text, and — more usefully — a second
 opinion from the same publisher, which is the sharpest available check on each
-document. Three source defects were found this way; see `docs/ISSUES.md`.
+document. What it turns up is recorded in `docs/ISSUES.md`, as differences
+rather than as defects — see the standing rule at the top of that file.
 
 | riwāyah | cross-check file |
 |---|---|

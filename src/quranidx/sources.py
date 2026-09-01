@@ -40,7 +40,14 @@ class Riwaya:
     name_ar: str
     qari_en: str
     qari_ar: str
-    counting: str            # āyah-numbering tradition
+    #: The tradition of ʿadd al-āy this riwāyah is *conventionally* associated
+    #: with.  A label for grouping and display only — emphatically **not** a
+    #: claim about where this package puts its fawāṣil.  The qirāʾah does not
+    #: determine the count: KFGQPC's Dūrī printings all state المدني الأول and
+    #: still total 6,218, 6,217 and 6,214 across three printings.  For where
+    #: the āyāt actually end, read ``out/fawasil.json``, which is derived from
+    #: the packages themselves.
+    counting: str            # conventional label only — see SourceSpec.counting
     source: str              # provenance of ``ayat``
     ayat: list[Ayah] = field(default_factory=list)
     #: (sura, aya) -> {jozz, page, line_start, line_end}, from the v2 CSVs.
@@ -236,18 +243,24 @@ class SourceSpec:
     csv_year: int = 2022
 
 
-#: When a riwāyah ships two releases and they disagree about how a word is
-#: spelled or where a word boundary falls, **the later release wins**.  KFGQPC
-#: revises these documents deliberately: the 2026 Ḥafṣ separates ``مَا لِيَ``
-#: where the 2022 CSV joins it as ``مَالِيَ``, which is a change of convention
-#: rather than a defect, and the newer convention is the one to publish.  The
-#: earlier release is kept as a cross-check and reported in ``COMPARISON.md``,
-#: never merged into the text.
+#: **The one place this pipeline assumes anything about the sources.**
 #:
-#: The policy cannot discriminate for Dūrī, whose two packages are both 2022;
-#: there the three dropped spaces are recorded as boundaries rather than
-#: silently resolved.  See ``docs/ISSUES.md``.
-RELEASE_POLICY = "latest release wins; the earlier one is a cross-check only"
+#: When two files *for the same riwāyah* conflict, the later release is taken
+#: as a correction of the earlier one, and the later one is the text.  The 2026
+#: Ḥafṣ separates ``مَا لِيَ`` where the 2022 CSV joins it as ``مَالِيَ``; the
+#: newer reading is the publisher's own latest word on its own muṣḥaf, so it is
+#: the one published here.
+#:
+#: The assumption is deliberately narrow and applies **only within a riwāyah**.
+#: Nothing is inferred from one riwāyah about another, and no difference
+#: between packages is treated as a mistake by either: fawāṣil, orthography and
+#: spacing are editorial choices the publisher is entitled to make differently
+#: in different muṣḥafs.  See the standing rule in ``docs/ISSUES.md``.
+#:
+#: It also cannot discriminate for Dūrī, whose two packages are both from 2022.
+#: There the differing word boundaries are recorded and left alone.
+RELEASE_POLICY = ("within one riwāyah the later release is a correction; "
+                  "across riwāyāt nothing is assumed")
 
 
 REGISTRY: list[SourceSpec] = [
