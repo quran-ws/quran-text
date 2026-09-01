@@ -142,33 +142,6 @@ now stripped with the structural symbols.
 
 ---
 
-## Known residual: the `أَرَءَيۡتَ` family
-
-**34 words** report as `rasm_variant` when they should not:
-
-> 6:40, 6:46, 6:47, 10:50, 10:59, 11:28, 11:63, 11:88, 17:62, 18:63, 19:77,
-> 25:43, 26:75, 26:205, 28:71, 28:72, 35:40, 39:38, 41:52, 45:23, 46:4, 46:10,
-> 53:19, 53:33, 56:58, 56:63, 56:68, 56:71, 67:28, 67:30, 96:9, 96:11, 96:13,
-> 107:1
-
-That is 13 % of the 266 rasm disagreements, all one lexeme.
-
-Warsh writes `ࡰرَٰٓيْتَ`, spelling the tashīl'd hamza as a dagger alif; Ḥafṣ writes
-`أَرَءَيۡتَ` with a hamza. Since hamza is dropped from the rasm and the dagger alif
-becomes a written alef, Ḥafṣ loses a letter and Warsh gains one. The codices
-agree — the hamza was never in the rasm — so the two rasms should be identical.
-
-**Not fixed, deliberately.** Three rules were tried: keying on the adjacent
-`U+06EC`, on the dagger-plus-madd sequence, and on whether the dagger sits on an
-existing alef seat. Each either netted zero or broke `إِسۡرَٰٓءِيلَ`/`إِسْرَآءِيلَ`,
-which needs the *opposite* treatment — there the dagger is on the Ḥafṣ side and
-the written alef on the Warsh side, so no rule that looks only at the glyphs and
-their neighbours can separate the two cases. Fixing it needs a model of which
-letter is carrying a hamza, or a 34-entry exception list. A wrong general rule
-deletes real variants elsewhere, which is worse than 34 known false positives.
-
----
-
 ## Mistakes made building this
 
 Recorded because each cost real time and each would recur.
@@ -243,6 +216,41 @@ five of the six boundary events were reported as disagreements when all seven
 riwāyāt read them identically and one source had merely lost a space. Content
 is decided first now, and `boundaries.csv` carries a `riwayat_agree` column so
 the two cases are told apart rather than conflated.
+
+### "No local rule can separate these" — there was one
+
+34 words of the `أَرَءَيۡتَ` family were shipped as a known residual, reported as
+`rasm_variant` when the codices agree. Warsh writes `ࡰرَٰٓيْتَ`, spelling the
+tashīl'd hamza as a dagger alif; Ḥafṣ writes `أَرَءَيۡتَ` with a hamza. Dropping
+hamza and folding the dagger to an alef made Ḥafṣ lose a letter and Warsh gain
+one.
+
+Three rules were tried and rejected, and the conclusion drawn was that no rule
+looking at the glyphs and their neighbours could work, because `إِسۡرَٰٓءِيلَ`
+needs the opposite treatment with the same local context. That conclusion was
+wrong: the context is not the same, it just extends one character further than
+was being looked at.
+
+`ٰٓ` is a madd **over** something. What it is over is what decides:
+
+| after the `ٰٓ` | example | the dagger is |
+|---|---|---|
+| a hamza | `إِسۡرَٰٓءِيلَ`, `هَٰٓؤُلَآءِ`, `مَلَٰٓئِكَةِ` | a written ā |
+| a doubled letter | `تَتَّبِعَٰٓنِّ`, `فَذَٰٓنِّكَ` | a written ā (madd lāzim) |
+| nothing — end of word | `عَلَىٰٓ` | a written ā |
+| a plain undoubled letter | `ࡰرَٰٓيْتَ` | **the suppressed hamza** |
+
+The first attempt at this rule handled only the first and third rows and
+introduced two new false positives at 10:89 and 28:32 — caught by diffing the
+flagged-ID set against the previous build rather than by trusting the headline
+count, which had moved in the right direction while being wrong. Qālūn writes
+the same madd with `U+06EC` instead of a maddah, which was a second miss.
+
+Result: 266 → 232 rasm disagreements, 34 resolved, none newly flagged.
+
+The generalisable part is not about hamza. It is that "no rule can distinguish
+these" is a claim about the rules tried, and it was stated in the docs as
+though it were a claim about the data.
 
 ### Round-trip by word count
 

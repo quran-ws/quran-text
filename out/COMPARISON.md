@@ -38,9 +38,9 @@ The āyah totals are not errors and not deducible from the qāriʾ. Many fawā�
 | status | words | share | meaning |
 |---|---|---|---|
 | `identical` | 40,558 | 52.38% | one reading, one spelling, in all seven |
-| `diacritic_variant` | 36,425 | 47.04% | same letters and same dots — the vowelling differs |
+| `diacritic_variant` | 36,459 | 47.08% | same letters and same dots — the vowelling differs |
 | `dotting_variant` | 168 | 0.22% | one rasm, pointed differently: تَعۡمَلُونَ against يَعۡمَلُونَ |
-| `rasm_variant` | 266 | 0.34% | the codices disagree about the letters on the line |
+| `rasm_variant` | 232 | 0.30% | the codices disagree about the letters on the line |
 | `word_boundary` | 12 | 0.02% | a source prints the word joined to its neighbour |
 | `partial` | 5 | 0.01% | the word is absent from at least one riwāyah |
 
@@ -57,38 +57,38 @@ Share of the words two riwāyāt both have, where they agree at each level.
 | hafs–shuba | 77,432 | 99.2% | 99.2% | 99.86% | 99.94% |
 | douri–bazzi | 77,430 | 57.8% | 61.0% | 99.84% | 99.91% |
 | sousi–bazzi | 77,430 | 66.6% | 67.4% | 99.81% | 99.88% |
-| shuba–douri | 77,430 | 70.9% | 74.1% | 99.76% | 99.88% |
-| shuba–bazzi | 77,431 | 84.1% | 84.1% | 99.76% | 99.87% |
+| qaloun–douri | 77,430 | 36.8% | 78.5% | 99.75% | 99.87% |
+| shuba–douri | 77,430 | 70.9% | 74.1% | 99.76% | 99.87% |
+| shuba–bazzi | 77,431 | 84.1% | 84.1% | 99.75% | 99.87% |
 | hafs–douri | 77,430 | 70.8% | 74.1% | 99.74% | 99.87% |
+| shuba–qaloun | 77,430 | 40.5% | 76.6% | 99.77% | 99.87% |
+| warsh–sousi | 77,430 | 39.2% | 77.7% | 99.74% | 99.86% |
+| qaloun–bazzi | 77,430 | 41.5% | 70.8% | 99.76% | 99.86% |
+| hafs–qaloun | 77,430 | 40.4% | 76.6% | 99.76% | 99.86% |
 | hafs–bazzi | 77,431 | 84.0% | 84.0% | 99.73% | 99.86% |
-| shuba–sousi | 77,430 | 72.1% | 72.9% | 99.73% | 99.85% |
+| qaloun–sousi | 77,430 | 42.6% | 84.4% | 99.72% | 99.85% |
+| shuba–sousi | 77,430 | 72.1% | 72.9% | 99.73% | 99.84% |
+| warsh–douri | 77,430 | 37.8% | 76.3% | 99.72% | 99.84% |
 | hafs–sousi | 77,430 | 72.0% | 72.8% | 99.71% | 99.84% |
-| qaloun–douri | 77,430 | 36.8% | 78.5% | 99.71% | 99.83% |
-| shuba–qaloun | 77,430 | 40.5% | 76.6% | 99.73% | 99.82% |
-| qaloun–bazzi | 77,430 | 41.5% | 70.8% | 99.72% | 99.82% |
-| hafs–qaloun | 77,430 | 40.4% | 76.6% | 99.71% | 99.82% |
-| warsh–sousi | 77,430 | 39.2% | 77.7% | 99.70% | 99.82% |
-| qaloun–sousi | 77,430 | 42.6% | 84.4% | 99.68% | 99.80% |
-| warsh–douri | 77,430 | 37.8% | 76.3% | 99.67% | 99.79% |
-| shuba–warsh | 77,430 | 41.4% | 75.2% | 99.69% | 99.78% |
-| warsh–bazzi | 77,430 | 37.2% | 63.4% | 99.68% | 99.78% |
-| hafs–warsh | 77,430 | 41.3% | 75.2% | 99.67% | 99.78% |
+| warsh–bazzi | 77,430 | 37.2% | 63.4% | 99.73% | 99.83% |
+| shuba–warsh | 77,430 | 41.4% | 75.2% | 99.73% | 99.83% |
+| hafs–warsh | 77,430 | 41.3% | 75.2% | 99.72% | 99.82% |
 
 Rasm agreement never drops below 99.5%: the seven riwāyāt are one text. Spelling agreement is far lower because the packages were typeset in different years with different conventions — which is what the `folded` and `pointed` columns strip away.
 
 ## Where the riwāyāt genuinely disagree
 
-Three things can differ once spelling, vowelling and pointing are set aside: the letters, the word boundaries, and whether a word is there at all. Together they account for 283 of 77,434 words.
+Three things can differ once spelling, vowelling and pointing are set aside: the letters, the word boundaries, and whether a word is there at all. Together they account for 249 of 77,434 words.
 
 | kind | count | status | what it means |
 |---|---|---|---|
-| letters differ | 266 | `rasm_variant` | the codices are pointed from different exemplars |
+| letters differ | 232 | `rasm_variant` | the codices are pointed from different exemplars |
 | boundaries differ | 6 events | `word_boundary` | one source prints two words as one |
 | word absent | 5 | `partial` | a riwāyah does not have the word at all |
 
 ### Letters — rasm disagreements
 
-266 words where the riwāyāt disagree about the letters on the line, after dots, hamza and vowelling have been set aside. The full list is in [`rasm-variants.md`](rasm-variants.md) and [`conflicts.csv`](conflicts.csv); the first 25 follow.
+232 words where the riwāyāt disagree about the letters on the line, after dots, hamza and vowelling have been set aside. The full list is in [`rasm-variants.md`](rasm-variants.md) and [`conflicts.csv`](conflicts.csv); the first 25 follow.
 
 | word id | sūrah:āyah | rasm on each side | as printed |
 |---|---|---|---|
@@ -257,57 +257,57 @@ All checks pass.
 | 3 | Āl-‘Imrān | 3,481 | 1767 | 1694 | 14 | 6 | 0 | 1.7 |
 | 4 | An-Nisā’ | 3,747 | 1842 | 1884 | 6 | 13 | 2 | 4.0 |
 | 5 | Al-Mā’idah | 2,804 | 1362 | 1437 | 0 | 5 | 0 | 1.8 |
-| 6 | Al-An‘ām | 3,050 | 1645 | 1384 | 11 | 10 | 0 | 3.3 |
+| 6 | Al-An‘ām | 3,050 | 1645 | 1387 | 11 | 7 | 0 | 2.3 |
 | 7 | Al-A‘rāf | 3,320 | 1779 | 1525 | 7 | 9 | 0 | 2.7 |
 | 8 | Al-Anfāl | 1,234 | 592 | 635 | 4 | 3 | 0 | 2.4 |
 | 9 | At-Taubah | 2,499 | 1207 | 1279 | 3 | 9 | 1 | 4.0 |
-| 10 | Yūnus | 1,833 | 1011 | 811 | 3 | 6 | 2 | 4.4 |
-| 11 | Hūd | 1,917 | 1091 | 817 | 1 | 6 | 2 | 4.2 |
+| 10 | Yūnus | 1,833 | 1011 | 813 | 3 | 4 | 2 | 3.3 |
+| 11 | Hūd | 1,917 | 1091 | 820 | 1 | 3 | 2 | 2.6 |
 | 12 | Yūsuf | 1,777 | 965 | 795 | 4 | 13 | 0 | 7.3 |
 | 13 | Ar-Ra‘d | 854 | 454 | 396 | 3 | 1 | 0 | 1.2 |
 | 14 | Ibrāhīm | 830 | 429 | 400 | 0 | 1 | 0 | 1.2 |
 | 15 | Al-Ḥijr | 654 | 400 | 251 | 1 | 2 | 0 | 3.1 |
 | 16 | An-Naḥl | 1,844 | 958 | 878 | 5 | 3 | 0 | 1.6 |
-| 17 | Al-Isrā’ | 1,556 | 818 | 727 | 8 | 3 | 0 | 1.9 |
-| 18 | Al-Kahf | 1,579 | 809 | 764 | 1 | 5 | 0 | 3.2 |
-| 19 | Maryam | 961 | 485 | 472 | 2 | 2 | 0 | 2.1 |
+| 17 | Al-Isrā’ | 1,556 | 818 | 728 | 8 | 2 | 0 | 1.3 |
+| 18 | Al-Kahf | 1,579 | 809 | 765 | 1 | 4 | 0 | 2.5 |
+| 19 | Maryam | 961 | 485 | 473 | 2 | 1 | 0 | 1.0 |
 | 20 | Ṭā-Hā | 1,335 | 717 | 610 | 2 | 6 | 0 | 4.5 |
 | 21 | Al-Anbiyā’ | 1,169 | 644 | 516 | 1 | 8 | 0 | 6.8 |
 | 22 | Al-Ḥajj | 1,274 | 657 | 611 | 2 | 4 | 0 | 3.1 |
 | 23 | Al-Mu’minūn | 1,050 | 580 | 463 | 0 | 7 | 0 | 6.7 |
 | 24 | An-Nūr | 1,316 | 639 | 669 | 1 | 7 | 0 | 5.3 |
-| 25 | Al-Furqān | 893 | 456 | 429 | 3 | 5 | 0 | 5.6 |
-| 26 | Ash-Shu‘arā’ | 1,318 | 733 | 580 | 0 | 5 | 0 | 3.8 |
+| 25 | Al-Furqān | 893 | 456 | 430 | 3 | 4 | 0 | 4.5 |
+| 26 | Ash-Shu‘arā’ | 1,318 | 733 | 582 | 0 | 3 | 0 | 2.3 |
 | 27 | An-Naml | 1,151 | 639 | 498 | 8 | 4 | 2 | 5.2 |
-| 28 | Al-Qaṣaṣ | 1,430 | 809 | 613 | 2 | 6 | 0 | 4.2 |
+| 28 | Al-Qaṣaṣ | 1,430 | 809 | 615 | 2 | 4 | 0 | 2.8 |
 | 29 | Al-‘Ankabūt | 976 | 497 | 474 | 4 | 1 | 0 | 1.0 |
 | 30 | Ar-Rūm | 817 | 421 | 388 | 4 | 4 | 0 | 4.9 |
 | 31 | Luqmān | 546 | 293 | 251 | 1 | 1 | 0 | 1.8 |
 | 32 | As-Sajdah | 372 | 208 | 164 | 0 | 0 | 0 | 0.0 |
 | 33 | Al-Aḥzāb | 1,287 | 616 | 659 | 5 | 7 | 0 | 5.4 |
 | 34 | Saba’ | 883 | 490 | 385 | 2 | 6 | 0 | 6.8 |
-| 35 | Fāṭir | 775 | 421 | 349 | 0 | 5 | 0 | 6.5 |
+| 35 | Fāṭir | 775 | 421 | 350 | 0 | 4 | 0 | 5.2 |
 | 36 | Yā-Sīn | 725 | 362 | 356 | 2 | 3 | 2 | 6.9 |
 | 37 | Aṣ-Ṣāffāt | 861 | 484 | 376 | 0 | 1 | 0 | 1.2 |
 | 38 | Ṣād | 733 | 422 | 309 | 1 | 1 | 0 | 1.4 |
-| 39 | Az-Zumar | 1,172 | 625 | 541 | 0 | 6 | 0 | 5.1 |
+| 39 | Az-Zumar | 1,172 | 625 | 542 | 0 | 5 | 0 | 4.3 |
 | 40 | Ghāfir | 1,219 | 632 | 581 | 3 | 2 | 1 | 2.5 |
-| 41 | Fuṣṣilat | 794 | 414 | 377 | 1 | 2 | 0 | 2.5 |
+| 41 | Fuṣṣilat | 794 | 414 | 378 | 1 | 1 | 0 | 1.3 |
 | 42 | Ash-Shūra | 860 | 430 | 424 | 3 | 3 | 0 | 3.5 |
 | 43 | Az-Zukhruf | 830 | 447 | 375 | 2 | 6 | 0 | 7.2 |
 | 44 | Ad-Dukhān | 346 | 198 | 147 | 1 | 0 | 0 | 0.0 |
-| 45 | Al-Jāthiyah | 488 | 266 | 220 | 1 | 1 | 0 | 2.0 |
-| 46 | Al-Aḥqāf | 643 | 344 | 291 | 5 | 3 | 0 | 4.7 |
+| 45 | Al-Jāthiyah | 488 | 266 | 221 | 1 | 0 | 0 | 0.0 |
+| 46 | Al-Aḥqāf | 643 | 344 | 293 | 5 | 1 | 0 | 1.6 |
 | 47 | Muḥammad | 539 | 241 | 293 | 3 | 2 | 0 | 3.7 |
 | 48 | Al-Fatḥ | 560 | 267 | 285 | 8 | 0 | 0 | 0.0 |
 | 49 | Al-Ḥujurāt | 347 | 165 | 180 | 1 | 1 | 0 | 2.9 |
 | 50 | Qāf | 373 | 236 | 135 | 2 | 0 | 0 | 0.0 |
 | 51 | Adh-Dhāriyāt | 360 | 187 | 173 | 0 | 0 | 0 | 0.0 |
 | 52 | Aṭ-Ṭūr | 312 | 177 | 132 | 0 | 3 | 0 | 9.6 |
-| 53 | An-Najm | 360 | 173 | 185 | 0 | 2 | 0 | 5.6 |
+| 53 | An-Najm | 360 | 173 | 187 | 0 | 0 | 0 | 0.0 |
 | 54 | Al-Qamar | 342 | 190 | 151 | 0 | 1 | 0 | 2.9 |
 | 55 | Ar-Raḥmān | 351 | 240 | 109 | 0 | 2 | 0 | 5.7 |
-| 56 | Al-Wāqi‘ah | 379 | 212 | 163 | 0 | 4 | 0 | 10.6 |
+| 56 | Al-Wāqi‘ah | 379 | 212 | 167 | 0 | 0 | 0 | 0.0 |
 | 57 | Al-Ḥadīd | 574 | 273 | 298 | 0 | 2 | 1 | 5.2 |
 | 58 | Al-Mujādilah | 472 | 243 | 225 | 0 | 4 | 0 | 8.5 |
 | 59 | Al-Ḥashr | 445 | 203 | 240 | 0 | 2 | 0 | 4.5 |
@@ -318,7 +318,7 @@ All checks pass.
 | 64 | At-Taghābun | 241 | 116 | 122 | 2 | 1 | 0 | 4.1 |
 | 65 | Aṭ-Ṭalāq | 287 | 153 | 131 | 1 | 2 | 0 | 7.0 |
 | 66 | At-Taḥrīm | 249 | 126 | 122 | 0 | 1 | 0 | 4.0 |
-| 67 | Al-Mulk | 333 | 160 | 171 | 0 | 2 | 0 | 6.0 |
+| 67 | Al-Mulk | 333 | 160 | 173 | 0 | 0 | 0 | 0.0 |
 | 68 | Al-Qalam | 300 | 190 | 110 | 0 | 0 | 0 | 0.0 |
 | 69 | Al-Ḥāqqah | 258 | 153 | 103 | 2 | 0 | 0 | 0.0 |
 | 70 | Al-Ma‘ārij | 217 | 109 | 106 | 0 | 2 | 0 | 9.2 |
@@ -347,7 +347,7 @@ All checks pass.
 | 93 | Aḍ-Ḍuḥā | 40 | 23 | 17 | 0 | 0 | 0 | 0.0 |
 | 94 | Ash-Sharḥ | 27 | 21 | 6 | 0 | 0 | 0 | 0.0 |
 | 95 | At-Tīn | 34 | 22 | 12 | 0 | 0 | 0 | 0.0 |
-| 96 | Al-‘Alaq | 72 | 41 | 28 | 0 | 3 | 0 | 41.7 |
+| 96 | Al-‘Alaq | 72 | 41 | 31 | 0 | 0 | 0 | 0.0 |
 | 97 | Al-Qadr | 30 | 14 | 16 | 0 | 0 | 0 | 0.0 |
 | 98 | Al-Bayyinah | 94 | 50 | 44 | 0 | 0 | 0 | 0.0 |
 | 99 | Az-Zalzalah | 36 | 22 | 14 | 0 | 0 | 0 | 0.0 |
@@ -358,7 +358,7 @@ All checks pass.
 | 104 | Al-Humazah | 33 | 14 | 19 | 0 | 0 | 0 | 0.0 |
 | 105 | Al-Fīl | 23 | 14 | 9 | 0 | 0 | 0 | 0.0 |
 | 106 | Quraish | 17 | 5 | 11 | 0 | 1 | 0 | 58.8 |
-| 107 | Al-Mā‘ūn | 25 | 11 | 13 | 0 | 1 | 0 | 40.0 |
+| 107 | Al-Mā‘ūn | 25 | 11 | 14 | 0 | 0 | 0 | 0.0 |
 | 108 | Al-Kauthar | 10 | 6 | 4 | 0 | 0 | 0 | 0.0 |
 | 109 | Al-Kāfirūn | 26 | 10 | 16 | 0 | 0 | 0 | 0.0 |
 | 110 | An-Naṣr | 19 | 12 | 7 | 0 | 0 | 0 | 0.0 |

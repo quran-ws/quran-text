@@ -80,6 +80,45 @@ def fold_notation(word: str) -> str:
     return unicodedata.normalize("NFC", folded)
 
 
+def _is_suppressed_hamza(text: str, i: int) -> bool:
+    """True when the dagger alif at ``text[i]`` stands in for a hamza.
+
+    ``ٰٓ`` — or ``ٰ۬``, which the Warsh/Qālūn set writes for the same thing — is a
+    madd over a hamza.  Warsh's tashīl suppresses the hamza itself
+    and leaves the madd behind, so a dagger-plus-maddah with no hamza after it
+    is notating a hamza rather than a written ā — and hamza is not rasm.  With
+    the hamza still present (``إِسۡرَٰٓءِيلَ``, ``مَلَٰٓئِكَةِ``) or with nothing after
+    it at all (``عَلَىٰٓ``), the dagger is a genuine ā that other packages print
+    as an alef on the line.
+
+    Deciding this needs the *word*, not the character: the two cases are
+    identical up to and including the dagger, and differ only in what follows.
+    """
+    if i + 1 >= len(text) or text[i + 1] not in chars.HAMZA_MADD_MARKS:
+        return False
+    for j, ch in enumerate(text[i + 2:], start=i + 2):
+        if ch in chars.HAMZA_ANY:
+            return False         # the madd has its hamza; the dagger is an ā
+        if ch in chars.ALL_MARKS:
+            continue
+        # A plain letter — but a madd over a *doubled* one is madd lāzim, a
+        # genuine long ā before a shadda (``تَتَّبِعَٰٓنِّ``, ``فَذَٰٓنِّكَ``), not a
+        # hamza.  Only an undoubled letter leaves the madd with nothing to be
+        # over, and that is the tashīl case.
+        return not _carries_shadda(text, j)
+    return False                 # nothing follows; keep the ā (``عَلَىٰٓ``)
+
+
+def _carries_shadda(text: str, i: int) -> bool:
+    """True when the letter at ``text[i]`` is written doubled."""
+    for ch in text[i + 1:]:
+        if ch == "ّ":
+            return True
+        if ch not in chars.ALL_MARKS:
+            return False
+    return False
+
+
 def pointed(word: str) -> str:
     """Consonantal skeleton keeping the dots: the letters as read today.
 
@@ -90,10 +129,13 @@ def pointed(word: str) -> str:
     every run of alefs afterwards would also weld Bazzī's ``لَأُاْقۡسِمُ`` into one
     alef and break the re-segmentation of 75:1.
     """
+    text = uthmani(word)
     out: list[str] = []
     from_dagger = False          # did the alef just emitted come from a dagger?
-    for ch in uthmani(word):
+    for i, ch in enumerate(text):
         if ch == chars.SUPERSCRIPT_ALEF:
+            if _is_suppressed_hamza(text, i):
+                continue         # the dagger *is* the hamza; hamza is not rasm
             # ``اٰ``: the alef on the line already carries this ā.
             if not out or out[-1] != "ا":
                 out.append("ا")
