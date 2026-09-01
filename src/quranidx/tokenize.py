@@ -23,7 +23,8 @@ class Token:
     pos: int                 # 1-based index within the āyah
     uthmani: str             # display form (no pause marks)
     folded: str              # notation unified across releases
-    rasm: str                # consonantal skeleton — the alignment key
+    pointed: str             # consonantal skeleton, dots kept
+    rasm: str                # bare ʿUthmānic skeleton — the alignment key
     simple: str              # plain modern spelling
     waqf: str = ""           # pause marks that trailed the word
     hizb: bool = False       # a rub-el-ḥizb symbol precedes this word
@@ -66,7 +67,7 @@ def tokenize_ayah(sura: int, aya: int, text: str) -> list[Token]:
         tok = Token(
             sura=sura, aya=aya, pos=len(tokens) + 1,
             uthmani=f["uthmani"], folded=f["folded"],
-            rasm=f["rasm"], simple=f["simple"],
+            pointed=f["pointed"], rasm=f["rasm"], simple=f["simple"],
             waqf=waqf,
             hizb=pending_hizb,
             sajdah=chars.SAJDAH in waqf,

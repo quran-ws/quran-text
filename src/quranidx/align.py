@@ -48,8 +48,8 @@ def _retoken(tok: Token, text: str, pos: int) -> Token:
     """A new token carrying part of ``tok``'s text."""
     f = forms(text)
     return replace(tok, uthmani=f["uthmani"], folded=f["folded"],
-                   rasm=f["rasm"], simple=f["simple"], pos=pos,
-                   notes=[*tok.notes, "resegmented"])
+                   pointed=f["pointed"], rasm=f["rasm"], simple=f["simple"],
+                   pos=pos, notes=[*tok.notes, "resegmented"])
 
 
 def _distribute(cols: list[Column], toks: list[Token]) -> list[tuple[list[Column], list[Token]]]:

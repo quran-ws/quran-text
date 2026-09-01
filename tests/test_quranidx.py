@@ -10,14 +10,14 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 from quranidx.align import Column, _distribute, merge          # noqa: E402
-from quranidx.normalize import (forms, rasm, simple,           # noqa: E402
+from quranidx.normalize import (forms, pointed, rasm, simple,  # noqa: E402
                                 split_by_rasm, split_trailing_waqf)
 from quranidx.tokenize import Token, tokenize_ayah             # noqa: E402
 
 
 def tok(rasm_: str) -> Token:
     return Token(sura=1, aya=1, pos=1, uthmani=rasm_, folded=rasm_,
-                 rasm=rasm_, simple=rasm_)
+                 pointed=rasm_, rasm=rasm_, simple=rasm_)
 
 
 class TestNormalize(unittest.TestCase):
@@ -26,19 +26,49 @@ class TestNormalize(unittest.TestCase):
         for word in ["ٱللَّهِ", "اِ۬للَّهِ", "ࡴ۬للَّهِ", "ࡵ۬للَّهِ"]:
             self.assertEqual(rasm(word), "الله", word)
 
-    def test_rasm_ignores_vowelling(self):
-        # Ḥafṣ مَٰلِكِ and the Madanī مَلِكِ are the same word, differently read.
-        self.assertEqual(rasm("مَٰلِكِ"), rasm("مَلِكِ"))
+    def test_rasm_drops_the_dots(self):
+        # The codices were undotted, so one rasm carries both readings and the
+        # word keeps one ID.  The reading itself survives in `pointed`.
+        self.assertEqual(rasm("تَعۡمَلُونَ"), rasm("يَعۡمَلُونَ"))
+        self.assertEqual(rasm("تَعۡمَلُونَ"), "ٮعملوں")
+        self.assertNotEqual(pointed("تَعۡمَلُونَ"), pointed("يَعۡمَلُونَ"))
+
+    def test_dots_part_company_at_the_end_of_a_word(self):
+        # ب ت ث ن ي share a tooth medially only; final ن and ي keep their tails.
+        self.assertEqual(rasm("نَبَتَ")[:-1], "ٮٮ")
+        self.assertNotEqual(rasm("مِن"), rasm("مِي"))
+
+    def test_rasm_drops_hamza(self):
+        # Hamza is 8th-century notation, not part of the codices.  Warsh's
+        # yeh-barree-with-hamza and Ḥafṣ's hamza-on-yeh are one word.
+        self.assertEqual(rasm("يَسۡتَهۡزِئُ"), rasm("يَسْتَهْزِۓُ"))
+        self.assertEqual(rasm("هَٰٓؤُلَآءِ"), rasm("هَٰؤُلَآࢇ"))
+
+    def test_dagger_alif_is_a_written_alef(self):
+        # The packages disagree only about where the publisher put the ā ...
+        self.assertEqual(rasm("هَٰرُوتَ"), rasm("هَارُوتَ"))
+        self.assertEqual(rasm("ءَامَنُواْ"), rasm("اٰمَنُواْ"))
+        # ... but a real difference in whether the ā is there at all stands.
+        self.assertNotEqual(rasm("مَٰلِكِ"), rasm("مَلِكِ"))
+
+    def test_adjacent_alefs_are_not_welded(self):
+        # Bazzī's لَأُاْقۡسِمُ is لَآ + أُقۡسِمُ printed as one word: the two alefs are
+        # separate letters, and collapsing them would break 75:1.
+        self.assertEqual(rasm("لَأُاْقۡسِمُ"), rasm("لَآ") + rasm("أُقۡسِمُ"))
 
     def test_rasm_keeps_real_letter_differences(self):
-        # Bazzī reads القران without the hamza: a genuine rasm difference.
-        self.assertNotEqual(rasm("ٱلۡقُرۡءَانَ"), rasm("ٱلۡقُرَانَ"))
+        # Bazzī reads قَالَ where the others read قُلۡ: different letters.
+        self.assertNotEqual(rasm("قُلۡ"), rasm("قَالَ"))
 
     def test_silah_is_a_vowel_not_a_letter(self):
         # Bazzī's ṣilat al-mīm is written superscript, so it is not part of the
         # rasm: عَلَيۡهِمُۥ and عَلَيۡهِمۡ are one word read two ways, and must align.
         self.assertEqual(rasm("عَلَيۡهِمُۥ"), rasm("عَلَيۡهِمۡ"))
-        self.assertEqual(rasm("عَلَيۡهِمُۥ"), "عليهم")
+        self.assertEqual(pointed("عَلَيۡهِمُۥ"), "عليهم")
+
+    def test_superscript_yeh_is_a_letter_others_write_on_the_line(self):
+        # ٱلنَّبِيِّۧنَ writes its second yāʾ superscript; Warsh prints it as ۑ.
+        self.assertEqual(rasm("ٱلنَّبِيِّۧنَ"), rasm("ࡰ۬لنَّبِيِٕٓۑنَ"))
 
     def test_simple_spelling_expands_superscript_alef(self):
         self.assertEqual(simple("مَٰلِكِ"), "مالك")
@@ -46,17 +76,29 @@ class TestNormalize(unittest.TestCase):
     def test_waqf_is_peeled_not_dropped(self):
         word, waqf = split_trailing_waqf("رَيۡبَۛ")
         self.assertEqual(waqf, "ۛ")
-        self.assertEqual(rasm(word), "ريب")
+        self.assertEqual(pointed(word), "ريب")
 
     def test_notation_folding_unifies_releases(self):
         # The 2022 files write the KFGQPC sukūn head, the 2026 files a sukūn.
         self.assertEqual(forms("بِسۡمِ")["folded"], forms("بِسْمِ")["folded"])
 
+    def test_notation_folding_decomposes_the_attached_alef(self):
+        # ࡰ is one codepoint for what other releases write as alef + fatha.
+        self.assertEqual(forms("ࡰلۡحَمۡدُ")["folded"], forms("اَلۡحَمۡدُ")["folded"])
+
+    def test_notation_folding_ignores_the_editorial_sah(self):
+        # U+08CC is a proofreader's mark, and the largest single source of
+        # spurious differences in the corpus.
+        self.assertEqual(forms("وَمَارُوتَ࣌")["uthmani"], forms("وَمَارُوتَ")["uthmani"])
+
+    def test_notation_folding_ignores_tanween_order(self):
+        self.assertEqual(forms("حَطَبࣰا")["folded"], forms("حَطَباࣰ")["folded"])
+
 
 class TestSplitByRasm(unittest.TestCase):
     def test_splits_a_word_printed_without_its_space(self):
         pieces = split_by_rasm("كَانُواْيَعۡمَلُونَ", [5, 7])
-        self.assertEqual([rasm(p) for p in pieces], ["كانوا", "يعملون"])
+        self.assertEqual([pointed(p) for p in pieces], ["كانوا", "يعملون"])
 
     def test_marks_stay_with_the_letter_they_sit_on(self):
         pieces = split_by_rasm("قَتَرٞوَلَا", [3, 3])
@@ -78,7 +120,7 @@ class TestTokenize(unittest.TestCase):
         toks = tokenize_ayah(7, 206, "يَسۡجُدُونَۤ۩")
         self.assertEqual(len(toks), 1)
         self.assertTrue(toks[0].sajdah)
-        self.assertEqual(toks[0].rasm, "يسجدون")
+        self.assertEqual(toks[0].pointed, "يسجدون")
 
 
 class TestAlign(unittest.TestCase):

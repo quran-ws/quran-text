@@ -3,6 +3,31 @@
 Four stages: parse each riwāyah into āyāt, cut āyāt into words, reduce each word
 to comparable forms, then align the seven word streams into one spine.
 
+## 0. Choosing the release
+
+Six of the seven riwāyāt ship two releases: a 2026 `.docx` (v3.0) and a 2022
+CSV/HTML package (v2). **Where they disagree, the later release is the text.**
+
+This matters most for word boundaries, because KFGQPC revises them on purpose.
+The 2026 Ḥafṣ document separates `مَا لِيَ` at 27:20 and 36:22, where Ḥafṣ's own
+2022 CSV joins it as the traditional `مَالِيَ`. Neither is an error; the second is
+a deliberate change of convention, and the newer convention is the one published
+here.
+
+The earlier release is never merged into the text. It is loaded only as a
+cross-check, and every difference between the two is counted and reported in
+`out/COMPARISON.md` under *Source integrity* — which is how the Sūsī and Dūrī
+defects in `docs/ISSUES.md` were found in the first place.
+
+The rule is asserted rather than assumed: `check_release_policy` fails the build
+if a riwāyah's text is ever loaded from the older of its two packages. Loading
+them the wrong way round would publish a superseded convention while passing
+every structural check.
+
+**Dūrī is the exception the rule cannot help.** Both its packages are from 2022,
+so "later" does not discriminate, and its three dropped spaces are recorded as
+boundary events rather than silently resolved from the other package.
+
 ## 1. Parsing
 
 Each `.docx` is read through its XML (`word/document.xml`), walking `<w:t>`
@@ -37,36 +62,64 @@ folded into its predecessor with a note.
 
 ## 3. Normalising
 
-Four forms are derived from every word, each answering a different question.
+Five forms are derived from every word, each answering a different question.
 
 | form | question | example |
 |---|---|---|
 | `uthmani` | how is it printed? | `مَٰلِكِ` |
 | `folded` | what does it say, ignoring which codepoints the release used? | `مَٰلِكِ` |
-| `rasm` | which letters are on the line? | `ملك` |
+| `pointed` | which letters, dots and all? | `مالك` |
+| `rasm` | what is on the line in the codex? | `مالك` |
 | `simple` | how would you type it plainly? | `مالك` |
 
-**`folded` exists because the 2022 and 2026 releases spell the same reading
-differently.** The 2022 files write the KFGQPC sukūn head `U+06E1` and reuse
-`U+0656/0657/065E` for open tanwīn; the 2026 files write `U+0652` and the
-dedicated `U+08F0–08F2`. Without folding, Dūrī — the one riwāyah still on a
-2022 document — would report thousands of differences against everything else
-that are purely typographic.
+**`folded` exists because the packages spell the same reading differently.** It
+neutralises three things:
 
-**`rasm` is the alignment key**, and the boundary between "same word, read
-differently" and "different word". It folds every alif spelling (`ا أ إ آ ٱ`
-and the Arabic Extended-B attached-alif letters `U+0870–U+0879` that the 2026
-Warsh/Qālūn/Sūsī files introduce) to a bare alif, folds `ؤ ئ ى ة ے ۑ` to their
-base letters, and drops all marks.
+- **release notation** — the 2022 files write the KFGQPC sukūn head `U+06E1` and
+  reuse `U+0656/0657/065E` for open tanwīn; the 2026 files write `U+0652` and the
+  dedicated `U+08F0–08F2`;
+- **the attached-alef letters** `U+0870–U+0882`, one codepoint for what other
+  releases write as an alef plus a vowel, decomposed back again. The mapping was
+  not guessed: each codepoint was aligned against the other riwāyāt's spelling of
+  the same word across the whole corpus, and every entry is the majority
+  correspondence with ≥5,800 confirmations;
+- **editorial marks** — `U+08CC`, the proofreader's *ṣaḥḥa*, occurs 8,128 times in
+  the v3.0 Warsh document and nowhere else. It was the single largest source of
+  spurious differences in the corpus, and it is not text.
 
-Superscript letters — the ṣilah waw and yeh `ۥ ۦ`, the small high yeh `ۧ` — are
-marks, not letters: they stand for a vowel that is pronounced but not written on
-the line. That is what lets Bazzī's `عَلَيۡهِمُۥ` align with `عَلَيۡهِمۡ` as one word
-read two ways rather than splitting into two unrelated words.
+**`rasm` is the alignment key and the identity of a word.** It is the bare
+ʿUthmānic skeleton: undotted, unvowelled, and without hamza.
+
+That is not a convenience. The codices were written that way, and a skeleton
+that keeps what was added later is not a rasm:
+
+- **hamza** was devised by al-Khalīl in the 8th century, two centuries after the
+  codices. It is dropped, and every carrier reduces to its seat — which is what
+  makes `يَسۡتَهۡزِئُ` and `يَسْتَهْزِۓُ` one word, and `هَٰٓؤُلَآءِ` and `هَٰؤُلَآࢇ` one word.
+- **the dots** came later still. One skeleton carries several readings by design:
+  `تَعۡمَلُونَ` and `يَعۡمَلُونَ` are `ٮعملوں` twice over. Letters merge only where
+  their shapes merge, which depends on position — `ب ت ث ن ي` share one tooth
+  medially but part company at the end of a word, where `ب ت ث` keep the bowl,
+  `ن` takes its own curve and `ي` its own tail.
+- **the dagger alif** is a written alef by another name: KFGQPC's Warsh/Qālūn set
+  prints `هَارُوتَ` where the Kūfī set prints `هَٰرُوتَ`. Folding them is not merely
+  tidy — keeping them apart *hides* real variants, because the same fold is what
+  separates `مَٰلِكِ` from `مَلِكِ`, `دِفَٰعُ` from `دَفۡعُ`, and `ٱلرِّيَٰحُ` from `ٱلرِّيحُ`.
+  `مالك`/`ملك` at 1:4 — the best-known variant in the Qurʾān — was previously
+  filed as a mere difference of vowelling.
+
+`pointed` keeps the dots and is otherwise the same. The gap between the two is
+itself a category of variation, and it gets its own status, `dotting_variant`.
+
+The ṣilah waw and yeh `ۥ ۦ` are *not* folded to letters: they stand for a vowel
+that is pronounced but never written, which is what lets Bazzī's `عَلَيۡهِمُۥ` align
+with `عَلَيۡهِمۡ` as one word read two ways. The small high yeh `ۧ` is the opposite
+case and *is* a letter — the second yāʾ of `ٱلنَّبِيِّۧنَ`, which Warsh prints on the
+line as `ۑ`.
 
 ## 4. Aligning
 
-The riwāyāt share a rasm that is identical 99 %+ of the time, so a progressive
+The riwāyāt share a rasm that is identical 99.5 %+ of the time, so a progressive
 alignment suffices. Ḥafṣ becomes the initial spine; each remaining riwāyah is
 folded in with a `difflib` diff over rasm sequences, per sūrah.
 
@@ -92,9 +145,20 @@ each riwāyah. Its position is the word's ID.
 
 - **`id`** — a running integer over the whole corpus, `1 … 77434`.
 - **`i`** — the word's 1-based position within its sūrah.
-- **`key`** — `sūrah:rasm#occurrence`, e.g. `1:ملك#1`. This is rebuild-stable
+- **`key`** — `sūrah:pointed#occurrence`, e.g. `1:مالك#1`. This is rebuild-stable
   and does not shift if a future release adds or removes a word earlier in the
-  sūrah, so it is the safer join key for long-lived references.
+  sūrah, so it is the safer join key for long-lived references. It is built from
+  the *pointed* skeleton rather than the bare rasm because `1:مالك#1` is legible
+  where `1:مالك#1`'s undotted counterpart would not be, and one canonical
+  spelling makes it just as stable.
+
+## 5. Fawāṣil
+
+The āyah boundaries are a layer *over* the word index, in `out/fawasil.json`.
+Each system lists the ID of the last word of every āyah; the riwāyāt sharing a
+system agree on all of them. There are five, not four: Dūrī and Sūsī are both
+Baṣrī but part company at exactly one fāṣilah, which is the whole of the
+6217/6218 difference between them.
 
 ## Verification
 
@@ -109,4 +173,4 @@ each riwāyah. Its position is the word's ID.
 3. **External** — parsed āyah totals against the classical counting traditions,
    which is how the Sūsī defect in `docs/ISSUES.md` surfaced.
 
-Plus 16 unit tests over the normalisation, splitting and alignment primitives.
+Plus 24 unit tests over the normalisation, splitting and alignment primitives.

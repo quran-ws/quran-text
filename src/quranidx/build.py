@@ -27,10 +27,22 @@ ORDER = ["hafs", "shuba", "bazzi", "qaloun", "warsh", "douri", "sousi"]
 
 # Status of a canonical word, most specific first.
 STATUS_RASM = "rasm_variant"
-STATUS_BOUNDARY = "word_boundary"
 STATUS_PARTIAL = "partial"
+STATUS_BOUNDARY = "word_boundary"
+STATUS_DOTTING = "dotting_variant"
 STATUS_DIACRITIC = "diacritic_variant"
 STATUS_IDENTICAL = "identical"
+
+#: Counting traditions, and the riwāyāt that follow each.  Dūrī and Sūsī are
+#: both Baṣrī but part company at exactly one fāṣilah, so they are listed
+#: separately rather than pretending to a single Baṣrī system.
+FAWASIL_SYSTEMS = {
+    "kufi": ["hafs", "shuba"],
+    "madani": ["warsh", "qaloun"],
+    "basri_douri": ["douri"],
+    "basri_sousi": ["sousi"],
+    "makki": ["bazzi"],
+}
 
 
 @dataclass
@@ -38,8 +50,9 @@ class Word:
     id: int
     sura: int
     index: int            # 1-based position within the sūrah
-    key: str              # rebuild-stable identity: "sura:rasm#occurrence"
-    rasm: str
+    key: str              # rebuild-stable identity: "sura:pointed#occurrence"
+    rasm: str             # bare ʿUthmānic skeleton, shared by every riwāyah
+    pointed: str          # canonical word's dotted skeleton
     uthmani: str
     simple: str
     status: str
@@ -70,18 +83,49 @@ def streams_for(riwayat: list[Riwaya]) -> dict[str, list[Token]]:
 
 
 def classify(col: Column, all_keys: list[str]) -> str:
+    """Name the strongest kind of disagreement this word carries.
+
+    The order matters and used to be wrong: ``word_boundary`` was returned
+    before the words were compared at all, so five of the six boundary events
+    in the corpus were reported as disagreements when in fact all seven riwāyāt
+    read them identically and one *source* had merely lost a space.  Content is
+    now decided first; the boundary stays on the word as an annotation either
+    way, and ``word_boundary`` is reserved for a word that is otherwise in
+    agreement but printed joined somewhere.
+    """
     present = [k for k in all_keys if k in col.tokens]
-    if col.boundary:
-        # A boundary disagreement explains any absence here, so it is reported
-        # ahead of "partial" — otherwise the cause is hidden by its effect.
-        return STATUS_BOUNDARY
-    if len(present) < len(all_keys):
-        return STATUS_PARTIAL
     if len({col.tokens[k].rasm for k in present}) > 1:
         return STATUS_RASM
+    if len(present) < len(all_keys):
+        return STATUS_PARTIAL
+    if col.boundary:
+        return STATUS_BOUNDARY
+    if len({col.tokens[k].pointed for k in present}) > 1:
+        return STATUS_DOTTING
     if len({col.tokens[k].folded for k in present}) > 1:
         return STATUS_DIACRITIC
     return STATUS_IDENTICAL
+
+
+def fawasil(words: list[Word]) -> dict[str, dict]:
+    """Where each counting tradition ends its āyāt, as canonical word IDs.
+
+    The fawāṣil are a layer *over* the word index, not a property of it: the
+    riwāyāt agree about the sequence of words far more than about where the
+    āyāt stop.  Recording them separately is what lets one ID mean one word in
+    all seven riwāyāt while each tradition keeps its own count.
+    """
+    out: dict[str, dict] = {}
+    for system, keys in FAWASIL_SYSTEMS.items():
+        key = keys[0]
+        ends: list[int] = []
+        run = [w for w in words if w.aya.get(key, 0) > 0]
+        for i, w in enumerate(run):
+            nxt = run[i + 1] if i + 1 < len(run) else None
+            if nxt is None or (nxt.sura, nxt.aya[key]) != (w.sura, w.aya[key]):
+                ends.append(w.id)
+        out[system] = {"riwayat": keys, "ayah_count": len(ends), "ends": ends}
+    return out
 
 
 def canonical_form(col: Column) -> Token:
@@ -115,14 +159,18 @@ def build_words(riwayat: list[Riwaya]) -> list[Word]:
         for index, col in enumerate(spine, start=1):
             canon = canonical_form(col)
             present = [k for k in keys if k in col.tokens]
-            seen[col.rasm] += 1
+            # The key is built from the *pointed* skeleton, not the bare rasm:
+            # `2:تعملون#1` is legible where `2:ٮعملوں#1` is not, and it is just
+            # as stable, since it comes from one canonical spelling.
+            seen[canon.pointed] += 1
             forms = {k: col.tokens[k].uthmani for k in present}
             words.append(Word(
                 id=next_id,
                 sura=sura,
                 index=index,
-                key=f"{sura}:{col.rasm}#{seen[col.rasm]}",
+                key=f"{sura}:{canon.pointed}#{seen[canon.pointed]}",
                 rasm=col.rasm,
+                pointed=canon.pointed,
                 uthmani=canon.uthmani,
                 simple=canon.simple,
                 status=classify(col, keys),

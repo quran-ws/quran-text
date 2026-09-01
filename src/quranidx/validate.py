@@ -67,6 +67,25 @@ def check_index(words: list[Word], riwayat: list[Riwaya]) -> list[dict]:
     return problems
 
 
+def check_release_policy(riwayat: list[Riwaya]) -> list[dict]:
+    """The text must come from each riwāyah's *latest* release.
+
+    KFGQPC revises these documents deliberately — the 2026 Ḥafṣ separates
+    ``مَا لِيَ`` where the 2022 CSV joins it as ``مَالِيَ`` — so where two releases
+    of one riwāyah disagree, the later one is the text and the earlier one is a
+    cross-check.  Loading them the other way round would publish a superseded
+    convention while still passing every structural check, so it is asserted
+    rather than assumed.
+    """
+    out = []
+    for r in riwayat:
+        if r.crosscheck and r.crosscheck_year > r.release_year:
+            out.append({"check": "release_policy", "riwaya": r.key,
+                        "detail": f"the text is loaded from the {r.release_year} "
+                                  f"release but a {r.crosscheck_year} one exists"})
+    return out
+
+
 def check_counting(riwayat: list[Riwaya]) -> list[dict]:
     out = []
     for r in riwayat:

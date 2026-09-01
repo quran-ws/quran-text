@@ -3,6 +3,53 @@
 What this does not do, and where its output should not be trusted without
 further work.
 
+## Warsh, Qālūn and Sūsī will look blank in most viewers
+
+Their v3.0 documents use **Arabic Extended-B** codepoints that Unicode only
+added in 2021 (`U+0870`–`U+0882`, the alef-with-attached-vowel letters) and the
+open-tanwīn marks `U+08F0`–`U+08F2`. Almost no font ships glyphs for them, so
+GitHub's JSON viewer, most editors and most terminals render them as blank
+boxes or as nothing at all:
+
+| riwāyah | words containing at least one such codepoint |
+|---|---|
+| Warsh | 19,431 |
+| Sūsī | 19,183 |
+| Qālūn | 17,527 |
+| Bazzī | 6,766 |
+| Shuʿbah | 6,649 |
+| Ḥafṣ | 6,643 |
+
+**The text is not missing and not corrupt** — `len()` and a codepoint dump both
+show it. It is a font-coverage problem at the point of display. Two ways round
+it: read the `folded` comparison instead, which decomposes those letters back
+into an alef plus a combining vowel that any Arabic font can draw, or install a
+font with Extended-B coverage. KFGQPC's own v3.0 fonts are the reference; among
+freely available faces, recent Scheherazade New and Noto Naskh Arabic cover the
+most of the range.
+
+## The rasm is reconstructed, not transcribed from a manuscript
+
+The `rasm` field is derived by normalising KFGQPC's vowelled text — dropping
+dots, hamza and vowels, and folding the dagger alif to a written alef. It is
+**not** a transcription of any ʿUthmānic codex. Where the packages themselves
+disagree about a letter, the disagreement is reported; where they agree, the
+result is only as good as the reconstruction, and 34 words are known to be
+wrong (see the `أَرَءَيۡتَ` family in `docs/ISSUES.md`).
+
+Two normalisation decisions are judgement calls that a different project could
+reasonably make differently:
+
+- **Dagger alif is folded to a written alef.** Historically the two are not the
+  same — ḥadhf vs ithbāt al-alif is a real difference between the regional
+  codices. They are folded here because in *these packages* the difference
+  tracks the typesetting rather than the codex, and keeping them apart hides
+  `مالك`/`ملك`. A project comparing manuscripts rather than modern editions
+  should not fold them.
+- **Hamza is dropped entirely.** Correct for a rasm, but it means `النبي` and
+  `النبيء` compare equal at the rasm level. The reading difference survives in
+  `pointed` and in `forms`, but not in the word's identity.
+
 ## Coverage
 
 **Seven riwāyāt, not ten qirāʾāt.** `data/` provides Ḥafṣ and Shuʿbah (ʿĀṣim),
@@ -12,6 +59,23 @@ of his two riwāyāt — **Qunbul is absent**. Ibn ʿĀmir, Ḥamzah and al-Kis�
 absent entirely, as are the three completing the ten. Nothing here can be
 described as a complete qirāʾāt comparison; it is a complete comparison *of the
 provided material*.
+
+## Word boundaries follow the latest release, and that is a choice
+
+Where a riwāyah ships two releases that disagree about a word boundary, this
+build takes the later one. The 2026 Ḥafṣ separates `مَا لِيَ` at 27:20 and 36:22;
+Ḥafṣ's own 2022 CSV joins it as `مَالِيَ`, which is the traditional muṣḥaf
+spelling. Publishing the newer convention is defensible — it is the publisher's
+own latest word — but it is **not** a claim that the older spelling is wrong,
+and a reader who wants the traditional joined form will not find it here. Both
+spellings are visible in the *Source integrity* section of `out/COMPARISON.md`.
+
+The rule does not resolve everything. Dūrī's two packages are both from 2022, so
+"later" cannot discriminate, and its three dropped spaces (4:90, 10:26, 11:77)
+are recorded as boundary events instead of corrected — even though the other
+package has the spaces and they are almost certainly typographic defects. That
+is deliberate: correcting them means asserting which package is right, which is
+an editorial judgement rather than a build step.
 
 ## The word index is derived, not authoritative
 

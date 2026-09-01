@@ -84,6 +84,42 @@ and right-to-left marks. One dotless beh `U+066E` in Bazzī and one small low
 seen `U+06E3` in Ḥafṣ v3.0 appear exactly once each and are probably typos, but
 neither affects the rasm.
 
+### 6. `U+08CC` — an editorial mark in the text
+
+`ARABIC SMALL HIGH WORD SAH`, the proofreader's *ṣaḥḥa* ("correct as written"),
+occurs **8,128 times** in the v3.0 Warsh document and essentially nowhere else.
+It is not pronounced, not written by any other release, and not part of the
+word. Until it was classified it was the single largest source of spurious
+differences in the corpus — larger than every genuine variant combined. It is
+now stripped with the structural symbols.
+
+---
+
+## Known residual: the `أَرَءَيۡتَ` family
+
+**34 words** report as `rasm_variant` when they should not:
+
+> 6:40, 6:46, 6:47, 10:50, 10:59, 11:28, 11:63, 11:88, 17:62, 18:63, 19:77,
+> 25:43, 26:75, 26:205, 28:71, 28:72, 35:40, 39:38, 41:52, 45:23, 46:4, 46:10,
+> 53:19, 53:33, 56:58, 56:63, 56:68, 56:71, 67:28, 67:30, 96:9, 96:11, 96:13,
+> 107:1
+
+That is 13 % of the 266 rasm disagreements, all one lexeme.
+
+Warsh writes `ࡰرَٰٓيْتَ`, spelling the tashīl'd hamza as a dagger alif; Ḥafṣ writes
+`أَرَءَيۡتَ` with a hamza. Since hamza is dropped from the rasm and the dagger alif
+becomes a written alef, Ḥafṣ loses a letter and Warsh gains one. The codices
+agree — the hamza was never in the rasm — so the two rasms should be identical.
+
+**Not fixed, deliberately.** Three rules were tried: keying on the adjacent
+`U+06EC`, on the dagger-plus-madd sequence, and on whether the dagger sits on an
+existing alef seat. Each either netted zero or broke `إِسۡرَٰٓءِيلَ`/`إِسْرَآءِيلَ`,
+which needs the *opposite* treatment — there the dagger is on the Ḥafṣ side and
+the written alef on the Warsh side, so no rule that looks only at the glyphs and
+their neighbours can separate the two cases. Fixing it needs a model of which
+letter is carrying a hamza, or a 34-entry exception list. A wrong general rule
+deletes real variants elsewhere, which is worse than 34 known false positives.
+
 ---
 
 ## Mistakes made building this
@@ -120,6 +156,46 @@ they folded ṣilah into `و`/`ي`, and did not. A unit test written against the
 apparent behaviour failed, which is how it was found. The unreachable entries
 are gone and the decision — superscript letters are vowels, not rasm — is now
 stated where it is made.
+
+### Dropping the dagger alif hid the most famous variant of all
+
+The rasm was originally defined as "what is written on the line", which meant
+the superscript alif was discarded. That is defensible as history and wrong for
+this corpus: KFGQPC's Warsh/Qālūn set writes ā on the line where the Kūfī set
+writes a dagger, so the two spellings of one word looked different — 202 false
+positives — while `مَٰلِكِ` and `مَلِكِ` at 1:4 collapsed to the same skeleton and
+were filed as a mere difference of vowelling.
+
+Folding the dagger to a written alef removes those 202 and surfaces 206 real
+variants that were invisible: `مالك`/`ملك`, `يخدعون`/`يخادعون`, `دفع`/`دفاع`,
+`الريح`/`الرياح`, `مسكين`/`مساكين`. Only 99 words are in both lists — the old
+definition and the correct one barely overlap, so this was never a tuning knob.
+
+Two rules were tried and rejected on the way. Collapsing every run of alefs
+afterwards welds Bazzī's `لَأُاْقۡسِمُ` into one alef and breaks the re-segmentation
+of 75:1. Treating a dagger on an existing `ا`/`ى` seat as a vowel looks right —
+it drops the count from 262 to 242 — but it hides `عَلَىٰٓ`/`عَلَيَّ` and
+`يُوصِي`/`يُوصَىٰ`, and tightening it to check the raw seat character explodes to
+1,195, because the packages do not agree on which glyph the seat is: Dūrī writes
+`مُوسۭيٰ` with `U+064A` where the others write `مُوسَىٰ` with `U+0649`.
+
+### A hard-coded skeleton in the basmalah detector
+
+`_is_bare_basmalah` compared against a literal `"بسماللهالرحمنالرحيم"`. When the
+rasm became undotted the needle stopped matching, and 113 sūrahs silently
+absorbed their opening basmalah into āyah 1 — 448 extra words, with every
+structural check still passing, because the index was internally consistent
+about the wrong thing. The needle is now derived from a reference spelling
+through the same normalisation, so it cannot drift again.
+
+### Word-boundary status outranked the comparison
+
+`classify` returned `word_boundary` before comparing the words at all, on the
+reasoning that a join *causes* an apparent absence. It does — but it also meant
+five of the six boundary events were reported as disagreements when all seven
+riwāyāt read them identically and one source had merely lost a space. Content
+is decided first now, and `boundaries.csv` carries a `riwayat_agree` column so
+the two cases are told apart rather than conflated.
 
 ### Round-trip by word count
 

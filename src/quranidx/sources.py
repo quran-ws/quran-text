@@ -14,6 +14,7 @@ import re
 import zipfile
 import xml.etree.ElementTree as ET
 from dataclasses import dataclass, field
+from functools import lru_cache
 from pathlib import Path
 
 from . import chars
@@ -47,6 +48,8 @@ class Riwaya:
     #: (sura, aya) -> text, from the *other* release of the same riwāyah.
     crosscheck: dict[tuple[int, int], str] = field(default_factory=dict)
     crosscheck_source: str = ""
+    release_year: int = 0
+    crosscheck_year: int = 0
 
 
 # --------------------------------------------------------------------------
@@ -74,8 +77,11 @@ _AR_NUM = "".join(chars.ARABIC_DIGITS)
 # the U+06DD and leaves only NBSP + digits.
 _AYAH_MARK = re.compile(rf"[  ]?۝?([{_AR_NUM}]+)")
 
-#: The basmalah, reduced to letters, as it appears across all seven releases.
-_BASMALAH_RASM = "بسماللهالرحمنالرحيم"
+#: The basmalah as printed, from which the needle is derived at run time.
+#: Deriving it rather than hard-coding a skeleton is deliberate: a literal
+#: skeleton silently stops matching the day the normalisation changes, and when
+#: it did, 113 sūrahs quietly absorbed their opening basmalah into āyah 1.
+_BASMALAH_REFERENCE = "بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ"
 
 
 def _arabic_int(s: str) -> int:
@@ -103,8 +109,14 @@ def _is_bare_basmalah(para: str) -> bool:
     """A basmalah printed as a sūrah opening rather than counted as an āyah."""
     if re.search(rf"[{_AR_NUM}]", para):
         return False          # numbered: it *is* āyah 1 (Kufi/Makki Al-Fātiḥah)
-    from .normalize import rasm
-    return rasm(para).replace(" ", "") == _BASMALAH_RASM
+    from .normalize import pointed
+    return pointed(para).replace(" ", "") == _basmalah_needle()
+
+
+@lru_cache(maxsize=1)
+def _basmalah_needle() -> str:
+    from .normalize import pointed
+    return pointed(_BASMALAH_REFERENCE).replace(" ", "")
 
 
 def load_docx(path: Path) -> list[Ayah]:
@@ -218,6 +230,24 @@ class SourceSpec:
     primary_kind: str          # "docx" | "csv"
     csv_zip: str | None = None
     csv_member: str | None = None
+    #: Release years, used to decide which spelling wins when the two releases
+    #: of one riwāyah disagree.  See ``RELEASE_POLICY``.
+    primary_year: int = 2026
+    csv_year: int = 2022
+
+
+#: When a riwāyah ships two releases and they disagree about how a word is
+#: spelled or where a word boundary falls, **the later release wins**.  KFGQPC
+#: revises these documents deliberately: the 2026 Ḥafṣ separates ``مَا لِيَ``
+#: where the 2022 CSV joins it as ``مَالِيَ``, which is a change of convention
+#: rather than a defect, and the newer convention is the one to publish.  The
+#: earlier release is kept as a cross-check and reported in ``COMPARISON.md``,
+#: never merged into the text.
+#:
+#: The policy cannot discriminate for Dūrī, whose two packages are both 2022;
+#: there the three dropped spaces are recorded as boundaries rather than
+#: silently resolved.  See ``docs/ISSUES.md``.
+RELEASE_POLICY = "latest release wins; the earlier one is a cross-check only"
 
 
 REGISTRY: list[SourceSpec] = [
@@ -235,7 +265,8 @@ REGISTRY: list[SourceSpec] = [
                "UthmanicQaloun_v2-1", "UthmanicQaloun_v2-1 data/QalounData_v2-1.csv"),
     SourceSpec("douri", "Dūrī", "الدوري", "Abū ʿAmr al-Baṣrī", "أبو عمرو البصري", "basri",
                "UthmanicDouri_V20", "UthmanicDouri V20.docx", "docx",
-               "UthmanicDouri_v2-0", "UthmanicDouri_v2-0 data/DouriData_v2-0.csv"),
+               "UthmanicDouri_v2-0", "UthmanicDouri_v2-0 data/DouriData_v2-0.csv",
+               primary_year=2022, csv_year=2022),
     SourceSpec("sousi", "Sūsī", "السوسي", "Abū ʿAmr al-Baṣrī", "أبو عمرو البصري", "basri",
                "UthmanicSousi-v-3.0", "UthmanicSousi-v-3.0.docx", "docx",
                "UthmanicSousi_v2-0", "UthmanicSousi_v2-0 data/SousiData_v2-0.csv"),
@@ -269,6 +300,7 @@ def load_all() -> list[Riwaya]:
 
         r = Riwaya(spec.key, spec.name_en, spec.name_ar, spec.qari_en,
                    spec.qari_ar, spec.counting, source, ayat)
+        r.release_year = spec.primary_year
 
         if spec.csv_zip and spec.csv_member:
             csv_path = _extract(spec.csv_zip, spec.csv_member)
@@ -276,5 +308,6 @@ def load_all() -> list[Riwaya]:
             r.meta = meta
             r.crosscheck = {(a.sura, a.aya): a.text for a in csv_ayat}
             r.crosscheck_source = f"{spec.csv_zip}.zip :: {spec.csv_member}"
+            r.crosscheck_year = spec.csv_year
         riwayat.append(r)
     return riwayat
