@@ -6,7 +6,10 @@ to comparable forms, then align the seven word streams into one spine.
 ## 0. Choosing the release
 
 Six of the seven riwāyāt ship two releases: a 2026 `.docx` (v3.0) and a 2022
-CSV/HTML package (v2). **Where they disagree, the later release is the text.**
+CSV/HTML package (v2). **Where two files of the same riwāyah disagree, the later
+release is taken as a correction and is the text.** That assumption is scoped
+strictly to a single riwāyah — nothing is inferred from one riwāyah about
+another, and no difference *between* packages is treated as a mistake by either.
 
 This matters most for word boundaries, because KFGQPC revises them on purpose.
 The 2026 Ḥafṣ document separates `مَا لِيَ` at 27:20 and 36:22, where Ḥafṣ's own
@@ -16,8 +19,7 @@ here.
 
 The earlier release is never merged into the text. It is loaded only as a
 cross-check, and every difference between the two is counted and reported in
-`out/COMPARISON.md` under *Source integrity* — which is how the Sūsī and Dūrī
-defects in `docs/ISSUES.md` were found in the first place.
+`out/COMPARISON.md` under *Source integrity*.
 
 The rule is asserted rather than assumed: `check_release_policy` fails the build
 if a riwāyah's text is ever loaded from the older of its two packages. Loading
@@ -170,7 +172,13 @@ Baṣrī but part company at exactly one fāṣilah, which is the whole of the
    directly. Comparing letters rather than word counts makes the check
    indifferent to re-segmentation while still catching a genuinely lost or
    duplicated word. This passes for all seven.
-3. **External** — parsed āyah totals against the classical counting traditions,
-   which is how the Sūsī defect in `docs/ISSUES.md` surfaced.
+3. **Release policy** — the text of each riwāyah must come from its latest
+   package, since that is the only correction this pipeline assumes.
+
+There is deliberately **no** check of āyah totals against the counting
+traditions. An earlier version had one, and it was measuring an assumption: the
+qirāʾah does not determine the count, many fawāṣil are مختلف فيها, and KFGQPC's
+own Dūrī printings total 6,218, 6,217 and 6,214 while all three state they
+follow المدني الأول. See `docs/ISSUES.md`.
 
 Plus 24 unit tests over the normalisation, splitting and alignment primitives.

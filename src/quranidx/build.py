@@ -33,16 +33,10 @@ STATUS_DOTTING = "dotting_variant"
 STATUS_DIACRITIC = "diacritic_variant"
 STATUS_IDENTICAL = "identical"
 
-#: Counting traditions, and the riwāyāt that follow each.  Dūrī and Sūsī are
-#: both Baṣrī but part company at exactly one fāṣilah, so they are listed
-#: separately rather than pretending to a single Baṣrī system.
-FAWASIL_SYSTEMS = {
-    "kufi": ["hafs", "shuba"],
-    "madani": ["warsh", "qaloun"],
-    "basri_douri": ["douri"],
-    "basri_sousi": ["sousi"],
-    "makki": ["bazzi"],
-}
+#: Traditions of ʿadd al-āy, for reference only.  They are *not* the identity
+#: of a fawāṣil system: see :func:`fawasil`.
+COUNTING_TRADITIONS = {"kufi": "Kūfī", "madani": "Madanī",
+                       "basri": "Baṣrī", "makki": "Makkī"}
 
 
 @dataclass
@@ -107,25 +101,47 @@ def classify(col: Column, all_keys: list[str]) -> str:
     return STATUS_IDENTICAL
 
 
-def fawasil(words: list[Word]) -> dict[str, dict]:
-    """Where each counting tradition ends its āyāt, as canonical word IDs.
+def ayah_ends(words: list[Word], key: str) -> list[int]:
+    """The ID of the last word of every āyah, for one riwāyah's muṣḥaf."""
+    ends: list[int] = []
+    run = [w for w in words if w.aya.get(key, 0) > 0]
+    for i, w in enumerate(run):
+        nxt = run[i + 1] if i + 1 < len(run) else None
+        if nxt is None or (nxt.sura, nxt.aya[key]) != (w.sura, w.aya[key]):
+            ends.append(w.id)
+    return ends
 
-    The fawāṣil are a layer *over* the word index, not a property of it: the
-    riwāyāt agree about the sequence of words far more than about where the
-    āyāt stop.  Recording them separately is what lets one ID mean one word in
-    all seven riwāyāt while each tradition keeps its own count.
+
+def fawasil(words: list[Word]) -> dict[str, dict]:
+    """Where each muṣḥaf ends its āyāt, as canonical word IDs.
+
+    **The fawāṣil belong to the printed muṣḥaf, not to the qirāʾah.**  This is
+    not a nicety.  Many fawāṣil are مختلف فيها — al-Dānī records 67:9
+    «قد جاءنا نذير» as counted by المدني الأخير والمكي and by Shayba, and not
+    counted by the rest — so an edition has to *choose*, and different editions
+    of the same riwāyah choose differently.  KFGQPC's own Dūrī printings show
+    it plainly: 1429 AH and 1443 AH split 67:9 and give a colophon total of
+    6214, while 1436 AH does not split it and states 6217.  Same publisher,
+    same riwāyah, three printings, two different divisions.
+
+    So a system is not named for a counting tradition and is not derived from
+    one.  It is read off the packages themselves, and riwāyāt are grouped only
+    where their fawāṣil turn out to be identical.  If a future package moves a
+    single fāṣilah, it splits into its own system here rather than being
+    quietly averaged into a tradition it does not actually follow.
     """
-    out: dict[str, dict] = {}
-    for system, keys in FAWASIL_SYSTEMS.items():
-        key = keys[0]
-        ends: list[int] = []
-        run = [w for w in words if w.aya.get(key, 0) > 0]
-        for i, w in enumerate(run):
-            nxt = run[i + 1] if i + 1 < len(run) else None
-            if nxt is None or (nxt.sura, nxt.aya[key]) != (w.sura, w.aya[key]):
-                ends.append(w.id)
-        out[system] = {"riwayat": keys, "ayah_count": len(ends), "ends": ends}
-    return out
+    ends = {key: ayah_ends(words, key) for key in ORDER}
+    systems: dict[str, dict] = {}
+    for key in ORDER:
+        for system in systems.values():
+            if system["ends"] == ends[key]:
+                system["mushaf"].append(key)
+                break
+        else:
+            systems[key] = {"mushaf": [key], "ayah_count": len(ends[key]),
+                            "ends": ends[key]}
+    # Name each system after the muṣḥaf(s) that use it, not after a tradition.
+    return {"+".join(s["mushaf"]): s for s in systems.values()}
 
 
 def canonical_form(col: Column) -> Token:

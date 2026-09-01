@@ -1,90 +1,137 @@
 # Issues
 
-Two kinds: defects found **in the KFGQPC sources**, and mistakes made **in
-building this** that are worth recording because they were not obvious.
+Two kinds: things **the KFGQPC packages do** that the pipeline has to handle,
+and mistakes made **in building this** that are worth recording because they
+were not obvious.
+
+## A standing rule about the sources
+
+**The KFGQPC packages are the authority. Nothing in them is called an error
+here.**
+
+Where a package differs from another package, from an earlier printing of
+itself, or from what a counting tradition would lead you to expect, that is
+recorded as a difference and left alone. It is not corrected, and it is not
+labelled a defect. The publisher makes editorial choices — among fawāṣil that
+are مختلف فيها, among orthographic conventions, between its own releases — and
+does not always document them. An apparent mistake is far more often a choice
+whose reasoning has not been published.
+
+This rule was learned the hard way; entry 1 below is the correction that
+prompted it, and it had been wired into the build as a check that failed on
+every run.
 
 ---
 
-## Defects in the sources
+## What the sources contain
 
-### 1. Sūsī v3.0 splits Al-Mulk 67:9 into two āyāt
+### 1. ~~Sūsī v3.0 splits Al-Mulk 67:9 into two āyāt~~ — not a defect
 
-`UthmanicSousi-v-3.0.docx` numbers 31 āyāt in sūrah 67. Al-Mulk has **30** in
-every counting tradition, and Sūsī's own 2022 release (`SousiData_v2-0.csv`)
-has 30. The document ends an āyah after `قَالُواْ بَلَىٰ قَد جَّآءَنَا نَذِيرࣱ` and starts
-a new one at `فَكَذَّبۡنَا وَقُلۡنَا…`, so every āyah from 9 to 30 is shifted by one and
-the riwāyah totals 6,218 instead of 6,217.
+**This entry was wrong and is kept as a correction.** It claimed Al-Mulk has 30
+āyāt "in every counting tradition" and reported Sūsī's 31 as an error. Both
+halves are false, and the second was refutable from this repository's own
+output:
 
-**Impact: none on the word index.** This is purely an āyah-boundary error; the
-word sequence is untouched. It is the clearest vindication of the flat model —
-had words been nested under āyāt, this single defect would have misaligned
-2,000+ words for one riwāyah. As it is, only the `aya` attribute of the affected
-Sūsī words is off by one.
+| | āyāt in sūrah 67 |
+|---|---|
+| Ḥafṣ, Shuʿbah, Dūrī | 30 |
+| **Warsh, Qālūn, Sūsī, Bazzī** | **31** |
 
-**Not silently corrected.** `build.py` reports it on every run:
+Four of the seven packages count 67:9. Al-Dānī records this exact position —
+«قد جاءنا نذير» — as **مختلف فيها**: *عدها المدني الأخير والمكي ولم يعدها
+الباقون، وعدها شيبة ولم يعدها أبو جعفر*. The Madanī (Warsh, Qālūn) and Makkī
+(Bazzī) packages counting it is precisely what that says should happen.
 
-```
-checks: 1 finding(s)
-  - [counting_total] sousi the basri tradition totals 6217 āyāt; this release has 6218
-```
+**The qirāʾah does not determine the count.** KFGQPC's own printings of the
+Dūrī muṣḥaf settle it — all three state they follow **المدني الأول**, and all
+three disagree:
 
-Correcting it means asserting which side of the split is wrong, which is an
-editorial call for someone with the printed muṣḥaf in hand, not a build step.
+| printing | āyāt |
+|---|---|
+| 1429 AH | 6,218 |
+| 1436 AH | 6,217 |
+| 1443 AH | 6,214 |
 
-### 2. Qālūn v3.0 is missing the heading for Al-Baqarah
+The 1429 colophon states 6,214 *«مَا عَدَا الآيَاتِ المُخْتَلَفَ فِيهَا بَيْنَ أَبِي
+جَعْفَرٍ وَشَيْبَةَ»* without saying where those positions are or how many; there
+are four, which is how that printing reaches 6,218. None of the three explains
+the editorial choices behind its division.
 
-`UthmanicQaloun-v-3.0.docx` has 113 sūrah headings instead of 114. The text
-`سُورَةُ البَقَرَةِ` was typed at the **end of the Al-Fātiḥah paragraph**, after
-āyah 7's number, rather than in its own paragraph.
+*(Evidence assembled by @quranpedia in
+[qiraat-ayah-map#10](https://github.com/quranpedia/qiraat-ayah-map/pull/10),
+which also found the qirāʾah→system mapping wrong in the other direction: the
+Dūrī muṣḥaf measures onto First Madinan in 113 of 114 sūrahs, not Baṣrī.)*
 
-Two consequences, both handled:
+**What changed here as a result.** The build no longer asserts a total per
+tradition. `COUNTING_TOTALS = {"kufi": 6236, "madani": 6214, "basri": 6217}` is
+gone: it measured an assumption rather than the data, and produced a false
+positive on every run. `out/fawasil.json` is now derived from the packages
+themselves and keyed by muṣḥaf, so two riwāyāt are grouped only where their
+fawāṣil are actually identical. The `counting` field survives as a display
+label with that stated in the code.
+
+**One thing this repository cannot yet reconcile.** The forum write-up reports
+that the digital Dūrī muṣḥaf carries **6,218** āyāt, matching the 1429 printing.
+Parsing `UthmanicDouri V20.docx` here yields **6,217**. That is a one-āyah gap
+between a stated figure and this parse, and it is not resolved — it may be a
+different digital package, or a parse defect in this repository. It is recorded
+rather than reconciled by adjusting either side.
+
+### 2. Qālūn v3.0 carries the Al-Baqarah heading inside the previous paragraph
+
+`UthmanicQaloun-v-3.0.docx` has 113 sūrah headings in their own paragraphs
+instead of 114. The text `سُورَةُ البَقَرَةِ` sits at the **end of the Al-Fātiḥah
+paragraph**, after āyah 7's number. This is a fact about the document's
+paragraph structure, not about its text — every word of scripture is present
+and in order.
+
+Two consequences for anything that parses the file, both handled here:
 
 - heading-driven sūrah segmentation shifts every sūrah after Al-Fātiḥah by one.
-  Segmenting on āyah-numbering resets instead removes the dependency entirely.
+  Segmenting on āyah-numbering resets instead removes the dependency entirely,
+  and is the more robust rule regardless.
 - the stranded heading was landing as two words at the head of Al-Baqarah 2:1.
   Text after the final āyah mark of a paragraph is now stripped when it matches
   the heading pattern. That anchor is deliberately narrow: sūrah 24 opens with
   `سُورَةٌ أَنزَلۡنَٰهَا`, which *is* scripture, and a looser rule would eat it.
 
-### 3. Dūrī v3.0 drops three spaces between words
+### 3. Word boundaries differ between packages
 
-`UthmanicDouri V20.docx` prints three word pairs joined. Dūrī's own 2022 CSV
-prints all three with the space, which makes these unambiguous typographic
-defects rather than orthographic choices:
+Six word pairs are printed joined in one package and separated in another. The
+pipeline re-segments them so the index keeps one column per word, records
+`boundary: {"<riwaya>": "joined_in_source"}`, and **does not judge which
+spacing is correct**. Left alone, each join would falsely report the following
+word absent from that riwāyah.
 
-| āyah | document | the same riwāyah's CSV |
+Three are cases where a riwāyah's two releases disagree with each other:
+
+| āyah | `UthmanicDouri V20.docx` | Dūrī's own 2022 CSV |
 |---|---|---|
 | 4:90 | `مَارُدُّوٓاْ` | `مَا رُدُّوٓاْ` |
 | 10:26 | `قَتَرٞوَلَا` | `قَتَرٞ وَلَا` |
 | 11:77 | `كَانُواْيَعۡمَلُونَ` | `كَانُواْ يَعۡمَلُونَ` |
 
-The words are re-segmented so the index keeps one column per word, and the join
-is recorded as `boundary: {"douri": "joined_in_source"}`. Left alone, each of
-these would falsely report the following word absent from Dūrī.
-
-### 4. Word joins that are *not* defects
-
-The same mechanism catches joins that are genuine orthography, and the pipeline
-deliberately does **not** try to tell them apart — it records the join and lets
-a reader judge:
+Three are cases where packages differ from each other:
 
 - Bazzī `لَأُاْقۡسِمُ` (75:1) — Ibn Kathīr's reading, written as one word;
 - Bazzī and Dūrī `مَالِيَ` / `وَمَالِيَ` (27:20, 36:22) — the traditional muṣḥaf
-  spelling. Here the *2026 Ḥafṣ document* moved the other way and separated
-  `مَا لِيَ`, where Ḥafṣ's own 2022 CSV joins it. A deliberate change of
-  convention between releases, not an error.
+  spelling. The 2026 Ḥafṣ document moved the other way and separated
+  `مَا لِيَ`, where Ḥafṣ's own 2022 CSV joins it: a change of convention
+  between releases.
 
-All 12 are listed in `out/COMPARISON.md`.
+`out/boundaries.csv` carries a `riwayat_agree` column saying whether the riwāyāt
+read the run identically once re-segmented. That is a statement about agreement,
+not about correctness.
 
-### 5. Stray characters
+### 4. Characters carrying no textual weight
 
-Present across the sources and stripped as meaningless: kashida `U+0640` (6,838
-occurrences — KFGQPC's own changelogs record removing these), zero-width joiner,
-and right-to-left marks. One dotless beh `U+066E` in Bazzī and one small low
-seen `U+06E3` in Ḥafṣ v3.0 appear exactly once each and are probably typos, but
-neither affects the rasm.
+Stripped because they do not affect the letters or the reading: kashida
+`U+0640` (6,838 occurrences — KFGQPC's own changelogs record removing these),
+zero-width joiner, and right-to-left marks. One dotless beh `U+066E` in Bazzī
+and one small low seen `U+06E3` in Ḥafṣ v3.0 occur exactly once each; both are
+recorded and neither affects the rasm.
 
-### 6. `U+08CC` — an editorial mark in the text
+### 5. `U+08CC` — an editorial mark in the text
 
 `ARABIC SMALL HIGH WORD SAH`, the proofreader's *ṣaḥḥa* ("correct as written"),
 occurs **8,128 times** in the v3.0 Warsh document and essentially nowhere else.

@@ -108,7 +108,7 @@ python3 -m unittest discover -s tests        # 24 tests
 - [`docs/METHOD.md`](docs/METHOD.md) — how words are derived and aligned
 - [`docs/SCHEMA.md`](docs/SCHEMA.md) — every field of every output
 - [`docs/DATA-SOURCES.md`](docs/DATA-SOURCES.md) — what is in `data/`
-- [`docs/ISSUES.md`](docs/ISSUES.md) — defects found in the sources, and in the first attempts
+- [`docs/ISSUES.md`](docs/ISSUES.md) — what the sources contain, and mistakes made building this
 - [`docs/LIMITATIONS.md`](docs/LIMITATIONS.md) — what this does **not** do
 
 ## Provenance
