@@ -27,7 +27,6 @@ ORDER = ["hafs", "shuba", "bazzi", "qaloun", "warsh", "douri", "sousi"]
 
 # Status of a canonical word, most specific first.
 STATUS_RASM = "rasm_variant"
-STATUS_MADD = "madd_alif"
 STATUS_PARTIAL = "partial"
 STATUS_BOUNDARY = "word_boundary"
 STATUS_DOTTING = "dotting_variant"
@@ -88,19 +87,15 @@ def classify(col: Column, all_keys: list[str]) -> str:
     way, and ``word_boundary`` is reserved for a word that is otherwise in
     agreement but printed joined somewhere.
 
-    Two kinds of skeleton difference are separated, because they are not the
-    same claim.  When the skeletons agree once every ā is spelled out, the
-    packages differ only over *where* to put an ā they both read — the
-    Warsh/Qālūn set prints ``هَارُوتَ`` and ``مُبَٰرَك`` where the Kūfī set prints
-    ``هَٰرُوتَ`` and ``مُبَارَك`` — and that is ``madd_alif``, a difference of hand
-    whose codex status this corpus cannot settle.  When they still disagree with
-    every ā spelled out, a letter is genuinely present in one codex and absent
-    in another, and that is ``rasm_variant``.
+    Any difference in the letters on the line is a ``rasm_variant``, including
+    the 198 words where the two typesettings disagree only about whether to put
+    an ā on the line or above it.  That sub-class is worth knowing about — see
+    :func:`normalize.rasm_plene`, which is what identifies it, and the report
+    section that lists it — but it is not a separate verdict: a written alef is
+    part of the bare rasm whichever hand wrote it.
     """
     present = [k for k in all_keys if k in col.tokens]
     if len({col.tokens[k].rasm for k in present}) > 1:
-        if len({col.tokens[k].rasm_plene for k in present}) == 1:
-            return STATUS_MADD
         return STATUS_RASM
     if len(present) < len(all_keys):
         return STATUS_PARTIAL

@@ -221,14 +221,17 @@ hands making opposite choices about ḥadhf al-alif is a difference of typesetti
 on its face; whether any of it is also a difference of codex is a question these
 sources cannot answer.
 
-So it is neither folded away nor counted as a codex disagreement. `rasm_plene`
-spells every ā out, and a word whose skeletons agree once it is applied gets its
-own status, `madd_alif` — 198 words, kept, counted and listed separately. The
-alternative of merging them would have hidden them; the alternative of calling
-them `rasm_variant` would have claimed more than the evidence supports.
+So it is not folded away. An alef on the line is part of the bare rasm whichever
+hand wrote it, so all 198 are counted as `rasm_variant` — but `rasm_plene`
+spells every ā out, which makes the sub-class exactly identifiable: it is the
+words whose skeletons agree once it is applied. The report lists them under
+their own heading so that a reader can see what the 260 is made of, and
+`docs/LIMITATIONS.md` says plainly that separating codex from typesetter here
+needs a manuscript.
 
-Result: 232 → 62 `rasm_variant` + 198 `madd_alif`; 170 false positives removed,
-3,071 skeletons corrected, none newly flagged.
+Result: 232 → 260 `rasm_variant`, of which 62 are a letter one codex simply
+lacks and 198 are the plene/defective class; 170 false positives removed, 3,071
+skeletons corrected, none newly flagged.
 
 ### Dropping the dagger alif hid the most famous variant of all
 

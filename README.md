@@ -55,7 +55,7 @@ of a word's identity. Each riwāyah's own spelling is kept in `forms`.
 | `out/boundaries.csv` | every word-boundary disagreement, in full |
 | `out/COMPARISON.md` | the cross-riwāyah comparison report |
 | `out/compare.html` | interactive word-by-word comparison — open it in a browser |
-| `out/rasm-variants.md` | all 62 letter-level disagreements, listed |
+| `out/rasm-variants.md` | all 260 letter-level disagreements, listed |
 | `out/agreement-matrix.csv` | pairwise agreement between riwāyāt |
 
 ## Headline numbers
@@ -67,14 +67,15 @@ of a word's identity. Each riwāyah's own spelling is kept in `forms`.
 | `identical` | 40,558 | 52.4% | one reading, one spelling, everywhere |
 | `diacritic_variant` | 36,261 | 46.8% | same letters and dots — the vowelling differs |
 | `dotting_variant` | 338 | 0.44% | one rasm, pointed two ways |
-| `madd_alif` | 198 | 0.26% | the same ā, on the line in one hand, above it in the other |
-| `rasm_variant` | 62 | 0.08% | the codices disagree about the letters |
+| `rasm_variant` | 260 | 0.34% | the riwāyāt disagree about the letters |
 | `word_boundary` | 12 | 0.02% | a source joins the word to its neighbour |
 | `partial` | 5 | 0.01% | the word is absent from some riwāyah |
 
 So **615 words in 77,434** — one in 126 — are anything more than a difference
-of vowelling, and only **62** are a letter one codex has and another does not.
-Rasm agreement between any two riwāyāt is **99.5 %–100 %**.
+of vowelling. Of the 260 letter differences, 198 are an ā the two typesettings
+place differently — on the line in one hand, above it in the other — leaving
+**62** where a letter is simply in one codex and not another, and that 62 is the
+received list. Rasm agreement between any two riwāyāt is **99.5 %–100 %**.
 
 ## A word
 

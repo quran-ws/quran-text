@@ -10,8 +10,8 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 from quranidx.align import Column, _distribute, merge          # noqa: E402
-from quranidx.build import (STATUS_IDENTICAL, STATUS_MADD,     # noqa: E402
-                            STATUS_RASM, classify)
+from quranidx.build import (STATUS_IDENTICAL, STATUS_RASM,     # noqa: E402
+                            classify)
 from quranidx.normalize import (forms, pointed, rasm, rasm_plene,  # noqa: E402
                                 simple, split_by_rasm, split_trailing_waqf)
 from quranidx.tokenize import Token, tokenize_ayah             # noqa: E402
@@ -227,14 +227,16 @@ class TestClassify(unittest.TestCase):
     def column(self, hafs: str, warsh: str) -> Column:
         return Column(tokens={"hafs": real(hafs), "warsh": real(warsh)})
 
-    def test_plene_against_defective_is_a_difference_of_hand(self):
-        # Both hands read Hārūt; they disagree only over where to put the ā.
+    def test_plene_against_defective_is_a_letter_difference(self):
+        # A written alef is part of the bare rasm whichever hand wrote it, so
+        # هَٰرُوتَ against هَارُوتَ is reported — even though the two typesettings
+        # disagree in both directions, which is why `rasm_plene` keeps the
+        # sub-class findable.
         self.assertEqual(classify(self.column("هَٰرُوتَ", "هَارُوتَ"), self.KEYS),
-                         STATUS_MADD)
-        # And in the other direction, which is why neither hand can be trusted
-        # to mean the codex when it prints one rather than the other.
+                         STATUS_RASM)
         self.assertEqual(classify(self.column("مُبَارَكࣰا", "مُبَٰرَكاࣰ"), self.KEYS),
-                         STATUS_MADD)
+                         STATUS_RASM)
+        self.assertEqual(rasm_plene("هَٰرُوتَ"), rasm_plene("هَارُوتَ"))
 
     def test_a_letter_one_codex_lacks_is_a_rasm_variant(self):
         self.assertEqual(classify(self.column("قُلۡ", "قَالَ"), self.KEYS),
@@ -243,8 +245,8 @@ class TestClassify(unittest.TestCase):
     def test_a_dagger_against_nothing_is_not_a_rasm_variant(self):
         # 1:4 — ملك in every codex, read مالك by Ḥafṣ.  The reading survives in
         # `pointed`, so this is a dotting/vowelling difference, not a rasm one.
-        self.assertNotIn(classify(self.column("مَٰلِكِ", "مَلِكِ"), self.KEYS),
-                         (STATUS_RASM, STATUS_MADD))
+        self.assertNotEqual(classify(self.column("مَٰلِكِ", "مَلِكِ"), self.KEYS),
+                            STATUS_RASM)
         self.assertNotEqual(classify(self.column("مَٰلِكِ", "مَلِكِ"), self.KEYS),
                             STATUS_IDENTICAL)
 
