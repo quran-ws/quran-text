@@ -1,5 +1,5 @@
 {
- "schema_version": "1.0",
+ "schema_version": "2.0",
  "generated": "2026-09-01",
  "word_count": 77434,
  "sura_count": 114,
@@ -82,7 +82,7 @@
    "crosscheck_source": ""
   }
  ],
- "model": "A sūrah is a flat list of words.  The āyah number is an attribute of a word, not a level of nesting, because the riwāyāt disagree about where āyāt end but agree about the sequence of words.",
+ "model": "A sūrah is a flat list of words.  One ID means one word in every riwāyah that has it, because words are identified by their bare ʿUthmānic rasm — undotted, unvowelled, no hamza — which is what the seven riwāyāt actually share.  How each riwāyah spells that word is in `forms`; where each counting tradition ends its āyāt is in `fawasil.json`.",
  "suras": [
   {
    "sura": 1,

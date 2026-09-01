@@ -13,8 +13,10 @@ sys.path.insert(0, str(Path(__file__).parent / "src"))
 from quranidx.build import build_words          # noqa: E402
 from quranidx.output import write_all           # noqa: E402
 from quranidx.report import write_report        # noqa: E402
+from quranidx.viewer import write_viewer        # noqa: E402
 from quranidx.sources import load_all           # noqa: E402
-from quranidx.validate import check_counting, check_index  # noqa: E402
+from quranidx.validate import (check_counting, check_index,  # noqa: E402
+                               check_release_policy)
 
 
 def main() -> int:
@@ -31,8 +33,10 @@ def main() -> int:
     print("writing ...")
     write_all(words, riwayat)
     write_report(words, riwayat)
+    write_viewer(words, riwayat)
 
-    problems = check_index(words, riwayat) + check_counting(riwayat)
+    problems = (check_index(words, riwayat) + check_counting(riwayat)
+                + check_release_policy(riwayat))
     print(f"checks: {len(problems)} finding(s)")
     for p in problems:
         print(f"  - [{p['check']}] {p.get('riwaya', '')} {p['detail']}")

@@ -20,7 +20,8 @@
    "id": 77201,
    "i": 1,
    "key": "104:ويل#1",
-   "rasm": "ويل",
+   "rasm": "وٮل",
+   "pointed": "ويل",
    "uthmani": "وَيۡلࣱ",
    "simple": "ويل",
    "status": "diacritic_variant",
@@ -41,13 +42,38 @@
     "douri": "وَيۡلٞ",
     "sousi": "وَيۡلࣱ",
     "bazzi": "وَيۡلࣱ"
-   }
+   },
+   "groups": [
+    {
+     "text": "وَيۡلࣱ",
+     "riwayat": [
+      "hafs",
+      "shuba",
+      "bazzi",
+      "sousi"
+     ]
+    },
+    {
+     "text": "وَيْلࣱ",
+     "riwayat": [
+      "qaloun",
+      "warsh"
+     ]
+    },
+    {
+     "text": "وَيۡلٞ",
+     "riwayat": [
+      "douri"
+     ]
+    }
+   ]
   },
   {
    "id": 77202,
    "i": 2,
    "key": "104:لكل#1",
    "rasm": "لكل",
+   "pointed": "لكل",
    "uthmani": "لِّكُلِّ",
    "simple": "لّكلّ",
    "status": "identical",
@@ -74,7 +100,8 @@
    "id": 77203,
    "i": 3,
    "key": "104:همزه#1",
-   "rasm": "همزه",
+   "rasm": "همره",
+   "pointed": "همزه",
    "uthmani": "هُمَزَةࣲ",
    "simple": "همزة",
    "status": "identical",
@@ -95,13 +122,33 @@
     "douri": "هُمَزَةٖ",
     "sousi": "هُمَزَةࣲ",
     "bazzi": "هُمَزَةࣲ"
-   }
+   },
+   "groups": [
+    {
+     "text": "هُمَزَةࣲ",
+     "riwayat": [
+      "hafs",
+      "shuba",
+      "bazzi",
+      "qaloun",
+      "warsh",
+      "sousi"
+     ]
+    },
+    {
+     "text": "هُمَزَةٖ",
+     "riwayat": [
+      "douri"
+     ]
+    }
+   ]
   },
   {
    "id": 77204,
    "i": 4,
    "key": "104:لمزه#1",
-   "rasm": "لمزه",
+   "rasm": "لمره",
+   "pointed": "لمزه",
    "uthmani": "لُّمَزَةٍ",
    "simple": "لّمزة",
    "status": "identical",
@@ -128,7 +175,8 @@
    "id": 77205,
    "i": 5,
    "key": "104:الذي#1",
-   "rasm": "الذي",
+   "rasm": "الدى",
+   "pointed": "الذي",
    "uthmani": "ٱلَّذِي",
    "simple": "الّذي",
    "status": "diacritic_variant",
@@ -149,13 +197,43 @@
     "douri": "اِ۬لَّذِي",
     "sousi": "ࡵ۬لَّذِي",
     "bazzi": "ٱلَّذِي"
-   }
+   },
+   "groups": [
+    {
+     "text": "ٱلَّذِي",
+     "riwayat": [
+      "hafs",
+      "shuba",
+      "bazzi"
+     ]
+    },
+    {
+     "text": "ࡴ۬لذِے",
+     "riwayat": [
+      "qaloun",
+      "warsh"
+     ]
+    },
+    {
+     "text": "اِ۬لَّذِي",
+     "riwayat": [
+      "douri"
+     ]
+    },
+    {
+     "text": "ࡵ۬لَّذِي",
+     "riwayat": [
+      "sousi"
+     ]
+    }
+   ]
   },
   {
    "id": 77206,
    "i": 6,
    "key": "104:جمع#1",
-   "rasm": "جمع",
+   "rasm": "حمع",
+   "pointed": "جمع",
    "uthmani": "جَمَعَ",
    "simple": "جمع",
    "status": "identical",
@@ -183,6 +261,7 @@
    "i": 7,
    "key": "104:مالا#1",
    "rasm": "مالا",
+   "pointed": "مالا",
    "uthmani": "مَالࣰا",
    "simple": "مالا",
    "status": "diacritic_variant",
@@ -203,13 +282,38 @@
     "douri": "مَالٗا",
     "sousi": "مَالࣰا",
     "bazzi": "مَالࣰا"
-   }
+   },
+   "groups": [
+    {
+     "text": "مَالࣰا",
+     "riwayat": [
+      "hafs",
+      "shuba",
+      "bazzi",
+      "sousi"
+     ]
+    },
+    {
+     "text": "مَالاࣰ",
+     "riwayat": [
+      "qaloun",
+      "warsh"
+     ]
+    },
+    {
+     "text": "مَالٗا",
+     "riwayat": [
+      "douri"
+     ]
+    }
+   ]
   },
   {
    "id": 77208,
    "i": 8,
    "key": "104:وعدده#1",
    "rasm": "وعدده",
+   "pointed": "وعدده",
    "uthmani": "وَعَدَّدَهُۥ",
    "simple": "وعدّده",
    "status": "identical",
@@ -236,7 +340,8 @@
    "id": 77209,
    "i": 9,
    "key": "104:يحسب#1",
-   "rasm": "يحسب",
+   "rasm": "ٮحسٮ",
+   "pointed": "يحسب",
    "uthmani": "يَحۡسَبُ",
    "simple": "يحسب",
    "status": "diacritic_variant",
@@ -257,13 +362,38 @@
     "douri": "يَحۡسِبُ",
     "sousi": "يَحۡسِبُ",
     "bazzi": "يَحۡسِبُ"
-   }
+   },
+   "groups": [
+    {
+     "text": "يَحۡسَبُ",
+     "riwayat": [
+      "hafs",
+      "shuba"
+     ]
+    },
+    {
+     "text": "يَحۡسِبُ",
+     "riwayat": [
+      "bazzi",
+      "douri",
+      "sousi"
+     ]
+    },
+    {
+     "text": "يَحْسِبُ",
+     "riwayat": [
+      "qaloun",
+      "warsh"
+     ]
+    }
+   ]
   },
   {
    "id": 77210,
    "i": 10,
    "key": "104:ان#1",
-   "rasm": "ان",
+   "rasm": "اں",
+   "pointed": "ان",
    "uthmani": "أَنَّ",
    "simple": "أنّ",
    "status": "identical",
@@ -291,6 +421,7 @@
    "i": 11,
    "key": "104:ماله#1",
    "rasm": "ماله",
+   "pointed": "ماله",
    "uthmani": "مَالَهُۥٓ",
    "simple": "ماله",
    "status": "diacritic_variant",
@@ -311,13 +442,33 @@
     "douri": "مَالَهُۥٓ",
     "sousi": "مَالَهُۥ",
     "bazzi": "مَالَهُۥ"
-   }
+   },
+   "groups": [
+    {
+     "text": "مَالَهُۥٓ",
+     "riwayat": [
+      "hafs",
+      "shuba",
+      "warsh",
+      "douri"
+     ]
+    },
+    {
+     "text": "مَالَهُۥ",
+     "riwayat": [
+      "bazzi",
+      "qaloun",
+      "sousi"
+     ]
+    }
+   ]
   },
   {
    "id": 77212,
    "i": 12,
    "key": "104:اخلده#1",
-   "rasm": "اخلده",
+   "rasm": "احلده",
+   "pointed": "اخلده",
    "uthmani": "أَخۡلَدَهُۥ",
    "simple": "أخلده",
    "status": "identical",
@@ -338,16 +489,36 @@
     "douri": "أَخۡلَدَهُۥ",
     "sousi": "أَخۡلَدَهُۥ",
     "bazzi": "أَخۡلَدَهُۥ"
-   }
+   },
+   "groups": [
+    {
+     "text": "أَخۡلَدَهُۥ",
+     "riwayat": [
+      "hafs",
+      "shuba",
+      "bazzi",
+      "douri",
+      "sousi"
+     ]
+    },
+    {
+     "text": "أَخْلَدَهُۥ",
+     "riwayat": [
+      "qaloun",
+      "warsh"
+     ]
+    }
+   ]
   },
   {
    "id": 77213,
    "i": 13,
    "key": "104:كلا#1",
    "rasm": "كلا",
+   "pointed": "كلا",
    "uthmani": "كَلَّا",
    "simple": "كلّا",
-   "status": "diacritic_variant",
+   "status": "identical",
    "aya": {
     "hafs": 4,
     "shuba": 4,
@@ -360,7 +531,7 @@
    "forms": {
     "hafs": "كَلَّا",
     "shuba": "كَلَّا",
-    "warsh": "كَلَّا࣌",
+    "warsh": "كَلَّا",
     "qaloun": "كَلَّا",
     "douri": "كَلَّا",
     "sousi": "كَلَّا",
@@ -379,7 +550,8 @@
    "id": 77214,
    "i": 14,
    "key": "104:لينبذن#1",
-   "rasm": "لينبذن",
+   "rasm": "لٮٮٮدں",
+   "pointed": "لينبذن",
    "uthmani": "لَيُنۢبَذَنَّ",
    "simple": "لينبذنّ",
    "status": "identical",
@@ -406,10 +578,11 @@
    "id": 77215,
    "i": 15,
    "key": "104:في#1",
-   "rasm": "في",
+   "rasm": "ڡى",
+   "pointed": "في",
    "uthmani": "فِي",
    "simple": "في",
-   "status": "diacritic_variant",
+   "status": "identical",
    "aya": {
     "hafs": 4,
     "shuba": 4,
@@ -427,13 +600,33 @@
     "douri": "فِي",
     "sousi": "فِي",
     "bazzi": "فِي"
-   }
+   },
+   "groups": [
+    {
+     "text": "فِي",
+     "riwayat": [
+      "hafs",
+      "shuba",
+      "bazzi",
+      "douri",
+      "sousi"
+     ]
+    },
+    {
+     "text": "فِے",
+     "riwayat": [
+      "qaloun",
+      "warsh"
+     ]
+    }
+   ]
   },
   {
    "id": 77216,
    "i": 16,
    "key": "104:الحطمه#1",
    "rasm": "الحطمه",
+   "pointed": "الحطمه",
    "uthmani": "ٱلۡحُطَمَةِ",
    "simple": "الحطمة",
    "status": "diacritic_variant",
@@ -449,12 +642,41 @@
    "forms": {
     "hafs": "ٱلۡحُطَمَةِ",
     "shuba": "ٱلۡحُطَمَةِ",
-    "warsh": "ࡴ۬لْحُطَمَةِ࣌",
+    "warsh": "ࡴ۬لْحُطَمَةِ",
     "qaloun": "ࡴ۬لْحُطَمَةِ",
     "douri": "اِ۬لۡحُطَمَةِ",
     "sousi": "ࡵ۬لۡحُطَمَةِ",
     "bazzi": "ٱلۡحُطَمَةِ"
    },
+   "groups": [
+    {
+     "text": "ٱلۡحُطَمَةِ",
+     "riwayat": [
+      "hafs",
+      "shuba",
+      "bazzi"
+     ]
+    },
+    {
+     "text": "ࡴ۬لْحُطَمَةِ",
+     "riwayat": [
+      "qaloun",
+      "warsh"
+     ]
+    },
+    {
+     "text": "اِ۬لۡحُطَمَةِ",
+     "riwayat": [
+      "douri"
+     ]
+    },
+    {
+     "text": "ࡵ۬لۡحُطَمَةِ",
+     "riwayat": [
+      "sousi"
+     ]
+    }
+   ],
    "waqf": {
     "qaloun": "ۖ"
    }
@@ -464,6 +686,7 @@
    "i": 17,
    "key": "104:وما#1",
    "rasm": "وما",
+   "pointed": "وما",
    "uthmani": "وَمَآ",
    "simple": "ومآ",
    "status": "diacritic_variant",
@@ -484,13 +707,33 @@
     "douri": "وَمَآ",
     "sousi": "وَمَا",
     "bazzi": "وَمَا"
-   }
+   },
+   "groups": [
+    {
+     "text": "وَمَآ",
+     "riwayat": [
+      "hafs",
+      "shuba",
+      "warsh",
+      "douri"
+     ]
+    },
+    {
+     "text": "وَمَا",
+     "riwayat": [
+      "bazzi",
+      "qaloun",
+      "sousi"
+     ]
+    }
+   ]
   },
   {
    "id": 77218,
    "i": 18,
-   "key": "104:ادريك#1",
-   "rasm": "ادريك",
+   "key": "104:ادرياك#1",
+   "rasm": "ادرٮاك",
+   "pointed": "ادرياك",
    "uthmani": "أَدۡرَىٰكَ",
    "simple": "أدرىاك",
    "status": "diacritic_variant",
@@ -511,13 +754,48 @@
     "douri": "أَدۡر۪ىٰكَ",
     "sousi": "أَدۡرٜىٰكَ",
     "bazzi": "أَدۡرَىٰكَ"
-   }
+   },
+   "groups": [
+    {
+     "text": "أَدۡرَىٰكَ",
+     "riwayat": [
+      "hafs",
+      "bazzi"
+     ]
+    },
+    {
+     "text": "أَدۡرٜىٰكَ",
+     "riwayat": [
+      "shuba",
+      "sousi"
+     ]
+    },
+    {
+     "text": "أَدْرَيٰكَ",
+     "riwayat": [
+      "qaloun"
+     ]
+    },
+    {
+     "text": "أَدْرٜيٰكَ",
+     "riwayat": [
+      "warsh"
+     ]
+    },
+    {
+     "text": "أَدۡر۪ىٰكَ",
+     "riwayat": [
+      "douri"
+     ]
+    }
+   ]
   },
   {
    "id": 77219,
    "i": 19,
    "key": "104:ما#1",
    "rasm": "ما",
+   "pointed": "ما",
    "uthmani": "مَا",
    "simple": "ما",
    "status": "identical",
@@ -545,6 +823,7 @@
    "i": 20,
    "key": "104:الحطمه#2",
    "rasm": "الحطمه",
+   "pointed": "الحطمه",
    "uthmani": "ٱلۡحُطَمَةُ",
    "simple": "الحطمة",
    "status": "diacritic_variant",
@@ -560,12 +839,41 @@
    "forms": {
     "hafs": "ٱلۡحُطَمَةُ",
     "shuba": "ٱلۡحُطَمَةُ",
-    "warsh": "ࡰ۬لْحُطَمَةُ࣌",
+    "warsh": "ࡰ۬لْحُطَمَةُ",
     "qaloun": "ࡰ۬لْحُطَمَةُ",
     "douri": "اَ۬لۡحُطَمَةُ",
     "sousi": "ࡱ۬لۡحُطَمَةُ",
     "bazzi": "ٱلۡحُطَمَةُ"
    },
+   "groups": [
+    {
+     "text": "ٱلۡحُطَمَةُ",
+     "riwayat": [
+      "hafs",
+      "shuba",
+      "bazzi"
+     ]
+    },
+    {
+     "text": "ࡰ۬لْحُطَمَةُ",
+     "riwayat": [
+      "qaloun",
+      "warsh"
+     ]
+    },
+    {
+     "text": "اَ۬لۡحُطَمَةُ",
+     "riwayat": [
+      "douri"
+     ]
+    },
+    {
+     "text": "ࡱ۬لۡحُطَمَةُ",
+     "riwayat": [
+      "sousi"
+     ]
+    }
+   ],
    "waqf": {
     "qaloun": "ۖ"
    }
@@ -574,7 +882,8 @@
    "id": 77221,
    "i": 21,
    "key": "104:نار#1",
-   "rasm": "نار",
+   "rasm": "ٮار",
+   "pointed": "نار",
    "uthmani": "نَارُ",
    "simple": "نار",
    "status": "identical",
@@ -602,6 +911,7 @@
    "i": 22,
    "key": "104:الله#1",
    "rasm": "الله",
+   "pointed": "الله",
    "uthmani": "ٱللَّهِ",
    "simple": "اللّه",
    "status": "diacritic_variant",
@@ -622,13 +932,38 @@
     "douri": "اُ۬للَّهِ",
     "sousi": "ࡲ۬للَّهِ",
     "bazzi": "ٱللَّهِ"
-   }
+   },
+   "groups": [
+    {
+     "text": "ٱللَّهِ",
+     "riwayat": [
+      "hafs",
+      "shuba",
+      "bazzi"
+     ]
+    },
+    {
+     "text": "ࡲ۬للَّهِ",
+     "riwayat": [
+      "qaloun",
+      "warsh",
+      "sousi"
+     ]
+    },
+    {
+     "text": "اُ۬للَّهِ",
+     "riwayat": [
+      "douri"
+     ]
+    }
+   ]
   },
   {
    "id": 77223,
    "i": 23,
    "key": "104:الموقده#1",
-   "rasm": "الموقده",
+   "rasm": "الموڡده",
+   "pointed": "الموقده",
    "uthmani": "ٱلۡمُوقَدَةُ",
    "simple": "الموقدة",
    "status": "diacritic_variant",
@@ -649,13 +984,43 @@
     "douri": "اِ۬لۡمُوقَدَةُ",
     "sousi": "ࡵ۬لۡمُوقَدَةُ",
     "bazzi": "ٱلۡمُوقَدَةُ"
-   }
+   },
+   "groups": [
+    {
+     "text": "ٱلۡمُوقَدَةُ",
+     "riwayat": [
+      "hafs",
+      "shuba",
+      "bazzi"
+     ]
+    },
+    {
+     "text": "ࡴ۬لْمُوقَدَةُ",
+     "riwayat": [
+      "qaloun",
+      "warsh"
+     ]
+    },
+    {
+     "text": "اِ۬لۡمُوقَدَةُ",
+     "riwayat": [
+      "douri"
+     ]
+    },
+    {
+     "text": "ࡵ۬لۡمُوقَدَةُ",
+     "riwayat": [
+      "sousi"
+     ]
+    }
+   ]
   },
   {
    "id": 77224,
    "i": 24,
    "key": "104:التي#1",
-   "rasm": "التي",
+   "rasm": "الٮى",
+   "pointed": "التي",
    "uthmani": "ٱلَّتِي",
    "simple": "الّتي",
    "status": "diacritic_variant",
@@ -676,13 +1041,43 @@
     "douri": "اُ۬لَّتِي",
     "sousi": "ࡲ۬لَّتِي",
     "bazzi": "ٱلَّتِي"
-   }
+   },
+   "groups": [
+    {
+     "text": "ٱلَّتِي",
+     "riwayat": [
+      "hafs",
+      "shuba",
+      "bazzi"
+     ]
+    },
+    {
+     "text": "ࡲ۬لتِے",
+     "riwayat": [
+      "qaloun",
+      "warsh"
+     ]
+    },
+    {
+     "text": "اُ۬لَّتِي",
+     "riwayat": [
+      "douri"
+     ]
+    },
+    {
+     "text": "ࡲ۬لَّتِي",
+     "riwayat": [
+      "sousi"
+     ]
+    }
+   ]
   },
   {
    "id": 77225,
    "i": 25,
    "key": "104:تطلع#1",
-   "rasm": "تطلع",
+   "rasm": "ٮطلع",
+   "pointed": "تطلع",
    "uthmani": "تَطَّلِعُ",
    "simple": "تطّلع",
    "status": "diacritic_variant",
@@ -703,13 +1098,33 @@
     "douri": "تَطَّلِعُ",
     "sousi": "تَطَّلِع",
     "bazzi": "تَطَّلِعُ"
-   }
+   },
+   "groups": [
+    {
+     "text": "تَطَّلِعُ",
+     "riwayat": [
+      "hafs",
+      "shuba",
+      "bazzi",
+      "qaloun",
+      "warsh",
+      "douri"
+     ]
+    },
+    {
+     "text": "تَطَّلِع",
+     "riwayat": [
+      "sousi"
+     ]
+    }
+   ]
   },
   {
    "id": 77226,
    "i": 26,
    "key": "104:علي#1",
-   "rasm": "علي",
+   "rasm": "على",
+   "pointed": "علي",
    "uthmani": "عَلَى",
    "simple": "على",
    "status": "diacritic_variant",
@@ -730,13 +1145,33 @@
     "douri": "عَلَى",
     "sousi": "عَّلَى",
     "bazzi": "عَلَى"
-   }
+   },
+   "groups": [
+    {
+     "text": "عَلَى",
+     "riwayat": [
+      "hafs",
+      "shuba",
+      "bazzi",
+      "qaloun",
+      "warsh",
+      "douri"
+     ]
+    },
+    {
+     "text": "عَّلَى",
+     "riwayat": [
+      "sousi"
+     ]
+    }
+   ]
   },
   {
    "id": 77227,
    "i": 27,
    "key": "104:الافده#1",
-   "rasm": "الافده",
+   "rasm": "الاڡده",
+   "pointed": "الافده",
    "uthmani": "ٱلۡأَفِۡٔدَةِ",
    "simple": "الأفدة",
    "status": "diacritic_variant",
@@ -752,12 +1187,46 @@
    "forms": {
     "hafs": "ٱلۡأَفِۡٔدَةِ",
     "shuba": "ٱلۡأَفِۡٔدَةِ",
-    "warsh": "ࡰ۬لَافِْٕدَةِ࣌",
+    "warsh": "ࡰ۬لَافِْٕدَةِ",
     "qaloun": "ࡰ۬لْأَفِْٕدَةِ",
     "douri": "اَ۬لۡأَفِۡٔدَةِ",
     "sousi": "ࡱ۬لۡأَفِۡٔدَةِ",
     "bazzi": "ٱلۡأَفِۡٔدَةِ"
    },
+   "groups": [
+    {
+     "text": "ٱلۡأَفِۡٔدَةِ",
+     "riwayat": [
+      "hafs",
+      "shuba",
+      "bazzi"
+     ]
+    },
+    {
+     "text": "ࡰ۬لْأَفِْٕدَةِ",
+     "riwayat": [
+      "qaloun"
+     ]
+    },
+    {
+     "text": "ࡰ۬لَافِْٕدَةِ",
+     "riwayat": [
+      "warsh"
+     ]
+    },
+    {
+     "text": "اَ۬لۡأَفِۡٔدَةِ",
+     "riwayat": [
+      "douri"
+     ]
+    },
+    {
+     "text": "ࡱ۬لۡأَفِۡٔدَةِ",
+     "riwayat": [
+      "sousi"
+     ]
+    }
+   ],
    "waqf": {
     "qaloun": "ۖ"
    }
@@ -766,7 +1235,8 @@
    "id": 77228,
    "i": 28,
    "key": "104:انها#1",
-   "rasm": "انها",
+   "rasm": "اٮها",
+   "pointed": "انها",
    "uthmani": "إِنَّهَا",
    "simple": "إنّها",
    "status": "identical",
@@ -793,7 +1263,8 @@
    "id": 77229,
    "i": 29,
    "key": "104:عليهم#1",
-   "rasm": "عليهم",
+   "rasm": "علٮهم",
+   "pointed": "عليهم",
    "uthmani": "عَلَيۡهِم",
    "simple": "عليهم",
    "status": "diacritic_variant",
@@ -814,13 +1285,38 @@
     "douri": "عَلَيۡهِم",
     "sousi": "عَلَيۡهِم",
     "bazzi": "عَلَيۡهِمُۥ"
-   }
+   },
+   "groups": [
+    {
+     "text": "عَلَيۡهِم",
+     "riwayat": [
+      "hafs",
+      "shuba",
+      "douri",
+      "sousi"
+     ]
+    },
+    {
+     "text": "عَلَيۡهِمُۥ",
+     "riwayat": [
+      "bazzi"
+     ]
+    },
+    {
+     "text": "عَلَيْهِم",
+     "riwayat": [
+      "qaloun",
+      "warsh"
+     ]
+    }
+   ]
   },
   {
    "id": 77230,
    "i": 30,
    "key": "104:موصده#1",
    "rasm": "موصده",
+   "pointed": "موصده",
    "uthmani": "مُّؤۡصَدَةࣱ",
    "simple": "مّؤصدة",
    "status": "diacritic_variant",
@@ -841,16 +1337,46 @@
     "douri": "مُّؤۡصَدَةٞ",
     "sousi": "مُّؤۡصَدَةࣱ",
     "bazzi": "مُوصَدَةࣱ"
-   }
+   },
+   "groups": [
+    {
+     "text": "مُّؤۡصَدَةࣱ",
+     "riwayat": [
+      "hafs",
+      "sousi"
+     ]
+    },
+    {
+     "text": "مُّوصَدَةࣱ",
+     "riwayat": [
+      "shuba",
+      "qaloun",
+      "warsh"
+     ]
+    },
+    {
+     "text": "مُوصَدَةࣱ",
+     "riwayat": [
+      "bazzi"
+     ]
+    },
+    {
+     "text": "مُّؤۡصَدَةٞ",
+     "riwayat": [
+      "douri"
+     ]
+    }
+   ]
   },
   {
    "id": 77231,
    "i": 31,
    "key": "104:في#2",
-   "rasm": "في",
+   "rasm": "ڡى",
+   "pointed": "في",
    "uthmani": "فِي",
    "simple": "في",
-   "status": "diacritic_variant",
+   "status": "identical",
    "aya": {
     "hafs": 9,
     "shuba": 9,
@@ -868,13 +1394,33 @@
     "douri": "فِي",
     "sousi": "فِي",
     "bazzi": "فِي"
-   }
+   },
+   "groups": [
+    {
+     "text": "فِي",
+     "riwayat": [
+      "hafs",
+      "shuba",
+      "bazzi",
+      "douri",
+      "sousi"
+     ]
+    },
+    {
+     "text": "فِے",
+     "riwayat": [
+      "qaloun",
+      "warsh"
+     ]
+    }
+   ]
   },
   {
    "id": 77232,
    "i": 32,
    "key": "104:عمد#1",
    "rasm": "عمد",
+   "pointed": "عمد",
    "uthmani": "عَمَدࣲ",
    "simple": "عمد",
    "status": "diacritic_variant",
@@ -895,13 +1441,38 @@
     "douri": "عَمَدٖ",
     "sousi": "عَمَدࣲ",
     "bazzi": "عَمَدࣲ"
-   }
+   },
+   "groups": [
+    {
+     "text": "عَمَدࣲ",
+     "riwayat": [
+      "hafs",
+      "bazzi",
+      "qaloun",
+      "warsh",
+      "sousi"
+     ]
+    },
+    {
+     "text": "عُمُدࣲ",
+     "riwayat": [
+      "shuba"
+     ]
+    },
+    {
+     "text": "عَمَدٖ",
+     "riwayat": [
+      "douri"
+     ]
+    }
+   ]
   },
   {
    "id": 77233,
    "i": 33,
    "key": "104:ممدده#1",
    "rasm": "ممدده",
+   "pointed": "ممدده",
    "uthmani": "مُّمَدَّدَةِۭ",
    "simple": "مّمدّدة",
    "status": "diacritic_variant",
@@ -917,12 +1488,36 @@
    "forms": {
     "hafs": "مُّمَدَّدَةِۭ",
     "shuba": "مُّمَدَّدَةِۭ",
-    "warsh": "مُّمَدَّدَةٍ࣌",
+    "warsh": "مُّمَدَّدَةٍ",
     "qaloun": "مُّمَدَّدَةِۢ",
     "douri": "مُّمَدَّدَةِۢ",
     "sousi": "مُّمَدَّدَةِۭ",
     "bazzi": "مُّمَدَّدَةِۭ"
    },
+   "groups": [
+    {
+     "text": "مُّمَدَّدَةِۭ",
+     "riwayat": [
+      "hafs",
+      "shuba",
+      "bazzi",
+      "sousi"
+     ]
+    },
+    {
+     "text": "مُّمَدَّدَةِۢ",
+     "riwayat": [
+      "qaloun",
+      "douri"
+     ]
+    },
+    {
+     "text": "مُّمَدَّدَةٍ",
+     "riwayat": [
+      "warsh"
+     ]
+    }
+   ],
    "waqf": {
     "qaloun": "ۖ"
    }

@@ -16,11 +16,31 @@ than they disagree about words:
 |---|---|---|
 | Kūfī | 6,236 | Ḥafṣ, Shuʿbah |
 | Madanī | 6,214 | Warsh, Qālūn |
-| Baṣrī | 6,217 | Dūrī, Sūsī |
+| Baṣrī (Dūrī) | 6,217 | Dūrī |
+| Baṣrī (Sūsī) | 6,218 | Sūsī |
 | Makkī | 6,220 | Bazzī |
 
 Nesting words under āyāt would make an ID mean a different word in each
-riwāyah. Flattening to the sūrah makes one ID stable across all of them.
+riwāyah. Flattening to the sūrah makes one ID stable across all of them, and
+the āyah boundaries become their own layer over the word index:
+[`out/fawasil.json`](out/fawasil.json).
+
+## What makes an ID mean one word
+
+Words are identified by their **bare ʿUthmānic rasm** — undotted, unvowelled,
+without hamza — because that is what the seven riwāyāt actually share. The
+codices were written that way, and a single skeleton carries several readings
+on purpose:
+
+```
+تَعۡمَلُونَ  ┐
+           ├─►  ٮعملوں   one rasm, one ID, two readings
+يَعۡمَلُونَ  ┘
+```
+
+Everything a scribe added later to fix a reading — dots, hamza, vowels — is
+exactly what the riwāyāt are allowed to disagree about, so none of it is part
+of a word's identity. Each riwāyah's own spelling is kept in `forms`.
 
 ## What is here
 
@@ -31,8 +51,11 @@ riwāyah. Flattening to the sūrah makes one ID stable across all of them.
 | `out/words.csv` | one row per canonical word, with each riwāyah's form |
 | `out/variants.csv` | one row per riwāyah form that differs from canonical |
 | `out/conflicts.csv` / `.json` | only the words that disagree |
+| `out/fawasil.json` | where each counting tradition ends its āyāt |
+| `out/boundaries.csv` | every word-boundary disagreement, in full |
 | `out/COMPARISON.md` | the cross-riwāyah comparison report |
-| `out/rasm-variants.md` | all 968 letter-level disagreements, listed |
+| `out/compare.html` | interactive word-by-word comparison — open it in a browser |
+| `out/rasm-variants.md` | all 266 letter-level disagreements, listed |
 | `out/agreement-matrix.csv` | pairwise agreement between riwāyāt |
 
 ## Headline numbers
@@ -41,24 +64,23 @@ riwāyah. Flattening to the sūrah makes one ID stable across all of them.
 
 | status | words | share | meaning |
 |---|---|---|---|
-| `identical` | 32,704 | 42.2% | same reading and spelling everywhere |
-| `diacritic_variant` | 43,745 | 56.5% | same letters, different vowelling |
-| `rasm_variant` | 968 | 1.25% | the riwāyāt disagree about the letters |
+| `identical` | 40,558 | 52.4% | one reading, one spelling, everywhere |
+| `diacritic_variant` | 36,425 | 47.0% | same letters and dots — the vowelling differs |
+| `dotting_variant` | 168 | 0.22% | one rasm, pointed two ways |
+| `rasm_variant` | 266 | 0.34% | the codices disagree about the letters |
 | `word_boundary` | 12 | 0.02% | a source joins the word to its neighbour |
 | `partial` | 5 | 0.01% | the word is absent from some riwāyah |
 
-Rasm agreement between any two riwāyāt is **99.0 %–99.99 %**. The two pairs
-that share a qāriʾ — Dūrī–Sūsī and Ḥafṣ–Shuʿbah — sit at the top of that range,
-which is the result you would want to see if the pipeline is measuring
-something real.
+So **449 words in 77,434** — one in 172 — are anything more than a difference
+of vowelling. Rasm agreement between any two riwāyāt is **99.5 %–100 %**.
 
 ## A word
 
 ```json
 {
- "id": 11, "i": 11, "key": "1:ملك#1",
- "rasm": "ملك", "uthmani": "مَٰلِكِ", "simple": "مالك",
- "status": "diacritic_variant",
+ "id": 11, "i": 11, "key": "1:مالك#1",
+ "rasm": "مالك", "pointed": "مالك", "uthmani": "مَٰلِكِ", "simple": "مالك",
+ "status": "rasm_variant",
  "aya":   { "hafs": 4, "shuba": 4, "warsh": 3, "qaloun": 3,
             "douri": 3, "sousi": 3, "bazzi": 4 },
  "forms": { "hafs": "مَٰلِكِ", "shuba": "مَٰلِكِ", "warsh": "مَلِكِ", "qaloun": "مَلِكِ",
@@ -68,15 +90,17 @@ something real.
 
 One ID, one word. `aya` records that this word is in āyah 4 for the Kūfī and
 Makkī counts and āyah 3 for the Madanī and Baṣrī ones. `forms` records that
-Ḥafṣ and Shuʿbah read *māliki* where the rest read *maliki*.
+Ḥafṣ and Shuʿbah read *māliki* where the rest read *maliki* — and because that
+ā is written on the line in one and absent in the other, it is a difference in
+the codex, not merely in the vowelling.
 
 ## Build it
 
 No dependencies beyond the Python standard library (3.11+).
 
 ```sh
-python3 build.py                            # ~75 s, writes out/
-python3 -m unittest discover -s tests        # 16 tests
+python3 build.py                            # ~60 s, writes out/
+python3 -m unittest discover -s tests        # 24 tests
 ```
 
 ## Read next
