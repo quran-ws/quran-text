@@ -183,11 +183,18 @@ RASM_KEEP_MARKS_FOLD = {
     "ࣉ": "ي",   # small farsi yeh
 }
 
-#: Dagger alif.  Written alef and superscript alef are the same ā, spelled two
-#: ways by two typesetting traditions: KFGQPC's Warsh/Qālūn set writes هَارُوتَ
-#: where the Kūfī set writes هَٰرُوتَ.  Folding them is not merely convenient —
-#: keeping them apart *hides* real variants, because the same fold is what
-#: separates مَٰلِكِ from مَلِكِ, دِفَٰعُ from دَفۡعُ and ٱلرِّيَٰحُ from ٱلرِّيحُ.
+#: Dagger alif.  A superscript alef is, by definition, an alef the scribe did
+#: *not* write on the line: it is the reader's cue for ḥadhf al-alif.  So it is
+#: an ā for the reading — :func:`normalize.pointed` counts it — and no letter at
+#: all for the rasm.  Counting it as a rasm letter reported مَٰلِكِ against مَلِكِ,
+#: دِفَٰعُ against دَفۡعُ and طَٰٓئِراً against طَيۡرًا as disagreements between the
+#: codices, when ملك, دفع and طير are exactly the skeletons written to carry
+#: both readings at once.
+#:
+#: What the two typesettings *do* disagree about is which ā to put on the line —
+#: the Warsh/Qālūn set prints هَارُوتَ and مُبَٰرَك where the Kūfī set prints هَٰرُوتَ
+#: and مُبَارَك.  That is a difference of hand, not of codex, and it is told apart
+#: from a real one by :func:`normalize.rasm_plene`.
 SUPERSCRIPT_ALEF = "ٰ"
 
 #: Marks a dagger alif can carry that make it a madd *over something* — the
@@ -245,10 +252,9 @@ DOT_FOLD_FINAL = {
 
 #: Marks that survive into the rasm, because in these packages they stand in
 #: for a letter another package writes on the line.  See
-#: :data:`RASM_KEEP_MARKS_FOLD` for what each becomes, and
-#: :data:`SUPERSCRIPT_ALEF` for the dagger alif, which is handled separately
-#: because it becomes a letter rather than folding to one.
-RASM_KEEP_MARKS: frozenset[str] = frozenset(RASM_KEEP_MARKS_FOLD) | {SUPERSCRIPT_ALEF}
+#: :data:`RASM_KEEP_MARKS_FOLD` for what each becomes.  The dagger alif is not
+#: among them: see :data:`SUPERSCRIPT_ALEF`.
+RASM_KEEP_MARKS: frozenset[str] = frozenset(RASM_KEEP_MARKS_FOLD)
 
 # --- ligature-encoded āyah numbers (v2 CSV only) --------------------------
 # The v2 CSV/HTML files abuse the Arabic Presentation Forms-A block: āyah n is

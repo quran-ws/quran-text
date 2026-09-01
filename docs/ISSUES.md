@@ -177,7 +177,64 @@ apparent behaviour failed, which is how it was found. The unreachable entries
 are gone and the decision — superscript letters are vowels, not rasm — is now
 stated where it is made.
 
+### The dagger alif was made a letter, and it is not one
+
+This reverses the decision recorded below, which was wrong, and the reasoning
+that produced it is worth keeping because it was wrong in an instructive way.
+
+A superscript alef is by definition an alef the scribe did **not** write on the
+line. It is the reader's cue for ḥadhf al-alif — the device by which one
+skeleton is written so as to carry two readings. `ملك` is what every codex has
+at 1:4, written that way so that it can be read both `مَٰلِكِ` and `مَلِكِ`; that
+is the point of it, and al-Dānī says so plainly: *كتبوا في جميع المصاحف ملك بغير
+ألف*. Promoting the dagger to a letter therefore reported the codices as
+disagreeing in exactly the places they had been written to agree.
+
+The scale: **170 of the 232** reported rasm disagreements were this and nothing
+else — `مالك`/`ملك`, `يضاعف`/`يضعف`, `كلمات`/`كلمت`, `مساكين`/`مسكين`,
+`دفاع`/`دفع`, `الرياح`/`الريح`, `طائرا`/`طيرا`. Every one of them is a
+textbook ḥadhf. What survives once the dagger is dropped is 62 words, and that
+list is recognisably the received one: `ووصى`/`وأوصى` 2:132, `وسارعوا`/`سارعوا`
+3:133, `يرتد`/`يرتدد` 5:54, `كلمت`/`كلمة` 7:137, `والذين`/`الذين` 9:107,
+`قال`/`قل` 21:4 and 23:112, `لله`/`الله` 23:87 and 23:89, `عبادِ`/`عبادي` 43:68,
+`إذا`/`إذ` 74:33. Converging on the received list from a completely different
+direction is the strongest check available here.
+
+A second defect fell out of the same code. The guard that stops `اٰ` from
+emitting two alefs tested only for a preceding `ا`, so a dagger riding on a
+final `ى` was emitted as an *extra letter*: `عَلَىٰٓ` came out `علٮا` and 34:17
+`يُجَٰزَىٰ` came out `ٮحارٮا`, six letters for a four-letter word. **3,071 word
+positions** carried an inflated skeleton. 34:17 was consequently filed as a rasm
+disagreement when `نُجَٰزِي` and `يُجَٰزَىٰ` are one skeleton pointed two ways.
+
+The ā is not lost. It is read, so `pointed` keeps it, and 1:4 is now a
+`dotting_variant`: one rasm, two readings — which is what it is.
+
+### What the old reasoning got right, and what to do with it
+
+The objection below — that the Warsh/Qālūn set prints `هَارُوتَ` where the Kūfī
+set prints `هَٰرُوتَ` — is real, and dropping the dagger surfaces 198 words of it.
+But it does not argue for folding, because the disagreement runs in **both**
+directions: the same Warsh/Qālūn set prints `مُبَٰرَك`, `ٱلۡغَمَٰمِ` and
+`يُعَلِّمَٰنِ` where the Kūfī set prints `مُبَارَك`, `ٱلۡغَمَامِ` and `يُعَلِّمَانِ`. Two
+hands making opposite choices about ḥadhf al-alif is a difference of typesetting
+on its face; whether any of it is also a difference of codex is a question these
+sources cannot answer.
+
+So it is neither folded away nor counted as a codex disagreement. `rasm_plene`
+spells every ā out, and a word whose skeletons agree once it is applied gets its
+own status, `madd_alif` — 198 words, kept, counted and listed separately. The
+alternative of merging them would have hidden them; the alternative of calling
+them `rasm_variant` would have claimed more than the evidence supports.
+
+Result: 232 → 62 `rasm_variant` + 198 `madd_alif`; 170 false positives removed,
+3,071 skeletons corrected, none newly flagged.
+
 ### Dropping the dagger alif hid the most famous variant of all
+
+**Superseded by the entry above.** Kept because the argument is a good example
+of a headline count moving in a plausible direction for the wrong reason.
+
 
 The rasm was originally defined as "what is written on the line", which meant
 the superscript alif was discarded. That is defensible as history and wrong for

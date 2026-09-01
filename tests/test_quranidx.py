@@ -10,14 +10,24 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 from quranidx.align import Column, _distribute, merge          # noqa: E402
-from quranidx.normalize import (forms, pointed, rasm, simple,  # noqa: E402
-                                split_by_rasm, split_trailing_waqf)
+from quranidx.build import (STATUS_IDENTICAL, STATUS_MADD,     # noqa: E402
+                            STATUS_RASM, classify)
+from quranidx.normalize import (forms, pointed, rasm, rasm_plene,  # noqa: E402
+                                simple, split_by_rasm, split_trailing_waqf)
 from quranidx.tokenize import Token, tokenize_ayah             # noqa: E402
 
 
 def tok(rasm_: str) -> Token:
     return Token(sura=1, aya=1, pos=1, uthmani=rasm_, folded=rasm_,
-                 pointed=rasm_, rasm=rasm_, simple=rasm_)
+                 pointed=rasm_, rasm=rasm_, rasm_plene=rasm_, simple=rasm_)
+
+
+def real(word: str) -> Token:
+    """A token with every form derived from ``word``, as the build makes it."""
+    f = forms(word)
+    return Token(sura=1, aya=1, pos=1, uthmani=f["uthmani"], folded=f["folded"],
+                 pointed=f["pointed"], rasm=f["rasm"],
+                 rasm_plene=f["rasm_plene"], simple=f["simple"])
 
 
 class TestNormalize(unittest.TestCase):
@@ -44,12 +54,36 @@ class TestNormalize(unittest.TestCase):
         self.assertEqual(rasm("يَسۡتَهۡزِئُ"), rasm("يَسْتَهْزِۓُ"))
         self.assertEqual(rasm("هَٰٓؤُلَآءِ"), rasm("هَٰؤُلَآࢇ"))
 
-    def test_dagger_alif_is_a_written_alef(self):
-        # The packages disagree only about where the publisher put the ā ...
-        self.assertEqual(rasm("هَٰرُوتَ"), rasm("هَارُوتَ"))
+    def test_the_dagger_alif_is_not_on_the_line(self):
+        # A superscript alef is by definition an alef the scribe did not write.
+        # ملك is the skeleton that carries both مَٰلِكِ and مَلِكِ — the ḥadhf
+        # al-alif that lets one muṣḥaf serve seven riwāyāt — so folding it to a
+        # letter invents a disagreement between codices that agree.
+        self.assertEqual(rasm("مَٰلِكِ"), rasm("مَلِكِ"))
+        self.assertEqual(rasm("دِفَٰعُ"), rasm("دَفۡعُ"))
+        self.assertEqual(rasm("ٱلرِّيَٰحَ"), rasm("ٱلرِّيحَ"))
+        self.assertEqual(rasm("طَٰٓئِراَۢ"), rasm("طَيۡرَۢا"))
+
+    def test_the_reading_keeps_the_a_that_the_line_does_not(self):
+        # The ā is real, it is just not written: `pointed` spells the word as
+        # it is read, so مَٰلِكِ and مَلِكِ stay two readings of one rasm.
+        self.assertNotEqual(pointed("مَٰلِكِ"), pointed("مَلِكِ"))
+        self.assertEqual(pointed("مَٰلِكِ"), "مالك")
+
+    def test_a_dagger_on_an_alef_already_there_adds_nothing(self):
+        self.assertEqual(pointed("ءَامَنُواْ"), pointed("اٰمَنُواْ"))
         self.assertEqual(rasm("ءَامَنُواْ"), rasm("اٰمَنُواْ"))
-        # ... but a real difference in whether the ā is there at all stands.
-        self.assertNotEqual(rasm("مَٰلِكِ"), rasm("مَلِكِ"))
+
+    def test_plene_and_defective_are_told_apart_from_a_real_difference(self):
+        # The two typesettings disagree in both directions about which ā to put
+        # on the line, so the bare rasm alone cannot tell that difference of
+        # hand from a difference of codex.  `rasm_plene` is what does.
+        self.assertNotEqual(rasm("هَٰرُوتَ"), rasm("هَارُوتَ"))
+        self.assertEqual(rasm_plene("هَٰرُوتَ"), rasm_plene("هَارُوتَ"))
+        self.assertEqual(rasm_plene("مُبَٰرَك"), rasm_plene("مُبَارَك"))
+        # A letter one codex has and another does not survives both.
+        self.assertNotEqual(rasm("قُلۡ"), rasm("قَالَ"))
+        self.assertNotEqual(rasm_plene("قُلۡ"), rasm_plene("قَالَ"))
 
     def test_adjacent_alefs_are_not_welded(self):
         # Bazzī's لَأُاْقۡسِمُ is لَآ + أُقۡسِمُ printed as one word: the two alefs are
@@ -59,23 +93,35 @@ class TestNormalize(unittest.TestCase):
     def test_dagger_standing_in_for_a_suppressed_hamza_is_not_an_alef(self):
         # Warsh's tashīl drops the hamza of أَرَءَيۡتَ and leaves its madd on a
         # dagger alif.  A madd with no hamza after it is notating a hamza, not
-        # an ā, and hamza is not rasm.
+        # an ā — so it is not a letter even in the form that spells the reading.
         self.assertEqual(rasm("أَرَءَيۡتَ"), rasm("ࡰرَٰٓيْتَ"))
+        self.assertEqual(pointed("أَرَءَيۡتَ"), pointed("ࡰرَٰٓيْتَ"))
         self.assertEqual(rasm("أَرَءَيۡتَكُمۡ"), rasm("أَرَٰ۬يْتَكُمْ"))
 
     def test_a_madd_that_does_have_its_hamza_is_still_an_alef(self):
-        self.assertEqual(rasm("إِسۡرَٰٓءِيلَ"), rasm("إِسْرَآءِيلَ"))
+        # Where the hamza is present the dagger is a genuine ā, so it belongs
+        # to the reading — and to `rasm_plene`, which is what makes Ḥafṣ's
+        # إِسۡرَٰٓءِيلَ and Warsh's إِسْرَآءِيلَ one spelling of one word.
+        self.assertEqual(pointed("إِسۡرَٰٓءِيلَ"), pointed("إِسْرَآءِيلَ"))
+        self.assertEqual(rasm_plene("إِسۡرَٰٓءِيلَ"), rasm_plene("إِسْرَآءِيلَ"))
         self.assertEqual(rasm("هَٰٓؤُلَآءِ"), rasm("هَٰؤُلَآࢇ"))
 
     def test_madd_lazim_over_a_shadda_is_still_an_alef(self):
         # تَتَّبِعَٰٓنِّ and فَذَٰٓنِّكَ put the madd over a doubled letter, not a
-        # hamza: a real long ā that other packages write on the line.
-        self.assertEqual(rasm("تَتَّبِعَآنِّ"), rasm("تَتَّبِعَٰٓنِّ"))
-        self.assertEqual(rasm("فَذَٰنِكَ"), rasm("فَذَٰٓنِّكَ"))
+        # hamza: a real long ā, which other packages write on the line.
+        self.assertEqual(pointed("تَتَّبِعَآنِّ"), pointed("تَتَّبِعَٰٓنِّ"))
+        self.assertEqual(rasm_plene("فَذَٰنِكَ"), rasm_plene("فَذَٰٓنِّكَ"))
 
-    def test_a_word_final_madd_keeps_its_alef(self):
-        # عَلَىٰٓ is ʿalā and عَلَيَّ is ʿalayya — a real variant at 7:105.
-        self.assertNotEqual(rasm("عَلَىٰٓ"), rasm("عَلَيَّ"))
+    def test_a_word_final_madd_is_not_a_letter_of_its_own(self):
+        # عَلَىٰٓ is ʿalā and عَلَيَّ is ʿalayya — a real variant at 7:105, and a
+        # variant of *reading*: both are written على, which is the point of the
+        # skeleton.  Emitting the dagger as an extra alef made the word علىا.
+        self.assertEqual(rasm("عَلَىٰٓ"), "على")
+        self.assertEqual(rasm("عَلَىٰٓ"), rasm("عَلَيَّ"))
+        self.assertNotEqual(pointed("عَلَىٰٓ"), pointed("عَلَيَّ"))
+        # 34:17 نُجَٰزِي / يُجَٰزَىٰ: four letters, whichever way it is read.
+        self.assertEqual(rasm("يُجَٰزَىٰ"), rasm("نُجَٰزِيٓ"))
+        self.assertEqual(rasm("يُجَٰزَىٰ"), "ٮحرى")
 
     def test_rasm_keeps_real_letter_differences(self):
         # Bazzī reads قَالَ where the others read قُلۡ: different letters.
@@ -171,6 +217,36 @@ class TestAlign(unittest.TestCase):
         groups = _distribute(cols, [tok("مالي")])
         self.assertEqual(len(groups), 1)
         self.assertEqual((len(groups[0][0]), len(groups[0][1])), (2, 1))
+
+
+class TestClassify(unittest.TestCase):
+    """A difference of hand and a difference of codex are not one label."""
+
+    KEYS = ["hafs", "warsh"]
+
+    def column(self, hafs: str, warsh: str) -> Column:
+        return Column(tokens={"hafs": real(hafs), "warsh": real(warsh)})
+
+    def test_plene_against_defective_is_a_difference_of_hand(self):
+        # Both hands read Hārūt; they disagree only over where to put the ā.
+        self.assertEqual(classify(self.column("هَٰرُوتَ", "هَارُوتَ"), self.KEYS),
+                         STATUS_MADD)
+        # And in the other direction, which is why neither hand can be trusted
+        # to mean the codex when it prints one rather than the other.
+        self.assertEqual(classify(self.column("مُبَارَكࣰا", "مُبَٰرَكاࣰ"), self.KEYS),
+                         STATUS_MADD)
+
+    def test_a_letter_one_codex_lacks_is_a_rasm_variant(self):
+        self.assertEqual(classify(self.column("قُلۡ", "قَالَ"), self.KEYS),
+                         STATUS_RASM)
+
+    def test_a_dagger_against_nothing_is_not_a_rasm_variant(self):
+        # 1:4 — ملك in every codex, read مالك by Ḥafṣ.  The reading survives in
+        # `pointed`, so this is a dotting/vowelling difference, not a rasm one.
+        self.assertNotIn(classify(self.column("مَٰلِكِ", "مَلِكِ"), self.KEYS),
+                         (STATUS_RASM, STATUS_MADD))
+        self.assertNotEqual(classify(self.column("مَٰلِكِ", "مَلِكِ"), self.KEYS),
+                            STATUS_IDENTICAL)
 
 
 if __name__ == "__main__":

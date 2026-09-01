@@ -48,7 +48,8 @@ def _retoken(tok: Token, text: str, pos: int) -> Token:
     """A new token carrying part of ``tok``'s text."""
     f = forms(text)
     return replace(tok, uthmani=f["uthmani"], folded=f["folded"],
-                   pointed=f["pointed"], rasm=f["rasm"], simple=f["simple"],
+                   pointed=f["pointed"], rasm=f["rasm"],
+                   rasm_plene=f["rasm_plene"], simple=f["simple"],
                    pos=pos, notes=[*tok.notes, "resegmented"])
 
 

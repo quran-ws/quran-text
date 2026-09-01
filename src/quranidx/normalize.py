@@ -119,21 +119,26 @@ def _carries_shadda(text: str, i: int) -> bool:
     return False
 
 
-def pointed(word: str) -> str:
-    """Consonantal skeleton keeping the dots: the letters as read today.
+def _letters(text: str, *, dagger_on_the_line: bool) -> str:
+    """The letters of ``text``, hamza dropped and every carrier reduced to its seat.
 
-    The dagger alif becomes a written alef, since the two spell one ā and the
-    packages disagree only about which to print.  It is *not* added when an
-    alef is already there — ``ءَا`` and ``اٰ`` are both a single ā, and the
-    doubling would be an artefact.  The test has to be this local: collapsing
-    every run of alefs afterwards would also weld Bazzī's ``لَأُاْقۡسِمُ`` into one
-    alef and break the re-segmentation of 75:1.
+    ``dagger_on_the_line`` decides the one question the two KFGQPC typesettings
+    answer differently: whether a superscript alef counts as a letter.  It does
+    for :func:`pointed`, which spells the word as it is *read*; it does not for
+    :func:`rasm`, which is what the codex has on the line.
+
+    When it is counted, it is not added on top of an alef that is already there
+    — ``ءَا`` and ``اٰ`` are both a single ā, and the doubling would be an
+    artefact.  The test has to be this local: collapsing every run of alefs
+    afterwards would also weld Bazzī's ``لَأُاْقۡسِمُ`` into one alef and break the
+    re-segmentation of 75:1.
     """
-    text = uthmani(word)
     out: list[str] = []
     from_dagger = False          # did the alef just emitted come from a dagger?
     for i, ch in enumerate(text):
         if ch == chars.SUPERSCRIPT_ALEF:
+            if not dagger_on_the_line:
+                continue         # a dagger alif is by definition not on the line
             if _is_suppressed_hamza(text, i):
                 continue         # the dagger *is* the hamza; hamza is not rasm
             # ``اٰ``: the alef on the line already carries this ā.
@@ -158,15 +163,8 @@ def pointed(word: str) -> str:
     return "".join(out)
 
 
-def rasm(word: str) -> str:
-    """The bare ʿUthmānic skeleton — the cross-riwāyah alignment key.
-
-    Undotted, unvowelled, and without hamza, because that is what the codices
-    were: everything added later to disambiguate a reading is exactly what the
-    riwāyāt are allowed to disagree about.  Two words with the same rasm are
-    one word in the index, however differently they are read.
-    """
-    letters = pointed(word)
+def _undot(letters: str) -> str:
+    """Merge the letter shapes that the codices did not tell apart."""
     last = len(letters) - 1
     out = []
     for i, ch in enumerate(letters):
@@ -174,6 +172,47 @@ def rasm(word: str) -> str:
         table = chars.DOT_FOLD_FINAL if i == last else chars.DOT_FOLD_MEDIAL
         out.append(table.get(ch, ch))
     return "".join(out)
+
+
+def pointed(word: str) -> str:
+    """Consonantal skeleton keeping the dots: the letters as the word is read.
+
+    Here the dagger alif *is* an alef, because this form spells the reading and
+    the reading has the ā however the typesetter chose to print it.  That is the
+    opposite of :func:`rasm`, and deliberately so: it is what lets ``مَٰلِكِ`` and
+    ``مَلِكِ`` be one rasm read two ways rather than two rasms.
+    """
+    return _letters(uthmani(word), dagger_on_the_line=True)
+
+
+def rasm(word: str) -> str:
+    """The bare ʿUthmānic skeleton — the cross-riwāyah alignment key.
+
+    Undotted, unvowelled, without hamza, and **without the dagger alif**,
+    because that is what the codices were: a superscript alef is by definition
+    an alef the scribe did not write on the line, and everything added later to
+    disambiguate a reading is exactly what the riwāyāt are allowed to disagree
+    about.  Counting it as a letter is what used to report ``مَٰلِكِ``/``مَلِكِ``,
+    ``دِفَٰعُ``/``دَفۡعُ`` and ``طَٰٓئِراً``/``طَيۡرًا`` as differences between the
+    codices, when ملك, دفع and طير are precisely the skeletons that carry both
+    readings — the ḥadhf al-alif that makes one muṣḥaf serve seven riwāyāt.
+
+    Two words with the same rasm are one word in the index, however differently
+    they are read.
+    """
+    return _undot(_letters(uthmani(word), dagger_on_the_line=False))
+
+
+def rasm_plene(word: str) -> str:
+    """The skeleton with every ā spelled out, dagger alifs included.
+
+    The two KFGQPC typesettings do not agree on which ā to put on the line: the
+    Warsh/Qālūn set prints ``هَارُوتَ`` and ``مُبَٰرَك`` where the Kūfī set prints
+    ``هَٰرُوتَ`` and ``مُبَارَك``.  Spelling every ā out makes those two hands
+    comparable, which is what tells a plene/defective spelling apart from a
+    disagreement about the letters themselves.  See :func:`build.classify`.
+    """
+    return _undot(pointed(word))
 
 
 #: Marks kept when producing the plain-spelling form.
@@ -210,6 +249,7 @@ def forms(word: str) -> dict[str, str]:
         "folded": fold_notation(u),
         "pointed": pointed(u),
         "rasm": rasm(u),
+        "rasm_plene": rasm_plene(u),
         "simple": simple(u),
     }
 

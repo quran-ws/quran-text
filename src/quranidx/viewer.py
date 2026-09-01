@@ -23,7 +23,7 @@ from .suras import names
 
 #: Status codes, packed as an index into this list.
 STATUSES = ["identical", "diacritic_variant", "dotting_variant",
-            "rasm_variant", "word_boundary", "partial"]
+            "madd_alif", "rasm_variant", "word_boundary", "partial"]
 
 
 def _pack(words: list[Word]) -> dict:

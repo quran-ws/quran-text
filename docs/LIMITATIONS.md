@@ -31,20 +31,24 @@ most of the range.
 ## The rasm is reconstructed, not transcribed from a manuscript
 
 The `rasm` field is derived by normalising KFGQPC's vowelled text — dropping
-dots, hamza and vowels, and folding the dagger alif to a written alef. It is
-**not** a transcription of any ʿUthmānic codex. Where the packages themselves
-disagree about a letter, the disagreement is reported; where they agree, the
-result is only as good as the reconstruction.
+dots, hamza, vowels and the dagger alif. It is **not** a transcription of any
+ʿUthmānic codex. Where the packages themselves disagree about a letter, the
+disagreement is reported; where they agree, the result is only as good as the
+reconstruction.
 
 Two normalisation decisions are judgement calls that a different project could
 reasonably make differently:
 
-- **Dagger alif is folded to a written alef.** Historically the two are not the
-  same — ḥadhf vs ithbāt al-alif is a real difference between the regional
-  codices. They are folded here because in *these packages* the difference
-  tracks the typesetting rather than the codex, and keeping them apart hides
-  `مالك`/`ملك`. A project comparing manuscripts rather than modern editions
-  should not fold them.
+- **Plene against defective alif is reported, not resolved.** ḥadhf vs ithbāt
+  al-alif is a real difference between the regional codices, and it is the one
+  place where these sources cannot be taken at their word: the two typesettings
+  disagree about it in *both* directions, the Warsh/Qālūn set printing `هَارُوتَ`
+  where the Kūfī set prints `هَٰرُوتَ` and `مُبَٰرَك` where it prints `مُبَارَك`.
+  198 words are affected. They are given their own status, `madd_alif`, rather
+  than either being folded into agreement or counted among the `rasm_variant`
+  words — because on this evidence the difference is one of hand, and whether
+  any of it is also one of codex needs a manuscript, not a font. A project
+  working from manuscripts should decide these case by case.
 - **Hamza is dropped entirely.** Correct for a rasm, but it means `النبي` and
   `النبيء` compare equal at the rasm level. The reading difference survives in
   `pointed` and in `forms`, but not in the word's identity.
