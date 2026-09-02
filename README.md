@@ -149,13 +149,22 @@ releases. Nothing was authored here; the pipeline only re-segments and aligns
 what the packages contain. Redistribution of the text remains subject to
 KFGQPC's terms.
 
-## Review page
+## Two HTML pages
 
-`out/review.html` is a self-contained page for reviewing the result: all 985
-disagreements with each riwāyah's own spelling and codepoints, the agreement
-matrix, complete sample sūrahs showing the flat word model, and the source
-defects with before/after. Open it directly, or rebuild it with:
+They answer different questions and are built from the same data.
+
+| page | question it answers |
+|---|---|
+| `out/compare.html` | *What does this word look like across the riwāyāt?* — the whole corpus, every word, searchable by sūrah |
+| `out/review.html` | *Should I trust this index?* — the disagreements only, plus the evidence for judging them |
+
+`out/review.html` is a self-contained review apparatus: the 615 words that are
+more than a vowelling difference, each with every riwāyah's own spelling **and
+its codepoints** (several 2026 KFGQPC codepoints are new enough that fonts may
+have no glyph yet); the pairwise agreement matrix at rasm, reading and spelling
+level; complete sample sūrahs showing the flat word model; the three source
+defects with before/after text; and variant density across all 114 sūrahs.
 
 ```sh
-python3 build_review.py
+python3 build_review.py      # writes out/review.html
 ```

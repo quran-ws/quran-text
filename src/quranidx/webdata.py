@@ -21,6 +21,11 @@ from .validate import cross_release
 #: Sūrahs shipped complete, to show the word model end to end.
 SAMPLE_SURAS = [1, 108, 112]
 
+#: The statuses a reviewer has to look at.  Everything milder than this is a
+#: vowelling difference, and there are tens of thousands of those.
+FLAGGED = ("dotting_variant", "alif_variant", "rasm_variant",
+           "word_boundary", "partial")
+
 
 def _groups(w: Word) -> list[dict]:
     """Riwāyāt collapsed by shared spelling — one row per distinct reading."""
@@ -77,14 +82,14 @@ def payload(words: list[Word], riwayat: list[Riwaya]) -> dict:
             "s": s, **{k: names()[s][k] for k in ("name_en", "name_ar", "revelation")},
             "n": len(ws),
             "identical": c["identical"], "diacritic": c["diacritic_variant"],
+            "dotting": c["dotting_variant"], "alif": c["alif_variant"],
             "rasm": c["rasm_variant"], "boundary": c["word_boundary"],
             "partial": c["partial"],
             "ayat": {r.key: max((w.aya.get(r.key, 0) for w in ws), default=0)
                      for r in riwayat},
         })
 
-    flagged = [w for w in words
-               if w.status in ("rasm_variant", "word_boundary", "partial")]
+    flagged = [w for w in words if w.status in FLAGGED]
 
     return {
         "wordCount": len(words),

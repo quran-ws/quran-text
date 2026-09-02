@@ -28,6 +28,8 @@
   /* status: fixed roles, always paired with a text label */
   --st-identical: #8a93a5;
   --st-diacritic: #2a78d6;
+  --st-dotting:   #1baf7a;
+  --st-alif:      #e87ba4;
   --st-rasm:      #fab219;
   --st-boundary:  #4a3aa7;
   --st-partial:   #d03b3b;
@@ -58,6 +60,8 @@
     --on-seq-4: #0b1220; --on-seq-5: #0b1220; --on-seq-6: #0b1220; --on-seq-7: #0b1220;
     --st-identical: #7d8798;
     --st-diacritic: #3987e5;
+    --st-dotting:   #199e70;
+    --st-alif:      #d55181;
     --st-rasm:      #fab219;
     --st-boundary:  #9085e9;
     --st-partial:   #e06767;
@@ -82,6 +86,8 @@
   --on-seq-4: #0b1220; --on-seq-5: #0b1220; --on-seq-6: #0b1220; --on-seq-7: #0b1220;
   --st-identical: #7d8798;
   --st-diacritic: #3987e5;
+  --st-dotting:   #199e70;
+  --st-alif:      #d55181;
   --st-rasm:      #fab219;
   --st-boundary:  #9085e9;
   --st-partial:   #e06767;
@@ -175,6 +181,8 @@ section { padding: 52px 0; border-bottom: 1px solid var(--rule); }
                 background: var(--dot, var(--ink-3)); flex: none; }
 .s-identical { --dot: var(--st-identical); }
 .s-diacritic_variant { --dot: var(--st-diacritic); }
+.s-dotting_variant { --dot: var(--st-dotting); }
+.s-alif_variant { --dot: var(--st-alif); }
 .s-rasm_variant { --dot: var(--st-rasm); }
 .s-word_boundary { --dot: var(--st-boundary); }
 .s-partial { --dot: var(--st-partial); }
@@ -231,6 +239,8 @@ input[type="search"] { min-width: 210px; }
   border-left: 3px solid var(--edge, var(--rule)); border-radius: 6px;
   margin-bottom: 8px; overflow: hidden;
 }
+.entry.e-dotting_variant { --edge: var(--st-dotting); }
+.entry.e-alif_variant  { --edge: var(--st-alif); }
 .entry.e-rasm_variant  { --edge: var(--st-rasm); }
 .entry.e-word_boundary { --edge: var(--st-boundary); }
 .entry.e-partial       { --edge: var(--st-partial); }
@@ -267,6 +277,8 @@ input[type="search"] { min-width: 210px; }
   border-bottom: 2px solid var(--edge, var(--rule));
 }
 .wcell.e-diacritic_variant { --edge: var(--st-diacritic); }
+.wcell.e-dotting_variant { --edge: var(--st-dotting); }
+.wcell.e-alif_variant { --edge: var(--st-alif); }
 .wcell.e-rasm_variant { --edge: var(--st-rasm); }
 .wcell.e-word_boundary { --edge: var(--st-boundary); }
 .wcell.e-partial { --edge: var(--st-partial); }
@@ -349,10 +361,7 @@ footer { padding: 40px 0 64px; color: var(--ink-3); font-size: 13px; }
         <div class="eyebrow">Overview</div>
         <h2>What the alignment found</h2>
         <p class="prose">
-          Two words in five are spelled identically everywhere. Most of the rest differ
-          only in vowelling. The part that needs a scholar's eye is the last 1.3 %:
-          985 words where the riwāyāt disagree about letters, word boundaries, or
-          whether the word is there at all.
+          <span id="ovLede"></span>
         </p>
       </div>
       <div class="tiles" id="tiles"></div>
@@ -430,17 +439,15 @@ footer { padding: 40px 0 64px; color: var(--ink-3); font-size: 13px; }
         <div class="eyebrow">Variants</div>
         <h2>Every disagreement, in full</h2>
         <p class="prose">
-          All 985 words that are not simply a vowelling difference. Each entry groups the
-          riwāyāt by what they read. Select one to expand it.
+          <span id="varLede"></span> Each entry groups the riwāyāt by what they read —
+          dotting and alif differences are separated from true rasm differences, because
+          they need different expertise to judge. Select an entry to expand it.
         </p>
       </div>
       <div class="controls">
         <input type="search" id="q" placeholder="Search rasm or spelling…" aria-label="Search variants">
         <select id="fStatus" aria-label="Filter by status">
           <option value="">All kinds</option>
-          <option value="rasm_variant">Rasm variant</option>
-          <option value="word_boundary">Word boundary</option>
-          <option value="partial">Absent somewhere</option>
         </select>
         <select id="fRiw" aria-label="Filter by riwāyah"></select>
         <select id="fSura" aria-label="Filter by sūrah"></select>
@@ -490,8 +497,8 @@ footer { padding: 40px 0 64px; color: var(--ink-3); font-size: 13px; }
         <div class="eyebrow">By sūrah</div>
         <h2>Where the disagreements sit</h2>
         <p class="prose">
-          Variants per 1,000 words, sūrah 1 to 114. Bars in grey are sūrahs where the
-          seven riwāyāt differ only in vowelling.
+          Dotting, alif, rasm, boundary and absence differences per 1,000 words, sūrah 1
+          to 114. Bars in grey are sūrahs where the seven riwāyāt differ only in vowelling.
         </p>
       </div>
       <div class="spark" id="spark" role="img" aria-label="Variant density by sūrah"></div>
@@ -500,6 +507,7 @@ footer { padding: 40px 0 64px; color: var(--ink-3); font-size: 13px; }
           <thead><tr>
             <th class="r">#</th><th>Sūrah</th><th></th><th class="r">Words</th>
             <th class="r">Identical</th><th class="r">Diacritic</th>
+            <th class="r">Dotting</th><th class="r">Alif</th>
             <th class="r">Rasm</th><th class="r">Boundary</th><th class="r">Absent</th>
             <th class="r">Per 1,000</th>
           </tr></thead>
@@ -539,10 +547,15 @@ const fmt = n => n.toLocaleString("en-US");
 const STATUS = [
   ["identical",         "Identical",        "same reading and spelling in all seven"],
   ["diacritic_variant", "Diacritic",        "same letters, different vowelling"],
+  ["dotting_variant",   "Dotting",          "same skeleton, different iʿjām (the dots)"],
+  ["alif_variant",      "Alif",             "the riwāyāt write the alif differently"],
   ["rasm_variant",      "Rasm variant",     "the riwāyāt disagree about the letters"],
   ["word_boundary",     "Word boundary",    "a source joins the word to its neighbour"],
   ["partial",           "Absent somewhere", "the word is missing from a riwāyah"]
 ];
+//: Everything a reviewer has to look at — milder than this is vowelling.
+const FLAGGED = ["dotting_variant", "alif_variant", "rasm_variant",
+                 "word_boundary", "partial"];
 const LABEL = Object.fromEntries(STATUS.map(s => [s[0], s[1]]));
 
 /* ---------- overview ---------- */
@@ -552,9 +565,7 @@ const LABEL = Object.fromEntries(STATUS.map(s => [s[0], s[1]]));
   const t = [
     ["Canonical words", fmt(total), ""],
     ["Riwāyāt aligned", String(RIW.length), ""],
-    ["Rasm variants", fmt(D.status.rasm_variant || 0), "rasm_variant"],
-    ["Word boundary", fmt(D.status.word_boundary || 0), "word_boundary"],
-    ["Absent somewhere", fmt(D.status.partial || 0), "partial"]
+    ...FLAGGED.map(s => [null, fmt(D.status[s] || 0), s])
   ];
   t.forEach(([k, v, s]) => {
     const c = el("div", "tile" + (s ? " rare" : ""));
@@ -738,6 +749,8 @@ const SURA_NAME = Object.fromEntries(D.perSura.map(s => [s.s, s.name_en]));
 let shown = 40;
 
 (function fillFilters() {
+  const fst = document.getElementById("fStatus");
+  FLAGGED.forEach(s => fst.append(new Option(LABEL[s], s)));
   const fr = document.getElementById("fRiw");
   fr.append(new Option("Any riwāyah", ""));
   RIW.forEach(r => fr.append(new Option(r.en, r.key)));
@@ -842,6 +855,20 @@ function renderEntries() {
 document.getElementById("more").addEventListener("click", () => { shown += 60; renderEntries(); });
 renderEntries();
 
+(function lede() {
+  const total = D.wordCount;
+  const flagged = FLAGGED.reduce((n, s) => n + (D.status[s] || 0), 0);
+  const same = D.status.identical || 0;
+  document.getElementById("ovLede").textContent =
+    fmt(same) + " words (" + (100 * same / total).toFixed(0) + " %) are spelled " +
+    "identically in all seven riwāyāt, and most of the rest differ only in vowelling. " +
+    "The part that needs a scholar's eye is " + fmt(flagged) + " words — " +
+    (100 * flagged / total).toFixed(2) + " % — where the riwāyāt disagree about the dots, " +
+    "the alif, the letters, the word boundary, or whether the word is there at all.";
+  document.getElementById("varLede").textContent =
+    "All " + fmt(flagged) + " words that are more than a vowelling difference.";
+})();
+
 /* ---------- issues ---------- */
 const ISSUES = [
   { sev: "sev-open", tag: "Open · reported on every build",
@@ -905,9 +932,10 @@ const ISSUES = [
 /* ---------- per-sūrah ---------- */
 (function suras() {
   const spark = document.getElementById("spark");
-  const rows = D.perSura.map(s => ({ ...s,
-    variants: s.rasm + s.boundary + s.partial,
-    per1000: 1000 * (s.rasm + s.boundary + s.partial) / s.n }));
+  const rows = D.perSura.map(s => {
+    const v = s.dotting + s.alif + s.rasm + s.boundary + s.partial;
+    return { ...s, variants: v, per1000: 1000 * v / s.n };
+  });
   const max = Math.max(...rows.map(r => r.per1000));
   rows.forEach(r => {
     const b = el("i");
@@ -924,7 +952,7 @@ const ISSUES = [
     tr.append(el("td", "", r.name_en));
     const ar = el("td", "", r.name_ar); ar.dir = "rtl";
     ar.style.fontFamily = "var(--arabic)"; ar.style.fontSize = "1.2em"; tr.append(ar);
-    [r.n, r.identical, r.diacritic, r.rasm, r.boundary, r.partial]
+    [r.n, r.identical, r.diacritic, r.dotting, r.alif, r.rasm, r.boundary, r.partial]
       .forEach(n => tr.append(el("td", "r num", fmt(n))));
     tr.append(el("td", "r num", r.per1000.toFixed(1)));
     tb.append(tr);
