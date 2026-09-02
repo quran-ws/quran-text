@@ -22,7 +22,8 @@ from quranidx.sources import load_all           # noqa: E402
 from quranidx.validate import (check_counting, check_index,  # noqa: E402
                                check_layout_alignment,
                                check_mushaf_roundtrip,
-                               check_release_policy)
+                               check_release_policy,
+                               check_schema_fields)
 
 
 def main() -> int:
@@ -65,7 +66,8 @@ def main() -> int:
     problems = (check_index(words, riwayat) + check_counting(riwayat)
                 + check_release_policy(riwayat)
                 + check_layout_alignment(riwayat)
-                + check_mushaf_roundtrip(words, riwayat))
+                + check_mushaf_roundtrip(words, riwayat)
+                + check_schema_fields(docs, Path("schema/mushaf-1.0.json")))
     print(f"checks: {len(problems)} finding(s)")
     for p in problems:
         print(f"  - [{p['check']}] {p.get('riwaya', '')} {p['detail']}")

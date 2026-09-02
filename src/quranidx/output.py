@@ -46,6 +46,10 @@ def _groups(w: Word) -> list[dict]:
 def _word_json(w: Word) -> dict:
     """One word.
 
+    ``sub`` appears only on the two words Ḥafṣ does not have, where it marks
+    the record as hanging off the previous ID rather than holding one of its
+    own; its absence everywhere else is what says the ID is the spine's.
+
     ``forms`` always lists every riwāyah that has the word, so a consumer never
     has to fall back to another record to resolve a spelling.  ``groups`` says
     the same thing the other way round — one entry per *distinct* spelling —
@@ -54,6 +58,7 @@ def _word_json(w: Word) -> dict:
     """
     rec = {
         "id": w.id,
+        **({"sub": w.sub} if w.sub else {}),
         "i": w.index,
         "key": w.key,
         "rasm": w.rasm,
@@ -92,15 +97,22 @@ def write_all(words: list[Word], riwayat: list[Riwaya]) -> dict:
         "schema_version": SCHEMA_VERSION,
         "generated": date.today().isoformat(),
         "word_count": len(words),
+        "spine_count": sum(1 for w in words if not w.sub),
         "sura_count": len(by_sura),
         "riwayat": _riwaya_meta(riwayat),
         "model": (
             "A sūrah is a flat list of words.  One ID means one word in every "
             "riwāyah that has it, because words are identified by their bare "
             "ʿUthmānic rasm — undotted, unvowelled, no hamza — which is what "
-            "the seven riwāyāt actually share.  How each riwāyah spells that "
-            "word is in `forms`; where each counting tradition ends its āyāt "
-            "is in `fawasil.json`."
+            "the seven riwāyāt actually share.  The spine is Ḥafṣ's word "
+            "sequence, and `id` n is Ḥafṣ's n-th word.  Every other muṣḥaf "
+            "differs from it in one of two ways, both said with respect to "
+            "Ḥafṣ: a word Ḥafṣ does not have is an `addition` and carries "
+            "`sub` on the previous ID instead of taking one; a word Ḥafṣ has "
+            "and another muṣḥaf does not recite is `partial`, and that "
+            "muṣḥaf's IDs skip it.  How each riwāyah spells a word is in "
+            "`forms`; where each counting tradition ends its āyāt is in "
+            "`fawasil.json`."
         ),
     }
 
@@ -139,11 +151,11 @@ def write_all(words: list[Word], riwayat: list[Riwaya]) -> dict:
     keys = [r.key for r in riwayat]
     with (OUT / "words.csv").open("w", encoding="utf-8", newline="") as fh:
         wr = csv.writer(fh)
-        wr.writerow(["word_id", "sura", "word_index", "key", "rasm", "pointed",
+        wr.writerow(["word_id", "sub", "sura", "word_index", "key", "rasm", "pointed",
                      "uthmani", "simple", "status", "present_count"]
                     + [f"aya_{k}" for k in keys] + [f"form_{k}" for k in keys])
         for w in words:
-            wr.writerow([w.id, w.sura, w.index, w.key, w.rasm, w.pointed,
+            wr.writerow([w.id, w.sub, w.sura, w.index, w.key, w.rasm, w.pointed,
                          w.uthmani, w.simple, w.status, len(w.present)]
                         + [w.aya.get(k, "") for k in keys]
                         + [w.forms.get(k, "") for k in keys])
@@ -151,29 +163,29 @@ def write_all(words: list[Word], riwayat: list[Riwaya]) -> dict:
     # --- variants: only where a riwāyah departs from the canonical form ----
     with (OUT / "variants.csv").open("w", encoding="utf-8", newline="") as fh:
         wr = csv.writer(fh)
-        wr.writerow(["word_id", "sura", "word_index", "riwaya", "aya",
+        wr.writerow(["word_id", "sub", "sura", "word_index", "riwaya", "aya",
                      "canonical_uthmani", "riwaya_uthmani", "same_rasm", "status"])
         for w in words:
             for k in keys:
                 form = w.forms.get(k)
                 if form is None or form == w.uthmani:
                     continue
-                wr.writerow([w.id, w.sura, w.index, k, w.aya.get(k, ""),
+                wr.writerow([w.id, w.sub, w.sura, w.index, k, w.aya.get(k, ""),
                              w.uthmani, form,
                              int(w.rasm == _rasm_of(w, k)), w.status])
 
     # --- conflicts / issues ------------------------------------------------
     flagged = [w for w in words
-               if w.status in ("rasm_variant", "alif_variant", "partial",
-                               "word_boundary")]
+               if w.status in ("rasm_variant", "alif_variant", "addition",
+                               "partial", "word_boundary")]
     with (OUT / "conflicts.csv").open("w", encoding="utf-8", newline="") as fh:
         wr = csv.writer(fh)
-        wr.writerow(["word_id", "sura", "word_index", "aya_hafs", "status",
+        wr.writerow(["word_id", "sub", "sura", "word_index", "aya_hafs", "status",
                      "rasm", "missing_in", "joined_in", "distinct_forms", "forms"])
         for w in flagged:
             groups = _groups(w)
             wr.writerow([
-                w.id, w.sura, w.index, w.aya.get("hafs", ""), w.status, w.rasm,
+                w.id, w.sub, w.sura, w.index, w.aya.get("hafs", ""), w.status, w.rasm,
                 "|".join(w.missing), "|".join(sorted(w.boundary)), len(groups),
                 "  ||  ".join(f"{g['text']} [{','.join(g['riwayat'])}]"
                               for g in groups),

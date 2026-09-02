@@ -332,7 +332,12 @@
         "additionalProperties": false,
         "properties": {
           "w": {
-            "description": "Global word ID. The same w is the same word in every muṣḥaf that has it; a muṣḥaf lacking a word leaves a gap.",
+            "description": "Global word ID, counting Ḥafṣ's words: ID n is Ḥafṣ's n-th word. The same w is the same word in every muṣḥaf that has it; a muṣḥaf lacking one of Ḥafṣ's words leaves a gap. NOT unique within a document — a muṣḥaf with a word Ḥafṣ does not have carries it on the same w with a sub-index. Address a word by (w, x), not by w alone.",
+            "type": "integer",
+            "minimum": 1
+          },
+          "x": {
+            "description": "Sub-index, present only on a word Ḥafṣ does not have. Such a word takes no ID of its own: it hangs off the preceding word's w with x of 1, 2, … Absent (equivalent to 0) on every word Ḥafṣ has.",
             "type": "integer",
             "minimum": 1
           },

@@ -9,10 +9,11 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
-from quranidx.align import Column, _distribute, merge          # noqa: E402
-from quranidx.build import (STATUS_ALIF, STATUS_IDENTICAL,     # noqa: E402
-                            STATUS_RASM, Word,
-                            classify)
+from quranidx.align import (Column, _distribute, _overlap,      # noqa: E402
+                            merge)
+from quranidx.build import (STATUS_ADDITION, STATUS_ALIF,       # noqa: E402
+                            STATUS_IDENTICAL, STATUS_PARTIAL,
+                            STATUS_RASM, Word, classify, is_addition, ref)
 from quranidx.normalize import (forms, pointed, rasm, rasm_plene,  # noqa: E402
                                 simple, split_by_rasm, split_trailing_waqf,
                                 unpositioned)
@@ -22,6 +23,7 @@ from quranidx.tokenize import Token, tokenize_ayah             # noqa: E402
 from quranidx.imlaei import _pair                              # noqa: E402
 from quranidx.layout import Place                              # noqa: E402
 from quranidx.mushaf import _marks, _spans, minimal            # noqa: E402
+from quranidx.views import _coords                             # noqa: E402
 
 
 def tok(rasm_: str) -> Token:
@@ -219,6 +221,33 @@ class TestAlign(unittest.TestCase):
         self.assertEqual([c.rasm for c in out], ["تجري", "من", "تحتها"])
         self.assertNotIn("a", out[1].tokens)      # only Bazzī has مِن at 9:101
 
+    def test_unlike_wording_pairs_on_letters_not_on_position(self):
+        """40:26 — ``وَأَن`` belongs with ``أَن``, not with the ``أَوْ`` beside it."""
+        spine = [Column(tokens={"a": real("أَوۡ")}), Column(tokens={"a": real("أَن")})]
+        out = merge(spine, "b", [real("وَأَن")])
+        self.assertEqual([w.uthmani for w in (out[0].tokens["a"], out[1].tokens["a"])],
+                         ["أَوۡ", "أَن"])
+        self.assertNotIn("b", out[0].tokens)          # أَوۡ is Ḥafṣ's alone
+        self.assertEqual(out[1].tokens["b"].uthmani, "وَأَن")
+
+    def test_the_leftover_word_keeps_its_place_in_the_line(self):
+        spine = [Column(tokens={"a": real("أَوۡ")}), Column(tokens={"a": real("أَن")})]
+        out = merge(spine, "b", [real("وَأَن")])
+        self.assertEqual(len(out), 2)
+        self.assertEqual([c.tokens["a"].uthmani for c in out], ["أَوۡ", "أَن"])
+
+    def test_a_tie_prefers_the_earlier_column(self):
+        # Neither answer is truer than the other, so the rule has to be stated.
+        spine = [Column(tokens={"a": tok("اٮ")}), Column(tokens={"a": tok("اٮ")})]
+        out = merge(spine, "b", [tok("اٮح")])
+        self.assertIn("b", out[0].tokens)
+        self.assertNotIn("b", out[1].tokens)
+
+    def test_overlap_counts_the_longest_shared_run(self):
+        self.assertEqual(_overlap("واں", "اں"), 2)
+        self.assertEqual(_overlap("واں", "او"), 1)
+        self.assertEqual(_overlap("الں", "لں"), 2)
+
     def test_distribute_groups_by_letters_not_by_position(self):
         cols = [Column(tokens={"a": tok("ما")}), Column(tokens={"a": tok("لي")})]
         groups = _distribute(cols, [tok("مالي")])
@@ -273,7 +302,7 @@ class TestAlifSplitsOneWay(unittest.TestCase):
     """The one fact `alif_variant` rests on, asserted rather than assumed."""
 
     def word(self, id_: int, **forms_: str) -> Word:
-        return Word(id=id_, sura=1, index=id_, key=f"k{id_}", rasm="", pointed="",
+        return Word(id=id_, sub=0, sura=1, index=id_, key=f"k{id_}", rasm="", pointed="",
                     uthmani="", simple="", status="alif_variant",
                     present=list(forms_), missing=[], forms=forms_, aya={},
                     waqf={}, boundary={}, hizb=[], sajdah=[])
@@ -303,7 +332,7 @@ class TestShapeOfDifference(unittest.TestCase):
     """What kind of letter difference a rasm variant is."""
 
     def word(self, **forms_: str) -> Word:
-        return Word(id=1, sura=1, index=1, key="k",
+        return Word(id=1, sub=0, sura=1, index=1, key="k",
                     rasm=rasm(next(iter(forms_.values()))), pointed="", uthmani="",
                     simple="", status=STATUS_RASM, present=list(forms_),
                     missing=[], forms=forms_, aya={}, waqf={}, boundary={},
@@ -353,11 +382,101 @@ class TestSpans(unittest.TestCase):
              {"n": 1, "words": [7, 7]}])
 
 
+class TestBaseMushafSpine(unittest.TestCase):
+    """Ḥafṣ is the spine, and `added` and `lacking` are said with respect to it."""
+
+    KEYS = ["hafs", "shuba", "bazzi", "qaloun", "warsh", "douri", "sousi"]
+
+    def col(self, *keys: str) -> Column:
+        return Column(tokens={k: tok("ٮ") for k in keys})
+
+    def test_a_word_hafs_does_not_have_is_an_addition(self):
+        # Bazzī's مِن at 9:101.
+        self.assertTrue(is_addition(self.col("bazzi")))
+
+    def test_a_word_hafs_has_is_never_an_addition(self):
+        # أَوْ at 40:26 — only Ḥafṣ and Shuʿbah write it, and it is still spine,
+        # so Ḥafṣ never carries two words on one ID.
+        self.assertFalse(is_addition(self.col("hafs", "shuba")))
+        self.assertEqual(classify(self.col("hafs", "shuba"), self.KEYS),
+                         STATUS_PARTIAL)
+
+    def test_a_majority_can_still_be_an_addition(self):
+        # لَّوِ at 72:16 is written by four of the seven. Ḥafṣ is not one of them,
+        # so it is an addition — which is a statement about the frame of
+        # reference, not about which reading is primary.
+        col = self.col("warsh", "qaloun", "douri", "sousi")
+        self.assertTrue(is_addition(col))
+        self.assertEqual(classify(col, self.KEYS), STATUS_ADDITION)
+
+    def test_a_word_hafs_has_and_others_lack_is_partial(self):
+        # هُوَ at 57:23 — Warsh and Qālūn do not recite it.
+        col = self.col("hafs", "shuba", "douri", "sousi", "bazzi")
+        self.assertFalse(is_addition(col))
+        self.assertEqual(classify(col, self.KEYS), STATUS_PARTIAL)
+
+    def test_a_word_all_seven_write_is_not_an_addition(self):
+        self.assertFalse(is_addition(self.col(*self.KEYS)))
+
+
+class TestWrittenId(unittest.TestCase):
+    """`25684.1` is notation; the data keeps two integers."""
+
+    def word(self, id_: int, sub: int) -> Word:
+        return Word(id=id_, sub=sub, sura=1, index=1, key="k", rasm="", pointed="",
+                    uthmani="", simple="", status=STATUS_IDENTICAL, present=[],
+                    missing=[], forms={}, aya={}, waqf={}, boundary={},
+                    hizb=[], sajdah=[])
+
+    def test_a_spine_word_is_written_as_a_plain_integer(self):
+        self.assertEqual(ref(self.word(25684, 0)), "25684")
+
+    def test_an_addition_carries_its_sub_index(self):
+        self.assertEqual(ref(self.word(25684, 1)), "25684.1")
+
+    def test_the_two_are_never_the_same_string(self):
+        # The viewer looks a word up by this string, so a collision here would
+        # silently show the word before the addition instead of the addition.
+        self.assertNotEqual(ref(self.word(25684, 0)), ref(self.word(25684, 1)))
+
+
+class TestViewCoordinates(unittest.TestCase):
+    """``pos`` is the āyah-relative word number that audio segments key on."""
+
+    # Four IDs are claimed by the āyah; this muṣḥaf has no word at 3.
+    HOLE = {"words": [{"w": 1}, {"w": 2}, {"w": 4}],
+            "ayat": [{"sura": 9, "n": 101, "words": [1, 4]}]}
+
+    # This muṣḥaf writes an extra word, so one ID carries two of them.
+    EXTRA = {"words": [{"w": 1}, {"w": 1, "x": 1}, {"w": 2}],
+             "ayat": [{"sura": 9, "n": 101, "words": [1, 2]}]}
+
+    def test_a_missing_id_does_not_consume_a_position(self):
+        self.assertEqual(_coords(self.HOLE),
+                         {(1, 0): (9, 101, 1), (2, 0): (9, 101, 2),
+                          (4, 0): (9, 101, 3)})
+
+    def test_an_added_word_takes_a_position_of_its_own(self):
+        self.assertEqual(_coords(self.EXTRA),
+                         {(1, 0): (9, 101, 1), (1, 1): (9, 101, 2),
+                          (2, 0): (9, 101, 3)})
+
+    def test_the_last_word_is_numbered_by_the_words_that_exist(self):
+        for doc in (self.HOLE, self.EXTRA):
+            positions = [p for _, _, p in _coords(doc).values()]
+            self.assertEqual(max(positions), len(doc["words"]))
+
+    def test_a_word_before_the_ayah_does_not_shift_the_count(self):
+        doc = {"words": [{"w": 1}, {"w": 5}, {"w": 6}],
+               "ayat": [{"sura": 2, "n": 1, "words": [5, 6]}]}
+        self.assertEqual(_coords(doc), {(5, 0): (2, 1, 1), (6, 0): (2, 1, 2)})
+
+
 class TestMarks(unittest.TestCase):
     """A mark says which side of the word it is printed on."""
 
     def word(self, **kw):
-        return Word(id=1, sura=1, index=1, key="k", rasm="r", pointed="p",
+        return Word(id=1, sub=0, sura=1, index=1, key="k", rasm="r", pointed="p",
                     uthmani="u", simple="s", status=STATUS_IDENTICAL,
                     present=["hafs"], missing=[], forms={"hafs": "u"},
                     aya={"hafs": 1}, waqf=kw.get("waqf", {}), boundary={},

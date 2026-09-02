@@ -41,8 +41,9 @@ One file per sūrah, `001.json` … `114.json`.
 
 | field | always | meaning |
 |---|---|---|
-| `id` | ✓ | running integer over the whole corpus, `1 … 77434` |
-| `i` | ✓ | 1-based position within the sūrah |
+| `id` | ✓ | running integer over the spine, `1 … 77432`. The spine is Ḥafṣ's word sequence: ID *n* is Ḥafṣ's *n*-th word |
+| `sub` | — | this word is an `addition` — Ḥafṣ does not have it — so it hangs off `id` instead of holding one. Absent on every spine word. Written `25684.1`; see below |
+| `i` | ✓ | 1-based position within the sūrah, over spine words |
 | `key` | ✓ | `sūrah:pointed#occurrence` — content-derived, stable across rebuilds |
 | `rasm` | ✓ | bare ʿUthmānic skeleton — undotted, unvowelled, no hamza, no dagger alif. The alignment key: every riwāyah sharing an `id` shares this exactly, except in the 62 `rasm_variant` and 198 `alif_variant` words |
 | `pointed` | ✓ | the same skeleton with its dots, from the canonical spelling |
@@ -51,7 +52,7 @@ One file per sūrah, `001.json` … `114.json`.
 | `status` | ✓ | see below |
 | `aya` | ✓ | āyah number **per riwāyah**; `0` means printed but unnumbered (the basmalah) |
 | `forms` | ✓ | each riwāyah's own spelling; a riwāyah is absent from this map iff it lacks the word |
-| `missing` | — | riwāyāt that lack the word |
+| `missing` | — | riwāyāt that lack a word the shared text has. Never set on an `addition`: nobody is missing a word that was never part of the shared text — who writes it is in `forms` |
 | `waqf` | — | pause marks that trailed the word, per riwāyah |
 | `boundary` | — | riwāyāt where the word was re-segmented, and why |
 | `hizb` | — | riwāyāt marking a rub-el-ḥizb `۞` before this word |
@@ -79,7 +80,34 @@ scan, and its mere presence means the riwāyāt part company here.
 | `alif_variant` | 198 | one skeleton once every ā is spelled out; the hands disagree about where the ā was written |
 | `rasm_variant` | 62 | the riwāyāt disagree about the letters on the line |
 | `word_boundary` | 12 | a source prints the word joined to its neighbour |
-| `partial` | 5 | the word is absent from at least one riwāyah |
+| `partial` | 3 | Ḥafṣ has the word and some other muṣḥaf does not recite it |
+| `addition` | 2 | Ḥafṣ does not have the word; it carries `sub` and takes no ID of its own |
+
+`partial` and `addition` are the two halves of one rule, and keeping them apart
+is the point. **The spine is Ḥafṣ's word sequence** — ID *n* is Ḥafṣ's *n*-th
+word — and a muṣḥaf can differ from it in exactly two ways:
+
+- `addition` — Ḥafṣ does not have the word. It takes no ID: it hangs off the
+  previous one with `sub`, so the muṣḥafs without it have no gap to explain.
+  Bazzī's `مِن` at 9:101, and `لَّوِ` at 72:16.
+- `partial` — Ḥafṣ has the word and some other muṣḥaf does not recite it. That
+  muṣḥaf's ID sequence skips, and a gap means that and nothing else. `أَوْ` at
+  40:26, `هُوَ` at 57:23, `أَن` at 73:20.
+
+Both are said **with respect to Ḥafṣ**, a declared frame of reference rather
+than a claim about which reading is primary: `لَّوِ` at 72:16 is written by four
+muṣḥafs out of seven and is still an `addition`, because Ḥafṣ is where the
+counting starts. Naming the frame is what makes the direction sayable at all —
+otherwise `هُوَ` has no answer to *added by five, or dropped by two?*
+
+Before this rule the five were one label, which made Warsh look as though it had
+dropped a word at 40:26 when Ḥafṣ had one the others do not.
+
+An ID is written **`25684`** for a spine word and **`25684.1`** for an addition,
+and that is what the reports and `out/compare.html` print. The data keeps `id`
+and `sub` as two integers: the āyah, page and juz ranges are compared
+numerically, and `25684.1` as a JSON number would be a float — round-tripping as
+`25684.099999999999`, which is no kind of identifier.
 
 Each word gets the *strongest* label that applies, tested in this order: rasm,
 ā, absence, boundary, dotting, vowelling. So a `dotting_variant` is guaranteed
@@ -121,6 +149,9 @@ The same sūrah headers with `words` omitted, plus corpus metadata and the
 riwāyah registry (name, qāriʾ, counting tradition, āyah count, source file).
 Small; read this to discover the corpus without loading it.
 
+`word_count` is every record, `spine_count` only the shared ones — 77,434 and
+77,432, the difference being the two `addition` words that carry `sub`.
+
 ## `out/quran-words.json.gz`
 
 Every sūrah and every word in one gzipped file (4.3 MB compressed, 36 MB raw).
@@ -135,7 +166,7 @@ data = json.load(gzip.open("out/quran-words.json.gz", "rt", encoding="utf-8"))
 One row per canonical word — the whole index as a flat table.
 
 ```
-word_id, sura, word_index, key, rasm, pointed, uthmani, simple, status,
+word_id, sub, sura, word_index, key, rasm, pointed, uthmani, simple, status,
 present_count, aya_hafs … aya_bazzi, form_hafs … form_bazzi
 ```
 
@@ -145,7 +176,7 @@ One row per riwāyah form that differs from the canonical spelling. Narrower
 than `words.csv` when you only care about disagreement.
 
 ```
-word_id, sura, word_index, riwaya, aya, canonical_uthmani, riwaya_uthmani,
+word_id, sub, sura, word_index, riwaya, aya, canonical_uthmani, riwaya_uthmani,
 same_rasm, status
 ```
 
@@ -186,7 +217,8 @@ rather than a muṣḥaf that really prints the words joined.
 ## `out/conflicts.csv` and `out/conflicts.json`
 
 Only the 277 words with `status` of `rasm_variant`, `alif_variant`,
-`word_boundary` or `partial`. The CSV groups identical spellings so one row shows who reads what:
+`word_boundary`, `partial` or `addition`. The CSV groups identical spellings so
+one row shows who reads what:
 
 ```
 قُلۡ [hafs,shuba,warsh,qaloun,douri,sousi]  ||  قَالَ [bazzi]
@@ -215,7 +247,7 @@ the 62 `rasm_variant` words first, then the 198 `alif_variant` ones.
 
 Each muṣḥaf on its own, with every word carrying the same global `id` used here.
 Specified separately in [`MUSHAF-FORMAT.md`](MUSHAF-FORMAT.md), with a JSON
-Schema in `schema/mushaf-1.0.json`.
+Schema in `schema/mushaf-1.0.json`. The build checks that the documents and the schema declare the same fields; a full validation needs a JSON Schema library, which this project does not depend on.
 
 The files above compare the seven muṣḥafs; those publish one at a time, and add
 what only makes sense for a single muṣḥaf: the page each word is printed on, the

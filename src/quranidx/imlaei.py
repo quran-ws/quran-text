@@ -83,7 +83,7 @@ def _skeleton(token: str) -> str:
     return pointed(token).replace("ٱ", "ا").replace("أ", "ا").replace("إ", "ا")
 
 
-def for_riwaya(words: list[Word], riwaya: Riwaya) -> tuple[dict[int, str], dict]:
+def for_riwaya(words: list[Word], riwaya: Riwaya) -> tuple[dict[tuple[int, int], str], dict]:
     """``word id -> imlāʾī``, with a report of what could not be mapped.
 
     Asked of every riwāyah and answered for the one that can answer.  Having a
@@ -101,7 +101,7 @@ def for_riwaya(words: list[Word], riwaya: Riwaya) -> tuple[dict[int, str], dict]
         if key in w.forms:
             spine[(w.sura, w.aya[key])].append(w)
 
-    out: dict[int, str] = {}
+    out: dict[tuple[int, int], str] = {}
     unpaired = unaligned = 0
     joined = 0
     for (sura, aya), meta in riwaya.meta.items():
@@ -132,7 +132,10 @@ def for_riwaya(words: list[Word], riwaya: Riwaya) -> tuple[dict[int, str], dict]
                 unaligned += 1
                 continue
             for off in range(i2 - i1):
-                out[target[j1 + off].id] = paired[i1 + off]
+                # Keyed on (id, sub): an addition shares its ID with the spine
+                # word before it, so the ID alone would collide.
+                w = target[j1 + off]
+                out[(w.id, w.sub)] = paired[i1 + off]
 
     return out, {
         "available": True,

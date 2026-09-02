@@ -26,13 +26,38 @@ from pathlib import Path
 from .mushaf import FORMAT, FORMAT_VERSION, MUSHAF_DIR
 
 
-def _coords(doc: dict) -> dict[int, tuple[int, int, int]]:
-    """word id -> (sura, ayah, position within the āyah)."""
-    out: dict[int, tuple[int, int, int]] = {}
+def _key(word: dict) -> tuple[int, int]:
+    """``(word id, sub)`` — what addresses one word in one muṣḥaf.
+
+    The ID alone does not: a word only a minority of muṣḥafs write has no ID of
+    its own and hangs off the previous one, so Ḥafṣ's ``أَوۡ`` at 40:26 shares an
+    ID with the ``دِينَكُمۡ`` before it.
+    """
+    return word["w"], word.get("x", 0)
+
+
+def _coords(doc: dict) -> dict[tuple[int, int], tuple[int, int, int]]:
+    """word -> (sura, ayah, position within the āyah).
+
+    An āyah's ``words`` is a range of *IDs*, and an ID is shared across the
+    muṣḥafs, so in one that lacks a word the range has a hole in it — while a
+    muṣḥaf that adds one has two words inside a single ID.  Counting the
+    integers in the range gets both wrong: Warsh 40:26 has 17 words and used to
+    number the last of them 18.  Walk this muṣḥaf's own word list instead, which
+    has neither holes nor doubles.
+    """
+    out: dict[tuple[int, int], tuple[int, int, int]] = {}
+    at = 0
+    words = doc["words"]
     for span in doc["ayat"]:
         first, last = span["words"]
-        for pos, wid in enumerate(range(first, last + 1), start=1):
-            out[wid] = (span["sura"], span["n"], pos)
+        while at < len(words) and words[at]["w"] < first:
+            at += 1
+        pos = 1
+        while at < len(words) and words[at]["w"] <= last:
+            out[_key(words[at])] = (span["sura"], span["n"], pos)
+            at += 1
+            pos += 1
     return out
 
 
@@ -78,7 +103,7 @@ def write_nested(docs: dict[str, dict]) -> None:
         coords = _coords(doc)
         tree: dict[str, dict] = {}
         for word in doc["words"]:
-            sura, ayah, pos = coords[word["w"]]
+            sura, ayah, pos = coords[_key(word)]
             s = tree.setdefault(str(sura), {"ayat": {}})
             s["ayat"].setdefault(str(ayah), {"words": []})["words"].append(
                 {**word, "sura": sura, "ayah": ayah, "pos": pos})
@@ -113,7 +138,7 @@ def write_shards(docs: dict[str, dict]) -> None:
         words = defaultdict(list)
         coords = _coords(doc)
         for word in doc["words"]:
-            words[coords[word["w"]][0]].append(word)
+            words[coords[_key(word)][0]].append(word)
         for row in doc["suras"]:
             sura = row["n"]
             first, last = row["words"]
@@ -136,7 +161,7 @@ def write_shards(docs: dict[str, dict]) -> None:
 # flat table
 # --------------------------------------------------------------------------
 
-COLUMNS = ["word_id", "sura", "ayah", "pos", "uthmani", "imlaei",
+COLUMNS = ["word_id", "sub", "sura", "ayah", "pos", "uthmani", "imlaei",
            "page", "line", "juz", "marks", "resegmented"]
 
 
@@ -149,8 +174,8 @@ def write_csv(docs: dict[str, dict]) -> None:
             wr = csv.writer(fh)
             wr.writerow(COLUMNS)
             for word in doc["words"]:
-                sura, ayah, pos = coords[word["w"]]
-                wr.writerow([word["w"], sura, ayah, pos, word["t"],
+                sura, ayah, pos = coords[_key(word)]
+                wr.writerow([word["w"], word.get("x", 0), sura, ayah, pos, word["t"],
                              word.get("e", ""), word.get("pg", ""),
                              word.get("ln", ""), juz.get(word["w"], ""),
                              _mark_text(word), int(word.get("resegmented", False))])
@@ -170,10 +195,11 @@ CREATE TABLE sura (
   basmalah INTEGER, ayat INTEGER, first_word INTEGER, last_word INTEGER,
   PRIMARY KEY (mushaf, n));
 CREATE TABLE word (
-  mushaf TEXT, word_id INTEGER, sura INTEGER, ayah INTEGER, pos INTEGER,
+  mushaf TEXT, word_id INTEGER, sub INTEGER, sura INTEGER, ayah INTEGER,
+  pos INTEGER,
   uthmani TEXT, imlaei TEXT, page INTEGER, line INTEGER, juz INTEGER,
   resegmented INTEGER,
-  PRIMARY KEY (mushaf, word_id));
+  PRIMARY KEY (mushaf, word_id, sub));
 CREATE TABLE mark (
   mushaf TEXT, word_id INTEGER, kind TEXT, side TEXT, sign TEXT);
 CREATE TABLE resegmentation (
@@ -191,7 +217,20 @@ def write_sqlite(docs: dict[str, dict], path: Path) -> None:
     """All seven muṣḥafs in one queryable file.
 
     ``word.word_id`` is the global ID, indexed on its own, so comparing two
-    muṣḥafs is a self-join rather than a program.
+    muṣḥafs is a self-join rather than a program:
+
+        SELECT a.word_id, a.uthmani, b.uthmani
+        FROM word a LEFT JOIN word b
+          ON b.word_id = a.word_id AND b.sub = a.sub AND b.mushaf = 'warsh'
+        WHERE a.mushaf = 'hafs' AND (b.uthmani IS NULL OR b.uthmani <> a.uthmani);
+
+    ``LEFT JOIN`` rather than ``JOIN`` because the answer is sometimes *no row*:
+    Warsh does not recite ``هُوَ`` at 57:23, and a word-level dataset projected
+    from Ḥafṣ has to see that rather than skip silently past it.
+
+    ``(word_id, sub)`` is the key, not ``word_id`` alone — a word only a
+    minority of muṣḥafs write hangs off the previous ID.  ``pos`` is the āyah-
+    relative word number, which is what audio segments and highlighting address.
     """
     for stale in (path, path.with_suffix(path.suffix + ".gz")):
         if stale.exists():
@@ -211,9 +250,10 @@ def write_sqlite(docs: dict[str, dict], path: Path) -> None:
             for r in doc["suras"]])
 
         coords, juz = _coords(doc), _juz_of(doc)
-        db.executemany("INSERT INTO word VALUES (?,?,?,?,?,?,?,?,?,?,?)", [
-            (key, w["w"], *coords[w["w"]], w["t"], w.get("e"), w.get("pg"),
-             w.get("ln"), juz.get(w["w"]), int(w.get("resegmented", False)))
+        db.executemany("INSERT INTO word VALUES (?,?,?,?,?,?,?,?,?,?,?,?)", [
+            (key, w["w"], w.get("x", 0), *coords[_key(w)], w["t"], w.get("e"),
+             w.get("pg"), w.get("ln"), juz.get(w["w"]),
+             int(w.get("resegmented", False)))
             for w in doc["words"]])
         db.executemany("INSERT INTO mark VALUES (?,?,?,?,?)", [
             (key, w["w"], mk["k"], mk["at"], mk["sign"])

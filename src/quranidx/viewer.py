@@ -17,13 +17,14 @@ import gzip
 import json
 from datetime import date
 
-from .build import ORDER, OUT, Word, fawasil
+from .build import ORDER, OUT, Word, fawasil, ref
 from .sources import Riwaya
 from .suras import names
 
 #: Status codes, packed as an index into this list.
 STATUSES = ["identical", "diacritic_variant", "dotting_variant",
-            "alif_variant", "rasm_variant", "word_boundary", "partial"]
+            "alif_variant", "rasm_variant", "word_boundary", "partial",
+            "addition"]
 
 
 def _pack(words: list[Word]) -> dict:
@@ -43,7 +44,7 @@ def _pack(words: list[Word]) -> dict:
                 ayat[w.aya[k]] = ayat.get(w.aya[k], 0) | bit[k]
         rec = [
             w.index,
-            w.id,
+            ref(w),
             w.rasm,
             STATUSES.index(w.status),
             [[t, m] for t, m in groups.items()],
@@ -94,6 +95,7 @@ _TEMPLATE = r"""<!doctype html>
   --accent:#7a5c2e; --chip:#f1ece1;
   --identical:#9aa79a; --diacritic:#7f9bb5; --dotting:#c08a3e;
   --rasm:#b5543f; --alif:#c2857a; --boundary:#8a6bb0; --partial:#4f8a7b;
+  --addition:#3f6f8a;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme=light]){
   --bg:#14140f; --panel:#1c1c17; --ink:#eae6dc; --dim:#9c968a; --line:#2e2d26;
@@ -132,6 +134,7 @@ main{padding:14px 20px 60px;max-width:1180px}
 .tag.dotting_variant{background:var(--dotting);color:#1b1a17}
 .tag.word_boundary{background:var(--boundary);color:#fff}
 .tag.partial{background:var(--partial);color:#fff}
+.tag.addition{background:var(--addition);color:#fff}
 .tag.diacritic_variant{background:var(--diacritic);color:#fff}
 .groups{display:flex;flex-wrap:wrap;gap:8px;flex:1;justify-content:flex-end}
 .g{display:flex;flex-direction:column;align-items:flex-end;gap:2px;
@@ -231,7 +234,9 @@ function render(){
 }
 
 function detail(el, id){
-  const r = (D.words[state.sura] || []).find(x => x[1] === +id);
+  // Match on the written ID, not the integer: an addition shares its number
+  // with the word before it, so `+id` would always find that one instead.
+  const r = (D.words[state.sura] || []).find(x => x[1] === id);
   if (!r) return;
   const [i, wid, rasm, st, groups, ayat] = r;
   const spelling = {}, aya = {};

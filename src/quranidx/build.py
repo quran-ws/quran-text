@@ -28,6 +28,7 @@ ORDER = ["hafs", "shuba", "bazzi", "qaloun", "warsh", "douri", "sousi"]
 # Status of a canonical word, most specific first.
 STATUS_RASM = "rasm_variant"
 STATUS_ALIF = "alif_variant"
+STATUS_ADDITION = "addition"
 STATUS_PARTIAL = "partial"
 STATUS_BOUNDARY = "word_boundary"
 STATUS_DOTTING = "dotting_variant"
@@ -43,6 +44,12 @@ COUNTING_TRADITIONS = {"kufi": "Kūfī", "madani": "Madanī",
 @dataclass
 class Word:
     id: int
+    #: 0 for a spine word — that is, for every word Ḥafṣ has.  A word Ḥafṣ does
+    #: not have takes no ID of its own: it hangs off the preceding spine word
+    #: with a sub-index of 1, 2, …  So Ḥafṣ's own IDs are `1 … n` exactly, with
+    #: no repeat and no gap, and a muṣḥaf without the extra word simply does not
+    #: carry that sub-index.
+    sub: int
     sura: int
     index: int            # 1-based position within the sūrah
     key: str              # rebuild-stable identity: "sura:pointed#occurrence"
@@ -84,6 +91,40 @@ def streams_for(riwayat: list[Riwaya]) -> dict[str, list[Token]]:
     return out
 
 
+def ref(w: Word) -> str:
+    """How a word's ID is written: ``25684`` for a spine word, ``25684.1`` for
+    an addition.
+
+    The data keeps ``id`` and ``sub`` as two integers, because the ranges in
+    ``ayat``, ``pages`` and ``juz`` are compared numerically and a string could
+    not be — and because ``25684.1`` as a JSON *number* is a float, which
+    round-trips as ``25684.099999999999`` and is no kind of identifier.  This is
+    the one canonical way to write the pair, so that everything a person reads
+    says the same thing.
+    """
+    return f"{w.id}.{w.sub}" if w.sub else str(w.id)
+
+
+def is_addition(col: Column) -> bool:
+    """Is this a word the base muṣḥaf does not have?
+
+    **The spine is Ḥafṣ's own word sequence**, and *added* and *lacking* are
+    said with respect to it.  That is a declared frame of reference, not a claim
+    that Ḥafṣ reads correctly and the others do not: at 72:16 four muṣḥafs write
+    ``لَّوِ`` and three do not, and it is still an addition here, because Ḥafṣ is
+    where the counting starts.
+
+    Naming the frame is what makes both directions sayable at all.  Without one,
+    ``هُوَ`` at 57:23 has no answer to *was it added by five or dropped by two?*
+
+    The test is a membership check rather than a count because
+    :func:`quranidx.align.build_spine` starts from :data:`ORDER`'s first muṣḥaf
+    and never revisits it, so a column it has no token in is exactly a column
+    some later riwāyah brought.
+    """
+    return ORDER[0] not in col.tokens
+
+
 def classify(col: Column, all_keys: list[str]) -> str:
     """Name the strongest kind of disagreement this word carries.
 
@@ -119,7 +160,11 @@ def classify(col: Column, all_keys: list[str]) -> str:
             return STATUS_RASM
         return STATUS_ALIF
     if len(present) < len(all_keys):
-        return STATUS_PARTIAL
+        # Two different facts, and conflating them was the old bug.  Both are
+        # said with respect to Ḥafṣ: a word Ḥafṣ has and another muṣḥaf does not
+        # is ``partial``; a word Ḥafṣ does not have is an ``addition``, and the
+        # muṣḥafs without it are not missing anything.
+        return STATUS_ADDITION if is_addition(col) else STATUS_PARTIAL
     if col.boundary:
         return STATUS_BOUNDARY
     if len({col.tokens[k].pointed for k in present}) > 1:
@@ -190,6 +235,14 @@ def canonical_form(col: Column) -> Token:
 
 
 def build_words(riwayat: list[Riwaya]) -> list[Word]:
+    """The whole index, numbered.
+
+    A spine word takes the next ID and a ``sub`` of 0.  An addition takes the
+    *preceding* spine word's ID with the next sub-index, which is what keeps the
+    spine's numbering unbroken while still placing the extra word in reading
+    order: Bazzī's ``مِن`` at 9:101 sits at ``تَجۡرِي``'s ID with ``sub`` 1, and the
+    six muṣḥafs without it have no hole to explain.
+    """
     streams = streams_for(riwayat)
     keys = [r.key for r in riwayat]
 
@@ -200,7 +253,20 @@ def build_words(riwayat: list[Riwaya]) -> list[Word]:
         spine = build_spine(per_sura, ORDER)
 
         seen: Counter[str] = Counter()
-        for index, col in enumerate(spine, start=1):
+        # Reset per sūrah: an addition attaches to the spine word before it, and
+        # the last word of the previous sūrah is not that word.
+        spine_id = spine_index = sub = index = 0
+        for col in spine:
+            # An addition before any spine word has nothing to hang on, so it
+            # becomes a spine word itself — the one case that would put a gap in
+            # Ḥafṣ.  It does not occur in this corpus; the fallback is here so
+            # that it could never pass silently.
+            if is_addition(col) and spine_id:
+                sub += 1
+            else:
+                spine_id, next_id = next_id, next_id + 1
+                index += 1
+                spine_index, sub = index, 0
             canon = canonical_form(col)
             present = [k for k in keys if k in col.tokens]
             # The key is built from the *pointed* skeleton, not the bare rasm:
@@ -209,9 +275,10 @@ def build_words(riwayat: list[Riwaya]) -> list[Word]:
             seen[canon.pointed] += 1
             forms = {k: col.tokens[k].uthmani for k in present}
             words.append(Word(
-                id=next_id,
+                id=spine_id,
+                sub=sub,
                 sura=sura,
-                index=index,
+                index=spine_index,
                 key=f"{sura}:{canon.pointed}#{seen[canon.pointed]}",
                 rasm=col.rasm,
                 pointed=canon.pointed,
@@ -219,7 +286,10 @@ def build_words(riwayat: list[Riwaya]) -> list[Word]:
                 simple=canon.simple,
                 status=classify(col, keys),
                 present=present,
-                missing=[k for k in keys if k not in col.tokens],
+                # Nobody is *missing* an addition: the word is not part of the
+                # shared text, so a muṣḥaf without it has dropped nothing.  Who
+                # does write it is in `present` and `forms`.
+                missing=[] if sub else [k for k in keys if k not in col.tokens],
                 forms=forms,
                 aya={k: col.tokens[k].aya for k in present},
                 waqf={k: col.tokens[k].waqf for k in present if col.tokens[k].waqf},
@@ -229,5 +299,4 @@ def build_words(riwayat: list[Riwaya]) -> list[Word]:
                 place={k: (col.tokens[k].page, col.tokens[k].line)
                        for k in present if col.tokens[k].page},
             ))
-            next_id += 1
     return words

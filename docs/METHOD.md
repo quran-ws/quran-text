@@ -190,7 +190,7 @@ Each diff opcode has one meaning:
 
 - `equal` — the riwāyah joins the existing columns;
 - `insert` — the riwāyah has a word the spine lacks, so a new column is created
-  (this is how Bazzī's `مِن` at 9:101 gets an ID that the others simply do not use);
+  (this is how Bazzī's `مِن` at 9:101 gets a column of its own);
 - `delete` — the riwāyah has no word at that column;
 - `replace` — the same slot, spelled differently.
 
@@ -201,12 +201,54 @@ printed joined (`كَانُواْيَعۡمَلُونَ`) is split back apart at
 marks staying on the letter they sit on. Without this, the next word is falsely
 reported absent from that riwāyah.
 
+When the letters do **not** agree the block is a real difference of wording, and
+the two sides are paired on their letters rather than left to right: at 40:26
+`وَأَن` goes with the `أَن` it shares three letters with, not with the `أَوْ`
+beside it, which shares one. Pairing by position was asserting a correspondence
+the letters do not support, and leaving `أَن` to look as though five muṣḥafs had
+dropped it.
+
+## 4b. Spine, additions and omissions
+
 The result is one `Column` per canonical word, holding at most one token from
-each riwāyah. Its position is the word's ID.
+each riwāyah. What each column is *called* needs a frame of reference, because
+"added" and "lacking" are not properties a column has on its own: `هُوَ` at 57:23
+is written by five muṣḥafs and not by two, and nothing in the data answers *was
+it added by the five or dropped by the two?*
+
+**The spine is Ḥafṣ's word sequence.** ID *n* is Ḥafṣ's *n*-th word. Every other
+muṣḥaf is described by how it differs from that, and it can differ in only two
+ways:
+
+| | | |
+|---|---|---|
+| `addition` | Ḥafṣ does not have the word | Bazzī's `مِن` at 9:101 |
+| `partial` | Ḥafṣ has it, another muṣḥaf does not recite it | Warsh has no `هُوَ` at 57:23 |
+
+An addition takes no ID of its own — it hangs off the preceding spine word with
+`sub` 1, 2, … — so Ḥafṣ's own numbering is `1 … 77432` with no repeat and no
+gap, and a muṣḥaf without the extra word has nothing to explain. An omission is
+a gap in that muṣḥaf's IDs, and means that and only that.
+
+Naming Ḥafṣ as the frame is a declared choice, not a claim that it reads
+correctly: at 72:16 four muṣḥafs write `لَّوِ` and three do not, and it is still
+an `addition` here. The alternative was a majority rule, which is neutral but
+puts a repeated ID in Ḥafṣ — and Ḥafṣ is the muṣḥaf most word-level datasets are
+built on, so it is the one that most needs a single clean integer key. The
+choice is the same one `ORDER`, `canonical_form` and the imlāʾī layer already
+make; it is stated here rather than left implicit.
+
+Three words are `partial` and two are `addition`; every other ID is one word in
+all seven.
 
 ## Identifiers
 
-- **`id`** — a running integer over the whole corpus, `1 … 77434`.
+- **`id`** — a running integer over the spine, `1 … 77432`. The spine is what
+  the majority of the seven muṣḥafs writes.
+- **`sub`** — set only on a word a *minority* writes, which takes no ID of its
+  own and hangs off the previous one. Two words in the corpus: Bazzī's `مِن`
+  at 9:101 and Ḥafṣ and Shuʿbah's `أَوْ` at 40:26. `(id, sub)` is what
+  addresses a word; `id` alone does not.
 - **`i`** — the word's 1-based position within its sūrah.
 - **`key`** — `sūrah:pointed#occurrence`, e.g. `1:مالك#1`. This is rebuild-stable
   and does not shift if a future release adds or removes a word earlier in the

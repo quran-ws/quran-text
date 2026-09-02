@@ -10,6 +10,11 @@ The result is a list of :class:`Column` per sūrah.  A column is one canonical
 word: it carries at most one token from each riwāyah, and its index in the list
 is the word's fixed ID.  Words that only some riwāyāt have still get a column,
 so an ID means the same word everywhere it exists.
+
+Which columns are the *spine* and which are one riwāyah's addition is not
+decided here — a majority cannot be counted until all seven are folded in.  This
+module only guarantees that no column pairs two words the letters do not
+support; :func:`quranidx.build.build_words` reads the finished spine and decides.
 """
 
 from __future__ import annotations
@@ -17,6 +22,7 @@ from __future__ import annotations
 import difflib
 from collections import Counter
 from dataclasses import dataclass, field, replace
+from functools import lru_cache
 
 from .normalize import forms, split_by_rasm
 from .tokenize import Token
@@ -81,6 +87,76 @@ def _distribute(cols: list[Column], toks: list[Token]) -> list[tuple[list[Column
     return groups
 
 
+def _overlap(a: str, b: str) -> int:
+    """Length of the longest run of letters two rasms share."""
+    best = 0
+    prev = [0] * (len(b) + 1)
+    for ca in a:
+        cur = [0] * (len(b) + 1)
+        for j, cb in enumerate(b, start=1):
+            if ca == cb:
+                cur[j] = prev[j - 1] + 1
+                best = max(best, cur[j])
+        prev = cur
+    return best
+
+
+def _assign(cols: list[Column], toks: list[Token]) -> list[tuple[int, int]]:
+    """Which token belongs to which column, decided by shared letters.
+
+    Order-preserving, and the shorter side is always fully paired, so the
+    surplus falls on the longer side alone.  Pairing left to right instead
+    would put Warsh's ``وَأَن`` against Ḥafṣ's ``أَوْ`` at 40:26 — two words that
+    share one letter — when the ``أَن`` beside it shares all of them.
+
+    Ties prefer the earlier column: at 72:16 Ḥafṣ's contracted ``وَأَلَّوِ`` matches
+    ``وَأَن`` and ``لَّوِ`` equally well, and neither answer is more true than the
+    other, so the rule picks one and ``docs/LIMITATIONS.md`` says it is a
+    convention.
+    """
+    n, m = len(cols), len(toks)
+    score = [[_overlap(c.rasm, t.rasm) for t in toks] for c in cols]
+
+    @lru_cache(maxsize=None)
+    def best(i: int, j: int) -> tuple[int, tuple[tuple[int, int], ...]]:
+        if i == n or j == m:
+            return 0, ()
+        options = []
+        deeper, pairs = best(i + 1, j + 1)
+        options.append((score[i][j] + deeper, ((i, j), *pairs)))
+        if n - i - 1 >= m - j:              # this column goes unpaired
+            options.append(best(i + 1, j))
+        if m - j - 1 >= n - i:              # this token goes unpaired
+            options.append(best(i, j + 1))
+        return max(options, key=lambda o: o[0])   # first max wins: earlier column
+
+    return list(best(0, 0)[1])
+
+
+def _pair_by_letters(cols: list[Column], toks: list[Token], key: str,
+                     out: list[Column]) -> None:
+    """Emit a block whose two sides genuinely differ in wording.
+
+    Each side keeps its own words in order.  A column the riwāyah has no word
+    for stays as it is, and a word with no column of its own gets one, so no
+    column is ever made to claim that two words correspond when the letters say
+    they do not.
+    """
+    n, m = len(cols), len(toks)
+    i = j = 0
+    for ci, tj in [*_assign(cols, toks), (n, m)]:
+        while i < ci:
+            out.append(cols[i])                          # riwāyah lacks this word
+            i += 1
+        while j < tj:
+            out.append(Column(tokens={key: toks[j]}))    # riwāyah alone has this word
+            j += 1
+        if ci < n:
+            cols[ci].tokens[key] = toks[tj]
+            out.append(cols[ci])
+            i, j = ci + 1, tj + 1
+
+
 def _pair_replace(cols: list[Column], toks: list[Token], key: str,
                   out: list[Column]) -> None:
     """Resolve a replaced block: the same slot, spelled differently.
@@ -89,7 +165,8 @@ def _pair_replace(cols: list[Column], toks: list[Token], key: str,
     case, and are almost always a word-boundary disagreement rather than a
     different reading — most often a source that printed two words with no
     space between them.  When the letters on both sides agree, the words are
-    re-segmented so the spine keeps one column per word.
+    re-segmented so the spine keeps one column per word.  When they do not, the
+    block is a real difference of wording and goes to :func:`_pair_by_letters`.
     """
     if len(cols) == len(toks):
         for col, tok in zip(cols, toks):
@@ -98,15 +175,7 @@ def _pair_replace(cols: list[Column], toks: list[Token], key: str,
         return
 
     if "".join(c.rasm for c in cols) != "".join(t.rasm for t in toks):
-        # Genuinely different wording: pair as far as the shorter side goes,
-        # then let the remainder stand as present on one side only.
-        n = min(len(cols), len(toks))
-        for i in range(n):
-            cols[i].tokens[key] = toks[i]
-            out.append(cols[i])
-        out.extend(cols[n:])
-        for tok in toks[n:]:
-            out.append(Column(tokens={key: tok}))
+        _pair_by_letters(cols, toks, key, out)
         return
 
     for group_cols, group_toks in _distribute(cols, toks):

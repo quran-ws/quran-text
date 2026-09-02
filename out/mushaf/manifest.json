@@ -1,7 +1,7 @@
 {
  "format": "quran-mushaf",
  "format_version": "1.0",
- "generated": "2026-09-01",
+ "generated": "2026-09-02",
  "normative": [
   "out/mushaf/hafs.json",
   "out/mushaf/shuba.json",
@@ -109,128 +109,128 @@
  "files": [
   {
    "path": "out/mushaf/bazzi.csv.gz",
-   "bytes": 753853,
-   "sha256": "76d8c4d48b8c09d81d57f314bb070b7a9770c3ace275ebdaa4f00a472eea78c4"
+   "bytes": 758500,
+   "sha256": "546008bc4e641960ed67a4dfe74ebd8fdec84cedd30ee69b9389a579944b1616"
   },
   {
    "path": "out/mushaf/bazzi.json",
-   "bytes": 6918660,
-   "sha256": "fff37f44faf1c65b1d01ba91fa301ca19191c49b08e879f5369c70bd6b6c1ba8"
+   "bytes": 6918671,
+   "sha256": "b7c2288f8461038c2ea852232a79f47c15ea4e18770517bc50c988c22caa18ce"
   },
   {
    "path": "out/mushaf/bazzi.min.json",
-   "bytes": 4449615,
-   "sha256": "e35dfa83752932c5fad39279f7ac4ccac63cd17a1f49fc9a8737f7e97f4fa153"
+   "bytes": 4449626,
+   "sha256": "2f3c6fc921a3770a8c623c90f87c6cc87d96a0c01d18248dd66690f838bcaf81"
   },
   {
    "path": "out/mushaf/douri.csv.gz",
-   "bytes": 773516,
-   "sha256": "134fb2049aa5c2e1aab374019cad8b4aec63839b37f3c5dd5ef0224d4bb943aa"
+   "bytes": 780292,
+   "sha256": "219e1d3b27fef7d15ac6540619df51bbc58fc174a47bc3fb065d9273ad44e1e3"
   },
   {
    "path": "out/mushaf/douri.json",
-   "bytes": 6983534,
-   "sha256": "4a02fb805f40177ad590e133c9d19227fcdacd8a926ba250295ce54d96e8a3e9"
+   "bytes": 6983545,
+   "sha256": "5bacfc73d0555680a5a04046e76dd2d03452bf26e8fe68789a34c6b789715adb"
   },
   {
    "path": "out/mushaf/douri.min.json",
-   "bytes": 4479624,
-   "sha256": "b5d9a3acfa5d7f97323396b156311b568156b499d6fc0348cc198285637d3607"
+   "bytes": 4479635,
+   "sha256": "aca306a07c73e282d5f07f417faa05cb7cd9bc686f971cccd7b8e320ff711f43"
   },
   {
    "path": "out/mushaf/hafs.csv.gz",
-   "bytes": 1004627,
-   "sha256": "c433fb921a4ae3f85ca389ec269afa5518b09e9fdedf0664eded6ce3d5c2c0a1"
+   "bytes": 1013672,
+   "sha256": "a880f8d7348fea87497b089903d562d7e6bc58d03d3f73a60736668191446984"
   },
   {
    "path": "out/mushaf/hafs.json",
    "bytes": 8507003,
-   "sha256": "9193a9f88dcab4086839a4965c746d0e877ab1ee51cb8c0bb8ae85393b1de3a2"
+   "sha256": "3a38a38e5231f53c2c978192be8b4b72193de24c1cbe093c48be000b5505d65c"
   },
   {
    "path": "out/mushaf/hafs.min.json",
    "bytes": 4439199,
-   "sha256": "a393c109fb93373b7983803f9731cc95c7135bf8a460d59dcbfedc9be54f86ce"
+   "sha256": "73bdc9276fb824f99a6219fa94672dd089a6e119f7c4b0c8a02a44087b93183b"
   },
   {
    "path": "out/mushaf/nested/bazzi.json.gz",
-   "bytes": 1045772,
-   "sha256": "08f77d625d179315c25b826b69c367378536380506de19bfeab8e0b21d0e48b7"
+   "bytes": 1045841,
+   "sha256": "eb925b27b2738b4db1860e95fb37a17f10aedd24ff795ee3a70c8f9236301ee6"
   },
   {
    "path": "out/mushaf/nested/douri.json.gz",
-   "bytes": 1058999,
-   "sha256": "ccdc3251260aef46355b4a6a24d007e27a75dba7f1f0f2c305fc8cd4fad944d4"
+   "bytes": 1059067,
+   "sha256": "adc61f20c458cbd962d5a8a71e4f3506af8bf17fc07d1c428fe9f5dca05ff6c2"
   },
   {
    "path": "out/mushaf/nested/hafs.json.gz",
-   "bytes": 1467198,
-   "sha256": "f069f9e7d8a9d9f505d4176c99a32822bfd8b3ceb8b2d95498f4f27b61a39534"
+   "bytes": 1467243,
+   "sha256": "ad2aed134609adfa4b3f23f1c243911c3c04a2edbbfbf64fe89ee1bd86906eda"
   },
   {
    "path": "out/mushaf/nested/qaloun.json.gz",
-   "bytes": 1074087,
-   "sha256": "58926ca31cb66c34483bfc1bd2b81184e34508421616148eefc7050e17c414b9"
+   "bytes": 1074146,
+   "sha256": "b3584fd11945c3a4c62620e4dbe963c9bb2b050f5cc9c9569fe055ad9e5d298f"
   },
   {
    "path": "out/mushaf/nested/shuba.json.gz",
-   "bytes": 1051755,
-   "sha256": "6e9580a36605e33914f9c9781260d7141f0616046b0a8fbe1f4c4e3248a9610a"
+   "bytes": 1051813,
+   "sha256": "3b3150f787f734db06ccff5ae98d83164c2e19c0d8756bf8c4d3cb29abbd90fc"
   },
   {
    "path": "out/mushaf/nested/sousi.json.gz",
-   "bytes": 1058230,
-   "sha256": "69e7277ceee195952c8acb48edeb1a02089e48871da2aaa66871a965ec914f54"
+   "bytes": 1058300,
+   "sha256": "6a35e94b40d77060620477b8962203886c68a401e9e0e4d4fbee54701671071c"
   },
   {
    "path": "out/mushaf/nested/warsh.json.gz",
-   "bytes": 1038743,
-   "sha256": "d4fee71b8a32d4bccf69407544583472960cc84c3d1bdbe90dbc32b19983795f"
+   "bytes": 1038744,
+   "sha256": "0629049428a64c87520eb16e90610cc53d93ed3b9e111e59b2d374788ac19583"
   },
   {
    "path": "out/mushaf/qaloun.csv.gz",
-   "bytes": 784500,
-   "sha256": "b9a24373910dffc5f5fb64839be8d24a352d91b3ce4a60f964cf14866ba94300"
+   "bytes": 790631,
+   "sha256": "3839547bdd50028d66847f49167de309065d933fe6ef2c03052ba8d54948177c"
   },
   {
    "path": "out/mushaf/qaloun.json",
-   "bytes": 7461324,
-   "sha256": "fa3a24f244e4bdc36622b0486a589ca581a990b5214fa3978d27054f99ae9edc"
+   "bytes": 7461335,
+   "sha256": "41c867faf0ff46f318ff1f3e585a92aed3c16d44ed7fae9011c94c4b5fc0057d"
   },
   {
    "path": "out/mushaf/qaloun.min.json",
-   "bytes": 4462498,
-   "sha256": "ae14cd98ce597a938afc4230799034a27783aae697ec6aa64d825accef618da9"
+   "bytes": 4462509,
+   "sha256": "c8ff83f0f299a17da498366d88e83e03428d243fc9a5c8164642d1ac3abfa12f"
   },
   {
    "path": "out/mushaf/shuba.csv.gz",
-   "bytes": 763034,
-   "sha256": "35ee3b6b4a9fa03ccd2b4cd4b43cc5706b725f57d11ad86cba34cfb1b9bd18c1"
+   "bytes": 769987,
+   "sha256": "e91460e500130dbd22a10d3958772057dbb58d7b8d8101937979c0f0979d7fe1"
   },
   {
    "path": "out/mushaf/shuba.json",
    "bytes": 6917555,
-   "sha256": "78c1cff444134be8ca692a20254511db5ff7c8746f6562984d9c55a9240c3599"
+   "sha256": "bddceaf586c9fd1effa7b1926949f4701bd8d4bfbc29e693e0e44fa280defb9e"
   },
   {
    "path": "out/mushaf/shuba.min.json",
    "bytes": 4439219,
-   "sha256": "06bd0057574c34bd6ecc1e8a50a41669a967ce42c6db70d6b384bf4441340c6b"
+   "sha256": "b7610c643d462fd1607c2f0ce062f9a2fe4d2f98bbd60dcdcda6ae97759d954e"
   },
   {
    "path": "out/mushaf/sousi.csv.gz",
-   "bytes": 772089,
-   "sha256": "7ffe7fa2edba9781c6b77740428969a5dceefd26dad14597a4d3a130c10df948"
+   "bytes": 778745,
+   "sha256": "70180532fe36c07a714b06f2e1f7481363123483155b91cf7ebbc7cd56b1cf42"
   },
   {
    "path": "out/mushaf/sousi.json",
-   "bytes": 6974381,
-   "sha256": "779495905860ca454a87501e46191d1e0b5a68336917b3a58fcd52ad5c508a23"
+   "bytes": 6974392,
+   "sha256": "118b78f3707fb6bab8d179bf9708970b778504240f6120b1a53f31cd3bb99e37"
   },
   {
    "path": "out/mushaf/sousi.min.json",
-   "bytes": 4466271,
-   "sha256": "384adb23eb5d980ed96bf91b13dd75f3afebf1fa405958b96a2ba012efb907f4"
+   "bytes": 4466282,
+   "sha256": "98e00165462183b577323d0a44b7973d9bf22abf8beb7317c7befc2476c54611"
   },
   {
    "path": "out/mushaf/suras/bazzi/001.json",
@@ -274,533 +274,533 @@
   },
   {
    "path": "out/mushaf/suras/bazzi/009.json",
-   "bytes": 221610,
-   "sha256": "5373a13d90fcab53c6cf691e8624e3601a8d0a9d85ea3ffc9122aa05840de427"
+   "bytes": 221621,
+   "sha256": "f924336393c035902b75572f2b379b4c2fe9e972c41ca399ade99fbf5ef93c6e"
   },
   {
    "path": "out/mushaf/suras/bazzi/010.json",
    "bytes": 161749,
-   "sha256": "4e14f2fcf34d95f37b763e94c523175be2259ad6c10e548f8616b21a779cc33a"
+   "sha256": "f237fed213f5598eeb77fda6f5e6db8c42739177701a3228fd585803acb486da"
   },
   {
    "path": "out/mushaf/suras/bazzi/011.json",
    "bytes": 170430,
-   "sha256": "35a475e29a9bd6952242b1282f2542a93595463245271ef0cd1ffafe24808a2b"
+   "sha256": "b425ba2a33dc8ea072021eb81fcc67b7de1e653c70abf83734f63fdc54a04edc"
   },
   {
    "path": "out/mushaf/suras/bazzi/012.json",
    "bytes": 157065,
-   "sha256": "d4913db98e3a2aaebe5c0ffd534ff464fb6021295eac6804d5f51c9c8be1a9fa"
+   "sha256": "d9ab78e5cbc31f03e31fcdf186e27310914cb6e7b73122033295a84cd0ab8c0a"
   },
   {
    "path": "out/mushaf/suras/bazzi/013.json",
    "bytes": 76812,
-   "sha256": "b5e32116bfffa7a330c45cbb6935b28c45dba21c9653c5ada2394491ebd6abaa"
+   "sha256": "5766012c3fb2ee74a5ab2909d849126d8d898a7956c4225d62893ff68c591899"
   },
   {
    "path": "out/mushaf/suras/bazzi/014.json",
    "bytes": 74312,
-   "sha256": "c898826c91fb569497d928738dec5fee9dd724c6b724f728803b4c811956393a"
+   "sha256": "83f76950977934f0db0048a44fd54736d72663dede7350e3ef18e77a8db9b967"
   },
   {
    "path": "out/mushaf/suras/bazzi/015.json",
    "bytes": 60270,
-   "sha256": "4b34450d7d26499cbb00d799041ab37e6bd0396879d054c426d3ad7ae02b0560"
+   "sha256": "8250521e0d9f37511b9d99b3f59671c96884d69c14105b160a1820c06e391143"
   },
   {
    "path": "out/mushaf/suras/bazzi/016.json",
    "bytes": 163733,
-   "sha256": "37286770f8b29eb882b559bbdcc8d1a8d20607c711997c11c7d259b19ee1e603"
+   "sha256": "855a61b68f6bf1305c9c5efdf923d13bbf6acf365816d4d50d52d9ebe9b1293d"
   },
   {
    "path": "out/mushaf/suras/bazzi/017.json",
    "bytes": 137875,
-   "sha256": "7254241017b11ea35ec2e24bff02c4d8f98b0b55bc298751db45cab4a5e4bf00"
+   "sha256": "c30479f1d213a52e20698767d186a235b9f6922d2292120897dd5131f01f0189"
   },
   {
    "path": "out/mushaf/suras/bazzi/018.json",
    "bytes": 138062,
-   "sha256": "f8aae1ccaf5a297babe7dccb52a1c7247da0c01d567b5a6995b3a80aacfc5785"
+   "sha256": "49e64ce5107f1958a8091a0a65090c61dbca6da3c79d6f5bdcffea1458671d21"
   },
   {
    "path": "out/mushaf/suras/bazzi/019.json",
    "bytes": 86335,
-   "sha256": "f65ff9f67394944d2abf0fe8ae79baed5623d13542d295e05f4ed9bec082618e"
+   "sha256": "e546d3b46320bc5acb21c3f3b7945975813a6ad7771f422f54a5e634eea5eae6"
   },
   {
    "path": "out/mushaf/suras/bazzi/020.json",
    "bytes": 119128,
-   "sha256": "2dd755a87591e4706c45f574ad476e712b88640b8f9845b235de95906d174fc0"
+   "sha256": "60085a4d69088fa07f4144f2226531741bf3f7c231aebaf0533fe1a6295daae8"
   },
   {
    "path": "out/mushaf/suras/bazzi/021.json",
    "bytes": 106294,
-   "sha256": "cad988df8470b745c1a2c63c40f4472f4b1c65d28e3d3769ecdcb5e60b60dfad"
+   "sha256": "7ae48fdf6799751761547386933a0836499484c37e8f93f9b35d61c1793bd95e"
   },
   {
    "path": "out/mushaf/suras/bazzi/022.json",
    "bytes": 112713,
-   "sha256": "82b7c4c413b7854bfad7020bb82eadac2c2e9f108d54b56a992433d640a9e40b"
+   "sha256": "a32488ae3e3c4f72560a0d1ae828c8e2a97dd99d1ee7df6f2a58c5b0ca06adc6"
   },
   {
    "path": "out/mushaf/suras/bazzi/023.json",
    "bytes": 94833,
-   "sha256": "f9174cdafe8708b504afa14991607cc06c60a846179c331601b27f5e0aa6ce0c"
+   "sha256": "770f14d857b9ec5a1b42075fe0fc13e34a1c639cdbe5111305bfcfb1447789b5"
   },
   {
    "path": "out/mushaf/suras/bazzi/024.json",
    "bytes": 116989,
-   "sha256": "5fba7c78cd342fedf4afda51a0ea5ceb723e165c2d6de3993773dc997c9933cd"
+   "sha256": "09dd2ed8606db86fb45339f40416bb5b9c8024d0ac3b6eceeb9e0a841c122ec4"
   },
   {
    "path": "out/mushaf/suras/bazzi/025.json",
    "bytes": 79465,
-   "sha256": "cd851424d4b0434073e6655375c43e1588a58211e378dbb22e07a15d4d475f10"
+   "sha256": "400b5b74dee97d795d2fa3c6b2f6b8f050df66d690c122f7a76637dfde3ea31f"
   },
   {
    "path": "out/mushaf/suras/bazzi/026.json",
    "bytes": 123805,
-   "sha256": "1095045e704e5230c887daa3d08a993a23d6ace329296c67ad32a10633893c0a"
+   "sha256": "b8a70673992ecadf66169c6cfb97e87cf94e0ad22d4ba0574451ccac3b43a5c3"
   },
   {
    "path": "out/mushaf/suras/bazzi/027.json",
    "bytes": 102400,
-   "sha256": "45bada3591dff50074f1c668474e09f13049247531107efbea22976794716d5f"
+   "sha256": "d9a7ee4c90e609821c9d6ccab63a1ab8e2c8f6a1bcab2d05281d54b4addd4c19"
   },
   {
    "path": "out/mushaf/suras/bazzi/028.json",
    "bytes": 125924,
-   "sha256": "a33bb1aa9187516b462606d7d29fbf137e03e4cb0ae2861f12329b26e85d6e81"
+   "sha256": "57e49b076e9d0da7715df6d69beed12a4159f555073acfc07effa255e176556e"
   },
   {
    "path": "out/mushaf/suras/bazzi/029.json",
    "bytes": 88699,
-   "sha256": "39ab4d2f1fd37bc3e853f46102134857e42c81ba911da3b272d3ca3400d8559b"
+   "sha256": "73868a77211964ffb2aa2f01225f409aeba9cf5c7c9f8fddf217c81b59d8d926"
   },
   {
    "path": "out/mushaf/suras/bazzi/030.json",
    "bytes": 73558,
-   "sha256": "fc5f8ab241db4ff40675acae8721b04c0b1fbb2cf6ef41020b4578c80ac2b644"
+   "sha256": "f8137102d94a254d9bab9d77bbe580ece476126cafde4880dd967477eb78bc4b"
   },
   {
    "path": "out/mushaf/suras/bazzi/031.json",
    "bytes": 48601,
-   "sha256": "e2f421288e6a8998d24c67b866143342808548d0aaaee688e459a03d076879b2"
+   "sha256": "dea00acc179d0a767fc156a35fffe09a8822e7a1e0cf13e285ff0dd6f7f3244a"
   },
   {
    "path": "out/mushaf/suras/bazzi/032.json",
    "bytes": 33561,
-   "sha256": "f6443957f8d531cab3171fbd676bf68cd5b9aec40915a212e93e67dd0544f44e"
+   "sha256": "7853fd330fedbc2f71509558a54e44d9208b69461c2eaa82fd50654cce77fbb5"
   },
   {
    "path": "out/mushaf/suras/bazzi/033.json",
    "bytes": 114678,
-   "sha256": "c603b6053eab135f428dd01dfd8f92e365dee2536d46f544c8821c601f32e877"
+   "sha256": "700cedf1769f74c6e186110f73decaf88558cac042281750732599aaef01e959"
   },
   {
    "path": "out/mushaf/suras/bazzi/034.json",
    "bytes": 78030,
-   "sha256": "a1393c6e2c0c49dc74c5471a5f225f34f81a2c592264092d85566767b7c4df5c"
+   "sha256": "fabe754185154bc3add6ac9bffbff41bc56c1e26dd116ff5715462bda6acaa25"
   },
   {
    "path": "out/mushaf/suras/bazzi/035.json",
    "bytes": 70257,
-   "sha256": "0dc226e6912ca66f1bf2b4c7ff7ab8c6cacaa9b90bd7cc6c976d365b946507af"
+   "sha256": "136386dcb7f9e1b767edb952b9d3284aba69082b753c3b39aba7569309c7a60f"
   },
   {
    "path": "out/mushaf/suras/bazzi/036.json",
    "bytes": 65592,
-   "sha256": "5e376f78bcc13607c83e04d232128651ab9855a96bb9576fd8f8dfc072a84874"
+   "sha256": "a0764594f8c83b6bf6cd226c9c724d40ff21a6d9ee162474b329046ef8e2dd8e"
   },
   {
    "path": "out/mushaf/suras/bazzi/037.json",
    "bytes": 84000,
-   "sha256": "9149a90714bd30bd37f7b8f41100e6802dc91d698f14aeb4a15528ff36004fab"
+   "sha256": "daa5258b480e15328baba2c22c29bbb4fc8d1c80a467f17bf8bca2af6d863976"
   },
   {
    "path": "out/mushaf/suras/bazzi/038.json",
    "bytes": 67384,
-   "sha256": "3a0f6e8bef30c6dd4d00b42d5b9236cc94e40fb183816acd872c69ce077c9581"
+   "sha256": "7d230c6b0b69a2217e3a191aba2bdbb75858d59415b58bb8db419ba006317ab3"
   },
   {
    "path": "out/mushaf/suras/bazzi/039.json",
    "bytes": 104197,
-   "sha256": "ac9548be10b7a0e93ec9350fe96bd879c0043a74ab07617046a4cbae55c6d1d0"
+   "sha256": "8b88878645a3aa7663524982f559efc02a1a83bad4c9dcb3b79379fea25d1712"
   },
   {
    "path": "out/mushaf/suras/bazzi/040.json",
    "bytes": 107929,
-   "sha256": "764716559157f32247a49e338aa180fa17be668de0af6ddffcf90f2ba76be511"
+   "sha256": "72403c5d19ab5c1118e36b3d80cedcf51f7ee2bf10a36649a581091d1ad72f18"
   },
   {
    "path": "out/mushaf/suras/bazzi/041.json",
    "bytes": 70587,
-   "sha256": "9f0f43af4d0992eb9e98a80a2688562d905e738b7c09b1b4d69d6bf4c1605f3a"
+   "sha256": "397e6c13023b62b1e32534eeb9aaf358bce2e7bb512f50cf939c428c088f14ab"
   },
   {
    "path": "out/mushaf/suras/bazzi/042.json",
    "bytes": 77482,
-   "sha256": "aefa91ca1a166fd5004a9c4742a405088026a5c7a29f004213ae6fa46dafa250"
+   "sha256": "7027939e9d6ea680ec62d1a073871cbd1b89d1deaf079300df3816330f58498f"
   },
   {
    "path": "out/mushaf/suras/bazzi/043.json",
    "bytes": 75859,
-   "sha256": "c4049eed9ad4fd652782251de4bcc2515f1db2283982a5b507cdf3f64923752e"
+   "sha256": "a708f0e3968f817eb4aaa5c2a5edab80d9df404a08631f438037bd9df74b3c33"
   },
   {
    "path": "out/mushaf/suras/bazzi/044.json",
    "bytes": 33581,
-   "sha256": "788833bde88e79801c7ca9fef2782eba1d2272797960260d1ee69bccfc29efe7"
+   "sha256": "6e31845366bb888e51ebf93a8dc1f63317bbf517b11c32ed32b2733e54d4f3a8"
   },
   {
    "path": "out/mushaf/suras/bazzi/045.json",
    "bytes": 43815,
-   "sha256": "e502655db8222401457563f25b8da142f34de1937ac0ff21078dabbafe2443ed"
+   "sha256": "c52a9793f697a981b5bc2f4612703c9517558f49ff7adf4d9a83e53af058eee9"
   },
   {
    "path": "out/mushaf/suras/bazzi/046.json",
    "bytes": 56172,
-   "sha256": "5ca8433f6ec09ff2bbd95ea30a680ea216ff08591062de329620cedbe76e1857"
+   "sha256": "20fe44dd31c17d0558610d608d19fbf60f5008d17366633822f604cd14abca6e"
   },
   {
    "path": "out/mushaf/suras/bazzi/047.json",
    "bytes": 48578,
-   "sha256": "c2a36c2cb34b9a8ba19a186c1485e6c594ac5edd216eed169ed9dcdca4339c55"
+   "sha256": "00f70031110190e545abea78ab4bad344ba761cc487454ec402420dea7ad6cbf"
   },
   {
    "path": "out/mushaf/suras/bazzi/048.json",
    "bytes": 50673,
-   "sha256": "80275f7e1ce3783763afa8fe61718379bff08caf8e9d2f3b20cf8d7a49d9d7a2"
+   "sha256": "2ac83c3c5b09c5f5bb85f1ef5992e40fe9070112cb8e68b59caf11615abd4361"
   },
   {
    "path": "out/mushaf/suras/bazzi/049.json",
    "bytes": 31997,
-   "sha256": "5bf2ac62c1b09133ca83f411fe9ba5f1b6ed0cd860d206a872b081db3c92eaee"
+   "sha256": "89419844ceb124118f25bd1f13dc9f83b6fa978de390f36d784368d574636ac1"
   },
   {
    "path": "out/mushaf/suras/bazzi/050.json",
    "bytes": 34358,
-   "sha256": "a8d7e8831578b03d00fb06d21f73c73d94966ab93ade55490b8f9ce4cc2992c6"
+   "sha256": "c747c4339293f6b6d05c1284f5699d5cd41f89d21062a7f3fddb8863c8571e9e"
   },
   {
    "path": "out/mushaf/suras/bazzi/051.json",
    "bytes": 34457,
-   "sha256": "5b3ffa6c8df851ffc3b8ed150fcdeb8faff6e094cb5d41e1ec5a8e284ab66595"
+   "sha256": "84157fe7f0eee96aa397bd556ac32d5ded09a6a497bc8ff0576bb98d1e96cd86"
   },
   {
    "path": "out/mushaf/suras/bazzi/052.json",
    "bytes": 29818,
-   "sha256": "2a82c44c452db81e8366ccbad9c1947525b32235e83e66a192981060af102a95"
+   "sha256": "33e133844317d980f08fd634362e84e0792ce80f3e2327a205dd43042e0d6e4a"
   },
   {
    "path": "out/mushaf/suras/bazzi/053.json",
    "bytes": 34256,
-   "sha256": "6bf5a9c5092ce4a5a063f7a0cc9246d993419b16d253bab3e3c35b29bbfbbddc"
+   "sha256": "df250adf72663543110c58a16e5cbf8c2a31b35d2130af6288a7997318d6e49c"
   },
   {
    "path": "out/mushaf/suras/bazzi/054.json",
    "bytes": 32595,
-   "sha256": "ffb0a8874fd310b429cd12559c4a52ca70b5a308a83aced5ca597ab550641f7f"
+   "sha256": "4c0b27a319452b2deed716ba55d8a5ac2b24c453c5d8d128f938b9005e315780"
   },
   {
    "path": "out/mushaf/suras/bazzi/055.json",
    "bytes": 34969,
-   "sha256": "b9d5cc3e5b9ee8db8b11fccf81708fc9d591a259de548031a8ab929a530cf780"
+   "sha256": "e7290c2ae2d1ca3f5382f7448d2291bdc7871fd7e29ecfd96ce25814fc0b3957"
   },
   {
    "path": "out/mushaf/suras/bazzi/056.json",
    "bytes": 38459,
-   "sha256": "f6de1ccdb6bb2784177c933f0fe84b6808b4935813de37359f15471d07489ce2"
+   "sha256": "46731a9f587203dc283370cccb052d77b80378d22c07823b0e9f80fc6fbc94ec"
   },
   {
    "path": "out/mushaf/suras/bazzi/057.json",
    "bytes": 52003,
-   "sha256": "465e8d7ac65f7aec4dd817dae7c21606aef8b18502caa5dbcc1932267087590f"
+   "sha256": "5a78a839d5f64ddcae30740019b375dd15ffdd5fd6d33bd90ae1932ddd6efcf9"
   },
   {
    "path": "out/mushaf/suras/bazzi/058.json",
    "bytes": 42897,
-   "sha256": "e89282544ee1c29f948abb9a4eb13ab567126dc471ebe858b76556ec05220f10"
+   "sha256": "fdf05d9f14d33503409d1792d59ff411c0fd44550ef42c2ca8e94836297d67c1"
   },
   {
    "path": "out/mushaf/suras/bazzi/059.json",
    "bytes": 40268,
-   "sha256": "97280daa34eea7d1dad928b8e2f4cae5d4254617e7c4df802375597464772793"
+   "sha256": "5250db848314e10c53f0c0ee4b6d4ca3672792efab8d425f9b395b92203af783"
   },
   {
    "path": "out/mushaf/suras/bazzi/060.json",
    "bytes": 31158,
-   "sha256": "c458a75c456e92a7f4c43565c0fa5db84bd291c850cf16b9ca48d364e7062468"
+   "sha256": "21c09775d7ae70599e72d347f277f6470382dc3fac6f24e30f77768a766754b3"
   },
   {
    "path": "out/mushaf/suras/bazzi/061.json",
    "bytes": 20178,
-   "sha256": "680f9c6c4dabf522aa73014d2f8d8249a2cfb7892569cbaa1da228e12c2db9d0"
+   "sha256": "b9d71ef15835a0ae1f65e60cd60467d88a5259642d3cf5f75d4b9cc75c885b5f"
   },
   {
    "path": "out/mushaf/suras/bazzi/062.json",
    "bytes": 16080,
-   "sha256": "eec6cc807ced9bfbb15890b6c4d15510a7d501e5f00d6b9e2a9f882514c906b8"
+   "sha256": "932405ab3c52aff69af6afce279ccc25b161c5dc0b2c3ab476eb729d77513a18"
   },
   {
    "path": "out/mushaf/suras/bazzi/063.json",
    "bytes": 17069,
-   "sha256": "0dc3d551c1c63f9d14716db7c716a49bdc6f5bc963f8f8a9998cd7b2a65767c5"
+   "sha256": "12e69140cabb99ea35aff5cabfd036634e11d765d3f6da542cb528c438a5a128"
   },
   {
    "path": "out/mushaf/suras/bazzi/064.json",
    "bytes": 23081,
-   "sha256": "00dce31b87f70b2fc71fc2970e5663b4d8d7d3de3feb6dc7a77257b706760674"
+   "sha256": "ab15ab57efc908184a313425e38c37a84be25e3dbbead32c6e17169b588c06ea"
   },
   {
    "path": "out/mushaf/suras/bazzi/065.json",
    "bytes": 26158,
-   "sha256": "3bb0f61035da60073551a7a4db08c2ffcb7fa9e98943b4c9e2671eb08a7b5aea"
+   "sha256": "abd5af431f89680509cebd47890dc7064103511aec6324aa3e05fdf1537cb2e3"
   },
   {
    "path": "out/mushaf/suras/bazzi/066.json",
    "bytes": 22469,
-   "sha256": "1f6db35dc4f1e13d05c1e20bc0f2aac3b8b3b0f56f69c4f9034c0e3477becfff"
+   "sha256": "39814989030856c11182284260363715ca1693dd971087b9f8cdde9028bafe69"
   },
   {
    "path": "out/mushaf/suras/bazzi/067.json",
    "bytes": 30140,
-   "sha256": "d41dc4c3ee68fd7c755a069ed48636e542f93ca84c18a3fefa96ab7697273d84"
+   "sha256": "6c3b85adbb2fa93bf1d0dbd4cc00b87d6768786b12b9d5b6651ca2a2fcb79516"
   },
   {
    "path": "out/mushaf/suras/bazzi/068.json",
    "bytes": 28719,
-   "sha256": "186878345a564d48d2aa753baa1f2257bee504cd94578638b3f33d893cd5e863"
+   "sha256": "3997c5668127c47d5375066ebe2111c25521a93b07d70f2ec7ce1ff098502aec"
   },
   {
    "path": "out/mushaf/suras/bazzi/069.json",
    "bytes": 25434,
-   "sha256": "78e0e5651857e48dbe25094aed7e32eb1fc42e1ff3fa9128a7569fb79f15c052"
+   "sha256": "6d42c8c6f500677103d0ebfdd083237022a5265c8815787d655349e0af974bb2"
   },
   {
    "path": "out/mushaf/suras/bazzi/070.json",
    "bytes": 21750,
-   "sha256": "d9edffdd9c7c474d2c3bbd3c32deb8981fc65c2dbbf4e163f6aba4ce3ad92da6"
+   "sha256": "08d61c765acb91bc26160be89a1ecc0fd89bf3ce3f2a4797f59b9d64d670d89a"
   },
   {
    "path": "out/mushaf/suras/bazzi/071.json",
    "bytes": 20959,
-   "sha256": "89599377987b1de181fc5d523757ee64cd5c4c26061b6df31bbfedb678192db2"
+   "sha256": "f23e8362d5c869b3de6d6c9537396122c33387d7c5ce244a43d6773b91c5a75f"
   },
   {
    "path": "out/mushaf/suras/bazzi/072.json",
    "bytes": 25332,
-   "sha256": "43e439594a14e29ff9221cd9e8274ea4c580f8ad71e0cfb2cbe6c501a1505446"
+   "sha256": "d235091af231aeb019e28b72614b5ee580846ffe17a7653fe176c898ffffd51e"
   },
   {
    "path": "out/mushaf/suras/bazzi/073.json",
    "bytes": 18828,
-   "sha256": "7cc1cea6fcad30cf3a283e6c6f4404390712d1a6d0fed9e0ad843d4e0876d613"
+   "sha256": "f269b6fa04c4fe9b34fddcbeeb0ff70b766c6cdbdee3f35a681198ea9aaf316d"
   },
   {
    "path": "out/mushaf/suras/bazzi/074.json",
    "bytes": 25314,
-   "sha256": "35cf6272f2087839c643e58cffa0b558221c146fb170f5084d10fc32fabed5fc"
+   "sha256": "3243ab992b2cfebca232b2584409d5a5784b5605c71daa53153c0b6f3797be05"
   },
   {
    "path": "out/mushaf/suras/bazzi/075.json",
    "bytes": 16544,
-   "sha256": "6cac069980cec5693d831afd372724bacd2deaea00746d15b3d59ae047e4b12d"
+   "sha256": "e13ababd3e9c8a5e310b29b945afe16c5d5c226b391e6869a7bc62128be46b63"
   },
   {
    "path": "out/mushaf/suras/bazzi/076.json",
    "bytes": 22881,
-   "sha256": "fde79e721359dd0aff7a3a302ad40a357c512cada33d0bfc509ca4ffd3fd7117"
+   "sha256": "66d8195411bc080d93aa9d5fde602c19ca85a4a826d4eba73596d9423d2d09e6"
   },
   {
    "path": "out/mushaf/suras/bazzi/077.json",
    "bytes": 19100,
-   "sha256": "c9e84d12f243a9abbdfd4528a99224fd7864ca003ac3adcfbef9486a8c1717d0"
+   "sha256": "d9d59d9199149e8caa3d61a8ff23956cff5eec567e3dd369a58115063ac26d9d"
   },
   {
    "path": "out/mushaf/suras/bazzi/078.json",
    "bytes": 17762,
-   "sha256": "10610fe5960c048a937c7e090065dde7a6f4553a12462a77a39dcb97bb2b2142"
+   "sha256": "7ed99723123247eff2e173da73bb19550aab52558ab58c489fd1e7f79f8f9069"
   },
   {
    "path": "out/mushaf/suras/bazzi/079.json",
    "bytes": 18346,
-   "sha256": "fffb3a14134f632177d61f4b8cf03580c0bfa1d723915b2b7d2351fa22687b97"
+   "sha256": "85ebf81082d78bf2e12ae97b1da0c7951c97a32500ce703631ba705586637fab"
   },
   {
    "path": "out/mushaf/suras/bazzi/080.json",
    "bytes": 14401,
-   "sha256": "48b6b61763eed94368bc88908d1afc22903d9d2d2c9ecff9ce491c1c12241176"
+   "sha256": "9477221ba50d0abe5ea67b7a8e75116fad08f507578ec5d5284b5beb9a461e67"
   },
   {
    "path": "out/mushaf/suras/bazzi/081.json",
    "bytes": 11014,
-   "sha256": "9a67fe6a4587fee2321b860ef5ecb917dfbfcb1b655ae7c6d97dbc4ea6de6ebf"
+   "sha256": "87bc805e4a89dbf5410361a44efcf77330f9d272c246695b1a3dea153404f699"
   },
   {
    "path": "out/mushaf/suras/bazzi/082.json",
    "bytes": 8467,
-   "sha256": "4174bc864d6551eabb9a65f27882c784cf1e4851040381ac8a740ba02fa257da"
+   "sha256": "b1ef72d41a2ee9dc5ff567718549bab6000bf32be06b9db209cb8007a2c9db7e"
   },
   {
    "path": "out/mushaf/suras/bazzi/083.json",
    "bytes": 17041,
-   "sha256": "6843d502e302e274853da5bed69be0c646486591b4bcaf363a96861eaa160af8"
+   "sha256": "48425d83c94310823e30e2098b8d647db92d29e373b219c9fc1d6c79da2053f5"
   },
   {
    "path": "out/mushaf/suras/bazzi/084.json",
    "bytes": 11202,
-   "sha256": "c1d9d8b976dd2f64bac669ad55b03901f6e2f86eb591a02e0c9ee8e72c04b609"
+   "sha256": "c989d88c1287171f6a826bb1f6151f2217602650c61c90a75726cfb0f53a5d0d"
   },
   {
    "path": "out/mushaf/suras/bazzi/085.json",
    "bytes": 11072,
-   "sha256": "7791000acc9dd746e387078d265648a3cd899f78c56c34e55bcbd07f7262b063"
+   "sha256": "206c6c279a306343c8b15ea2eb5449d9df8db1859d87d61ee84767562de6bc1d"
   },
   {
    "path": "out/mushaf/suras/bazzi/086.json",
    "bytes": 6749,
-   "sha256": "0575384779b63a819cc03d9e53d25c641de848e74d946ee8d0646de01e98fd7e"
+   "sha256": "4ba2cf74e9843469b4d8c883c2d1f7f5ef5fb0b0ec29327d44d31624bd23eecb"
   },
   {
    "path": "out/mushaf/suras/bazzi/087.json",
    "bytes": 7928,
-   "sha256": "0babf0270f249b0664e50f7d90bec612d38b715fd2de32e3d844636d790218d5"
+   "sha256": "a36e479703b9f572525175880be7887401e0b3989fbc970ecee47b9c1858c113"
   },
   {
    "path": "out/mushaf/suras/bazzi/088.json",
    "bytes": 9948,
-   "sha256": "cf70c46b7100d0586cf8a7f2fcd00d777e0a6195cb142d39bedd064fb691e1d9"
+   "sha256": "c328f29a53889e8ee07a051ed61fd94dfc1ff65e004ac7decdfcb60711ab60a7"
   },
   {
    "path": "out/mushaf/suras/bazzi/089.json",
    "bytes": 14086,
-   "sha256": "681fb8090686947e3b10c089d253d07933cfb8708c842232fcb49008392c9c12"
+   "sha256": "fdbf412017763ab60deb05c093e68fcfffce787c0c92e86a2bbcbca59444abe5"
   },
   {
    "path": "out/mushaf/suras/bazzi/090.json",
    "bytes": 8712,
-   "sha256": "3a89f02dd1fd2a31fe118a52dd4ddf08f9e70e8b6c3bb1bacb980c5e84042bed"
+   "sha256": "33cc9aa8cebed75cc5a12c850e340aa9d406eef24a31bd14a26d6be6ba1a50bb"
   },
   {
    "path": "out/mushaf/suras/bazzi/091.json",
    "bytes": 6153,
-   "sha256": "3fdfc9d93886ebb156c144eb3016f7e10fe90fd989193ea6593af0e7099e6568"
+   "sha256": "ca54241605deaca51a861ad9d99bdc4fd3fbb037cf9f1a2c8012a0aa273d5d02"
   },
   {
    "path": "out/mushaf/suras/bazzi/092.json",
    "bytes": 8015,
-   "sha256": "e8130d259cebb7404171f214e6a7a4a1aedacca6b12db58ccdef0f9142bc8d82"
+   "sha256": "b30aa31effb005791ac4893e77b11e45fd3491d4fae14f682e5a66c64d562dde"
   },
   {
    "path": "out/mushaf/suras/bazzi/093.json",
    "bytes": 4715,
-   "sha256": "aff777b93fe39e3cd5511ea2a037b23560f8264cf934105286a8530b9653d291"
+   "sha256": "d6a851b595647b993ba429638c194dd37e28ef9f0b42b9cd28a49339150ce8d8"
   },
   {
    "path": "out/mushaf/suras/bazzi/094.json",
    "bytes": 3486,
-   "sha256": "8978b9aa124c72703b3740ef96276218354d67fd23d8d7fbe3b4998e46de9812"
+   "sha256": "627b206a5cc3b043fc4574c0346b509112f28e9edf621dc14b817bb1b65f4699"
   },
   {
    "path": "out/mushaf/suras/bazzi/095.json",
    "bytes": 4047,
-   "sha256": "d02c28e6ecdfa348f3f5615196b65af12927aefcbdd3ec717f371b22d7e6f2b0"
+   "sha256": "4639c5c87a7b28e6029f431832e4bdb9faabe13b8a22f4dc107655fab5f915a9"
   },
   {
    "path": "out/mushaf/suras/bazzi/096.json",
    "bytes": 7981,
-   "sha256": "f471c842135746dde44e4f7aa22ea2c74de563df71e3a3816aae23ff8773f8e2"
+   "sha256": "5dc77060298a4451ec6f8397f7f71e56f4d187675927eaca0cba4e91876803f1"
   },
   {
    "path": "out/mushaf/suras/bazzi/097.json",
    "bytes": 3504,
-   "sha256": "985d774207cdbe5808d7ab71d6010d0c4233cb8e828e95309d209bd29eb92aed"
+   "sha256": "cab60d68328ace94a793753335e63bcaf0af58c71beafdc5d5307f6d0eacaf8c"
   },
   {
    "path": "out/mushaf/suras/bazzi/098.json",
    "bytes": 9129,
-   "sha256": "c86e2c3c072d69b7c5c8b929411aa052a2fafc94462a986986dffc0ac39bd32e"
+   "sha256": "bf9e97499ea978f066e0366719ffd9f3014b724798fea2cda0820716798145fb"
   },
   {
    "path": "out/mushaf/suras/bazzi/099.json",
    "bytes": 4283,
-   "sha256": "f8f8d9a52cc4c7752d65341df0b471824b655394865cb2a7a0f552ffce676723"
+   "sha256": "c9f0419cf2a04d0cd04284a26c4db31d38d97f241f9f45b7e59e04eab728d924"
   },
   {
    "path": "out/mushaf/suras/bazzi/100.json",
    "bytes": 4890,
-   "sha256": "adb9f13908664156450e0a1c0ed07a8874f0bd7961281d5c428782b9b2228a82"
+   "sha256": "d0b97711574376f164b8b440156e453bb330ccc74b351e7fbe309026c22ef59c"
   },
   {
    "path": "out/mushaf/suras/bazzi/101.json",
    "bytes": 4339,
-   "sha256": "d3b77a204fbdae6a19f85de362440ae2b8063bf9df40a755b21c706bad406f27"
+   "sha256": "43e7e3edd6a3067eb0016b07079297fce0a3a263855fdd7bc7591bcebd54273b"
   },
   {
    "path": "out/mushaf/suras/bazzi/102.json",
    "bytes": 3609,
-   "sha256": "5d2933404d62698bf9aba993e9bc94a6275c4bd75b965cf6e613b33bbb6cdf12"
+   "sha256": "8f3f793ce5e26c86a8e01e77bad59dee709cc6cb80156cc4596924f9e9f9d470"
   },
   {
    "path": "out/mushaf/suras/bazzi/103.json",
    "bytes": 2132,
-   "sha256": "51d39286a08f019e832378f1503a282bc06c569765fce21cf11d616db029a7d8"
+   "sha256": "55df78d119c49e887622a1566c9223fbdc4b31ac8a984fd1806329ec066c7c97"
   },
   {
    "path": "out/mushaf/suras/bazzi/104.json",
    "bytes": 4120,
-   "sha256": "e4b714a63cb227c0d6052be29942579bfed988abd0432618916be3d17518448a"
+   "sha256": "01210bc12543a32823f2b4e4dc4ccf8edf5da34be3fb185fd065f1debafc14e7"
   },
   {
    "path": "out/mushaf/suras/bazzi/105.json",
    "bytes": 2968,
-   "sha256": "083c4ee9dd05c66cb13ced41303262abb86b21e77e5d15c1daf31a8b79b42bc1"
+   "sha256": "fbc6432dfc8aa939fb5e2d812dd5d426fc8001fca19bac7d456320b7d49cd120"
   },
   {
    "path": "out/mushaf/suras/bazzi/106.json",
    "bytes": 2492,
-   "sha256": "b65f55039fa4a18df0239f9c4b071fa9731f976d2e84e08143dc40b9d10b1bd9"
+   "sha256": "25dbb0ad0c3f0ab032611f5487cf7b6912e47a5866ebdb099fae80800fb9cba0"
   },
   {
    "path": "out/mushaf/suras/bazzi/107.json",
    "bytes": 3217,
-   "sha256": "ed5eb647f41c02edc4a7f23c159bec7e9a221b8ec5eba310fc66d06fca73f47b"
+   "sha256": "777af3d71734984433da12c53e0426c20ba71b9895e7ebbf668d5fddb4b0c859"
   },
   {
    "path": "out/mushaf/suras/bazzi/108.json",
    "bytes": 1799,
-   "sha256": "c7e7b475cf5aa6a2210b2d8040b5a1847777bad3692b642822d5e14e38820868"
+   "sha256": "8fe8704ac024946c441f946ad812ffb8d7905be1ddac8d4d6e866739503faa14"
   },
   {
    "path": "out/mushaf/suras/bazzi/109.json",
    "bytes": 3194,
-   "sha256": "a92bc92b288181c20c5385da31bf717ae9fff030051400282464a21b845996d8"
+   "sha256": "a5a508c8a7f246058b6ff8bbe78a1f51fe0b9965b1e4b526bbad3894831d9b84"
   },
   {
    "path": "out/mushaf/suras/bazzi/110.json",
    "bytes": 2573,
-   "sha256": "88bbcf6bca88246fafde6380ec784f223935c488f574cf4cc2401c39b77101e2"
+   "sha256": "81befee33ba2724f94a67c1fd95bdd05a3392eb0097a5d9e63aa354468a29d69"
   },
   {
    "path": "out/mushaf/suras/bazzi/111.json",
    "bytes": 2903,
-   "sha256": "247f91243343103f35054646a98cb9b290ff0c4f050a66b880f4bfa53a149db1"
+   "sha256": "748cab8a88ae5daef404d601ba5c9becf7c9ce7ef5afe34c24ae17aaaef52cae"
   },
   {
    "path": "out/mushaf/suras/bazzi/112.json",
    "bytes": 2264,
-   "sha256": "f10f90111c47bdfda0db85a783708afbed9d3e9b7f482157f91e5f413b18ee3e"
+   "sha256": "c0e6ad94990548c698d3ab1c6f5416a4dc8a4847fbd0c4a0332844af148160cf"
   },
   {
    "path": "out/mushaf/suras/bazzi/113.json",
    "bytes": 2841,
-   "sha256": "0d1dd39eda20bdc3f42f95c2cbe348159c11f5a9073fb423ea3193273e70b7dd"
+   "sha256": "331d3471e8986e9b47da11ed7d45cb60691dba9a2c3b656fa2d0909c9a8793aa"
   },
   {
    "path": "out/mushaf/suras/bazzi/114.json",
    "bytes": 2842,
-   "sha256": "5f1f9605a1a7dbcfe862c5cf7da3af109c157a21516698882dde69af8e287a10"
+   "sha256": "b8b2624bbd2f5bddac2c09e3a46962753213db9909ca493d818369849c55a801"
   },
   {
    "path": "out/mushaf/suras/douri/001.json",
@@ -845,532 +845,532 @@
   {
    "path": "out/mushaf/suras/douri/009.json",
    "bytes": 223749,
-   "sha256": "310816b82cc075d8516fdad54a299e4b40cd0081e64e5e91af8eb99b933180ac"
+   "sha256": "3711f05ea09694d84c294b03172ebfea628902b8003c5d1a0c808cc6b834b855"
   },
   {
    "path": "out/mushaf/suras/douri/010.json",
    "bytes": 163735,
-   "sha256": "4cc75785d27bba2c0776574db2e82bc3280037096c5e7a7cfabf837f74e0750a"
+   "sha256": "9d3ae8d1b0a7ff2851f9d8de95ed06e1d0ec5dc07d0abd8cf7d6f5b4ace56dda"
   },
   {
    "path": "out/mushaf/suras/douri/011.json",
    "bytes": 171721,
-   "sha256": "513f15babf0c2a5e77ffb975e96e70723f547b0251f8aa2bba65c5dec0cea709"
+   "sha256": "dced1e3954ef5dea9e6f70a5b7d7f5519f48b72e22d962b9eab7f6cfb638c69d"
   },
   {
    "path": "out/mushaf/suras/douri/012.json",
    "bytes": 158623,
-   "sha256": "ed0bfd430b8036abc368fdce8722760cf3d6727eae657f6f805c6ff43a0fc1fc"
+   "sha256": "305497274f86e6defcfa5bb6cd509c787426599d8b416891359004be27b694e4"
   },
   {
    "path": "out/mushaf/suras/douri/013.json",
    "bytes": 77812,
-   "sha256": "512798ef0a2d5cdb3de0d33df4442bbd42de6a4c75c85a336d1e3806af787daf"
+   "sha256": "ca802be42e4069d789c08619bcb93e6e114ee241027cf6946da4765df5b35b16"
   },
   {
    "path": "out/mushaf/suras/douri/014.json",
    "bytes": 75187,
-   "sha256": "d1b455d30023b69051963f6b31e90672a02665536aeeb66d1d38a41745d2dd6c"
+   "sha256": "5b85723d4aba450eb48c1217cbb696422be1f8a6b08ac02d72d029496a67f980"
   },
   {
    "path": "out/mushaf/suras/douri/015.json",
    "bytes": 61028,
-   "sha256": "f20016c8b3abf91cea80b23d3c0fdd7a8e502e7dd2accf6f80d0125a69da8a67"
+   "sha256": "b7c03c94cbdc2315fdbd37690b306eb9bfbc2e48a0a2f471620be4a54ad674d9"
   },
   {
    "path": "out/mushaf/suras/douri/016.json",
    "bytes": 165200,
-   "sha256": "82d3faa1071e4e527dcd1d8d0347296d225fbd065b8901a79eb3a0a004200751"
+   "sha256": "e8b66b0b0083a8844e722cdb01e1816475142d939cec10d032f0de7458d8b927"
   },
   {
    "path": "out/mushaf/suras/douri/017.json",
    "bytes": 138944,
-   "sha256": "b2205c411749b22085df2588574847fc7be678d8264e35c83ab77c127407da6f"
+   "sha256": "df216a53af164c5fb04b4f1bf17380748bb1832b65250c5851df5f634f0b8e27"
   },
   {
    "path": "out/mushaf/suras/douri/018.json",
    "bytes": 139156,
-   "sha256": "cf19999d753573b60a463bf9402e581bd051eebd35c20913dbf20ae43e1cbfa3"
+   "sha256": "c831f8fa6239bd068261d8d2b6028a5bb5ff26bce67d40a6dcbf3004cb33298d"
   },
   {
    "path": "out/mushaf/suras/douri/019.json",
    "bytes": 87131,
-   "sha256": "0767f6b9596edd4da7ee828e3699441dbdeb527abb920faf83f3108a9bf6e96a"
+   "sha256": "88ed150731ff297c6138b7dbf88d19c598544b5286f96f4f074bf269d06fd364"
   },
   {
    "path": "out/mushaf/suras/douri/020.json",
    "bytes": 120437,
-   "sha256": "7949197daa6363b2a2a7da0b70e0e24acd1896dac60478766b7e43e63377bc9a"
+   "sha256": "6b0de74f8d26b29fe26785b5672b41e844bde49e4b4b7da4dba6ed142c3ab6f4"
   },
   {
    "path": "out/mushaf/suras/douri/021.json",
    "bytes": 107279,
-   "sha256": "cba85eafe3d501ae6f97f359e09fdc19a9b387a3ea1356914e59665eff2005b9"
+   "sha256": "e6b8dee98021da9585e632260e0800fdd07cfbfde2500cf296a674b95cec39e1"
   },
   {
    "path": "out/mushaf/suras/douri/022.json",
    "bytes": 114197,
-   "sha256": "8270b6ac157b15790e6ed57198ca79db76198e91f9f97d8ec7348156282506c7"
+   "sha256": "4a659c000deea47a7fe31c23e9cd235647de2494e270349eefb9bafdb0c9a822"
   },
   {
    "path": "out/mushaf/suras/douri/023.json",
    "bytes": 95837,
-   "sha256": "d1a6a512cbfb99a0cd7d22928b8c144d5b2ba0df787d6349d3c697fc92136ed7"
+   "sha256": "495e5587b4e2ddd025119c35cd27c02f3767c952eda93c8091e5402f9e41ea64"
   },
   {
    "path": "out/mushaf/suras/douri/024.json",
    "bytes": 118249,
-   "sha256": "c0d8ba70f1ee3427f7519e0b993e5652b0d6ddabadb19a1283daf8c09e57f39d"
+   "sha256": "66cf9e0960a186c169f8a7bea5d14082ee9748ceff0f8365f96bb5c928f76af7"
   },
   {
    "path": "out/mushaf/suras/douri/025.json",
    "bytes": 80358,
-   "sha256": "68566b31fb1e64aa39e32e0d7b5ee16d4089488cf4d854fdcbc74aec4b2b7b87"
+   "sha256": "62c78397b909e39b121da49e0a5048767e62db86bd256aaea03264d49904c596"
   },
   {
    "path": "out/mushaf/suras/douri/026.json",
    "bytes": 125007,
-   "sha256": "98f2137fb1a5aea515a3e52b07fb75d1ba44d8c69bbea5490590a4922c3f6790"
+   "sha256": "8e3293156b3f678545cc79089d74dc230f03f81d21bdde4489a53be179e4d352"
   },
   {
    "path": "out/mushaf/suras/douri/027.json",
    "bytes": 103525,
-   "sha256": "fc6b89c3a897ad464cc1007af64538cc6df735914701878a6d05144c081c156a"
+   "sha256": "40e90730ea5c03196c6a6958f58ef78a9d95635504ee36101d6bd82364281022"
   },
   {
    "path": "out/mushaf/suras/douri/028.json",
    "bytes": 127128,
-   "sha256": "94f294d451b0679a9ca8efee02faedb75955633b7a05ffb2703f3ccdc8375b9a"
+   "sha256": "77d2f41277f51f1edc38253fc2e121e47556a046728706c8fcb8217595493fb6"
   },
   {
    "path": "out/mushaf/suras/douri/029.json",
    "bytes": 89876,
-   "sha256": "acf1c7cd68b4247bd32d961a93c1a544342eab74b21da44030821b86ff6f1f96"
+   "sha256": "81a9de039a4e6d31f7f1f01de72be5705d6f20186df6b8cd69685f333a9ba151"
   },
   {
    "path": "out/mushaf/suras/douri/030.json",
    "bytes": 74602,
-   "sha256": "689f5fdb67190503a5c6a48584b39ed737a344a332cff513d3f994787954bc58"
+   "sha256": "c1e38ffbd53e229702ed0de861dabb676d7dbc052d9cdf4eab764b60ebb1c482"
   },
   {
    "path": "out/mushaf/suras/douri/031.json",
    "bytes": 49356,
-   "sha256": "93847b2b8134272cf81ea747f676914d661ff7fd707dfa9dc8476efadce779df"
+   "sha256": "8d107a301174b7eb4785b5cdb2c92119d6db31e0334dd6d96975031071756512"
   },
   {
    "path": "out/mushaf/suras/douri/032.json",
    "bytes": 34023,
-   "sha256": "977ce8e67ea80ff8832024d1363a88ab982d3f88536ab3128263d6d87dbcdbf8"
+   "sha256": "c769ae466fc78f79af098a93246e60ce98e25c7f4e2e9db162d7a481751538f5"
   },
   {
    "path": "out/mushaf/suras/douri/033.json",
    "bytes": 116034,
-   "sha256": "6cf6ef2bb6613a69fdbb3734e7d6624fb3d26f8d24ca22b9404c48769993e7b5"
+   "sha256": "1cad95dda5c263f8b1974c6974883725eb6b719dacf1a026f068e424fbcc6a9e"
   },
   {
    "path": "out/mushaf/suras/douri/034.json",
    "bytes": 78723,
-   "sha256": "671aca54a4eb1464c372ada10851ff6b8f8dd541cf692eb3e9eb91b9a0a0c9a9"
+   "sha256": "ba7c64ef6b653413541628299d8acaad3377d6174f2a25f5238ce59ddad3e317"
   },
   {
    "path": "out/mushaf/suras/douri/035.json",
    "bytes": 71074,
-   "sha256": "af81bd230a655693262b8d933a6a5d868a0c175470e3d89d8febc6a2764363d5"
+   "sha256": "8dadc111cefa883f29f27be79b182231fca4dc0ce16fc318908cb68af1a57750"
   },
   {
    "path": "out/mushaf/suras/douri/036.json",
    "bytes": 66344,
-   "sha256": "10964234c9a29a7e9ba520a33b3d17f9855cfe4763f173f804e6d6481305041b"
+   "sha256": "c946ce1360cfa6a2b3bca1863a0b3fa3c4785a3a9dff70770265803835f91884"
   },
   {
    "path": "out/mushaf/suras/douri/037.json",
    "bytes": 84763,
-   "sha256": "073dfabdae919c158fd705b1eaa33948a9b40d4e74a26766df04409734d17fe3"
+   "sha256": "a730cfe61cc563e3a138c39cadb4e57abda61c4e2f6b677bd7db43957e59100d"
   },
   {
    "path": "out/mushaf/suras/douri/038.json",
    "bytes": 68303,
-   "sha256": "bbdce25dada806a4eb6f5eeb150e5e09b87a9053a25fed0eea762abc23ae35d0"
+   "sha256": "286bb5f96497f9d1b95d47b7aa3965b1826be06494affab76cf078ba51bddb73"
   },
   {
    "path": "out/mushaf/suras/douri/039.json",
    "bytes": 105345,
-   "sha256": "1812d27e6c4990ea062ab80da8b052a4fd96dc4593873dc73f8511b1f54679f3"
+   "sha256": "f2763144fe751f1e7762b9a97f341394011b7f9ab84e6eaa358f503240b933f5"
   },
   {
    "path": "out/mushaf/suras/douri/040.json",
    "bytes": 109313,
-   "sha256": "c8f91c6de9804328f1164bd2418aedf0f045bbc22ce64160a7961744a8548ad8"
+   "sha256": "7b9f05ea94df9188a9fed56e6d0987d0eaa75eaebbf5bba97ce0e02eb66feb51"
   },
   {
    "path": "out/mushaf/suras/douri/041.json",
    "bytes": 71430,
-   "sha256": "3dc4c4e70337a9d09760b4681bfb1467239e195ca621bcf2e86d75847c21bd18"
+   "sha256": "b15ed62c1eb3184e30370c1a09f3d42e0687676f5739802b57ee04b99c0e2a69"
   },
   {
    "path": "out/mushaf/suras/douri/042.json",
    "bytes": 78370,
-   "sha256": "a84f8b1fb8ffac706414a9b7f6921400d1ab482cd098edd1a5229d777258a55b"
+   "sha256": "8cd49f8f57c1c2c2aa15fd1c722af9fbf2f2ee2692b9be32e7a69438ccf40ff0"
   },
   {
    "path": "out/mushaf/suras/douri/043.json",
    "bytes": 76442,
-   "sha256": "87dd314d55e1932f916100d907e54c7d0dca7eb098b3c0e3a6a52ecdf5acc9c8"
+   "sha256": "d2e7620f68d0b1ad6a160d31b54f96c2057dc05bee51755fb6807bbe61b57b9b"
   },
   {
    "path": "out/mushaf/suras/douri/044.json",
    "bytes": 34047,
-   "sha256": "b0535d29c0daf989e9fbd697ce8e67d478e17c1d60345e7ad0af4ad159afa69b"
+   "sha256": "17d716c8509b920b669968b7c74629d5013fb7a3c7fddffc7edc25499c6c1685"
   },
   {
    "path": "out/mushaf/suras/douri/045.json",
    "bytes": 44358,
-   "sha256": "2d57ef915a57add3a94d5926f06c5ae934dab35f51fc1d052e5b565572f71e0d"
+   "sha256": "6f6e6f06c98f77e32062c87c430fc21a59d1a5ddcceb49f59d7ade4ee0532edc"
   },
   {
    "path": "out/mushaf/suras/douri/046.json",
    "bytes": 56810,
-   "sha256": "ae52355c975334219e6250a40aee5189bf3b77e3ba10c665966b99f2dc75b70b"
+   "sha256": "91a665d03c4246407d43d0411262456dd515d03d3d3461761bd92b4c42e0070c"
   },
   {
    "path": "out/mushaf/suras/douri/047.json",
    "bytes": 49143,
-   "sha256": "5ce9b9daabaa40781d7506384961309afd5fc218bfb9e149d0c0c82ae5649415"
+   "sha256": "fba89d74d807fd29d25bb0fe86377b761482412705060cf6cd7afc367fbe1d03"
   },
   {
    "path": "out/mushaf/suras/douri/048.json",
    "bytes": 51336,
-   "sha256": "a803380d8d5e42018659e8e33ed2520fda04a1fa795774b6e949d5ed5177bc5b"
+   "sha256": "185759681cff05d6c5276915c78d06fa942171e441999ed5f1fce7de1356e594"
   },
   {
    "path": "out/mushaf/suras/douri/049.json",
    "bytes": 32537,
-   "sha256": "a0ec4b5264c7dcc90e2fd88dd486c91f0b237e886fbaf4d776943d4b4695439e"
+   "sha256": "6559c14a94cbb72775362f637cb75381df585ec09e633a057ab8ce28651e1c7d"
   },
   {
    "path": "out/mushaf/suras/douri/050.json",
    "bytes": 34812,
-   "sha256": "e706ae456ccde3d869b9223b8c77b781edafc8e6f63dd6b98adf21998a8b2589"
+   "sha256": "180941420a8eb984a334fe3ef8a68e2ccbe1c67d77597a90568d352c2d42d057"
   },
   {
    "path": "out/mushaf/suras/douri/051.json",
    "bytes": 34790,
-   "sha256": "60bb2a7a18ddb596158d400382d812fd167b1d154f9d2f9c7d65840eb8dc2590"
+   "sha256": "98155d61e6772a745e69a706ca5ecaf73aba20d194b248a975f3b67f83d2b751"
   },
   {
    "path": "out/mushaf/suras/douri/052.json",
    "bytes": 30110,
-   "sha256": "9adce6f7f7dc7b6b1b0ac50aef74a893f7122bc05467b2dccf72e5cd8dece99c"
+   "sha256": "31850e68a093c111b538a04343519865e2a265a95d12202ccf489cccd5cd6a45"
   },
   {
    "path": "out/mushaf/suras/douri/053.json",
    "bytes": 34842,
-   "sha256": "a40e3492c7bd15b5bb8489b468ceaf2b2548b3852af7de75ea41403e926fc3ae"
+   "sha256": "8d98f5170f21e9bcaad70c7bac7cfcb354c9c1c86bb4a6cb68e75cb2de5d198e"
   },
   {
    "path": "out/mushaf/suras/douri/054.json",
    "bytes": 32988,
-   "sha256": "130f7cec1e8ebb81777fd70acac7ec40999d9a8e229b3c41055e863926166b01"
+   "sha256": "e802447e9a50bb9d48b63684e17843d33547bc95d9b3acfcd7bdb93029268608"
   },
   {
    "path": "out/mushaf/suras/douri/055.json",
    "bytes": 35576,
-   "sha256": "8b198d2bd1147887a1a638c5a92e5c7b35a0f73ec3f0367f311b410653a354ec"
+   "sha256": "1e372b472936c14896850fd6788d6d999e2ac0ea942317db1dfc15872be81159"
   },
   {
    "path": "out/mushaf/suras/douri/056.json",
    "bytes": 38953,
-   "sha256": "80f9f1fe76bf6eedba86a4ff0e0249ed5fd9d8143887410b2abb2f0f61ba6894"
+   "sha256": "be89269f1f04700d3579457c74fa9a9cc1330f8d6a85f3120b3f85f48901ecc7"
   },
   {
    "path": "out/mushaf/suras/douri/057.json",
    "bytes": 52849,
-   "sha256": "56c4fb043aeffbc5d772751fbdb19f083018a4163b5dfed804ae15f8437da559"
+   "sha256": "ab9950d5d51c33cec6e279ee48d3457e8d8eb07af200568213ecb8d5a0a66496"
   },
   {
    "path": "out/mushaf/suras/douri/058.json",
    "bytes": 43561,
-   "sha256": "60efd37df0112f291dc30e452fc03df7352602e56ce99c8042dc8754437851ac"
+   "sha256": "35ce74ba8d947e4ba90bdeefe7ef242ac0d53fe66ae1a8e9eadbb5f32e625be5"
   },
   {
    "path": "out/mushaf/suras/douri/059.json",
    "bytes": 40933,
-   "sha256": "a8ab1cbd25151fccba763f58e2f4ce910b5dfb601ab660ea4c6068733b2a5ce9"
+   "sha256": "9d71dbf00961a30b3803976d8ced33d977f6e1d003db72606dcf9635e61332e9"
   },
   {
    "path": "out/mushaf/suras/douri/060.json",
    "bytes": 31528,
-   "sha256": "2d3d7c75791b5398404be81cc21a8ec59fe1325c924f2007d8c471893226eeba"
+   "sha256": "a12ba2e18d327e83a3ced3c337784adc80ce5e9f602ce3c63eafa22c491917a2"
   },
   {
    "path": "out/mushaf/suras/douri/061.json",
    "bytes": 20585,
-   "sha256": "3e7f5934c0db6bca048549bd9350bc0b4ed116144d5843709bafe0c601456215"
+   "sha256": "bfa86ce6a407a8b150fd97ab4854c02ce6d63c855ddeb22643b5d20053609c33"
   },
   {
    "path": "out/mushaf/suras/douri/062.json",
    "bytes": 16501,
-   "sha256": "7f5faa9893e36008ba16c7849f0efcaf1a08135f368abc96490e507a73590370"
+   "sha256": "f495a9a1e1bba599e701df3bf27ba00fd3ff8d4b2e97c81f4d6aedd6c4ab1243"
   },
   {
    "path": "out/mushaf/suras/douri/063.json",
    "bytes": 17412,
-   "sha256": "40724699e67b51a0f44b0f9fda4e8c2b8a0372b8a301c33589e08f31ae513416"
+   "sha256": "6417e999b47d0c28fe191a4d644df8f68960bf430ef43ac900ba0516e20dcde5"
   },
   {
    "path": "out/mushaf/suras/douri/064.json",
    "bytes": 23565,
-   "sha256": "fadcf436b44ca3db3271c4ced75bcec4e3d5eeac185f3196c0998aec88f8da15"
+   "sha256": "7ba79823b8c7d7471c671a53056acd6c43e8d28159d1fc9a0fb46ae81dc247ef"
   },
   {
    "path": "out/mushaf/suras/douri/065.json",
    "bytes": 26638,
-   "sha256": "a54497206e06f29444ba82e2e486d7f8cb17def9b84aeca0d1adaf0a870f11f4"
+   "sha256": "a38bc87b258b763fa5960e21b44a8b6c83c171949f631a0c9f6b9444e8bd5a1c"
   },
   {
    "path": "out/mushaf/suras/douri/066.json",
    "bytes": 22961,
-   "sha256": "35ff8a7e35f00e2b849f721066edd4292687dd3269659a0006021434943de94f"
+   "sha256": "91fde1fe0dda6c2b0947f1aabb19b90c9b5e52addc905f4193d436ee664000a7"
   },
   {
    "path": "out/mushaf/suras/douri/067.json",
    "bytes": 30547,
-   "sha256": "bdc29ddd42e6b0762fb599dd8391ffcd8e7d0c0469495840a98f0bc4e66af48e"
+   "sha256": "325ce9bdb36669a4f5b8070d2719bee41e9c046b59037b9f954d88f11beabb51"
   },
   {
    "path": "out/mushaf/suras/douri/068.json",
    "bytes": 29083,
-   "sha256": "79f2fba2b27bf070aa14b528fe7b842d58e48a975de9225bbb74fe865aaf11da"
+   "sha256": "2b16f9ece13d4e93b934b35a7729f03ddb7f04216709defdf663fa4476b2a0d5"
   },
   {
    "path": "out/mushaf/suras/douri/069.json",
    "bytes": 25747,
-   "sha256": "058c7f6a0e258682f7d626f882ff5f4c67a8531bd8b58eb8d14692048b6602a8"
+   "sha256": "03bfe53c9ca98b56033649d480fc4d577b8aafbcce214c804829ebe12c78efcf"
   },
   {
    "path": "out/mushaf/suras/douri/070.json",
    "bytes": 22066,
-   "sha256": "908dc7219bec20acef6854e205b0b4d2de4e09963a9b91707a1f4d4a4cba9ac4"
+   "sha256": "6912f6cc29717e56d6bffbc94b99f69d2d1d8ee9d35450deabc498b67a9bc069"
   },
   {
    "path": "out/mushaf/suras/douri/071.json",
    "bytes": 21303,
-   "sha256": "4979cf6641cac324ef82d7b40379e179e90debf0e1d40d838700dcdb735d1001"
+   "sha256": "cf8b911ce49d20c1e238265cb55022f1cba426333f43f437fa510c3e289a79f7"
   },
   {
    "path": "out/mushaf/suras/douri/072.json",
-   "bytes": 25828,
-   "sha256": "315793ec9c62c5a2915827e665efe742ce61d95168b42e82f50869803a5fcc25"
+   "bytes": 25839,
+   "sha256": "39571f3aaf56a6f98137cc106f847d8a35e4ee35950e8d63f16fc5e47f8e1770"
   },
   {
    "path": "out/mushaf/suras/douri/073.json",
    "bytes": 19212,
-   "sha256": "6317037593ddebd3451fa8637d52f4f3ce8f7027dadd844e8d869b79db02aaa7"
+   "sha256": "88a57d116740a5ffed6efb20deac2e0bb83c6315ea7bdb85f9fbcab68429a779"
   },
   {
    "path": "out/mushaf/suras/douri/074.json",
    "bytes": 25844,
-   "sha256": "16e25519bd4b0a1580159e19617431c27e8312ce293ceffecf3f7debe17af58a"
+   "sha256": "c50794fa4860c78a54ed832609a33e02b03b60969a53f4fa60dc9ab6e6041fb9"
   },
   {
    "path": "out/mushaf/suras/douri/075.json",
    "bytes": 16873,
-   "sha256": "adcc1c1699802dd933c1296503aa760eef4707dd2db64bb299e1263bf857b275"
+   "sha256": "32c010485ab7d2d68d46e4c88fde50bbcde2ddb329857b454157e31fa154a23f"
   },
   {
    "path": "out/mushaf/suras/douri/076.json",
    "bytes": 23140,
-   "sha256": "e350a8e1b70d30023f188b170b9530d424c2eba135545017dadad7a357598da8"
+   "sha256": "09d6c3040233e62e38e8b2098d5b6187c678371d61f91a41200bc8743be5e03c"
   },
   {
    "path": "out/mushaf/suras/douri/077.json",
    "bytes": 19485,
-   "sha256": "9b74480de723e1abac39f2889969dc74f1746041608feaabb441718824e6a198"
+   "sha256": "c57150b0b85dcd1bd65607a78ba23479921ca82df7b74a4f03570d5d8c6be0b1"
   },
   {
    "path": "out/mushaf/suras/douri/078.json",
    "bytes": 17980,
-   "sha256": "d8c1415df4e8b26b9e8cc5998626f719aaa8172441ff3f6f22dbbe53d47c91b3"
+   "sha256": "8a9b64ce1311bd8951186f56d960c94edce7e4de9310d53c482141d187e12e22"
   },
   {
    "path": "out/mushaf/suras/douri/079.json",
    "bytes": 18800,
-   "sha256": "94626999b989db642124f5b6799f07628b33c54b296be844c11986001419a6bc"
+   "sha256": "cd2eec94285935e6018b24cf82133634ccba0fa88723710f37e541dc5f3c33e4"
   },
   {
    "path": "out/mushaf/suras/douri/080.json",
    "bytes": 14771,
-   "sha256": "d8d1017e091315d6e3ea696b5aae2adc8dd33d9cfd34858c2b01c7bef9351905"
+   "sha256": "35d7960c2e4396b657c4d5d6d7b20f6026b4c6cdb6fb703e44dd5111b300abfb"
   },
   {
    "path": "out/mushaf/suras/douri/081.json",
    "bytes": 11348,
-   "sha256": "0305a80dc855588473febca67bf3fbfb5b65bf87a88da55255cf8c0f73e6b7e5"
+   "sha256": "fcedc7176067f196553310bb33a9f0f0d3d8bf385ed55f8093ed6cc87ae2684f"
   },
   {
    "path": "out/mushaf/suras/douri/082.json",
    "bytes": 8786,
-   "sha256": "aadf5572667877b07f8dc4b4d592ab03fef422aa610fc972be079e8bb64fc267"
+   "sha256": "cdfdd0de548cc3bfcd6cb716d9b6a1a4ee6cac6493a5168c292ff04f33a5952a"
   },
   {
    "path": "out/mushaf/suras/douri/083.json",
    "bytes": 17474,
-   "sha256": "d1ef733419c2f565a3cd1c24c9a2271b9b6a8d97578896952d7097262981e78a"
+   "sha256": "0ffe644e8bb5e619a1f99b7f5c2468f86f845f18a86811c4059df0475873c6c0"
   },
   {
    "path": "out/mushaf/suras/douri/084.json",
    "bytes": 11596,
-   "sha256": "fd8f86a23d509f7549a910890e5db016e92da9471bbacd8757f74866cc543206"
+   "sha256": "c7d3822cd5d8ced3b33fec054b2360a5465d7d570fbed18ae58e0fab316a32e5"
   },
   {
    "path": "out/mushaf/suras/douri/085.json",
    "bytes": 11514,
-   "sha256": "47e6b8bb56a6d9e970575449e01f89742e29dce2f452f9715ec68d9613a84b7d"
+   "sha256": "af1557d8afc1a6f75750414b79db570857815fa4e648420708851eba905cf021"
   },
   {
    "path": "out/mushaf/suras/douri/086.json",
    "bytes": 6974,
-   "sha256": "906c5004b84632b4978d85d6315cb6238359dca378cad13f0099bb0cf97d7a52"
+   "sha256": "33c5d80931962298e915be7b2e85954cd9b2a830b06405d0ff9311d8796937e3"
   },
   {
    "path": "out/mushaf/suras/douri/087.json",
    "bytes": 8273,
-   "sha256": "dd3d878d2cb48d37cb868a6525e5ca0fcef16d0515508545871695477a714f21"
+   "sha256": "46e6342d0ac4341f574360e3bf249142a091ab063591bcd7a12425b6c5ebb9b5"
   },
   {
    "path": "out/mushaf/suras/douri/088.json",
    "bytes": 10217,
-   "sha256": "a9897d3e72eed6a701ebf78443b88390a44dcf00daec2f2408f5236e2927c07d"
+   "sha256": "3b73620ea04303fcbd60bd8bb74cd1f1432f8fa631aa1b727d12cac7f3b952fe"
   },
   {
    "path": "out/mushaf/suras/douri/089.json",
    "bytes": 14352,
-   "sha256": "29e04935375f03ba6566d212b8632f1a7a3eaea8437f374156debf930b97ed1b"
+   "sha256": "d242957a5fcdf5bb72061844fec692821c2fbf562903e22670fa8baac2093c76"
   },
   {
    "path": "out/mushaf/suras/douri/090.json",
    "bytes": 9012,
-   "sha256": "89686d3972684c8d04ffab555cfa2fc0877381cbf37514e7674a766c63135be4"
+   "sha256": "940404c18b6cdb3d059124f86a5673d9c598eb4d070754b1aeeb30e7912bbe61"
   },
   {
    "path": "out/mushaf/suras/douri/091.json",
    "bytes": 6510,
-   "sha256": "be6d3f3da336866f07e14a11964f23faa297b552458b0d6294ad63f4126272d7"
+   "sha256": "465af5a97df832b3d9788d297e519242b76312991574e3e42fb2a12153415a0d"
   },
   {
    "path": "out/mushaf/suras/douri/092.json",
    "bytes": 8323,
-   "sha256": "9a0176de81e1f36e169834d3fa2a13c0bc0f1d41f269a9d14998be5efd849353"
+   "sha256": "9e4c2850c4f622bc38fab2fdfd51e2c229208e778df70608e6f62d1fa604daa1"
   },
   {
    "path": "out/mushaf/suras/douri/093.json",
    "bytes": 4999,
-   "sha256": "e886af96d9f4680839b7b716a86a73dd3163ef0b12a6912be29926f7f5654b41"
+   "sha256": "c7fba35939110b65f232db7676244ea9f5d17d7e382fcdd586d1ca9114d949bd"
   },
   {
    "path": "out/mushaf/suras/douri/094.json",
    "bytes": 3773,
-   "sha256": "ec9f98381ecacffe88e6adc6d96c9b31b2f26488167457f1f98b1323d075ac16"
+   "sha256": "a6988d15f537aee4de6650ee34b73a3f819df866cd03e9b16e0af13266eb5309"
   },
   {
    "path": "out/mushaf/suras/douri/095.json",
    "bytes": 4345,
-   "sha256": "bc6ed3141150b8a120b203d2af5dc8c68b511c9ac523e40cae338155c3e7669e"
+   "sha256": "d615da4885aeb42b65248dc997c029ded431be3ff5c934bf5a19461a15f9613e"
   },
   {
    "path": "out/mushaf/suras/douri/096.json",
    "bytes": 8321,
-   "sha256": "6874884f6a1ab3e10ed6b90121f8a5af00bedbde7a809f95a5d6b6b5bdc1d064"
+   "sha256": "5716cd61b7d159d80ceb059c6dbc7eda77e0f81d541a1cd8a16dc6af29cf9139"
   },
   {
    "path": "out/mushaf/suras/douri/097.json",
    "bytes": 3712,
-   "sha256": "6118bb808c698bbefc2bfc3d5ed4348f63a3ef4e87d3d45c02c88ad68dc34c9f"
+   "sha256": "1079fc8fff9918d24d8f9a23bfd318368f1257e9b87be7e44471bf8ecc3c5e05"
   },
   {
    "path": "out/mushaf/suras/douri/098.json",
    "bytes": 9466,
-   "sha256": "8c7e5c90cfa3b9a02fd08f4493c429dce56ede547c6d51c47ee890b9d885cb5b"
+   "sha256": "5d4b45f6dbc989f42968ced986ba3cdc49bc8796b60e2b151912f6288cabb6b8"
   },
   {
    "path": "out/mushaf/suras/douri/099.json",
    "bytes": 4486,
-   "sha256": "2b0b93bcedd1cf59f70bc0018b49198fd190444ab76cf63b4c5f8647a2b7203f"
+   "sha256": "24c4834a650c536f17fc113fc8dac74496822a63603be6ba60f38de4e1de5850"
   },
   {
    "path": "out/mushaf/suras/douri/100.json",
    "bytes": 5169,
-   "sha256": "1957f726e129b18216b77c36c21bb8fe29cb8d9ec54325ed40db31ab83953060"
+   "sha256": "bc3ed65b3ba6e27a19b42a43ed1b6902439dc03f2618823dbbb92b2c633f05c0"
   },
   {
    "path": "out/mushaf/suras/douri/101.json",
    "bytes": 4638,
-   "sha256": "f31a7612b8df18991fd95955494dce6df22cd7f1100fdc2086ef672cdb64e144"
+   "sha256": "30b19da4d245aecd5cc7f5c1349f461be475489bbbbc758ad3c73dd460a2bcfa"
   },
   {
    "path": "out/mushaf/suras/douri/102.json",
    "bytes": 3903,
-   "sha256": "c89f0310f5e04349b7b1fa7799b34947bbdd7bb3a23823ee1b3dab6bfe660435"
+   "sha256": "37af8f7304526021b421d204c0a1005ba6ad47b31b11029fd75a9673db45ce19"
   },
   {
    "path": "out/mushaf/suras/douri/103.json",
    "bytes": 2416,
-   "sha256": "ee63ce9cdcd060594d5b802292568b6ae059dd47dd34421deff9a952ec8177b1"
+   "sha256": "49cf6ff0524d6c35e8d43c13299de33ad10860277c23824019f7d173f433c4d1"
   },
   {
    "path": "out/mushaf/suras/douri/104.json",
    "bytes": 4415,
-   "sha256": "d8612e81587fafcd4fbf925e38cc4d8924f903a3c45631161e1fdc07abf8dabf"
+   "sha256": "be1ec50cfda0d43c6e06c3ff8e25e372e5ffddad0520546f6be2f01aff548634"
   },
   {
    "path": "out/mushaf/suras/douri/105.json",
    "bytes": 3228,
-   "sha256": "c9f108d85dd16f5272a59152b29d3dd3a63970c795abfe7dadfcbecb90bb8c15"
+   "sha256": "1896d9d0f3313d7ff2a521e77fd450f5863553c3a005e81cbfc371e77b2de783"
   },
   {
    "path": "out/mushaf/suras/douri/106.json",
    "bytes": 2771,
-   "sha256": "49b87e17b123f94ab727ea07c19affca9da199d987cde707f2459e3004719f26"
+   "sha256": "d8bf2ea602a2eb541000c8cdeb95fff60bcb74779c5c935023382ea8d1992e37"
   },
   {
    "path": "out/mushaf/suras/douri/107.json",
    "bytes": 3508,
-   "sha256": "45205b164e52f30490453b64fe835eb78ce02c66b94c8f31e3ed767f8aafdab2"
+   "sha256": "c329cfd064dc0b8e680ffd5ee787f68daf5209768abe73ddf526a9de8f3c5a69"
   },
   {
    "path": "out/mushaf/suras/douri/108.json",
    "bytes": 2079,
-   "sha256": "3d23a4794ca5f87274ba64e46d0ac246fc98d6f9796fbaf870fc8ed400054652"
+   "sha256": "0af96873f1dda6460b87d6780817e476c3c54e0d184c14ff82676acc40e7390b"
   },
   {
    "path": "out/mushaf/suras/douri/109.json",
    "bytes": 3459,
-   "sha256": "de05a762d2176ca7b50bb7336f9cf9ebc54e46eec58c83f6ed683a4a9e713fe9"
+   "sha256": "9f3aead6ef3a4b6a0834a6f189613aae85c3e4595ce6919ef369aa1f0f3f5b03"
   },
   {
    "path": "out/mushaf/suras/douri/110.json",
    "bytes": 2856,
-   "sha256": "9bc60a5bb9d84529e2498c5518484ac282ff4cd6d1b24ad2cddbdac2fe152909"
+   "sha256": "c56706d50a752d483c7efdb3e5462f8fcacca0122f9dcfd2e76b476b7bba963a"
   },
   {
    "path": "out/mushaf/suras/douri/111.json",
    "bytes": 3173,
-   "sha256": "eeb9887313481f075e7d7afa2d468262c4c92b529753864bb884d5337194c40a"
+   "sha256": "4b35716dd41898b0c68aff3e37df2ca8fe762fd117e807668ca2d6f63933b821"
   },
   {
    "path": "out/mushaf/suras/douri/112.json",
    "bytes": 2470,
-   "sha256": "5821335e15e618806a01218632a91c493c9c4899ccaa700fc119d43e72bf5a1f"
+   "sha256": "7f60567bd88a04ac962191fa2e6658d317cd084fbb138935c064738c874c7134"
   },
   {
    "path": "out/mushaf/suras/douri/113.json",
    "bytes": 3123,
-   "sha256": "82de5b511b38437593016d0b37f5279a59c5208cf768b7844e1a0ac29ffcb6c9"
+   "sha256": "604bfb5dc36905b92dc110e472d07e076137b197cdfa405da64743ec0b73d8e8"
   },
   {
    "path": "out/mushaf/suras/douri/114.json",
    "bytes": 3070,
-   "sha256": "c83ded7168bc76c94cec1fb4950a01fa5ad862ddcc3eeb726ecf2de25f13c4b8"
+   "sha256": "87c4bfbd15c350c29872f28c921f28ddee20558bcbae2f356792078ce2885e83"
   },
   {
    "path": "out/mushaf/suras/hafs/001.json",
@@ -1415,532 +1415,532 @@
   {
    "path": "out/mushaf/suras/hafs/009.json",
    "bytes": 273334,
-   "sha256": "ef30660f66c5bb2db1a57cc7863b67759c39c9e4594f3eaada96e3517c5a2b89"
+   "sha256": "1a1ee19373166fed53281cd7fce82e19d28ce562f3eda59a4dba71148ae9dc11"
   },
   {
    "path": "out/mushaf/suras/hafs/010.json",
    "bytes": 198910,
-   "sha256": "bc11d4ebd9d896e75c9c21a59a25e41b6354ac9181eb8268b78480443b6162f7"
+   "sha256": "28f7de6b42f28f8b7dcd2c551160986383566be171b17ed8080b25c677b9ee4f"
   },
   {
    "path": "out/mushaf/suras/hafs/011.json",
    "bytes": 209339,
-   "sha256": "f2a6097287c6484306e89527a99dfc27a0dcfab7d3d902f4b3db55c63c902db9"
+   "sha256": "6f7b262030d873d7e1e159b2516978af51c4fb421bdac93071efe3dd7adb02d3"
   },
   {
    "path": "out/mushaf/suras/hafs/012.json",
    "bytes": 193140,
-   "sha256": "0f9f7660df46d211b5a489c32391370cc7130a7092923f9fa79c9278574dc21e"
+   "sha256": "db8e505b9613711936c45bb6f57158b161a57831ad9eebc38599d0f9ecf7a6e9"
   },
   {
    "path": "out/mushaf/suras/hafs/013.json",
    "bytes": 94426,
-   "sha256": "ab667447ff77369f02aac326fffe19994575de518a44231e738859cb3de6628a"
+   "sha256": "1f4d9311337af1d1fd2cca95dbf4aedf8faee0182cac617611c9d2bc814ecf15"
   },
   {
    "path": "out/mushaf/suras/hafs/014.json",
    "bytes": 91308,
-   "sha256": "e0da1b5d5b211aeecd5d2fc3b0547da93729f894d73902f27eea40acca4dfb86"
+   "sha256": "0d108f9b8f3869f1535d5d2e33a2c3bffb72b805d16038f1023207ba265e6407"
   },
   {
    "path": "out/mushaf/suras/hafs/015.json",
    "bytes": 74113,
-   "sha256": "48c90b4700810c4b36e8c63d112bd6336e41371287f54d89119ffd1790c29299"
+   "sha256": "87eb0539fb0358e55e603277c7ae4389826425972b4c45b4b12f2b27670a137c"
   },
   {
    "path": "out/mushaf/suras/hafs/016.json",
    "bytes": 201543,
-   "sha256": "6255864714aad3db7532c3a672fb48d2adf41561e5f81a83573a5004870c4e46"
+   "sha256": "d662f270bf8b9f04405fe2975477dc64f2ba713f639211b6908c40fb133bcdc6"
   },
   {
    "path": "out/mushaf/suras/hafs/017.json",
    "bytes": 170065,
-   "sha256": "fa8893aa62126635d8047bd9346124ef9d2e631f74d08cac946956a722d7fd61"
+   "sha256": "ef0580d929a1fa3dd88632f08f9f36bc87ea16ebc3ab8bd8f67d67bca4d45d14"
   },
   {
    "path": "out/mushaf/suras/hafs/018.json",
    "bytes": 170543,
-   "sha256": "159cc499f4b540a4a85024405b698ee4b33c3110315dbb7aa71fa52ef42465bc"
+   "sha256": "a09a5c482efa2cd40aecfff17b22347e1206aeb020bbb70936ee7d4379ec6561"
   },
   {
    "path": "out/mushaf/suras/hafs/019.json",
    "bytes": 105926,
-   "sha256": "672edcb3719566891e5baed1b21aed91a7b995ed56ae2eae0a69d61af5ab2c65"
+   "sha256": "e1951ed02934858282a1eb0ba608f1d665fe9c9e4d3baf1bd84a5ec860965a63"
   },
   {
    "path": "out/mushaf/suras/hafs/020.json",
    "bytes": 146189,
-   "sha256": "8436cec72338165d4ff46de6c61bb5a4a12ba0833eef35748c3ac491fd0650fd"
+   "sha256": "c42ee0ccdab41995c401a004e1a65315ee7aa8ca906221998499b09608071a2c"
   },
   {
    "path": "out/mushaf/suras/hafs/021.json",
    "bytes": 130640,
-   "sha256": "d79c33e7b595a80ed2dfd25ff46853716b8c3bf81bddea70bef7b1508c50d1ef"
+   "sha256": "4dc6bb7960eaa2e3ff772bf520273710f11e40c16d935350ab6e413a496ecee9"
   },
   {
    "path": "out/mushaf/suras/hafs/022.json",
    "bytes": 138853,
-   "sha256": "da96053374b73982483aea628ed82e7a4514c20ea47fa7d24c2a15890c187506"
+   "sha256": "55d9c04ca075b678f628d2461cbf44551fa89abb9a40667d1901374c5658fe81"
   },
   {
    "path": "out/mushaf/suras/hafs/023.json",
    "bytes": 116354,
-   "sha256": "cc5209e8660ff28f0aa37d2c373c4aaeef5bd85efb5cf1f6d9e90e687843f8e7"
+   "sha256": "038bba096d91a953c7958a01fd0be5dca8c235487567ff8717db0e3d7eba1134"
   },
   {
    "path": "out/mushaf/suras/hafs/024.json",
    "bytes": 144447,
-   "sha256": "1abd89de2982ac389316ea2f6ce95029ed911f253a05d0b7adcbbdd1cc36a7c0"
+   "sha256": "cc0eda071943f74b3c7f25a0aab50dfb921639e4541bf4d5b99b37cd10f63fd4"
   },
   {
    "path": "out/mushaf/suras/hafs/025.json",
    "bytes": 98132,
-   "sha256": "882167afd80f5744ed1b61ab482d4e4df8372ea7e8d1fe28284e5ac22734dd71"
+   "sha256": "645538de4e98db6e774a5a399ad1188b87c987b501c67853c93cf4e33fed41e8"
   },
   {
    "path": "out/mushaf/suras/hafs/026.json",
    "bytes": 151044,
-   "sha256": "6f611ab2d67e9b0f72f521d27e0aa1263468c172d39fb5c78f132a503042041b"
+   "sha256": "98924362fc6c2bff47c3d4d2ec0ae1fa9d5b741f2f0929ac335949bbab1001e5"
   },
   {
    "path": "out/mushaf/suras/hafs/027.json",
    "bytes": 125786,
-   "sha256": "a2ac1235bcf9dc361adc098974bdf170cb1ba52827e81286406e008c172d67eb"
+   "sha256": "412102ce5e7d50aaec274dc1a335059aee6251fb0c7a69651d2c7dd282cec3bb"
   },
   {
    "path": "out/mushaf/suras/hafs/028.json",
    "bytes": 154497,
-   "sha256": "67b9fb04667d42aebe9ff85c173d4af986dbcde637ca9807008ecca89235f5ad"
+   "sha256": "049e408626b7d98b6a9280879127ef6e94edaf0c46a1617823d452b647dd3be9"
   },
   {
    "path": "out/mushaf/suras/hafs/029.json",
    "bytes": 109097,
-   "sha256": "9e964277380c3a43b5804b540924907f4c583dc47f25918ec054dd65ff4ba84e"
+   "sha256": "e737d841438d0dc5b33f1e2b63d7dc2eca86477830f0efe795f97dd7461ec04e"
   },
   {
    "path": "out/mushaf/suras/hafs/030.json",
    "bytes": 90509,
-   "sha256": "56a89a4dc57d354e110b52d62d7732235b5d939778e813b86fd931f200f89e68"
+   "sha256": "eab6bf2ef7886669c4e801effc6bb21b0b9cdddeb22ac35eb26bd555ec08e54d"
   },
   {
    "path": "out/mushaf/suras/hafs/031.json",
    "bytes": 59693,
-   "sha256": "a55033eab916be99be5cd000d21bcc848bac1125bddb24dad495ec2e170f64bc"
+   "sha256": "d6790243d6285321e8b7d8519b4b392aa89cf32a3bae600a5a2808231c5ad3b8"
   },
   {
    "path": "out/mushaf/suras/hafs/032.json",
    "bytes": 41344,
-   "sha256": "ad28d182834ce39b85f7aff12bd5f35c126e483786b8f258a2be1e05f108c8b1"
+   "sha256": "76cfdd6b562c868449f8d797437952db2c78f4fa287bde243d5175ff774cadd1"
   },
   {
    "path": "out/mushaf/suras/hafs/033.json",
    "bytes": 141812,
-   "sha256": "c747b44072e525763df0fce2d0015447ef67d0031b9d049d8316eaf9613706bb"
+   "sha256": "fb38ca60665e8cd0158ebf5f1c60583661dc8aaa45e3aa13bc78f671149be401"
   },
   {
    "path": "out/mushaf/suras/hafs/034.json",
    "bytes": 95940,
-   "sha256": "086b41b79ddcb37c963be23cce9ee7e54b9ae9b5eab25b9cec071f1a8ccf6b40"
+   "sha256": "c36955cfb5ac031af60c5d022d0dccff6e57cb3fa84d7217ee62313da924e180"
   },
   {
    "path": "out/mushaf/suras/hafs/035.json",
    "bytes": 86192,
-   "sha256": "8c13d4a117a9c7e69b4aaf4d25753fc2f86b47bf6abe1a1157b052acbff99f95"
+   "sha256": "85d3c794ea94d4e8026af0d2fa199659d51c17e8290083e9d1661587ee22d249"
   },
   {
    "path": "out/mushaf/suras/hafs/036.json",
    "bytes": 80521,
-   "sha256": "7df50d00034ccd09bfe62f9eb5def4ef78b1e0874af9e967a65a2b8f27b6314a"
+   "sha256": "3c1d3142a7446686537c8a7d9ebb821c6f04492878575d7408bd7242f2a4988d"
   },
   {
    "path": "out/mushaf/suras/hafs/037.json",
    "bytes": 102255,
-   "sha256": "bb2bfe62f242405b743cb6f24c74886f6f9af20685c4cfa521efaca014296b3d"
+   "sha256": "64eca7c0eabda2148b454f6a0a3aea9c58a8a4f8a1216becf4e2c82f3f0cd61a"
   },
   {
    "path": "out/mushaf/suras/hafs/038.json",
    "bytes": 82681,
-   "sha256": "13c8aefabf911f8ebda7e14c7c39d1e298127df0d3f95c7ecb5fbcdce8721f33"
+   "sha256": "6e0edb441a1f909e8e4d8032d8daaedc753a3055367b283e9b0aba594997e83e"
   },
   {
    "path": "out/mushaf/suras/hafs/039.json",
    "bytes": 128498,
-   "sha256": "de7680fe3d77e09b451de10b35d0c153274f8c17023b2837f63d0c144bebbe93"
+   "sha256": "2c09053645273a985b8cfc33fd5ee790f963f3fb0d7fcc7cb78ab4e1b5cab7cc"
   },
   {
    "path": "out/mushaf/suras/hafs/040.json",
    "bytes": 133019,
-   "sha256": "db93f52f7a91002190778ee68128e92e1316a21dbaca3e9e7124d4f3f0a083b1"
+   "sha256": "b43cb2959dc2ea02b2cadf3e8656fa685254f5cd940d3469b0e9825185190aed"
   },
   {
    "path": "out/mushaf/suras/hafs/041.json",
    "bytes": 86974,
-   "sha256": "fda4cd8e234d193d6a4e9f4e50d68c25d64a71e738212fa54c8df5cb7ad9c92f"
+   "sha256": "c1e327b4fd290c9b3ec7a47b4c4fb7fc680120c1be30162f40691d90a9a2ee82"
   },
   {
    "path": "out/mushaf/suras/hafs/042.json",
    "bytes": 95048,
-   "sha256": "91017c572e74939a13a0ea4e0af16580da619dd90d3f8ea14b9681e1d0f1b5b5"
+   "sha256": "3c72bdcb7925a8c4a12512e37c319da6527bc3d25e70c808f39b3af74daf1e0e"
   },
   {
    "path": "out/mushaf/suras/hafs/043.json",
    "bytes": 92865,
-   "sha256": "11717dd93a3947329a3e5cad2e743be83febfa13662830b5aee21b4bfb53000a"
+   "sha256": "758fe4153cffd3fb0101729b23137700b11398b08c74a8974725ec16d52b018b"
   },
   {
    "path": "out/mushaf/suras/hafs/044.json",
    "bytes": 41028,
-   "sha256": "fbdcf98f0aa47ba12803ae2524c6f0bae0cf81b3d0155b9eaf2311dc269df71a"
+   "sha256": "d6e85e860ced774c4aaaafda1df297a1d0d7aeff6f63454e30139d93fde26b5b"
   },
   {
    "path": "out/mushaf/suras/hafs/045.json",
    "bytes": 53972,
-   "sha256": "b05f06ee52ef38a620033bdf66b1f3a7a5f1b8abdfb58f20aabc786d34c7d292"
+   "sha256": "42bb8e5b84990d0eed4fbf3e3c635dd595a5f564b0331d5d5f24305c2eb5f11f"
   },
   {
    "path": "out/mushaf/suras/hafs/046.json",
    "bytes": 69383,
-   "sha256": "a661c3074fe02c808d2edbcb26567de4cde0ec270d5aef48b398a64cef4c8675"
+   "sha256": "166142d1ab4cbaa8d4a48609785304413605e2fe75ad05eb602ef8dd02fb64ee"
   },
   {
    "path": "out/mushaf/suras/hafs/047.json",
    "bytes": 60037,
-   "sha256": "aa05a1219aa13a888e6f0665ae031542a93e01784e818f4f929f4c6a1b7dd74f"
+   "sha256": "f79d914081048794c647922833c31a0c63a7b88f9811a3cd316c8b13a7546329"
   },
   {
    "path": "out/mushaf/suras/hafs/048.json",
    "bytes": 62570,
-   "sha256": "653d03a00c3672f58665bc11228381fdede703a921b4b431081a81175d1e539c"
+   "sha256": "75f76b62b5b26d67597bfc1bd06dec7b0d2fb808a9b58569ef736bd301a16202"
   },
   {
    "path": "out/mushaf/suras/hafs/049.json",
    "bytes": 39437,
-   "sha256": "bc391e4e7c15d270ab4c986113e99c3c700995ce90b54fe44cbe941778cb64dc"
+   "sha256": "8acf704f0470b7ca96d3119f086c5daa74c05d64a56e4b6562d89c5886e518ac"
   },
   {
    "path": "out/mushaf/suras/hafs/050.json",
    "bytes": 42078,
-   "sha256": "f395c49b035fe410b04bed2e14e428a068495082c0fea7c596ffd64ea7d39e8e"
+   "sha256": "56f76b14168cb36801fa1ca19301e923ae3b25e29a8e06dd0a1f18fd47366815"
   },
   {
    "path": "out/mushaf/suras/hafs/051.json",
    "bytes": 42068,
-   "sha256": "155ead88a474fd75ea2a775f1e8e8cf1fe0b51f7bdfb325a3cb7fa8fd7f5d369"
+   "sha256": "c0c0d68a02724c86b5a7908164b37429ab716f823b4f367cc29e8a121de54d06"
   },
   {
    "path": "out/mushaf/suras/hafs/052.json",
    "bytes": 36543,
-   "sha256": "10589039771f0186a583325efcc66936b8fe796466879d436367bb1549abd813"
+   "sha256": "16cf3bce7e3c1aca6c7585be0bef4c170976f7fe9f87298191f99dbad7a339aa"
   },
   {
    "path": "out/mushaf/suras/hafs/053.json",
    "bytes": 41682,
-   "sha256": "69697ce43ceabc668e2950a4c2d7275a8c1556982363d640280943d5515ae112"
+   "sha256": "f1383f150dd2e6988096c0a481b117f8ef5ee3f47755576d9ce36615f6aea195"
   },
   {
    "path": "out/mushaf/suras/hafs/054.json",
    "bytes": 39861,
-   "sha256": "42c44c0fb3354c86fe1e49394bd4885458cf2b968d99a95546a2f0820c2af3f5"
+   "sha256": "5015cbbe0bc4d9f52b5d68cf3a5e2dbb63eb3fbd92a182add1fb4177e979e364"
   },
   {
    "path": "out/mushaf/suras/hafs/055.json",
    "bytes": 42812,
-   "sha256": "485c82e1c569b3fc5be9e19ec0197ac4c4a68828b5451149560e3d0ff571219a"
+   "sha256": "39d086abbc7fb1dc1f984d4fe0750b6055a4e5f335e64915b68264d8e48483df"
   },
   {
    "path": "out/mushaf/suras/hafs/056.json",
    "bytes": 46518,
-   "sha256": "a298e1920c7de8888cb3c61b44a009bd71f42d291e2960786e969ba41aa0dd2f"
+   "sha256": "7e5c79e03a05def77b8245201857d39e41e7cd5c1cb831bb9f29c445e43fd032"
   },
   {
    "path": "out/mushaf/suras/hafs/057.json",
    "bytes": 64212,
-   "sha256": "eb41e8143c2f87e9480e8c66b66e766b80b98824ca94807b49d2cb6eca2d1d6e"
+   "sha256": "4d1dd4c1c646207fd00e0d022f81c6f4271577df672c4f70be5c92aac88c5d3f"
   },
   {
    "path": "out/mushaf/suras/hafs/058.json",
    "bytes": 52907,
-   "sha256": "c86f0dbf4b43a2b2455897ca227f8675070b21565c7c712b20477d621ff6e06f"
+   "sha256": "c4059d8c8fa59dca82cb44e63717476ee8ef79946eab0cef63bf3e0069441077"
   },
   {
    "path": "out/mushaf/suras/hafs/059.json",
    "bytes": 49725,
-   "sha256": "3e617cd5aca5f937a18c46d3be6d16a2b45c57be12b1ec31d53a826819b694a1"
+   "sha256": "85a76a7ab16c84f1573d4af29a61d8677784d039f55c366b046bf97744e06831"
   },
   {
    "path": "out/mushaf/suras/hafs/060.json",
    "bytes": 38630,
-   "sha256": "3c2f551ae34d3d3a7921a936bbcf06351cdf6901bb49eee08944703f4bab1390"
+   "sha256": "f68b6f738a2a62da012ef68d4afae260ba05cf3ed37e584236f8e446e50b957c"
   },
   {
    "path": "out/mushaf/suras/hafs/061.json",
    "bytes": 25004,
-   "sha256": "f0b37ffdc82198b48562dc949e9dad322c77fc256d5da2dd03e3f697596f9a24"
+   "sha256": "01ce0c9d902265d835abfe0fb217375dd55b0d11fdb3c5fa8f89bbca37769f08"
   },
   {
    "path": "out/mushaf/suras/hafs/062.json",
    "bytes": 19955,
-   "sha256": "2d07c425166c204b09ee989c2f11f50bb867bb9de237940064c65dbe547e64c0"
+   "sha256": "aea6bdb074c4e5ded0a9a3df3cc9e8c76459c088daa32c8b5f776a751c281d88"
   },
   {
    "path": "out/mushaf/suras/hafs/063.json",
    "bytes": 21060,
-   "sha256": "2596c8ea36424267c90d0d8f2875d235bb35dfcf18c9adaaf2eb59022d4a8bfc"
+   "sha256": "a3acd010b3a408a56f7a6876aaa63619c996fa0a8224d6bcbfc5b5d43d900c64"
   },
   {
    "path": "out/mushaf/suras/hafs/064.json",
    "bytes": 28374,
-   "sha256": "0ae0c0a6b000522dc3174c4626470371b97dbd48a69235b2fa45dffa703cd2a6"
+   "sha256": "507f1dba1c561cb493e69fbdef5ac36439c85033b3c17979a8be821b24f1b6e4"
   },
   {
    "path": "out/mushaf/suras/hafs/065.json",
    "bytes": 32257,
-   "sha256": "65b506c9ad4639d7eeb95e0cb4a36c4b3cdfe2c3913368abf06608ca42b77b0e"
+   "sha256": "b793188d0fabd6bb6e43338e7ca688c75cccd77be85aeda512e508dc95f36cca"
   },
   {
    "path": "out/mushaf/suras/hafs/066.json",
    "bytes": 27910,
-   "sha256": "829b45c092a5654579cc2fa791a63c9d954f5075edab91f1bde4e3c98124c96f"
+   "sha256": "379852ac94d9fc941b6a38c288f323d94245eefc5a4a02551c7cd6e978b71884"
   },
   {
    "path": "out/mushaf/suras/hafs/067.json",
    "bytes": 36961,
-   "sha256": "3739728603ff1c49dc4238bae41a2c3e45e314ca4e3d63a387db0ca954dac3d4"
+   "sha256": "63abbf4a358f67bd39463378a915fc551c284f70074549bc376724e2d1fa688a"
   },
   {
    "path": "out/mushaf/suras/hafs/068.json",
    "bytes": 35096,
-   "sha256": "0e9c756ad99b602d9343acfced0e099cb0ecd93f762d8cef7602f93bb1c15e42"
+   "sha256": "0db927c3c9773bf7aa045b3eaca87cada887d0b3e0efd3b776622b9dcf62cd43"
   },
   {
    "path": "out/mushaf/suras/hafs/069.json",
    "bytes": 31029,
-   "sha256": "7615a2a8ffd2b0dd86ec5fd58cf3b29fdb2dc53a354fc263e6db84cd16e5d7be"
+   "sha256": "ca8a6810b69b56de3d7b48286d858d0c91f7145fc9816aca97f6ac90534268c4"
   },
   {
    "path": "out/mushaf/suras/hafs/070.json",
    "bytes": 26507,
-   "sha256": "5952bdeead207a3417b42ff2e9bf89a122794d52bba49bee48b889f8891d9c65"
+   "sha256": "c2e9bd1f3de7a07cdb0c88f51bc7fc5101ae8046f60c4a6a0614ff6a09bcdab4"
   },
   {
    "path": "out/mushaf/suras/hafs/071.json",
    "bytes": 25750,
-   "sha256": "e245ea7016eb9649d12408dc7469f6841a8d516d078c80aa8002d7100c97bb5c"
+   "sha256": "c85ae66f553352b26611c9236764eadcfaadfe1a6af691121d683d8f42d01ca5"
   },
   {
    "path": "out/mushaf/suras/hafs/072.json",
    "bytes": 31223,
-   "sha256": "5b7729ff7438a7800b205784b86d67ff95ec7622e39bd401ef7719e52f7f54e4"
+   "sha256": "bb5b8c41c91ab83854bc671a266ebb4e7aaf99b8a673e7d34b575f7d9af0e285"
   },
   {
    "path": "out/mushaf/suras/hafs/073.json",
    "bytes": 23171,
-   "sha256": "48641d27c58e47e3bae251d26b0ede4377129065dbf8e6497659f8ae5927713f"
+   "sha256": "f4cedefafe90955987128a5647d040ebce2f4b3361e9e0425232938a59042118"
   },
   {
    "path": "out/mushaf/suras/hafs/074.json",
    "bytes": 30777,
-   "sha256": "6b99fbc22668c09b577ca0509dfa63ffcfab7101711aa33c14079ca5a3868137"
+   "sha256": "884d3673ade870fd73557588b78b7410d6eefba831131a370386bd70eba5fd9b"
   },
   {
    "path": "out/mushaf/suras/hafs/075.json",
    "bytes": 20265,
-   "sha256": "4e11703d686cb1246283d38f02e98cfdc9a5917d7a5818a4eb1e6e72d70cc525"
+   "sha256": "fdcbafa01e5b08ff94ab0980503899b9a79d7e1346a0fe649b52b17308a83b33"
   },
   {
    "path": "out/mushaf/suras/hafs/076.json",
    "bytes": 28199,
-   "sha256": "73994f94b89dee6e9a4a057cd0a8d0271fa7165fcbccd2a7fea998115ae8ae04"
+   "sha256": "66139463d17dc5c56bfdc458bdb6bd58c2c504d1e0be8ee824e507318bf87660"
   },
   {
    "path": "out/mushaf/suras/hafs/077.json",
    "bytes": 23203,
-   "sha256": "2721fcb54b0313dc405b9cafe383333cde86ff49e849b00e876fae0e3d038cd9"
+   "sha256": "2d1fef4687606e2385734d024353abf3a65c8698bf7ef635241ab05428d39f4d"
   },
   {
    "path": "out/mushaf/suras/hafs/078.json",
    "bytes": 21597,
-   "sha256": "cbc3de7eb1393557385a8514453eef3dbe8fb046911bc2f750662c52d5b2fc15"
+   "sha256": "8e7fe510c5bcbcd44261a0ddafc9f0d3f4c59dd5604fc0596bc7237dca69734f"
   },
   {
    "path": "out/mushaf/suras/hafs/079.json",
    "bytes": 22404,
-   "sha256": "1ac3668da1848d0c834d72b19b154aa4357c3bb2fff78cb1f0a145dd96b66b11"
+   "sha256": "7d71857338385b5b9cf2312a792a4b3832cd69f2dfefd56754a6010d0e223f52"
   },
   {
    "path": "out/mushaf/suras/hafs/080.json",
    "bytes": 17358,
-   "sha256": "e836569b2ce8858770e350623ccb0be89f0d2bc7efb3c78ec393fa5400467b2a"
+   "sha256": "b4a830709acaaf2e34320f2802bbc70ded3b5f5c908cb9f789580f1d9ca2ab4d"
   },
   {
    "path": "out/mushaf/suras/hafs/081.json",
    "bytes": 13391,
-   "sha256": "e2fb5366dd0c798127281ebcfb4a36098216a2639567ba364e04d3be2490f951"
+   "sha256": "2cffc0cb57545eba7b1e4a59f43cf97f13d63a0cb160ad24ce474753835e2f94"
   },
   {
    "path": "out/mushaf/suras/hafs/082.json",
    "bytes": 10358,
-   "sha256": "4da0d6c151eec2158182972c8b7d7844e242d40793c2aef571de11cd9da7b8c0"
+   "sha256": "21c9a38ef7cd395e5d5e58a9c576d9b22feff6ded67180d29f92dab55d01fe70"
   },
   {
    "path": "out/mushaf/suras/hafs/083.json",
    "bytes": 20906,
-   "sha256": "14b820669aef57022da79222674b01a2bdd1f74e92d0f170c27139cd2477da98"
+   "sha256": "787f8c89b90ec8dfd822119abbbc3af3e060af7ae4c6bfaae2e0b64a7ea4421f"
   },
   {
    "path": "out/mushaf/suras/hafs/084.json",
    "bytes": 13643,
-   "sha256": "1c2f3bc3161e4c7d7c7297de626f397b57b1ab16d5067d9871a2c0ce8a55bf88"
+   "sha256": "9eb5cb313d6d347091af86443b95b1117ac2c38eee161296bda3adfb9d9225a5"
   },
   {
    "path": "out/mushaf/suras/hafs/085.json",
    "bytes": 13573,
-   "sha256": "949156f49d62b25ffe1a2a6b16fd041ee4d90197ff60f8e19edb8f7eac79a883"
+   "sha256": "3022280e73c03977432c7baf7aa2632dd131ef2d7a1be1b192412f0e42d565bc"
   },
   {
    "path": "out/mushaf/suras/hafs/086.json",
    "bytes": 8254,
-   "sha256": "f5a5de53ae1524e8e0411df6075e488631b3732ee4439808bde8e15b6cdd7227"
+   "sha256": "ea3eeadb1085e0be063cb2dccf6b6b9a73d2f9723669647c8e623943fe620eaf"
   },
   {
    "path": "out/mushaf/suras/hafs/087.json",
    "bytes": 9657,
-   "sha256": "a176e0028423add7243133985bdee60e0b7aa289c0be347906321327a4138b23"
+   "sha256": "7058d371ca185275e2226605e9fa0d61328c1ca8060111a26abea249b4b1a062"
   },
   {
    "path": "out/mushaf/suras/hafs/088.json",
    "bytes": 12071,
-   "sha256": "9bab33b5b5cfb2a2400c316a22c353e12da462da4e449d6bac6c6db823a0df8e"
+   "sha256": "b480407467b9bc3b79e1e1125c5c8546f8db2e478ab0c1810721be9c43f6973f"
   },
   {
    "path": "out/mushaf/suras/hafs/089.json",
    "bytes": 17097,
-   "sha256": "fa1ac4c26e34fce329cf58558b22b0fd846f535f90892febf264a04dbe668808"
+   "sha256": "f7a7519494b7568d22f9805ae615518974f7089bd29cea3e3f307f0c7315e3be"
   },
   {
    "path": "out/mushaf/suras/hafs/090.json",
    "bytes": 10648,
-   "sha256": "0b4f8600cd824a5c7be3429e872b7e9f7dec0c39947b3dc11ff81ef21a2b4ab6"
+   "sha256": "ad8e0d2b1e729bed6db08a5d67fe29a356fc82e375033589c0ab76819ee35d7d"
   },
   {
    "path": "out/mushaf/suras/hafs/091.json",
    "bytes": 7562,
-   "sha256": "076a9ada2bf9163d5f18323e86f0d35ba6e1af22ab3c64e5b68f9ab297452e94"
+   "sha256": "12f32b865429423cb633d2beac48037f369bd1437073166a6a80b32d871c1a73"
   },
   {
    "path": "out/mushaf/suras/hafs/092.json",
    "bytes": 9762,
-   "sha256": "f0dc7023ae78f9646d3c078f59dddd1045ad10e76a62ef7a0dca641c25071422"
+   "sha256": "445f718cc25117880d7328e77361c9f6d286aa732d76dfcff36272ef348e3ee3"
   },
   {
    "path": "out/mushaf/suras/hafs/093.json",
    "bytes": 5794,
-   "sha256": "bcfef7d1c54c5ef9becf3ae56443a768ff5976d445542437f2c240b87651aebe"
+   "sha256": "cf878ce225565a5756c915dd64119151cb4faa08a9850e2a0d5a96a4ea9c5f9f"
   },
   {
    "path": "out/mushaf/suras/hafs/094.json",
    "bytes": 4283,
-   "sha256": "24668a04c1b39792707adc7a81288b1991adf8b928ddc70cca665e85946c5801"
+   "sha256": "4cf5fdfee5f477773210942a3665d6b81cc2741b98bf113fec4ccbec4ad7e2fa"
   },
   {
    "path": "out/mushaf/suras/hafs/095.json",
    "bytes": 5044,
-   "sha256": "c7b17e95b59659a7b00bd01b67c5e9e12cab2fd6d2a0f44de3c1de563b4431a5"
+   "sha256": "fb047a37d49a399efaa937a1d376a934fa5bda70c1206a1391dada574029b335"
   },
   {
    "path": "out/mushaf/suras/hafs/096.json",
    "bytes": 9624,
-   "sha256": "7f6a6585656fa79c74a3b8bc3a667fe5420761b0cd8d30fa8a01c1f97492c15e"
+   "sha256": "f380119ce0889be81ee943627512a5ce797c8105af573655308d9d9535f60fb0"
   },
   {
    "path": "out/mushaf/suras/hafs/097.json",
    "bytes": 4280,
-   "sha256": "0187a9f79d8768ef3256586eb1c574bf7fbb61bfa72e4180c52f0ec2ee0754d4"
+   "sha256": "edd075f4df4e4e4ee0465bf73ab2973efd1c5ea4b239f64b64da27399bb94ee9"
   },
   {
    "path": "out/mushaf/suras/hafs/098.json",
    "bytes": 11322,
-   "sha256": "da819336b11558a648e9d8a1257fab836f8552096f63a37b2b52158dd6ffd478"
+   "sha256": "d307f904655fe88d803d9f11fb27d4e95302a72bfe4f2f46fc04baaf1a0d3265"
   },
   {
    "path": "out/mushaf/suras/hafs/099.json",
    "bytes": 5221,
-   "sha256": "541593f88b667b22e9ecf2e9cd2c543d2217b6d180fd541993960ce8720259eb"
+   "sha256": "93b078a1a0100fe48a58d3db75e328d5a8cc07fbda0d374473e10bfd4c386c64"
   },
   {
    "path": "out/mushaf/suras/hafs/100.json",
    "bytes": 5969,
-   "sha256": "76da36f2c0525988968a96003fcfb06b2919c0695d3975175f5d8ab7afe9a5c7"
+   "sha256": "a06f5d08a3d2e8c811e11e892638935bec8578d40c4cbf97b70891f23258b358"
   },
   {
    "path": "out/mushaf/suras/hafs/101.json",
    "bytes": 5435,
-   "sha256": "c49ac4d22697c50ac2bd9b78a18fdd0acaa4be1378009c191c2abb5d5c2aed05"
+   "sha256": "bd5c4c7b5cd6cba0bd4b0038c3484062b145041d23643a2518ddfb2ae8f4297c"
   },
   {
    "path": "out/mushaf/suras/hafs/102.json",
    "bytes": 4458,
-   "sha256": "d4e6f0a205062698047667b5b40d4679a36be988d6b455fc9cdc886354e54abc"
+   "sha256": "a9c8c2bbc036b3e128a79fa98fe420b0dd94f2d026eb34a3399cb1565788107c"
   },
   {
    "path": "out/mushaf/suras/hafs/103.json",
    "bytes": 2713,
-   "sha256": "d1d72cd6b72e0db276f620e8d3c5f9180d71520cdd3b0c1985a93d11ecace34e"
+   "sha256": "af763fe87d0d27d00cba9168beecf453e154675f2a378f91e6c8f8931444fdfc"
   },
   {
    "path": "out/mushaf/suras/hafs/104.json",
    "bytes": 5053,
-   "sha256": "c274aba7fee5b6ce8bd9d90e6c9a3c44be52cb697a4e3384441e97f6b15d235d"
+   "sha256": "60c44c2d45a020dc9946c766cb79ca7980f702f80b08e1a6b5d2b227460a95a7"
   },
   {
    "path": "out/mushaf/suras/hafs/105.json",
    "bytes": 3695,
-   "sha256": "fb533a5c9c1e6dd7c9f6497eebf0110e3ff759d6eba723a976c2ca8ae05b7568"
+   "sha256": "b1f2525157fbd2800ddfe0ffd14b56ae842788f8f91960247916ef6191ae40ed"
   },
   {
    "path": "out/mushaf/suras/hafs/106.json",
    "bytes": 3037,
-   "sha256": "a0cf0b51095086f7400dc756d9a33209806feffe561909e8be02f3a9426eb826"
+   "sha256": "d9cf63cac3e0d0ca78988cc0902510524287acc445252ea62384b71fb33b5592"
   },
   {
    "path": "out/mushaf/suras/hafs/107.json",
    "bytes": 4082,
-   "sha256": "6d12a179150587275843886555b89440bd557b82f28cb5a704171d6bf8acfaa5"
+   "sha256": "e55f03c78b12050c91fcb88561d93db683bdc36fdf4087dc3d19853e2d704155"
   },
   {
    "path": "out/mushaf/suras/hafs/108.json",
    "bytes": 2272,
-   "sha256": "d2e763588619f2abe793d51d3f45aa497a6d22cc0fd76c913726b958d8e21442"
+   "sha256": "fd0992eacb7c543d9bbe3cb6b0788e01053f6e363b60b6828b60e4676befc54f"
   },
   {
    "path": "out/mushaf/suras/hafs/109.json",
    "bytes": 3965,
-   "sha256": "e9e720e04cb3123d772b835ac367a2e9383a2171f79f2f613014d699449f301c"
+   "sha256": "c49d440af584f3f43024cf1b352c0c2ff78068389e7ea416c83918de87c1d8c0"
   },
   {
    "path": "out/mushaf/suras/hafs/110.json",
    "bytes": 3226,
-   "sha256": "50b4cef402e63dbad346749fdab857f0617e4c3c38575eb3284f62d765dab2ae"
+   "sha256": "f751622fc473fa8cdb943576fc68fc60cf80f94e7c027283151d80f38c692496"
   },
   {
    "path": "out/mushaf/suras/hafs/111.json",
    "bytes": 3606,
-   "sha256": "49912980f858d824f43c87ddbac53ae4d989402cacda9b8110130077c92d63b9"
+   "sha256": "e99e978fd331e597dc4c97f65a408cba202f5f3971fd2115f1fe79fb565fd381"
   },
   {
    "path": "out/mushaf/suras/hafs/112.json",
    "bytes": 2729,
-   "sha256": "0d5d72c59373e5b184aff24061032853c30b1a2b25d1fd5a57b70324e6845dbc"
+   "sha256": "fb6387bcaf44c0a5a8f224914a4c840a9f79e31195caf79622a7072d1365f7b8"
   },
   {
    "path": "out/mushaf/suras/hafs/113.json",
    "bytes": 3530,
-   "sha256": "2a328b9194e31ea40cacc63e0d67bce34c8ec504a4aa385dfbf470354ae30f10"
+   "sha256": "15fdf717a6ab6b1e2bda7ec19cfd1f7a78940d21f72d997985cb0b360cd4990e"
   },
   {
    "path": "out/mushaf/suras/hafs/114.json",
    "bytes": 3433,
-   "sha256": "4cd52bbd6d40146772ada54dcdac8749eb28ac8081a496777c7a6aabad3ac777"
+   "sha256": "c7a712b1c16ed536cb6d54130a7466e1516c422ca61709e41309e7bcf6be54aa"
   },
   {
    "path": "out/mushaf/suras/qaloun/001.json",
@@ -1985,532 +1985,532 @@
   {
    "path": "out/mushaf/suras/qaloun/009.json",
    "bytes": 235923,
-   "sha256": "337e11ecf37caefc5d6a16e7e19aa4dec8b1d62c1b691ac369949ef3d2d94b8e"
+   "sha256": "475f1c1b586ca180f8fc184fba38a3657a91cb358336cc55a92a201c49696a4b"
   },
   {
    "path": "out/mushaf/suras/qaloun/010.json",
    "bytes": 174795,
-   "sha256": "ac34c915df6175831a645a740151a020533bd5fc466a3b0d383110a1414f31c0"
+   "sha256": "b3a4c2b953588d90dce5387521c1d9f575b94eacd514db5c0bd9fbc5784a2f7b"
   },
   {
    "path": "out/mushaf/suras/qaloun/011.json",
    "bytes": 182986,
-   "sha256": "65ff6c99eb1962ff0403382e5858a536774eba05649e03ff8212e173417fdb56"
+   "sha256": "5e29604f2fa4e34f57f5313c1cba562a39188af9e867cb5135d76c505703f56d"
   },
   {
    "path": "out/mushaf/suras/qaloun/012.json",
    "bytes": 168238,
-   "sha256": "d8d986419dce2084b3d2055c40df3ed9e3615f6f403eb8d214ab8273b03ee6d8"
+   "sha256": "68704f95b0b87bcd0fb349cea36c9d0d9323f9d6fc6917992fe9386cba244f10"
   },
   {
    "path": "out/mushaf/suras/qaloun/013.json",
    "bytes": 82167,
-   "sha256": "440cc2cff288c11fca0bd3ec6b615560a1ee8be097049deecbe36f3e29031f9a"
+   "sha256": "a5f1c5446ef5fdf71d2e4c60c7db78c66eb2cad5a07148403a4160956e9d1dfe"
   },
   {
    "path": "out/mushaf/suras/qaloun/014.json",
    "bytes": 78298,
-   "sha256": "0e55d433c13a21c784db987850b7b533f310051bf9ac13c55aa557ff01f8ace3"
+   "sha256": "645322a183ea7e1465f151c3a61a87093f11c84cd56e57081bc1af5a42b5276c"
   },
   {
    "path": "out/mushaf/suras/qaloun/015.json",
    "bytes": 68620,
-   "sha256": "560afa396cf0287da8f579d8e3b2c80a424e8f0c682384a5b074489dd8baf3cb"
+   "sha256": "66ad3bdbfbcee488a9e9f431d38d74debeb25abf02a9b160f64ae9f7bf9e25a1"
   },
   {
    "path": "out/mushaf/suras/qaloun/016.json",
    "bytes": 176560,
-   "sha256": "63ec84cd55343822680ab2bf5629f7581f9e8645c072d551f27e484c33613fe4"
+   "sha256": "c249968c2fd6b0d942d7f9cec3fff5370ce86f4424f32f56c52f40655c5564bd"
   },
   {
    "path": "out/mushaf/suras/qaloun/017.json",
    "bytes": 148618,
-   "sha256": "2f2153a49f2bf0513267d8ce49e566e2c685b79611fc906b2dbdb251617941a1"
+   "sha256": "76361f5815d67618ffa2d76c49e2f0a779aa7f3ff4ad2f8047c1594c8ab54023"
   },
   {
    "path": "out/mushaf/suras/qaloun/018.json",
    "bytes": 148059,
-   "sha256": "1279fe958848627a04e73bf70ff84420960900ca9addc04fabf529999afe203f"
+   "sha256": "911b2a98a508f729c7256fd71da520e2f2fc9e3d1e9ecf0146518beeb387be0b"
   },
   {
    "path": "out/mushaf/suras/qaloun/019.json",
    "bytes": 94071,
-   "sha256": "bf1d14f2b8040b61c94b765a92ce5d2e67799f61523a41866c5f96d8bdd331c1"
+   "sha256": "6674efd7dc81845dd1e5089a2e663f9ef2a6875df08c0cb152ffda3951f68f58"
   },
   {
    "path": "out/mushaf/suras/qaloun/020.json",
    "bytes": 129567,
-   "sha256": "97932607468163edfa6ef20ccbebb4adfcb05c545f303092485081bc78378a39"
+   "sha256": "b98be24c105218b641809c7cef80b94b01fc56280fa3e28460f2badfd5e8fa14"
   },
   {
    "path": "out/mushaf/suras/qaloun/021.json",
    "bytes": 117527,
-   "sha256": "0b19c74b0b81a6ebde2f5f7c006958082988fe9f3a18507f7b3e00941c15a604"
+   "sha256": "34a51679deeff01159303554d261f086fe22e968cf64512a7d999811ca17046c"
   },
   {
    "path": "out/mushaf/suras/qaloun/022.json",
    "bytes": 120467,
-   "sha256": "5ae14ced91afb90f4b71aa0138d48d3a2b5d155d215fc87b9105e9e3df34144d"
+   "sha256": "295494b9b5581f21d812dc22c8ff1ac3ce43ddd4c4392d07ffead0752506193d"
   },
   {
    "path": "out/mushaf/suras/qaloun/023.json",
    "bytes": 105115,
-   "sha256": "c12df72e2958d1857ce3d47c586ede09838976f3a37e40821392af5bc4ce666a"
+   "sha256": "b33156f8970ea0f5073f8948d01fb9ac30a0843ff64417e397c1defd797ed8d1"
   },
   {
    "path": "out/mushaf/suras/qaloun/024.json",
    "bytes": 123706,
-   "sha256": "54184b9917c75c1ac8c7a1ccd9823c612213483835e7478828ecbf3e700917b4"
+   "sha256": "770fe0bc39837c2c9c11f5a9a3b72b031ecfa56c9bcf757078d90dd23edeabe4"
   },
   {
    "path": "out/mushaf/suras/qaloun/025.json",
    "bytes": 87080,
-   "sha256": "7a0b34d2c261d03b9d747aba3f2443eecbe5a7a7778aa48cdeca8f72e1c2d678"
+   "sha256": "88bf0c300ff503263fb6a2fb9058be1bf10f7ddb59ca641b3e3d1b5f4208d971"
   },
   {
    "path": "out/mushaf/suras/qaloun/026.json",
    "bytes": 138367,
-   "sha256": "b909da64ed3cec672143e878ad5e5f51c11c2a9c4ac7ee59d88920e15e6a84ff"
+   "sha256": "66967c004c77283e89f12d3f2335ed99c3432f9f218de9b30cf0b0afed2f0be6"
   },
   {
    "path": "out/mushaf/suras/qaloun/027.json",
    "bytes": 111282,
-   "sha256": "c50bc2eb03913c41dea36c53a6cf9030e49bfb2f8de5e74dfd924c0643fecf14"
+   "sha256": "4ebf7b98f893aebe72f09bbb0b06461229be24e475a359c99352966a616183ea"
   },
   {
    "path": "out/mushaf/suras/qaloun/028.json",
    "bytes": 134990,
-   "sha256": "117ad09b95bd2039607006a7f83b20bd0a0206234fa496688e35e25f03c01d9a"
+   "sha256": "5e5b9a9177e38a95c9def5b1f747b84f8e4b198eed8562c20e61bb2b63161718"
   },
   {
    "path": "out/mushaf/suras/qaloun/029.json",
    "bytes": 96580,
-   "sha256": "a5cfbb1c0bb991a658827192c43526171f5df4a588ca0f054c62e59c54fe4093"
+   "sha256": "9943b290c7c51b854d0f21cd1628ffa171ddf6da936c1ecb0f6b656cd9db6e52"
   },
   {
    "path": "out/mushaf/suras/qaloun/030.json",
    "bytes": 78755,
-   "sha256": "b69fff4c96d94798e518b240fd10a35d6babc9d95a3c9fd8371ca5990f01825e"
+   "sha256": "fd000deb9c6f36a63857b6a5f05553b4dd881e95d1354954f1d84daff516c995"
   },
   {
    "path": "out/mushaf/suras/qaloun/031.json",
    "bytes": 53152,
-   "sha256": "99ce16688219e322e7e43e6554cc4975ff614a48e388cd56a9f7145443588e35"
+   "sha256": "c6fa1064ea8babd139fdee954c6f9f55a9477b793e6deac306f209431c0527e8"
   },
   {
    "path": "out/mushaf/suras/qaloun/032.json",
    "bytes": 36751,
-   "sha256": "3780dec112a99db8967693a11e5b792ce265d9f4d5038c4e1150f233b19f717c"
+   "sha256": "4b9aeee09713afbab21692d3d04ea318b476d21affe27d2da291de6f07fe79be"
   },
   {
    "path": "out/mushaf/suras/qaloun/033.json",
    "bytes": 122471,
-   "sha256": "ec2aad230364ab1b6dd04075f5e6a1936ee31144713e4dee27a27dde28f25a37"
+   "sha256": "70cd22150765c6e541434e52890b70311c977a6418a43312db0a85856ba27902"
   },
   {
    "path": "out/mushaf/suras/qaloun/034.json",
    "bytes": 83669,
-   "sha256": "383bf82ca84fcb7184752681a68f224e13b40e933a5b4201235349caa2540869"
+   "sha256": "6e4bc01e8e7f081b7ab35cdb33eac9e2a00035ac52dd15d65b57d2be3e521b76"
   },
   {
    "path": "out/mushaf/suras/qaloun/035.json",
    "bytes": 75299,
-   "sha256": "f552d889a6808d3abc7e576523328bc76440baba79aea4d7d906ae987f4b5048"
+   "sha256": "dc393f1b05717e5af14e0d58846d65df94b40dca34e949f952aa005418998bc7"
   },
   {
    "path": "out/mushaf/suras/qaloun/036.json",
    "bytes": 71848,
-   "sha256": "3695b39ef83dbc202b536f32d8909755fff7ccd117cbe7fc5b2be7bb7a088126"
+   "sha256": "96b8bd7d89fa0cc0c7c6b95635a6badfddd1584278cce49ec3506391ad97cced"
   },
   {
    "path": "out/mushaf/suras/qaloun/037.json",
    "bytes": 95646,
-   "sha256": "20d3a1fca7328fcbaffff53c93531b7886eebd1617816dce1326f1f631aafda1"
+   "sha256": "697224cf3b6ff302667edaa1930d5b384faf726d58ec105239b813471c035e63"
   },
   {
    "path": "out/mushaf/suras/qaloun/038.json",
    "bytes": 74157,
-   "sha256": "d2620ef9b6bc617f3f16bb7d2934a39e5d86a5d5d3d4e32d9f2c16125bb524c1"
+   "sha256": "c4b3679b3566c2d7c89b43fce8d80e54bb87a19a6f0be9eb4f6a948490bbe2d4"
   },
   {
    "path": "out/mushaf/suras/qaloun/039.json",
    "bytes": 111445,
-   "sha256": "fcdea725f3c320c64de3c9c3ed6028e8b6a7806e0ee692bc413e137afcc95c91"
+   "sha256": "41cf8725162d966f5081a87fa4df0676bb3c313b5382332bcb32246564afb744"
   },
   {
    "path": "out/mushaf/suras/qaloun/040.json",
    "bytes": 116176,
-   "sha256": "b9157ba6c9134a1264dbfde01075f3986139ddc0d7f703fad598c5bf3b52edf8"
+   "sha256": "f4f4676b8e4e02bfa7ac2972c015b80db40214af376e734996ab576d49dc8799"
   },
   {
    "path": "out/mushaf/suras/qaloun/041.json",
    "bytes": 75981,
-   "sha256": "e8025e52bcb52fd93d0de087122b55273ce5d6f3d7d74bd36faded4ad51e9958"
+   "sha256": "5ae391bb6ea0dd775341d6571304138fb882d4574d25a0335a13f0ddf03a6046"
   },
   {
    "path": "out/mushaf/suras/qaloun/042.json",
    "bytes": 83159,
-   "sha256": "5beedf739bbf85aba599fee2d97aa21a0f9ce9ddf63eed3479531fe7452e9904"
+   "sha256": "26c9b86abe11c7ce8f6a62ca4214d90a1e51e044e0daf3b73c47f0c2ef900711"
   },
   {
    "path": "out/mushaf/suras/qaloun/043.json",
    "bytes": 83892,
-   "sha256": "c5559d68f3a299a68b99c3fad37251fff7d5171d4e9cfb3aa94c4ace770016af"
+   "sha256": "0d91919ef0565cad5ff72109f2002a30008bbb3ff5afd2f0c3dbc59aca520c05"
   },
   {
    "path": "out/mushaf/suras/qaloun/044.json",
    "bytes": 37083,
-   "sha256": "0bcedc7d6ed17978349810753cb486ee75dee86565e9e3b11379cae0555a6ab3"
+   "sha256": "bfe9ddd7f472d1b8e42c767714608b1fff96e9d8a8f3707ba9a3ef8138e2227f"
   },
   {
    "path": "out/mushaf/suras/qaloun/045.json",
    "bytes": 47599,
-   "sha256": "a4b271eb924c89bf8422fd0cd041b96be72e5d523fa651236a8b1f0a126d8dae"
+   "sha256": "40b51c52276994b5c8cbb5ed835d4dbe8dee6346bbf210095b50c1fda5456498"
   },
   {
    "path": "out/mushaf/suras/qaloun/046.json",
    "bytes": 60283,
-   "sha256": "2e1cd6183db23b853f44d3e47885907cd2d81c206414d34a136b11056b225810"
+   "sha256": "2873e9c05bf3f75a5ce15e7121929e3a27f1756a7870358ac36583c26945b0f1"
   },
   {
    "path": "out/mushaf/suras/qaloun/047.json",
    "bytes": 52489,
-   "sha256": "15f1dc9eb93bae530d6003464a4831ab968098e53ece37379a47e69e0fad14fc"
+   "sha256": "b62a065487de6df6bb0d6eff50f3e2537180d4027af80ef367a4a9d996680369"
   },
   {
    "path": "out/mushaf/suras/qaloun/048.json",
    "bytes": 53282,
-   "sha256": "9e1f732064fafc02e3deda80caba2efd806e592d814e2638ee1a814ba27cb199"
+   "sha256": "f50943c55734d1ff9d9599e92b86275bc7ea4968bfa9f6a2b3f27c71e37dd6ec"
   },
   {
    "path": "out/mushaf/suras/qaloun/049.json",
    "bytes": 34015,
-   "sha256": "be7431709150d17e954997b65bcbd1c1131f18b6b0c50e64ea6ee58c1e01e738"
+   "sha256": "3dcc0d4544f29f828249f55d2f5f2744c9b057e1600ffdbd686c49b414948918"
   },
   {
    "path": "out/mushaf/suras/qaloun/050.json",
    "bytes": 37804,
-   "sha256": "39302eedde7bbba24d50dc0f70e3589961c456ba1446fef0e80b1275b91eb700"
+   "sha256": "e40f83b0980bd5d11984ae95935aef2283492682fdaa9b69a8d9111a6f5b8b45"
   },
   {
    "path": "out/mushaf/suras/qaloun/051.json",
    "bytes": 38797,
-   "sha256": "4e8b5bf219bda154c00665de118cbb4edebe8102a55d903305f07620eb8a7323"
+   "sha256": "607802b492ef304ec30f1a9e67ca4bbd59c02ad507bfe860438062c24ca2ee75"
   },
   {
    "path": "out/mushaf/suras/qaloun/052.json",
    "bytes": 33331,
-   "sha256": "12d1721ae9f579e0b302c13024fe2f7d59b435b38bc9f455348bf1da2a3228f8"
+   "sha256": "5f0df8ef35af5986d1a40fb9fbfdeb1ed97fcf99a8148c445487833414f449a8"
   },
   {
    "path": "out/mushaf/suras/qaloun/053.json",
    "bytes": 38496,
-   "sha256": "b4054b40dbffcdce11297f202976f8e1d623947494051e99f6fe8c04f61afa9f"
+   "sha256": "81afc2d5b29d66df9df9315f6a5475fc4d8c7862b585d6afe167ba589046c8c4"
   },
   {
    "path": "out/mushaf/suras/qaloun/054.json",
    "bytes": 37321,
-   "sha256": "5a19e3c0720317fd38a138cca583faf43cdd278094f81cfcf25f9e9ae3015fb3"
+   "sha256": "39595f108c3294a17f2185a84ff553a8e5e7a83fbfc5a0b5d44eddb915132e38"
   },
   {
    "path": "out/mushaf/suras/qaloun/055.json",
    "bytes": 40819,
-   "sha256": "2093f6c9b0ce2cf620afc723ed048623ffdbcb153802cd2be0cf8d461ffb28a2"
+   "sha256": "72dbb1a8ea0d532d033a9d431394977f0d0945405454be9b9bc05a962535b8ab"
   },
   {
    "path": "out/mushaf/suras/qaloun/056.json",
    "bytes": 42996,
-   "sha256": "a7e09cffc7964c499fba1f2f7c9ed45c9dee858f488998a9e6e2608fd22eaa21"
+   "sha256": "87f0c8c9ee58864f1b846fdd0a8e5c93543d5ad2bddc108d816bc67b6d31bc77"
   },
   {
    "path": "out/mushaf/suras/qaloun/057.json",
    "bytes": 54798,
-   "sha256": "671b191ce238650e59a9f2a6b95f82aa3569bfe05428b50afa3d92181595ec6c"
+   "sha256": "7188c69e0714f35c6155215c79b7d7db64fcb75cea086eed1078ef957ada8ea9"
   },
   {
    "path": "out/mushaf/suras/qaloun/058.json",
    "bytes": 45359,
-   "sha256": "fa8dae3316832c5cc03611075e705042f79803f804757f7dfe583ae00d422031"
+   "sha256": "59a9137995d78b1c7df3a9b5fb372d473b88ec4a7e0584aa05111062c4b8d350"
   },
   {
    "path": "out/mushaf/suras/qaloun/059.json",
    "bytes": 43678,
-   "sha256": "03a896925dc0b0507dd53204cf44c0393c0eba8c83a4ceaa4403922920707825"
+   "sha256": "269b10235bfa6c5ce865e8be216acb32df2794478d61c151897d0b76d9957f67"
   },
   {
    "path": "out/mushaf/suras/qaloun/060.json",
    "bytes": 33022,
-   "sha256": "6e02bf5fdfd7ca4304046f34057a96158d0a828eca563ec22890e00db69cd3fa"
+   "sha256": "97bbe722959f17031501baeacab2d063c77fd7e72f366a9583f563f929b449f1"
   },
   {
    "path": "out/mushaf/suras/qaloun/061.json",
    "bytes": 21393,
-   "sha256": "7144996dff78bf660acd957a4b2e15be47b228ab7dc18a2b775a463703f4816d"
+   "sha256": "6ec6d51b256846d58b617bc314795af714999466069a83fee008a93c3de964b8"
   },
   {
    "path": "out/mushaf/suras/qaloun/062.json",
    "bytes": 17303,
-   "sha256": "7444cf63c43d3e96d231ce296583d9fa82b3c0ca6c0975666bc75f11dda80597"
+   "sha256": "4c03225cd3aec12077882bd832b6f36293c917d0d876814960a937806bb81d9b"
   },
   {
    "path": "out/mushaf/suras/qaloun/063.json",
    "bytes": 18706,
-   "sha256": "c611713acb965f2a7300bd4e5e9b0b1c146b1cbca723e76d0d0ec68c7e83adad"
+   "sha256": "33a6ebf4dd7250a213b5cee4a63195555a1720fe0ba9ece2baade728a9d8d6b4"
   },
   {
    "path": "out/mushaf/suras/qaloun/064.json",
    "bytes": 25174,
-   "sha256": "8b5335d53bcaf9332d955c5e75ecdfe0a5a373df03aa926c6f6c883d2a69b3dc"
+   "sha256": "666130b8382afd1ff139c6254703ee05bfaeeb4a02c34fd446e20864a7326862"
   },
   {
    "path": "out/mushaf/suras/qaloun/065.json",
    "bytes": 27964,
-   "sha256": "9e6aa0abc64f0e01f1d91f3edf647ff3507fd27c952367c917ed569d6c6a4f28"
+   "sha256": "da8dc198951f52141ed6dd0ba1bcd42d0dc231162d98f6380dc9ef963f66601c"
   },
   {
    "path": "out/mushaf/suras/qaloun/066.json",
    "bytes": 23879,
-   "sha256": "8d8149d3ebcd8de7b8bce0d95c0854fb756c1fe28d6853bd56a25aaac6383312"
+   "sha256": "429837feca34d0a05a7f01a7f5739bb98f43ebc9e8c9e36af78107ca1cb0039e"
   },
   {
    "path": "out/mushaf/suras/qaloun/067.json",
    "bytes": 33204,
-   "sha256": "be12258b81c0d8c90d7acc295580b08f3945226209949e51983d54ea65989bf5"
+   "sha256": "d84786b9acaa97d191bdf8ec6a6a5d4167f077b90627732ecf00a852dee8394a"
   },
   {
    "path": "out/mushaf/suras/qaloun/068.json",
    "bytes": 32349,
-   "sha256": "cda8364421d6d1a55fb06bf356c9502c2e16bdb170bc3d82f4749117108a8316"
+   "sha256": "b55431baadce03698b19b3eaec1885de4fad0b641efc8c69803b9f0232ddc214"
   },
   {
    "path": "out/mushaf/suras/qaloun/069.json",
    "bytes": 28219,
-   "sha256": "2b2766f5014f65e1b0354ebde72853d2b7c91b6863325a819ac1da46eafb2e82"
+   "sha256": "4d95ee7aceb802afb9e3f458ef83320720bb7d783f15610ef1c1f8ce8f3c802d"
   },
   {
    "path": "out/mushaf/suras/qaloun/070.json",
    "bytes": 23667,
-   "sha256": "cc2d3d9011157f2d0c7d27e2c2b411b47faf2abbf09879caa9fd115d1a069bc4"
+   "sha256": "c21e6ba2c7e6c5b4a5c27e2577654a9165d23a7ae30cf05ab74d3249e693d5f0"
   },
   {
    "path": "out/mushaf/suras/qaloun/071.json",
    "bytes": 22808,
-   "sha256": "398a8c20442a373a124cd852d4c3487980bfd662a608e8eec804f73ddcf68f38"
+   "sha256": "5157b4a742999b592758ae5a3c5dfe527a642cbfce95ab383c3fbcb0071a7bbc"
   },
   {
    "path": "out/mushaf/suras/qaloun/072.json",
-   "bytes": 27697,
-   "sha256": "2d08f7555d88a0a5b59044f7e3f9d4f8f07d82d31ec68d37ff15321227d365e9"
+   "bytes": 27708,
+   "sha256": "fbb9fd30b4d0b3ccb1de7bd239c47c79e8dcecfa01f39cefb01cf24be17738bb"
   },
   {
    "path": "out/mushaf/suras/qaloun/073.json",
    "bytes": 20491,
-   "sha256": "e4e1e69ea4e1c537c5ffd7638b4e476dd4d8852397d785294cc6d923f778e14d"
+   "sha256": "6a15b7be24b1183d56df21a24e5ceb95560434578c4f4853055f17fe90e821e7"
   },
   {
    "path": "out/mushaf/suras/qaloun/074.json",
    "bytes": 28036,
-   "sha256": "bb872d09720a71055dde9eb03a733ac4f2d0a1a246f244064cc67f984a4f21e6"
+   "sha256": "acf675ae4e378f3d1f5417ccf2a2859a19db722c0a7252f5b207553aa6414948"
   },
   {
    "path": "out/mushaf/suras/qaloun/075.json",
    "bytes": 18974,
-   "sha256": "8abd705b3dfb0c1af52b720e5459506d629cf2326672cd4a1539c6300d016fe7"
+   "sha256": "5e23fae554a7e93158bfadbe5689e369830269b05c7b800d8f8b438e5e4e367a"
   },
   {
    "path": "out/mushaf/suras/qaloun/076.json",
    "bytes": 25370,
-   "sha256": "f12cfea9f086aa233b9b435edacca8b61737579735dfdb23c43662ceece500f9"
+   "sha256": "0afe5faa5b0df1ee9128fb0e2b54ec595de1452dc79199e1c34ce2b785a4b402"
   },
   {
    "path": "out/mushaf/suras/qaloun/077.json",
    "bytes": 22055,
-   "sha256": "72a53727cb9548e7a8c58e2b7d44d833f9ee74231b36a690bb9815a3d911e609"
+   "sha256": "2689095d2d62221839ba5b798df460d5145cf24ecad1191acf8425debebe42aa"
   },
   {
    "path": "out/mushaf/suras/qaloun/078.json",
    "bytes": 19318,
-   "sha256": "cb849bb7268aa7b29fe1063cc887e1bd581d6030d66bbe90e5484b89ba95f5b1"
+   "sha256": "97bc6c19c6a5e5c0234ee0d93e917238f60a20ded138280884bc87856b56b8f8"
   },
   {
    "path": "out/mushaf/suras/qaloun/079.json",
    "bytes": 20369,
-   "sha256": "b52c00b23ee14dc9defe7fbfd733d67654498f79ed94e42949dc484ff4284271"
+   "sha256": "db9cb99eaac6ef39cf2ea3c9d113293f032fb6fb9a3151f36654f488e8fa2d32"
   },
   {
    "path": "out/mushaf/suras/qaloun/080.json",
    "bytes": 16374,
-   "sha256": "93f3883f8e447b195641c9df2a3af8c13c9e18cee3278fdaffd0bd6aaf8ff733"
+   "sha256": "9848bddfe427c6501408c76d7080cce9e82a1548e12cd874de581c4af897a6f5"
   },
   {
    "path": "out/mushaf/suras/qaloun/081.json",
    "bytes": 12054,
-   "sha256": "039d851549db2adba144f9d6751011a3c6ec4d73e93a2ba50d4173ca65634d2c"
+   "sha256": "62dfd76af757ad95980d2db9d1e187fc0c387678204c133657646610d8a6032e"
   },
   {
    "path": "out/mushaf/suras/qaloun/082.json",
    "bytes": 9392,
-   "sha256": "acfc439eed621d164d3b11c41b75e702a42ea7f073f7bd917a04d1efe8c04de7"
+   "sha256": "350e0c6fab84499356a574fd1fda901d2dda5c4c03d309886123fabc95a28579"
   },
   {
    "path": "out/mushaf/suras/qaloun/083.json",
    "bytes": 18759,
-   "sha256": "6f2263b0ca46ceabc0e06d47c5990ce5fdefde167009b3a0a18654e6b1bab337"
+   "sha256": "0c49f01b119f7ef64f58ede39f0ec7c490ba2f2e282d24a9796f54245f5dc4d0"
   },
   {
    "path": "out/mushaf/suras/qaloun/084.json",
    "bytes": 12462,
-   "sha256": "cbff77dbd10851bfc06c533683ee129eecbe4000f87d88ed8b4d27507f2af49e"
+   "sha256": "0b5997b405b0a9c174a55487a73f79494ace7acccbe3f813e506ba30f393c9b6"
   },
   {
    "path": "out/mushaf/suras/qaloun/085.json",
    "bytes": 12461,
-   "sha256": "a0f1bcf05599a686273590e53c04dd7c6012718aa10e577c176c3ee2d4f65c79"
+   "sha256": "3688a097f1d04480857f7ffbdb99df2f8ef0426d7ed3a8d91a983f0a9476a8df"
   },
   {
    "path": "out/mushaf/suras/qaloun/086.json",
    "bytes": 7669,
-   "sha256": "2dd160237bc35636e300891e1854d8cb15f79bc1cee71e6fd799988006b6623a"
+   "sha256": "a157e55d9caaf056865a93911c54da7abf690408ce03b42216747055a85f1557"
   },
   {
    "path": "out/mushaf/suras/qaloun/087.json",
    "bytes": 8949,
-   "sha256": "6b4ee3207c4ccdd6695244f7a8916770dee31cddfc7fcf4a2359c874e301c1cf"
+   "sha256": "7343a7f42dd1485e8a1edb12721aa1742f07ad8a2092ac1d791673cd8949d8c9"
   },
   {
    "path": "out/mushaf/suras/qaloun/088.json",
    "bytes": 11298,
-   "sha256": "d1592f05a184d6540d8b423ab0750ce8912d73541af968cf834cb2bbdefcfe4e"
+   "sha256": "6bd21df1728a66fd782409f4a0cf329ea2cb46af9d16ca7d518ddb329f4a5d4f"
   },
   {
    "path": "out/mushaf/suras/qaloun/089.json",
    "bytes": 15107,
-   "sha256": "ea13606f0b109d3609bee57eb3a5af3f01e7f1141ab281d194efc8bd45c97e22"
+   "sha256": "2afd7aaa1a9e8a00441c9e8bf26ab4c50a2d8912107263b26686370997441b71"
   },
   {
    "path": "out/mushaf/suras/qaloun/090.json",
    "bytes": 9984,
-   "sha256": "bfc7f07d9ce774d48d92f2e5224845412a2ef3f2237609b43687b099661e42e0"
+   "sha256": "afcee425f226c392ebeaea88005ca4f6a0b7b741b35919c8367be362c6283f20"
   },
   {
    "path": "out/mushaf/suras/qaloun/091.json",
    "bytes": 6691,
-   "sha256": "4c6ceb8936a4dfde1efc9c395ca7567144758e8042b3168f4015d899d986edc5"
+   "sha256": "3cfefaa1539f88261b7029d5bcf1c73643f0795d536c722642c29fb84b12fd08"
   },
   {
    "path": "out/mushaf/suras/qaloun/092.json",
    "bytes": 9089,
-   "sha256": "399bd7348259478db643e2f0d29ff401f9d244162ad4b7b961802d973ccc2414"
+   "sha256": "7aea0c91bcdf8b55198cb543a6b50f35f86a899d87da2df5a144e24f97d9fbb4"
   },
   {
    "path": "out/mushaf/suras/qaloun/093.json",
    "bytes": 5617,
-   "sha256": "96c046a694d34054e721120375f48845ca4dbc5ff887e3c546ff1a9f81005826"
+   "sha256": "7f1aa339b7972b7603344a9407c37665905b337b064d24ac5254e526dbeb6358"
   },
   {
    "path": "out/mushaf/suras/qaloun/094.json",
    "bytes": 4036,
-   "sha256": "4ad2ad322094a27263db7cbb9079be39ecd95c88360edf88d364a38e1b2a26f8"
+   "sha256": "94e023a628bf6fa11d2bc256b9ece0f8e619243353c3858ca3eba8eb3f1c85c8"
   },
   {
    "path": "out/mushaf/suras/qaloun/095.json",
    "bytes": 4605,
-   "sha256": "36c57edc0538d9c8ff996dda016ca65628273d1871be1cbeb0b492703eb1b5e7"
+   "sha256": "46d4a7207c40c36e133e67c59549df2d5bfc4c935577c113040baba0641bd281"
   },
   {
    "path": "out/mushaf/suras/qaloun/096.json",
    "bytes": 9166,
-   "sha256": "44eda33d5c66b6ee006672c4edcfcd8ca8b1194ec54f1e384c22c1c4db4223bd"
+   "sha256": "4019dd947194bfae9dc8287ada778d18e9b1775699e3adfab3d4b9cefd81ee06"
   },
   {
    "path": "out/mushaf/suras/qaloun/097.json",
    "bytes": 4159,
-   "sha256": "4c49138711ba38f2cdb9284ab1e48b4755a1679a6a19ef05456e9fce8ac02184"
+   "sha256": "61ed0c7076a34240dc51290fac8eaa17f480f2113a9c80f75a2afc48a2bedd07"
   },
   {
    "path": "out/mushaf/suras/qaloun/098.json",
    "bytes": 10062,
-   "sha256": "2aa26adb27494c85da970dcfd920068fd7e9050c3cd3488f33b53bc28c8a3790"
+   "sha256": "f37ab5acaa6fb94778a5d734a158baa9eec86860d968866716181022045b6624"
   },
   {
    "path": "out/mushaf/suras/qaloun/099.json",
    "bytes": 4934,
-   "sha256": "467427502c0ef9994506907aac631d18c60b7319125b33150a57387c8b289b91"
+   "sha256": "a7abe3ec199d88c0446627950361ace16418c03ddbe5db4a59cd4d2dad0cd776"
   },
   {
    "path": "out/mushaf/suras/qaloun/100.json",
    "bytes": 5353,
-   "sha256": "4345b7c681e09793db326e18cb37e70a85efbc97f859cffc3a4a185b8cd3ef83"
+   "sha256": "f47542f08f8f96def1c2474b70321447a4597de63e48b4cdc0b5c28ec0a4dcd3"
   },
   {
    "path": "out/mushaf/suras/qaloun/101.json",
    "bytes": 5257,
-   "sha256": "9e3bca5ce04cd96667fddef35a83e938adabb7eb14ed6da0b371bec2bea7ed33"
+   "sha256": "3d96484ae3461411e937fcdab841c72cd8c9a61692254b697d6b3f165a171b2a"
   },
   {
    "path": "out/mushaf/suras/qaloun/102.json",
    "bytes": 4260,
-   "sha256": "da4ee3ddd7335a417104a3896b8a46f61e44307fa1944c8c237c3b2a8493d14d"
+   "sha256": "9323b0764a1df78cbe4f84f854dfa42c3b05f270af8a4beb9656b88d477c2ef6"
   },
   {
    "path": "out/mushaf/suras/qaloun/103.json",
    "bytes": 2506,
-   "sha256": "7dd6629994b48cb877b10eba7048f8e7149614553a22965361d7542188bc689c"
+   "sha256": "8fb5f1d2a6d074982eb43d437a4f8ec8335f6c34f41e4107f91d85ed9ef3c0f4"
   },
   {
    "path": "out/mushaf/suras/qaloun/104.json",
    "bytes": 4764,
-   "sha256": "91ec6755eb02d3190692534c4ac8f06a784ae58afaca62f616d1a050dfcec243"
+   "sha256": "5d169a9184c90ca173141bca07780cd2d94dc564f81d3accda349f242cc515cc"
   },
   {
    "path": "out/mushaf/suras/qaloun/105.json",
    "bytes": 3418,
-   "sha256": "aa2f5003c67be6e0ce9f1a8571b09e6dfa3338ea969a27bc932371244706e667"
+   "sha256": "d8df948f2ecafdf7acf72d9a561ef2bb3833d020d18c0fbf130a5828ffbaccad"
   },
   {
    "path": "out/mushaf/suras/qaloun/106.json",
    "bytes": 2948,
-   "sha256": "ac383b54791e45a23a831d4c0955e4cd7e804e17764ebf9357bdc00fb45118c8"
+   "sha256": "7d80dbdd974dbb37d07d6424c378649bc62561a89af697b802be13eeb22d09e3"
   },
   {
    "path": "out/mushaf/suras/qaloun/107.json",
    "bytes": 3673,
-   "sha256": "687c2c69e22fcc6078677e9b9d3199c42664e74b497ba0becd53a14ba3d94c4b"
+   "sha256": "fca4fd27133372ccc7faeeacccb26a4c7942eed638de4d12039c9d76b2fc04a6"
   },
   {
    "path": "out/mushaf/suras/qaloun/108.json",
    "bytes": 2262,
-   "sha256": "62bb3085090b711a1b26425c9e5a25ffb0de09bee84057967d18216379552143"
+   "sha256": "9bed2406690ffe166625c93b635196f28f0bcbfb115cac8cef48ccea9e3adaa1"
   },
   {
    "path": "out/mushaf/suras/qaloun/109.json",
    "bytes": 3732,
-   "sha256": "08d021471be17350233050436d928a71be85730306090fb32f69ef0a57404cf2"
+   "sha256": "e5a1f9331ef8e7f38e87e99a2eaed4d7eda92fab2a46ba18226010d30c855025"
   },
   {
    "path": "out/mushaf/suras/qaloun/110.json",
    "bytes": 2948,
-   "sha256": "18427f4b0273eaaeb6d85df6a5cb9df651f3196ef3a05eddc6ceb07b639c526a"
+   "sha256": "270718cace6dad6e6de00b6aa582c237bdea74e2d3360f144af24034aaaf811c"
   },
   {
    "path": "out/mushaf/suras/qaloun/111.json",
    "bytes": 3537,
-   "sha256": "bfd204eb6c30f5d9aa83b17721397d25e95bb21d7483bf8b2d4e8faf0e766a04"
+   "sha256": "db485b82433f3ff3eaf1d2309f28f0182f5fad6c87a4679117259a61edc6fdb6"
   },
   {
    "path": "out/mushaf/suras/qaloun/112.json",
    "bytes": 2830,
-   "sha256": "550de4e251cb7a087ea3d13ce31dfc4ce8727e9a6ae45e85a1e89dcac0ba011f"
+   "sha256": "4467d52e4068717697df8059a734ce4f1139443c13f36234c00f55df3127425c"
   },
   {
    "path": "out/mushaf/suras/qaloun/113.json",
    "bytes": 3218,
-   "sha256": "d5ea7d9b8baf2bd35bdbaeb74eff5c9e9b97b56e21aad77efdad7317a586019d"
+   "sha256": "f6900ff44670ea847d288b0fc0c08d221ed5a3fec05179d4805e63527212ac89"
   },
   {
    "path": "out/mushaf/suras/qaloun/114.json",
    "bytes": 3155,
-   "sha256": "e4244c1466d61f61491ed9502ba9f3acfdef725b694fb4a4068704f313486a04"
+   "sha256": "1ebc8f681fe18359613a6e5777b18605a29e3e46f712e616c332e91e7bc97a2b"
   },
   {
    "path": "out/mushaf/suras/shuba/001.json",
@@ -2555,532 +2555,532 @@
   {
    "path": "out/mushaf/suras/shuba/009.json",
    "bytes": 221140,
-   "sha256": "35ec5ab91893d5341bb902bb7e4f29c16e727b3ad449334eb9eaceb608ee140c"
+   "sha256": "3fa18b20b3f6c6b213663ff16767f9761b266fcfbaf97f8989387d12080dde2f"
   },
   {
    "path": "out/mushaf/suras/shuba/010.json",
    "bytes": 161763,
-   "sha256": "87c95508151c5f1c8a4252e38479ff1f8aa3c0e27719728072c4d77d32ef87c0"
+   "sha256": "78c8ba661cce6574a5e7cc57986332695c5bb94ff6576205b1800501940be5d8"
   },
   {
    "path": "out/mushaf/suras/shuba/011.json",
    "bytes": 170722,
-   "sha256": "7a11e4c744a595d5e4d089eb88ab4a026e35cf6dadcf2c4d2f5f94e2e1729889"
+   "sha256": "cffdc2e8f919a2cf20a9b369fbf10c10c1add245b0aac61c9bb274a724de8dda"
   },
   {
    "path": "out/mushaf/suras/shuba/012.json",
    "bytes": 157213,
-   "sha256": "a91ee783bb12f64d0f81cf74faeab6af769ba94f7f1b2185bab500aabf2627b5"
+   "sha256": "7c6fe59b8cef3494562fcce5b57a4b41b82c24c9ac0f18c0e8839de558dc09c4"
   },
   {
    "path": "out/mushaf/suras/shuba/013.json",
    "bytes": 77104,
-   "sha256": "fdcf1fcdadc7ed0f1520b212b12cf653e5b3c3b1a00048495544a2e9cee99eb7"
+   "sha256": "de7d29da99f938b378ddd35cd133ba714b8e337710ed385ddd307fe6bc63de1d"
   },
   {
    "path": "out/mushaf/suras/shuba/014.json",
    "bytes": 74288,
-   "sha256": "db50f01e39d88add7626a641cab9e14ef9f0c9ae4b0c7d0c0abd5b7faed387f4"
+   "sha256": "844901ea4ef44d1586971fac6f20830b2825e907c92ad4a1c416c860de283f08"
   },
   {
    "path": "out/mushaf/suras/shuba/015.json",
    "bytes": 60510,
-   "sha256": "26115f8bf5b8162cb7d9d9d8080577d730e003178562d269074acd509aa65edc"
+   "sha256": "eb6f3a939fef5cb2076de123b6c3c51213fb062b79927ddb6ef91a3c0ac399b5"
   },
   {
    "path": "out/mushaf/suras/shuba/016.json",
    "bytes": 163681,
-   "sha256": "4b192f05b6f247003d4aa587d4cf6d71f297e4f96dd7784c97011a057e908236"
+   "sha256": "8bca9580875e731864c330c6b2cfc58374cc9d2cfa54a1a844cc0712d9819281"
   },
   {
    "path": "out/mushaf/suras/shuba/017.json",
    "bytes": 138116,
-   "sha256": "40abc205cad4a4d3abee44bdb11cd3a4eeca1d6fde5cb7beb79f8677f2cb7da3"
+   "sha256": "7904c653f570540f3ac703bad04ddd5643fa5cca93b29ede5c5b66edd5d84fb8"
   },
   {
    "path": "out/mushaf/suras/shuba/018.json",
    "bytes": 138415,
-   "sha256": "095e5813087e5201b618b161799f966ec52366becba608d864a7639f860c8044"
+   "sha256": "316cb34b77b986fbce8106776759f6c1d62062005815a8f3b740ffd62bfbfd09"
   },
   {
    "path": "out/mushaf/suras/shuba/019.json",
    "bytes": 86548,
-   "sha256": "cc2a7adb3d05c1bd6d76f92e99537b9163d899b89b04187d746b782a3a88b9b6"
+   "sha256": "f362b3a3a6ce664f148e046dea48f8ef11180c507426590222db4e89fd4f2b83"
   },
   {
    "path": "out/mushaf/suras/shuba/020.json",
    "bytes": 119395,
-   "sha256": "e985925f57cecfa50e0b825f8c9b5e7b4df8904315508aa2ca62b0fd57e29386"
+   "sha256": "ffa7ee57a7c9044b9be11a72033c547874c362cf5e67c330db1d558b3ed59098"
   },
   {
    "path": "out/mushaf/suras/shuba/021.json",
    "bytes": 106439,
-   "sha256": "20a3dd91fef9bac9e55bdcad3b18a9bd153b5486560d6fa8a87b41dd8f542980"
+   "sha256": "ae0c5786332bf2dc42241e308facb645c0cbf0372e834f1fc80d43778a2a21eb"
   },
   {
    "path": "out/mushaf/suras/shuba/022.json",
    "bytes": 112950,
-   "sha256": "7ab2312dd2189ff3fd6578f70baa21fbb4ada7136604104a5f7d96bb8f6dcaa0"
+   "sha256": "1e562705024fb353e6fe46198cfc1100c7528000b7bd668c4ef0a72ecd140f5c"
   },
   {
    "path": "out/mushaf/suras/shuba/023.json",
    "bytes": 94798,
-   "sha256": "8cd239a88156e1e6276742fdeda9d04c4fea486d0193163179b3e6b284a5db1e"
+   "sha256": "1ebae15fb42d8e9f217882881ae800146ab7887282eb7fd1038decc4fa82c1bf"
   },
   {
    "path": "out/mushaf/suras/shuba/024.json",
    "bytes": 117078,
-   "sha256": "c6c1fcfb3ce41ff428a2fd21af58ea6f32ac7cdae06d96115f93848399e1794e"
+   "sha256": "ee23449afad6cb814fa15ff4d213f90ed07fa723ce8d7f98d63652e66a03ec33"
   },
   {
    "path": "out/mushaf/suras/shuba/025.json",
    "bytes": 79668,
-   "sha256": "971dc84660caf0c8e7a891f4c5fe079427d25ce78fe2df41fec6f12fc6f39238"
+   "sha256": "6ec738ed1b39424a7aa1dcb2ead908ac2d969de0ce54a0340aadd67d5b31c2ea"
   },
   {
    "path": "out/mushaf/suras/shuba/026.json",
    "bytes": 123982,
-   "sha256": "fb92baafef54353201fce36f03db936bc322ebcb052f51dc82ac975fd0000fd8"
+   "sha256": "e531e04ebfabd2cb8f4d48687f296c495a48d6ba2eedb139a293a6d7a40d7dca"
   },
   {
    "path": "out/mushaf/suras/shuba/027.json",
    "bytes": 102443,
-   "sha256": "078256da4e3e92fcfbb59aee2b0ad850af50bad8834a236f93726fdb88f969f6"
+   "sha256": "7ee5a8cec3cd0a82135ae4bdb7b9bcccbb1f4aff80c7a6e7b4d4087695bf9718"
   },
   {
    "path": "out/mushaf/suras/shuba/028.json",
    "bytes": 126006,
-   "sha256": "8d146aea7fca3b76b5812e4702452409c737da2effe2f6f87994599085d09fde"
+   "sha256": "a741ff0cf1073f72df10e62c50e3cd60e6e8e4286208bcf5920401dc11b2827d"
   },
   {
    "path": "out/mushaf/suras/shuba/029.json",
    "bytes": 88761,
-   "sha256": "ab5145e1d1cff8c9c6e147d195427bd27a57129801ce62995ca7ea91ce213a0c"
+   "sha256": "175603bf2cb6ff4fa84d39390cc489be1f85f2c0ba7aaa858006fcaa5ca24d5a"
   },
   {
    "path": "out/mushaf/suras/shuba/030.json",
    "bytes": 73775,
-   "sha256": "9d3e38634ef5b712f3bc2dcb5465616c7b803063e8457a378385bac0257aaa92"
+   "sha256": "d123faacf4fcbc0b4e0d86ade5bd275aa9e79119a576fc1be5ebca139aeccb22"
   },
   {
    "path": "out/mushaf/suras/shuba/031.json",
    "bytes": 48817,
-   "sha256": "1afb101b96277fa4367ccaa2bc329b492ecedfbbf823c7809614c2cd6b38089f"
+   "sha256": "eba50e1303faa03036e077fa851212a2a6b5ea7257305f3533d4867cdf66b572"
   },
   {
    "path": "out/mushaf/suras/shuba/032.json",
    "bytes": 33761,
-   "sha256": "6945e5b85fa24d7b1f42923d963d125595eacc1a7c14ff6ebe3186a3bb598e15"
+   "sha256": "d19ab599184797c14db1b6fc72edd9ecfe6c76b7a07a4992dfb7d8b7a402d6ad"
   },
   {
    "path": "out/mushaf/suras/shuba/033.json",
    "bytes": 114799,
-   "sha256": "8d0a91f2e3d31e175e91b6771bd261b0866d8453680cf0617c4b32638820ae29"
+   "sha256": "dca15fa820e682758fb8d55f156f538c98521cc7e6852d3e3d11d81810893049"
   },
   {
    "path": "out/mushaf/suras/shuba/034.json",
    "bytes": 78181,
-   "sha256": "ceba574d745749ec3fc8779d8cb8245f193640ee166ab447093ef0177deb084a"
+   "sha256": "0df6d38ef2bbc4a3d008451f85d6bacf9508652123d9d3b986b779a74c087d35"
   },
   {
    "path": "out/mushaf/suras/shuba/035.json",
    "bytes": 70431,
-   "sha256": "ec2424bc76e1af56e7e33235a2773f0351424000fb2b0332e6beaeac2151a5b9"
+   "sha256": "0b9fedacc2a89f225e43ecf829a9632dd73b679ceb73db1762fa57f057bcfa01"
   },
   {
    "path": "out/mushaf/suras/shuba/036.json",
    "bytes": 65656,
-   "sha256": "fa522fe132fc1ed38c1ad69a3d1eddea4dc6b23159447a1e90e51f096201726d"
+   "sha256": "994b845bb20dca5965350a6aadac5d36b4295ac2495c4bc3a119c632e5620f05"
   },
   {
    "path": "out/mushaf/suras/shuba/037.json",
    "bytes": 84129,
-   "sha256": "f9ceb668daf0511043179db71913847fcfab9a7b1f35e42e0137289f153ea421"
+   "sha256": "d2e558bcfcdf24def62392cb4dc06b27c4c3445288555e5a759ed6ff0d3013d2"
   },
   {
    "path": "out/mushaf/suras/shuba/038.json",
    "bytes": 67772,
-   "sha256": "72b9a437b771ef11a0c5bd761b2293b9ee03a99bac7dd619edea9786dcd2a1e0"
+   "sha256": "4ae1a3d94e46d7190b77593efc43a919eee5a3af56b1f4d4efb1f253cca5c6fd"
   },
   {
    "path": "out/mushaf/suras/shuba/039.json",
    "bytes": 104721,
-   "sha256": "01551d41766ae05642084a277348e9662f304c6b990c650bb96453c5f06e8b3f"
+   "sha256": "a66f3c53f34245ad8a2b0d4be23f5dcb5bad759282c2e9d45e4b0cc145151c85"
   },
   {
    "path": "out/mushaf/suras/shuba/040.json",
    "bytes": 108184,
-   "sha256": "5b0fd5b4d2080e52ad7ec9a39d7ae42cebefe777a2c3f0fd5f161c269d000e23"
+   "sha256": "3e49827fc3e54860cdf9137d658e6567383a57d66e1d36cf4e1352fc2022d2a3"
   },
   {
    "path": "out/mushaf/suras/shuba/041.json",
    "bytes": 70727,
-   "sha256": "9434c280d94eea67f0df7bf4f529bf13ee4655b72feb652f170b4a04c86fe468"
+   "sha256": "d2fcd503574102e170c7d56ece824046aaa045fd13b26916230e3c1273f1a5d0"
   },
   {
    "path": "out/mushaf/suras/shuba/042.json",
    "bytes": 77703,
-   "sha256": "e2bec7fa2d452e9d8c5f3111e4c14aced89c3039de4904cb4b65f460c4d61b13"
+   "sha256": "01aa2effa72dff8679b28e190f70ac3c07aa72abe993f0ac660193a91d1d476d"
   },
   {
    "path": "out/mushaf/suras/shuba/043.json",
    "bytes": 75875,
-   "sha256": "18c30daffcf278c9c9dac8dae6d6927e1acb79e577c02a492ed845d142810d3c"
+   "sha256": "0cbbda2710872beb51e0a5f60ace902c333e9638ec4dbc81b32ee4897281c8bc"
   },
   {
    "path": "out/mushaf/suras/shuba/044.json",
    "bytes": 33941,
-   "sha256": "765e9fa700b32336d24332533553fa6e99657565ad0f8a3bd2334c2c76434555"
+   "sha256": "9f17cd0c1bf4bea2d0694e7837096ad08c287f6951f0c97da66c44bd764a4b69"
   },
   {
    "path": "out/mushaf/suras/shuba/045.json",
    "bytes": 43971,
-   "sha256": "4bc1722709755c1546e0d36d255956559abbf2b6ec58117e306a4aba87b063cd"
+   "sha256": "38cf20536637d08735cd73e00d31c22af3efc0e5bdbbad6fd95e5052e3e10809"
   },
   {
    "path": "out/mushaf/suras/shuba/046.json",
    "bytes": 56346,
-   "sha256": "08e4c550cfd5a1657b15556bc24668b1df06d7f641ebb89bc1e061ab10260527"
+   "sha256": "2283a53979e685878664e1cb279d382c3ff664c21e41d8dd17414c0fff399c9f"
   },
   {
    "path": "out/mushaf/suras/shuba/047.json",
    "bytes": 48732,
-   "sha256": "4a9353c81ffdf2f92dce49f58fdb577f8fa65dcb9ef1d8c19eaefbca0839dc0a"
+   "sha256": "788bed7132347b4f7910e97ad03e2f8e1390963afe9037732a7d14b3444d4ffc"
   },
   {
    "path": "out/mushaf/suras/shuba/048.json",
    "bytes": 50845,
-   "sha256": "7aaa1ea7a40794fc61360a22e9127529d9900940184a75b03ff63214ab5492d4"
+   "sha256": "729e283a3fb9ec528f4c3050c67c1908cc8cc875a74b61d6a2ae961c12f1bc8f"
   },
   {
    "path": "out/mushaf/suras/shuba/049.json",
    "bytes": 32220,
-   "sha256": "6672da526fa3cf0c78cb177186e3e5359a28a08c767b7c5abfcadf8c99f53014"
+   "sha256": "3ac54c1ce5ab8f52f0ec1d011ef71fff4a7a3027588d495e003fe6f40935244b"
   },
   {
    "path": "out/mushaf/suras/shuba/050.json",
    "bytes": 34599,
-   "sha256": "27212f3d373599649860a693fe8245db417a72492cfac90dd864da54eca4cc8a"
+   "sha256": "02f79c13bd991ff3bcdd52b7792fc9dfe504feccedcf6985309f431a5f1b2586"
   },
   {
    "path": "out/mushaf/suras/shuba/051.json",
    "bytes": 34667,
-   "sha256": "d0c2abfdcefbdde127d675867f29e2985c646f0e7fd28b3420f94209ef7c5f35"
+   "sha256": "4367f78c070d540a941f1d3bb74ebd3f12a3ac76c3e4a90de4ef38c2b5aeb858"
   },
   {
    "path": "out/mushaf/suras/shuba/052.json",
    "bytes": 30158,
-   "sha256": "881c8620f62d231bef6706115a168b99e0e6b047597a7bf8e04dc6ad9c55c946"
+   "sha256": "f086eeb421a172e74aea5e62ca865ca8d1072b087d66d599942811599e3040c0"
   },
   {
    "path": "out/mushaf/suras/shuba/053.json",
    "bytes": 34509,
-   "sha256": "49c1ad1ccdc878e7fd0a819aee22052c7e2921344aff2ca7dac4e8e95d707390"
+   "sha256": "e52a7e727e570282bb23902e76d5eb2b2a75151885b443174cd74582b901b4dd"
   },
   {
    "path": "out/mushaf/suras/shuba/054.json",
    "bytes": 32826,
-   "sha256": "3b9999622b6926c16c41054d1ae87fafc0b5f6e4041b5bc897a15df91ee6ebd9"
+   "sha256": "33fe8b9f923cea81ff8cfef6e7a0de0e7d95b7af627e37105cce7ec6ced7ecf9"
   },
   {
    "path": "out/mushaf/suras/shuba/055.json",
    "bytes": 35315,
-   "sha256": "82c58238b6c0e980b8588e504213332c5e7db7649b588e701c3a783c212fbd1e"
+   "sha256": "eb1e1b45dd6582d9144368b1f3e565ace186b9be51de9c3819e5c903b1aae1ee"
   },
   {
    "path": "out/mushaf/suras/shuba/056.json",
    "bytes": 38470,
-   "sha256": "16a2afef1c1962be031aa16c17527a6808b0f72e3cdbecdc764d94bd0ab0868e"
+   "sha256": "204c0802ba46c2df65e37a31e7f4944c046a06c81715776d754d22510412d65e"
   },
   {
    "path": "out/mushaf/suras/shuba/057.json",
    "bytes": 52249,
-   "sha256": "2c57a5d00d89a420e512958603a907991eb6fd0c824ddf3daadfd5eac8205fc1"
+   "sha256": "b65dd74631fbe4f3fb8c16c5ca4c99eb41e6beba3759b25abee600a6d459f597"
   },
   {
    "path": "out/mushaf/suras/shuba/058.json",
    "bytes": 43162,
-   "sha256": "fc7823bb77d651d32fa1cff985aa41b70d4e704096047701d1ade2640f15f2ce"
+   "sha256": "d7c478aa34b9143a9f3e3f2a5c357266940f6ce77732009794b2a7f0531379bc"
   },
   {
    "path": "out/mushaf/suras/shuba/059.json",
    "bytes": 40456,
-   "sha256": "182ea88eb714f6a0dd52521b336c1cf6b27958f4e16b35e4206730701217282a"
+   "sha256": "6fc2057d1bc593c4563fe730de808d8a4e9a2dba9492672169d7d507b89f40f0"
   },
   {
    "path": "out/mushaf/suras/shuba/060.json",
    "bytes": 31343,
-   "sha256": "dc38898252b7fb23d8e9a9edb7a7c3d032dfd354019ed3e28d9e65c27734a7e1"
+   "sha256": "0dabda80322432f4aab14a68d99256042cbbd59f0d8655003b630692b79117ed"
   },
   {
    "path": "out/mushaf/suras/shuba/061.json",
    "bytes": 20436,
-   "sha256": "0b6d5cd043bf05e5707a12c1a230a7563640acf9ce8e706b0029c93324267af9"
+   "sha256": "f86c1c8342ff1a955b17d86cea681d990ec50aff2b03b97ca59ad78684f8cc89"
   },
   {
    "path": "out/mushaf/suras/shuba/062.json",
    "bytes": 16330,
-   "sha256": "71d67b2fb9f26f26f6e50151654495b4d65db8e7ae007a3ee9ff6a935a51de6f"
+   "sha256": "50b86d6e6de4404965c5926879ee7496d1f1c63b5cc5d3e69afc6cdfee0e7826"
   },
   {
    "path": "out/mushaf/suras/shuba/063.json",
    "bytes": 17309,
-   "sha256": "fe1acbc01bca7c681a2c7b88880de45cdb161ad3edb3b819a2bffb05fe464da6"
+   "sha256": "12a88f62a5646ad9ae8daca3e222b40498563585d89060bfc27b605c9b1f838e"
   },
   {
    "path": "out/mushaf/suras/shuba/064.json",
    "bytes": 23315,
-   "sha256": "830d65ff6ecc331f5009a183a5dc4aec034370d0d7fd53e496942f2029739b8a"
+   "sha256": "bff67a0f9a845096af48a58022722cce9ae166578bb03c54192ff31d6beb3fc5"
   },
   {
    "path": "out/mushaf/suras/shuba/065.json",
    "bytes": 26418,
-   "sha256": "a19bd3e1041377caa64f1880fb0a43ec1d2b7586d839912f08b2b57000752bcb"
+   "sha256": "d17e446d7c08a85e1779341ed6f6c952a259735cabaa01362e0a8e58cc6d86f5"
   },
   {
    "path": "out/mushaf/suras/shuba/066.json",
    "bytes": 22725,
-   "sha256": "a1b506c942795359d04e43e7dedd1030d046df6a34e7c2f05b37335fb6f94f01"
+   "sha256": "558815ef83f482ac3a532f137870f0a9f195a300cb12c424bd0c02a835eb9157"
   },
   {
    "path": "out/mushaf/suras/shuba/067.json",
    "bytes": 30281,
-   "sha256": "5bc58eb3aec7235e0b5c7714d55d7d352a8d44058084d1d8baf3609827a2ff36"
+   "sha256": "084c08d28a5ccec7afe88857f61807cd82840118b6d3e565a85bcb45d7eae90e"
   },
   {
    "path": "out/mushaf/suras/shuba/068.json",
    "bytes": 28933,
-   "sha256": "bb7d4e540a55c2e922cc9d2c9e250e17d9f6bac9cc4272dabdd63f4fddb21649"
+   "sha256": "d0d064db067b3aaaec595bbc7e1917f28c35eaf6e7013dc5350bcd73771dcecc"
   },
   {
    "path": "out/mushaf/suras/shuba/069.json",
    "bytes": 25678,
-   "sha256": "4eb46c0c439440b4b0cd1b8d343d4eb9105869b639a4f2f1744534f6e8e7e027"
+   "sha256": "702da28c8727e2c37fb1b1919de629422feede349537e0035486e646d91f192f"
   },
   {
    "path": "out/mushaf/suras/shuba/070.json",
    "bytes": 21968,
-   "sha256": "9fb4fc66fcf31b87215e041d0c00b4b82e1350ba38bb120a5a8cdba01ca964b7"
+   "sha256": "10bcfbe885c7613d3a603d347c1a37aa25f6565ec6ab01849f7c6738b796d608"
   },
   {
    "path": "out/mushaf/suras/shuba/071.json",
    "bytes": 21117,
-   "sha256": "816d9308a20a4e311ba2c5b238f8edd04cb20f8c2c00ad34be3c85711af842cc"
+   "sha256": "fab9c45593d4919e5343f74342971a33f895a380091a657302453888778b0cb1"
   },
   {
    "path": "out/mushaf/suras/shuba/072.json",
    "bytes": 25596,
-   "sha256": "9a17248fef4abdb4a1b4543b51155d94a9db6f94e9c34cf41b27f377de03ebab"
+   "sha256": "cba27a9d38af6722856b19e1fdb7d211bd9b4852dbb395490f8446ce69a63352"
   },
   {
    "path": "out/mushaf/suras/shuba/073.json",
    "bytes": 19084,
-   "sha256": "9e052a797bc1eccabab073db52de78d86769f83c46d09959f86233792f180bac"
+   "sha256": "f0be466edc3363d12aed272002dc3d0404a5eb345f20c4a8f315deaf9a539250"
   },
   {
    "path": "out/mushaf/suras/shuba/074.json",
    "bytes": 25654,
-   "sha256": "2c88eb9ee043e56674ec92ab922162290c14968fa59e33a6f27afdf6b489feb3"
+   "sha256": "9d399e2f220dd1019a660c0e65390902b082d5e5e033d99ec37d1250e8bb4b1d"
   },
   {
    "path": "out/mushaf/suras/shuba/075.json",
    "bytes": 16866,
-   "sha256": "eae5842d64af81d08e812e91fa10713e403c04a4b46d182a31b4600e76057539"
+   "sha256": "94269a664059bc9f5cebfff166718e1e7ff00fb2fd73d109cb260065ce2f86b9"
   },
   {
    "path": "out/mushaf/suras/shuba/076.json",
    "bytes": 23113,
-   "sha256": "0bafeb21e1ca67cd3b60d0412abff8f264069b358c6d37b64026073f66845d30"
+   "sha256": "db15722c5a6b3ecf8a63e4ce267f95eed1235c7ba0c673888f0e365351d9fa9f"
   },
   {
    "path": "out/mushaf/suras/shuba/077.json",
    "bytes": 19360,
-   "sha256": "87a699d8e58c241d892b93ad7b5174c3627c54caa6fdaef8e4f349a296207a76"
+   "sha256": "19dfafaccb4012e6e53cb0adef31014a97bc276ddcdb2e44c48fbc13f6899502"
   },
   {
    "path": "out/mushaf/suras/shuba/078.json",
    "bytes": 17938,
-   "sha256": "f27210d9e95e748bc1e87dadf9808f5d68d296e2e84cd9be0822da694ad36096"
+   "sha256": "dd6aba3a8599d0705caa6c97902d39462126e01be80e1f47e6d60a8942e6c472"
   },
   {
    "path": "out/mushaf/suras/shuba/079.json",
    "bytes": 18697,
-   "sha256": "707bd3f630e08e9e2da0fc21e41815fbfdd22140e7beafed0ea014a0c8b192e4"
+   "sha256": "c079732deed561b9ca91fb66aa28c7cc7869d61ade8f552c7e4a18f63b1e82b9"
   },
   {
    "path": "out/mushaf/suras/shuba/080.json",
    "bytes": 14667,
-   "sha256": "e29de63f12e49324aee3dc379d33f71c5976686a9107188d9b82088bdf4418ee"
+   "sha256": "7c3b306fb231d97c77bf5530e1845973b8e0bfbc18f7e790e792db966f40c6cf"
   },
   {
    "path": "out/mushaf/suras/shuba/081.json",
    "bytes": 11280,
-   "sha256": "a8c52f4c0df28bc26d2804bd6ee7e2e8a98f29413ba3a0abe0681190fd262910"
+   "sha256": "aba5c750dfe90a3250a0b0c26658503b03fc35f2e79c10ce4539acb87a2e2baa"
   },
   {
    "path": "out/mushaf/suras/shuba/082.json",
    "bytes": 8741,
-   "sha256": "3edfacace363fd1759546d13752f8b35639113592576cccc7b315302cae2a5a3"
+   "sha256": "7ebbdd4c3565dd81cc29ed48aba966ccb6f4e2bacdab9c556c47722a39da37b9"
   },
   {
    "path": "out/mushaf/suras/shuba/083.json",
    "bytes": 17299,
-   "sha256": "78301c4f8c84b93187a3516e1a351f0d52b87ff733e01180f53d446eb20ac56f"
+   "sha256": "e5220a8f5ccf5445a1af71446757fcd9d406f8de4acbc878976e782c46857618"
   },
   {
    "path": "out/mushaf/suras/shuba/084.json",
    "bytes": 11478,
-   "sha256": "8e9d978d23378331cdb7a71eeb17103646318236028d383ee4ac55d5cd4d7457"
+   "sha256": "a9e9473825c5891d80cf32d21e5383697ca35dab8e1774947fb88090fb87d2b0"
   },
   {
    "path": "out/mushaf/suras/shuba/085.json",
    "bytes": 11338,
-   "sha256": "1d8ef11b371d733d7aaf7ed76a9941f76c22392201904be86ba1ec753bba28a0"
+   "sha256": "ea1bd1d9babb3d54102f0d23c77073dce0267f3cbe3691d3dc95e5844f42397a"
   },
   {
    "path": "out/mushaf/suras/shuba/086.json",
    "bytes": 7023,
-   "sha256": "b47eb68d392b3b26284f20a1a289360b5755723652089fffb5992ef4ef536383"
+   "sha256": "8a9f1871bdb91f1f83f65dba43caf92a5f6ecb42e4fdf1159cc2848ad448cb67"
   },
   {
    "path": "out/mushaf/suras/shuba/087.json",
    "bytes": 8210,
-   "sha256": "9feb09641e06285a289da5a1c4caddd5d6f877a30629b7094e13fbf967473837"
+   "sha256": "13d8b320bbb74e42d53e7b08171cf2e6b5b2bdd0c758fe9789383f61429b9f55"
   },
   {
    "path": "out/mushaf/suras/shuba/088.json",
    "bytes": 10212,
-   "sha256": "c6200c6168f47c9e267946a625098cb8658c273fc0fd5b51cfe1708140bd97c4"
+   "sha256": "b9b92890d761fa39364ed94bde0be57f7c22fec7702ee3649e4c386037b979bb"
   },
   {
    "path": "out/mushaf/suras/shuba/089.json",
    "bytes": 14294,
-   "sha256": "81933e1bafb0d059b24313916a16ea9e4151deb5c6e6e294e1505fe403c44973"
+   "sha256": "1b53752f4ab643c4836c4b0e87d6d4573a454d450b453a9bf9bc6c4bff8b326a"
   },
   {
    "path": "out/mushaf/suras/shuba/090.json",
    "bytes": 8987,
-   "sha256": "5d6191f35b1a823b8f381a7f4d64e736d51cfbf3a3975d3e279e654089f5aa21"
+   "sha256": "7fc2a0103304069408641df8b3aa70eabb845f2a66c5763b1e073f026d07a3a5"
   },
   {
    "path": "out/mushaf/suras/shuba/091.json",
    "bytes": 6417,
-   "sha256": "9f62c57a3b1a26b1167ba1004d9fc349731a5269ae56d209d209903c37e50273"
+   "sha256": "830887c1525cb0bd38a9c08c585f67776e797eae9bd04803a32285b5a14f4766"
   },
   {
    "path": "out/mushaf/suras/shuba/092.json",
    "bytes": 8291,
-   "sha256": "30e128c5cbd58fd770a9165524b7ac5f4c3d347dcfe65890b7535300f471de4a"
+   "sha256": "b694c085ead1494fdeaa4eba9ceea54bf448055f3a069041885b7a1b62a1f088"
   },
   {
    "path": "out/mushaf/suras/shuba/093.json",
    "bytes": 4993,
-   "sha256": "26d98a78c7938c2f156f9e81b20be221ffb4d12a74687e64ef10e8c974787e0f"
+   "sha256": "c8991facbe0bcc9aada4cef9b59f0b30c30d54f5be05717dd8a8ec746c9426a9"
   },
   {
    "path": "out/mushaf/suras/shuba/094.json",
    "bytes": 3764,
-   "sha256": "68e32d354b13847bbdb0a89ff474bde7ec798797d29c8b5545ae3c4c8c811493"
+   "sha256": "f63d29ec4045d39124256ab6069cdb8c110109faf76c9f1f37068084b1ed0a9a"
   },
   {
    "path": "out/mushaf/suras/shuba/095.json",
    "bytes": 4321,
-   "sha256": "7f3eb44d330e233b7b64814b590276b8c876a9387a99650956f3e649d49c9d9d"
+   "sha256": "76fb2505883d966b4060c3a3825157150a78603a557d7c9ca5bf151f9700562d"
   },
   {
    "path": "out/mushaf/suras/shuba/096.json",
    "bytes": 8193,
-   "sha256": "92b871bd26f311e469ff226b333ebe77b808e45db6af8d99b56fb26fbba5fe7e"
+   "sha256": "990277600692c9ecb64d4ee29831cbf7b82ddf840929a631f7e8296ac7377442"
   },
   {
    "path": "out/mushaf/suras/shuba/097.json",
    "bytes": 3699,
-   "sha256": "c06cefa688015f5c79d8c90a17a33df390738418d2c597c4df8fc213aa4e7e7f"
+   "sha256": "ec47c1bf1be3053cf31fd3b6c06bf4d7773ad284845b19e9de92947e8bd73169"
   },
   {
    "path": "out/mushaf/suras/shuba/098.json",
    "bytes": 9395,
-   "sha256": "71134482fe2b215fbc92c48c3583c6d649859f7fe160391f2e0a8c56707c6cfb"
+   "sha256": "2be9ccd8646e0300babe50b8287a328c9dba52bf4321ef2acb434910c7443383"
   },
   {
    "path": "out/mushaf/suras/shuba/099.json",
    "bytes": 4482,
-   "sha256": "0260d0f32a10b9a4c901beacffc8b1bdc41e11e5086edd620509585b1aba2c85"
+   "sha256": "a3501882c800f85b7ee06aa33e4ae009182237d688caa44bd0ed06b32ac2d40b"
   },
   {
    "path": "out/mushaf/suras/shuba/100.json",
    "bytes": 5160,
-   "sha256": "32d18496d25edc78f5119c1f7be1a36a6a00901c55b17e44e406342ee854e4e4"
+   "sha256": "6883cd5f11c2ce61b182560bddd574c66203cc6d1b3de52af36ff1b850bc4ca8"
   },
   {
    "path": "out/mushaf/suras/shuba/101.json",
    "bytes": 4692,
-   "sha256": "3959df095a076bf83ea11db277139463da1e1090c35332d23869974902904b73"
+   "sha256": "2307d03872f3bb6af2a463c7b3790c30d12e56c3d77d465308e22942140799da"
   },
   {
    "path": "out/mushaf/suras/shuba/102.json",
    "bytes": 3885,
-   "sha256": "fee7351720fba3a882301781527451df0326db63011779555d6e784fbb4ab849"
+   "sha256": "3b5ff809883dc1d95c718f44eee051628af24ed9e95048f5755e6ae205f9d18a"
   },
   {
    "path": "out/mushaf/suras/shuba/103.json",
    "bytes": 2408,
-   "sha256": "7f72aea1a0c1616937140a0aad455c8d5d29ba0dd9c319c7337757f310a18154"
+   "sha256": "6c7b368fbbca5a6773ee9f88930071fc4efe2ff5c38b47c7ce02849ce9549729"
   },
   {
    "path": "out/mushaf/suras/shuba/104.json",
    "bytes": 4396,
-   "sha256": "09f9b0c5f8886e6b61165bf96dde11265110d832cd2d6bd04875cf6542e06f8c"
+   "sha256": "7b0e9b87684e77f4b6b09caf331646cb9e7c2178e1b48c2140ca3858bba52244"
   },
   {
    "path": "out/mushaf/suras/shuba/105.json",
    "bytes": 3234,
-   "sha256": "2556df52eb407c6ef64d858fdfa3e42bc9b5f2a673a97a905b736a071ba218b7"
+   "sha256": "2eb832b5b48cbf99afe0b29af02a645efd2c9c49ede83586681d42f89b135589"
   },
   {
    "path": "out/mushaf/suras/shuba/106.json",
    "bytes": 2688,
-   "sha256": "0ea87d75e476064fc898ddd4749196a08a1c49f25aa1f18a788632aec4eeef98"
+   "sha256": "d280c5387a1846f1cd46c1427d1d034066999f0fc13e454f14422b8b34ba69d8"
   },
   {
    "path": "out/mushaf/suras/shuba/107.json",
    "bytes": 3563,
-   "sha256": "e44ec8858bfa2255450257b68126ccdadcb26082e73081d75eba9d85e1868739"
+   "sha256": "fd43c8f4da23def233c64268b57d845e8dc58501da7f2814a65c6bd150cf3c00"
   },
   {
    "path": "out/mushaf/suras/shuba/108.json",
    "bytes": 2075,
-   "sha256": "7a1a600949ce4bb4486fe59a828401af6c7955af52aa36061bd16e3d866ebc3d"
+   "sha256": "6c88b3bd3c80d23d7e63d79df39f7064a9382f6b6954fb1d447bbdb0f3431c1e"
   },
   {
    "path": "out/mushaf/suras/shuba/109.json",
    "bytes": 3462,
-   "sha256": "413f3af652cb82dcede9734fdce679d1301afa456bf66e807fc19b32cc058bd5"
+   "sha256": "b7ba30d16696687075f1ae25e12a777924345606c22908815ef08a30fd218f38"
   },
   {
    "path": "out/mushaf/suras/shuba/110.json",
    "bytes": 2847,
-   "sha256": "80b002b5d9989f4d784ddb589e0511914915be66ce633b440cdf94d722bbe278"
+   "sha256": "2053967d08f6ed96a3b7df9c9a07f01ac60045f1cc3e77de8d58ddfd92f27269"
   },
   {
    "path": "out/mushaf/suras/shuba/111.json",
    "bytes": 3177,
-   "sha256": "5642020eb8f13b1d2021e4390a51e7931b08c1c0d681e902c6f95a103f8bdc59"
+   "sha256": "ec62bc6de935793c87a464bed0f7a6ea1c51bbc69e9504c4b711a242b65b8fc3"
   },
   {
    "path": "out/mushaf/suras/shuba/112.json",
    "bytes": 2464,
-   "sha256": "1ca1e391c72c7367efaefacaffc379883ebd6667ee26c042ff1efa34762e3702"
+   "sha256": "e27ce8666dad20894ab88b9b51b5d1bc6bbdf70ccf266f9dd81c1093f4b82a8d"
   },
   {
    "path": "out/mushaf/suras/shuba/113.json",
    "bytes": 3117,
-   "sha256": "4673efd882ae7c7f570f2d134452b898e2fcbf96a510f1920e069f82aa539b1b"
+   "sha256": "fbeb33252c514417e443c1389a302644db51fb355f1e01e13985450616024a21"
   },
   {
    "path": "out/mushaf/suras/shuba/114.json",
    "bytes": 3042,
-   "sha256": "2555cb043de74f89e3966dfb09a9789d533c6b320a125c0c9d6f8b6f66bed190"
+   "sha256": "2402c2964ef8d0102455d95b9994058f107379bb48b9574e6539fe2e286d4507"
   },
   {
    "path": "out/mushaf/suras/sousi/001.json",
@@ -3125,532 +3125,532 @@
   {
    "path": "out/mushaf/suras/sousi/009.json",
    "bytes": 223393,
-   "sha256": "1094dbef32db9c6d3ef8704f4c5a27875830f5cd44e7cd01adf548ed0847697a"
+   "sha256": "7d176830a517785ea5702db7dfed65d39bb254a9c7f9afcc333d868b981f0169"
   },
   {
    "path": "out/mushaf/suras/sousi/010.json",
    "bytes": 163359,
-   "sha256": "167e91db2b0c730cb592f6a4689e65e3a04237426f9ab05b9c27ef0819ca1019"
+   "sha256": "62ac06c804d8e49e31cf3fd504902c3fb5f536094d759cfacba92e51fe0855a8"
   },
   {
    "path": "out/mushaf/suras/sousi/011.json",
    "bytes": 171512,
-   "sha256": "c95fcee49d673e3633e344af76472ff35d11ee521fbaa6daef9c15f51a4f7972"
+   "sha256": "475a629e7eb3ca4029c1d31227934fe11503580415d26c681db5de5bcbc19570"
   },
   {
    "path": "out/mushaf/suras/sousi/012.json",
    "bytes": 158305,
-   "sha256": "9bf95a6a68e4e7ebb147f33e656742c1eaae8a2bcdfad64010b8a614a4e935a3"
+   "sha256": "5430f7c9d769c6a2ec239f891902d34ff5c183f588a0903c1f156956dd8b5637"
   },
   {
    "path": "out/mushaf/suras/sousi/013.json",
    "bytes": 77609,
-   "sha256": "201a53fe25e3c26570d0043378df6fc7cf181cc4c5f53f83b7b6a5da54c2493f"
+   "sha256": "04078754a737cd651200715f3373cdd3e6cc5113f42b10e89ec832fb091f378e"
   },
   {
    "path": "out/mushaf/suras/sousi/014.json",
    "bytes": 75072,
-   "sha256": "16d70e41421155f7ef34456679d3301f18a646931db268469e9b97b46f1b838a"
+   "sha256": "07ea7b82f04a7f49f53786a07bbe7905d195796293a4964e9e8c7fac4ce04cd0"
   },
   {
    "path": "out/mushaf/suras/sousi/015.json",
    "bytes": 60960,
-   "sha256": "ece22d2c87876e2f153281c963b226ffbfdbed5d7c4a1b8f9d07b93bf8bbd4e7"
+   "sha256": "66563e520ade2cc7d95f3319d698715256892d756cfcbfab3090b2fd6c714916"
   },
   {
    "path": "out/mushaf/suras/sousi/016.json",
    "bytes": 165221,
-   "sha256": "ab8b8c5aca13b3d363f5a1308c0f63e9fc8e4b4b287169173ea5c43fa913eccd"
+   "sha256": "4daa7cecc42c109c6a0f789a400cd126e79f3159c97131b289e92f97edce402c"
   },
   {
    "path": "out/mushaf/suras/sousi/017.json",
    "bytes": 138793,
-   "sha256": "cb2b08eb0d43eca7511fdc00a698dd881b6e271934b4d10d01168be13a24767a"
+   "sha256": "d52dc423e57a11219047d961236549a97de6731e9d7a4c9f0852c60e4529687c"
   },
   {
    "path": "out/mushaf/suras/sousi/018.json",
    "bytes": 138510,
-   "sha256": "77ff4b8fa3b01c59987a53853310f2921ec8ca6f448f050475df7f49787a8545"
+   "sha256": "de4e008978c7c6c359b8b1f4bc257b9097cfd41505e7180c8779990746c9fdbd"
   },
   {
    "path": "out/mushaf/suras/sousi/019.json",
    "bytes": 87185,
-   "sha256": "e30f977442a34911b059fd9514744f5a7c47b90d3eb67ae8f5729e91eabde764"
+   "sha256": "0d6aa154ef90f084349ec1e3eb1ef43b2585a99a38db909dd451e18067ea9168"
   },
   {
    "path": "out/mushaf/suras/sousi/020.json",
    "bytes": 120289,
-   "sha256": "33c0fca329b4bfc1dae567cb1b4845a21f0abc64fbbf7afb73d6005e212fb35e"
+   "sha256": "7ffe9534b3d356ad5e9ba32ac6e3b2ede3d27b8ae7dc1eb3b895c6906ac334c1"
   },
   {
    "path": "out/mushaf/suras/sousi/021.json",
    "bytes": 107115,
-   "sha256": "165e2bb27e846fbaa27fe51dc5d88013a0aab1cb2c3d62cd6a65d7aa60d93697"
+   "sha256": "3c0b7f17a37f281588e00884e59d0db12dbb6dc1ef5f54ea73b2c3059f846126"
   },
   {
    "path": "out/mushaf/suras/sousi/022.json",
    "bytes": 113734,
-   "sha256": "07fc13e922d43e91e3c141bcbea7d0456c503dd199595356fd45bab333fa0808"
+   "sha256": "f2629323abc99912340162535a9691fbd706acd0055b32e1c026060796f7e3de"
   },
   {
    "path": "out/mushaf/suras/sousi/023.json",
    "bytes": 95695,
-   "sha256": "84839ca00d8818e6edf932ffee1592fb4c490321b4db48cb4b7998158dbe5235"
+   "sha256": "b5ee08b051a62ef88d6373e4580bcf58830dbc1b3c0577bb46c5669c3d4af284"
   },
   {
    "path": "out/mushaf/suras/sousi/024.json",
    "bytes": 118012,
-   "sha256": "e1ab6530d28188f6f03b7918b75e89d3bcae06137051ec61b8b6269a87beee49"
+   "sha256": "ae3a9ebf6bf553bdae5d7e966946c42a62148bcba3ee5f500d757e5d1a490de8"
   },
   {
    "path": "out/mushaf/suras/sousi/025.json",
    "bytes": 80334,
-   "sha256": "29359c449868c1b2f72a65acb0a69f8388e62a4a2732128dd94945969479202a"
+   "sha256": "1fdec652c774646e91d9c504f25376d87dfbc6a59453d802b4416a810a41771a"
   },
   {
    "path": "out/mushaf/suras/sousi/026.json",
    "bytes": 124804,
-   "sha256": "23199ec2588fb6ba342e22fa588845b2a3d44e2cb2b66fa074567784ce9599f2"
+   "sha256": "808c977d5500729bc9a28e0ebc7f841db03bcb023495d3c3c554eb9f006dc611"
   },
   {
    "path": "out/mushaf/suras/sousi/027.json",
    "bytes": 103308,
-   "sha256": "1fd6469de6744c9a42f7d99e796bc3f8038bf33b48de74bffd629b728ec65dfa"
+   "sha256": "25a77f8217ded521d08fb95194df24319726c4ae884a98eb67eb5c914b6c0858"
   },
   {
    "path": "out/mushaf/suras/sousi/028.json",
    "bytes": 126985,
-   "sha256": "285f5b6250163b8f6cd88dee6e1aea8ae232626aabfa50cd154db2f704151d4e"
+   "sha256": "11e3a36a79994be17841a52714bf98df91f298bbb0d955b880ff6be0b1c67e5f"
   },
   {
    "path": "out/mushaf/suras/sousi/029.json",
    "bytes": 89578,
-   "sha256": "032710d0945912b12196683bfd78d6dc474dd6f85144ba67ed802055ca1c54fd"
+   "sha256": "e9b43481ce27a355f42d700ef19dfccda0d2cb5f77c0342893b5c0c5491586f3"
   },
   {
    "path": "out/mushaf/suras/sousi/030.json",
    "bytes": 74475,
-   "sha256": "dd11b5f250bb89f43fd690db0e878995f000851a051363ec95225b4ad75fb497"
+   "sha256": "05eeba6fddabaa530f586189c4b5022bcdf380e5912c7f29d9f745085bc927b5"
   },
   {
    "path": "out/mushaf/suras/sousi/031.json",
    "bytes": 49191,
-   "sha256": "a8bbbedded38281d666a5e650b4a7b2a9a380e525ccae807557029ee069b42d2"
+   "sha256": "6707facca023b257efdf685461747df2fbc2cfc6c043c4df1383c5b531294e99"
   },
   {
    "path": "out/mushaf/suras/sousi/032.json",
    "bytes": 33971,
-   "sha256": "f957a0e220ffe9d2b3c219de2d94fcdfde633cfe737a917fda55d3a319a994c9"
+   "sha256": "860f85b7617bf08f1804379f1cdedefb43195a150ef7785358212e5a2ed7b85e"
   },
   {
    "path": "out/mushaf/suras/sousi/033.json",
    "bytes": 115851,
-   "sha256": "6b0fb7082465aec85a369c40f3af066e75f70bb447901ea704c6d8a553b3954e"
+   "sha256": "60d6cb067508b038870910138438d34e4f4f09ae91de1718e3a8fee8e3aa36dd"
   },
   {
    "path": "out/mushaf/suras/sousi/034.json",
    "bytes": 78623,
-   "sha256": "3d0bb9c7a0b7c918cb736f929438f57f6feff39f9833c5f794b651b4e8934570"
+   "sha256": "cf12aff46faeba2c8ceae9c724f44dce7799fd68cd74dd00f8e4cf2c6e66ab3c"
   },
   {
    "path": "out/mushaf/suras/sousi/035.json",
    "bytes": 70887,
-   "sha256": "1e65971df3238c05156a21b96194c06e0de999fd9ffac75b8a41abe17f931d19"
+   "sha256": "41a0d87af5000506e802b50af75edb1bf534bcf94b61358e2e5feb6c046e7cc8"
   },
   {
    "path": "out/mushaf/suras/sousi/036.json",
    "bytes": 66231,
-   "sha256": "145bb84cc4a59f26340e88e6325a09f539ceffbaa9d9b509d0a530552b52db93"
+   "sha256": "f815278078b28a3c95d1ffccb3abf9586efbca95e5ec68d048bc2b40cb56a375"
   },
   {
    "path": "out/mushaf/suras/sousi/037.json",
    "bytes": 84742,
-   "sha256": "208b847fa64db6ab37bfdc6036194fd391b8c43a2f8f63062d184a523f41bdab"
+   "sha256": "976955f436a0bb9bb74372eb740299340c6541468bb56ac7bfa058e704c6e996"
   },
   {
    "path": "out/mushaf/suras/sousi/038.json",
    "bytes": 68589,
-   "sha256": "7401069a568267f056b3b199dc0c0e12e350bc1d1c2b6f68b87b584fea0bca5a"
+   "sha256": "410be1a3f1a7f4fd08dd5983d9ab6525b866a81d2fd5d6d190257a26449b4399"
   },
   {
    "path": "out/mushaf/suras/sousi/039.json",
    "bytes": 105219,
-   "sha256": "4650fab38e6d78ac29b1e524e1360d2a4054e0098b009bb08e084e44cd376608"
+   "sha256": "dd178e65e2ef24c8d71f5116341da8d24cb167e4c2c6487ed37f8ebbb817103e"
   },
   {
    "path": "out/mushaf/suras/sousi/040.json",
    "bytes": 109048,
-   "sha256": "4d4c3137db4285308c9ef3561fa143085c0dcf9ce644518c8c03ec160a1659df"
+   "sha256": "701d81b56e9f5324179a6af08f49fea8e9b4bf4c01b5c4fc06e9e974f00c95ae"
   },
   {
    "path": "out/mushaf/suras/sousi/041.json",
    "bytes": 71258,
-   "sha256": "251136b6e1b604de82724dc59dcc9559f0fa6f9d45fb9b36ada36b44d3849eab"
+   "sha256": "4ce4ffea08257ff80262cdd69ad678e3efccce4a82e4765fd14d45dca90be3f1"
   },
   {
    "path": "out/mushaf/suras/sousi/042.json",
    "bytes": 78497,
-   "sha256": "074b931dd8061219b5ffb828b2d0d98d5c5cc0795acf7af649c57928c132a8f5"
+   "sha256": "a65bf226b7ba4681db26003087c9040f30e077a179c80cac79ef9c558383caa2"
   },
   {
    "path": "out/mushaf/suras/sousi/043.json",
    "bytes": 76362,
-   "sha256": "505915f77d9be4066e7dc3f64d4c32e4b0af25c37cced0e003e3df792e1ca385"
+   "sha256": "e2ce89db39b65477de0d865b2b7facb9c181688ee02bba8840d230d1f6e7fcd2"
   },
   {
    "path": "out/mushaf/suras/sousi/044.json",
    "bytes": 34009,
-   "sha256": "3edb11129d6e810d61cdad09c4a1464a56efd3a58c067a071a40292518fb7941"
+   "sha256": "5aa066fd77e670d83b55439a5860becec5d28567c1c0432f398179d582d23e18"
   },
   {
    "path": "out/mushaf/suras/sousi/045.json",
    "bytes": 44296,
-   "sha256": "92d8e45937798e0c4df6925a29434c4846d5f2cedcc9b23b285d5c5b34911250"
+   "sha256": "da430e3dc6b03a90981779c9fe54e77b958a0b898d35e63795ee7deb09c4d9ef"
   },
   {
    "path": "out/mushaf/suras/sousi/046.json",
    "bytes": 56546,
-   "sha256": "3f8ab308131281bff2d45ca7573e75d4397b2281203ee59c7c70a6a604f68a1a"
+   "sha256": "d53dd6550d31fd1de3aaf410af3e5eac4e222bcb5becf3fbfece1f51ba89208c"
   },
   {
    "path": "out/mushaf/suras/sousi/047.json",
    "bytes": 49031,
-   "sha256": "00c77b9263a33b181af7e45dbd1e4db0f87de8428da6086f757d396d0a77d0b9"
+   "sha256": "b4e83cf17d779242191f9bf647d6b1a240158ddae06965fec1e3c630619ebd64"
   },
   {
    "path": "out/mushaf/suras/sousi/048.json",
    "bytes": 51250,
-   "sha256": "71c428eab6caa580a658113c4d3fed041890b5d20ef8ef0c8cf78f12b54d8371"
+   "sha256": "e6c663b2d3bb29430927aa6fe59e87c5fa113658bbbc1ff0d2a75f41a8e7ba1a"
   },
   {
    "path": "out/mushaf/suras/sousi/049.json",
    "bytes": 32450,
-   "sha256": "21596995285bd13fd29d4b30747f89bb036933eca081b9349b78e153780c9f67"
+   "sha256": "b8a4707d364bbea9ba07b4a1b27ea6dcb52a2289162283f14511f6eb73298994"
   },
   {
    "path": "out/mushaf/suras/sousi/050.json",
    "bytes": 34896,
-   "sha256": "dac8addc32c4d56656121e1a72ab36026dabacca43535465713d8a38be23b215"
+   "sha256": "5e930d9f0d9cb391027e0b2de047494436b071d48a20099db33a411f0d704644"
   },
   {
    "path": "out/mushaf/suras/sousi/051.json",
    "bytes": 34858,
-   "sha256": "9160b33679b85324837e50c989c09f6153d7aa40b7ae61df8cd7696294019bdd"
+   "sha256": "90bc554acf3790cc4f2084c65e172836e5509a0f270fbcdfffaff351db1299dc"
   },
   {
    "path": "out/mushaf/suras/sousi/052.json",
    "bytes": 30091,
-   "sha256": "1b578e6385dcbc80c735689aabc130164b0c2bc2f30795d35b1a9ab56de2beeb"
+   "sha256": "09fbc460102186746a845f5039361cfbe40d84cc669dc37ff010ea153d37f4a2"
   },
   {
    "path": "out/mushaf/suras/sousi/053.json",
    "bytes": 34739,
-   "sha256": "aa4dea371f4a412567e9a285f694f6075a765a1a8c0c8a18a7708b8b083425d3"
+   "sha256": "8cc7d1185d18c34a20c9169cd5a43271c261e626df1147483b7cca410365ecca"
   },
   {
    "path": "out/mushaf/suras/sousi/054.json",
    "bytes": 33009,
-   "sha256": "5da276ab797265e4adac0018ea8a25f223c7148e981f8b0a3b2b243c7ff08729"
+   "sha256": "ffb074e898606facbb127c835417c6a4e23861908f5bbf29e96b75c5bf6dfd42"
   },
   {
    "path": "out/mushaf/suras/sousi/055.json",
    "bytes": 35550,
-   "sha256": "415e8ef35ac144f6b88e6131114905d30bc0f726ea179d6ee809379b9fb22084"
+   "sha256": "e3d341cefc714239065c2ed3990448f3e4ad6dae6a14d2b096318c18ac89f1fd"
   },
   {
    "path": "out/mushaf/suras/sousi/056.json",
    "bytes": 38942,
-   "sha256": "6d7bab26f168f5129f22bc3da3c18820bfe9fd51acf42dd4dad4a5e35f759365"
+   "sha256": "ca0760d9609c72ad479c0f3356ef3c93eab622bf014ac128625c666cd34e6a3a"
   },
   {
    "path": "out/mushaf/suras/sousi/057.json",
    "bytes": 52368,
-   "sha256": "ac530685791b37a5c4ce7e2238646723742cf1bf00b91b699f0ab6a26b0f1809"
+   "sha256": "ed5354b7f14bf5c561ce9a085b54844c26f8ce6ae9e72147a2b07b74cf9680c4"
   },
   {
    "path": "out/mushaf/suras/sousi/058.json",
    "bytes": 43376,
-   "sha256": "f41efc0a4be44d82470297b03d6d5a2602a578764d9fe9836d66bee4104a3d9d"
+   "sha256": "e5f870c9a55dd6df05e8aa32bf4fe448270093f83f815aaea1d4c24bc9bade21"
   },
   {
    "path": "out/mushaf/suras/sousi/059.json",
    "bytes": 40829,
-   "sha256": "eead7370ae865fd762c54f3a968dcc9579bd04eed07aec8ba4018302b77c3320"
+   "sha256": "ff0a1aab246a30c2d3cd47705e47c32f8126046f6dfd320019ce89c1ca85f55f"
   },
   {
    "path": "out/mushaf/suras/sousi/060.json",
    "bytes": 31537,
-   "sha256": "7b9ea3ca5cf26963c6e6a1a25653c297ad920a3312738b66019a6784e7836188"
+   "sha256": "935fa27ed3b4e4afb2cd7475bafb8686b8a3cf894eb78e534c10fbd36c7b4199"
   },
   {
    "path": "out/mushaf/suras/sousi/061.json",
    "bytes": 20535,
-   "sha256": "5b22942c08c4f2b36afeadfec7c8e7246426ee3112e424db835e348173fc8506"
+   "sha256": "dcd1dce2bb0e334d1b801e7c8aa96ae9cc8d6065d047c41359a5061168355c34"
   },
   {
    "path": "out/mushaf/suras/sousi/062.json",
    "bytes": 16447,
-   "sha256": "1e459894f9292f8764e042404229e2b4ca884b4f923aa580dfd3d003213fddb8"
+   "sha256": "2cd95691f5d5b6c19c900a701c4210402a33bd96cd47c1c13d45ffaba661cb52"
   },
   {
    "path": "out/mushaf/suras/sousi/063.json",
    "bytes": 17376,
-   "sha256": "2573f084679545712ba6aa072d8d3a708ad6747e0b2b585898eb200b7ad01234"
+   "sha256": "64b0ba7eb6e7f478edc522c772e333664a8ed0e5b8a776a2329dc1a3e3bbcd73"
   },
   {
    "path": "out/mushaf/suras/sousi/064.json",
    "bytes": 23597,
-   "sha256": "c6fbe7266f6d9523700ca3551a012f57fbc02600f4420c68148abd0a604e31fd"
+   "sha256": "eacb8b2e7b8e1e7b5bc3ebaa677d1c1310cc5cf16da6d855f2156f5bfe72551a"
   },
   {
    "path": "out/mushaf/suras/sousi/065.json",
    "bytes": 26694,
-   "sha256": "37992e9bf8515c576692ce0543c4ae321cf87046af5b92b6ba167b283178daa1"
+   "sha256": "af83242faaa2547450df031dd22f834135ded701fa3dcc9a0e0853f44493cc51"
   },
   {
    "path": "out/mushaf/suras/sousi/066.json",
    "bytes": 22909,
-   "sha256": "5abfc53d5603b023ea7f6b28927195dbb8389524225dbd5b7553b0c651759600"
+   "sha256": "781395fddc8b846ef47f7e52d7d2c0ab2276a2067f77c1f9f3ed780ecd7c9ca2"
   },
   {
    "path": "out/mushaf/suras/sousi/067.json",
    "bytes": 30590,
-   "sha256": "166525c385cd4fb88eddb68d63958bd969efa0e7be9386411ef69e1f116c3726"
+   "sha256": "7bf61bdcf426e030897fd23c7c60b73b950e7830ccaab515f4d80ecd03723996"
   },
   {
    "path": "out/mushaf/suras/sousi/068.json",
    "bytes": 29079,
-   "sha256": "186250223a03be6d2150bcd61fe72f50b1ce4b7582d8d00dceb3a2e766548b9d"
+   "sha256": "892649771f91c542c3e7e564baa21e040541f94a51e3f06a9f17689b525b9ab8"
   },
   {
    "path": "out/mushaf/suras/sousi/069.json",
    "bytes": 25745,
-   "sha256": "2f008e46ab984accb1e02069b1ef276d2e48411cba51fde29bb93daf42a0a705"
+   "sha256": "1794e604166a0d1905e8b71f526678d72c20ea8d8c79bbf28502b93be735ce2d"
   },
   {
    "path": "out/mushaf/suras/sousi/070.json",
    "bytes": 22045,
-   "sha256": "ba0b98a9d3f8378ccdb871a3ead9eeb79b2fb00a2c9b44b8ff8004ae7cdc049e"
+   "sha256": "fea4be37f88529c82b75bf7b8a77a5e0ac880a65dfc6b6bb9fa83ef4e3a64275"
   },
   {
    "path": "out/mushaf/suras/sousi/071.json",
    "bytes": 21212,
-   "sha256": "64f0bc1570d179d1a6b86cebe52541c0e1479db031b319d23884c14e6df809d9"
+   "sha256": "aa7136955d41407935a9b73d9469d79b356e70c3f76d7441d72566a97c6a2b4d"
   },
   {
    "path": "out/mushaf/suras/sousi/072.json",
-   "bytes": 25819,
-   "sha256": "de745db559e792d0fbe1d3afbc0978c192062824cbd87c4a530d80dc87ac8b3e"
+   "bytes": 25830,
+   "sha256": "8b9862a0a516858fcf90bf44f9c63f87da4ad064827ba066141921fa366f4335"
   },
   {
    "path": "out/mushaf/suras/sousi/073.json",
    "bytes": 19288,
-   "sha256": "6eb9bdda6b9dd3ebffb411cc4eaadf091e02ebcad4c4a4bee273e62551ec8e88"
+   "sha256": "026d11ebbc6220e05b2e9c84df89ad1de38ce1af0dac1014976a2bed0bb75364"
   },
   {
    "path": "out/mushaf/suras/sousi/074.json",
    "bytes": 25736,
-   "sha256": "1ee9742a63395f0e95d597e23dfd749986ea2a4198008362241556efb9a3be6b"
+   "sha256": "0371eeff387397eb2b5b8dd2c2c740ef535c953084f7b9bb9c8d957ee815467c"
   },
   {
    "path": "out/mushaf/suras/sousi/075.json",
    "bytes": 16842,
-   "sha256": "a773c605f2e4884a97dfc7d0b9d18194d57727a39357a519bba11ce4964ccec3"
+   "sha256": "1f7d7f85d6c273adeb95a1200295f3949aa463f9ed3ea4b1677efae7854b135a"
   },
   {
    "path": "out/mushaf/suras/sousi/076.json",
    "bytes": 23162,
-   "sha256": "1685a7654c327225c2cec1c381b7d40c0b86e5d99bdecaf985050a37953e2721"
+   "sha256": "9a779c6e677819abdc0d8a48647bde8409dad8fb55160d39c815b5db902e9cd7"
   },
   {
    "path": "out/mushaf/suras/sousi/077.json",
    "bytes": 19504,
-   "sha256": "2ef8dfecd87637c07316c0df987684f7d464d2baa2d29d944af31a11091b35ee"
+   "sha256": "2752321ac88c99fb0fe0778bb09b19b319488b6b18cd57f41a7d2795f10f5155"
   },
   {
    "path": "out/mushaf/suras/sousi/078.json",
    "bytes": 17997,
-   "sha256": "509af0508aa6a747560368331a414d10a5614f0e5f9d8b16792afd363f843487"
+   "sha256": "aed63341d81c66542f3144813ea3fccc7c41afeb501c0cba051679779eb37eaf"
   },
   {
    "path": "out/mushaf/suras/sousi/079.json",
    "bytes": 18777,
-   "sha256": "665ee08042a43200e858d96271f64a7bda30e2f1e4792ebcaa20b47d04907259"
+   "sha256": "7b156b33217ee25c6351eca9368218140bf04bf4fbf616f11a143b1ad6dd32e7"
   },
   {
    "path": "out/mushaf/suras/sousi/080.json",
    "bytes": 14779,
-   "sha256": "8362d4a8352d7f56eb5be40a901c293ab438dc6865ec6cf186af2b4ee6788322"
+   "sha256": "472577f0379ff876a37ddf4a85c820932cdc25bff1a6637cba2160043e8302f4"
   },
   {
    "path": "out/mushaf/suras/sousi/081.json",
    "bytes": 11340,
-   "sha256": "ca118bd333feb6c833222ffb0b66d9dbfb28107c45a92c20db1a466656ac9892"
+   "sha256": "194d92034c3efa9dcc677b72911bf92df64620379cfcaf8ee03dd1a9abfc66d0"
   },
   {
    "path": "out/mushaf/suras/sousi/082.json",
    "bytes": 8780,
-   "sha256": "54cf2ee82e58d0cb4409e523fbea4818629071c77c920d1f9966a337115cf9f2"
+   "sha256": "455fc36e7a593cbcc102fbc335faec84b1bd1d8e9898ab66e2a8a0382e41b3a3"
   },
   {
    "path": "out/mushaf/suras/sousi/083.json",
    "bytes": 17368,
-   "sha256": "afa537ebdc5e01a210b22e880d837b721f7c45a81c05563c20c5a33d9c89e719"
+   "sha256": "ccee3c9c60c07859f5fb27cfb2cd7d24b08d14c1520ee09193b62625cb016b71"
   },
   {
    "path": "out/mushaf/suras/sousi/084.json",
    "bytes": 11493,
-   "sha256": "413cb3b44dc0f18f00a1dd37897ac2240a3741943480ceb5a5d60934a5bc9172"
+   "sha256": "521fb1e5f2054d99fcc4ee83b24dca17aa1b50e890f878341ab8c1cd53cc79fe"
   },
   {
    "path": "out/mushaf/suras/sousi/085.json",
    "bytes": 11490,
-   "sha256": "dc3ad560c7f763f32867a32b0def504ae66bbf6b93a9a29bfd5aaf6122ced12f"
+   "sha256": "369ca1ba72c633ecc66b4ffdd39db39374938c251afc3d703e9d9db2edae4186"
   },
   {
    "path": "out/mushaf/suras/sousi/086.json",
    "bytes": 6975,
-   "sha256": "3434a6c2b30e03a5c6b48e7e8fee9426762b4f0a4e6c88372e6157dcf6046c75"
+   "sha256": "1fcd3e2e03b84f37b5a5597a6b77f2d692a7db3c711949f592559062b717d504"
   },
   {
    "path": "out/mushaf/suras/sousi/087.json",
    "bytes": 8251,
-   "sha256": "1f1bc85e1c5eecb7ab7cc3d6f6fda556c2e7a397a92db7504cdd26e87c6eca1b"
+   "sha256": "d77eed18228cea0239c7cb9016e2072b8b8f5d8232b7075d92a9840d0a4117d8"
   },
   {
    "path": "out/mushaf/suras/sousi/088.json",
    "bytes": 10234,
-   "sha256": "d8959f2ebd8de8de94fb0120ac12ea5327ce54e1fd91bb6b4fa47588847dbce0"
+   "sha256": "eb17bead2cc924bf65f6c2d8896efc1bc5fa769033dd87ac82d1d0b5461c5100"
   },
   {
    "path": "out/mushaf/suras/sousi/089.json",
    "bytes": 14422,
-   "sha256": "ace957a5a51849f08302202ab64031a096699630dc6f2dc86cd2eeeec0b5f962"
+   "sha256": "e91095efbf46c67608425a60f67ac6d1cc3f7be301cee1e618ff787862e6ad5f"
   },
   {
    "path": "out/mushaf/suras/sousi/090.json",
    "bytes": 9011,
-   "sha256": "22df69ea899a5da6ee63c6c89937c6efb71f410a2a0202b0f5a455ea159de7b3"
+   "sha256": "b3844666ffb4374c01e84a4074828862d50bdd1b483e14543c84725292ac1de6"
   },
   {
    "path": "out/mushaf/suras/sousi/091.json",
    "bytes": 6506,
-   "sha256": "63f816543616d3abad8a3abfdb8c862bfc11d6f529dda89146068867b2d9bf3d"
+   "sha256": "6569727b613b86ee6ef4c32f7710cb15b323299bc1344c8d00d7ffcb107c6cf5"
   },
   {
    "path": "out/mushaf/suras/sousi/092.json",
    "bytes": 8306,
-   "sha256": "d7303010ab7b10fecb749c8b2cc185a12f75584debd4556a5a89a4cc0e796807"
+   "sha256": "b504df2c0c34cfb8c4e9b71a628e562446a8c8858f99077e27414800558e620c"
   },
   {
    "path": "out/mushaf/suras/sousi/093.json",
    "bytes": 5000,
-   "sha256": "c520d06d95bf02ef9a511ce96c8bb7bef10d1ecd83d2b0b69206fc5f0291c24b"
+   "sha256": "ad55d2d0aff55663458ed359a5bc2ec0a49ebe0d60dcd2807ef2f69fc34b0f70"
   },
   {
    "path": "out/mushaf/suras/sousi/094.json",
    "bytes": 3773,
-   "sha256": "98a1575acf83467f5e1c55a4702532e102d19e9f6c580d4eb9637dca428050d4"
+   "sha256": "49ea54f7a34c875b8ba1df1b4448de326a9f9193c82d11ee946edb31a7d75ad0"
   },
   {
    "path": "out/mushaf/suras/sousi/095.json",
    "bytes": 4340,
-   "sha256": "23f39934172824da66474158df03f1e168af74f774542f5f0f178e45e6b47d95"
+   "sha256": "ad20dfc38fe1f2408e716eb93ad6f24bae294a46f983e66e8f6af2f5543c4ebd"
   },
   {
    "path": "out/mushaf/suras/sousi/096.json",
    "bytes": 8471,
-   "sha256": "5ad2bc932da09104b2e036aee42476939cf8d9924abd6115bc9617a2b69b67de"
+   "sha256": "28b6e72e1d02e4a5736d5c0a3d1ac3a5d5834e2cfbf7e3b7891b027d00a7b992"
   },
   {
    "path": "out/mushaf/suras/sousi/097.json",
    "bytes": 3713,
-   "sha256": "9aa4d1c64eb5af31b836749cd9b0f19aaa03891a754d74cc0fd78fbb05f922f3"
+   "sha256": "760548d07a460b479a74dbcf611cdc05976330403802d492f11bc3f75f0eb238"
   },
   {
    "path": "out/mushaf/suras/sousi/098.json",
    "bytes": 9449,
-   "sha256": "9dff6d8772acbafb89a0b3292c7411c35efcd7d017531636793f6e1c91220404"
+   "sha256": "e49924106a62ffaf4c07438a732f5aafc719e5f73d96a5b6b9a0297fb5aca5a1"
   },
   {
    "path": "out/mushaf/suras/sousi/099.json",
    "bytes": 4492,
-   "sha256": "42a490cedcaf8280a34f4b06975738744cfedb6296f912bdfe1c3b507c407fb0"
+   "sha256": "3214b58cc2d9b8d7e0c966fa239ff186cf6d2f960bd1f75785abec1a67e6a26b"
   },
   {
    "path": "out/mushaf/suras/sousi/100.json",
    "bytes": 5175,
-   "sha256": "b032b2412b8272affc3a5607092d6474aac6b9aa30982e7a4a42803735051cec"
+   "sha256": "9c0f785f169d76b2440a8c71346d2e7d7f47189d4d05fdb045e0d745f385dba9"
   },
   {
    "path": "out/mushaf/suras/sousi/101.json",
    "bytes": 4636,
-   "sha256": "9ec873b954abda5ef2854f63b0cb43ec3621532403ac7791a70fc7cb521b310a"
+   "sha256": "b4975349f996b80adfb1cc5a09a3f1713ce6dde0d10cd6df731b5d302ef5e2c5"
   },
   {
    "path": "out/mushaf/suras/sousi/102.json",
    "bytes": 3901,
-   "sha256": "3a71536478dadd535beaeef58dfe5c417b0f0e431446e042ae21de87b3ef1d0b"
+   "sha256": "adfdbdebd910fd8cd3cb95444028223bd292b39fed08c4a9de280246e2ede6b3"
   },
   {
    "path": "out/mushaf/suras/sousi/103.json",
    "bytes": 2416,
-   "sha256": "1a26454b210d81717288c46204a70a8332d4a661ebff83e2589899298444598f"
+   "sha256": "e9105f0477ebec55d5f9214e50d92e2b80a0d75df78407bc0b2e5720804c8030"
   },
   {
    "path": "out/mushaf/suras/sousi/104.json",
    "bytes": 4415,
-   "sha256": "950153b0d3b85fc4cd01504b2adf78067712fd908081be1be7099267b2a0d715"
+   "sha256": "845034b593e89bd5184213cf60fc802f3bbcf8713edf98e938a624ddce3aacd6"
   },
   {
    "path": "out/mushaf/suras/sousi/105.json",
    "bytes": 3233,
-   "sha256": "94e6f597ec7030bb07989da09f41de1dc3bc6aa627c9041b0413bb6ac5ec62ca"
+   "sha256": "8459beaf73972bfa7fea35715ab54f68b192ac51f276bc37537d859e63c2ef49"
   },
   {
    "path": "out/mushaf/suras/sousi/106.json",
    "bytes": 2770,
-   "sha256": "58ec19768e2ccf014d1391cda907e1de077a2cc802cf1d310988a325577f06d6"
+   "sha256": "44ec9e33d0424525316db16120e1e2957361de78af21339fbd388844232ce844"
   },
   {
    "path": "out/mushaf/suras/sousi/107.json",
    "bytes": 3506,
-   "sha256": "0e06e67dc6b02f0301d4de508ff2589e771a6c52a098b5179e938b882796a83a"
+   "sha256": "8daf2fbd4665f4cc28e33d7c4353b56472ca2a07628ec1b6c68093453c9f71fd"
   },
   {
    "path": "out/mushaf/suras/sousi/108.json",
    "bytes": 2080,
-   "sha256": "8f5df0e451ca74a920de03ae2b320f5c5f5488824d95f45709e00f4d8dd0665c"
+   "sha256": "cfb8d159e924837ca02d3a37b141bcfb2ae723b5ff79d1702e2528acd0d11aab"
   },
   {
    "path": "out/mushaf/suras/sousi/109.json",
    "bytes": 3461,
-   "sha256": "acfaf66ec1af1f69b558c83dcf84a6bca39e4d6a26acb50a6a3ef5e6d2e07c50"
+   "sha256": "31e322fb01f53947fc3040e261434f4a1205ba089e0241cd2ae81393aa3d9b7b"
   },
   {
    "path": "out/mushaf/suras/sousi/110.json",
    "bytes": 2856,
-   "sha256": "e602ddcf8ad246e768d163fd2f31e69790cf9eafc9a80ee5977f2e7fd9a50f95"
+   "sha256": "515e0eb730f3d00fbfba8399f811fac634b1653768e325b3d28f9bfa3ca5f800"
   },
   {
    "path": "out/mushaf/suras/sousi/111.json",
    "bytes": 3179,
-   "sha256": "da16e8bafe5c0504ced077a500b12f82f82b2a65deab78c3cc060548c292fe57"
+   "sha256": "6c248d1caeaa71b6a3f770d9a2b8e9ad0f07c4c42afed7b26d4150c81078e489"
   },
   {
    "path": "out/mushaf/suras/sousi/112.json",
    "bytes": 2471,
-   "sha256": "c92e873915e43fe0f3499e22fb74847714a1b3542dd824f79fdb9488dd7dd948"
+   "sha256": "be919dd2d20a11254292286715f14fa892584830276316778fecb94e8f4145d1"
   },
   {
    "path": "out/mushaf/suras/sousi/113.json",
    "bytes": 3124,
-   "sha256": "c6d3fedae2252616459c1ff5b6f10f0fa707c76cb7981afc94de41111ac5fb9b"
+   "sha256": "51df4ea510a2b474157a80fd028aebd480cce46361648d704680ac6b6fddfaf5"
   },
   {
    "path": "out/mushaf/suras/sousi/114.json",
    "bytes": 3065,
-   "sha256": "a0343d34a3f2243b12254f265f7dbb440da58633394f8a305199fe196bd19e58"
+   "sha256": "f12a1bb9f1347b0dfacf28d83a75f6fe1159318a17fd13f4133532076e713585"
   },
   {
    "path": "out/mushaf/suras/warsh/001.json",
@@ -3695,547 +3695,547 @@
   {
    "path": "out/mushaf/suras/warsh/009.json",
    "bytes": 209647,
-   "sha256": "d20a0a0f845aee4989d5269e6597dfbf355633470f64192af023ad8387fe6d4e"
+   "sha256": "2170e3f00dadff153b3c6fd02a6967dea1698108cf28ad24d953cee527bc7c84"
   },
   {
    "path": "out/mushaf/suras/warsh/010.json",
    "bytes": 152881,
-   "sha256": "e1965ebee9c0408e8ddc66aa32dc831891f74b1847e62c4e560c7a491e9d9821"
+   "sha256": "99a41183a36b4c03376b09d8d230b8663e0c74b3f0b25790c437dfa96bcf3d35"
   },
   {
    "path": "out/mushaf/suras/warsh/011.json",
    "bytes": 159976,
-   "sha256": "1491e6352bef664991a4b6b2a24baa9bf159b300929f1e8e0e3e2507da65c8c4"
+   "sha256": "a8dc2339ccd476c81ee510806f00427975bc9b96478c88fcc253a8d9a6fc3102"
   },
   {
    "path": "out/mushaf/suras/warsh/012.json",
    "bytes": 148399,
-   "sha256": "73ec4345854699ee85417dc82a1c4df2b1676eba20c39e4f1c03f7100d7b605e"
+   "sha256": "7addc6dc13dcfad2b947f2c6af5547da2abcb7036f9d18b41d28680ddcdba345"
   },
   {
    "path": "out/mushaf/suras/warsh/013.json",
    "bytes": 71491,
-   "sha256": "9d2fe64888bd324beda672d14fedde3f3580c665bbf4eac36a7720416b7c303a"
+   "sha256": "dac082a9ded254705cca580ad304dcf86087e9fc8a66d443930f8c9bb7ca3123"
   },
   {
    "path": "out/mushaf/suras/warsh/014.json",
    "bytes": 70544,
-   "sha256": "fd3733e87e886e59afff5b790bd9bd5e387c6c7702a0fa3f2962e9444add9393"
+   "sha256": "13a2de057f60bb1b9b8bfa1746c2dda858b1657242d66b296172f38d8f2e71fc"
   },
   {
    "path": "out/mushaf/suras/warsh/015.json",
    "bytes": 60343,
-   "sha256": "f576e4dddce46191c194c879bcd01b01c3261e5ecb8fbc9369e52dd5d4231993"
+   "sha256": "6868f49badf7f8698fea730e35dbb7acf2f57f100dd0a8b21c6861b7028502c2"
   },
   {
    "path": "out/mushaf/suras/warsh/016.json",
    "bytes": 156017,
-   "sha256": "34d36c0deae48cf22fe20617e4d461cd02acd70986908d6eea2646ff05d04d31"
+   "sha256": "6a3b4e373df1c6c2232b0744e4d208e1da3467a48e562f06dafe8e8f820c68e4"
   },
   {
    "path": "out/mushaf/suras/warsh/017.json",
    "bytes": 131918,
-   "sha256": "bb39ec0c57b213383750497fe3b4172d71370c22b6dced2b95492e41b4ab861e"
+   "sha256": "30a46f47982d618a3053fb90e1bd4093ea33a8817ffce0743b8f5593858bc99c"
   },
   {
    "path": "out/mushaf/suras/warsh/018.json",
    "bytes": 132716,
-   "sha256": "2723b5c3b44c492d8878dafa4b3af9b785954f9bab954078ccf20f0fbe995f65"
+   "sha256": "6076fe26bc9a029ef9ef5cccbd09bfc5a1cc513e7671f55c553030a0865490b2"
   },
   {
    "path": "out/mushaf/suras/warsh/019.json",
    "bytes": 83887,
-   "sha256": "2861b971cd8958602550eb99914ec21620da44e8fc30a6e6e37d21f793e93eba"
+   "sha256": "325ad288980b1d30ead2019a887250522104fb76c49e8f4d6c52119181702580"
   },
   {
    "path": "out/mushaf/suras/warsh/020.json",
    "bytes": 115407,
-   "sha256": "8d052612be5a3da85f245d3b57e166fddbcaf1940a53cfd38c96eeebdd449380"
+   "sha256": "76a0e597ccd699f3133b23e898b1b3953786277ca94f1af00dada752510fd6dd"
   },
   {
    "path": "out/mushaf/suras/warsh/021.json",
    "bytes": 101799,
-   "sha256": "a298d94e793053a0e1965b4cdf2e88c8e65eedcccb8a76c7b3014799652560e3"
+   "sha256": "880bc2fb4834e369a31c525a2052dbfbf4444d3a33600ef3ad974f6c12ba6160"
   },
   {
    "path": "out/mushaf/suras/warsh/022.json",
    "bytes": 106964,
-   "sha256": "5f0ef9d2743bfa0cf1c468b27cd6e7a094a5e5bacbcaef7366fdcc077baa65ee"
+   "sha256": "b35df85eb4480bdf43da27d3a8b94f431e31b574aa6023768174ab1f5cd483c6"
   },
   {
    "path": "out/mushaf/suras/warsh/023.json",
    "bytes": 92613,
-   "sha256": "97d9f92ae8fe22bcbcb17684c0a0e9eb4fa8da1ca6e45e46ae3a3e6da6e36580"
+   "sha256": "03cb77b94d1e63f7a46848648d5ec3f4463a23259e5a88450b31f4f099518598"
   },
   {
    "path": "out/mushaf/suras/warsh/024.json",
    "bytes": 109932,
-   "sha256": "5c5017b9e5684550281d9f06c08a380693674e97b01a9b7fff9bae5210db86b0"
+   "sha256": "d1c375761338c91acdae53b772ce16a698ff87b38f5e167e65468316fe7b93cc"
   },
   {
    "path": "out/mushaf/suras/warsh/025.json",
    "bytes": 77377,
-   "sha256": "e58fd024f649b1ab98d3e961f9051be3258e79feb87163765590eadc6bd30c8a"
+   "sha256": "2ded19a7b8f5217f3b9ef0abfd190dbcff75715fcd6b913a00eb0c20f93338a9"
   },
   {
    "path": "out/mushaf/suras/warsh/026.json",
    "bytes": 121866,
-   "sha256": "74674185b146f28648a0891008c1789ee6839e5a995885777418ef886fb98f66"
+   "sha256": "553fe8eee809f574520cd948b462146f4a1a8f9421f3741cf410036db7361a9f"
   },
   {
    "path": "out/mushaf/suras/warsh/027.json",
    "bytes": 98603,
-   "sha256": "25480217366f586aa8df8872d1ff85348f7e678dc5030adc18c56ca062d61920"
+   "sha256": "8539c34d99073c25bcf72b11c6d7ef371699110c16e996adcf47caa606949edd"
   },
   {
    "path": "out/mushaf/suras/warsh/028.json",
    "bytes": 119762,
-   "sha256": "f050d92db542497738003067e21b378e3f52d6bddfd93301d3e80842d1ba1745"
+   "sha256": "3e788bca4f5028e505c5725f813d80b1d9f07a195815b34a436921d68135c9f6"
   },
   {
    "path": "out/mushaf/suras/warsh/029.json",
    "bytes": 83806,
-   "sha256": "60be22151e1785092b34090827ae4c32493a148ad5a1fde6082afa01b0dcc61c"
+   "sha256": "2145eaf119087ba50018b034add7e9ce2a0282fc49738c56683297cc674e3d93"
   },
   {
    "path": "out/mushaf/suras/warsh/030.json",
    "bytes": 69924,
-   "sha256": "90a8e26c604e7e5dbfc70bbb415414be345193641ad72280d823ccc503ff07a5"
+   "sha256": "fde532f5ed346b72d43d7d03ffeb0de8e8c52a9880d3faedf9ee285482cf1b4e"
   },
   {
    "path": "out/mushaf/suras/warsh/031.json",
    "bytes": 46000,
-   "sha256": "cc7f6b8d196c9cdce3634b6d48aa05fcfda88a62526a28c4e1d2684f17f93adf"
+   "sha256": "4764e466da03a71066f705a6cc8814f2ba57d98fed143c78e349527c98680fb7"
   },
   {
    "path": "out/mushaf/suras/warsh/032.json",
    "bytes": 32526,
-   "sha256": "372b941f767dec7885f1204359d5031545e769419fe4297a6a93ddb548432684"
+   "sha256": "efa7b7fad585a5ff0c6e39082de374a9ccdb0db03439fafa007c32baad9bfde8"
   },
   {
    "path": "out/mushaf/suras/warsh/033.json",
    "bytes": 108865,
-   "sha256": "5ae0d1e061438492fa42519a335d815bee7fec56401187cf69a455ca77584b43"
+   "sha256": "7d76ab966be4bd02ed0025cd3d3f5611146e3462b745299ddcfa8e74a67e0ab5"
   },
   {
    "path": "out/mushaf/suras/warsh/034.json",
    "bytes": 73888,
-   "sha256": "1280d7df188f4a36d66dc97f3edbeb160a7a862a37685866935b822c19c5fee0"
+   "sha256": "50991d78cbc8e67746aee5f44eb0a8c7d4151d0fe85874d744d6d675eef1b196"
   },
   {
    "path": "out/mushaf/suras/warsh/035.json",
    "bytes": 65338,
-   "sha256": "79d14f99fa3f44ef6220f6d1235ee767b969691528d8d53d40380242a2703e5a"
+   "sha256": "2f3f96163391eeb9b5c62175f1098d1afecccd3982fe7874710cab7df085698f"
   },
   {
    "path": "out/mushaf/suras/warsh/036.json",
    "bytes": 64295,
-   "sha256": "3d44bc9f5ee636a73c85f3f39c749ec8b887becfb7a8ff21031a1a9874fe593c"
+   "sha256": "dfe99a65a51533dbd68057bce240c57207ea501388e2af86d9d3c2529c0fad48"
   },
   {
    "path": "out/mushaf/suras/warsh/037.json",
    "bytes": 83582,
-   "sha256": "53c35c291d8b319421a79e18193d738fd55adeff260bea7c03e8e4e31ee58446"
+   "sha256": "397f5e986d13957f5ec2d2670b775e84aebca75ead1fd665b00e3727b49a4e00"
   },
   {
    "path": "out/mushaf/suras/warsh/038.json",
    "bytes": 65171,
-   "sha256": "0f6bdd36fc5899a489ff75216fe8cfaa0c5ccc59ccd67a130b93f015768a05f6"
+   "sha256": "f17467748edd010f4097d0026ce17f07d29fab34b31d82988920f153ab399cb5"
   },
   {
    "path": "out/mushaf/suras/warsh/039.json",
    "bytes": 98389,
-   "sha256": "bbbf712346190d0f934c8df9ae367d801306086fd9601a42f1ee14f397a8028e"
+   "sha256": "bc0aa68ba93910ce97541ce1c69e5ab948d9bb68bb7f4ef26eda175714ac357c"
   },
   {
    "path": "out/mushaf/suras/warsh/040.json",
    "bytes": 103098,
-   "sha256": "165efda95eb49d6bcf28d0f2a43a823662983def349a39d6750fe612cec17235"
+   "sha256": "ec133fa100c5bf5ec5382fdd406402b815b93d27d1c9695a407b71a18d96d227"
   },
   {
    "path": "out/mushaf/suras/warsh/041.json",
    "bytes": 67569,
-   "sha256": "b5ba6516e701a73ed99e9a63fa51020b39899fb0a7d577eef9908d6699e8f5ef"
+   "sha256": "ca28dbafeb6faec9fa240d36b49ea7f4d75dc31b41795ec4e58a273ee2a4c145"
   },
   {
    "path": "out/mushaf/suras/warsh/042.json",
    "bytes": 72136,
-   "sha256": "8b81a5a997a566d70d31c2c2da498d09980cbb77de0c6348f961a06326dff03a"
+   "sha256": "4b67a6cb7a1dd46b49a42fbec914fb4f780d04730a7564bb68db3a2b7b22353b"
   },
   {
    "path": "out/mushaf/suras/warsh/043.json",
    "bytes": 73472,
-   "sha256": "b2daf60b8ca6762db860f3eae8b6827c1fc9f2390c101f5d97c700e0a2380af6"
+   "sha256": "f2ba470f89f27ef0a96c834c0f5724401900f39e13df390cface66ef23aedeaa"
   },
   {
    "path": "out/mushaf/suras/warsh/044.json",
    "bytes": 32403,
-   "sha256": "393d94829071324f54cc4066a05f08ec834cc8382c938a5ca780bbca2986de3b"
+   "sha256": "9bff678d8b385932db324d8a07571de005973c0fd9105fae4e772b79641f3fe7"
   },
   {
    "path": "out/mushaf/suras/warsh/045.json",
    "bytes": 42133,
-   "sha256": "306fa9eba441e1fb3e16cd52f27049b17411c7fabcde692169a84a9d0909dc90"
+   "sha256": "00f531cd6adb82936f0cfc258fcf92531eea096a45727a0113a4052cc4ce8b4b"
   },
   {
    "path": "out/mushaf/suras/warsh/046.json",
    "bytes": 53866,
-   "sha256": "74ffde621831e339910ba337bc2eee72fcfd192d33b0a38627c97e2714a8fe36"
+   "sha256": "e8c855c1e732f354f8229e25aff02a3ab66ebf37d3aef156ace18e28c7566dc2"
   },
   {
    "path": "out/mushaf/suras/warsh/047.json",
    "bytes": 47004,
-   "sha256": "4b1e5977061ae132859acd3cec213704413f88c91b4cb7cb6cb7df5e27fdf20f"
+   "sha256": "679650731b99ea2c2be4b2de3733104691aa38e48900b1963063108d929061c7"
   },
   {
    "path": "out/mushaf/suras/warsh/048.json",
    "bytes": 47691,
-   "sha256": "619fc21fb9e9ed9818e60cf3d940684c4fa3bef75c169a054ae6225c94247b02"
+   "sha256": "0ae89a96d069d55d39b7fa563a6a5327d97cc90ecf7f154204d86a1c7b15ab53"
   },
   {
    "path": "out/mushaf/suras/warsh/049.json",
    "bytes": 29964,
-   "sha256": "9e88c18bcb1c43f96374fdfe2857009dd15b9f5abbfebd19f6c55941e196ac6f"
+   "sha256": "594ad02f48e91a16781da2b65a71f23d9a0ca264b3ec67a8f48ee3aa4e49a2e1"
   },
   {
    "path": "out/mushaf/suras/warsh/050.json",
    "bytes": 33475,
-   "sha256": "bf76884c035eb380ba751130c1ef8f49524d67527068ff1ecb6b46134ebab251"
+   "sha256": "60e186b59ab41cb0d86dd675d951f103d28d958c178cfb244d83610744fca508"
   },
   {
    "path": "out/mushaf/suras/warsh/051.json",
    "bytes": 33940,
-   "sha256": "c61072e9fc07d5e17a46f5898f1b47a5a7080542367a74a42dee49db6550f02f"
+   "sha256": "f1ff393aad331b5e449dec493a433907f3a34031cce410c260fedf4497da34b4"
   },
   {
    "path": "out/mushaf/suras/warsh/052.json",
    "bytes": 29195,
-   "sha256": "cd8d5d767d777a64c2c17467e9412ad2bcd4433ef7161a0b64725768c6fad266"
+   "sha256": "eaa6eb7ba592972f50e7387242a4c247e7d85ec2a39f139d560cad4703eb79bc"
   },
   {
    "path": "out/mushaf/suras/warsh/053.json",
    "bytes": 33652,
-   "sha256": "97b846f693c5a41e6acefd7f0e058be825c693d6fe9f587fbae474f976e5a72f"
+   "sha256": "02f0f621d27ad24b9bbf6cce7ee96a6bb88519fad9d55f6bb9eaca1e42618b3b"
   },
   {
    "path": "out/mushaf/suras/warsh/054.json",
    "bytes": 32412,
-   "sha256": "28e35940bda0d8f14b1c8607001e3abaf5b5344a1bfb2bc52b1c9a3bfd403795"
+   "sha256": "3c51f090df878e4ac916aab60b0b5b48b05616f6d1b43e087d615ecdc489ca00"
   },
   {
    "path": "out/mushaf/suras/warsh/055.json",
    "bytes": 35155,
-   "sha256": "31e7f2e51399765dc01dfa3fde4e28edc7eff2b438c0295dbcd3e04e6431386f"
+   "sha256": "822d094e112afc06cf63a088c9849b122826fcdbc186035fd7e5010c6d43fa39"
   },
   {
    "path": "out/mushaf/suras/warsh/056.json",
    "bytes": 38924,
-   "sha256": "1572dff93be1b86f94fbccb6757e261494ba15cb8f7b499bf9acd17826a42a2e"
+   "sha256": "e63c2170eba31240d113d3d2685b96f5acdfe3d292fc62dde5cdfe0889860282"
   },
   {
    "path": "out/mushaf/suras/warsh/057.json",
    "bytes": 48628,
-   "sha256": "7f73bcefa98a0c1146b9e986722e010ef8dcca35e29a350e1030212b98ebeb97"
+   "sha256": "57f7e824e34916a6028fa8928b7768a9cd5d910714de571078a422c354bd7c2d"
   },
   {
    "path": "out/mushaf/suras/warsh/058.json",
    "bytes": 39821,
-   "sha256": "5f6f38aa26f7e2e472feaff343ce2bdc934134068c22113050576a99faafa162"
+   "sha256": "26b2ba942b3cf999f60f82b1086dd7a391d69bf4d1fcb6e983eeb58c954fd009"
   },
   {
    "path": "out/mushaf/suras/warsh/059.json",
    "bytes": 38123,
-   "sha256": "3732b453967e6db6398d04ad010de18669958c6bf0b4a57ca7fc944296902e93"
+   "sha256": "d87e4599e55b32815c2ce1d60c97f19c5083a88a6c504b9e8e7f49d79be1968e"
   },
   {
    "path": "out/mushaf/suras/warsh/060.json",
    "bytes": 29644,
-   "sha256": "8791304dc670bde5e01894d81b10133ff80ad625cd22803ea71b52eda8769905"
+   "sha256": "bae858557248084c1863ebf0f194d4099a3335bc26254860bf4f648043f5a5fc"
   },
   {
    "path": "out/mushaf/suras/warsh/061.json",
    "bytes": 19456,
-   "sha256": "29d80e0a3b1edb5c139a386df79cd059a27750948ff071f931c621ce11abd51b"
+   "sha256": "feea7eba4f56f28c9dc81d1e465133aa4f5dacf04f1baa7c5de7e59f2e18d366"
   },
   {
    "path": "out/mushaf/suras/warsh/062.json",
    "bytes": 15637,
-   "sha256": "b9c93935556b99191c198e702013020fd5b7bad2135762c082b15990fbdddb8b"
+   "sha256": "3fb38931f3900da30f366b252e8d534bf80200b2c66ddad21b197d2117b4735a"
   },
   {
    "path": "out/mushaf/suras/warsh/063.json",
    "bytes": 16254,
-   "sha256": "c34e3e12a1be7e70757c4c23e0358c9f001095b4e2d1a8012c01e1edf09814ae"
+   "sha256": "dcc99d8812a4e25cd24e71cf90ac42b8c23e86bec7ff7eed3057c17e5756ab87"
   },
   {
    "path": "out/mushaf/suras/warsh/064.json",
    "bytes": 21544,
-   "sha256": "72fbaccd80dfe6edf9aeae7664f97963211383eb7d67f7610622168cc058c040"
+   "sha256": "38515eca9444f2b4220dc16039cb61b460860c894c996cb02c6ba6df897a24ce"
   },
   {
    "path": "out/mushaf/suras/warsh/065.json",
    "bytes": 24498,
-   "sha256": "b178c76f74dcff61fb27781af53b818dc5690d8c0770f3eb814488735ad70c28"
+   "sha256": "bbc9eb7ee1cb004b8ac8a0829b43b7478a2488952d6f4439438f377a879631c6"
   },
   {
    "path": "out/mushaf/suras/warsh/066.json",
    "bytes": 21684,
-   "sha256": "c2cc2495b4be9f95aa36eb3bbf8f08c88bb2c9e77a406e41708ac6e713217e3e"
+   "sha256": "7b78b133cbcb001edf611ea6d6d426a1fbbd3c6cb72ce21b101c7a71c1d003b3"
   },
   {
    "path": "out/mushaf/suras/warsh/067.json",
    "bytes": 29246,
-   "sha256": "9e4bc1bd4fa488d5f523d0cd568fe13bbec0ab40a1fe626c220b6f76a4be1d22"
+   "sha256": "6732c0348726ecd03ce79179ff8d9dd1f41d49f5dcbfd064af91c1097d161d40"
   },
   {
    "path": "out/mushaf/suras/warsh/068.json",
    "bytes": 28664,
-   "sha256": "23cf36cfae0dc473c3a58d5e0695d108b7a676ccacf7b2e32bbafe05b7fdc839"
+   "sha256": "98ca77dc2a9343c65710a0371b89f664721e3f7e15c18097906255219ba212f0"
   },
   {
    "path": "out/mushaf/suras/warsh/069.json",
    "bytes": 25387,
-   "sha256": "4eed6c44e15546dcf192bea27b386950e384a20fa933e47274469eb8dce54913"
+   "sha256": "8c2eecc01c6e9778ec938ebf8b600282ef44fe85d15be7e1ae306016c074b25c"
   },
   {
    "path": "out/mushaf/suras/warsh/070.json",
    "bytes": 21641,
-   "sha256": "055f2f6714b74a84f4cff3596c8ace3eaabb8d867c86f3cb3fa5658f5d360547"
+   "sha256": "a6b3cf6bbfaea02dfac6283ebea75c2b68c74a08c54d326afdc18d6a7f06efb2"
   },
   {
    "path": "out/mushaf/suras/warsh/071.json",
    "bytes": 21062,
-   "sha256": "5ce021cb47682875fae4ad223030207099a8cbcee3c24b422cf73618c96b3b10"
+   "sha256": "6f4c875b0b10d49b03a1c09d07c79f65032be6e4e2fd37566b15f3848b318ef5"
   },
   {
    "path": "out/mushaf/suras/warsh/072.json",
-   "bytes": 25220,
-   "sha256": "1d1355d2777d7b1aca62803074fda34f8bbb5a571a50de232de6805f37c92924"
+   "bytes": 25231,
+   "sha256": "44d4fed0169009e4bebb0f3dabc070ac46a1eb3ac4be19a488f88ff0aac333bd"
   },
   {
    "path": "out/mushaf/suras/warsh/073.json",
    "bytes": 18009,
-   "sha256": "6264353732cefb771da4740d06fc7c66a0aea87202e6958a6e2495a661ec152c"
+   "sha256": "195ead968ec6f8322e7ea159575fa8336905390e4f73017f161fe58c9b819f6e"
   },
   {
    "path": "out/mushaf/suras/warsh/074.json",
    "bytes": 25131,
-   "sha256": "f7339cbcf104715538f51c1fe4a8c76408c596649c9d6c144f11463a8e631923"
+   "sha256": "73e9dc0b9f053b42128c90ce4ddc3e379cb570e7c4a231eef5ae13af5e3a4388"
   },
   {
    "path": "out/mushaf/suras/warsh/075.json",
    "bytes": 16849,
-   "sha256": "0942e6b63602cca14d987822127126c7e5abd3ecbfeb8ebee96e7031c22b86bc"
+   "sha256": "5ddd349e46b1cc158f8b7bf324a60ff7d78041c5ea9095653deeb9e4cf046e85"
   },
   {
    "path": "out/mushaf/suras/warsh/076.json",
    "bytes": 22620,
-   "sha256": "540bcbaa5a68c5e1eb5e22f6398eacde4057491b2198469501ae8a994b5b53fc"
+   "sha256": "c0727ed927c05543496d9815204247ecc5185cf533e5fcaf2cdf9e77d6de7bb8"
   },
   {
    "path": "out/mushaf/suras/warsh/077.json",
    "bytes": 19394,
-   "sha256": "3fe1594a151c8b10c449e1335227ec9fbad68c4d86dc1b629f3d4bdd4f334732"
+   "sha256": "50793fd4c7fe75142bfbbb944312c2a8971df114872c07fb6eaf54bc0e6c0530"
   },
   {
    "path": "out/mushaf/suras/warsh/078.json",
    "bytes": 17718,
-   "sha256": "1c36a08116109d515ffebccef0c8573c6d0b01ce537cd5338ea68ce5f00e5317"
+   "sha256": "bdbcdcd9db9392fb0f3f5298c641a6b4ef4d2f556dba5575ab81e8864746b345"
   },
   {
    "path": "out/mushaf/suras/warsh/079.json",
    "bytes": 18682,
-   "sha256": "da49397b404e3fe6797bddf9ea7e5966c182ead19c09a984ffc31ef4d4bc1e3e"
+   "sha256": "18a4ffb0a7abd0571d2001cfaae053b80c668b7c798bc7b4d8b2f7b15ff5d3ac"
   },
   {
    "path": "out/mushaf/suras/warsh/080.json",
    "bytes": 14694,
-   "sha256": "78d9b6668c1e7fb589f0d30964e16b8bde3eb42ac10e60ce00cb23c518b46e69"
+   "sha256": "fb000a9bf75c8d86916c00e2b4b484aede5baf0b5348040841d6666cb99dde68"
   },
   {
    "path": "out/mushaf/suras/warsh/081.json",
    "bytes": 11345,
-   "sha256": "83719bc73747d8f47a848e54ea0bf8375ca67d7d44f1015ff91976f5d3e32ce7"
+   "sha256": "559366da2ec3dd56b878bc504e792205343a39542940f58307ec0007adaec780"
   },
   {
    "path": "out/mushaf/suras/warsh/082.json",
    "bytes": 8679,
-   "sha256": "6375a756aa1dc8e2fdca2f0d31e6cbd644b3e006d6aeae05d2abcec3705ea73c"
+   "sha256": "118c3ae2af546af77146f3ad3ce2e751ca42785c26bb8083d1440bd517be9b93"
   },
   {
    "path": "out/mushaf/suras/warsh/083.json",
    "bytes": 17259,
-   "sha256": "9e50228e1a8a22f0297a2886055236c3a9a9cf3dc14f9fdff3243b9faaca9115"
+   "sha256": "d00e5bb596a86bcd066cae1021cd5e80cbd9ed17cfe29db05f55403f3779ebcb"
   },
   {
    "path": "out/mushaf/suras/warsh/084.json",
    "bytes": 11487,
-   "sha256": "d423876efede93061ffc7a6c0036254bc98b9d7706b780a77f88aa100fb781b2"
+   "sha256": "474e7611bc186cc61bdde7e8a96c90e90813536f5d2322077826aacfa33cff7e"
   },
   {
    "path": "out/mushaf/suras/warsh/085.json",
    "bytes": 11296,
-   "sha256": "f5c4d32d0bcb2036c87cce78222f8c06b674fb31938e8456b8500c3e5f89438d"
+   "sha256": "1c64a06eb676096ef8cfbe533024f1bd4618d141c6a781b1395973c3310a68ef"
   },
   {
    "path": "out/mushaf/suras/warsh/086.json",
    "bytes": 7041,
-   "sha256": "5cc1ccb335e885824fe7940bd4835a775561dbdae99d3927ac6bbf56ac553b27"
+   "sha256": "5aa8fec018dfbba61715e09b73819a594cb8b1b603e5b3bfa1e934c4656383cc"
   },
   {
    "path": "out/mushaf/suras/warsh/087.json",
    "bytes": 8143,
-   "sha256": "63d25126ae03739dac18681ac9494916a61201583ebcc80b70ac0e21f3c5436a"
+   "sha256": "b8617e4e2cde3212f37f8f3256969d8be3d96ed0d201f7fe293dc2ea03cc119c"
   },
   {
    "path": "out/mushaf/suras/warsh/088.json",
    "bytes": 10312,
-   "sha256": "6895e6edf2d6d49d0babb92f7345e66c56ca2f133c38991ac6c9431f6d6e7fd6"
+   "sha256": "8b074d823a5d8c61c0e129d063035f679a414db89f7577be6bb1005e903f43b1"
   },
   {
    "path": "out/mushaf/suras/warsh/089.json",
    "bytes": 14217,
-   "sha256": "5b4f26b243bc4bef271073e406491cc8d57c52bd3c3e5890145d69fee27193ac"
+   "sha256": "024f0e740ce177a80da2a367acba1e582514c23ffbdfa52a6d74b50668470955"
   },
   {
    "path": "out/mushaf/suras/warsh/090.json",
    "bytes": 9006,
-   "sha256": "c94b6ec4e0a92e990af7c65b3cd53c79c05b3d368524f854d689a714ff2b32a4"
+   "sha256": "3a75096908dccbaa96c2eca13ac28a79cd1bbc6c0b35958e55a44854ac06ffd9"
   },
   {
    "path": "out/mushaf/suras/warsh/091.json",
    "bytes": 6417,
-   "sha256": "21bd4beb534558b31ade04d316d63c25767f43f200ed8b6c968cfd9fa239d380"
+   "sha256": "97444c1ab98824d47e3cea9234cca20e2e88cb1334e2be41662931b0ead2bdd6"
   },
   {
    "path": "out/mushaf/suras/warsh/092.json",
    "bytes": 8283,
-   "sha256": "67455b4382c65536a58230c9a590493bf201a14976ded7a05f71de9a9293cd9e"
+   "sha256": "640e5e5730b34966ddecd386deb33cb065991e1111040219a8bbb9d240b0ab19"
   },
   {
    "path": "out/mushaf/suras/warsh/093.json",
    "bytes": 4992,
-   "sha256": "ca4f9eac2eddb24159e9fd125a1be1992ae7a76b59c9863c4769deabae51e2fa"
+   "sha256": "d544226f558d360aca18dd26c3008e9dd82e1e9259dbd80d5898346d380a060d"
   },
   {
    "path": "out/mushaf/suras/warsh/094.json",
    "bytes": 3767,
-   "sha256": "ee91456fdbed941ecc26620fa34e7997ff9b90aff150969f1556ecda2dcbb3a3"
+   "sha256": "5c7f6fb7d207242d357efb1bcc02c633e4a6d67674d1aca4e100a92561f79fec"
   },
   {
    "path": "out/mushaf/suras/warsh/095.json",
    "bytes": 4336,
-   "sha256": "367dfaa1912c8d64f4c9cb291cca425dfd372861fd1eb009bf568b33bf631934"
+   "sha256": "d084e15b01849cd5c57cbee9a3f2c4f9dbc3e689973661826c70c54f62ba7cde"
   },
   {
    "path": "out/mushaf/suras/warsh/096.json",
    "bytes": 8287,
-   "sha256": "f96f3aa683c52a7e4af43236cf55b20162b4111f80a24f8203c17aeffcad508f"
+   "sha256": "7d7d422c1ceac0710a4f4301de888ee8422c2ab31b067cd5a12527ce24ca7d60"
   },
   {
    "path": "out/mushaf/suras/warsh/097.json",
    "bytes": 3710,
-   "sha256": "6263fe84771b157ff17692d6f8b163d3bfb65c0bf2c6fbefcd114d1a20c906b9"
+   "sha256": "35450e73c027c8db4fbe4b4b3fcf4f2447564631c0886370e9eee7402858effb"
   },
   {
    "path": "out/mushaf/suras/warsh/098.json",
    "bytes": 9083,
-   "sha256": "653337e0e39eadda84366db0cf4de7fba001c180d6638d564625d2fc1bd0064b"
+   "sha256": "c5b4a1535e7b0fdc2f044a8b7a223ee262ed2aef7033a3bcd112b055d76f2d56"
   },
   {
    "path": "out/mushaf/suras/warsh/099.json",
    "bytes": 4568,
-   "sha256": "b7ad2f9495657464774e791ae83bce19b37f789a5df911a2bb7ec31a3a70980f"
+   "sha256": "fa2c6a0e0267b7f459503fd3a160ad181bab270b78863441c8502c32d378298f"
   },
   {
    "path": "out/mushaf/suras/warsh/100.json",
    "bytes": 5164,
-   "sha256": "2a63ecec4b5d02d812497fd90cab0a8d6a43f0ac3f15d49a5806263d59e4af1e"
+   "sha256": "a603f021387a59fd6d7cc508976d0e4f50eb3d8c44a6120829e74909a00fdfca"
   },
   {
    "path": "out/mushaf/suras/warsh/101.json",
    "bytes": 4632,
-   "sha256": "6add91d90486d8a0eadbce94cfc8374d41f5185bfe8b8299b0e5658201cb1f67"
+   "sha256": "5fd816ee556cfbc50a1682a1db52c586ed777177730fb5b983044328deec0370"
   },
   {
    "path": "out/mushaf/suras/warsh/102.json",
    "bytes": 3900,
-   "sha256": "fc6cea52014cc4c30bf70bcf8096e68ce1d1d90f2b8cc9d942b35b767b7f64db"
+   "sha256": "fc6154bcb7eebe0a100ff5ab9033c9a33b93bc5a55ea976a62422e688f705ff9"
   },
   {
    "path": "out/mushaf/suras/warsh/103.json",
    "bytes": 2408,
-   "sha256": "7e1a72afa557f2438c5b976e96c2c3491b6ebd95b5bf1652934d06d2d407c0b2"
+   "sha256": "2e7a4a0d6639b5f62b7ca260b9c881125f35579633b3d9058f121560a6d9be8d"
   },
   {
    "path": "out/mushaf/suras/warsh/104.json",
    "bytes": 4315,
-   "sha256": "36fe7e568f5e90143542981d5e39187b773402d8828ef1eeff40a4c74b37f576"
+   "sha256": "45b83db04a737cecd54f3222746cb6fdd0541922425c7b02a05c028080432bf1"
   },
   {
    "path": "out/mushaf/suras/warsh/105.json",
    "bytes": 3230,
-   "sha256": "2ee6782c21fb2927ea52a60bde632cef13f5048f76e38f12f4adb601135c1d2f"
+   "sha256": "a9070bf6100510588553589c3f65a178379d0922d559a6b4902a7d2910519037"
   },
   {
    "path": "out/mushaf/suras/warsh/106.json",
    "bytes": 2766,
-   "sha256": "4fdbc085e90ed3000394202dad976f4f159ba8349e41db259ca0b2d5636ecf58"
+   "sha256": "a74ccc34fb272ba39bae7da50651947fd439a9bd354c3141b41e04e607dc91f0"
   },
   {
    "path": "out/mushaf/suras/warsh/107.json",
    "bytes": 3489,
-   "sha256": "3b07533d366530d91f320bc936f06da22f1d446991a8429e9cf432f67b4e642a"
+   "sha256": "34673ecb26ad4adf7da9c9dcf09a01bce4e092ecd5d85ae45128f4027863ebd3"
   },
   {
    "path": "out/mushaf/suras/warsh/108.json",
    "bytes": 2076,
-   "sha256": "18813ff10a6a5f54a20e19ff528805b7ebe485ea875b84bbb21049adb99564d8"
+   "sha256": "e3b796a7538712992d11e1ddae388e54a6dc9d495405fb84975623a9a6a65684"
   },
   {
    "path": "out/mushaf/suras/warsh/109.json",
    "bytes": 3463,
-   "sha256": "600deaaf5b7637ef1fc792c12171460fd5a4d395464e40c57b17f57c8b0d4e98"
+   "sha256": "cb11e0aca0a997e1d33de437aafd0829bcdb59de770432792aeb93ff1c604dc2"
   },
   {
    "path": "out/mushaf/suras/warsh/110.json",
    "bytes": 2764,
-   "sha256": "a8db1aec25bf23dd67fdd107cc1544a040ef089f3307d567130f270ee8df97f5"
+   "sha256": "417dd85b8f754e186c7218cacd56a4556f28885e21fcf5a6ccee8a5de0a51395"
   },
   {
    "path": "out/mushaf/suras/warsh/111.json",
    "bytes": 3177,
-   "sha256": "0cca13766ac716676b263a503da00b895f2e43b7b1db9da4a853c82a72a9aa25"
+   "sha256": "4bfd5bb0a56299070f943b1dfe618e3512b5f5b2bbcb65233e1339738071210b"
   },
   {
    "path": "out/mushaf/suras/warsh/112.json",
    "bytes": 2469,
-   "sha256": "ddb844a19f5fd489b7885afd71679ed78c673e5b044a31b83f6ea05369c729cc"
+   "sha256": "76aa18fc368a90811e34c6df58c279c895a34621b7913f6066dfe6ad31bdfed4"
   },
   {
    "path": "out/mushaf/suras/warsh/113.json",
    "bytes": 3120,
-   "sha256": "72f9929e52d59efb168f42cae5ac85f8f6fe3f23b13f3952f0e7b57d6997e3ed"
+   "sha256": "e8af658ff8d2f0a743239115ab19f07b5db4a77dde458f94cf91693ad71810cb"
   },
   {
    "path": "out/mushaf/suras/warsh/114.json",
    "bytes": 3059,
-   "sha256": "d35e58c21cbfb7e6014d638a70108560f4c134ef1e09c0984d139dc413c53544"
+   "sha256": "44ce6d6469fe0e696de1a3fb937ef945ff6f044f2067a01ac65fb1ab00650f5e"
   },
   {
    "path": "out/mushaf/warsh.csv.gz",
-   "bytes": 757339,
-   "sha256": "68237ed76b31acc8d43a04b0ccf27458be812be94eaae19aaff509226e421871"
+   "bytes": 763845,
+   "sha256": "b2ab89adc26d518a4b10c2e15106977ef86740bb66edb3839f2489fee95d9765"
   },
   {
    "path": "out/mushaf/warsh.json",
-   "bytes": 6585799,
-   "sha256": "dbe71a51068784794322438073063bf1728fed87abd4ae039cd0a67fa7ca5b63"
+   "bytes": 6585810,
+   "sha256": "1dbe9b3345037fcd7a0f57f1780e9e690c24aa71e2a8565a522b030404e726a6"
   },
   {
    "path": "out/mushaf/warsh.min.json",
-   "bytes": 4462370,
-   "sha256": "ee07532f2b7ae500a15084044c8b3473fda85c1f13e0cb907719690f6668ddb6"
+   "bytes": 4462381,
+   "sha256": "53923a38199e8d453c64fe81ff41b1016c7e8ad7c1a2ee377afd80d038487e80"
   }
  ]
 }

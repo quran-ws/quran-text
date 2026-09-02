@@ -127,6 +127,39 @@ total in the boundary and partial buckets) the difference is unlikely to matter,
 but the order of `ORDER` in `src/quranidx/build.py` is a parameter of the result
 rather than a neutral choice.
 
+`ORDER[0]` carries more weight than the rest of the list: it is the muṣḥaf the
+IDs count, so *added* and *lacking* are said with respect to Ḥafṣ. That is
+deliberate — Ḥafṣ is what most word-level datasets are built on, and it is the
+one muṣḥaf whose IDs come out `1 … n` with no repeat and no gap — but it is a
+choice, and a project that wanted a riwāyah-neutral spine would make it
+differently. It does not affect which words the riwāyāt are found to share, only
+how the five places they differ are labelled and numbered.
+
+## Where a contraction is recorded is a convention, not a claim
+
+Three places in the corpus write as one word what the other muṣḥafs write as
+two, and the two are not the same letters — the nūn is assimilated and drops off
+the line:
+
+| | fewer words | more words |
+|---|---|---|
+| 40:26 | `وَأَن` — five | `أَوْ` `أَن` — Ḥafṣ, Shuʿbah |
+| 72:16 | `وَأَلَّوِ` — Ḥafṣ, Shuʿbah, Bazzī | `وَأَن` `لَّوِ` — the other four |
+| 73:20 | `أَلَّن` — Dūrī, Sūsī | `أَن` `لَّن` — the other five |
+
+The single word has to be recorded against one of the two spine words, and at
+72:16 and 73:20 it genuinely contains both: `أَلَّن` begins with the `أن` and ends
+with the `لن`. The build decides by longest shared run of letters and prefers
+the earlier word on a tie, which is deterministic and reproducible — but it is a
+rule for breaking a tie, not a finding about the text. Do not read the choice as
+a claim that the contracted form corresponds to that spine word rather than the
+other. Compare the pair together.
+
+40:26 is not a contraction and is not ambiguous in the same way: `أَوْ` is *aw*
+and `وَ` is *wa*, different words with different meanings. There `أَن` pairs with
+the `أن` inside `وَأَن`, and `أَوْ` is a word Ḥafṣ and Shuʿbah have that the other
+five do not.
+
 ## Not linguistically annotated
 
 There is no root, lemma, part of speech, morphology or translation here, and no

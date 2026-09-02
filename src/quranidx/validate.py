@@ -13,9 +13,11 @@ issues report.
 
 from __future__ import annotations
 
+import json
 from collections import Counter, defaultdict
+from pathlib import Path
 
-from .build import Word
+from .build import ORDER, Word
 from .normalize import fold_notation, rasm, uthmani
 from .sources import Riwaya
 from .tokenize import tokenize
@@ -39,10 +41,37 @@ from .tokenize import tokenize
 def check_index(words: list[Word], riwayat: list[Riwaya]) -> list[dict]:
     problems: list[dict] = []
 
-    for i, w in enumerate(words, start=1):
-        if w.id != i:
+    # The spine is Ḥafṣ's word sequence, so this is not merely an arithmetic
+    # property: spine ID n must be Ḥafṣ's n-th word.  If that holds, Ḥafṣ's own
+    # numbering is 1..n with no repeat and no gap, which is the guarantee the
+    # muṣḥaf format states.
+    base = ORDER[0]
+    nth = [w for w in words if base in w.forms]
+    spine = [w for w in words if not w.sub]
+    if [w.id for w in spine] != [w.id for w in nth]:
+        problems.append({"check": "spine_is_the_base_mushaf", "riwaya": base,
+                         "detail": f"spine is {len(spine)} words, {base} has "
+                                   f"{len(nth)}, and their IDs differ"})
+
+    # Additions do not take an ID of their own — they hang off the spine word
+    # before them — so they are walked here only to check that they do so, and
+    # that no two share a sub-index.
+    expected = prev_sub = 0
+    for w in words:
+        if w.sub:
+            if (w.id, w.sub) != (expected, prev_sub + 1):
+                problems.append({"check": "addition_placement",
+                                 "word_id": w.id,
+                                 "detail": f"{w.id}.{w.sub} does not follow "
+                                           f"spine word {expected}"})
+                break
+            prev_sub = w.sub
+            continue
+        expected += 1
+        prev_sub = 0
+        if w.id != expected:
             problems.append({"check": "id_contiguous", "word_id": w.id,
-                             "detail": f"expected {i}"})
+                             "detail": f"expected {expected}"})
             break
 
     seen: Counter[str] = Counter(w.key for w in words)
@@ -56,9 +85,28 @@ def check_index(words: list[Word], riwayat: list[Riwaya]) -> list[dict]:
     for w in words:
         by_sura[w.sura].append(w)
     for sura, ws in sorted(by_sura.items()):
-        if [w.index for w in ws] != list(range(1, len(ws) + 1)):
+        spine = [w for w in ws if not w.sub]
+        if [w.index for w in spine] != list(range(1, len(spine) + 1)):
             problems.append({"check": "index_contiguous", "sura": sura,
                              "detail": "word_index is not 1..n"})
+
+    # An āyah's range is a pair of IDs, and an addition has no ID of its own, so
+    # an āyah that began or ended on one could not be addressed.  None does; the
+    # check is here so that a future release could not introduce one silently.
+    for r in riwayat:
+        mine = [w for w in words if r.key in w.forms]
+        for i, w in enumerate(mine):
+            if not w.sub:
+                continue
+            prev = mine[i - 1] if i else None
+            nxt = mine[i + 1] if i + 1 < len(mine) else None
+            here = (w.sura, w.aya[r.key])
+            if (prev is None or (prev.sura, prev.aya[r.key]) != here
+                    or nxt is None or (nxt.sura, nxt.aya[r.key]) != here):
+                problems.append({
+                    "check": "addition_inside_ayah", "riwaya": r.key,
+                    "detail": f"{w.id}.{w.sub} {w.uthmani} begins or ends "
+                              f"{here[0]}:{here[1]}"})
 
     # Every letter of every riwāyah must survive into the index, in order.
     # Comparing the concatenated rasm rather than the word count makes the
@@ -75,6 +123,51 @@ def check_index(words: list[Word], riwayat: list[Riwaya]) -> list[dict]:
                 "detail": f"letter streams diverge at offset {at}: index has "
                           f"{got[at:at + 30]!r}, source has {want[at:at + 30]!r}",
             })
+    return problems
+
+
+def check_schema_fields(docs: dict[str, dict], schema: Path) -> list[dict]:
+    """The muṣḥaf documents and the JSON Schema must agree on the field set.
+
+    ``schema/mushaf-*.json`` is published as the checkable specification, but
+    nothing was checking it, and it sets ``additionalProperties: false`` — so
+    the ``x`` sub-index added here would have made every document fail
+    validation against its own spec, silently, for anyone who ran a validator.
+
+    A full JSON Schema validation would need a dependency this project does not
+    take.  Comparing the field *names* needs none, and catches the drift that
+    actually happens: a field emitted by the build and never declared, or
+    declared and no longer emitted.
+    """
+    if not schema.exists():
+        return [{"check": "schema_present",
+                 "detail": f"{schema} is referenced by the docs but missing"}]
+
+    spec = json.loads(schema.read_text(encoding="utf-8"))
+    declared_top = set(spec["properties"])
+    declared_word = set(spec["properties"]["words"]["items"]["properties"])
+    required_word = set(spec["properties"]["words"]["items"]["required"])
+
+    problems: list[dict] = []
+    for key, doc in sorted(docs.items()):
+        undeclared = set(doc) - declared_top
+        if undeclared:
+            problems.append({"check": "schema_fields", "riwaya": key,
+                             "detail": f"document fields not in the schema: "
+                                       f"{sorted(undeclared)}"})
+        used: set[str] = set()
+        for word in doc["words"]:
+            used |= set(word)
+            if not required_word <= set(word):
+                problems.append({
+                    "check": "schema_fields", "riwaya": key,
+                    "detail": f"word {word.get('w')} lacks required "
+                              f"{sorted(required_word - set(word))}"})
+                break
+        if used - declared_word:
+            problems.append({"check": "schema_fields", "riwaya": key,
+                             "detail": f"word fields not in the schema: "
+                                       f"{sorted(used - declared_word)}"})
     return problems
 
 

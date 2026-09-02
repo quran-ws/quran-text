@@ -8,7 +8,7 @@ from datetime import date
 from difflib import SequenceMatcher
 from itertools import combinations
 
-from .build import ORDER, OUT, Word, fawasil
+from .build import ORDER, OUT, Word, fawasil, ref
 from .chars import HARAKAT, OPEN_TANWEEN
 from .normalize import fold_notation, pointed, rasm, unpositioned
 from .output import boundary_events
@@ -18,7 +18,8 @@ from .validate import (check_alif_splits, check_counting, check_index,
                        check_release_policy, cross_release)
 
 STATUS_ORDER = ["identical", "diacritic_variant", "dotting_variant",
-                "alif_variant", "rasm_variant", "word_boundary", "partial"]
+                "alif_variant", "rasm_variant", "word_boundary", "partial",
+                "addition"]
 
 STATUS_BLURB = {
     "identical": "one reading, one spelling, in all seven",
@@ -27,7 +28,8 @@ STATUS_BLURB = {
     "alif_variant": "one skeleton, one ā: on the line in one hand, above it in the other",
     "rasm_variant": "the codices disagree about the letters on the line",
     "word_boundary": "a source prints the word joined to its neighbour",
-    "partial": "the word is absent from at least one riwāyah",
+    "partial": "Ḥafṣ has the word and another muṣḥaf does not recite it",
+    "addition": "Ḥafṣ does not have the word; it hangs off the previous ID",
 }
 
 
@@ -62,7 +64,7 @@ def _by_rasm(w: Word) -> dict[str, list[str]]:
 
 
 def _rasm_rows(ws: list[Word]) -> list[list]:
-    return [[w.id, f"{w.sura}:{w.aya.get('hafs', '—')}",
+    return [[ref(w), f"{w.sura}:{w.aya.get('hafs', '—')}",
              "  ·  ".join(f"`{r}` {','.join(ks)}"
                           for r, ks in _by_rasm(w).items()),
              _forms_cell(w)] for w in ws]
@@ -250,6 +252,7 @@ def write_report(words: list[Word], riwayat: list[Riwaya]) -> None:
     rasm_v = [w for w in words if w.status == "rasm_variant"]
     alif_v = [w for w in words if w.status == "alif_variant"]
     absent = [w for w in words if w.status == "partial"]
+    added = [w for w in words if w.status == "addition"]
     events = boundary_events(words)
     longer = [w for w in rasm_v if _difference_is_length(w)]
     swapped = [w for w in rasm_v if not _difference_is_length(w)]
@@ -259,7 +262,7 @@ def write_report(words: list[Word], riwayat: list[Riwaya]) -> None:
     add(f"Three things can differ once spelling, vowelling and pointing are set "
         f"aside: the letters, the word boundaries, and whether a word is there "
         f"at all. Together they account for "
-        f"{len(rasm_v) + len(absent) + sum(len(e['word_ids']) for e in events):,} "
+        f"{len(rasm_v) + len(absent) + len(added) + sum(len(e['word_ids']) for e in events):,} "
         f"of {len(words):,} words. A fourth kind is listed with them and counted "
         f"apart: {len(alif_v):,} words where the disagreement is only about "
         f"whether an ā sits on the line or above it.")
@@ -275,7 +278,10 @@ def write_report(words: list[Word], riwayat: list[Riwaya]) -> None:
         ["boundaries differ", f"{len(events)} events",
          "`word_boundary`", "one source prints two words as one"],
         ["word absent", f"{len(absent)}", "`partial`",
-         "a riwāyah does not have the word at all"],
+         "Ḥafṣ has the word and another muṣḥaf does not recite it"],
+        ["word added", f"{len(added)}", "`addition`",
+         "Ḥafṣ does not have the word; the muṣḥafs that do carry it on the "
+         "previous ID, written 25684.1"],
     ], ["kind", "count", "status", "what it means"]))
     add("")
 
@@ -371,7 +377,7 @@ def write_report(words: list[Word], riwayat: list[Riwaya]) -> None:
         for k in ORDER:
             if k in w.forms:
                 by_pt[pointed(w.forms[k])].append(k)
-        rows.append([w.id, f"{w.sura}:{w.aya.get('hafs', '—')}", f"`{w.rasm}`",
+        rows.append([ref(w), f"{w.sura}:{w.aya.get('hafs', '—')}", f"`{w.rasm}`",
                      "  ·  ".join(f"**{p}** {','.join(ks)}" for p, ks in by_pt.items())])
     add(_table(rows, ["word id", "sūrah:āyah", "shared rasm", "pointed as"]))
     add("")
@@ -399,19 +405,31 @@ def write_report(words: list[Word], riwayat: list[Riwaya]) -> None:
     add("Machine-readable: [`boundaries.csv`](boundaries.csv).")
     add("")
 
-    # --- absent -----------------------------------------------------------
-    add("### Absence — words not every riwāyah has")
+    # --- absent and added -------------------------------------------------
+    add("### Presence — words not every muṣḥaf has")
     add("")
-    add("Each is well attested: Ibn Kathīr's `مِن` at 9:100, and Nāfiʿ reading "
-        "`فإن الله الغني` at 57:24 where the others read `فإن الله هو الغني`. The "
-        "rest are words one riwāyah writes joined to its neighbour and another "
-        "writes separately, so the count of words genuinely differs.")
+    add("The IDs count Ḥafṣ's words, so both directions are said with respect "
+        "to Ḥafṣ: a muṣḥaf can lack a word Ḥafṣ has, or have one Ḥafṣ does not. "
+        "Each is well attested — Ibn Kathīr's `مِن` at 9:100, and Nāfiʿ reading "
+        "`فإن الله الغني` at 57:24 where the others read `فإن الله هو الغني`.")
+    add("")
+    add("**Ḥafṣ has the word; these muṣḥafs do not recite it.**")
     add("")
     add(_table([[
-        w.id, f"{w.sura}:{w.aya.get('hafs') or max(w.aya.values())}", f"`{w.rasm}`",
+        ref(w), f"{w.sura}:{w.aya.get('hafs') or max(w.aya.values())}", f"`{w.rasm}`",
         ", ".join(w.present), ", ".join(w.missing), _forms_cell(w),
     ] for w in absent],
         ["word id", "sūrah:āyah", "rasm", "present in", "absent from", "as printed"]))
+    add("")
+    add("**Ḥafṣ does not have the word.** It takes no ID of its own: it hangs "
+        "off the preceding one, so the muṣḥafs without it have no gap. The ID "
+        "is written with the sub-index, `25684.1`.")
+    add("")
+    add(_table([[
+        ref(w), f"{w.sura}:{max(w.aya.values())}", f"`{w.rasm}`",
+        ", ".join(w.present), _forms_cell(w),
+    ] for w in added],
+        ["word id", "sūrah:āyah", "rasm", "written by", "as printed"]))
     add("")
 
     # --- fawasil ----------------------------------------------------------
@@ -526,7 +544,7 @@ def write_report(words: list[Word], riwayat: list[Riwaya]) -> None:
          "Machine-readable: `conflicts.csv`, `conflicts.json`.", ""]
     for title, ws in (("Letters", rasm_v), ("The ā", alif_v)):
         V += [f"## {title} — {len(ws):,}", ""]
-        V.append(_table([[w.id, f"{w.sura}:{w.aya.get('hafs', '—')}", w.index,
+        V.append(_table([[ref(w), f"{w.sura}:{w.aya.get('hafs', '—')}", w.index,
                           "  ·  ".join(f"`{r}` {','.join(ks)}"
                                        for r, ks in _by_rasm(w).items()),
                           _forms_cell(w)] for w in ws],

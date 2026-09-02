@@ -18,6 +18,12 @@ SQLite forms in :mod:`quranidx.views` are generated from the same build and are
 labelled views, so that whichever one turns out to be most convenient cannot
 quietly become the standard.
 
+``w`` is not unique within a document: a muṣḥaf with a word Ḥafṣ does not have
+carries it on the same ``w`` with a sub-index, so a word is addressed by
+``(w, x)``.  The format version stays at 1.0 while nothing is released — there
+is no published version to be compatible with, and a number that moves before
+anyone can depend on it says nothing.
+
 Nothing here is asserted that the packages do not say.  Where a fact is derived
 rather than read it is marked derived, where it is unavailable the field is
 absent and the absence is explained, and where this build departs from the
@@ -251,14 +257,19 @@ def _layers(key: str, r: Riwaya, line_check: dict) -> dict:
     }
 
 
-def _word(w: Word, key: str, imlaei: dict[int, str] | None) -> dict:
+def _word(w: Word, key: str, imlaei: dict[tuple[int, int], str] | None) -> dict:
     rec: dict = {"w": w.id, "t": w.forms[key]}
+    if w.sub:
+        # This muṣḥaf writes a word the shared text does not have, so it hangs
+        # off the previous word's ID rather than taking one of its own.  Absent
+        # on every other word, so its presence is the signal.
+        rec["x"] = w.sub
     if key in w.place:
         page, line = w.place[key]
         rec["pg"] = page
         rec["ln"] = line
-    if imlaei and w.id in imlaei:
-        rec["e"] = imlaei[w.id]
+    if imlaei and (w.id, w.sub) in imlaei:
+        rec["e"] = imlaei[(w.id, w.sub)]
     marks = _marks(w, key)
     if marks:
         rec["marks"] = marks
@@ -268,7 +279,7 @@ def _word(w: Word, key: str, imlaei: dict[int, str] | None) -> dict:
 
 
 def document(words: list[Word], r: Riwaya,
-             imlaei: dict[int, str] | None = None) -> dict:
+             imlaei: dict[tuple[int, int], str] | None = None) -> dict:
     """The whole of one muṣḥaf, in the canonical shape."""
     key = r.key
     mine = [w for w in words if key in w.forms]
@@ -333,7 +344,8 @@ def minimal(doc: dict) -> dict:
                   for s in doc["suras"]],
         "ayat": doc["ayat"],
         "resegmentation": doc["resegmentation"],
-        "words": [{"w": w["w"], "t": w["t"]} for w in doc["words"]],
+        "words": [{k: w[k] for k in ("w", "x", "t") if k in w}
+                  for w in doc["words"]],
     }
 
 
@@ -343,7 +355,7 @@ def _dump(path: Path, doc: dict) -> None:
 
 
 def write_mushafs(words: list[Word], riwayat: list[Riwaya],
-                  imlaei: dict[str, dict[int, str]] | None = None,
+                  imlaei: dict[str, dict[tuple[int, int], str]] | None = None,
                   reports: dict | None = None) -> dict:
     """Write every muṣḥaf's own file, and return what was written."""
     MUSHAF_DIR.mkdir(parents=True, exist_ok=True)

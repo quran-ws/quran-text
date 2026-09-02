@@ -82,7 +82,8 @@ generated views of it. The format is specified in
 
 ## Headline numbers
 
-**77,434** canonical words · **114** sūrahs · **7** riwāyāt.
+**77,432** words in Ḥafṣ, which the IDs count · **2** more that other muṣḥafs add ·
+**114** sūrahs · **7** riwāyāt.
 
 | status | words | share | meaning |
 |---|---|---|---|
@@ -92,7 +93,8 @@ generated views of it. The format is specified in
 | `alif_variant` | 198 | 0.26% | one ā, on the line in one hand and above it in the other |
 | `rasm_variant` | 62 | 0.08% | the riwāyāt disagree about the letters |
 | `word_boundary` | 12 | 0.02% | a source joins the word to its neighbour |
-| `partial` | 5 | 0.01% | the word is absent from some riwāyah |
+| `partial` | 3 | 0.00% | Ḥafṣ has the word; some other muṣḥaf does not recite it |
+| `addition` | 2 | 0.00% | Ḥafṣ does not have the word |
 
 So **615 words in 77,434** — one in 126 — are anything more than a difference
 of vowelling, and only **62** of those are a letter one codex has and another

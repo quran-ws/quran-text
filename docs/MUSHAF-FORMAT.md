@@ -30,13 +30,87 @@ one already.
 
 ## Identity
 
-`w` is the global word ID, `1 … 77434`, the same integer as `word_id` in
-`out/words.csv`. **A muṣḥaf that lacks a word leaves a gap in the sequence**;
-IDs are never renumbered per muṣḥaf, because that would defeat the point of
-having them.
+`w` is the global word ID, `1 … 77432`, the same integer as `word_id` in
+`out/words.csv`. IDs are never renumbered per muṣḥaf, because that would defeat
+the point of having them — so **a muṣḥaf that lacks a word leaves a gap in the
+sequence**, and one that has an extra word carries it on a sub-index rather than
+shifting everything after it.
 
 IDs are stable across rebuilds of the same sources. They are *not* promised
 across a future KFGQPC release — see `docs/LIMITATIONS.md`.
+
+### The spine is Ḥafṣ, and everything else is said relative to it
+
+**`w` counts Ḥafṣ's words.** ID *n* is the *n*-th word of Ḥafṣ, so
+`out/mushaf/hafs.json` runs `1 … 77432` with no repeat, no gap and no `x` field
+at all. Shuʿbah comes out the same way.
+
+Every other muṣḥaf is then described by how it differs from that sequence, and
+there are only two ways it can:
+
+**It lacks a word Ḥafṣ has.** The ID is absent from that muṣḥaf — Warsh has no
+`هُوَ` at 57:23 — so its sequence skips. A gap means that and nothing else.
+
+**It has a word Ḥafṣ does not.** Then there is no ID for it, so it hangs off the
+**previous** word with a sub-index `x`:
+
+```json
+{ "w": 25684, "t": "تَجۡرِي" },
+{ "w": 25684, "x": 1, "t": "مِن" },     ← Bazzī alone, 9:101
+{ "w": 25685, "t": "تَحۡتِهَا" }
+```
+
+`x` is omitted when zero, so its presence is the signal. Five words in the whole
+corpus are involved — two added, three lacking:
+
+| | word | | |
+|---|---|---|---|
+| 9:101 | `مِن` | added by | Bazzī |
+| 72:16 | `لَّوِ` | added by | Warsh, Qālūn, Dūrī, Sūsī |
+| 40:26 | `أَوْ` | lacked by | Warsh, Qālūn, Dūrī, Sūsī, Bazzī |
+| 57:23 | `هُوَ` | lacked by | Warsh, Qālūn |
+| 73:20 | `أَن` | lacked by | Dūrī, Sūsī |
+
+*Added* and *lacked* are said **with respect to Ḥafṣ**, which is a declared
+frame of reference and not a claim that Ḥafṣ reads correctly. At 72:16 four
+muṣḥafs write `لَّوِ` and three do not; it is still an "addition" here, because
+Ḥafṣ is where the counting starts. Without naming a frame, `هُوَ` has no answer
+to *was it added by five or dropped by two?*
+
+So: **`w` alone addresses a word in Ḥafṣ and Shuʿbah. Everywhere else read
+`(w, x)`.** One muṣḥaf in five carries a single repeated `w`, and a lookup on
+`w` alone would silently return only the first of the two.
+
+### How an ID is written
+
+```
+25684      a word Ḥafṣ has
+25684.1    a word hanging off it
+```
+
+That is the one canonical way to write the pair, and it is what every report,
+table and message in this project prints. It is **notation, not storage**: the
+data keeps two integers, because `ayat`, `pages` and `juz` compare their ranges
+numerically and a string could not be — and because `25684.1` as a JSON *number*
+is a float, which round-trips as `25684.099999999999` and is no kind of
+identifier.
+
+### Two things that follow
+
+**A muṣḥaf's own word number is the list index, not `w`.** `words` is dense and
+in order, so the *n*-th word is the *n*-th entry. For Ḥafṣ the two coincide; for
+the rest they do not. The number is not stored — a file that lists its words in
+order already says it — and the tabular views carry `pos`, the āyah-relative
+word number, which is what word audio timings and highlighting address.
+
+**Every range — `ayat`, `suras`, `pages`, `juz` — is in ID coordinates**, so a
+range may name IDs this muṣḥaf has no word for. Select by value, never by
+slicing:
+
+```js
+words.filter(x => x.w >= first && x.w <= last)   // right
+words.slice(first - 1, last)                     // wrong wherever there is a gap
+```
 
 ## A word
 
@@ -48,6 +122,7 @@ across a future KFGQPC release — see `docs/LIMITATIONS.md`.
 | field | always | meaning |
 |---|---|---|
 | `w` | ✓ | global word ID — the join key |
+| `x` | — | sub-index: this muṣḥaf has a word Ḥafṣ does not. Read `(w, x)` together |
 | `t` | ✓ | ʿUthmānī text exactly as this muṣḥaf prints it |
 | `pg` | — | printed page, **read** from the release |
 | `ln` | — | printed line, **reconstructed** — see below |
@@ -202,10 +277,33 @@ than the large one.
 Comparing two muṣḥafs in SQL:
 
 ```sql
-SELECT a.word_id, a.uthmani, b.uthmani
-FROM word a JOIN word b USING (word_id)
-WHERE a.mushaf = 'hafs' AND b.mushaf = 'warsh' AND a.uthmani <> b.uthmani;
+SELECT a.word_id, a.sub, a.uthmani, b.uthmani
+FROM word a LEFT JOIN word b
+  ON b.word_id = a.word_id AND b.sub = a.sub AND b.mushaf = 'warsh'
+WHERE a.mushaf = 'hafs'
+  AND (b.uthmani IS NULL OR b.uthmani <> a.uthmani);
 ```
+
+`LEFT JOIN` rather than `JOIN`, and on `(word_id, sub)` rather than `word_id`
+alone. Both matter: the honest answer is sometimes *no row*. Projecting a
+word-level dataset from Ḥafṣ onto Warsh — a translation, morphology, an audio
+segment — loses exactly two words, and a consumer needs to see that rather than
+slide silently past it:
+
+| | | |
+|---|---|---|
+| `60520.1` | `أَوۡ` | Ḥafṣ adds it; Warsh has no such word |
+| `69718` | `هُوَ` | the spine has it; Warsh does not recite it |
+
+Playing one word across all seven is the same table read the other way:
+
+```sql
+SELECT mushaf, sura, ayah, pos FROM word
+WHERE word_id = ? AND sub = ? ORDER BY mushaf;
+```
+
+`pos` is the āyah-relative word number, which is what word-level audio timings
+(`{word_position, start_ms, end_ms}`) address.
 
 ## Known issues
 
