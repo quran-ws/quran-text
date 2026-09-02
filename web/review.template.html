@@ -1,0 +1,933 @@
+<title>Riwāyāt Apparatus</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Amiri+Quran&family=Scheherazade+New:wght@400;600&display=swap">
+<style>
+/* ---------- tokens: complete light palette on bare :root ---------- */
+:root {
+  color-scheme: light;
+  --ground:      #f6f7fa;
+  --surface:     #ffffff;
+  --surface-2:   #f0f2f7;
+  --ink:         #131721;
+  --ink-2:       #535c6e;
+  --ink-3:       #8a93a5;
+  --rule:        #e2e5ec;
+  --rule-soft:   #eef0f5;
+  --accent:      #2a78d6;
+  --accent-soft: #e8f0fc;
+
+  /* sequential ramp (validated blue, 100 -> 700) */
+  --seq-1: #cde2fb; --seq-2: #9ec5f4; --seq-3: #6da7ec; --seq-4: #3987e5;
+  --seq-5: #256abf; --seq-6: #184f95; --seq-7: #0d366b;
+  /* Ink paired to each ramp step. Declared per theme because the ramp runs
+     light-to-dark on the light surface and dark-to-light on the dark one. */
+  --on-seq-1: #131721; --on-seq-2: #131721; --on-seq-3: #131721;
+  --on-seq-4: #ffffff; --on-seq-5: #ffffff; --on-seq-6: #ffffff; --on-seq-7: #ffffff;
+
+  /* status: fixed roles, always paired with a text label */
+  --st-identical: #8a93a5;
+  --st-diacritic: #2a78d6;
+  --st-rasm:      #fab219;
+  --st-boundary:  #4a3aa7;
+  --st-partial:   #d03b3b;
+
+  --shadow: 0 1px 2px rgba(19,23,33,.05), 0 8px 24px -16px rgba(19,23,33,.18);
+  --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --display: Spectral, Georgia, "Times New Roman", serif;
+  --arabic: "Amiri Quran", "Scheherazade New", "Noto Naskh Arabic", "Amiri",
+            "Traditional Arabic", serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --ground:      #0e1116;
+    --surface:     #161b23;
+    --surface-2:   #1d232d;
+    --ink:         #f2f4f8;
+    --ink-2:       #a8b1c2;
+    --ink-3:       #7d8798;
+    --rule:        #262e3a;
+    --rule-soft:   #1f262f;
+    --accent:      #3987e5;
+    --accent-soft: #16263c;
+    --seq-1: #0d366b; --seq-2: #184f95; --seq-3: #256abf; --seq-4: #3987e5;
+    --seq-5: #6da7ec; --seq-6: #9ec5f4; --seq-7: #cde2fb;
+    --on-seq-1: #ffffff; --on-seq-2: #ffffff; --on-seq-3: #ffffff;
+    --on-seq-4: #0b1220; --on-seq-5: #0b1220; --on-seq-6: #0b1220; --on-seq-7: #0b1220;
+    --st-identical: #7d8798;
+    --st-diacritic: #3987e5;
+    --st-rasm:      #fab219;
+    --st-boundary:  #9085e9;
+    --st-partial:   #e06767;
+    --shadow: 0 1px 2px rgba(0,0,0,.4), 0 10px 30px -18px rgba(0,0,0,.8);
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --ground:      #0e1116;
+  --surface:     #161b23;
+  --surface-2:   #1d232d;
+  --ink:         #f2f4f8;
+  --ink-2:       #a8b1c2;
+  --ink-3:       #7d8798;
+  --rule:        #262e3a;
+  --rule-soft:   #1f262f;
+  --accent:      #3987e5;
+  --accent-soft: #16263c;
+  --seq-1: #0d366b; --seq-2: #184f95; --seq-3: #256abf; --seq-4: #3987e5;
+  --seq-5: #6da7ec; --seq-6: #9ec5f4; --seq-7: #cde2fb;
+  --on-seq-1: #ffffff; --on-seq-2: #ffffff; --on-seq-3: #ffffff;
+  --on-seq-4: #0b1220; --on-seq-5: #0b1220; --on-seq-6: #0b1220; --on-seq-7: #0b1220;
+  --st-identical: #7d8798;
+  --st-diacritic: #3987e5;
+  --st-rasm:      #fab219;
+  --st-boundary:  #9085e9;
+  --st-partial:   #e06767;
+  --shadow: 0 1px 2px rgba(0,0,0,.4), 0 10px 30px -18px rgba(0,0,0,.8);
+}
+
+/* ---------- base ---------- */
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink);
+  font: 400 15px/1.6 var(--sans);
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3 { font-family: var(--display); font-weight: 600; text-wrap: balance;
+             margin: 0; letter-spacing: -.01em; }
+h1 { font-size: clamp(28px, 4.4vw, 44px); line-height: 1.12; }
+h2 { font-size: clamp(21px, 2.6vw, 27px); line-height: 1.2; }
+h3 { font-size: 17px; }
+p  { margin: 0; }
+a  { color: var(--accent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
+
+.wrap { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+.prose { max-width: 68ch; color: var(--ink-2); }
+.eyebrow {
+  font: 500 11px/1 var(--sans); letter-spacing: .13em; text-transform: uppercase;
+  color: var(--ink-3);
+}
+.num { font-variant-numeric: tabular-nums; }
+.mono { font-family: var(--mono); font-size: .92em; }
+
+/* Qur'anic text. Per-glyph fallback covers the 2026 codepoints that the
+   newest KFGQPC releases use and older fonts have not yet added. */
+.ar {
+  font-family: var(--arabic); direction: rtl; unicode-bidi: isolate;
+  font-size: 1.55em; line-height: 2.1; font-feature-settings: "liga" 1;
+}
+
+/* ---------- masthead ---------- */
+header.top {
+  border-bottom: 1px solid var(--rule);
+  background: var(--surface);
+  position: sticky; top: 0; z-index: 40;
+}
+.top-in { display: flex; align-items: center; gap: 20px; height: 56px; }
+.brand { font-family: var(--display); font-weight: 600; font-size: 16px;
+         white-space: nowrap; }
+.brand span { color: var(--ink-3); font-weight: 400; }
+nav.jump { display: flex; gap: 2px; overflow-x: auto; scrollbar-width: none; }
+nav.jump::-webkit-scrollbar { display: none; }
+nav.jump a {
+  padding: 6px 10px; border-radius: 6px; text-decoration: none;
+  color: var(--ink-2); font-size: 13px; white-space: nowrap;
+}
+nav.jump a:hover { background: var(--surface-2); color: var(--ink); }
+
+/* ---------- hero ---------- */
+.hero { padding: 56px 0 40px; border-bottom: 1px solid var(--rule); background: var(--surface); }
+.hero .lede { margin-top: 16px; font-size: 17px; }
+.model-line {
+  margin-top: 28px; padding: 16px 18px; border: 1px solid var(--rule);
+  border-left: 3px solid var(--accent); border-radius: 4px;
+  background: var(--surface-2); font-family: var(--mono); font-size: 13.5px;
+  color: var(--ink-2); overflow-x: auto; white-space: nowrap;
+}
+.model-line b { color: var(--ink); font-weight: 500; }
+
+/* ---------- sections ---------- */
+section { padding: 52px 0; border-bottom: 1px solid var(--rule); }
+.sec-head { display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+
+/* ---------- stat tiles ---------- */
+.tiles { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(168px, 1fr)); }
+.tile {
+  background: var(--surface); border: 1px solid var(--rule); border-radius: 8px;
+  padding: 16px 18px; display: flex; flex-direction: column; gap: 6px;
+}
+.tile .v { font-size: 30px; font-weight: 600; line-height: 1; letter-spacing: -.02em; }
+.tile .k { font-size: 12.5px; color: var(--ink-2); }
+.tile.rare .v { font-size: 26px; }
+
+/* ---------- status chips ---------- */
+.chip {
+  display: inline-flex; align-items: center; gap: 6px; font-size: 12px;
+  padding: 2px 9px 2px 7px; border-radius: 999px; white-space: nowrap;
+  border: 1px solid var(--rule); background: var(--surface-2); color: var(--ink-2);
+}
+.chip::before { content: ""; width: 7px; height: 7px; border-radius: 50%;
+                background: var(--dot, var(--ink-3)); flex: none; }
+.s-identical { --dot: var(--st-identical); }
+.s-diacritic_variant { --dot: var(--st-diacritic); }
+.s-rasm_variant { --dot: var(--st-rasm); }
+.s-word_boundary { --dot: var(--st-boundary); }
+.s-partial { --dot: var(--st-partial); }
+
+/* ---------- composition bar ---------- */
+.comp { display: flex; gap: 2px; height: 34px; margin: 20px 0 10px; }
+.comp > div { border-radius: 2px; min-width: 3px; }
+.comp-key { display: flex; flex-wrap: wrap; gap: 8px 18px; }
+
+/* ---------- tables ---------- */
+.scroll { overflow-x: auto; border: 1px solid var(--rule); border-radius: 8px;
+          background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: 13.5px; }
+th, td { text-align: left; padding: 9px 14px; border-bottom: 1px solid var(--rule-soft); }
+th { font-weight: 500; font-size: 11.5px; letter-spacing: .06em; text-transform: uppercase;
+     color: var(--ink-3); position: sticky; top: 0; background: var(--surface);
+     border-bottom: 1px solid var(--rule); z-index: 1; }
+tbody tr:last-child td { border-bottom: 0; }
+tbody tr:hover { background: var(--surface-2); }
+td.r, th.r { text-align: right; font-variant-numeric: tabular-nums; }
+
+/* ---------- agreement matrix ---------- */
+.matrix { border-collapse: separate; border-spacing: 2px; font-size: 12.5px; }
+.matrix th { position: static; background: none; border: 0; text-transform: none;
+             font-size: 12px; letter-spacing: 0; color: var(--ink-2); padding: 4px 8px; }
+.matrix td { border: 0; padding: 0; }
+.cell {
+  width: 100%; min-width: 74px; height: 46px; border-radius: 3px;
+  display: flex; align-items: center; justify-content: center;
+  font-variant-numeric: tabular-nums; font-weight: 500; cursor: default;
+}
+.cell.self { background: var(--surface-2); color: var(--ink-3); }
+
+/* ---------- controls ---------- */
+.controls { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 18px; }
+.seg { display: inline-flex; border: 1px solid var(--rule); border-radius: 7px;
+       overflow: hidden; background: var(--surface); }
+.seg button {
+  border: 0; background: none; font: 500 12.5px var(--sans); color: var(--ink-2);
+  padding: 7px 13px; cursor: pointer;
+}
+.seg button + button { border-left: 1px solid var(--rule); }
+.seg button[aria-pressed="true"] { background: var(--accent); color: #fff; }
+input[type="search"], select {
+  font: 400 13.5px var(--sans); color: var(--ink); background: var(--surface);
+  border: 1px solid var(--rule); border-radius: 7px; padding: 7px 11px;
+}
+input[type="search"] { min-width: 210px; }
+.count { font-size: 13px; color: var(--ink-3); margin-left: auto; }
+
+/* ---------- apparatus entry: the core review unit ---------- */
+.entry {
+  background: var(--surface); border: 1px solid var(--rule);
+  border-left: 3px solid var(--edge, var(--rule)); border-radius: 6px;
+  margin-bottom: 8px; overflow: hidden;
+}
+.entry.e-rasm_variant  { --edge: var(--st-rasm); }
+.entry.e-word_boundary { --edge: var(--st-boundary); }
+.entry.e-partial       { --edge: var(--st-partial); }
+.entry-head {
+  display: flex; align-items: center; gap: 14px; padding: 11px 16px;
+  cursor: pointer; width: 100%; border: 0; background: none;
+  font: inherit; color: inherit; text-align: left;
+}
+.entry-head:hover { background: var(--surface-2); }
+.ref { font-family: var(--mono); font-size: 12.5px; color: var(--ink-3);
+       white-space: nowrap; min-width: 92px; }
+.entry-rasm { font-family: var(--arabic); font-size: 1.35em; direction: rtl;
+              unicode-bidi: isolate; min-width: 110px; }
+.readings { display: flex; flex-wrap: wrap; gap: 6px 14px; flex: 1; align-items: baseline; }
+.reading { display: inline-flex; align-items: baseline; gap: 8px; }
+.reading .w { font-family: var(--arabic); font-size: 1.35em; direction: rtl;
+              unicode-bidi: isolate; }
+.reading .who { font-size: 11.5px; color: var(--ink-3); letter-spacing: .02em; }
+.entry-body { padding: 4px 16px 18px 16px; border-top: 1px solid var(--rule-soft);
+              display: grid; gap: 16px; }
+.detail-grid { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
+.dcard { border: 1px solid var(--rule); border-radius: 6px; padding: 12px 14px; background: var(--surface-2); }
+.dcard .nm { font-size: 12px; color: var(--ink-2); margin-bottom: 4px; }
+.dcard .nm b { color: var(--ink); font-weight: 600; }
+.dcard .cp { font-family: var(--mono); font-size: 11px; color: var(--ink-3);
+             line-height: 1.7; word-break: break-word; margin-top: 6px; }
+.absent { color: var(--st-partial); font-size: 12px; font-weight: 500; }
+
+/* ---------- word strip (sample surah) ---------- */
+.strip { display: flex; flex-wrap: wrap; gap: 6px; direction: rtl; }
+.wcell {
+  border: 1px solid var(--rule); border-radius: 6px; background: var(--surface);
+  padding: 8px 12px 7px; min-width: 62px; text-align: center; cursor: default;
+  border-bottom: 2px solid var(--edge, var(--rule));
+}
+.wcell.e-diacritic_variant { --edge: var(--st-diacritic); }
+.wcell.e-rasm_variant { --edge: var(--st-rasm); }
+.wcell.e-word_boundary { --edge: var(--st-boundary); }
+.wcell.e-partial { --edge: var(--st-partial); }
+.wcell .w { font-family: var(--arabic); font-size: 1.5em; line-height: 1.9; }
+.wcell .id { font-family: var(--mono); font-size: 10px; color: var(--ink-3);
+             direction: ltr; font-variant-numeric: tabular-nums; }
+
+/* ---------- sparkbars ---------- */
+.spark { display: flex; align-items: flex-end; gap: 1px; height: 74px;
+         padding: 0; border: 1px solid var(--rule); border-radius: 8px;
+         background: var(--surface); padding: 10px 8px; overflow-x: auto; }
+.spark i { display: block; width: 7px; flex: none; background: var(--seq-4);
+           border-radius: 2px 2px 0 0; min-height: 1px; }
+.spark i[data-zero="1"] { background: var(--rule); }
+
+/* ---------- callouts ---------- */
+.note { border: 1px solid var(--rule); border-left: 3px solid var(--accent);
+        background: var(--surface); border-radius: 4px; padding: 14px 16px;
+        font-size: 13.5px; color: var(--ink-2); }
+.issue { border: 1px solid var(--rule); border-radius: 8px; background: var(--surface);
+         padding: 18px 20px; display: grid; gap: 10px; }
+.issue .tag { display: inline-flex; align-items: center; gap: 7px; font-size: 11.5px;
+              letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); }
+.issue .tag::before { content: ""; width: 8px; height: 8px; border-radius: 2px;
+                      background: var(--sev, var(--st-rasm)); }
+.issue.sev-none { --sev: var(--st-identical); }
+.issue.sev-fixed { --sev: var(--st-boundary); }
+.issue.sev-open { --sev: var(--st-partial); }
+.ba { display: grid; gap: 8px; grid-template-columns: 1fr; }
+@media (min-width: 700px) { .ba { grid-template-columns: 1fr 1fr; } }
+.ba > div { border: 1px solid var(--rule); border-radius: 6px; padding: 10px 14px;
+            background: var(--surface-2); }
+.ba .lbl { font-size: 11px; letter-spacing: .06em; text-transform: uppercase;
+           color: var(--ink-3); margin-bottom: 2px; }
+
+footer { padding: 40px 0 64px; color: var(--ink-3); font-size: 13px; }
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
+@media (max-width: 640px) {
+  .entry-head { flex-wrap: wrap; gap: 8px; }
+  .ref { min-width: 0; }
+}
+</style>
+
+<header class="top">
+  <div class="wrap top-in">
+    <div class="brand">Riwāyāt Apparatus <span>· quran-index</span></div>
+    <nav class="jump">
+      <a href="#overview">Overview</a>
+      <a href="#model">The model</a>
+      <a href="#agreement">Agreement</a>
+      <a href="#variants">Variants</a>
+      <a href="#issues">Source issues</a>
+      <a href="#suras">By sūrah</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Word-level review · 7 riwāyāt · KFGQPC sources</div>
+    <h1 style="margin-top:12px">Every word, one identifier,<br>seven readings</h1>
+    <p class="prose lede">
+      77,434 words of the Uthmānī text, aligned so that a single ID means the same
+      word in every riwāyah that has it. This page is for checking that claim:
+      the disagreements are listed in full, with each riwāyah's own spelling.
+    </p>
+    <div class="model-line">
+      sūrah → [ word, word, word, … ]&nbsp;&nbsp;<b>// āyah number is an attribute of a word, not a level of nesting</b>
+    </div>
+  </div>
+</div>
+
+<main>
+  <section id="overview">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="eyebrow">Overview</div>
+        <h2>What the alignment found</h2>
+        <p class="prose">
+          Two words in five are spelled identically everywhere. Most of the rest differ
+          only in vowelling. The part that needs a scholar's eye is the last 1.3 %:
+          985 words where the riwāyāt disagree about letters, word boundaries, or
+          whether the word is there at all.
+        </p>
+      </div>
+      <div class="tiles" id="tiles"></div>
+      <div class="comp" id="comp" role="img" aria-label="Composition of all words by status"></div>
+      <div class="comp-key" id="compKey"></div>
+      <div style="margin-top:28px" class="scroll">
+        <table id="riwTable">
+          <thead><tr>
+            <th>Riwāyah</th><th>الرواية</th><th>Qāriʾ</th><th>Counting</th>
+            <th class="r">Āyāt</th><th class="r">Words</th><th>Source document</th>
+          </tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <p class="note" style="margin-top:16px">
+        The āyah totals differ because the riwāyāt follow different counting traditions —
+        Kūfī 6,236, Madanī 6,214, Baṣrī 6,217, and the Makkī count KFGQPC uses for Bazzī,
+        6,220. That is precisely why the index is flat: nesting words under āyāt would
+        make one ID point at a different word in each riwāyah.
+      </p>
+    </div>
+  </section>
+
+  <section id="model">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="eyebrow">The model</div>
+        <h2>A sūrah is a list of words</h2>
+        <p class="prose">
+          Every cell is one canonical word with its permanent ID. Colour along the
+          bottom edge marks how much the riwāyāt disagree about it. Select a word to
+          see each riwāyah's spelling, its āyah number in that riwāyah, and the exact
+          codepoints.
+        </p>
+      </div>
+      <div class="controls">
+        <div class="seg" id="sampleSeg" role="group" aria-label="Choose sūrah"></div>
+        <span class="count" id="sampleCount"></span>
+      </div>
+      <div class="strip" id="strip"></div>
+      <div id="wordDetail" style="margin-top:18px"></div>
+    </div>
+  </section>
+
+  <section id="agreement">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="eyebrow">Agreement</div>
+        <h2>How close the riwāyāt sit</h2>
+        <p class="prose">
+          Share of shared words where two riwāyāt agree. <b>Rasm</b> is the consonantal
+          skeleton, <b>reading</b> folds away the codepoint differences between the 2022
+          and 2026 releases, and <b>spelling</b> is exact bytes. Every cell is labelled,
+          so colour is never the only channel.
+        </p>
+      </div>
+      <div class="controls">
+        <div class="seg" id="matrixSeg" role="group" aria-label="Choose measure">
+          <button data-m="rasm" aria-pressed="true">Same rasm</button>
+          <button data-m="read" aria-pressed="false">Same reading</button>
+          <button data-m="form" aria-pressed="false">Same spelling</button>
+        </div>
+        <span class="count" id="matrixRange"></span>
+      </div>
+      <div class="scroll" style="padding:12px">
+        <table class="matrix" id="matrix"></table>
+      </div>
+      <p class="note" style="margin-top:16px" id="matrixNote"></p>
+    </div>
+  </section>
+
+  <section id="variants">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="eyebrow">Variants</div>
+        <h2>Every disagreement, in full</h2>
+        <p class="prose">
+          All 985 words that are not simply a vowelling difference. Each entry groups the
+          riwāyāt by what they read. Select one to expand it.
+        </p>
+      </div>
+      <div class="controls">
+        <input type="search" id="q" placeholder="Search rasm or spelling…" aria-label="Search variants">
+        <select id="fStatus" aria-label="Filter by status">
+          <option value="">All kinds</option>
+          <option value="rasm_variant">Rasm variant</option>
+          <option value="word_boundary">Word boundary</option>
+          <option value="partial">Absent somewhere</option>
+        </select>
+        <select id="fRiw" aria-label="Filter by riwāyah"></select>
+        <select id="fSura" aria-label="Filter by sūrah"></select>
+        <span class="count" id="vCount"></span>
+      </div>
+      <div id="entries"></div>
+      <div style="margin-top:14px; text-align:center">
+        <button id="more" class="seg" style="padding:9px 18px; cursor:pointer;
+          font:500 13px var(--sans); background:var(--surface); color:var(--ink-2)">Show more</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="issues">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="eyebrow">Source issues</div>
+        <h2>Defects found in the KFGQPC packages</h2>
+        <p class="prose">
+          Six riwāyāt ship two releases. Comparing a document against its own publisher's
+          other release is the sharpest check available, and it found three defects.
+        </p>
+      </div>
+      <div style="display:grid; gap:14px" id="issueList"></div>
+      <div style="margin-top:26px" class="scroll">
+        <table id="xrel">
+          <thead><tr>
+            <th>Riwāyah</th><th class="r">Āyāt compared</th><th class="r">Identical</th>
+            <th class="r">Notation only</th><th class="r">Marks / vowels</th>
+            <th class="r">Rasm differs</th>
+          </tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <p class="note" style="margin-top:16px">
+        The <b>marks / vowels</b> column is dominated by the 2026 files adopting the Arabic
+        Extended-B alif letters (U+0870–U+0879), which fold an alif and its vowel into one
+        codepoint where the 2022 files used an alif plus combining marks. The rasm is
+        untouched, so none of it reaches the word index.
+      </p>
+    </div>
+  </section>
+
+  <section id="suras">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="eyebrow">By sūrah</div>
+        <h2>Where the disagreements sit</h2>
+        <p class="prose">
+          Variants per 1,000 words, sūrah 1 to 114. Bars in grey are sūrahs where the
+          seven riwāyāt differ only in vowelling.
+        </p>
+      </div>
+      <div class="spark" id="spark" role="img" aria-label="Variant density by sūrah"></div>
+      <div class="scroll" style="margin-top:18px; max-height:520px; overflow-y:auto">
+        <table id="suraTable">
+          <thead><tr>
+            <th class="r">#</th><th>Sūrah</th><th></th><th class="r">Words</th>
+            <th class="r">Identical</th><th class="r">Diacritic</th>
+            <th class="r">Rasm</th><th class="r">Boundary</th><th class="r">Absent</th>
+            <th class="r">Per 1,000</th>
+          </tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>
+      Derived from King Fahd Glorious Qur'an Printing Complex releases. Nothing here is
+      authored — the pipeline re-segments and aligns what the packages contain.
+      Redistribution of the text remains subject to KFGQPC's terms.
+    </p>
+    <p style="margin-top:10px">
+      Arabic is set in Amiri Quran with layered fallbacks. A few codepoints in the 2026
+      releases are very new; if a glyph is missing in your browser, expand the entry —
+      every form is also listed by codepoint.
+    </p>
+  </div>
+</footer>
+
+<script type="application/json" id="payload">__DATA__</script>
+<script>
+"use strict";
+const D = JSON.parse(document.getElementById("payload").textContent);
+const RIW = D.riwayat;
+const KEYS = RIW.map(r => r.key);
+const NAME = Object.fromEntries(RIW.map(r => [r.key, r.en]));
+const el = (t, c, x) => { const n = document.createElement(t);
+  if (c) n.className = c; if (x !== undefined) n.textContent = x; return n; };
+const fmt = n => n.toLocaleString("en-US");
+
+const STATUS = [
+  ["identical",         "Identical",        "same reading and spelling in all seven"],
+  ["diacritic_variant", "Diacritic",        "same letters, different vowelling"],
+  ["rasm_variant",      "Rasm variant",     "the riwāyāt disagree about the letters"],
+  ["word_boundary",     "Word boundary",    "a source joins the word to its neighbour"],
+  ["partial",           "Absent somewhere", "the word is missing from a riwāyah"]
+];
+const LABEL = Object.fromEntries(STATUS.map(s => [s[0], s[1]]));
+
+/* ---------- overview ---------- */
+(function tiles() {
+  const host = document.getElementById("tiles");
+  const total = D.wordCount;
+  const t = [
+    ["Canonical words", fmt(total), ""],
+    ["Riwāyāt aligned", String(RIW.length), ""],
+    ["Rasm variants", fmt(D.status.rasm_variant || 0), "rasm_variant"],
+    ["Word boundary", fmt(D.status.word_boundary || 0), "word_boundary"],
+    ["Absent somewhere", fmt(D.status.partial || 0), "partial"]
+  ];
+  t.forEach(([k, v, s]) => {
+    const c = el("div", "tile" + (s ? " rare" : ""));
+    c.append(el("div", "v", v));
+    const kk = el("div", "k");
+    if (s) { const ch = el("span", "chip s-" + s, LABEL[s]); kk.append(ch); }
+    else kk.textContent = k;
+    c.append(kk);
+    host.append(c);
+  });
+})();
+
+(function composition() {
+  const bar = document.getElementById("comp"), key = document.getElementById("compKey");
+  const total = D.wordCount;
+  STATUS.forEach(([s, label]) => {
+    const n = D.status[s] || 0;
+    if (!n) return;
+    const d = el("div");
+    // Rare classes would vanish at true scale; floor the width so each stays visible
+    // and carries its own label, with the exact count beside it in the key.
+    d.style.flex = Math.max(n / total, 0.006) + " 0 0";
+    d.style.background = "var(--st-" + s.replace("_variant", "").replace("word_", "") + ")";
+    d.title = label + " — " + fmt(n);
+    bar.append(d);
+    const k = el("div");
+    k.append(el("span", "chip s-" + s, label));
+    k.append(el("span", "num", " " + fmt(n) + " · " + (100 * n / total).toFixed(2) + "%"));
+    k.style.cssText = "display:flex;gap:8px;align-items:center;font-size:12.5px;color:var(--ink-2)";
+    key.append(k);
+  });
+})();
+
+(function riwTable() {
+  const tb = document.querySelector("#riwTable tbody");
+  RIW.forEach(r => {
+    const tr = el("tr");
+    tr.append(el("td", "", r.en));
+    const ar = el("td", "", r.ar); ar.dir = "rtl"; ar.style.fontFamily = "var(--arabic)";
+    ar.style.fontSize = "1.25em"; tr.append(ar);
+    tr.append(el("td", "", r.qari));
+    tr.append(el("td", "", r.counting));
+    tr.append(el("td", "r num", fmt(r.ayat)));
+    tr.append(el("td", "r num", fmt(r.words)));
+    tr.append(el("td", "mono", r.source));
+    tb.append(tr);
+  });
+})();
+
+/* ---------- sample sūrah strip ---------- */
+const SAMPLE_IDS = Object.keys(D.samples);
+let sampleId = SAMPLE_IDS[0];
+
+function codepoints(s) {
+  return Array.from(s).map(c => "U+" + c.codePointAt(0).toString(16).toUpperCase().padStart(4, "0")).join(" ");
+}
+
+function showWord(w) {
+  const host = document.getElementById("wordDetail");
+  host.innerHTML = "";
+  const box = el("div", "entry e-" + w.status);
+  const head = el("div", "entry-head");
+  head.style.cursor = "default";
+  head.append(el("span", "ref", "#" + w.id + " · " + w.s + ":" + w.aya));
+  const ras = el("span", "entry-rasm", w.rasm); head.append(ras);
+  head.append(el("span", "chip s-" + w.status, LABEL[w.status]));
+  const k = el("span", "mono"); k.style.color = "var(--ink-3)"; k.style.fontSize = "12px";
+  k.textContent = w.key; head.append(k);
+  box.append(head);
+  const body = el("div", "entry-body");
+  const grid = el("div", "detail-grid");
+  KEYS.forEach(key => {
+    const g = (w.groups || []).find(g => g.riwayat.includes(key));
+    const card = el("div", "dcard");
+    const nm = el("div", "nm");
+    nm.innerHTML = "<b>" + NAME[key] + "</b> · āyah " + (w.ayaAll && w.ayaAll[key] !== undefined ? w.ayaAll[key] : "—");
+    card.append(nm);
+    if (!g) { card.append(el("div", "absent", "absent from this riwāyah")); }
+    else {
+      const a = el("div", "ar", g.form); a.style.fontSize = "1.5em"; card.append(a);
+      card.append(el("div", "cp", codepoints(g.form)));
+    }
+    grid.append(card);
+  });
+  body.append(grid);
+  box.append(body);
+  host.append(box);
+}
+
+function renderStrip() {
+  const s = D.samples[sampleId];
+  const strip = document.getElementById("strip");
+  strip.innerHTML = "";
+  s.words.forEach(w => {
+    const c = el("button", "wcell e-" + w.status);
+    c.style.cssText += "font:inherit;color:inherit;cursor:pointer";
+    c.append(el("div", "w", w.uthmani));
+    c.append(el("div", "id", "#" + w.id));
+    c.title = LABEL[w.status];
+    c.addEventListener("click", () => showWord(w));
+    strip.append(c);
+  });
+  document.getElementById("sampleCount").textContent =
+    s.words.length + " words · select any word for its seven forms";
+  showWord(s.words[0]);
+}
+
+(function sampleSeg() {
+  const seg = document.getElementById("sampleSeg");
+  SAMPLE_IDS.forEach(id => {
+    const b = el("button", "", D.samples[id].name_en);
+    b.setAttribute("aria-pressed", String(id === sampleId));
+    b.addEventListener("click", () => {
+      sampleId = id;
+      [...seg.children].forEach(x => x.setAttribute("aria-pressed", String(x === b)));
+      renderStrip();
+    });
+    seg.append(b);
+  });
+  renderStrip();
+})();
+
+/* ---------- agreement matrix ---------- */
+let measure = "rasm";
+const PAIR = {};
+D.pairs.forEach(p => { PAIR[p.a + "|" + p.b] = p; PAIR[p.b + "|" + p.a] = p; });
+
+function renderMatrix() {
+  const table = document.getElementById("matrix");
+  table.innerHTML = "";
+  const vals = D.pairs.map(p => p[measure] / p.n);
+  const lo = Math.min(...vals), hi = Math.max(...vals);
+  const head = el("tr");
+  head.append(el("th", "", ""));
+  KEYS.forEach(k => head.append(el("th", "", NAME[k])));
+  table.append(head);
+  KEYS.forEach(a => {
+    const tr = el("tr");
+    const th = el("th", "", NAME[a]); th.style.textAlign = "right"; tr.append(th);
+    KEYS.forEach(b => {
+      const td = el("td");
+      const div = el("div", "cell");
+      if (a === b) { div.classList.add("self"); div.textContent = "—"; }
+      else {
+        const p = PAIR[a + "|" + b];
+        const v = p[measure] / p.n;
+        // Values sit in a narrow band, so the ramp is scaled to the observed
+        // range rather than to 0–100 %, which would render every cell alike.
+        const t = hi === lo ? 0.5 : (v - lo) / (hi - lo);
+        const step = Math.min(7, Math.max(1, Math.round(1 + t * 6)));
+        div.style.background = "var(--seq-" + step + ")";
+        div.style.color = "var(--on-seq-" + step + ")";
+        div.textContent = (100 * v).toFixed(measure === "rasm" ? 2 : 1) + "%";
+        div.title = NAME[a] + " ↔ " + NAME[b] + ": " + fmt(p[measure]) +
+                    " of " + fmt(p.n) + " shared words";
+      }
+      td.append(div);
+      tr.append(td);
+    });
+    table.append(tr);
+  });
+  document.getElementById("matrixRange").textContent =
+    "range " + (100 * lo).toFixed(2) + "% – " + (100 * hi).toFixed(2) + "%";
+  const notes = {
+    rasm: "Rasm agreement never falls below 99 %. The two pairs that share a qāriʾ — Dūrī–Sūsī and Ḥafṣ–Shuʿbah — sit at the top, which is the result you would expect if the alignment is measuring something real.",
+    read: "Once release notation is folded away, agreement tracks the qāriʾ relationships rather than the publication date.",
+    form: "Exact spelling agreement is far lower, and mostly reflects typesetting: the 2026 documents use codepoints the 2022 ones did not have. Dūrī, the one riwāyah still on a 2022 document, is low against everything for that reason alone."
+  };
+  document.getElementById("matrixNote").textContent = notes[measure];
+}
+document.getElementById("matrixSeg").addEventListener("click", e => {
+  const b = e.target.closest("button"); if (!b) return;
+  measure = b.dataset.m;
+  [...e.currentTarget.children].forEach(x => x.setAttribute("aria-pressed", String(x === b)));
+  renderMatrix();
+});
+renderMatrix();
+
+/* ---------- variants browser ---------- */
+const SURA_NAME = Object.fromEntries(D.perSura.map(s => [s.s, s.name_en]));
+let shown = 40;
+
+(function fillFilters() {
+  const fr = document.getElementById("fRiw");
+  fr.append(new Option("Any riwāyah", ""));
+  RIW.forEach(r => fr.append(new Option(r.en, r.key)));
+  const fs = document.getElementById("fSura");
+  fs.append(new Option("All sūrahs", ""));
+  const withVariants = new Set(D.conflicts.map(c => c.s));
+  D.perSura.filter(s => withVariants.has(s.s))
+    .forEach(s => fs.append(new Option(s.s + " · " + s.name_en, String(s.s))));
+})();
+
+function filtered() {
+  const q = document.getElementById("q").value.trim();
+  const st = document.getElementById("fStatus").value;
+  const rw = document.getElementById("fRiw").value;
+  const su = document.getElementById("fSura").value;
+  return D.conflicts.filter(c => {
+    if (st && c.status !== st) return false;
+    if (su && String(c.s) !== su) return false;
+    if (rw) {
+      // "Involved" means departing from the majority reading — otherwise a
+      // filter by riwāyah would match nearly every variant and tell you nothing.
+      let majority = c.groups[0];
+      for (const g of c.groups) if (g.riwayat.length > majority.riwayat.length) majority = g;
+      const involved = (c.missing || []).includes(rw) ||
+        Object.prototype.hasOwnProperty.call(c.boundary || {}, rw) ||
+        (c.groups.length > 1 && !majority.riwayat.includes(rw));
+      if (!involved) return false;
+    }
+    if (q) {
+      const hay = c.rasm + " " + c.uthmani + " " + c.groups.map(g => g.form).join(" ");
+      if (!hay.includes(q)) return false;
+    }
+    return true;
+  });
+}
+
+function entryNode(c) {
+  const box = el("div", "entry e-" + c.status);
+  const head = el("button", "entry-head");
+  head.setAttribute("aria-expanded", "false");
+  head.append(el("span", "ref", "#" + c.id + " · " + c.s + ":" + c.aya));
+  head.append(el("span", "entry-rasm", c.rasm));
+  const readings = el("div", "readings");
+  c.groups.forEach(g => {
+    const r = el("span", "reading");
+    r.append(el("span", "w", g.form));
+    r.append(el("span", "who", g.riwayat.map(k => NAME[k]).join(", ")));
+    readings.append(r);
+  });
+  if (c.missing && c.missing.length) {
+    const r = el("span", "reading");
+    r.append(el("span", "absent", "absent: " + c.missing.map(k => NAME[k]).join(", ")));
+    readings.append(r);
+  }
+  head.append(readings);
+  head.append(el("span", "chip s-" + c.status, LABEL[c.status]));
+  box.append(head);
+
+  const body = el("div", "entry-body");
+  body.hidden = true;
+  head.addEventListener("click", () => {
+    const open = body.hidden;
+    body.hidden = !open;
+    head.setAttribute("aria-expanded", String(open));
+    if (open && !body.dataset.built) {
+      const grid = el("div", "detail-grid");
+      KEYS.forEach(key => {
+        const g = c.groups.find(g => g.riwayat.includes(key));
+        const card = el("div", "dcard");
+        const nm = el("div", "nm"); nm.innerHTML = "<b>" + NAME[key] + "</b>";
+        if (c.boundary && c.boundary[key]) {
+          nm.innerHTML += ' · <span style="color:var(--st-boundary)">' +
+            c.boundary[key].replace(/_/g, " ") + "</span>";
+        }
+        card.append(nm);
+        if (!g) card.append(el("div", "absent", "absent from this riwāyah"));
+        else {
+          const a = el("div", "ar", g.form); a.style.fontSize = "1.5em"; card.append(a);
+          card.append(el("div", "cp", codepoints(g.form)));
+        }
+        grid.append(card);
+      });
+      body.append(grid);
+      body.dataset.built = "1";
+    }
+  });
+  box.append(body);
+  return box;
+}
+
+function renderEntries() {
+  const list = filtered();
+  const host = document.getElementById("entries");
+  host.innerHTML = "";
+  list.slice(0, shown).forEach(c => host.append(entryNode(c)));
+  document.getElementById("vCount").textContent =
+    fmt(Math.min(shown, list.length)) + " of " + fmt(list.length) + " shown";
+  document.getElementById("more").style.display = shown >= list.length ? "none" : "";
+}
+["q", "fStatus", "fRiw", "fSura"].forEach(id =>
+  document.getElementById(id).addEventListener("input", () => { shown = 40; renderEntries(); }));
+document.getElementById("more").addEventListener("click", () => { shown += 60; renderEntries(); });
+renderEntries();
+
+/* ---------- issues ---------- */
+const ISSUES = [
+  { sev: "sev-open", tag: "Open · reported on every build",
+    title: "Sūsī v3.0 splits Al-Mulk 67:9 into two āyāt",
+    body: "The 2026 document numbers 31 āyāt in sūrah 67. Al-Mulk has 30 in every counting tradition, and Sūsī's own 2022 release has 30. Every āyah from 9 to 30 is shifted by one, and the riwāyah totals 6,218 instead of 6,217.",
+    impact: "No effect on the word index — this is purely an āyah boundary, and the word sequence is untouched. Had words been nested under āyāt, this single defect would have misaligned 2,000+ words. Not silently corrected: deciding which side of the split is wrong is an editorial call, not a build step.",
+    before: { l: "v3.0 document · 31 āyāt", t: "قَالُواْ بَلَىٰ قَد جَّآءَنَا نَذِيرࣱ ۝٩ فَكَذَّبۡنَا وَقُلۡنَا…" },
+    after:  { l: "v2.0 release · 30 āyāt", t: "قَالُواْ بَلَىٰ قَد جَّآءَنَا نَذِيرٞ فَكَذَّبۡنَا وَقُلۡنَا… ۝٩" } },
+  { sev: "sev-fixed", tag: "Handled",
+    title: "Qālūn v3.0 is missing the heading for Al-Baqarah",
+    body: "The document has 113 sūrah headings instead of 114. “سُورَةُ البَقَرَةِ” was typed at the end of the Al-Fātiḥah paragraph, after āyah 7's number, rather than in its own paragraph.",
+    impact: "Heading-driven segmentation shifted every sūrah after Al-Fātiḥah by one, and the stranded heading landed as two words at the head of 2:1. Sūrahs are now split on āyah-numbering resets instead, and trailing headings are stripped — narrowly, since sūrah 24 opens with سُورَةٌ أَنزَلۡنَٰهَا, which is scripture.",
+    before: { l: "As typed", t: "…وَلَا ٱلضَّآلِّينَ ۝٧ سُورَةُ البَقَرَةِ" },
+    after:  { l: "As parsed", t: "…وَلَا ٱلضَّآلِّينَ ۝٧  ⟨sūrah 2 begins⟩" } },
+  { sev: "sev-fixed", tag: "Handled",
+    title: "Dūrī v3.0 drops three spaces between words",
+    body: "Three word pairs are printed joined at 4:90, 10:26 and 11:77. Dūrī's own 2022 CSV prints all three with the space, which makes them typographic defects rather than orthographic choices.",
+    impact: "The words are re-segmented so the index keeps one column per word, and the join is recorded. Left alone, each would have falsely reported the following word absent from Dūrī.",
+    before: { l: "v3.0 document · 11:77", t: "وَمِن قَبۡلُ كَانُواْيَعۡمَلُونَ" },
+    after:  { l: "v2.0 release · 11:77", t: "وَمِن قَبۡلُ كَانُواْ يَعۡمَلُونَ" } },
+  { sev: "sev-none", tag: "Not a defect",
+    title: "Joins that are genuine orthography",
+    body: "The same mechanism catches joins the pipeline deliberately does not judge: Bazzī's لَأُاْقۡسِمُ at 75:1, and مَالِيَ at 27:20 and 36:22 — the traditional muṣḥaf spelling.",
+    impact: "Here the 2026 Ḥafṣ document moved the other way and separated مَا لِيَ, where Ḥafṣ's own 2022 CSV joins it — a deliberate change of convention between releases. All 12 joins are listed under Variants, flagged rather than resolved.",
+    before: { l: "Ḥafṣ 2022 CSV · 36:22", t: "وَمَالِيَ لَآ أَعۡبُدُ" },
+    after:  { l: "Ḥafṣ 2026 document · 36:22", t: "وَمَا لِيَ لَآ أَعۡبُدُ" } }
+];
+(function renderIssues() {
+  const host = document.getElementById("issueList");
+  ISSUES.forEach(i => {
+    const d = el("div", "issue " + i.sev);
+    d.append(el("div", "tag", i.tag));
+    d.append(el("h3", "", i.title));
+    d.append(el("p", "prose", i.body));
+    const ba = el("div", "ba");
+    [i.before, i.after].forEach(x => {
+      const c = el("div");
+      c.append(el("div", "lbl", x.l));
+      const a = el("div", "ar", x.t); a.style.fontSize = "1.3em"; c.append(a);
+      ba.append(c);
+    });
+    d.append(ba);
+    const im = el("p", "prose", i.impact);
+    im.style.cssText = "font-size:13.5px;border-top:1px solid var(--rule);padding-top:10px";
+    d.append(im);
+    host.append(d);
+  });
+})();
+
+(function xrel() {
+  const tb = document.querySelector("#xrel tbody");
+  Object.entries(D.crossRelease).forEach(([k, v]) => {
+    const tr = el("tr");
+    tr.append(el("td", "", NAME[k]));
+    [v.ayat_compared, v.identical, v.notation_only, v.marks_only, v.rasm_differs]
+      .forEach(n => tr.append(el("td", "r num", fmt(n))));
+    tb.append(tr);
+  });
+})();
+
+/* ---------- per-sūrah ---------- */
+(function suras() {
+  const spark = document.getElementById("spark");
+  const rows = D.perSura.map(s => ({ ...s,
+    variants: s.rasm + s.boundary + s.partial,
+    per1000: 1000 * (s.rasm + s.boundary + s.partial) / s.n }));
+  const max = Math.max(...rows.map(r => r.per1000));
+  rows.forEach(r => {
+    const b = el("i");
+    b.style.height = Math.max(1, Math.round(70 * r.per1000 / max)) + "px";
+    if (!r.variants) b.dataset.zero = "1";
+    b.title = r.s + " · " + r.name_en + " — " + r.variants + " variants in " +
+              fmt(r.n) + " words (" + r.per1000.toFixed(1) + " per 1,000)";
+    spark.append(b);
+  });
+  const tb = document.querySelector("#suraTable tbody");
+  rows.forEach(r => {
+    const tr = el("tr");
+    tr.append(el("td", "r num", String(r.s)));
+    tr.append(el("td", "", r.name_en));
+    const ar = el("td", "", r.name_ar); ar.dir = "rtl";
+    ar.style.fontFamily = "var(--arabic)"; ar.style.fontSize = "1.2em"; tr.append(ar);
+    [r.n, r.identical, r.diacritic, r.rasm, r.boundary, r.partial]
+      .forEach(n => tr.append(el("td", "r num", fmt(n))));
+    tr.append(el("td", "r num", r.per1000.toFixed(1)));
+    tb.append(tr);
+  });
+})();
+</script>

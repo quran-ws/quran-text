@@ -148,3 +148,14 @@ All text is derived from King Fahd Glorious Qur'an Printing Complex (KFGQPC)
 releases. Nothing was authored here; the pipeline only re-segments and aligns
 what the packages contain. Redistribution of the text remains subject to
 KFGQPC's terms.
+
+## Review page
+
+`out/review.html` is a self-contained page for reviewing the result: all 985
+disagreements with each riwāyah's own spelling and codepoints, the agreement
+matrix, complete sample sūrahs showing the flat word model, and the source
+defects with before/after. Open it directly, or rebuild it with:
+
+```sh
+python3 build_review.py
+```
