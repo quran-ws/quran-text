@@ -1,6 +1,6 @@
 # Cross-riwāyah comparison
 
-Generated 2026-09-01 from the KFGQPC packages in `data/`. 77,434 canonical words across 114 sūrahs and 7 riwāyāt.
+Generated 2026-09-05 from the KFGQPC packages in `data/`. 77,434 canonical words across 114 sūrahs and 7 riwāyāt.
 
 Every word carries one ID that means the same word in every riwāyah that has it. Where the riwāyāt disagree, the disagreement is recorded against that ID rather than hidden by it.
 
@@ -21,17 +21,17 @@ The two skeletons are separate on purpose. `تَعۡمَلُونَ` and `يَع�
 
 ## The riwāyāt
 
-| key | riwāyah | الرواية | qāriʾ | counting | āyāt | words |
+| key | riwāyah | الرواية | qāriʾ | counting system | āyāt | words |
 |---|---|---|---|---|---|---|
-| hafs | Ḥafṣ | حفص | ʿĀṣim al-Kūfī | kufi | 6,236 | 77,432 |
-| shuba | Shuʿbah | شعبة | ʿĀṣim al-Kūfī | kufi | 6,236 | 77,432 |
-| warsh | Warsh | ورش | Nāfiʿ al-Madanī | madani | 6,214 | 77,431 |
-| qaloun | Qālūn | قالون | Nāfiʿ al-Madanī | madani | 6,214 | 77,431 |
-| douri | Dūrī | الدوري | Abū ʿAmr al-Baṣrī | basri | 6,217 | 77,431 |
-| sousi | Sūsī | السوسي | Abū ʿAmr al-Baṣrī | basri | 6,218 | 77,431 |
-| bazzi | Bazzī | البزي | Ibn Kathīr al-Makkī | makki | 6,220 | 77,432 |
+| hafs | Ḥafṣ | حفص | ʿĀṣim al-Kūfī | `kufi` | 6,236 | 77,432 |
+| shuba | Shuʿbah | شعبة | ʿĀṣim al-Kūfī | `kufi` | 6,236 | 77,432 |
+| warsh | Warsh | ورش | Nāfiʿ al-Madanī | `madani-last` | 6,214 | 77,431 |
+| qaloun | Qālūn | قالون | Nāfiʿ al-Madanī | `madani-last` | 6,214 | 77,431 |
+| douri | Dūrī | الدوري | Abū ʿAmr al-Baṣrī | `madani-first` | 6,217 | 77,431 |
+| sousi | Sūsī | السوسي | Abū ʿAmr al-Baṣrī | `madani-first` | 6,218 | 77,431 |
+| bazzi | Bazzī | البزي | Ibn Kathīr al-Makkī | `makki` | 6,220 | 77,432 |
 
-The āyah totals are not errors and not deducible from the qāriʾ. Many fawāṣil are مختلف فيها, so every printed muṣḥaf chooses, and the `counting` column above is a conventional label rather than a claim about this package. That is exactly why the index is flat, and why the āyah boundaries are read off each muṣḥaf rather than assumed: see [the fawāṣil](#fawāṣil-where-the-āyāt-end) below.
+The āyah totals are not errors and not deducible from the qāriʾ. Many fawāṣil are مختلف فيها, so every printed edition chooses, and the counting system above is **derived** from what this package prints, not assumed from the riwāyah. That is exactly why the index is flat, and why the āyah boundaries are read off each muṣḥaf: see [the fawāṣil](#fawāṣil-where-the-āyāt-end) below.
 
 ## How the words compare
 
@@ -41,9 +41,9 @@ The āyah totals are not errors and not deducible from the qāriʾ. Many fawā�
 | `diacritic_variant` | 36,261 | 46.83% | same letters and same dots — the vowelling differs |
 | `dotting_variant` | 338 | 0.44% | one rasm, pointed differently: تَعۡمَلُونَ against يَعۡمَلُونَ |
 | `alif_variant` | 198 | 0.26% | one skeleton, one ā: on the line in one hand, above it in the other |
-| `rasm_variant` | 62 | 0.08% | the codices disagree about the letters on the line |
-| `word_boundary` | 12 | 0.02% | a source prints the word joined to its neighbour |
-| `partial` | 5 | 0.01% | the word is absent from at least one riwāyah |
+| `rasm_variant` | 60 | 0.08% | the codices disagree about the letters on the line |
+| `word_boundary` | 16 | 0.02% | a source prints the word joined to its neighbour |
+| `partial` | 3 | 0.00% | the word is absent from at least one riwāyah |
 
 Each word gets the *strongest* label that applies, tested in this order: rasm, ā, absence, boundary, dotting, vowelling. So a `dotting_variant` is guaranteed to share one rasm across all seven, an `alif_variant` to share one skeleton once every ā is spelled out, and an `identical` word is identical after notation folding — the raw spelling of every riwāyah is always kept in `forms`, whatever the label.
 
@@ -53,48 +53,48 @@ Share of the words two riwāyāt both have, where they agree at each level.
 
 | pair | shared words | same spelling | same reading | same letters | same rasm |
 |---|---|---|---|---|---|
-| douri–sousi | 77,431 | 66.7% | 82.8% | 99.97% | 100.00% |
+| douri–sousi | 77,432 | 66.7% | 82.8% | 99.97% | 100.00% |
 | warsh–qaloun | 77,431 | 85.2% | 87.5% | 99.95% | 99.99% |
-| hafs–shuba | 77,432 | 99.2% | 99.2% | 99.86% | 99.99% |
-| shuba–douri | 77,430 | 70.9% | 74.1% | 99.76% | 99.98% |
-| shuba–sousi | 77,430 | 72.1% | 72.9% | 99.73% | 99.98% |
-| shuba–bazzi | 77,431 | 84.1% | 84.1% | 99.75% | 99.97% |
-| hafs–douri | 77,430 | 70.8% | 74.1% | 99.74% | 99.97% |
-| douri–bazzi | 77,430 | 57.8% | 61.0% | 99.84% | 99.97% |
-| hafs–bazzi | 77,431 | 84.0% | 84.0% | 99.73% | 99.97% |
-| hafs–sousi | 77,430 | 72.0% | 72.8% | 99.71% | 99.97% |
-| sousi–bazzi | 77,430 | 66.6% | 67.4% | 99.81% | 99.97% |
-| hafs–warsh | 77,430 | 41.3% | 75.2% | 99.72% | 99.70% |
-| shuba–warsh | 77,430 | 41.4% | 75.2% | 99.73% | 99.70% |
-| warsh–bazzi | 77,430 | 37.2% | 63.4% | 99.73% | 99.70% |
-| warsh–douri | 77,430 | 37.8% | 76.3% | 99.72% | 99.70% |
-| warsh–sousi | 77,430 | 39.2% | 77.7% | 99.74% | 99.69% |
-| hafs–qaloun | 77,430 | 40.4% | 76.6% | 99.76% | 99.69% |
-| shuba–qaloun | 77,430 | 40.5% | 76.6% | 99.77% | 99.69% |
-| qaloun–bazzi | 77,430 | 41.5% | 70.8% | 99.76% | 99.69% |
-| qaloun–douri | 77,430 | 36.8% | 78.5% | 99.75% | 99.69% |
-| qaloun–sousi | 77,430 | 42.6% | 84.4% | 99.72% | 99.69% |
+| hafs–shuba | 77,433 | 99.2% | 99.2% | 99.86% | 99.99% |
+| shuba–douri | 77,432 | 70.9% | 74.1% | 99.75% | 99.98% |
+| shuba–sousi | 77,432 | 72.1% | 72.9% | 99.72% | 99.97% |
+| shuba–bazzi | 77,432 | 84.1% | 84.1% | 99.75% | 99.97% |
+| hafs–bazzi | 77,432 | 84.0% | 84.0% | 99.73% | 99.97% |
+| hafs–douri | 77,432 | 70.8% | 74.1% | 99.73% | 99.97% |
+| douri–bazzi | 77,432 | 57.8% | 61.0% | 99.83% | 99.97% |
+| hafs–sousi | 77,432 | 72.0% | 72.8% | 99.70% | 99.97% |
+| sousi–bazzi | 77,432 | 66.6% | 67.4% | 99.80% | 99.97% |
+| hafs–warsh | 77,431 | 41.3% | 75.2% | 99.72% | 99.70% |
+| shuba–warsh | 77,431 | 41.4% | 75.2% | 99.73% | 99.70% |
+| warsh–bazzi | 77,431 | 37.2% | 63.4% | 99.72% | 99.70% |
+| warsh–douri | 77,431 | 37.8% | 76.3% | 99.72% | 99.69% |
+| warsh–sousi | 77,431 | 39.2% | 77.7% | 99.74% | 99.69% |
+| hafs–qaloun | 77,431 | 40.4% | 76.6% | 99.76% | 99.69% |
+| shuba–qaloun | 77,431 | 40.5% | 76.6% | 99.77% | 99.69% |
+| qaloun–bazzi | 77,431 | 41.5% | 70.8% | 99.76% | 99.69% |
+| qaloun–douri | 77,431 | 36.8% | 78.5% | 99.75% | 99.69% |
+| qaloun–sousi | 77,431 | 42.6% | 84.4% | 99.72% | 99.69% |
 
 Rasm agreement never drops below 99.5%: the seven riwāyāt are one text. Spelling agreement is far lower because the packages were typeset in different years with different conventions — which is what the `folded` and `pointed` columns strip away.
 
 ## Where the riwāyāt genuinely disagree
 
-Three things can differ once spelling, vowelling and pointing are set aside: the letters, the word boundaries, and whether a word is there at all. Together they account for 79 of 77,434 words. A fourth kind is listed with them and counted apart: 198 words where the disagreement is only about whether an ā sits on the line or above it.
+Three things can differ once spelling, vowelling and pointing are set aside: the letters, the word boundaries, and whether a word is there at all. Together they account for 75 of 77,434 words. A fourth kind is listed with them and counted apart: 198 words where the disagreement is only about whether an ā sits on the line or above it.
 
 | kind | count | status | what it means |
 |---|---|---|---|
-| letters differ | 62 | `rasm_variant` | a letter one codex has on the line and another does not — 56 of them one letter more, 6 one letter for another |
+| letters differ | 60 | `rasm_variant` | a letter one codex has on the line and another does not — 56 of them one letter more, 4 one letter for another |
 | the ā is placed differently | 198 | `alif_variant` | one skeleton once every ā is spelled out; the two hands disagree about which ā to write on the line |
 | boundaries differ | 6 events | `word_boundary` | one source prints two words as one |
-| word absent | 5 | `partial` | a riwāyah does not have the word at all |
+| word absent | 3 | `partial` | a riwāyah does not have the word at all |
 
 ### Letters — rasm disagreements
 
-62 words where the riwāyāt disagree about the letters on the line, after dots, hamza, vowelling and the ā have all been set aside. These are the differences the sources can be trusted on: they split the seven riwāyāt 14 different ways — by miṣr, not by publisher — and they are the khilāf the rasm literature names. All 62 are listed below, grouped by what the difference *is*. Machine-readable: [`rasm-variants.md`](rasm-variants.md), [`conflicts.csv`](conflicts.csv).
+60 words where the riwāyāt disagree about the letters on the line, after dots, hamza, vowelling and the ā have all been set aside. These are the differences the sources can be trusted on: they split the seven riwāyāt 13 different ways — by miṣr, not by publisher — and they are the khilāf the rasm literature names. All 60 are listed below, grouped by what the difference *is*. Machine-readable: [`rasm-variants.md`](rasm-variants.md), [`conflicts.csv`](conflicts.csv).
 
 #### One skeleton, one letter more
 
-56 of the 62. Both sides write the same letters in the same order and one side writes a letter the other does not: `ٮرٮد`/`ٮرٮدد` — يَرۡتَدَّ against يَرۡتَدِدۡ at 5:54 — or `ٮسٮهى`/`ٮسٮهٮه`, تَشۡتَهِي against تَشۡتَهِيهِ at 43:71. Nothing is replaced; the skeletons nest.
+56 of the 60. Both sides write the same letters in the same order and one side writes a letter the other does not: `ٮرٮد`/`ٮرٮدد` — يَرۡتَدَّ against يَرۡتَدِدۡ at 5:54 — or `ٮسٮهى`/`ٮسٮهٮه`, تَشۡتَهِي against تَشۡتَهِيهِ at 43:71. Nothing is replaced; the skeletons nest.
 
 | word id | sūrah:āyah | rasm on each side | as printed |
 |---|---|---|---|
@@ -135,6 +135,7 @@ Three things can differ once spelling, vowelling and pointing are set aside: the
 | 57749 | 37:68 | `لالى` hafs,shuba,bazzi,qaloun,warsh  ·  `لاالى` douri,sousi | **لَإِلَى** hafs,shuba,bazzi,qaloun,warsh  ·  **لَإِاْلَى** douri,sousi |
 | 59548 | 39:34 | `حرا` hafs,shuba,bazzi,douri,sousi  ·  `حروا` qaloun,warsh | **جَزَآءُ** hafs,shuba,bazzi,douri,sousi  ·  **جَزَٰٓؤُاْ** qaloun,warsh |
 | 60056 | 39:69 | `وحاى` hafs,shuba,bazzi,douri,sousi  ·  `وحى` qaloun,warsh | **وَجِاْيٓءَ** hafs,shuba,bazzi,douri,sousi  ·  **وَجِےٓءَ** qaloun,warsh |
+| 60523 | 40:26 | `اں` hafs,shuba  ·  `واں` bazzi,qaloun,warsh,douri,sousi | **أَن** hafs,shuba  ·  **وَأَن** bazzi,douri,sousi  ·  **وَأَنْ** qaloun,warsh |
 | 62695 | 42:30 | `ڡٮما` hafs,shuba,bazzi,douri,sousi  ·  `ٮما` qaloun,warsh | **فَبِمَا** hafs,shuba,bazzi,douri,sousi  ·  **بِمَا** qaloun,warsh |
 | 63696 | 43:68 | `ٮعٮاد` hafs,bazzi  ·  `ٮعٮادى` shuba,qaloun,warsh,douri,sousi | **يَٰعِبَادِ** hafs,bazzi  ·  **يَٰعِبَادِيَ** shuba  ·  **يَٰعِبَادِے** qaloun,warsh  ·  **يَٰعِبَادِي** douri,sousi |
 | 63722 | 43:71 | `ٮسٮهٮه` hafs,qaloun,warsh  ·  `ٮسٮهى` shuba,bazzi,douri,sousi | **تَشۡتَهِيهِ** hafs  ·  **تَشۡتَهِي** shuba,bazzi,douri,sousi  ·  **تَشْتَهِيهِ** qaloun,warsh |
@@ -147,7 +148,6 @@ Three things can differ once spelling, vowelling and pointing are set aside: the
 | 72021 | 65:4 | `والى` hafs,shuba,bazzi,warsh,douri,sousi  ·  `والٮى` qaloun | **وَٱلَِّٰٓٔي** hafs,shuba  ·  **وَٱلَّٰٓيۡ** bazzi  ·  **وَالَّٰٓئِے** qaloun  ·  **وَالٜےْ** warsh  ·  **وَاَلَّٰٓيۡ** douri  ·  **وَࡱلَّٰٓيۡ** sousi |
 | 72032 | 65:4 | `والى` hafs,shuba,bazzi,warsh,douri,sousi  ·  `والٮى` qaloun | **وَٱلَِّٰٓٔي** hafs,shuba  ·  **وَٱلَّٰٓيۡ** bazzi  ·  **وَالَّٰٓئِے** qaloun  ·  **وَالٜےْ** warsh  ·  **وَاَلَّٰٓيۡ** douri  ·  **وَࡱلَّٰٓيۡ** sousi |
 | 73986 | 72:20 | `ڡل` hafs,shuba  ·  `ڡال` bazzi,qaloun,warsh,douri,sousi | **قُلۡ** hafs,shuba  ·  **قَالَ** bazzi,qaloun,warsh,douri,sousi |
-| 74226 | 73:20 | `اں` hafs,shuba,bazzi,qaloun,warsh  ·  `الں` douri,sousi | **أَن** hafs,shuba,bazzi,qaloun,warsh  ·  **أَلَّن** douri,sousi |
 | 74439 | 74:33 | `اد` hafs,qaloun,warsh  ·  `ادا` shuba,bazzi,douri,sousi | **إِذۡ** hafs  ·  **إِذَا** shuba,bazzi,douri,sousi  ·  **إِذْ** qaloun  ·  **إِذَ** warsh |
 | 74440 | 74:33 | `ادٮر` hafs,qaloun,warsh  ·  `دٮر` shuba,bazzi,douri,sousi | **أَدۡبَرَ** hafs  ·  **دَبَرَ** shuba,bazzi,douri,sousi  ·  **أَدْبَرَ** qaloun  ·  **ࡰدْبَرَ** warsh |
 | 75690 | 81:24 | `ٮصٮٮں` hafs,shuba,qaloun,warsh  ·  `ٮصطٮٮں` bazzi,douri,sousi | **بِضَنِينࣲ** hafs,shuba,qaloun,warsh  ·  **بِضظَنِينࣲ** bazzi  ·  **بِضظَنِينٖ** douri  ·  **بِّضظَنِينࣲ** sousi |
@@ -157,22 +157,20 @@ Three things can differ once spelling, vowelling and pointing are set aside: the
 
 #### One letter for another
 
-6 of the 62, where a letter is not added but exchanged — `ولا`/`ڡلا` (وَلَا against فَلَا, 91:15), `كلمٮ`/`كلمه` (the open against the tied tāʾ, 7:137).
+4 of the 60, where a letter is not added but exchanged — `ولا`/`ڡلا` (وَلَا against فَلَا, 91:15), `كلمٮ`/`كلمه` (the open against the tied tāʾ, 7:137).
 
 | word id | sūrah:āyah | rasm on each side | as printed |
 |---|---|---|---|
 | 21269 | 7:137 | `كلمٮ` hafs,shuba,bazzi,douri,sousi  ·  `كلمه` qaloun,warsh | **كَلِمَتُ** hafs,shuba,bazzi,douri,sousi  ·  **كَلِمَةُ** qaloun,warsh |
 | 48378 | 26:217 | `وٮوكل` hafs,shuba,bazzi,douri,sousi  ·  `ڡٮوكل` qaloun,warsh | **وَتَوَكَّلۡ** hafs,shuba,bazzi,douri,sousi  ·  **فَتَوَكَّلْ** qaloun,warsh |
-| 60522 | 40:26 | `او` hafs,shuba  ·  `واں` bazzi,qaloun,warsh,douri,sousi | **أَوۡ** hafs,shuba  ·  **وَأَن** bazzi,douri,sousi  ·  **وَأَنْ** qaloun,warsh |
 | 68790 | 55:54 | `وحٮى` hafs,shuba,bazzi,douri,sousi  ·  `وحٮا` qaloun,warsh | **وَجَنَى** hafs,shuba,bazzi,douri,sousi  ·  **وَجَنَا** qaloun,warsh |
-| 73950 | 72:16 | `والو` hafs,shuba,bazzi  ·  `واں` qaloun,warsh,douri,sousi | **وَأَلَّوِ** hafs,shuba,bazzi  ·  **وَأَن** qaloun,warsh,douri,sousi |
 | 76676 | 91:15 | `ولا` hafs,shuba,bazzi,douri,sousi  ·  `ڡلا` qaloun,warsh | **وَلَا** hafs,shuba,bazzi,douri,sousi  ·  **فَلَا** qaloun,warsh |
 
 ### The ā on the line or above it
 
 198 words whose skeletons agree once every ā is spelled out, and differ only because one hand wrote that ā on the line and the other wrote it above: the Warsh/Qālūn set prints `هَارُوتَ` and `مُبَٰرَك` where the Kūfī set prints `هَٰرُوتَ` and `مُبَارَك`.
 
-They are not counted as the codices disagreeing, and the reason is in the data rather than in a judgement about it. **All 198 split the seven riwāyāt along exactly one line — `bazzi,douri,hafs,shuba,sousi` against `qaloun,warsh` — in both directions and without one exception.** The 62 real letter differences split them 14 different ways. Ḥadhf and ithbāt al-alif do vary between the codices of the amṣār, but they do not put Makkah with Madinah 198 times out of 198 and never once apart; a publisher's house style does. Bazzī goes its own way 7 times among the 62 and not once among these.
+They are not counted as the codices disagreeing, and the reason is in the data rather than in a judgement about it. **All 198 split the seven riwāyāt along exactly one line — `bazzi,douri,hafs,shuba,sousi` against `qaloun,warsh` — in both directions and without one exception.** The 60 real letter differences split them 13 different ways. Ḥadhf and ithbāt al-alif do vary between the codices of the amṣār, but they do not put Makkah with Madinah 198 times out of 198 and never once apart; a publisher's house style does. Bazzī goes its own way 7 times among the 60 and not once among these.
 
 The distinction is still kept in `rasm`, because inside any one muṣḥaf it is that muṣḥaf's own ḥadhf, carried consistently: Ḥafṣ writes قال plene 412 times and defective 4, سبحان defective 12 and plene once, and 175 of these 198 words show the identical split at *every* occurrence of the word in the corpus. What the sources cannot answer is which of the two hands is the codex's. A sample:
 
@@ -269,39 +267,52 @@ Machine-readable: [`boundaries.csv`](boundaries.csv).
 
 ### Absence — words not every riwāyah has
 
-Each is well attested: Ibn Kathīr's `مِن` at 9:100, and Nāfiʿ reading `فإن الله الغني` at 57:24 where the others read `فإن الله هو الغني`. The rest are words one riwāyah writes joined to its neighbour and another writes separately, so the count of words genuinely differs.
+Each is well attested: Ibn Kathīr's `مِن` at 9:101; Nāfiʿ reading `فإن الله الغني` at 57:24 where the others read `فإن الله هو الغني`; and `أَوۡ` at 40:26, where Ḥafṣ and Shuʿbah read *aw* and the other five read *wa* — a different word, so the number of `أَوۡ` is absent from them and their `وَأَنْ` takes the number of `أَن`.
 
-| word id | sūrah:āyah | rasm | present in | absent from | as printed |
+| number | sūrah:āyah | rasm | present in | absent from | as printed |
 |---|---|---|---|---|---|
 | 25685 | 9:101 | `مں` | bazzi | hafs, shuba, warsh, qaloun, douri, sousi | **مِن** bazzi |
-| 60523 | 40:26 | `اں` | hafs, shuba | warsh, qaloun, douri, sousi, bazzi | **أَن** hafs,shuba |
+| 60522 | 40:26 | `او` | hafs, shuba | warsh, qaloun, douri, sousi, bazzi | **أَوۡ** hafs,shuba |
 | 69720 | 57:24 | `هو` | hafs, shuba, douri, sousi, bazzi | warsh, qaloun | **هُوَ** hafs,shuba,bazzi,douri  ·  **هُّوَ** sousi |
-| 73951 | 72:16 | `لو` | warsh, qaloun, douri, sousi | hafs, shuba, bazzi | **لَّوِ** qaloun,warsh,douri,sousi |
-| 74227 | 73:20 | `لں` | hafs, shuba, warsh, qaloun, bazzi | douri, sousi | **لَّن** hafs,shuba,bazzi,qaloun,warsh |
+
+### Written joined — two words some muṣḥafs print as one
+
+Nothing is added and nothing is dropped: the nūn assimilates into the letter after it and is not written, so the same two words are printed as one. The numbering counts the finest division, so both words keep a number and the joined word *covers* both — recorded in each muṣḥaf's `numbering.written_joined`, never as a missing word. Declared in `data/written-joined.json`.
+
+| number | sūrah:āyah | rasm | written joined by | as printed |
+|---|---|---|---|---|
+| 73950 | 72:16 | `واں` | hafs, shuba, bazzi | **وَأَلَّوِ** hafs,shuba,bazzi  ·  **وَأَن** qaloun,warsh,douri,sousi |
+| 73951 | 72:16 | `لو` | hafs, shuba, bazzi | **وَأَلَّوِ** hafs,shuba,bazzi  ·  **لَّوِ** qaloun,warsh,douri,sousi |
+| 74226 | 73:20 | `اں` | douri, sousi | **أَن** hafs,shuba,bazzi,qaloun,warsh  ·  **أَلَّن** douri,sousi |
+| 74227 | 73:20 | `لں` | douri, sousi | **لَّن** hafs,shuba,bazzi,qaloun,warsh  ·  **أَلَّن** douri,sousi |
 
 ## Fawāṣil: where the āyāt end
 
-The āyah boundaries are a layer *over* the word index, not a property of it, and **they belong to the printed muṣḥaf rather than to the qirāʾah**. Many fawāṣil are مختلف فيها: al-Dānī records Al-Mulk 67:9 «قد جاءنا نذير» as counted by المدني الأخير والمكي and by Shayba and not by the rest, and four of the seven packages here count it. An edition has to choose, and editions of the same riwāyah choose differently — KFGQPC's own Dūrī printings all state they follow المدني الأول and still total 6,218 (1429 AH), 6,217 (1436) and 6,214 (1443).
+The āyah boundaries are a layer *over* the word index, not a property of it, and **the count belongs to the printed edition, not to the qirāʾah**. An edition follows one of the six classical counting systems, and at the points where the system's own authorities disagree it follows one of them: al-Dānī records Al-Mulk 67:9 «قد جاءنا نذير» as counted by Shayba and not by Abū Jaʿfar inside the First Madinan, and KFGQPC's own Dūrī printings all state they follow المدني الأول and still total 6,218 (1429 AH), 6,217 (1436) and 6,214 (1443).
 
-So the systems below are not counting traditions and are not derived from any. They are read off the packages, and two riwāyāt are grouped only where their fawāṣil are identical. Machine-readable: [`fawasil.json`](fawasil.json).
+Each edition's system is **derived** by comparing its own āyah ends to every system's boundaries (from [qiraat-ayah-map](https://github.com/quranpedia/qiraat-ayah-map), vendored under `data/counting/`), then the points of khilāf inside the system are named with the authority the edition follows. Whatever is left is `unexplained` and is an open finding. Machine-readable: [`fawasil.json`](fawasil.json).
 
-| system | muṣḥaf | āyāt |
-|---|---|---|
-| `hafs+shuba` | hafs, shuba | 6,236 |
-| `bazzi` | bazzi | 6,220 |
-| `qaloun+warsh` | qaloun, warsh | 6,214 |
-| `douri` | douri | 6,217 |
-| `sousi` | sousi | 6,218 |
+| muṣḥaf | system |  | āyāt | basmalah counted | khilāf inside the system | unexplained |
+|---|---|---|---|---|---|---|
+| hafs | `kufi` | الكوفي | 6,236 | yes | — | — |
+| shuba | `kufi` | الكوفي | 6,236 | yes | — | — |
+| warsh | `madani-last` | المدني الأخير | 6,214 | no | — | — |
+| qaloun | `madani-last` | المدني الأخير | 6,214 | no | — | — |
+| douri | `madani-first` | المدني الأول | 6,217 | no | 3:92 counted (shayba); 3:97 not counted (shayba); 37:167 counted (shayba); 67:9 not counted (abu-jafar); 80:24 counted (shayba); 81:26 counted (shayba) | — |
+| sousi | `madani-first` | المدني الأول | 6,218 | no | 3:92 counted (shayba); 3:97 not counted (shayba); 37:167 counted (shayba); 67:9 counted (shayba); 80:24 counted (shayba); 81:26 counted (shayba) | — |
+| bazzi | `makki` | المكي | 6,220 | yes | — | 78:40 counted |
 
-| system | `hafs+shuba` | `bazzi` | `qaloun+warsh` | `douri` | `sousi` |
-|---|---|---|---|---|---|
-| `hafs+shuba` | — | 150 | 140 | 133 | 134 |
-| `bazzi` | 150 | — | 48 | 39 | 38 |
-| `qaloun+warsh` | 140 | 48 | — | 57 | 56 |
-| `douri` | 133 | 39 | 57 | — | 1 |
-| `sousi` | 134 | 38 | 56 | 1 | — |
+| edition | `hafs` | `shuba` | `warsh` | `qaloun` | `douri` | `sousi` | `bazzi` |
+|---|---|---|---|---|---|---|---|
+| `hafs` | — | 0 | 140 | 140 | 133 | 134 | 150 |
+| `shuba` | 0 | — | 140 | 140 | 133 | 134 | 150 |
+| `warsh` | 140 | 140 | — | 0 | 57 | 56 | 48 |
+| `qaloun` | 140 | 140 | 0 | — | 57 | 56 | 48 |
+| `douri` | 133 | 133 | 57 | 57 | — | 1 | 39 |
+| `sousi` | 134 | 134 | 56 | 56 | 1 | — | 38 |
+| `bazzi` | 150 | 150 | 48 | 48 | 39 | 38 | — |
 
-Positions where two systems put a fāṣilah differently. Dūrī and Sūsī are both conventionally labelled Baṣrī and part company at exactly one place — 67:9 — which is the whole of the 6,217/6,218 difference between them, and is a documented خلافي point rather than a mistake by either.
+Āyah ends where two editions differ. Dūrī and Sūsī, both First Madinan, part company at exactly one place — 67:9 — which is the whole of the 6,217/6,218 difference between them: Dūrī follows Abū Jaʿfar there and Sūsī follows Shayba. Bazzī counts 78:40, which no source yet gives to the Makkī count; it is reported as an open finding, not corrected.
 
 ## Source integrity
 
@@ -399,8 +410,8 @@ All checks pass.
 | 69 | Al-Ḥāqqah | 258 | 153 | 103 | 2 | 0 | 0 | 0 | 0.0 |
 | 70 | Al-Ma‘ārij | 217 | 109 | 106 | 2 | 0 | 0 | 0 | 0.0 |
 | 71 | Nūḥ | 226 | 107 | 118 | 1 | 0 | 0 | 0 | 0.0 |
-| 72 | Al-Jinn | 286 | 138 | 144 | 1 | 0 | 2 | 1 | 10.5 |
-| 73 | Al-Muzzammil | 199 | 99 | 98 | 0 | 0 | 1 | 1 | 10.1 |
+| 72 | Al-Jinn | 286 | 138 | 144 | 1 | 0 | 1 | 2 | 10.5 |
+| 73 | Al-Muzzammil | 199 | 99 | 98 | 0 | 0 | 0 | 2 | 10.1 |
 | 74 | Al-Muddaththir | 255 | 146 | 106 | 1 | 0 | 2 | 0 | 7.8 |
 | 75 | Al-Qiyāmah | 164 | 87 | 72 | 3 | 0 | 0 | 2 | 12.2 |
 | 76 | Al-Insān | 243 | 123 | 119 | 1 | 0 | 0 | 0 | 0.0 |

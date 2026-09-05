@@ -6658,12 +6658,12 @@
   {
    "id": 73950,
    "i": 152,
-   "key": "72:والو#1",
+   "key": "72:وان#1",
    "rasm": "واں",
-   "pointed": "والو",
-   "uthmani": "وَأَلَّوِ",
-   "simple": "وألّو",
-   "status": "rasm_variant",
+   "pointed": "وان",
+   "uthmani": "وَأَن",
+   "simple": "وأن",
+   "status": "word_boundary",
    "aya": {
     "hafs": 16,
     "shuba": 16,
@@ -6700,7 +6700,12 @@
       "sousi"
      ]
     }
-   ]
+   ],
+   "boundary": {
+    "hafs": "written_joined",
+    "shuba": "written_joined",
+    "bazzi": "written_joined"
+   }
   },
   {
    "id": 73951,
@@ -6710,24 +6715,54 @@
    "pointed": "لو",
    "uthmani": "لَّوِ",
    "simple": "لّو",
-   "status": "partial",
+   "status": "word_boundary",
    "aya": {
+    "hafs": 16,
+    "shuba": 16,
     "warsh": 16,
     "qaloun": 16,
     "douri": 16,
-    "sousi": 16
+    "sousi": 16,
+    "bazzi": 16
    },
    "forms": {
+    "hafs": "وَأَلَّوِ",
+    "shuba": "وَأَلَّوِ",
     "warsh": "لَّوِ",
     "qaloun": "لَّوِ",
     "douri": "لَّوِ",
-    "sousi": "لَّوِ"
+    "sousi": "لَّوِ",
+    "bazzi": "وَأَلَّوِ"
    },
-   "missing": [
+   "groups": [
+    {
+     "text": "وَأَلَّوِ",
+     "riwayat": [
+      "hafs",
+      "shuba",
+      "bazzi"
+     ]
+    },
+    {
+     "text": "لَّوِ",
+     "riwayat": [
+      "qaloun",
+      "warsh",
+      "douri",
+      "sousi"
+     ]
+    }
+   ],
+   "written_joined": [
     "hafs",
     "shuba",
     "bazzi"
-   ]
+   ],
+   "boundary": {
+    "hafs": "written_joined",
+    "shuba": "written_joined",
+    "bazzi": "written_joined"
+   }
   },
   {
    "id": 73952,
@@ -7517,7 +7552,7 @@
   {
    "id": 73968,
    "i": 170,
-   "key": "72:وان#1",
+   "key": "72:وان#2",
    "rasm": "واں",
    "pointed": "وان",
    "uthmani": "وَأَنَّ",

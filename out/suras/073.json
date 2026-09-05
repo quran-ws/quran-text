@@ -6565,7 +6565,7 @@
    "pointed": "ان",
    "uthmani": "أَن",
    "simple": "أن",
-   "status": "rasm_variant",
+   "status": "word_boundary",
    "aya": {
     "hafs": 20,
     "shuba": 20,
@@ -6602,7 +6602,11 @@
       "sousi"
      ]
     }
-   ]
+   ],
+   "boundary": {
+    "douri": "written_joined",
+    "sousi": "written_joined"
+   }
   },
   {
    "id": 74227,
@@ -6612,12 +6616,14 @@
    "pointed": "لن",
    "uthmani": "لَّن",
    "simple": "لّن",
-   "status": "partial",
+   "status": "word_boundary",
    "aya": {
     "hafs": 20,
     "shuba": 20,
     "warsh": 18,
     "qaloun": 18,
+    "douri": 20,
+    "sousi": 20,
     "bazzi": 20
    },
    "forms": {
@@ -6625,12 +6631,37 @@
     "shuba": "لَّن",
     "warsh": "لَّن",
     "qaloun": "لَّن",
+    "douri": "أَلَّن",
+    "sousi": "أَلَّن",
     "bazzi": "لَّن"
    },
-   "missing": [
+   "groups": [
+    {
+     "text": "لَّن",
+     "riwayat": [
+      "hafs",
+      "shuba",
+      "bazzi",
+      "qaloun",
+      "warsh"
+     ]
+    },
+    {
+     "text": "أَلَّن",
+     "riwayat": [
+      "douri",
+      "sousi"
+     ]
+    }
+   ],
+   "written_joined": [
     "douri",
     "sousi"
-   ]
+   ],
+   "boundary": {
+    "douri": "written_joined",
+    "sousi": "written_joined"
+   }
   },
   {
    "id": 74228,

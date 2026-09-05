@@ -1,6 +1,6 @@
 {
  "schema_version": "2.0",
- "generated": "2026-09-01",
+ "generated": "2026-09-05",
  "word_count": 77434,
  "sura_count": 114,
  "riwayat": [
@@ -10,7 +10,6 @@
    "name_ar": "حفص",
    "qari_en": "ʿĀṣim al-Kūfī",
    "qari_ar": "عاصم الكوفي",
-   "counting": "kufi",
    "ayah_count": 6236,
    "source": "UthmanicHafs-v-3.0.zip :: UthmanicHafs-v-3.0.docx",
    "crosscheck_source": "UthmanicHafs_v2-0.zip :: UthmanicHafs_v2-0 data/hafsData_v2-0.csv"
@@ -21,7 +20,6 @@
    "name_ar": "شعبة",
    "qari_en": "ʿĀṣim al-Kūfī",
    "qari_ar": "عاصم الكوفي",
-   "counting": "kufi",
    "ayah_count": 6236,
    "source": "UthmanicShubah-v-3.0.zip :: UthmanicShubah-v-3.0.docx",
    "crosscheck_source": "UthmanicShuba_v2-0.zip :: UthmanicShuba_v2-0 data/shubaData_v2-0.csv"
@@ -32,7 +30,6 @@
    "name_ar": "ورش",
    "qari_en": "Nāfiʿ al-Madanī",
    "qari_ar": "نافع المدني",
-   "counting": "madani",
    "ayah_count": 6214,
    "source": "UthmanicWarsh-v-3.0.zip :: UthmanicWarsh-v-3.0.docx",
    "crosscheck_source": "UthmanicWarsh_v2-1.zip :: UthmanicWarsh_v2-1 data/warshData_v2-1.csv"
@@ -43,7 +40,6 @@
    "name_ar": "قالون",
    "qari_en": "Nāfiʿ al-Madanī",
    "qari_ar": "نافع المدني",
-   "counting": "madani",
    "ayah_count": 6214,
    "source": "UthmanicQaloun-v-3.0.zip :: UthmanicQaloun-v-3.0.docx",
    "crosscheck_source": "UthmanicQaloun_v2-1.zip :: UthmanicQaloun_v2-1 data/QalounData_v2-1.csv"
@@ -54,7 +50,6 @@
    "name_ar": "الدوري",
    "qari_en": "Abū ʿAmr al-Baṣrī",
    "qari_ar": "أبو عمرو البصري",
-   "counting": "basri",
    "ayah_count": 6217,
    "source": "UthmanicDouri_V20.zip :: UthmanicDouri V20.docx",
    "crosscheck_source": "UthmanicDouri_v2-0.zip :: UthmanicDouri_v2-0 data/DouriData_v2-0.csv"
@@ -65,7 +60,6 @@
    "name_ar": "السوسي",
    "qari_en": "Abū ʿAmr al-Baṣrī",
    "qari_ar": "أبو عمرو البصري",
-   "counting": "basri",
    "ayah_count": 6218,
    "source": "UthmanicSousi-v-3.0.zip :: UthmanicSousi-v-3.0.docx",
    "crosscheck_source": "UthmanicSousi_v2-0.zip :: UthmanicSousi_v2-0 data/SousiData_v2-0.csv"
@@ -76,13 +70,12 @@
    "name_ar": "البزي",
    "qari_en": "Ibn Kathīr al-Makkī",
    "qari_ar": "ابن كثير المكي",
-   "counting": "makki",
    "ayah_count": 6220,
    "source": "UthmanicBazzi-v-3.0.zip :: UthmanicBazzi-v-3.0.docx",
    "crosscheck_source": ""
   }
  ],
- "model": "A sūrah is a flat list of words.  One ID means one word in every riwāyah that has it, because words are identified by their bare ʿUthmānic rasm — undotted, unvowelled, no hamza — which is what the seven riwāyāt actually share.  How each riwāyah spells that word is in `forms`; where each counting tradition ends its āyāt is in `fawasil.json`.",
+ "model": "A sūrah is a flat list of words.  One ID means one word in every riwāyah that has it, because words are identified by their bare ʿUthmānic rasm — undotted, unvowelled, no hamza — which is what the seven riwāyāt actually share.  How each riwāyah spells that word is in `forms`; where each edition ends its āyāt, and which counting system that is, is in `fawasil.json`.",
  "suras": [
   {
    "sura": 1,

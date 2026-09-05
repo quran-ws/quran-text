@@ -15912,10 +15912,35 @@
    "id": 60522,
    "i": 353,
    "key": "40:او#1",
-   "rasm": "واں",
+   "rasm": "او",
    "pointed": "او",
    "uthmani": "أَوۡ",
    "simple": "أو",
+   "status": "partial",
+   "aya": {
+    "hafs": 26,
+    "shuba": 26
+   },
+   "forms": {
+    "hafs": "أَوۡ",
+    "shuba": "أَوۡ"
+   },
+   "missing": [
+    "warsh",
+    "qaloun",
+    "douri",
+    "sousi",
+    "bazzi"
+   ]
+  },
+  {
+   "id": 60523,
+   "i": 354,
+   "key": "40:ان#5",
+   "rasm": "واں",
+   "pointed": "ان",
+   "uthmani": "أَن",
+   "simple": "أن",
    "status": "rasm_variant",
    "aya": {
     "hafs": 26,
@@ -15927,8 +15952,8 @@
     "bazzi": 26
    },
    "forms": {
-    "hafs": "أَوۡ",
-    "shuba": "أَوۡ",
+    "hafs": "أَن",
+    "shuba": "أَن",
     "warsh": "وَأَنْ",
     "qaloun": "وَأَنْ",
     "douri": "وَأَن",
@@ -15937,7 +15962,7 @@
    },
    "groups": [
     {
-     "text": "أَوۡ",
+     "text": "أَن",
      "riwayat": [
       "hafs",
       "shuba"
@@ -15958,31 +15983,6 @@
       "warsh"
      ]
     }
-   ]
-  },
-  {
-   "id": 60523,
-   "i": 354,
-   "key": "40:ان#5",
-   "rasm": "اں",
-   "pointed": "ان",
-   "uthmani": "أَن",
-   "simple": "أن",
-   "status": "partial",
-   "aya": {
-    "hafs": 26,
-    "shuba": 26
-   },
-   "forms": {
-    "hafs": "أَن",
-    "shuba": "أَن"
-   },
-   "missing": [
-    "warsh",
-    "qaloun",
-    "douri",
-    "sousi",
-    "bazzi"
    ]
   },
   {
