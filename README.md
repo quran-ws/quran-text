@@ -29,7 +29,7 @@ beside it is the same text as sūrah → āyah → words. Agents: see
 
 ## Why this exists
 
-Every Qurʾān database in use today has two gaps, and this one is built to
+Every Qurʾān database in use today has three gaps, and this one is built to
 close them.
 
 **1. Nobody says which text it is.** Ask a Qurʾān API which printed edition its
@@ -49,10 +49,16 @@ divide the text differently, and given one number that means the same word in
 all seven riwāyāt — so word-level data attached once can be read off any of
 them.
 
+**3. The qirāʾāt are missing.** The Qurʾān is recited in ten qirāʾāt, and
+apart from Ḥafṣ they exist in software, if at all, as a font trick over the
+Ḥafṣ text or as scanned pages. Here Warsh, Qālūn, Dūrī, Sūsī, Shuʿbah and
+Bazzī are text: each riwāyah's own words and spelling, its own āyah division
+and count, its own pages and pause marks, from the printed muṣḥaf the King
+Fahd Complex publishes for it, aligned word by word with the others so a
+reader can move between them and a dataset can cover all of them at once.
+
 ## What is different
 
-- **Seven riwāyāt, not one.** Each is a printed muṣḥaf of its own, published on
-  its own terms: its words, its spelling, its āyah division, its typesetting.
 - **Words, not āyāt, are the unit.** The riwāyāt agree on the words and
   disagree on where āyāt end, so the āyah is an attribute of a word, not a
   container. That is what lets one number mean one word in all seven.
