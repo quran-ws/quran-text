@@ -131,8 +131,8 @@ def check_release_policy(riwayat: list[Riwaya]) -> list[dict]:
     return out
 
 
-def check_counting(riwayat: list[Riwaya]) -> list[dict]:
-    """Each muṣḥaf's numbering must be internally coherent — nothing more.
+def check_ayah_numbers(riwayat: list[Riwaya]) -> list[dict]:
+    """Each muṣḥaf's āyah numbers must run 1..n in every sūrah — nothing more.
 
     See the note above on why no total is asserted.
     """
@@ -270,29 +270,7 @@ def check_mushaf_roundtrip(words, riwayat) -> list[dict]:
 # the published files
 # --------------------------------------------------------------------------
 
-def numbers_of(doc: dict) -> list[tuple[int, int]]:
-    """position -> (first, last) run of shared numbers, per the spec's one-pass
-    walk, asserting the invariants as it goes."""
-    key = doc["mushaf"]["key"]
-    numbering = doc["numbering"]
-    missing = set(numbering["missing"])
-    joined = {j["position"]: j["numbers"] for j in numbering["written_joined"]}
-    runs, n = [], 1
-    for pos in range(len(doc["words"])):
-        while n in missing:
-            n += 1
-        first, last = joined.get(pos, (n, n))
-        if first != n:
-            raise AssertionError(f"{key}: run at {pos} starts {first}, expected {n}")
-        if last < first:
-            raise AssertionError(f"{key}: run at {pos} is empty")
-        runs.append((first, last))
-        n = last + 1
-    while n in missing:
-        n += 1
-    if n != numbering["total"] + 1:
-        raise AssertionError(f"{key}: runs and missing do not tile 1…total")
-    return runs
+SCHEMA = Path("schema/mushaf-1.0.json")
 
 
 def check_numbering(docs: dict[str, dict]) -> list[dict]:
@@ -314,6 +292,7 @@ def check_numbering(docs: dict[str, dict]) -> list[dict]:
     covered: dict[int, set[str]] = defaultdict(set)
     for key, doc in docs.items():
         try:
+            from .mushaf import numbers_of
             runs = numbers_of(doc)
         except AssertionError as e:
             problems.append({"check": "numbering_tiles", "riwaya": key, "detail": str(e)})
@@ -381,7 +360,7 @@ def check_positions(docs: dict[str, dict]) -> list[dict]:
     return problems
 
 
-def check_schema_fields(docs: dict[str, dict], schema: Path) -> list[dict]:
+def check_schema_fields(docs: dict[str, dict], schema: Path = SCHEMA) -> list[dict]:
     """The muṣḥaf documents and the JSON Schema must agree on the field set.
 
     ``schema/mushaf-1.0.json`` is published as the checkable specification and

@@ -82,7 +82,7 @@ def _word_json(w: Word) -> dict:
     return rec
 
 
-def write_all(words: list[Word], riwayat: list[Riwaya]) -> dict:
+def write_index(words: list[Word], riwayat: list[Riwaya]) -> dict:
     OUT.mkdir(exist_ok=True)
     (OUT / "suras").mkdir(exist_ok=True)
 

@@ -37,7 +37,7 @@ from collections import defaultdict
 from datetime import date
 from pathlib import Path
 
-from .align import WRITTEN_JOINED
+from . import counting, imlaei
 from .build import OUT, Word
 from .output import boundary_events
 from .sources import DATA, RELEASE_POLICY, Riwaya
@@ -157,7 +157,7 @@ def printed_words(words: list[Word], key: str) -> tuple[list[Printed], list[int]
     return printed, missing
 
 
-def numbering(words: list[Word], printed: list[Printed], missing: list[int]) -> dict:
+def numbering(printed: list[Printed], missing: list[int], total: int) -> dict:
     """How this muṣḥaf's positions map onto the shared numbering.
 
     ``missing`` lists the numbers this muṣḥaf does not read — the only way a
@@ -167,11 +167,40 @@ def numbering(words: list[Word], printed: list[Printed], missing: list[int]) -> 
     stored.  See ``docs/MUSHAF-FORMAT.md``, *Numbering*, for the invariants.
     """
     return {
-        "total": words[-1].id,
+        "total": total,
         "missing": missing,
         "written_joined": [{"position": p.position, "numbers": [p.first, p.last]}
                            for p in printed if p.last > p.first],
     }
+
+
+def numbers_of(doc: dict) -> list[tuple[int, int]]:
+    """position -> ``(first, last)`` run of shared numbers, for a published file.
+
+    The one-pass walk the spec describes: advance one per word, skip
+    ``missing``, advance by the run length at a ``written_joined`` position.
+    Raises ``AssertionError`` where the block does not tile ``1 … total``.
+    """
+    key = doc["mushaf"]["key"]
+    block = doc["numbering"]
+    missing = set(block["missing"])
+    joined = {j["position"]: j["numbers"] for j in block["written_joined"]}
+    runs, n = [], 1
+    for pos in range(len(doc["words"])):
+        while n in missing:
+            n += 1
+        first, last = joined.get(pos, (n, n))
+        if first != n:
+            raise AssertionError(f"{key}: run at {pos} starts {first}, expected {n}")
+        if last < first:
+            raise AssertionError(f"{key}: run at {pos} is empty")
+        runs.append((first, last))
+        n = last + 1
+    while n in missing:
+        n += 1
+    if n != block["total"] + 1:
+        raise AssertionError(f"{key}: runs and missing do not tile 1…total")
+    return runs
 
 
 def _suras(key: str, printed: list[Printed], ayah_starts: list[int],
@@ -335,7 +364,7 @@ def document(words: list[Word], r: Riwaya,
              imlaei: dict[int, str] | None = None) -> dict:
     """The whole of one muṣḥaf, in the canonical shape.
 
-    The ``counting`` block is filled in by :func:`quranidx.counting.for_edition`
+    The ``counting`` block is filled in by :func:`quranidx.counting.derive`
     once the file's own āyah layer exists, since it is derived from it.
     """
     key = r.key
@@ -383,7 +412,7 @@ def document(words: list[Word], r: Riwaya,
         "words": [p.word.forms[key] for p in printed],
         "imlaei": ([imlaei.get(p.first, imlaei.get(p.last)) for p in printed]
                    if imlaei else None),
-        "numbering": numbering(words, printed, missing),
+        "numbering": numbering(printed, missing, words[-1].id),
         "sura_starts": sura_starts,
         "ayah_starts": ayah_starts,
         "page_starts": page_starts,
@@ -408,31 +437,30 @@ def _dump(path: Path, doc: dict) -> None:
                     encoding="utf-8")
 
 
-def write_mushafs(words: list[Word], riwayat: list[Riwaya],
-                  imlaei: dict[str, dict[int, str]] | None = None,
-                  reports: dict | None = None) -> dict:
-    """Write every muṣḥaf's own file, and return what was written."""
-    from .counting import for_edition
+def write_mushafs(words: list[Word], riwayat: list[Riwaya]) -> dict[str, dict]:
+    """Write every muṣḥaf's own file, and return the documents by key.
 
+    Imlāʾī is derived here for whichever release supplies it, and the
+    ``counting`` block once the file's own āyah layer exists.
+    """
     MUSHAF_DIR.mkdir(parents=True, exist_ok=True)
     for stale in MUSHAF_DIR.glob("*.min.json"):
         stale.unlink()
-    imlaei = imlaei or {}
     docs = {}
     for r in riwayat:
-        doc = document(words, r, imlaei.get(r.key))
-        if reports and r.key in reports:
-            doc["layers"]["derived"]["imlaei"] = reports[r.key]
-            if reports[r.key].get("available"):
-                doc["layers"]["present"].append("imlaei")
-                doc["layers"]["absent"].pop("imlaei", None)
-        doc["counting"] = for_edition(doc, words, r)
+        mapping, report = imlaei.derive(words, r)
+        doc = document(words, r, mapping if report.get("available") else None)
+        if report.get("available"):
+            doc["layers"]["derived"]["imlaei"] = report
+            doc["layers"]["present"].append("imlaei")
+            doc["layers"]["absent"].pop("imlaei", None)
+        doc["counting"] = counting.derive(doc, words)
         _dump(MUSHAF_DIR / f"{r.key}.json", doc)
         docs[r.key] = doc
     return docs
 
 
-def write_manifest(docs: dict[str, dict], extra_sources: dict | None = None) -> dict:
+def write_manifest(docs: dict[str, dict]) -> dict:
     """Every emitted file and every source package, each with its SHA-256.
 
     A dataset becomes citable when a reader can prove which release a file came
@@ -458,7 +486,7 @@ def write_manifest(docs: dict[str, dict], extra_sources: dict | None = None) -> 
                    for n, part in doc["provenance"].items()
                    if isinstance(part, dict)}
                for k, doc in docs.items()},
-            **(extra_sources or {}),
+            "qiraat-ayah-map": counting.provenance(),
         },
         "files": [
             {"path": str(p).replace("\\", "/"),

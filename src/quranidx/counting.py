@@ -40,7 +40,6 @@ from functools import lru_cache
 from pathlib import Path
 
 from .build import ORDER, OUT, Word, ayah_ends
-from .sources import Riwaya
 
 COUNTING_DIR = Path("data/counting")
 PRIMITIVES = COUNTING_DIR / "book-boundary-primitives.json"
@@ -298,9 +297,9 @@ def _khilaf_entry(words: list[Word], key: str, anchor: tuple, n: int,
     }
 
 
-def for_edition(doc: dict, words: list[Word], r: Riwaya) -> dict:
-    """The ``counting`` block of one edition's file."""
-    key = r.key
+def derive(doc: dict, words: list[Word]) -> dict:
+    """The ``counting`` block of one edition's file, from its own āyah layer."""
+    key = doc["mushaf"]["key"]
     anchors, ambiguous = resolve_anchors(words)
     per_system = system_ends(words, anchors)
     mine = _edition_ends(words, key)
@@ -409,7 +408,7 @@ def write_fawasil(words: list[Word], docs: dict[str, dict]) -> dict:
     return doc
 
 
-def check_counting(docs: dict[str, dict]) -> list[dict]:
+def check_unexplained(docs: dict[str, dict]) -> list[dict]:
     """Every ``unexplained`` point must be an acknowledged open finding, and
     every acknowledged finding must still occur — a stale allowlist fails too."""
     problems = []

@@ -22,7 +22,8 @@ import sqlite3
 from bisect import bisect_right
 from pathlib import Path
 
-from .mushaf import FORMAT, FORMAT_VERSION, MUSHAF_DIR
+from .build import OUT
+from .mushaf import FORMAT, FORMAT_VERSION, MUSHAF_DIR, numbers_of
 
 
 # --------------------------------------------------------------------------
@@ -36,24 +37,6 @@ def unit_of(starts: list[int], pos: int) -> int:
     the first āyah in the muṣḥafs that do not count it.
     """
     return bisect_right(starts, pos) - 1
-
-
-def numbers_of(doc: dict) -> list[tuple[int, int]]:
-    """position -> ``(first, last)`` run of shared numbers, by the one-pass walk
-    the spec describes: advance one per word, skip ``missing``, advance by the
-    run length at a ``written_joined`` position."""
-    numbering = doc["numbering"]
-    missing = set(numbering["missing"])
-    joined = {j["position"]: j["numbers"] for j in numbering["written_joined"]}
-    runs = []
-    n = 1
-    for pos in range(len(doc["words"])):
-        while n in missing:
-            n += 1
-        first, last = joined.get(pos, (n, n))
-        runs.append((first, last))
-        n = last + 1
-    return runs
 
 
 class Coords:
@@ -317,7 +300,8 @@ CREATE INDEX mark_by_word ON mark (mushaf, pos);
 """
 
 
-def write_sqlite(docs: dict[str, dict], spine: dict, path: Path) -> None:
+def write_sqlite(docs: dict[str, dict], spine: dict,
+                 path: Path = OUT / "quran.sqlite") -> None:
     """All seven muṣḥafs and the spine in one queryable file.
 
     ``word.number`` is the shared number, indexed on its own, so comparing two
