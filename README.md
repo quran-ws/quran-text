@@ -59,6 +59,8 @@ reader can move between them and a dataset can cover all of them at once.
 
 ## What is different
 
+- **Seven riwāyāt, not one.** Each is a printed muṣḥaf of its own, published on
+  its own terms: its words, its spelling, its āyah division, its typesetting.
 - **Words, not āyāt, are the unit.** The riwāyāt agree on the words and
   disagree on where āyāt end, so the āyah is an attribute of a word, not a
   container. That is what lets one number mean one word in all seven.
