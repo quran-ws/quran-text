@@ -57,6 +57,22 @@ rather than as defects — see the standing rule at the top of that file.
 | Dūrī | `UthmanicDouri_v2-0.zip :: …/DouriData_v2-0.csv` |
 | Sūsī | `UthmanicSousi_v2-0.zip :: …/SousiData_v2-0.csv` |
 
+## Counting-system boundaries
+
+`data/counting/` holds two files copied verbatim from
+[quranpedia/qiraat-ayah-map](https://github.com/quranpedia/qiraat-ayah-map)
+(MIT) at a pinned commit — `book-boundary-primitives.json`, every disputed
+āyah boundary with the counting systems that count it, and
+`counting-systems.json` — with the commit and SHA-256 in `UPSTREAM.md` and in
+the manifest. Beside them, this repository's own `khilaf.json` records the
+disagreements *inside* a system between its authorities, cited from al-Dānī's
+*al-Bayān fī ʿadd āy al-Qurʾān*, `open-findings.json` the divisions no source
+yet explains, and `declared.json` what each edition states about its own count
+(nothing, for the `.docx` releases). See `docs/MUSHAF-FORMAT.md`, *Counting*.
+
+`data/written-joined.json` declares the two places where a muṣḥaf prints two
+words as one; see *Numbering* in the same document.
+
 ## Deliberately unused
 
 | file | why |

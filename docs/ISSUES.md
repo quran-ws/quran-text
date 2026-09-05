@@ -65,10 +65,18 @@ Dūrī muṣḥaf measures onto First Madinan in 113 of 114 sūrahs, not Baṣr�
 **What changed here as a result.** The build no longer asserts a total per
 tradition. `COUNTING_TOTALS = {"kufi": 6236, "madani": 6214, "basri": 6217}` is
 gone: it measured an assumption rather than the data, and produced a false
-positive on every run. `out/fawasil.json` is now derived from the packages
-themselves and keyed by muṣḥaf, so two riwāyāt are grouped only where their
-fawāṣil are actually identical. The `counting` field survives as a display
-label with that stated in the code.
+positive on every run.
+
+**And then changed again.** The `counting` string that survived as a "display
+label" was itself wrong for two of the seven: Dūrī and Sūsī were labelled
+`basri`, and Baṣrī is 6,204 — no printed Abū ʿAmr muṣḥaf follows it. Comparing
+each edition's āyah ends against the six systems' boundaries from
+[qiraat-ayah-map](https://github.com/quranpedia/qiraat-ayah-map) puts both on
+**First Madinan** at distance zero once al-Dānī's six Abū Jaʿfar/Shayba points
+are set aside, differing from each other only at 67:9. So `mushaf.counting` is
+now a block that names the *derived* system and what the edition does at every
+point of khilāf inside it (`docs/MUSHAF-FORMAT.md`, *Counting*), and
+`out/fawasil.json` is keyed by system with the editions under each.
 
 **One thing this repository cannot yet reconcile.** The forum write-up reports
 that the digital Dūrī muṣḥaf carries **6,218** āyāt, matching the 1429 printing.
@@ -76,6 +84,18 @@ Parsing `UthmanicDouri V20.docx` here yields **6,217**. That is a one-āyah gap
 between a stated figure and this parse, and it is not resolved — it may be a
 different digital package, or a parse defect in this repository. It is recorded
 rather than reconciled by adjusting either side.
+
+### 1b. Bazzī counts 78:40 ﴿قريبًا﴾, and no source yet says the Makkī count does
+
+Derived against qiraat-ayah-map, the Bazzī edition matches Makkī at every
+point but one: it counts an āyah end after ﴿قريبًا﴾ at 78:40 and totals 6,220
+where the classical Makkī total is 6,219. Upstream gives that point to Baṣrī
+alone, and its attestation notes record al-Dānī reporting it for Baṣrī, not
+Makkī; nquran.com lists it for Makkī too. Two independent sources putting a
+Makkī boundary there looks like a khilāf inside the Makkī transmission rather
+than a printing slip, but it is uncited, so the file reports it under
+`counting.unexplained`, it is listed in `data/counting/open-findings.json`, and
+it has been reported to qiraat-ayah-map. It is **not** corrected on either side.
 
 ### 2. Qālūn v3.0 carries the Al-Baqarah heading inside the previous paragraph
 
@@ -442,6 +462,25 @@ Result: 266 → 232 rasm disagreements, 34 resolved, none newly flagged.
 The generalisable part is not about hamza. It is that "no rule can distinguish
 these" is a claim about the rules tried, and it was stated in the docs as
 though it were a claim about the data.
+
+### Pairing a different word by position
+
+When a `replace` block's letters did not agree, the old aligner paired tokens
+left to right and let the surplus fall off the end. At 40:26 that put Warsh's
+`وَأَنْ` against Ḥafṣ's `أَوۡ` — two words sharing one letter — and reported the
+`أَن` beside it, which shares every letter, as the word Warsh does not read. The
+index said Warsh lacks *an* when Warsh reads *wa-an*. Pairing now maximises
+shared letters, order-preserving, and `أَوۡ` is the absent word.
+
+### A joined word reported as a missing one
+
+The old numbering reported Ḥafṣ as not reading `لَّوِ` at 72:16 and Dūrī as not
+reading `أَن` at 73:20, because each writes the two words as one and the union
+numbering had a number for the second word that the joined muṣḥaf's one token
+could not take. Both statements were false: the words are read, inside
+`وَأَلَّوِ` and `أَلَّن`. A printed word may now cover a run of two numbers
+(`numbering.written_joined`), and "missing" means one thing only — the muṣḥaf
+does not read the word.
 
 ### Round-trip by word count
 
