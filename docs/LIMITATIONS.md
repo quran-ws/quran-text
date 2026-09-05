@@ -93,13 +93,20 @@ in the 2022 Ḥafṣ CSV, separated in the 2026 Ḥafṣ document). Twelve words
 re-segmented by this build. Any downstream use that depends on exact word
 boundaries should read `out/COMPARISON.md` first.
 
-## IDs are stable across rebuilds, not across releases
+## Numbers are stable across rebuilds, not across releases
 
-`id` is a position. If KFGQPC ships a release that adds or removes a word, every
-`id` after it shifts. Use **`key`** (`sūrah:rasm#occurrence`) as the join key for
-anything long-lived — it is derived from content, not position, and survives
-insertions elsewhere in the sūrah. Neither identifier is a KFGQPC identifier;
-they exist only in this repository.
+The shared number is a position in the union of the seven texts. If KFGQPC
+ships a release that adds or removes a word, every number after it shifts. Use
+**`key`** (`sūrah:pointed#occurrence`) or the spine's Ḥafṣ triple
+`[sura, ayah, position]` as the join key for anything long-lived — both are
+derived from content, not from the running count. Neither identifier is a
+KFGQPC identifier; they exist only in this repository.
+
+Two words are written joined by some muṣḥafs — `وَأَلَّوِ` at 72:16, `أَلَّن` at
+73:20 — and the numbering counts them as two words in every file, with the
+joined muṣḥaf's one printed word covering both numbers. That these are joins
+and not different words is a judgement declared in `data/written-joined.json`,
+not derived; 40:26 `أَوۡ أَن` / `وَأَنْ` is deliberately *not* on that list.
 
 ## What "identical" means
 
@@ -122,7 +129,7 @@ the alignment and the ID — is unaffected.
 
 Riwāyāt are folded into the spine one at a time, Ḥafṣ first. A true multiple
 sequence alignment could in principle place a disputed word better than this
-does. At the observed level of agreement (99.0 %–99.99 % rasm identity, 17 words
+does. At the observed level of agreement (99.0 %–99.99 % rasm identity, 19 words
 total in the boundary and partial buckets) the difference is unlikely to matter,
 but the order of `ORDER` in `src/quranidx/build.py` is a parameter of the result
 rather than a neutral choice.
@@ -139,12 +146,16 @@ word level.
 ## Verification is internal
 
 The checks prove the index is faithful to the packages in `data/` — round-trip
-of every letter of every riwāyah, contiguous IDs, āyah totals against the
-classical counting traditions. They do **not** prove the packages are faithful
-to a printed muṣḥaf. The 260 letter-level variants in `out/rasm-variants.md` —
+of every letter of every riwāyah, a numbering that tiles, and each edition's
+āyah division matching a classical counting system once the documented khilāf
+is set aside. They do **not** prove the packages are faithful to a printed
+muṣḥaf, and one division is not yet explained: the Bazzī edition counts 78:40
+﴿قريبًا﴾, which no source consulted gives to the Makkī count. It is reported
+in that file as `unexplained` and listed in `data/counting/open-findings.json`
+rather than corrected. The 260 letter-level variants in `out/rasm-variants.md` —
 62 `rasm_variant` and 198 `alif_variant` — have not been checked against the
 qirāʾāt literature one by one; spot checks against
-well-known variants (9:101 Ibn Kathīr's `مِن`, 57:23 the Madanī rasm omitting
+well-known variants (9:101 Ibn Kathīr's `مِن`, 57:24 the Madanī rasm omitting
 `هُوَ`, `مَٰلِكِ`/`مَلِكِ`, Bazzī's ṣilat al-mīm) all came out right, which is
 evidence but not an audit.
 

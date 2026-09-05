@@ -1,0 +1,21 @@
+{
+  "_description": "Places where one muṣḥaf prints as a single word what another prints as two, because an assimilated nūn is not written. Nothing is added or dropped: the joined word covers both numbers of the shared numbering (docs/MUSHAF-FORMAT.md, Numbering). The list is declared rather than inferred because the missing nūn changes the rasm, so no rule can tell this apart from a different reading — 40:26 أَوۡ أَن / وَأَنْ is a different word, not a join, and is deliberately not here.",
+  "joins": [
+    {
+      "sura": 72,
+      "hafs_ayah": 16,
+      "joined": "وَأَلَّوِ",
+      "parts": ["وَأَن", "لَّوِ"],
+      "written_joined_by": ["hafs", "shuba", "bazzi"],
+      "written_apart_by": ["warsh", "qaloun", "douri", "sousi"]
+    },
+    {
+      "sura": 73,
+      "hafs_ayah": 20,
+      "joined": "أَلَّن",
+      "parts": ["أَن", "لَّن"],
+      "written_joined_by": ["douri", "sousi"],
+      "written_apart_by": ["hafs", "shuba", "warsh", "qaloun", "bazzi"]
+    }
+  ]
+}

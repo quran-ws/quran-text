@@ -2,9 +2,13 @@
 
 The output model is deliberately *flat*: a sūrah is a list of words, and the
 āyah number is an attribute of a word rather than a level of nesting.  That is
-what makes one ID usable across all seven riwāyāt — the riwāyāt disagree about
-where āyāt end (Kūfī counts 6236, Madanī 6214, Baṣrī 6217, Makkī 6220) but they
-agree, almost everywhere, about the sequence of words.
+what makes one number usable across all seven riwāyāt — the editions disagree
+about where āyāt end (6,214 to 6,236 of them) but they agree, almost
+everywhere, about the sequence of words.
+
+The numbering counts the finest division any muṣḥaf prints.  It is a property
+of the format, fixed by ``format_version``, not a per-file choice: see
+``docs/MUSHAF-FORMAT.md``, *Numbering*.
 """
 
 from __future__ import annotations
@@ -15,7 +19,7 @@ from collections import Counter
 from dataclasses import dataclass, field
 from pathlib import Path
 
-from .align import Column, build_spine
+from .align import WRITTEN_JOINED, Column, build_spine
 from .sources import Riwaya, load_all
 from .tokenize import Token, tokenize
 
@@ -34,14 +38,11 @@ STATUS_DOTTING = "dotting_variant"
 STATUS_DIACRITIC = "diacritic_variant"
 STATUS_IDENTICAL = "identical"
 
-#: Traditions of ʿadd al-āy, for reference only.  They are *not* the identity
-#: of a fawāṣil system: see :func:`fawasil`.
-COUNTING_TRADITIONS = {"kufi": "Kūfī", "madani": "Madanī",
-                       "basri": "Baṣrī", "makki": "Makkī"}
-
 
 @dataclass
 class Word:
+    #: The shared number, ``1 … total``: the same integer is the same word in
+    #: every muṣḥaf that has it.
     id: int
     sura: int
     index: int            # 1-based position within the sūrah
@@ -62,6 +63,10 @@ class Word:
     #: riwāyah -> (page, line) in that muṣḥaf's own typesetting.  The page is
     #: read from the release; the line is reconstructed.  See ``layout.py``.
     place: dict[str, tuple[int, int]] = field(default_factory=dict)
+    #: Riwāyāt whose printed word here is the *same* printed word as at the
+    #: previous number — they write the two as one.  Present, not missing,
+    #: but not a word of their own at this position.
+    continuation: list[str] = field(default_factory=list)
 
 
 def streams_for(riwayat: list[Riwaya]) -> dict[str, list[Token]]:
@@ -113,18 +118,21 @@ def classify(col: Column, all_keys: list[str]) -> str:
     muṣḥaf it is real — Ḥafṣ writes قال plene 412 times and defective 4, and
     that is its own ḥadhf, faithfully carried.
     """
-    present = [k for k in all_keys if k in col.tokens]
-    if len({col.tokens[k].rasm for k in present}) > 1:
-        if len({col.tokens[k].rasm_plene for k in present}) > 1:
+    present = [k for k in all_keys if col.present(k)]
+    # A riwāyah that writes this word joined to its neighbour carries the
+    # letters of two words; it is compared on nothing and counted as present.
+    apart = [k for k in present if col.boundary.get(k) != WRITTEN_JOINED]
+    if len({col.tokens[k].rasm for k in apart}) > 1:
+        if len({col.tokens[k].rasm_plene for k in apart}) > 1:
             return STATUS_RASM
         return STATUS_ALIF
     if len(present) < len(all_keys):
         return STATUS_PARTIAL
     if col.boundary:
         return STATUS_BOUNDARY
-    if len({col.tokens[k].pointed for k in present}) > 1:
+    if len({col.tokens[k].pointed for k in apart}) > 1:
         return STATUS_DOTTING
-    if len({col.tokens[k].folded for k in present}) > 1:
+    if len({col.tokens[k].folded for k in apart}) > 1:
         return STATUS_DIACRITIC
     return STATUS_IDENTICAL
 
@@ -133,6 +141,9 @@ def ayah_ends(words: list[Word], key: str) -> list[int]:
     """The ID of the last word of every āyah, for one riwāyah's muṣḥaf."""
     ends: list[int] = []
     run = [w for w in words if w.aya.get(key, 0) > 0]
+    # A number covered by the previous printed word cannot end an āyah of its
+    # own; the āyah ends after the printed word, i.e. after the *last* number
+    # it covers.  Both numbers share the āyah, so the last one is what ends it.
     for i, w in enumerate(run):
         nxt = run[i + 1] if i + 1 < len(run) else None
         if nxt is None or (nxt.sura, nxt.aya[key]) != (w.sura, w.aya[key]):
@@ -140,53 +151,25 @@ def ayah_ends(words: list[Word], key: str) -> list[int]:
     return ends
 
 
-def fawasil(words: list[Word]) -> dict[str, dict]:
-    """Where each muṣḥaf ends its āyāt, as canonical word IDs.
-
-    **The fawāṣil belong to the printed muṣḥaf, not to the qirāʾah.**  This is
-    not a nicety.  Many fawāṣil are مختلف فيها — al-Dānī records 67:9
-    «قد جاءنا نذير» as counted by المدني الأخير والمكي and by Shayba, and not
-    counted by the rest — so an edition has to *choose*, and different editions
-    of the same riwāyah choose differently.  KFGQPC's own Dūrī printings show
-    it plainly: 1429 AH and 1443 AH split 67:9 and give a colophon total of
-    6214, while 1436 AH does not split it and states 6217.  Same publisher,
-    same riwāyah, three printings, two different divisions.
-
-    So a system is not named for a counting tradition and is not derived from
-    one.  It is read off the packages themselves, and riwāyāt are grouped only
-    where their fawāṣil turn out to be identical.  If a future package moves a
-    single fāṣilah, it splits into its own system here rather than being
-    quietly averaged into a tradition it does not actually follow.
-    """
-    ends = {key: ayah_ends(words, key) for key in ORDER}
-    systems: dict[str, dict] = {}
-    for key in ORDER:
-        for system in systems.values():
-            if system["ends"] == ends[key]:
-                system["mushaf"].append(key)
-                break
-        else:
-            systems[key] = {"mushaf": [key], "ayah_count": len(ends[key]),
-                            "ends": ends[key]}
-    # Name each system after the muṣḥaf(s) that use it, not after a tradition.
-    return {"+".join(s["mushaf"]): s for s in systems.values()}
-
-
 def canonical_form(col: Column) -> Token:
     """The token whose spelling represents the column.
 
     Ḥafṣ when it has the word, since it is the reference text most consumers
-    expect; otherwise the most common spelling, then the earliest riwāyah.
+    expect; otherwise the most common spelling, then the earliest riwāyah.  A
+    riwāyah that writes the word joined to its neighbour is passed over: its
+    spelling is of two words, and the number is for one.
     """
-    if "hafs" in col.tokens:
-        return col.tokens["hafs"]
-    counts = Counter(t.uthmani for t in col.tokens.values())
+    apart = {k: t for k, t in col.tokens.items()
+             if col.boundary.get(k) != WRITTEN_JOINED} or dict(col.tokens)
+    if "hafs" in apart:
+        return apart["hafs"]
+    counts = Counter(t.uthmani for t in apart.values())
     best = counts.most_common(1)[0][0]
     for key in ORDER:
-        tok = col.tokens.get(key)
+        tok = apart.get(key)
         if tok and tok.uthmani == best:
             return tok
-    return next(iter(col.tokens.values()))
+    return next(iter(apart.values()))
 
 
 def build_words(riwayat: list[Riwaya]) -> list[Word]:
@@ -202,12 +185,13 @@ def build_words(riwayat: list[Riwaya]) -> list[Word]:
         seen: Counter[str] = Counter()
         for index, col in enumerate(spine, start=1):
             canon = canonical_form(col)
-            present = [k for k in keys if k in col.tokens]
+            present = [k for k in keys if col.present(k)]
             # The key is built from the *pointed* skeleton, not the bare rasm:
             # `2:تعملون#1` is legible where `2:ٮعملوں#1` is not, and it is just
             # as stable, since it comes from one canonical spelling.
             seen[canon.pointed] += 1
-            forms = {k: col.tokens[k].uthmani for k in present}
+            tokens = {k: col.token(k) for k in present}
+            forms = {k: tokens[k].uthmani for k in present}
             words.append(Word(
                 id=next_id,
                 sura=sura,
@@ -219,15 +203,16 @@ def build_words(riwayat: list[Riwaya]) -> list[Word]:
                 simple=canon.simple,
                 status=classify(col, keys),
                 present=present,
-                missing=[k for k in keys if k not in col.tokens],
+                missing=[k for k in keys if not col.present(k)],
                 forms=forms,
-                aya={k: col.tokens[k].aya for k in present},
-                waqf={k: col.tokens[k].waqf for k in present if col.tokens[k].waqf},
+                aya={k: tokens[k].aya for k in present},
+                waqf={k: tokens[k].waqf for k in present if tokens[k].waqf},
                 boundary=dict(col.boundary),
-                hizb=[k for k in present if col.tokens[k].hizb],
-                sajdah=[k for k in present if col.tokens[k].sajdah],
-                place={k: (col.tokens[k].page, col.tokens[k].line)
-                       for k in present if col.tokens[k].page},
+                hizb=[k for k in present if tokens[k].hizb],
+                sajdah=[k for k in present if tokens[k].sajdah],
+                place={k: (tokens[k].page, tokens[k].line)
+                       for k in present if tokens[k].page},
+                continuation=[k for k in keys if k in col.covers],
             ))
             next_id += 1
     return words
