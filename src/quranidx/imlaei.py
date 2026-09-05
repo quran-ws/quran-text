@@ -83,7 +83,7 @@ def _skeleton(token: str) -> str:
     return pointed(token).replace("ٱ", "ا").replace("أ", "ا").replace("إ", "ا")
 
 
-def for_riwaya(words: list[Word], riwaya: Riwaya) -> tuple[dict[int, str], dict]:
+def derive(words: list[Word], riwaya: Riwaya) -> tuple[dict[int, str], dict]:
     """``word id -> imlāʾī``, with a report of what could not be mapped.
 
     Asked of every riwāyah and answered for the one that can answer.  Having a

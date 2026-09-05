@@ -437,7 +437,7 @@ class TestNumbering(unittest.TestCase):
         words = [self.word(1), self.word(2, forms={"b": "u"}), self.word(3)]
         printed, missing = printed_words(words, "a")
         self.assertEqual([p.position for p in printed], [0, 1])
-        self.assertEqual(numbering(words, printed, missing),
+        self.assertEqual(numbering(printed, missing, total=3),
                          {"total": 3, "missing": [2], "written_joined": []})
 
     def test_a_joined_word_covers_a_run(self):
@@ -445,7 +445,7 @@ class TestNumbering(unittest.TestCase):
                  self.word(4)]
         printed, missing = printed_words(words, "a")
         self.assertEqual(len(printed), 3)
-        self.assertEqual(numbering(words, printed, missing)["written_joined"],
+        self.assertEqual(numbering(printed, missing, total=4)["written_joined"],
                          [{"position": 1, "numbers": [2, 3]}])
 
     def test_the_invariants_catch_a_run_that_does_not_tile(self):
@@ -535,8 +535,8 @@ class TestPublishedFiles(unittest.TestCase):
                          ["shayba"])
 
     def test_unexplained_is_allowlisted(self):
-        from quranidx.counting import check_counting, open_findings
-        self.assertEqual(check_counting(self.docs), [])
+        from quranidx.counting import check_unexplained, open_findings
+        self.assertEqual(check_unexplained(self.docs), [])
         unexplained = {(k, u["sura"], u["ayah"]) for k, d in self.docs.items()
                        for u in d["counting"]["unexplained"]}
         self.assertEqual(unexplained,

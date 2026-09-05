@@ -14,7 +14,7 @@ from .normalize import fold_notation, pointed, rasm, unpositioned
 from .output import boundary_events
 from .sources import Riwaya
 from .suras import names
-from .validate import (check_alif_splits, check_counting, check_index,
+from .validate import (check_alif_splits, check_ayah_numbers, check_index,
                        check_release_policy, cross_release)
 from .align import WRITTEN_JOINED
 
@@ -139,12 +139,14 @@ def _pairwise(words: list[Word], keys: list[str]) -> list[dict]:
 
 
 def write_report(words: list[Word], riwayat: list[Riwaya],
-                 counting: dict[str, dict] | None = None) -> None:
+                 docs: dict[str, dict] | None = None) -> None:
+    """``out/COMPARISON.md`` and companions.  ``docs`` are the muṣḥaf files
+    from :func:`quranidx.mushaf.write_mushafs`, for their ``counting`` blocks."""
     keys = [r.key for r in riwayat]
     status = Counter(w.status for w in words)
     pairs = _pairwise(words, keys)
     cross = cross_release(riwayat)
-    counting = counting or {}
+    counting = {k: d["counting"] for k, d in (docs or {}).items()}
 
     L: list[str] = []
     add = L.append
@@ -508,7 +510,7 @@ def write_report(words: list[Word], riwayat: list[Riwaya],
         "marks. The `folded` form decomposes them again, so none of it reaches the "
         "word index.")
     add("")
-    problems = (check_index(words, riwayat) + check_counting(riwayat)
+    problems = (check_index(words, riwayat) + check_ayah_numbers(riwayat)
                 + check_release_policy(riwayat) + check_alif_splits(words))
     add("### Checks")
     add("")
