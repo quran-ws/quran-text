@@ -1,7 +1,7 @@
 # Method
 
 Four stages: parse each riwāyah into āyāt, cut āyāt into words, reduce each word
-to comparable forms, then align the seven word streams into one spine.
+to comparable forms, then align the seven word streams into one word index.
 
 ## 0. Choosing the release
 
@@ -19,7 +19,7 @@ here.
 
 The earlier release is never merged into the text. It is loaded only as a
 cross-check, and every difference between the two is counted and reported in
-`out/COMPARISON.md` under *Source integrity*.
+`out/reports/COMPARISON.md` under *Source integrity*.
 
 The rule is asserted rather than assumed: `check_release_policy` fails the build
 if a riwāyah's text is ever loaded from the older of its two packages. Loading
@@ -183,13 +183,13 @@ line as `ۑ`.
 ## 4. Aligning
 
 The riwāyāt share a rasm that is identical 99.5 %+ of the time, so a progressive
-alignment suffices. Ḥafṣ becomes the initial spine; each remaining riwāyah is
+alignment suffices. Ḥafṣ's words are the initial columns; each remaining riwāyah is
 folded in with a `difflib` diff over rasm sequences, per sūrah.
 
 Each diff opcode has one meaning:
 
 - `equal` — the riwāyah joins the existing columns;
-- `insert` — the riwāyah has a word the spine lacks, so a new column is created
+- `insert` — the riwāyah has a word the columns lack, so a new column is created
   (this is how Bazzī's `مِن` at 9:101 gets an ID that the others simply do not use);
 - `delete` — the riwāyah has no word at that column;
 - `replace` — the same slot, spelled differently.
@@ -225,7 +225,7 @@ each riwāyah. Its position is the word's number.
 
 - **`number`** — the shared number, a running integer over the whole corpus,
   `1 … 77434`, counting the finest division any muṣḥaf prints; the same key in
-  the index, the spine, the muṣḥaf views and SQLite. The scheme is specified
+  the word index, the muṣḥaf views and SQLite. The scheme is specified
   in `docs/MUSHAF-FORMAT.md`, *Numbering*.
 - **`index`** — the word's 1-based position within its sūrah.
 - **`key`** — `sūrah:pointed#occurrence`, e.g. `1:مالك#1`. This is rebuild-stable
@@ -238,7 +238,7 @@ each riwāyah. Its position is the word's number.
 ## 5. Fawāṣil
 
 The āyah boundaries are a layer *over* the word index: each muṣḥaf file's
-`ayah_starts`, and `out/fawasil.json` keyed by counting system. **The count
+`ayah_starts`, and `out/counting.json` keyed by counting system. **The count
 belongs to the edition, not the qirāʾah.** Each edition's system is derived by
 comparing its own āyah ends to the six systems' boundaries, taken from
 [qiraat-ayah-map](https://github.com/quranpedia/qiraat-ayah-map) (vendored

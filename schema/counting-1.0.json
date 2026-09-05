@@ -1,12 +1,12 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/quranpedia/quran-word-index/schema/fawasil-1.0.json",
-  "title": "quran-fawasil 1.0",
+  "$id": "https://github.com/quranpedia/quran-word-index/schema/counting-1.0.json",
+  "title": "quran-counting 1.0",
   "description": "The six counting systems' āyah boundaries as shared numbers, with the editions that follow each and their choices at points of khilāf. A view over the muṣḥaf files and data/counting/.",
   "type": "object",
   "required": ["format", "format_version", "generated", "source", "disputed_points", "systems", "open_findings"],
   "properties": {
-    "format": { "const": "quran-fawasil" },
+    "format": { "const": "quran-counting" },
     "format_version": { "type": "string", "pattern": "^\\d+\\.\\d+$" },
     "generated": { "type": "string", "format": "date" },
     "model": { "type": "string" },

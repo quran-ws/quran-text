@@ -26,7 +26,7 @@ riwāyah — the two Abū ʿAmr editions are First Madinan, not Baṣrī, and th
 differ from each other at exactly one documented point. Nesting words under
 āyāt would make a number mean a different word in each edition. Flattening to
 the sūrah makes one number stable across all of them, and the āyah boundaries
-become their own layer over the word index: [`out/fawasil.json`](out/fawasil.json).
+become their own layer over the word index: [`out/counting.json`](out/counting.json).
 
 ## What makes a number mean one word
 
@@ -55,43 +55,29 @@ and each concept means one thing. Specified in
 
 ## What is here
 
-| path | what |
+Start with [`out/catalog.json`](out/catalog.json): it lists the riwāyāt, the
+sūrahs, and every file below with the question it answers.
+
+| you want to… | read |
 |---|---|
-| `out/spine.json`, `out/spine.csv` | **normative** — every number with its text, its Ḥafṣ coordinates and each riwāyah's form |
-| `out/mushaf/<key>.json` | **normative** — one muṣḥaf on its own, words by position, everything else a layer |
-| `out/suras/001.json` … `114.json` | the cross-riwāyah index, one file per sūrah |
-| `out/quran-words.json.gz` | the whole cross-riwāyah index in one file |
-| `out/variants.csv` | one row per riwāyah form that differs from canonical |
-| `out/conflicts.csv` / `.json` | only the words that disagree |
-| `out/fawasil.json` | the six counting systems, their boundaries as numbers, and the editions under each |
-| `out/boundaries.csv` | every word-boundary disagreement, in full |
-| `out/COMPARISON.md` | the cross-riwāyah comparison report |
-| `out/rasm-variants.md` | every letter-level disagreement, listed |
-| `out/agreement-matrix.csv` | pairwise agreement between riwāyāt |
-| `out/compare.html` | interactive word-by-word comparison — open it in a browser |
+| render one muṣḥaf — Warsh, on its own, with its pages, lines, āyāt and pause marks | `out/mushaf/warsh.json` (**normative**), or its views `warsh.nested.json.gz` (sūrah → āyah → words) and `warsh.csv.gz` (one row per word) |
+| use the same word across riwāyāt, attach a Ḥafṣ-keyed dataset, search by plain spelling | `out/word-index.json`, `.csv` (**normative**) — every number with its text, its Ḥafṣ `{sura, ayah, pos}`, and each riwāyah's form |
+| see only where the riwāyāt actually differ | `out/differences.json`, `.csv` |
+| convert an āyah reference: what is 2:255 in Warsh? | `out/ayah-map.json`, `.csv` |
+| know which counting system each edition follows, and the boundaries of all six | `out/counting.json` |
+| query it in SQL | `out/quran.sqlite.gz` — all seven plus the word index |
+| verify what you downloaded | `out/manifest.json` — SHA-256 of every source and every file |
+| read the findings and how this was built | `out/reports/` — `COMPARISON.md`, `rasm-variants.md`, `compare.html`, `agreement-matrix.csv`, `variants.csv`, `resegmentation.csv` |
 
-### One muṣḥaf at a time
-
-The tables above compare the seven. To take just one — Warsh, on its own, with
-its own pages and pause marks — read `out/mushaf/`:
-
-| path | what |
-|---|---|
-| `out/mushaf/warsh.json` | the whole muṣḥaf: `words` by position, `ayah_starts`, `page_starts`, `line_starts`, `juz_starts`, `marks`, and the `numbering` block that maps positions onto the shared numbers |
-| `out/mushaf/suras/warsh/002.json` | one sūrah, for a page that fetches what it shows |
-| `out/mushaf/nested/warsh.json.gz` | sūrah → āyah → word, for verse-level consumers |
-| `out/mushaf/warsh.csv.gz` | one row per word |
-| `out/quran.sqlite.gz` | all seven plus the spine, queryable in SQL |
-| `out/mushaf/manifest.json` | every file and every source package, with SHA-256 |
-
-Each file names the KFGQPC release it came from, says which layers it carries
-and why it lacks the rest, names the counting system its āyah division follows
-and what it does at every point of khilāf, and lists every place this build
-changed the source's own word spacing. Only `out/mushaf/<key>.json` and
-`out/spine.json` are normative — the rest are generated views. The format is
-specified in [`docs/MUSHAF-FORMAT.md`](docs/MUSHAF-FORMAT.md) and checkable
-against [`schema/mushaf-1.0.json`](schema/mushaf-1.0.json) and
-[`schema/spine-1.0.json`](schema/spine-1.0.json).
+A muṣḥaf file is about half a megabyte gzipped, and a sūrah, a page or a juz
+is one slice of its `words`, so there are no per-sūrah files. Each muṣḥaf
+file names the KFGQPC release it came from, says which layers it carries and
+why it lacks the rest, names the counting system its āyah division follows and
+what it does at every point of khilāf, and lists every place this build
+changed the source's own word spacing. The format is specified in
+[`docs/MUSHAF-FORMAT.md`](docs/MUSHAF-FORMAT.md), every file in
+[`docs/SCHEMA.md`](docs/SCHEMA.md), and the JSON Schemas are in
+[`schema/`](schema/).
 
 ## Headline numbers
 
@@ -121,9 +107,10 @@ publisher. Rasm agreement between any two riwāyāt is **99.5 %–100 %**.
 
 ```json
 {
- "number": 11, "index": 11, "key": "1:مالك#1",
+ "number": 11, "sura": 1, "index": 11, "key": "1:مالك#1",
  "rasm": "ملك", "pointed": "مالك", "uthmani": "مَٰلِكِ", "simple": "مالك",
  "status": "dotting_variant",
+ "hafs":  { "sura": 1, "ayah": 4, "pos": 1 },
  "ayah":  { "hafs": 4, "shuba": 4, "warsh": 3, "qaloun": 3,
             "douri": 3, "sousi": 3, "bazzi": 4 },
  "forms": { "hafs": "مَٰلِكِ", "shuba": "مَٰلِكِ", "warsh": "مَلِكِ", "qaloun": "مَلِكِ",
@@ -147,14 +134,14 @@ commit, so the build is reproducible offline.
 
 ```sh
 python3 build.py                            # ~3 min, writes out/
-python3 -m unittest discover -s tests        # 70 tests
+python3 -m unittest discover -s tests        # 71 tests
 ```
 
 ## Read next
 
 - [`docs/MUSHAF-FORMAT.md`](docs/MUSHAF-FORMAT.md) — the normative format: words by position, the numbering, the counting block
 - [`docs/METHOD.md`](docs/METHOD.md) — how words are derived and aligned
-- [`docs/SCHEMA.md`](docs/SCHEMA.md) — every field of every output
+- [`docs/SCHEMA.md`](docs/SCHEMA.md) — every file under `out/`, and every field
 - [`docs/DATA-SOURCES.md`](docs/DATA-SOURCES.md) — what is in `data/`
 - [`docs/ISSUES.md`](docs/ISSUES.md) — what the sources contain, and mistakes made building this
 - [`docs/LIMITATIONS.md`](docs/LIMITATIONS.md) — what this does **not** do

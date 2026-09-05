@@ -9,9 +9,11 @@ from difflib import SequenceMatcher
 from itertools import combinations
 
 from .build import ORDER, OUT, Word, ayah_ends
+
+REPORTS = OUT / "reports"
 from .chars import HARAKAT, OPEN_TANWEEN
 from .normalize import fold_notation, pointed, rasm, unpositioned
-from .output import boundary_events
+from .word_index import boundary_events, rasm_of
 from .sources import Riwaya
 from .suras import names
 from .validate import (check_alif_splits, check_ayah_numbers, check_index,
@@ -295,7 +297,7 @@ def write_report(words: list[Word], riwayat: list[Riwaya],
         f"names. All {len(rasm_v):,} are listed "
         f"below, grouped by what the difference *is*. Machine-readable: "
         f"[`rasm-variants.md`](rasm-variants.md), "
-        f"[`conflicts.csv`](conflicts.csv).")
+        f"[`differences.csv`](../differences.csv).")
     add("")
 
     add("#### One skeleton, one letter more")
@@ -401,7 +403,7 @@ def write_report(words: list[Word], riwayat: list[Riwaya],
         add(_table([[f"`{','.join(ks)}`", t] for t, ks in ev["texts"].items()],
                    ["riwāyāt", "as printed"]))
         add("")
-    add("Machine-readable: [`boundaries.csv`](boundaries.csv).")
+    add("Machine-readable: [`resegmentation.csv`](resegmentation.csv).")
     add("")
 
     # --- absent -----------------------------------------------------------
@@ -457,7 +459,7 @@ def write_report(words: list[Word], riwayat: list[Riwaya],
         "vendored under `data/counting/`), then the points of khilāf inside the "
         "system are named with the authority the edition follows. Whatever is "
         "left is `unexplained` and is an open finding. Machine-readable: "
-        "[`fawasil.json`](fawasil.json).")
+        "[`counting.json`](../counting.json).")
     add("")
     add(_table([[
         k, f"`{c['system']}`", c["system_name_ar"], f"{c['ayah_count']:,}",
@@ -541,7 +543,8 @@ def write_report(words: list[Word], riwayat: list[Riwaya],
                       "dotting", "ā", "rasm", "boundary/absent", "per 1000"]))
     add("")
 
-    (OUT / "COMPARISON.md").write_text("\n".join(L), encoding="utf-8")
+    REPORTS.mkdir(exist_ok=True)
+    (REPORTS / "COMPARISON.md").write_text("\n".join(L), encoding="utf-8")
 
     # --- full rasm variant listing ---------------------------------------
     V = ["# Rasm disagreements — full listing", "",
@@ -556,7 +559,7 @@ def write_report(words: list[Word], riwayat: list[Riwaya],
          f"out, differing only in where the ā was written, and splitting the "
          f"seven exactly one way. See *The ā on the line or above it* in "
          f"`COMPARISON.md` for why that difference is reported apart.", "",
-         "Machine-readable: `conflicts.csv`, `conflicts.json`.", ""]
+         "Machine-readable: `../differences.csv`, `../differences.json`.", ""]
     for title, ws in (("Letters", rasm_v), ("The ā", alif_v)):
         V += [f"## {title} — {len(ws):,}", ""]
         V.append(_table([[w.id, f"{w.sura}:{w.aya.get('hafs', '—')}", w.index,
@@ -566,13 +569,40 @@ def write_report(words: list[Word], riwayat: list[Riwaya],
                         ["word id", "sūrah:āyah", "word #", "rasm on each side",
                          "as printed"]))
         V.append("")
-    (OUT / "rasm-variants.md").write_text("\n".join(V), encoding="utf-8")
+    (REPORTS / "rasm-variants.md").write_text("\n".join(V), encoding="utf-8")
 
     # --- matrix as csv ----------------------------------------------------
-    with (OUT / "agreement-matrix.csv").open("w", encoding="utf-8", newline="") as fh:
+    with (REPORTS / "agreement-matrix.csv").open("w", encoding="utf-8", newline="") as fh:
         wr = csv.writer(fh)
         wr.writerow(["riwaya_a", "riwaya_b", "shared_words", "same_spelling",
                      "same_reading", "same_pointed", "same_rasm"])
         for p in pairs:
             wr.writerow([p["a"], p["b"], p["shared"], p["same_form"],
                          p["same_reading"], p["same_pointed"], p["same_rasm"]])
+
+    # --- every form that departs from the canonical spelling --------------
+    with (REPORTS / "variants.csv").open("w", encoding="utf-8", newline="") as fh:
+        wr = csv.writer(fh)
+        wr.writerow(["number", "sura", "index", "riwaya", "ayah",
+                     "canonical_uthmani", "riwaya_uthmani", "same_rasm", "status"])
+        for w in words:
+            for k in keys:
+                form = w.forms.get(k)
+                if form is None or form == w.uthmani:
+                    continue
+                wr.writerow([w.id, w.sura, w.index, k, w.aya.get(k, ""),
+                             w.uthmani, form, int(w.rasm == rasm_of(w, k)), w.status])
+
+    # --- every place the build re-spaced a source ------------------------
+    with (REPORTS / "resegmentation.csv").open("w", encoding="utf-8", newline="") as fh:
+        wr = csv.writer(fh)
+        wr.writerow(["numbers", "sura", "ayah_hafs", "kind", "riwayat",
+                     "riwayat_agree", "forms"])
+        for event in boundary_events(words):
+            wr.writerow([
+                "|".join(str(i) for i in event["word_ids"]), event["sura"],
+                event["aya"], event["kind"], "|".join(event["riwayat"]),
+                int(event["agree"]),
+                "  ||  ".join(f"{t} [{','.join(ks)}]"
+                              for t, ks in event["texts"].items()),
+            ])

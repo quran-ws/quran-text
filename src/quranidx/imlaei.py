@@ -18,7 +18,7 @@ conservatively and every step is checked:
   joined with a space, so ``e`` is always one string per word.
 * The Ḥafṣ text of record is the 2026 ``.docx``, not this 2022 CSV, and the two
   tokenise differently in a few places.  The last hop aligns the CSV's tokens
-  onto the spine on the rasm, the same key the muṣḥafs themselves are aligned
+  onto the word index on the rasm, the same key the muṣḥafs themselves are aligned
   on.
 
 A word the chain cannot resolve gets no ``e`` field at all, and the count of
@@ -96,10 +96,10 @@ def derive(words: list[Word], riwaya: Riwaya) -> tuple[dict[int, str], dict]:
                     "reason": "release carries no imlāʾī column"}
 
     key = riwaya.key
-    spine: dict[tuple[int, int], list[Word]] = defaultdict(list)
+    by_ayah: dict[tuple[int, int], list[Word]] = defaultdict(list)
     for w in words:
         if key in w.forms and key not in w.continuation:
-            spine[(w.sura, w.aya[key])].append(w)
+            by_ayah[(w.sura, w.aya[key])].append(w)
 
     out: dict[int, str] = {}
     unpaired = unaligned = 0
@@ -107,7 +107,7 @@ def derive(words: list[Word], riwaya: Riwaya) -> tuple[dict[int, str], dict]:
     for (sura, aya), meta in riwaya.meta.items():
         emlaey = (meta.get("emlaey") or "").split()
         source = riwaya.crosscheck.get((sura, aya))
-        target = spine.get((sura, aya))
+        target = by_ayah.get((sura, aya))
         if not emlaey or not source or not target:
             continue
 

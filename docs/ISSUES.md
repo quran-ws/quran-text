@@ -76,7 +76,7 @@ each edition's āyah ends against the six systems' boundaries from
 are set aside, differing from each other only at 67:9. So `mushaf.counting` is
 now a block that names the *derived* system and what the edition does at every
 point of khilāf inside it (`docs/MUSHAF-FORMAT.md`, *Counting*), and
-`out/fawasil.json` is keyed by system with the editions under each.
+`out/counting.json` is keyed by system with the editions under each.
 
 **One thing this repository cannot yet reconcile.** The forum write-up reports
 that the digital Dūrī muṣḥaf carries **6,218** āyāt, matching the 1429 printing.
@@ -139,7 +139,7 @@ Three are cases where packages differ from each other:
   `مَا لِيَ`, where Ḥafṣ's own 2022 CSV joins it: a change of convention
   between releases.
 
-`out/boundaries.csv` carries a `riwayat_agree` column saying whether the riwāyāt
+`out/reports/resegmentation.csv` carries a `riwayat_agree` column saying whether the riwāyāt
 read the run identically once re-segmented. That is a statement about agreement,
 not about correctness.
 
@@ -236,7 +236,7 @@ package is not the test — having something in the column is.
 
 Bringing it down from the āyah to the word is new work, and it does not fully
 close: 77,356 of Ḥafṣ's 77,432 words are mapped, 4 āyāt cannot be paired and 2
-cannot be aligned to the spine. Those words get no `e` field at all. An absent
+cannot be aligned to the word index. Those words get a `null` entry. An absent
 spelling is recoverable; a guessed one is not.
 
 ---
@@ -262,7 +262,7 @@ do this.
 
 ### Sequence identity vs value identity
 
-`Column` is a mutable dataclass shared between spine positions. With the default
+`Column` is a mutable dataclass shared between alignment positions. With the default
 generated `__eq__`, a `col not in out` membership test compared *contents*,
 which was both quadratic and wrong once two columns held equal tokens. Columns
 are now `@dataclass(eq=False)`.
@@ -425,7 +425,7 @@ through the same normalisation, so it cannot drift again.
 reasoning that a join *causes* an apparent absence. It does — but it also meant
 five of the six boundary events were reported as disagreements when all seven
 riwāyāt read them identically and one source had merely lost a space. Content
-is decided first now, and `boundaries.csv` carries a `riwayat_agree` column so
+is decided first now, and `reports/resegmentation.csv` carries a `riwayat_agree` column so
 the two cases are told apart rather than conflated.
 
 ### "No local rule can separate these" — there was one
