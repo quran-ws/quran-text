@@ -26,13 +26,13 @@ FORMAT = "quran-spine"
 FORMAT_VERSION = "1.0"
 
 
-def hafs_coordinates(words: list[Word]) -> dict[int, list[int]]:
-    """number -> ``[sura, ayah, position in the āyah]`` in Ḥafṣ, where it has it.
+def hafs_coordinates(words: list[Word]) -> dict[int, dict]:
+    """number -> ``{sura, ayah, pos}`` in Ḥafṣ, where it has the word.
 
     The position counts *printed* words: a number Ḥafṣ covers with the same
     printed word as the number before it takes that word's position.
     """
-    out: dict[int, list[int]] = {}
+    out: dict[int, dict] = {}
     pos = 0
     at: tuple[int, int] | None = None
     for w in words:
@@ -45,13 +45,13 @@ def hafs_coordinates(words: list[Word]) -> dict[int, list[int]]:
         if here != at:
             at, pos = here, 0
         pos += 1
-        out[w.id] = [w.sura, w.aya["hafs"], pos]
+        out[w.id] = {"sura": w.sura, "ayah": w.aya["hafs"], "pos": pos}
     return out
 
 
-def spine_word(w: Word, hafs: dict[int, list[int]]) -> dict:
+def spine_word(w: Word, hafs: dict[int, dict]) -> dict:
     return {
-        "n": w.id,
+        "number": w.id,
         "sura": w.sura,
         "rasm": w.rasm,
         "pointed": w.pointed,
@@ -60,7 +60,7 @@ def spine_word(w: Word, hafs: dict[int, list[int]]) -> dict:
         "status": w.status,
         "hafs": hafs.get(w.id),
         "forms": {k: w.forms[k] for k in ORDER if k in w.forms},
-        "aya": {k: w.aya[k] for k in ORDER if k in w.aya},
+        "ayah": {k: w.aya[k] for k in ORDER if k in w.aya},
         **({"written_joined": [k for k in ORDER if w.boundary.get(k) == "written_joined"]}
            if any(v == "written_joined" for v in w.boundary.values()) else {}),
     }
@@ -75,12 +75,12 @@ def write_spine(words: list[Word]) -> dict:
         "generated": date.today().isoformat(),
         "total": words[-1].id,
         "mushafs": ORDER,
-        "note": "`n` is the shared number, dense 1 … total. `forms[key]` is "
+        "note": "`number` is the shared number, dense 1 … total. `forms[key]` is "
                 "absent where that muṣḥaf does not read the word; where a "
                 "muṣḥaf writes the number joined with its neighbour the form "
                 "is the joined word, repeated on both numbers, and `written_joined` "
-                "names those muṣḥafs. `hafs` is [sura, ayah, position] in the Kūfī "
-                "count, null where Ḥafṣ lacks the word.",
+                "names those muṣḥafs. `hafs` is the word's sūrah, āyah and "
+                "position in the āyah in the Kūfī count, null where Ḥafṣ lacks it.",
         "words": [spine_word(w, hafs) for w in words],
     }
     # One word per line: readable in an editor and diffable by git, without
@@ -95,13 +95,13 @@ def write_spine(words: list[Word]) -> dict:
 
     with (OUT / "spine.csv").open("w", encoding="utf-8", newline="") as fh:
         wr = csv.writer(fh)
-        wr.writerow(["n", "sura", "rasm", "pointed", "uthmani", "simple", "status",
+        wr.writerow(["number", "sura", "rasm", "pointed", "uthmani", "simple", "status",
                      "hafs_sura", "hafs_ayah", "hafs_pos", "written_joined"]
-                    + [f"aya_{k}" for k in ORDER] + [f"form_{k}" for k in ORDER])
+                    + [f"ayah_{k}" for k in ORDER] + [f"form_{k}" for k in ORDER])
         for w in words:
-            h = hafs.get(w.id) or ["", "", ""]
+            h = hafs.get(w.id)
             wr.writerow([w.id, w.sura, w.rasm, w.pointed, w.uthmani, w.simple,
-                         w.status, *h,
+                         w.status, *((h["sura"], h["ayah"], h["pos"]) if h else ("", "", "")),
                          "|".join(k for k in ORDER
                                   if w.boundary.get(k) == "written_joined")]
                         + [w.aya.get(k, "") for k in ORDER]

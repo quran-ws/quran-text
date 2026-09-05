@@ -105,13 +105,13 @@ def _marks(w: Word, key: str) -> list[dict]:
     """Every sign printed against this word, with the side it sits on."""
     out = []
     if key in w.hizb:
-        out.append({"k": "hizb", "at": "before", "sign": "۞"})
+        out.append({"kind": "hizb", "side": "before", "sign": "۞"})
     for sign in w.waqf.get(key, ""):
         if sign == "۩":
             continue                       # emitted below, as its own kind
-        out.append({"k": "waqf", "at": "after", "sign": sign})
+        out.append({"kind": "waqf", "side": "after", "sign": sign})
     if key in w.sajdah:
-        out.append({"k": "sajdah", "at": "after", "sign": "۩"})
+        out.append({"kind": "sajdah", "side": "after", "sign": "۩"})
     return out
 
 
@@ -223,12 +223,12 @@ def _suras(key: str, printed: list[Printed], ayah_starts: list[int],
     for sura, ps in sorted(by_sura.items()):
         info = names()[sura]
         out.append({
-            "n": sura,
+            "number": sura,
             "name_ar": info["name_ar"],
             "name_en": info["name_en"],
             "revelation": info["revelation"],
-            "basmalah": sura in basmalah_printed,
-            "ayat": max(p.word.aya.get(key, 0) for p in ps),
+            "has_basmalah": sura in basmalah_printed,
+            "ayah_count": max(p.word.aya.get(key, 0) for p in ps),
             "first_ayah": first_ayah_of[sura],
         })
     return out
@@ -388,7 +388,7 @@ def document(words: list[Word], r: Riwaya,
     marks: list[list[int]] = []
     for p in printed:
         for m in _marks(p.word, key):
-            sig = (m["k"], m["at"], m["sign"])
+            sig = (m["kind"], m["side"], m["sign"])
             if sig not in type_index:
                 type_index[sig] = len(mark_types)
                 mark_types.append(m)

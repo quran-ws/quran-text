@@ -406,17 +406,17 @@ class TestMarks(unittest.TestCase):
 
     def test_rub_el_hizb_sits_before_the_word(self):
         self.assertEqual(_marks(self.word(hizb=["hafs"]), "hafs"),
-                         [{"k": "hizb", "at": "before", "sign": "۞"}])
+                         [{"kind": "hizb", "side": "before", "sign": "۞"}])
 
     def test_a_pause_mark_sits_after_it(self):
         self.assertEqual(_marks(self.word(waqf={"hafs": "ۖ"}), "hafs"),
-                         [{"k": "waqf", "at": "after", "sign": "ۖ"}])
+                         [{"kind": "waqf", "side": "after", "sign": "ۖ"}])
 
     def test_sajdah_is_its_own_kind_not_a_pause_mark(self):
         # ۩ arrives through the same channel as the pause marks and must not
         # also be reported as one.
         marks = _marks(self.word(waqf={"hafs": "۩"}, sajdah=["hafs"]), "hafs")
-        self.assertEqual(marks, [{"k": "sajdah", "at": "after", "sign": "۩"}])
+        self.assertEqual(marks, [{"kind": "sajdah", "side": "after", "sign": "۩"}])
 
     def test_a_word_of_another_riwaya_carries_none_of_them(self):
         self.assertEqual(_marks(self.word(hizb=["hafs"]), "warsh"), [])
@@ -547,7 +547,7 @@ class TestPublishedFiles(unittest.TestCase):
         if not path.exists():
             self.skipTest("spine not built")
         spine = json.loads(path.read_text(encoding="utf-8"))
-        self.assertEqual([w["n"] for w in spine["words"]], list(range(1, 77435)))
+        self.assertEqual([w["number"] for w in spine["words"]], list(range(1, 77435)))
         law = spine["words"][73950]
         self.assertEqual(law["uthmani"], "لَّوِ")          # not Ḥafṣ's joined form
         self.assertEqual(law["forms"]["hafs"], "وَأَلَّوِ")
