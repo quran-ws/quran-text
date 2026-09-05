@@ -49,19 +49,19 @@ divide the text differently, and given one number that means the same word in
 all seven riwāyāt — so word-level data attached once can be read off any of
 them.
 
-What follows from those two:
+## What is different
 
-- **Seven riwāyāt, not one.** The others are not variants of Ḥafṣ; each is a
-  printed muṣḥaf of its own, published on its own terms — its words, its
-  spelling, its āyah division, its typesetting.
-- **Words, not āyāt, are the unit.** The riwāyāt agree on the words almost
-  everywhere and disagree on where āyāt end far more often, so the āyah is an
-  attribute of a word here, not a container.
-- **The āyah count belongs to the edition.** Dūrī and Sūsī are both First
-  Madinan and differ at exactly one documented point; Bazzī counts one āyah
-  no source yet explains. Each edition's counting system is *derived* from
-  what it prints and checked against the classical systems, not assumed from
-  the riwāyah, and every disagreement is named with the authority it follows.
+- **Seven riwāyāt, not one.** Each is a printed muṣḥaf of its own, published on
+  its own terms: its words, its spelling, its āyah division, its typesetting.
+- **Words, not āyāt, are the unit.** The riwāyāt agree on the words and
+  disagree on where āyāt end, so the āyah is an attribute of a word, not a
+  container. That is what lets one number mean one word in all seven.
+- **The āyah count belongs to the edition.** Each edition's counting system is
+  derived from what it prints and checked against the classical systems; every
+  disagreement is named with the authority it follows.
+- **Nothing is invented, and every departure is disclosed.** The text is the
+  KFGQPC release's, hash for hash; what this build changed is in the file, not
+  in a footnote.
 
 ## What you get
 
