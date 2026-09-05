@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/quranpedia/quran-word-index/schema/spine-1.0.json",
+  "title": "quran-spine 1.0",
+  "description": "The shared numbering: every number with a text, its Ḥafṣ coordinates, and each muṣḥaf's form of it. Normative alongside the muṣḥaf files; see docs/MUSHAF-FORMAT.md.",
+  "type": "object",
+  "required": ["format", "format_version", "generated", "total", "mushafs", "words"],
+  "additionalProperties": false,
+  "properties": {
+    "format": { "const": "quran-spine" },
+    "format_version": { "type": "string", "pattern": "^\\d+\\.\\d+$" },
+    "generated": { "type": "string", "format": "date" },
+    "total": { "type": "integer", "minimum": 1 },
+    "mushafs": { "type": "array", "items": { "type": "string" } },
+    "note": { "type": "string" },
+    "words": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["n", "sura", "rasm", "pointed", "uthmani", "simple", "status", "hafs", "forms", "aya"],
+        "additionalProperties": false,
+        "properties": {
+          "n": { "type": "integer", "minimum": 1, "description": "The shared number; words[i].n == i + 1." },
+          "sura": { "type": "integer", "minimum": 1, "maximum": 114 },
+          "rasm": { "type": "string" },
+          "pointed": { "type": "string" },
+          "uthmani": { "type": "string", "description": "Canonical spelling of this one word, from a muṣḥaf that writes it apart." },
+          "simple": { "type": "string" },
+          "status": { "enum": ["identical", "diacritic_variant", "dotting_variant", "alif_variant", "rasm_variant", "word_boundary", "partial"] },
+          "hafs": {
+            "description": "[sura, ayah, position in the āyah] in the Kūfī count, or null where Ḥafṣ does not read the word. Two numbers Ḥafṣ writes as one word share a triple.",
+            "oneOf": [
+              { "type": "null" },
+              { "type": "array", "minItems": 3, "maxItems": 3, "items": { "type": "integer", "minimum": 1 } }
+            ]
+          },
+          "forms": {
+            "type": "object",
+            "description": "Each muṣḥaf's own spelling; absent iff the muṣḥaf does not read the word. Where a muṣḥaf writes the number joined with its neighbour this is the joined word, repeated on both numbers.",
+            "additionalProperties": { "type": "string" }
+          },
+          "aya": {
+            "type": "object",
+            "description": "Āyah number in each muṣḥaf's own count; 0 is the unnumbered basmalah of Al-Fātiḥah.",
+            "additionalProperties": { "type": "integer", "minimum": 0 }
+          },
+          "written_joined": {
+            "type": "array",
+            "description": "The muṣḥafs whose printed word here covers more than this number.",
+            "items": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

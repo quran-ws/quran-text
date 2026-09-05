@@ -98,7 +98,7 @@ def for_riwaya(words: list[Word], riwaya: Riwaya) -> tuple[dict[int, str], dict]
     key = riwaya.key
     spine: dict[tuple[int, int], list[Word]] = defaultdict(list)
     for w in words:
-        if key in w.forms:
+        if key in w.forms and key not in w.continuation:
             spine[(w.sura, w.aya[key])].append(w)
 
     out: dict[int, str] = {}

@@ -13,7 +13,9 @@ issues report.
 
 from __future__ import annotations
 
+import json
 from collections import Counter, defaultdict
+from pathlib import Path
 
 from .build import Word
 from .normalize import fold_notation, rasm, uthmani
@@ -65,7 +67,8 @@ def check_index(words: list[Word], riwayat: list[Riwaya]) -> list[dict]:
     # check indifferent to words the builder re-segmented.
     for r in riwayat:
         source = [a for a in r.ayat if a.aya > 0 or a.sura == 1]
-        got = "".join(rasm(w.forms[r.key]) for w in words if r.key in w.forms)
+        got = "".join(rasm(w.forms[r.key]) for w in words
+                      if r.key in w.forms and r.key not in w.continuation)
         want = "".join(t.rasm for t in tokenize(source))
         if got != want:
             at = next((i for i, (x, y) in enumerate(zip(got, want)) if x != y),
@@ -236,15 +239,20 @@ def check_mushaf_roundtrip(words, riwayat) -> list[dict]:
     streams = streams_for(riwayat)
     for r in riwayat:
         key = r.key
-        mine = [w for w in words if key in w.forms]
+        mine = [w for w in words if key in w.forms and key not in w.continuation]
         published = "".join(rasm(w.forms[key]) for w in mine)
         source = "".join(t.rasm for t in streams[key])
         if published != source:
             out.append({"check": "mushaf_roundtrip", "riwaya": key,
                         "detail": "published text does not reproduce the source"})
 
-        declared = {i for w in mine if key in w.boundary for i in (w.id,)}
-        flagged = {w.id for w in mine if key in w.boundary}
+        from .align import WRITTEN_JOINED
+        from .output import boundary_events
+        declared = {i for e in boundary_events(words) if key in e["riwayat"]
+                    for i in e["word_ids"] if key in next(
+                        w for w in words if w.id == i).forms}
+        flagged = {w.id for w in mine
+                   if w.boundary.get(key) not in (None, WRITTEN_JOINED)}
         if declared != flagged:
             out.append({"check": "mushaf_resegmentation", "riwaya": key,
                         "detail": f"{len(flagged - declared)} re-segmented "
@@ -256,3 +264,155 @@ def check_mushaf_roundtrip(words, riwayat) -> list[dict]:
                         "detail": f"undeclared tokenizer departure(s): "
                                   f"{sorted(stray)}"})
     return out
+
+
+# --------------------------------------------------------------------------
+# the published files
+# --------------------------------------------------------------------------
+
+def numbers_of(doc: dict) -> list[tuple[int, int]]:
+    """position -> (first, last) run of shared numbers, per the spec's one-pass
+    walk, asserting the invariants as it goes."""
+    key = doc["mushaf"]["key"]
+    numbering = doc["numbering"]
+    missing = set(numbering["missing"])
+    joined = {j["position"]: j["numbers"] for j in numbering["written_joined"]}
+    runs, n = [], 1
+    for pos in range(len(doc["words"])):
+        while n in missing:
+            n += 1
+        first, last = joined.get(pos, (n, n))
+        if first != n:
+            raise AssertionError(f"{key}: run at {pos} starts {first}, expected {n}")
+        if last < first:
+            raise AssertionError(f"{key}: run at {pos} is empty")
+        runs.append((first, last))
+        n = last + 1
+    while n in missing:
+        n += 1
+    if n != numbering["total"] + 1:
+        raise AssertionError(f"{key}: runs and missing do not tile 1…total")
+    return runs
+
+
+def check_numbering(docs: dict[str, dict]) -> list[dict]:
+    """The invariants of the shared numbering, over all seven files at once.
+
+    1. every number in ``1 … total`` is covered by exactly one word or listed
+       in ``missing``, never both, never neither;
+    2. ``len(words) + Σ(len(run) − 1) + len(missing) == total``;
+    3. ``total`` is identical across the seven;
+    4. every ``written_joined`` run is length ≥ 2, and every ``missing`` number
+       is read by at least one *other* muṣḥaf — otherwise it would not be in
+       the numbering at all.
+    """
+    problems: list[dict] = []
+    totals = {d["numbering"]["total"] for d in docs.values()}
+    if len(totals) != 1:
+        problems.append({"check": "numbering_total",
+                         "detail": f"files disagree about total: {sorted(totals)}"})
+    covered: dict[int, set[str]] = defaultdict(set)
+    for key, doc in docs.items():
+        try:
+            runs = numbers_of(doc)
+        except AssertionError as e:
+            problems.append({"check": "numbering_tiles", "riwaya": key, "detail": str(e)})
+            continue
+        n = doc["numbering"]
+        if len(doc["words"]) + sum(l - f for f, l in runs) + len(n["missing"]) != n["total"]:
+            problems.append({"check": "numbering_sum", "riwaya": key,
+                             "detail": "len(words) + joined + missing != total"})
+        for j in n["written_joined"]:
+            if j["numbers"][1] <= j["numbers"][0]:
+                problems.append({"check": "numbering_joined_run", "riwaya": key,
+                                 "detail": f"run at {j['position']} is not ≥ 2"})
+        for f, l in runs:
+            for k in range(f, l + 1):
+                covered[k].add(key)
+    total = max(totals)
+    nobody = [k for k in range(1, total + 1) if not covered.get(k)]
+    if nobody:
+        problems.append({"check": "numbering_read_by_nobody",
+                         "detail": f"{len(nobody)} number(s) no muṣḥaf reads, "
+                                   f"e.g. {nobody[:3]}"})
+    return problems
+
+
+def check_positions(docs: dict[str, dict]) -> list[dict]:
+    """Every ``*_starts`` layer is a strictly increasing list of positions
+    inside ``words``, and the sūrah header agrees with the āyah layer."""
+    problems: list[dict] = []
+    for key, doc in docs.items():
+        n = len(doc["words"])
+        for layer in ("sura_starts", "ayah_starts", "page_starts",
+                      "line_starts", "juz_starts"):
+            starts = doc.get(layer)
+            if starts is None:
+                continue
+            if starts != sorted(set(starts)) or starts[0] < 0 or starts[-1] >= n:
+                problems.append({"check": "positions_sorted", "riwaya": key,
+                                 "detail": f"{layer} is not strictly increasing "
+                                           f"within 0 … {n - 1}"})
+        if doc["sura_starts"][0] != 0 or len(doc["sura_starts"]) != 114:
+            problems.append({"check": "positions_suras", "riwaya": key,
+                             "detail": "sura_starts must be 114 entries from 0"})
+        if len(doc["ayah_starts"]) != doc["counting"]["ayah_count"]:
+            problems.append({"check": "positions_ayah_count", "riwaya": key,
+                             "detail": "len(ayah_starts) != counting.ayah_count"})
+        if doc["mushaf"]["word_count"] != n:
+            problems.append({"check": "positions_word_count", "riwaya": key,
+                             "detail": "mushaf.word_count != len(words)"})
+        expect = 0
+        for row in doc["suras"]:
+            if row["first_ayah"] != expect:
+                problems.append({"check": "positions_first_ayah", "riwaya": key,
+                                 "detail": f"sūrah {row['n']}: first_ayah "
+                                           f"{row['first_ayah']} != {expect}"})
+                break
+            expect += row["ayat"]
+        if doc.get("imlaei") is not None and len(doc["imlaei"]) != n:
+            problems.append({"check": "positions_imlaei", "riwaya": key,
+                             "detail": "imlaei is not parallel to words"})
+        for pos, t in doc["marks"]:
+            if not (0 <= pos < n and 0 <= t < len(doc["mark_types"])):
+                problems.append({"check": "positions_marks", "riwaya": key,
+                                 "detail": f"mark [{pos}, {t}] out of range"})
+                break
+    return problems
+
+
+def check_schema_fields(docs: dict[str, dict], schema: Path) -> list[dict]:
+    """The muṣḥaf documents and the JSON Schema must agree on the field set.
+
+    ``schema/mushaf-1.0.json`` is published as the checkable specification and
+    sets ``additionalProperties: false``.  A full JSON Schema validation would
+    need a dependency this project does not take; comparing the field *names*
+    needs none, and catches the drift that actually happens — a field emitted
+    by the build and never declared, or declared, required, and not emitted.
+    """
+    if not schema.exists():
+        return [{"check": "schema_present",
+                 "detail": f"{schema} is referenced by the docs but missing"}]
+    spec = json.loads(schema.read_text(encoding="utf-8"))
+    declared = set(spec["properties"])
+    required = set(spec.get("required", []))
+    problems: list[dict] = []
+    for key, doc in sorted(docs.items()):
+        undeclared = set(doc) - declared
+        if undeclared:
+            problems.append({"check": "schema_fields", "riwaya": key,
+                             "detail": f"document fields not in the schema: "
+                                       f"{sorted(undeclared)}"})
+        lacking = required - set(doc)
+        if lacking:
+            problems.append({"check": "schema_fields", "riwaya": key,
+                             "detail": f"required fields missing: {sorted(lacking)}"})
+        for name, sub in spec["properties"].items():
+            if name in doc and isinstance(doc[name], dict) and "properties" in sub \
+                    and sub.get("additionalProperties") is False:
+                extra = set(doc[name]) - set(sub["properties"])
+                if extra:
+                    problems.append({"check": "schema_fields", "riwaya": key,
+                                     "detail": f"{name} has fields not in the "
+                                               f"schema: {sorted(extra)}"})
+    return problems

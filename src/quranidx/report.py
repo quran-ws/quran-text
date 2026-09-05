@@ -8,7 +8,7 @@ from datetime import date
 from difflib import SequenceMatcher
 from itertools import combinations
 
-from .build import ORDER, OUT, Word, fawasil
+from .build import ORDER, OUT, Word, ayah_ends
 from .chars import HARAKAT, OPEN_TANWEEN
 from .normalize import fold_notation, pointed, rasm, unpositioned
 from .output import boundary_events
@@ -16,6 +16,7 @@ from .sources import Riwaya
 from .suras import names
 from .validate import (check_alif_splits, check_counting, check_index,
                        check_release_policy, cross_release)
+from .align import WRITTEN_JOINED
 
 STATUS_ORDER = ["identical", "diacritic_variant", "dotting_variant",
                 "alif_variant", "rasm_variant", "word_boundary", "partial"]
@@ -137,12 +138,13 @@ def _pairwise(words: list[Word], keys: list[str]) -> list[dict]:
     return stats
 
 
-def write_report(words: list[Word], riwayat: list[Riwaya]) -> None:
+def write_report(words: list[Word], riwayat: list[Riwaya],
+                 counting: dict[str, dict] | None = None) -> None:
     keys = [r.key for r in riwayat]
     status = Counter(w.status for w in words)
     pairs = _pairwise(words, keys)
     cross = cross_release(riwayat)
-    systems = fawasil(words)
+    counting = counting or {}
 
     L: list[str] = []
     add = L.append
@@ -196,17 +198,18 @@ def write_report(words: list[Word], riwayat: list[Riwaya]) -> None:
     add("## The riwāyāt")
     add("")
     add(_table([[
-        r.key, r.name_en, r.name_ar, r.qari_en, r.counting,
+        r.key, r.name_en, r.name_ar, r.qari_en,
+        f"`{counting[r.key]['system']}`" if r.key in counting else "—",
         f"{sum(1 for a in r.ayat if a.aya > 0):,}",
-        f"{sum(1 for w in words if r.key in w.forms):,}",
+        f"{sum(1 for w in words if r.key in w.forms and r.key not in w.continuation):,}",
     ] for r in riwayat],
-        ["key", "riwāyah", "الرواية", "qāriʾ", "counting", "āyāt", "words"]))
+        ["key", "riwāyah", "الرواية", "qāriʾ", "counting system", "āyāt", "words"]))
     add("")
     add("The āyah totals are not errors and not deducible from the qāriʾ. Many "
-        "fawāṣil are مختلف فيها, so every printed muṣḥaf chooses, and the "
-        "`counting` column above is a conventional label rather than a claim "
-        "about this package. That is exactly why the index is flat, and why the "
-        "āyah boundaries are read off each muṣḥaf rather than assumed: see "
+        "fawāṣil are مختلف فيها, so every printed edition chooses, and the "
+        "counting system above is **derived** from what this package prints, "
+        "not assumed from the riwāyah. That is exactly why the index is flat, "
+        "and why the āyah boundaries are read off each muṣḥaf: see "
         "[the fawāṣil](#fawāṣil-where-the-āyāt-end) below.")
     add("")
 
@@ -402,51 +405,79 @@ def write_report(words: list[Word], riwayat: list[Riwaya]) -> None:
     # --- absent -----------------------------------------------------------
     add("### Absence — words not every riwāyah has")
     add("")
-    add("Each is well attested: Ibn Kathīr's `مِن` at 9:100, and Nāfiʿ reading "
-        "`فإن الله الغني` at 57:24 where the others read `فإن الله هو الغني`. The "
-        "rest are words one riwāyah writes joined to its neighbour and another "
-        "writes separately, so the count of words genuinely differs.")
+    add("Each is well attested: Ibn Kathīr's `مِن` at 9:101; Nāfiʿ reading "
+        "`فإن الله الغني` at 57:24 where the others read `فإن الله هو الغني`; "
+        "and `أَوۡ` at 40:26, where Ḥafṣ and Shuʿbah read *aw* and the other "
+        "five read *wa* — a different word, so the number of `أَوۡ` is absent "
+        "from them and their `وَأَنْ` takes the number of `أَن`.")
     add("")
     add(_table([[
         w.id, f"{w.sura}:{w.aya.get('hafs') or max(w.aya.values())}", f"`{w.rasm}`",
         ", ".join(w.present), ", ".join(w.missing), _forms_cell(w),
     ] for w in absent],
-        ["word id", "sūrah:āyah", "rasm", "present in", "absent from", "as printed"]))
+        ["number", "sūrah:āyah", "rasm", "present in", "absent from", "as printed"]))
+    add("")
+
+    # --- written joined ---------------------------------------------------
+    joined = [w for w in words if any(v == WRITTEN_JOINED for v in w.boundary.values())]
+    add("### Written joined — two words some muṣḥafs print as one")
+    add("")
+    add("Nothing is added and nothing is dropped: the nūn assimilates into the "
+        "letter after it and is not written, so the same two words are printed "
+        "as one. The numbering counts the finest division, so both words keep a "
+        "number and the joined word *covers* both — recorded in each muṣḥaf's "
+        "`numbering.written_joined`, never as a missing word. Declared in "
+        "`data/written-joined.json`.")
+    add("")
+    add(_table([[
+        w.id, f"{w.sura}:{w.aya.get('hafs') or max(w.aya.values())}", f"`{w.rasm}`",
+        ", ".join(k for k in ORDER if w.boundary.get(k) == WRITTEN_JOINED),
+        _forms_cell(w),
+    ] for w in joined],
+        ["number", "sūrah:āyah", "rasm", "written joined by", "as printed"]))
     add("")
 
     # --- fawasil ----------------------------------------------------------
     add("## Fawāṣil: where the āyāt end")
     add("")
     add("The āyah boundaries are a layer *over* the word index, not a property "
-        "of it, and **they belong to the printed muṣḥaf rather than to the "
-        "qirāʾah**. Many fawāṣil are مختلف فيها: al-Dānī records Al-Mulk 67:9 "
-        "«قد جاءنا نذير» as counted by المدني الأخير والمكي and by Shayba and "
-        "not by the rest, and four of the seven packages here count it. An "
-        "edition has to choose, and editions of the same riwāyah choose "
-        "differently — KFGQPC's own Dūrī printings all state they follow "
-        "المدني الأول and still total 6,218 (1429 AH), 6,217 (1436) and 6,214 "
-        "(1443).")
+        "of it, and **the count belongs to the printed edition, not to the "
+        "qirāʾah**. An edition follows one of the six classical counting "
+        "systems, and at the points where the system's own authorities disagree "
+        "it follows one of them: al-Dānī records Al-Mulk 67:9 «قد جاءنا نذير» as "
+        "counted by Shayba and not by Abū Jaʿfar inside the First Madinan, and "
+        "KFGQPC's own Dūrī printings all state they follow المدني الأول and still "
+        "total 6,218 (1429 AH), 6,217 (1436) and 6,214 (1443).")
     add("")
-    add("So the systems below are not counting traditions and are not derived "
-        "from any. They are read off the packages, and two riwāyāt are grouped "
-        "only where their fawāṣil are identical. Machine-readable: "
+    add("Each edition's system is **derived** by comparing its own āyah ends to "
+        "every system's boundaries (from "
+        "[qiraat-ayah-map](https://github.com/quranpedia/qiraat-ayah-map), "
+        "vendored under `data/counting/`), then the points of khilāf inside the "
+        "system are named with the authority the edition follows. Whatever is "
+        "left is `unexplained` and is an open finding. Machine-readable: "
         "[`fawasil.json`](fawasil.json).")
     add("")
     add(_table([[
-        f"`{name}`", ", ".join(v["mushaf"]), f"{v['ayah_count']:,}",
-    ] for name, v in systems.items()],
-        ["system", "muṣḥaf", "āyāt"]))
+        k, f"`{c['system']}`", c["system_name_ar"], f"{c['ayah_count']:,}",
+        "yes" if c["basmalah_counted"] else "no",
+        "; ".join(f"{e['kufi']} {'counted' if e['counted'] else 'not counted'} "
+                  f"({', '.join(e['follows'])})" for e in c["khilaf"]) or "—",
+        "; ".join(f"{e['kufi']} {'counted' if e['counted'] else 'not counted'}"
+                  for e in c["unexplained"]) or "—",
+    ] for k, c in counting.items()],
+        ["muṣḥaf", "system", "", "āyāt", "basmalah counted",
+         "khilāf inside the system", "unexplained"]))
     add("")
-    ends = {name: set(v["ends"]) for name, v in systems.items()}
-    order = list(systems)
+    ends = {k: set(ayah_ends(words, k)) for k in keys}
     add(_table([[f"`{a}`"] + [
-        "—" if a == b else f"{len(ends[a] ^ ends[b]):,}" for b in order
-    ] for a in order], ["system"] + [f"`{b}`" for b in order]))
+        "—" if a == b else f"{len(ends[a] ^ ends[b]):,}" for b in keys
+    ] for a in keys], ["edition"] + [f"`{b}`" for b in keys]))
     add("")
-    add("Positions where two systems put a fāṣilah differently. Dūrī and Sūsī "
-        "are both conventionally labelled Baṣrī and part company at exactly one "
-        "place — 67:9 — which is the whole of the 6,217/6,218 difference between "
-        "them, and is a documented خلافي point rather than a mistake by either.")
+    add("Āyah ends where two editions differ. Dūrī and Sūsī, both First Madinan, "
+        "part company at exactly one place — 67:9 — which is the whole of the "
+        "6,217/6,218 difference between them: Dūrī follows Abū Jaʿfar there and "
+        "Sūsī follows Shayba. Bazzī counts 78:40, which no source yet gives to "
+        "the Makkī count; it is reported as an open finding, not corrected.")
     add("")
 
     # --- source integrity -------------------------------------------------

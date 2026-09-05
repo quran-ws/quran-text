@@ -1,0 +1,10 @@
+{
+  "_description": "Āyah ends where an edition differs from the counting system it follows and no source in data/counting/ records a disagreement inside that system. Each is reported in the edition's file under counting.unexplained and the build fails on any that is not listed here. An entry leaves this list when a source is cited for it (then it moves to khilaf.json) or when the edition is shown to be in error.",
+  "findings": [
+    {
+      "mushaf": "bazzi", "sura": 78, "ayah": 40, "kind": "internal", "word": "قريبا",
+      "counted": true,
+      "note": "The KFGQPC Bazzī edition counts ﴿قريبا﴾ and totals 6220. qiraat-ayah-map gives the point to Baṣrī alone, and its attestation notes record al-Dānī reporting it for Baṣrī, not Makkī. Two independent printed sources (this edition and nquran.com) put a Makkī boundary here; reported to qiraat-ayah-map as a likely khilāf within Makkī, uncited as yet."
+    }
+  ]
+}
