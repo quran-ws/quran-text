@@ -406,17 +406,17 @@ class TestMarks(unittest.TestCase):
 
     def test_rub_el_hizb_sits_before_the_word(self):
         self.assertEqual(_marks(self.word(hizb=["hafs"]), "hafs"),
-                         [{"k": "hizb", "at": "before", "sign": "۞"}])
+                         [{"kind": "hizb", "side": "before", "sign": "۞"}])
 
     def test_a_pause_mark_sits_after_it(self):
         self.assertEqual(_marks(self.word(waqf={"hafs": "ۖ"}), "hafs"),
-                         [{"k": "waqf", "at": "after", "sign": "ۖ"}])
+                         [{"kind": "waqf", "side": "after", "sign": "ۖ"}])
 
     def test_sajdah_is_its_own_kind_not_a_pause_mark(self):
         # ۩ arrives through the same channel as the pause marks and must not
         # also be reported as one.
         marks = _marks(self.word(waqf={"hafs": "۩"}, sajdah=["hafs"]), "hafs")
-        self.assertEqual(marks, [{"k": "sajdah", "at": "after", "sign": "۩"}])
+        self.assertEqual(marks, [{"kind": "sajdah", "side": "after", "sign": "۩"}])
 
     def test_a_word_of_another_riwaya_carries_none_of_them(self):
         self.assertEqual(_marks(self.word(hizb=["hafs"]), "warsh"), [])
@@ -437,7 +437,7 @@ class TestNumbering(unittest.TestCase):
         words = [self.word(1), self.word(2, forms={"b": "u"}), self.word(3)]
         printed, missing = printed_words(words, "a")
         self.assertEqual([p.position for p in printed], [0, 1])
-        self.assertEqual(numbering(words, printed, missing),
+        self.assertEqual(numbering(printed, missing, total=3),
                          {"total": 3, "missing": [2], "written_joined": []})
 
     def test_a_joined_word_covers_a_run(self):
@@ -445,7 +445,7 @@ class TestNumbering(unittest.TestCase):
                  self.word(4)]
         printed, missing = printed_words(words, "a")
         self.assertEqual(len(printed), 3)
-        self.assertEqual(numbering(words, printed, missing)["written_joined"],
+        self.assertEqual(numbering(printed, missing, total=4)["written_joined"],
                          [{"position": 1, "numbers": [2, 3]}])
 
     def test_the_invariants_catch_a_run_that_does_not_tile(self):
@@ -535,8 +535,8 @@ class TestPublishedFiles(unittest.TestCase):
                          ["shayba"])
 
     def test_unexplained_is_allowlisted(self):
-        from quranidx.counting import check_counting, open_findings
-        self.assertEqual(check_counting(self.docs), [])
+        from quranidx.counting import check_unexplained, open_findings
+        self.assertEqual(check_unexplained(self.docs), [])
         unexplained = {(k, u["sura"], u["ayah"]) for k, d in self.docs.items()
                        for u in d["counting"]["unexplained"]}
         self.assertEqual(unexplained,
@@ -547,7 +547,7 @@ class TestPublishedFiles(unittest.TestCase):
         if not path.exists():
             self.skipTest("spine not built")
         spine = json.loads(path.read_text(encoding="utf-8"))
-        self.assertEqual([w["n"] for w in spine["words"]], list(range(1, 77435)))
+        self.assertEqual([w["number"] for w in spine["words"]], list(range(1, 77435)))
         law = spine["words"][73950]
         self.assertEqual(law["uthmani"], "لَّوِ")          # not Ḥafṣ's joined form
         self.assertEqual(law["forms"]["hafs"], "وَأَلَّوِ")

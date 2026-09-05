@@ -15,8 +15,8 @@ Every number of the shared numbering, `1 … 77434`, with a text, its Ḥafṣ
 coordinates, and each riwāyah's form. The CSV has the same content flattened:
 
 ```
-n, sura, rasm, pointed, uthmani, simple, status, hafs_sura, hafs_ayah, hafs_pos,
-written_joined, aya_hafs … aya_bazzi, form_hafs … form_bazzi
+number, sura, rasm, pointed, uthmani, simple, status, hafs_sura, hafs_ayah, hafs_pos,
+written_joined, ayah_hafs … ayah_bazzi, form_hafs … form_bazzi
 ```
 
 See *The spine* in `MUSHAF-FORMAT.md` for the fields.
@@ -32,8 +32,8 @@ One file per sūrah, `001.json` … `114.json`.
   "name_en": "Al-Fātiḥah",
   "revelation": "makki",
   "word_count": 29,
-  "first_word_id": 1,
-  "last_word_id": 29,
+  "first_number": 1,
+  "last_number": 29,
   "ayah_count": { "hafs": 7, "warsh": 7, "…": 7 },
   "words": [ … ]
 }
@@ -43,15 +43,15 @@ One file per sūrah, `001.json` … `114.json`.
 
 ```json
 {
-  "id": 11,
-  "i": 11,
+  "number": 11,
+  "index": 11,
   "key": "1:مالك#1",
   "rasm": "مالك",
   "pointed": "مالك",
   "uthmani": "مَٰلِكِ",
   "simple": "مالك",
   "status": "dotting_variant",
-  "aya":   { "hafs": 4, "shuba": 4, "warsh": 3, "qaloun": 3, "douri": 3, "sousi": 3, "bazzi": 4 },
+  "ayah":  { "hafs": 4, "shuba": 4, "warsh": 3, "qaloun": 3, "douri": 3, "sousi": 3, "bazzi": 4 },
   "forms": { "hafs": "مَٰلِكِ", "shuba": "مَٰلِكِ", "warsh": "مَلِكِ", "qaloun": "مَلِكِ",
              "douri": "مَلِكِ", "sousi": "مَّلِكِ", "bazzi": "مَلِكِ" }
 }
@@ -59,15 +59,15 @@ One file per sūrah, `001.json` … `114.json`.
 
 | field | always | meaning |
 |---|---|---|
-| `id` | ✓ | the shared number, `1 … 77434` — the same integer as `n` in `out/spine.json` |
-| `i` | ✓ | 1-based position within the sūrah |
+| `number` | ✓ | the shared number, `1 … 77434` — the same integer as `number` in `out/spine.json` and in every muṣḥaf view |
+| `index` | ✓ | 1-based position within the sūrah |
 | `key` | ✓ | `sūrah:pointed#occurrence` — content-derived, stable across rebuilds |
 | `rasm` | ✓ | bare ʿUthmānic skeleton — undotted, unvowelled, no hamza, no dagger alif. The alignment key: every riwāyah sharing a number shares this exactly, except in the 60 `rasm_variant` and 198 `alif_variant` words |
 | `pointed` | ✓ | the same skeleton with its dots, from the canonical spelling |
 | `uthmani` | ✓ | canonical display form — Ḥafṣ's spelling where Ḥafṣ writes the word apart, else the most common |
 | `simple` | ✓ | plain spelling for search: no diacritics, superscript alif written out |
 | `status` | ✓ | see below |
-| `aya` | ✓ | āyah number **per riwāyah**; `0` means printed but unnumbered (the basmalah) |
+| `ayah` | ✓ | āyah number **per riwāyah**; `0` means printed but unnumbered (the basmalah) |
 | `forms` | ✓ | each riwāyah's own spelling; a riwāyah is absent from this map iff it lacks the word. Where a riwāyah writes the word joined with its neighbour, this is the joined word |
 | `missing` | — | riwāyāt that do not read the word |
 | `written_joined` | — | riwāyāt whose printed word here also covers the previous number: they write the two as one |
@@ -157,7 +157,7 @@ data = json.load(gzip.open("out/quran-words.json.gz", "rt", encoding="utf-8"))
 One row per riwāyah form that differs from the canonical spelling.
 
 ```
-n, sura, word_index, riwaya, aya, canonical_uthmani, riwaya_uthmani,
+number, sura, index, riwaya, ayah, canonical_uthmani, riwaya_uthmani,
 same_rasm, status
 ```
 
@@ -170,14 +170,14 @@ khilāf inside the system.
 ```json
 { "format": "quran-fawasil", "format_version": "1.0",
   "source": { "repository": "https://github.com/quranpedia/qiraat-ayah-map", "commit": "…", "files": { "…": "sha256" } },
-  "disputed_points": [ { "kufi": "1:1", "kind": "end", "anchor": "الرحيم", "word": 4, "counted_by": ["makki", "kufi"] }, "…" ],
+  "disputed_points": [ { "kufi": "1:1", "kind": "end", "anchor": "الرحيم", "number": 4, "counted_by": ["makki", "kufi"] }, "…" ],
   "systems": {
     "madani-first": { "name_ar": "المدني الأول", "name_en": "First Madinan", "reference_total": 6217,
                       "editions": [ { "mushaf": "douri", "ayah_count": 6217, "khilaf": [ "…" ], "unexplained": [] },
                                     { "mushaf": "sousi", "ayah_count": 6218, "khilaf": [ "…" ], "unexplained": [] } ],
-                      "khilaf_points": [ { "kufi": "67:9", "anchor": "نذير", "word": 72557,
+                      "khilaf_points": [ { "kufi": "67:9", "anchor": "نذير", "number": 72557,
                                            "authorities": { "abu-jafar": false, "shayba": true }, "source": { "…": "…" } }, "…" ],
-                      "ends": [8, 10, "…"] },
+                      "ayah_ends": [8, 10, "…"] },
     "basri": { "…": "…", "editions": [] } },
   "open_findings": [ { "mushaf": "bazzi", "sura": 78, "ayah": 40, "…": "…" } ] }
 ```
@@ -185,7 +185,7 @@ khilāf inside the system.
 The count belongs to the printed edition rather than to the qirāʾah, so an
 edition is listed under the system its own `ayah_starts` match, not under the
 system its riwāyah is conventionally associated with; Baṣrī and Damascene have
-no edition here. `ends[i]` is the number after which an āyah ends. Rationale
+no edition here. `ayah_ends[i]` is the number after which an āyah ends. Rationale
 and the derivation are in `MUSHAF-FORMAT.md`, *Counting*.
 
 ## `out/boundaries.csv`
@@ -194,7 +194,7 @@ One row per word-boundary event — never per word, because a boundary
 disagreement is about the space *between* two words.
 
 ```
-numbers, sura, aya_hafs, kind, riwayat, riwayat_agree, forms
+numbers, sura, ayah_hafs, kind, riwayat, riwayat_agree, forms
 ```
 
 `riwayat_agree` is the column that matters: `1` means every riwāyah reads the
