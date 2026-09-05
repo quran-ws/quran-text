@@ -3,7 +3,14 @@
  "format_version": "1.0",
  "view_of": "out/mushaf/qaloun.json",
  "view": "sura-shard",
- "mushaf": "qaloun",
+ "mushaf": {
+  "key": "qaloun",
+  "name_en": "Qālūn",
+  "name_ar": "قالون",
+  "qari_en": "Nāfiʿ al-Madanī",
+  "qari_ar": "نافع المدني",
+  "word_count": 77431
+ },
  "provenance": {
   "text": {
    "package": "UthmanicQaloun-v-3.0.zip",
@@ -24,12 +31,12 @@
   }
  },
  "sura": {
-  "n": 21,
+  "number": 21,
   "name_ar": "الأنبيَاء",
   "name_en": "Al-Anbiyā’",
   "revelation": "makki",
-  "basmalah": true,
-  "ayat": 111
+  "has_basmalah": true,
+  "ayah_count": 111
  },
  "offset": 41420,
  "words": [
@@ -3401,18 +3408,18 @@
  ],
  "mark_types": [
   {
-   "k": "waqf",
-   "at": "after",
+   "kind": "waqf",
+   "side": "after",
    "sign": "ۖ"
   },
   {
-   "k": "hizb",
-   "at": "before",
+   "kind": "hizb",
+   "side": "before",
    "sign": "۞"
   },
   {
-   "k": "sajdah",
-   "at": "after",
+   "kind": "sajdah",
+   "side": "after",
    "sign": "۩"
   }
  ],

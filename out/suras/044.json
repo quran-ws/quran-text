@@ -4,8 +4,8 @@
  "name_en": "Ad-Dukhān",
  "revelation": "makki",
  "word_count": 346,
- "first_word_id": 63873,
- "last_word_id": 64218,
+ "first_number": 63873,
+ "last_number": 64218,
  "ayah_count": {
   "hafs": 59,
   "shuba": 59,
@@ -17,15 +17,15 @@
  },
  "words": [
   {
-   "id": 63873,
-   "i": 1,
+   "number": 63873,
+   "index": 1,
    "key": "44:حم#1",
    "rasm": "حم",
    "pointed": "حم",
    "uthmani": "حمٓ",
    "simple": "حم",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 1,
     "shuba": 1,
     "warsh": 1,
@@ -90,15 +90,15 @@
    }
   },
   {
-   "id": 63874,
-   "i": 2,
+   "number": 63874,
+   "index": 2,
    "key": "44:والكتاب#1",
    "rasm": "والكٮٮ",
    "pointed": "والكتاب",
    "uthmani": "وَٱلۡكِتَٰبِ",
    "simple": "والكتاب",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 2,
     "shuba": 2,
     "warsh": 1,
@@ -147,15 +147,15 @@
    ]
   },
   {
-   "id": 63875,
-   "i": 3,
+   "number": 63875,
+   "index": 3,
    "key": "44:المبين#1",
    "rasm": "المٮٮں",
    "pointed": "المبين",
    "uthmani": "ٱلۡمُبِينِ",
    "simple": "المبين",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 2,
     "shuba": 2,
     "warsh": 1,
@@ -204,15 +204,15 @@
    ]
   },
   {
-   "id": 63876,
-   "i": 4,
+   "number": 63876,
+   "index": 4,
    "key": "44:انا#1",
    "rasm": "اٮا",
    "pointed": "انا",
    "uthmani": "إِنَّآ",
    "simple": "إنّآ",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 3,
     "shuba": 3,
     "warsh": 2,
@@ -251,15 +251,15 @@
    ]
   },
   {
-   "id": 63877,
-   "i": 5,
+   "number": 63877,
+   "index": 5,
    "key": "44:انزلناه#1",
    "rasm": "اٮرلٮه",
    "pointed": "انزلناه",
    "uthmani": "أَنزَلۡنَٰهُ",
    "simple": "أنزلناه",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 3,
     "shuba": 3,
     "warsh": 2,
@@ -303,15 +303,15 @@
    ]
   },
   {
-   "id": 63878,
-   "i": 6,
+   "number": 63878,
+   "index": 6,
    "key": "44:في#1",
    "rasm": "ڡى",
    "pointed": "في",
    "uthmani": "فِي",
    "simple": "في",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 3,
     "shuba": 3,
     "warsh": 2,
@@ -350,15 +350,15 @@
    ]
   },
   {
-   "id": 63879,
-   "i": 7,
+   "number": 63879,
+   "index": 7,
    "key": "44:ليله#1",
    "rasm": "لٮله",
    "pointed": "ليله",
    "uthmani": "لَيۡلَةࣲ",
    "simple": "ليلة",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 3,
     "shuba": 3,
     "warsh": 2,
@@ -402,15 +402,15 @@
    ]
   },
   {
-   "id": 63880,
-   "i": 8,
+   "number": 63880,
+   "index": 8,
    "key": "44:مباركه#1",
    "rasm": "مٮركه",
    "pointed": "مباركه",
    "uthmani": "مُّبَٰرَكَةٍ",
    "simple": "مّباركة",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 3,
     "shuba": 3,
     "warsh": 2,
@@ -437,15 +437,15 @@
    }
   },
   {
-   "id": 63881,
-   "i": 9,
+   "number": 63881,
+   "index": 9,
    "key": "44:انا#2",
    "rasm": "اٮا",
    "pointed": "انا",
    "uthmani": "إِنَّا",
    "simple": "إنّا",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 3,
     "shuba": 3,
     "warsh": 2,
@@ -484,15 +484,15 @@
    ]
   },
   {
-   "id": 63882,
-   "i": 10,
+   "number": 63882,
+   "index": 10,
    "key": "44:كنا#1",
    "rasm": "كٮا",
    "pointed": "كنا",
    "uthmani": "كُنَّا",
    "simple": "كنّا",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 3,
     "shuba": 3,
     "warsh": 2,
@@ -512,15 +512,15 @@
    }
   },
   {
-   "id": 63883,
-   "i": 11,
+   "number": 63883,
+   "index": 11,
    "key": "44:منذرين#1",
    "rasm": "مٮدرٮں",
    "pointed": "منذرين",
    "uthmani": "مُنذِرِينَ",
    "simple": "منذرين",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 3,
     "shuba": 3,
     "warsh": 2,
@@ -543,15 +543,15 @@
    }
   },
   {
-   "id": 63884,
-   "i": 12,
+   "number": 63884,
+   "index": 12,
    "key": "44:فيها#1",
    "rasm": "ڡٮها",
    "pointed": "فيها",
    "uthmani": "فِيهَا",
    "simple": "فيها",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 4,
     "shuba": 4,
     "warsh": 3,
@@ -571,15 +571,15 @@
    }
   },
   {
-   "id": 63885,
-   "i": 13,
+   "number": 63885,
+   "index": 13,
    "key": "44:يفرق#1",
    "rasm": "ٮڡرٯ",
    "pointed": "يفرق",
    "uthmani": "يُفۡرَقُ",
    "simple": "يفرق",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 4,
     "shuba": 4,
     "warsh": 3,
@@ -623,15 +623,15 @@
    ]
   },
   {
-   "id": 63886,
-   "i": 14,
+   "number": 63886,
+   "index": 14,
    "key": "44:كل#1",
    "rasm": "كل",
    "pointed": "كل",
    "uthmani": "كُلُّ",
    "simple": "كلّ",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 4,
     "shuba": 4,
     "warsh": 3,
@@ -670,15 +670,15 @@
    ]
   },
   {
-   "id": 63887,
-   "i": 15,
+   "number": 63887,
+   "index": 15,
    "key": "44:امر#1",
    "rasm": "امر",
    "pointed": "امر",
    "uthmani": "أَمۡرٍ",
    "simple": "أمر",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 4,
     "shuba": 4,
     "warsh": 3,
@@ -717,15 +717,15 @@
    ]
   },
   {
-   "id": 63888,
-   "i": 16,
+   "number": 63888,
+   "index": 16,
    "key": "44:حكيم#1",
    "rasm": "حكٮم",
    "pointed": "حكيم",
    "uthmani": "حَكِيمٍ",
    "simple": "حكيم",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 4,
     "shuba": 4,
     "warsh": 3,
@@ -745,15 +745,15 @@
    }
   },
   {
-   "id": 63889,
-   "i": 17,
+   "number": 63889,
+   "index": 17,
    "key": "44:امرا#1",
    "rasm": "امرا",
    "pointed": "امرا",
    "uthmani": "أَمۡرࣰا",
    "simple": "أمرا",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 5,
     "shuba": 5,
     "warsh": 4,
@@ -802,15 +802,15 @@
    ]
   },
   {
-   "id": 63890,
-   "i": 18,
+   "number": 63890,
+   "index": 18,
    "key": "44:من#1",
    "rasm": "مں",
    "pointed": "من",
    "uthmani": "مِّنۡ",
    "simple": "مّن",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 5,
     "shuba": 5,
     "warsh": 4,
@@ -849,15 +849,15 @@
    ]
   },
   {
-   "id": 63891,
-   "i": 19,
+   "number": 63891,
+   "index": 19,
    "key": "44:عندنا#1",
    "rasm": "عٮدٮا",
    "pointed": "عندنا",
    "uthmani": "عِندِنَآ",
    "simple": "عندنآ",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 5,
     "shuba": 5,
     "warsh": 4,
@@ -904,15 +904,15 @@
    }
   },
   {
-   "id": 63892,
-   "i": 20,
+   "number": 63892,
+   "index": 20,
    "key": "44:انا#3",
    "rasm": "اٮا",
    "pointed": "انا",
    "uthmani": "إِنَّا",
    "simple": "إنّا",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 5,
     "shuba": 5,
     "warsh": 4,
@@ -932,15 +932,15 @@
    }
   },
   {
-   "id": 63893,
-   "i": 21,
+   "number": 63893,
+   "index": 21,
    "key": "44:كنا#2",
    "rasm": "كٮا",
    "pointed": "كنا",
    "uthmani": "كُنَّا",
    "simple": "كنّا",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 5,
     "shuba": 5,
     "warsh": 4,
@@ -960,15 +960,15 @@
    }
   },
   {
-   "id": 63894,
-   "i": 22,
+   "number": 63894,
+   "index": 22,
    "key": "44:مرسلين#1",
    "rasm": "مرسلٮں",
    "pointed": "مرسلين",
    "uthmani": "مُرۡسِلِينَ",
    "simple": "مرسلين",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 5,
     "shuba": 5,
     "warsh": 4,
@@ -1007,15 +1007,15 @@
    ]
   },
   {
-   "id": 63895,
-   "i": 23,
+   "number": 63895,
+   "index": 23,
    "key": "44:رحمه#1",
    "rasm": "رحمه",
    "pointed": "رحمه",
    "uthmani": "رَحۡمَةࣰ",
    "simple": "رحمة",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 6,
     "shuba": 6,
     "warsh": 5,
@@ -1059,15 +1059,15 @@
    ]
   },
   {
-   "id": 63896,
-   "i": 24,
+   "number": 63896,
+   "index": 24,
    "key": "44:من#2",
    "rasm": "مں",
    "pointed": "من",
    "uthmani": "مِّن",
    "simple": "مّن",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 6,
     "shuba": 6,
     "warsh": 5,
@@ -1087,15 +1087,15 @@
    }
   },
   {
-   "id": 63897,
-   "i": 25,
+   "number": 63897,
+   "index": 25,
    "key": "44:ربك#1",
    "rasm": "رٮك",
    "pointed": "ربك",
    "uthmani": "رَّبِّكَ",
    "simple": "رّبّك",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 6,
     "shuba": 6,
     "warsh": 5,
@@ -1123,15 +1123,15 @@
    }
   },
   {
-   "id": 63898,
-   "i": 26,
+   "number": 63898,
+   "index": 26,
    "key": "44:انه#1",
    "rasm": "اٮه",
    "pointed": "انه",
    "uthmani": "إِنَّهُۥ",
    "simple": "إنّه",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 6,
     "shuba": 6,
     "warsh": 5,
@@ -1170,15 +1170,15 @@
    ]
   },
   {
-   "id": 63899,
-   "i": 27,
+   "number": 63899,
+   "index": 27,
    "key": "44:هو#1",
    "rasm": "هو",
    "pointed": "هو",
    "uthmani": "هُوَ",
    "simple": "هو",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 6,
     "shuba": 6,
     "warsh": 5,
@@ -1217,15 +1217,15 @@
    ]
   },
   {
-   "id": 63900,
-   "i": 28,
+   "number": 63900,
+   "index": 28,
    "key": "44:السميع#1",
    "rasm": "السمٮع",
    "pointed": "السميع",
    "uthmani": "ٱلسَّمِيعُ",
    "simple": "السّميع",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 6,
     "shuba": 6,
     "warsh": 5,
@@ -1274,15 +1274,15 @@
    ]
   },
   {
-   "id": 63901,
-   "i": 29,
+   "number": 63901,
+   "index": 29,
    "key": "44:العليم#1",
    "rasm": "العلٮم",
    "pointed": "العليم",
    "uthmani": "ٱلۡعَلِيمُ",
    "simple": "العليم",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 6,
     "shuba": 6,
     "warsh": 5,
@@ -1334,15 +1334,15 @@
    }
   },
   {
-   "id": 63902,
-   "i": 30,
+   "number": 63902,
+   "index": 30,
    "key": "44:رب#1",
    "rasm": "رٮ",
    "pointed": "رب",
    "uthmani": "رَبِّ",
    "simple": "ربّ",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 7,
     "shuba": 7,
     "warsh": 6,
@@ -1381,15 +1381,15 @@
    ]
   },
   {
-   "id": 63903,
-   "i": 31,
+   "number": 63903,
+   "index": 31,
    "key": "44:السماوات#1",
    "rasm": "السموٮ",
    "pointed": "السماوات",
    "uthmani": "ٱلسَّمَٰوَٰتِ",
    "simple": "السّماوات",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 7,
     "shuba": 7,
     "warsh": 6,
@@ -1433,15 +1433,15 @@
    ]
   },
   {
-   "id": 63904,
-   "i": 32,
+   "number": 63904,
+   "index": 32,
    "key": "44:والارض#1",
    "rasm": "والارص",
    "pointed": "والارض",
    "uthmani": "وَٱلۡأَرۡضِ",
    "simple": "والأرض",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 7,
     "shuba": 7,
     "warsh": 6,
@@ -1495,15 +1495,15 @@
    ]
   },
   {
-   "id": 63905,
-   "i": 33,
+   "number": 63905,
+   "index": 33,
    "key": "44:وما#1",
    "rasm": "وما",
    "pointed": "وما",
    "uthmani": "وَمَا",
    "simple": "وما",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 7,
     "shuba": 7,
     "warsh": 6,
@@ -1523,15 +1523,15 @@
    }
   },
   {
-   "id": 63906,
-   "i": 34,
+   "number": 63906,
+   "index": 34,
    "key": "44:بينهما#1",
    "rasm": "ٮٮٮهما",
    "pointed": "بينهما",
    "uthmani": "بَيۡنَهُمَآ",
    "simple": "بينهمآ",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 7,
     "shuba": 7,
     "warsh": 6,
@@ -1587,15 +1587,15 @@
    }
   },
   {
-   "id": 63907,
-   "i": 35,
+   "number": 63907,
+   "index": 35,
    "key": "44:ان#1",
    "rasm": "اں",
    "pointed": "ان",
    "uthmani": "إِن",
    "simple": "إن",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 7,
     "shuba": 7,
     "warsh": 6,
@@ -1615,15 +1615,15 @@
    }
   },
   {
-   "id": 63908,
-   "i": 36,
+   "number": 63908,
+   "index": 36,
    "key": "44:كنتم#1",
    "rasm": "كٮٮم",
    "pointed": "كنتم",
    "uthmani": "كُنتُم",
    "simple": "كنتم",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 7,
     "shuba": 7,
     "warsh": 6,
@@ -1662,15 +1662,15 @@
    ]
   },
   {
-   "id": 63909,
-   "i": 37,
+   "number": 63909,
+   "index": 37,
    "key": "44:موقنين#1",
    "rasm": "موڡٮٮں",
    "pointed": "موقنين",
    "uthmani": "مُّوقِنِينَ",
    "simple": "مّوقنين",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 7,
     "shuba": 7,
     "warsh": 6,
@@ -1712,15 +1712,15 @@
    }
   },
   {
-   "id": 63910,
-   "i": 38,
+   "number": 63910,
+   "index": 38,
    "key": "44:لا#1",
    "rasm": "لا",
    "pointed": "لا",
    "uthmani": "لَآ",
    "simple": "لآ",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 8,
     "shuba": 8,
     "warsh": 7,
@@ -1759,15 +1759,15 @@
    ]
   },
   {
-   "id": 63911,
-   "i": 39,
+   "number": 63911,
+   "index": 39,
    "key": "44:الاه#1",
    "rasm": "اله",
    "pointed": "الاه",
    "uthmani": "إِلَٰهَ",
    "simple": "إلاه",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 8,
     "shuba": 8,
     "warsh": 7,
@@ -1787,15 +1787,15 @@
    }
   },
   {
-   "id": 63912,
-   "i": 40,
+   "number": 63912,
+   "index": 40,
    "key": "44:الا#1",
    "rasm": "الا",
    "pointed": "الا",
    "uthmani": "إِلَّا",
    "simple": "إلّا",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 8,
     "shuba": 8,
     "warsh": 7,
@@ -1815,15 +1815,15 @@
    }
   },
   {
-   "id": 63913,
-   "i": 41,
+   "number": 63913,
+   "index": 41,
    "key": "44:هو#2",
    "rasm": "هو",
    "pointed": "هو",
    "uthmani": "هُوَ",
    "simple": "هو",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 8,
     "shuba": 8,
     "warsh": 7,
@@ -1846,15 +1846,15 @@
    }
   },
   {
-   "id": 63914,
-   "i": 42,
+   "number": 63914,
+   "index": 42,
    "key": "44:يحي#1",
    "rasm": "ٮحى",
    "pointed": "يحي",
    "uthmani": "يُحۡيِۦ",
    "simple": "يحي",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 8,
     "shuba": 8,
     "warsh": 7,
@@ -1893,15 +1893,15 @@
    ]
   },
   {
-   "id": 63915,
-   "i": 43,
+   "number": 63915,
+   "index": 43,
    "key": "44:ويميت#1",
    "rasm": "وٮمٮٮ",
    "pointed": "ويميت",
    "uthmani": "وَيُمِيتُ",
    "simple": "ويميت",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 8,
     "shuba": 8,
     "warsh": 7,
@@ -1929,15 +1929,15 @@
    }
   },
   {
-   "id": 63916,
-   "i": 44,
+   "number": 63916,
+   "index": 44,
    "key": "44:ربكم#1",
    "rasm": "رٮكم",
    "pointed": "ربكم",
    "uthmani": "رَبُّكُمۡ",
    "simple": "ربّكم",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 8,
     "shuba": 8,
     "warsh": 7,
@@ -1981,15 +1981,15 @@
    ]
   },
   {
-   "id": 63917,
-   "i": 45,
+   "number": 63917,
+   "index": 45,
    "key": "44:ورب#1",
    "rasm": "ورٮ",
    "pointed": "ورب",
    "uthmani": "وَرَبُّ",
    "simple": "وربّ",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 8,
     "shuba": 8,
     "warsh": 7,
@@ -2009,15 +2009,15 @@
    }
   },
   {
-   "id": 63918,
-   "i": 46,
+   "number": 63918,
+   "index": 46,
    "key": "44:ابايكم#1",
    "rasm": "اٮاٮكم",
    "pointed": "ابايكم",
    "uthmani": "ءَابَآئِكُمُ",
    "simple": "ءابآئكم",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 8,
     "shuba": 8,
     "warsh": 7,
@@ -2037,15 +2037,15 @@
    }
   },
   {
-   "id": 63919,
-   "i": 47,
+   "number": 63919,
+   "index": 47,
    "key": "44:الاولين#1",
    "rasm": "الاولٮں",
    "pointed": "الاولين",
    "uthmani": "ٱلۡأَوَّلِينَ",
    "simple": "الأوّلين",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 8,
     "shuba": 8,
     "warsh": 7,
@@ -2102,15 +2102,15 @@
    }
   },
   {
-   "id": 63920,
-   "i": 48,
+   "number": 63920,
+   "index": 48,
    "key": "44:بل#1",
    "rasm": "ٮل",
    "pointed": "بل",
    "uthmani": "بَلۡ",
    "simple": "بل",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 9,
     "shuba": 9,
     "warsh": 8,
@@ -2149,15 +2149,15 @@
    ]
   },
   {
-   "id": 63921,
-   "i": 49,
+   "number": 63921,
+   "index": 49,
    "key": "44:هم#1",
    "rasm": "هم",
    "pointed": "هم",
    "uthmani": "هُمۡ",
    "simple": "هم",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 9,
     "shuba": 9,
     "warsh": 8,
@@ -2201,15 +2201,15 @@
    ]
   },
   {
-   "id": 63922,
-   "i": 50,
+   "number": 63922,
+   "index": 50,
    "key": "44:في#2",
    "rasm": "ڡى",
    "pointed": "في",
    "uthmani": "فِي",
    "simple": "في",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 9,
     "shuba": 9,
     "warsh": 8,
@@ -2248,15 +2248,15 @@
    ]
   },
   {
-   "id": 63923,
-   "i": 51,
+   "number": 63923,
+   "index": 51,
    "key": "44:شك#1",
    "rasm": "سك",
    "pointed": "شك",
    "uthmani": "شَكࣲّ",
    "simple": "شكّ",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 9,
     "shuba": 9,
     "warsh": 8,
@@ -2295,15 +2295,15 @@
    ]
   },
   {
-   "id": 63924,
-   "i": 52,
+   "number": 63924,
+   "index": 52,
    "key": "44:يلعبون#1",
    "rasm": "ٮلعٮوں",
    "pointed": "يلعبون",
    "uthmani": "يَلۡعَبُونَ",
    "simple": "يلعبون",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 9,
     "shuba": 9,
     "warsh": 8,
@@ -2345,15 +2345,15 @@
    }
   },
   {
-   "id": 63925,
-   "i": 53,
+   "number": 63925,
+   "index": 53,
    "key": "44:فارتقب#1",
    "rasm": "ڡارٮڡٮ",
    "pointed": "فارتقب",
    "uthmani": "فَٱرۡتَقِبۡ",
    "simple": "فارتقب",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 10,
     "shuba": 10,
     "warsh": 9,
@@ -2397,15 +2397,15 @@
    ]
   },
   {
-   "id": 63926,
-   "i": 54,
+   "number": 63926,
+   "index": 54,
    "key": "44:يوم#1",
    "rasm": "ٮوم",
    "pointed": "يوم",
    "uthmani": "يَوۡمَ",
    "simple": "يوم",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 10,
     "shuba": 10,
     "warsh": 9,
@@ -2444,15 +2444,15 @@
    ]
   },
   {
-   "id": 63927,
-   "i": 55,
+   "number": 63927,
+   "index": 55,
    "key": "44:تاتي#1",
    "rasm": "ٮاٮى",
    "pointed": "تاتي",
    "uthmani": "تَأۡتِي",
    "simple": "تأتي",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 10,
     "shuba": 10,
     "warsh": 9,
@@ -2501,15 +2501,15 @@
    ]
   },
   {
-   "id": 63928,
-   "i": 56,
+   "number": 63928,
+   "index": 56,
    "key": "44:السما#1",
    "rasm": "السما",
    "pointed": "السما",
    "uthmani": "ٱلسَّمَآءُ",
    "simple": "السّمآء",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 10,
     "shuba": 10,
     "warsh": 9,
@@ -2558,15 +2558,15 @@
    ]
   },
   {
-   "id": 63929,
-   "i": 57,
+   "number": 63929,
+   "index": 57,
    "key": "44:بدخان#1",
    "rasm": "ٮدحاں",
    "pointed": "بدخان",
    "uthmani": "بِدُخَانࣲ",
    "simple": "بدخان",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 10,
     "shuba": 10,
     "warsh": 9,
@@ -2605,15 +2605,15 @@
    ]
   },
   {
-   "id": 63930,
-   "i": 58,
+   "number": 63930,
+   "index": 58,
    "key": "44:مبين#1",
    "rasm": "مٮٮں",
    "pointed": "مبين",
    "uthmani": "مُّبِينࣲ",
    "simple": "مّبين",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 10,
     "shuba": 10,
     "warsh": 9,
@@ -2652,15 +2652,15 @@
    ]
   },
   {
-   "id": 63931,
-   "i": 59,
+   "number": 63931,
+   "index": 59,
    "key": "44:يغشي#1",
    "rasm": "ٮعسى",
    "pointed": "يغشي",
    "uthmani": "يَغۡشَى",
    "simple": "يغشى",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 11,
     "shuba": 11,
     "warsh": 10,
@@ -2699,15 +2699,15 @@
    ]
   },
   {
-   "id": 63932,
-   "i": 60,
+   "number": 63932,
+   "index": 60,
    "key": "44:الناس#1",
    "rasm": "الٮاس",
    "pointed": "الناس",
    "uthmani": "ٱلنَّاسَ",
    "simple": "النّاس",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 11,
     "shuba": 11,
     "warsh": 10,
@@ -2764,15 +2764,15 @@
    }
   },
   {
-   "id": 63933,
-   "i": 61,
+   "number": 63933,
+   "index": 61,
    "key": "44:هاذا#1",
    "rasm": "هدا",
    "pointed": "هاذا",
    "uthmani": "هَٰذَا",
    "simple": "هاذا",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 11,
     "shuba": 11,
     "warsh": 10,
@@ -2792,15 +2792,15 @@
    }
   },
   {
-   "id": 63934,
-   "i": 62,
+   "number": 63934,
+   "index": 62,
    "key": "44:عذاب#1",
    "rasm": "عداٮ",
    "pointed": "عذاب",
    "uthmani": "عَذَابٌ",
    "simple": "عذاب",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 11,
     "shuba": 11,
     "warsh": 10,
@@ -2820,15 +2820,15 @@
    }
   },
   {
-   "id": 63935,
-   "i": 63,
+   "number": 63935,
+   "index": 63,
    "key": "44:اليم#1",
    "rasm": "الٮم",
    "pointed": "اليم",
    "uthmani": "أَلِيمࣱ",
    "simple": "أليم",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 11,
     "shuba": 11,
     "warsh": 10,
@@ -2875,15 +2875,15 @@
    }
   },
   {
-   "id": 63936,
-   "i": 64,
+   "number": 63936,
+   "index": 64,
    "key": "44:ربنا#1",
    "rasm": "رٮٮا",
    "pointed": "ربنا",
    "uthmani": "رَّبَّنَا",
    "simple": "رّبّنا",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 12,
     "shuba": 12,
     "warsh": 11,
@@ -2903,15 +2903,15 @@
    }
   },
   {
-   "id": 63937,
-   "i": 65,
+   "number": 63937,
+   "index": 65,
    "key": "44:اكشف#1",
    "rasm": "اكسڡ",
    "pointed": "اكشف",
    "uthmani": "ٱكۡشِفۡ",
    "simple": "اكشف",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 12,
     "shuba": 12,
     "warsh": 11,
@@ -2960,15 +2960,15 @@
    ]
   },
   {
-   "id": 63938,
-   "i": 66,
+   "number": 63938,
+   "index": 66,
    "key": "44:عنا#1",
    "rasm": "عٮا",
    "pointed": "عنا",
    "uthmani": "عَنَّا",
    "simple": "عنّا",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 12,
     "shuba": 12,
     "warsh": 11,
@@ -2988,15 +2988,15 @@
    }
   },
   {
-   "id": 63939,
-   "i": 67,
+   "number": 63939,
+   "index": 67,
    "key": "44:العذاب#1",
    "rasm": "العداٮ",
    "pointed": "العذاب",
    "uthmani": "ٱلۡعَذَابَ",
    "simple": "العذاب",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 12,
     "shuba": 12,
     "warsh": 11,
@@ -3045,15 +3045,15 @@
    ]
   },
   {
-   "id": 63940,
-   "i": 68,
+   "number": 63940,
+   "index": 68,
    "key": "44:انا#4",
    "rasm": "اٮا",
    "pointed": "انا",
    "uthmani": "إِنَّا",
    "simple": "إنّا",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 12,
     "shuba": 12,
     "warsh": 11,
@@ -3073,15 +3073,15 @@
    }
   },
   {
-   "id": 63941,
-   "i": 69,
+   "number": 63941,
+   "index": 69,
    "key": "44:مومنون#1",
    "rasm": "مومٮوں",
    "pointed": "مومنون",
    "uthmani": "مُؤۡمِنُونَ",
    "simple": "مؤمنون",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 12,
     "shuba": 12,
     "warsh": 11,
@@ -3128,15 +3128,15 @@
    }
   },
   {
-   "id": 63942,
-   "i": 70,
+   "number": 63942,
+   "index": 70,
    "key": "44:انيا#1",
    "rasm": "اٮى",
    "pointed": "انيا",
    "uthmani": "أَنَّىٰ",
    "simple": "أنّىا",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 13,
     "shuba": 13,
     "warsh": 12,
@@ -3180,15 +3180,15 @@
    ]
   },
   {
-   "id": 63943,
-   "i": 71,
+   "number": 63943,
+   "index": 71,
    "key": "44:لهم#1",
    "rasm": "لهم",
    "pointed": "لهم",
    "uthmani": "لَهُمُ",
    "simple": "لهم",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 13,
     "shuba": 13,
     "warsh": 12,
@@ -3208,15 +3208,15 @@
    }
   },
   {
-   "id": 63944,
-   "i": 72,
+   "number": 63944,
+   "index": 72,
    "key": "44:الذكريا#1",
    "rasm": "الدكرى",
    "pointed": "الذكريا",
    "uthmani": "ٱلذِّكۡرَىٰ",
    "simple": "الذّكرىا",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 13,
     "shuba": 13,
     "warsh": 12,
@@ -3270,15 +3270,15 @@
    ]
   },
   {
-   "id": 63945,
-   "i": 73,
+   "number": 63945,
+   "index": 73,
    "key": "44:وقد#1",
    "rasm": "وڡد",
    "pointed": "وقد",
    "uthmani": "وَقَدۡ",
    "simple": "وقد",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 13,
     "shuba": 13,
     "warsh": 12,
@@ -3322,15 +3322,15 @@
    ]
   },
   {
-   "id": 63946,
-   "i": 74,
+   "number": 63946,
+   "index": 74,
    "key": "44:جاهم#1",
    "rasm": "حاهم",
    "pointed": "جاهم",
    "uthmani": "جَآءَهُمۡ",
    "simple": "جآءهم",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 13,
     "shuba": 13,
     "warsh": 12,
@@ -3379,15 +3379,15 @@
    ]
   },
   {
-   "id": 63947,
-   "i": 75,
+   "number": 63947,
+   "index": 75,
    "key": "44:رسول#1",
    "rasm": "رسول",
    "pointed": "رسول",
    "uthmani": "رَسُولࣱ",
    "simple": "رسول",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 13,
     "shuba": 13,
     "warsh": 12,
@@ -3426,15 +3426,15 @@
    ]
   },
   {
-   "id": 63948,
-   "i": 76,
+   "number": 63948,
+   "index": 76,
    "key": "44:مبين#2",
    "rasm": "مٮٮں",
    "pointed": "مبين",
    "uthmani": "مُّبِينࣱ",
    "simple": "مّبين",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 13,
     "shuba": 13,
     "warsh": 12,
@@ -3473,15 +3473,15 @@
    ]
   },
   {
-   "id": 63949,
-   "i": 77,
+   "number": 63949,
+   "index": 77,
    "key": "44:ثم#1",
    "rasm": "ٮم",
    "pointed": "ثم",
    "uthmani": "ثُمَّ",
    "simple": "ثمّ",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 14,
     "shuba": 14,
     "warsh": 13,
@@ -3501,15 +3501,15 @@
    }
   },
   {
-   "id": 63950,
-   "i": 78,
+   "number": 63950,
+   "index": 78,
    "key": "44:تولوا#1",
    "rasm": "ٮولوا",
    "pointed": "تولوا",
    "uthmani": "تَوَلَّوۡاْ",
    "simple": "تولّوا",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 14,
     "shuba": 14,
     "warsh": 13,
@@ -3548,15 +3548,15 @@
    ]
   },
   {
-   "id": 63951,
-   "i": 79,
+   "number": 63951,
+   "index": 79,
    "key": "44:عنه#1",
    "rasm": "عٮه",
    "pointed": "عنه",
    "uthmani": "عَنۡهُ",
    "simple": "عنه",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 14,
     "shuba": 14,
     "warsh": 13,
@@ -3600,15 +3600,15 @@
    ]
   },
   {
-   "id": 63952,
-   "i": 80,
+   "number": 63952,
+   "index": 80,
    "key": "44:وقالوا#1",
    "rasm": "وڡالوا",
    "pointed": "وقالوا",
    "uthmani": "وَقَالُواْ",
    "simple": "وقالوا",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 14,
     "shuba": 14,
     "warsh": 13,
@@ -3628,15 +3628,15 @@
    }
   },
   {
-   "id": 63953,
-   "i": 81,
+   "number": 63953,
+   "index": 81,
    "key": "44:معلم#1",
    "rasm": "معلم",
    "pointed": "معلم",
    "uthmani": "مُعَلَّمࣱ",
    "simple": "معلّم",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 14,
     "shuba": 14,
     "warsh": 13,
@@ -3675,15 +3675,15 @@
    ]
   },
   {
-   "id": 63954,
-   "i": 82,
+   "number": 63954,
+   "index": 82,
    "key": "44:مجنون#1",
    "rasm": "محٮوں",
    "pointed": "مجنون",
    "uthmani": "مَّجۡنُونٌ",
    "simple": "مّجنون",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 14,
     "shuba": 14,
     "warsh": 13,
@@ -3725,15 +3725,15 @@
    }
   },
   {
-   "id": 63955,
-   "i": 83,
+   "number": 63955,
+   "index": 83,
    "key": "44:انا#5",
    "rasm": "اٮا",
    "pointed": "انا",
    "uthmani": "إِنَّا",
    "simple": "إنّا",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 15,
     "shuba": 15,
     "warsh": 14,
@@ -3772,15 +3772,15 @@
    ]
   },
   {
-   "id": 63956,
-   "i": 84,
+   "number": 63956,
+   "index": 84,
    "key": "44:كاشفوا#1",
    "rasm": "كاسڡوا",
    "pointed": "كاشفوا",
    "uthmani": "كَاشِفُواْ",
    "simple": "كاشفوا",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 15,
     "shuba": 15,
     "warsh": 14,
@@ -3800,15 +3800,15 @@
    }
   },
   {
-   "id": 63957,
-   "i": 85,
+   "number": 63957,
+   "index": 85,
    "key": "44:العذاب#2",
    "rasm": "العداٮ",
    "pointed": "العذاب",
    "uthmani": "ٱلۡعَذَابِ",
    "simple": "العذاب",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 15,
     "shuba": 15,
     "warsh": 14,
@@ -3857,15 +3857,15 @@
    ]
   },
   {
-   "id": 63958,
-   "i": 86,
+   "number": 63958,
+   "index": 86,
    "key": "44:قليلا#1",
    "rasm": "ڡلٮلا",
    "pointed": "قليلا",
    "uthmani": "قَلِيلًا",
    "simple": "قليلا",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 15,
     "shuba": 15,
     "warsh": 14,
@@ -3912,15 +3912,15 @@
    }
   },
   {
-   "id": 63959,
-   "i": 87,
+   "number": 63959,
+   "index": 87,
    "key": "44:انكم#1",
    "rasm": "اٮكم",
    "pointed": "انكم",
    "uthmani": "إِنَّكُمۡ",
    "simple": "إنّكم",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 15,
     "shuba": 15,
     "warsh": 14,
@@ -3969,15 +3969,15 @@
    ]
   },
   {
-   "id": 63960,
-   "i": 88,
+   "number": 63960,
+   "index": 88,
    "key": "44:عايدون#1",
    "rasm": "عاٮدوں",
    "pointed": "عايدون",
    "uthmani": "عَآئِدُونَ",
    "simple": "عآئدون",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 15,
     "shuba": 15,
     "warsh": 14,
@@ -4000,15 +4000,15 @@
    }
   },
   {
-   "id": 63961,
-   "i": 89,
+   "number": 63961,
+   "index": 89,
    "key": "44:يوم#2",
    "rasm": "ٮوم",
    "pointed": "يوم",
    "uthmani": "يَوۡمَ",
    "simple": "يوم",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 16,
     "shuba": 16,
     "warsh": 15,
@@ -4047,15 +4047,15 @@
    ]
   },
   {
-   "id": 63962,
-   "i": 90,
+   "number": 63962,
+   "index": 90,
    "key": "44:نبطش#1",
    "rasm": "ٮٮطس",
    "pointed": "نبطش",
    "uthmani": "نَبۡطِشُ",
    "simple": "نبطش",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 16,
     "shuba": 16,
     "warsh": 15,
@@ -4094,15 +4094,15 @@
    ]
   },
   {
-   "id": 63963,
-   "i": 91,
+   "number": 63963,
+   "index": 91,
    "key": "44:البطشه#1",
    "rasm": "الٮطسه",
    "pointed": "البطشه",
    "uthmani": "ٱلۡبَطۡشَةَ",
    "simple": "البطشة",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 16,
     "shuba": 16,
     "warsh": 15,
@@ -4151,15 +4151,15 @@
    ]
   },
   {
-   "id": 63964,
-   "i": 92,
+   "number": 63964,
+   "index": 92,
    "key": "44:الكبريا#1",
    "rasm": "الكٮرى",
    "pointed": "الكبريا",
    "uthmani": "ٱلۡكُبۡرَىٰٓ",
    "simple": "الكبرىا",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 16,
     "shuba": 16,
     "warsh": 15,
@@ -4221,15 +4221,15 @@
    }
   },
   {
-   "id": 63965,
-   "i": 93,
+   "number": 63965,
+   "index": 93,
    "key": "44:انا#6",
    "rasm": "اٮا",
    "pointed": "انا",
    "uthmani": "إِنَّا",
    "simple": "إنّا",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 16,
     "shuba": 16,
     "warsh": 15,
@@ -4249,15 +4249,15 @@
    }
   },
   {
-   "id": 63966,
-   "i": 94,
+   "number": 63966,
+   "index": 94,
    "key": "44:منتقمون#1",
    "rasm": "مٮٮڡموں",
    "pointed": "منتقمون",
    "uthmani": "مُنتَقِمُونَ",
    "simple": "منتقمون",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 16,
     "shuba": 16,
     "warsh": 15,
@@ -4280,15 +4280,15 @@
    }
   },
   {
-   "id": 63967,
-   "i": 95,
+   "number": 63967,
+   "index": 95,
    "key": "44:ولقد#1",
    "rasm": "ولڡد",
    "pointed": "ولقد",
    "uthmani": "وَلَقَدۡ",
    "simple": "ولقد",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 17,
     "shuba": 17,
     "warsh": 16,
@@ -4332,15 +4332,15 @@
    ]
   },
   {
-   "id": 63968,
-   "i": 96,
+   "number": 63968,
+   "index": 96,
    "key": "44:فتنا#1",
    "rasm": "ڡٮٮا",
    "pointed": "فتنا",
    "uthmani": "فَتَنَّا",
    "simple": "فتنّا",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 17,
     "shuba": 17,
     "warsh": 16,
@@ -4360,15 +4360,15 @@
    }
   },
   {
-   "id": 63969,
-   "i": 97,
+   "number": 63969,
+   "index": 97,
    "key": "44:قبلهم#1",
    "rasm": "ڡٮلهم",
    "pointed": "قبلهم",
    "uthmani": "قَبۡلَهُمۡ",
    "simple": "قبلهم",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 17,
     "shuba": 17,
     "warsh": 16,
@@ -4412,15 +4412,15 @@
    ]
   },
   {
-   "id": 63970,
-   "i": 98,
+   "number": 63970,
+   "index": 98,
    "key": "44:قوم#1",
    "rasm": "ڡوم",
    "pointed": "قوم",
    "uthmani": "قَوۡمَ",
    "simple": "قوم",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 17,
     "shuba": 17,
     "warsh": 16,
@@ -4459,15 +4459,15 @@
    ]
   },
   {
-   "id": 63971,
-   "i": 99,
+   "number": 63971,
+   "index": 99,
    "key": "44:فرعون#1",
    "rasm": "ڡرعوں",
    "pointed": "فرعون",
    "uthmani": "فِرۡعَوۡنَ",
    "simple": "فرعون",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 17,
     "shuba": 17,
     "warsh": 16,
@@ -4506,15 +4506,15 @@
    ]
   },
   {
-   "id": 63972,
-   "i": 100,
+   "number": 63972,
+   "index": 100,
    "key": "44:وجاهم#1",
    "rasm": "وحاهم",
    "pointed": "وجاهم",
    "uthmani": "وَجَآءَهُمۡ",
    "simple": "وجآءهم",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 17,
     "shuba": 17,
     "warsh": 16,
@@ -4558,15 +4558,15 @@
    ]
   },
   {
-   "id": 63973,
-   "i": 101,
+   "number": 63973,
+   "index": 101,
    "key": "44:رسول#2",
    "rasm": "رسول",
    "pointed": "رسول",
    "uthmani": "رَسُولࣱ",
    "simple": "رسول",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 17,
     "shuba": 17,
     "warsh": 16,
@@ -4605,15 +4605,15 @@
    ]
   },
   {
-   "id": 63974,
-   "i": 102,
+   "number": 63974,
+   "index": 102,
    "key": "44:كريم#1",
    "rasm": "كرٮم",
    "pointed": "كريم",
    "uthmani": "كَرِيمٌ",
    "simple": "كريم",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 17,
     "shuba": 17,
     "warsh": 16,
@@ -4633,15 +4633,15 @@
    }
   },
   {
-   "id": 63975,
-   "i": 103,
+   "number": 63975,
+   "index": 103,
    "key": "44:ان#2",
    "rasm": "اں",
    "pointed": "ان",
    "uthmani": "أَنۡ",
    "simple": "أن",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 18,
     "shuba": 18,
     "warsh": 17,
@@ -4685,15 +4685,15 @@
    ]
   },
   {
-   "id": 63976,
-   "i": 104,
+   "number": 63976,
+   "index": 104,
    "key": "44:ادوا#1",
    "rasm": "ادوا",
    "pointed": "ادوا",
    "uthmani": "أَدُّوٓاْ",
    "simple": "أدّوا",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 18,
     "shuba": 18,
     "warsh": 17,
@@ -4737,15 +4737,15 @@
    ]
   },
   {
-   "id": 63977,
-   "i": 105,
+   "number": 63977,
+   "index": 105,
    "key": "44:الي#1",
    "rasm": "الى",
    "pointed": "الي",
    "uthmani": "إِلَيَّ",
    "simple": "إليّ",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 18,
     "shuba": 18,
     "warsh": 17,
@@ -4765,15 +4765,15 @@
    }
   },
   {
-   "id": 63978,
-   "i": 106,
+   "number": 63978,
+   "index": 106,
    "key": "44:عباد#1",
    "rasm": "عٮاد",
    "pointed": "عباد",
    "uthmani": "عِبَادَ",
    "simple": "عباد",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 18,
     "shuba": 18,
     "warsh": 17,
@@ -4793,15 +4793,15 @@
    }
   },
   {
-   "id": 63979,
-   "i": 107,
+   "number": 63979,
+   "index": 107,
    "key": "44:الله#1",
    "rasm": "الله",
    "pointed": "الله",
    "uthmani": "ٱللَّهِ",
    "simple": "اللّه",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 18,
     "shuba": 18,
     "warsh": 17,
@@ -4857,15 +4857,15 @@
    }
   },
   {
-   "id": 63980,
-   "i": 108,
+   "number": 63980,
+   "index": 108,
    "key": "44:اني#1",
    "rasm": "اٮى",
    "pointed": "اني",
    "uthmani": "إِنِّي",
    "simple": "إنّي",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 18,
     "shuba": 18,
     "warsh": 17,
@@ -4904,15 +4904,15 @@
    ]
   },
   {
-   "id": 63981,
-   "i": 109,
+   "number": 63981,
+   "index": 109,
    "key": "44:لكم#1",
    "rasm": "لكم",
    "pointed": "لكم",
    "uthmani": "لَكُمۡ",
    "simple": "لكم",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 18,
     "shuba": 18,
     "warsh": 17,
@@ -4956,15 +4956,15 @@
    ]
   },
   {
-   "id": 63982,
-   "i": 110,
+   "number": 63982,
+   "index": 110,
    "key": "44:رسول#3",
    "rasm": "رسول",
    "pointed": "رسول",
    "uthmani": "رَسُولٌ",
    "simple": "رسول",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 18,
     "shuba": 18,
     "warsh": 17,
@@ -4984,15 +4984,15 @@
    }
   },
   {
-   "id": 63983,
-   "i": 111,
+   "number": 63983,
+   "index": 111,
    "key": "44:امين#1",
    "rasm": "امٮں",
    "pointed": "امين",
    "uthmani": "أَمِينࣱ",
    "simple": "أمين",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 18,
     "shuba": 18,
     "warsh": 17,
@@ -5036,15 +5036,15 @@
    ]
   },
   {
-   "id": 63984,
-   "i": 112,
+   "number": 63984,
+   "index": 112,
    "key": "44:وان#1",
    "rasm": "واں",
    "pointed": "وان",
    "uthmani": "وَأَن",
    "simple": "وأن",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 19,
     "shuba": 19,
     "warsh": 18,
@@ -5064,15 +5064,15 @@
    }
   },
   {
-   "id": 63985,
-   "i": 113,
+   "number": 63985,
+   "index": 113,
    "key": "44:لا#2",
    "rasm": "لا",
    "pointed": "لا",
    "uthmani": "لَّا",
    "simple": "لّا",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 19,
     "shuba": 19,
     "warsh": 18,
@@ -5092,15 +5092,15 @@
    }
   },
   {
-   "id": 63986,
-   "i": 114,
+   "number": 63986,
+   "index": 114,
    "key": "44:تعلوا#1",
    "rasm": "ٮعلوا",
    "pointed": "تعلوا",
    "uthmani": "تَعۡلُواْ",
    "simple": "تعلوا",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 19,
     "shuba": 19,
     "warsh": 18,
@@ -5139,15 +5139,15 @@
    ]
   },
   {
-   "id": 63987,
-   "i": 115,
+   "number": 63987,
+   "index": 115,
    "key": "44:علي#1",
    "rasm": "على",
    "pointed": "علي",
    "uthmani": "عَلَى",
    "simple": "على",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 19,
     "shuba": 19,
     "warsh": 18,
@@ -5167,15 +5167,15 @@
    }
   },
   {
-   "id": 63988,
-   "i": 116,
+   "number": 63988,
+   "index": 116,
    "key": "44:الله#2",
    "rasm": "الله",
    "pointed": "الله",
    "uthmani": "ٱللَّهِ",
    "simple": "اللّه",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 19,
     "shuba": 19,
     "warsh": 18,
@@ -5231,15 +5231,15 @@
    }
   },
   {
-   "id": 63989,
-   "i": 117,
+   "number": 63989,
+   "index": 117,
    "key": "44:اني#2",
    "rasm": "اٮى",
    "pointed": "اني",
    "uthmani": "إِنِّيٓ",
    "simple": "إنّي",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 19,
     "shuba": 19,
     "warsh": 18,
@@ -5278,15 +5278,15 @@
    ]
   },
   {
-   "id": 63990,
-   "i": 118,
+   "number": 63990,
+   "index": 118,
    "key": "44:اتيكم#1",
    "rasm": "اٮٮكم",
    "pointed": "اتيكم",
    "uthmani": "ءَاتِيكُم",
    "simple": "ءاتيكم",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 19,
     "shuba": 19,
     "warsh": 18,
@@ -5325,15 +5325,15 @@
    ]
   },
   {
-   "id": 63991,
-   "i": 119,
+   "number": 63991,
+   "index": 119,
    "key": "44:بسلطان#1",
    "rasm": "ٮسلطں",
    "pointed": "بسلطان",
    "uthmani": "بِسُلۡطَٰنࣲ",
    "simple": "بسلطان",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 19,
     "shuba": 19,
     "warsh": 18,
@@ -5377,15 +5377,15 @@
    ]
   },
   {
-   "id": 63992,
-   "i": 120,
+   "number": 63992,
+   "index": 120,
    "key": "44:مبين#3",
    "rasm": "مٮٮں",
    "pointed": "مبين",
    "uthmani": "مُّبِينࣲ",
    "simple": "مّبين",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 19,
     "shuba": 19,
     "warsh": 18,
@@ -5424,15 +5424,15 @@
    ]
   },
   {
-   "id": 63993,
-   "i": 121,
+   "number": 63993,
+   "index": 121,
    "key": "44:واني#1",
    "rasm": "واٮى",
    "pointed": "واني",
    "uthmani": "وَإِنِّي",
    "simple": "وإنّي",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 20,
     "shuba": 20,
     "warsh": 19,
@@ -5471,15 +5471,15 @@
    ]
   },
   {
-   "id": 63994,
-   "i": 122,
+   "number": 63994,
+   "index": 122,
    "key": "44:عذت#1",
    "rasm": "عدٮ",
    "pointed": "عذت",
    "uthmani": "عُذۡتُ",
    "simple": "عذت",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 20,
     "shuba": 20,
     "warsh": 19,
@@ -5523,15 +5523,15 @@
    ]
   },
   {
-   "id": 63995,
-   "i": 123,
+   "number": 63995,
+   "index": 123,
    "key": "44:بربي#1",
    "rasm": "ٮرٮى",
    "pointed": "بربي",
    "uthmani": "بِرَبِّي",
    "simple": "بربّي",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 20,
     "shuba": 20,
     "warsh": 19,
@@ -5570,15 +5570,15 @@
    ]
   },
   {
-   "id": 63996,
-   "i": 124,
+   "number": 63996,
+   "index": 124,
    "key": "44:وربكم#1",
    "rasm": "ورٮكم",
    "pointed": "وربكم",
    "uthmani": "وَرَبِّكُمۡ",
    "simple": "وربّكم",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 20,
     "shuba": 20,
     "warsh": 19,
@@ -5627,15 +5627,15 @@
    ]
   },
   {
-   "id": 63997,
-   "i": 125,
+   "number": 63997,
+   "index": 125,
    "key": "44:ان#3",
    "rasm": "اں",
    "pointed": "ان",
    "uthmani": "أَن",
    "simple": "أن",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 20,
     "shuba": 20,
     "warsh": 19,
@@ -5655,15 +5655,15 @@
    }
   },
   {
-   "id": 63998,
-   "i": 126,
+   "number": 63998,
+   "index": 126,
    "key": "44:ترجمون#1",
    "rasm": "ٮرحموں",
    "pointed": "ترجمون",
    "uthmani": "تَرۡجُمُونِ",
    "simple": "ترجمون",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 20,
     "shuba": 20,
     "warsh": 19,
@@ -5707,15 +5707,15 @@
    ]
   },
   {
-   "id": 63999,
-   "i": 127,
+   "number": 63999,
+   "index": 127,
    "key": "44:وان#2",
    "rasm": "واں",
    "pointed": "وان",
    "uthmani": "وَإِن",
    "simple": "وإن",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 21,
     "shuba": 21,
     "warsh": 20,
@@ -5735,15 +5735,15 @@
    }
   },
   {
-   "id": 64000,
-   "i": 128,
+   "number": 64000,
+   "index": 128,
    "key": "44:لم#1",
    "rasm": "لم",
    "pointed": "لم",
    "uthmani": "لَّمۡ",
    "simple": "لّم",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 21,
     "shuba": 21,
     "warsh": 20,
@@ -5782,15 +5782,15 @@
    ]
   },
   {
-   "id": 64001,
-   "i": 129,
+   "number": 64001,
+   "index": 129,
    "key": "44:تومنوا#1",
    "rasm": "ٮومٮوا",
    "pointed": "تومنوا",
    "uthmani": "تُؤۡمِنُواْ",
    "simple": "تؤمنوا",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 21,
     "shuba": 21,
     "warsh": 20,
@@ -5834,15 +5834,15 @@
    ]
   },
   {
-   "id": 64002,
-   "i": 130,
+   "number": 64002,
+   "index": 130,
    "key": "44:لي#1",
    "rasm": "لى",
    "pointed": "لي",
    "uthmani": "لِي",
    "simple": "لي",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 21,
     "shuba": 21,
     "warsh": 20,
@@ -5881,15 +5881,15 @@
    ]
   },
   {
-   "id": 64003,
-   "i": 131,
+   "number": 64003,
+   "index": 131,
    "key": "44:فاعتزلون#1",
    "rasm": "ڡاعٮرلوں",
    "pointed": "فاعتزلون",
    "uthmani": "فَٱعۡتَزِلُونِ",
    "simple": "فاعتزلون",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 21,
     "shuba": 21,
     "warsh": 20,
@@ -5941,15 +5941,15 @@
    }
   },
   {
-   "id": 64004,
-   "i": 132,
+   "number": 64004,
+   "index": 132,
    "key": "44:فدعا#1",
    "rasm": "ڡدعا",
    "pointed": "فدعا",
    "uthmani": "فَدَعَا",
    "simple": "فدعا",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 22,
     "shuba": 22,
     "warsh": 21,
@@ -5969,15 +5969,15 @@
    }
   },
   {
-   "id": 64005,
-   "i": 133,
+   "number": 64005,
+   "index": 133,
    "key": "44:ربه#1",
    "rasm": "رٮه",
    "pointed": "ربه",
    "uthmani": "رَبَّهُۥٓ",
    "simple": "ربّه",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 22,
     "shuba": 22,
     "warsh": 21,
@@ -6016,15 +6016,15 @@
    ]
   },
   {
-   "id": 64006,
-   "i": 134,
+   "number": 64006,
+   "index": 134,
    "key": "44:ان#4",
    "rasm": "اں",
    "pointed": "ان",
    "uthmani": "أَنَّ",
    "simple": "أنّ",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 22,
     "shuba": 22,
     "warsh": 21,
@@ -6044,15 +6044,15 @@
    }
   },
   {
-   "id": 64007,
-   "i": 135,
+   "number": 64007,
+   "index": 135,
    "key": "44:هاولا#1",
    "rasm": "هولا",
    "pointed": "هاولا",
    "uthmani": "هَٰٓؤُلَآءِ",
    "simple": "هاؤلآء",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 22,
     "shuba": 22,
     "warsh": 21,
@@ -6091,15 +6091,15 @@
    ]
   },
   {
-   "id": 64008,
-   "i": 136,
+   "number": 64008,
+   "index": 136,
    "key": "44:قوم#2",
    "rasm": "ڡوم",
    "pointed": "قوم",
    "uthmani": "قَوۡمࣱ",
    "simple": "قوم",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 22,
     "shuba": 22,
     "warsh": 21,
@@ -6143,15 +6143,15 @@
    ]
   },
   {
-   "id": 64009,
-   "i": 137,
+   "number": 64009,
+   "index": 137,
    "key": "44:مجرمون#1",
    "rasm": "محرموں",
    "pointed": "مجرمون",
    "uthmani": "مُّجۡرِمُونَ",
    "simple": "مّجرمون",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 22,
     "shuba": 22,
     "warsh": 21,
@@ -6193,15 +6193,15 @@
    }
   },
   {
-   "id": 64010,
-   "i": 138,
+   "number": 64010,
+   "index": 138,
    "key": "44:فاسر#1",
    "rasm": "ڡاسر",
    "pointed": "فاسر",
    "uthmani": "فَأَسۡرِ",
    "simple": "فأسر",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 23,
     "shuba": 23,
     "warsh": 22,
@@ -6245,15 +6245,15 @@
    ]
   },
   {
-   "id": 64011,
-   "i": 139,
+   "number": 64011,
+   "index": 139,
    "key": "44:بعبادي#1",
    "rasm": "ٮعٮادى",
    "pointed": "بعبادي",
    "uthmani": "بِعِبَادِي",
    "simple": "بعبادي",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 23,
     "shuba": 23,
     "warsh": 22,
@@ -6292,15 +6292,15 @@
    ]
   },
   {
-   "id": 64012,
-   "i": 140,
+   "number": 64012,
+   "index": 140,
    "key": "44:ليلا#1",
    "rasm": "لٮلا",
    "pointed": "ليلا",
    "uthmani": "لَيۡلًا",
    "simple": "ليلا",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 23,
     "shuba": 23,
     "warsh": 22,
@@ -6339,15 +6339,15 @@
    ]
   },
   {
-   "id": 64013,
-   "i": 141,
+   "number": 64013,
+   "index": 141,
    "key": "44:انكم#2",
    "rasm": "اٮكم",
    "pointed": "انكم",
    "uthmani": "إِنَّكُم",
    "simple": "إنّكم",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 23,
     "shuba": 23,
     "warsh": 22,
@@ -6391,15 +6391,15 @@
    ]
   },
   {
-   "id": 64014,
-   "i": 142,
+   "number": 64014,
+   "index": 142,
    "key": "44:متبعون#1",
    "rasm": "مٮٮعوں",
    "pointed": "متبعون",
    "uthmani": "مُّتَّبَعُونَ",
    "simple": "مّتّبعون",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 23,
     "shuba": 23,
     "warsh": 22,
@@ -6438,15 +6438,15 @@
    ]
   },
   {
-   "id": 64015,
-   "i": 143,
+   "number": 64015,
+   "index": 143,
    "key": "44:واترك#1",
    "rasm": "واٮرك",
    "pointed": "واترك",
    "uthmani": "وَٱتۡرُكِ",
    "simple": "واترك",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 24,
     "shuba": 24,
     "warsh": 23,
@@ -6495,15 +6495,15 @@
    ]
   },
   {
-   "id": 64016,
-   "i": 144,
+   "number": 64016,
+   "index": 144,
    "key": "44:البحر#1",
    "rasm": "الٮحر",
    "pointed": "البحر",
    "uthmani": "ٱلۡبَحۡرَ",
    "simple": "البحر",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 24,
     "shuba": 24,
     "warsh": 23,
@@ -6552,15 +6552,15 @@
    ]
   },
   {
-   "id": 64017,
-   "i": 145,
+   "number": 64017,
+   "index": 145,
    "key": "44:رهوا#1",
    "rasm": "رهوا",
    "pointed": "رهوا",
    "uthmani": "رَهۡوًا",
    "simple": "رهوا",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 24,
     "shuba": 24,
     "warsh": 23,
@@ -6612,15 +6612,15 @@
    }
   },
   {
-   "id": 64018,
-   "i": 146,
+   "number": 64018,
+   "index": 146,
    "key": "44:انهم#1",
    "rasm": "اٮهم",
    "pointed": "انهم",
    "uthmani": "إِنَّهُمۡ",
    "simple": "إنّهم",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 24,
     "shuba": 24,
     "warsh": 23,
@@ -6669,15 +6669,15 @@
    ]
   },
   {
-   "id": 64019,
-   "i": 147,
+   "number": 64019,
+   "index": 147,
    "key": "44:جند#1",
    "rasm": "حٮد",
    "pointed": "جند",
    "uthmani": "جُندࣱ",
    "simple": "جند",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 24,
     "shuba": 24,
     "warsh": 23,
@@ -6716,15 +6716,15 @@
    ]
   },
   {
-   "id": 64020,
-   "i": 148,
+   "number": 64020,
+   "index": 148,
    "key": "44:مغرقون#1",
    "rasm": "معرڡوں",
    "pointed": "مغرقون",
    "uthmani": "مُّغۡرَقُونَ",
    "simple": "مّغرقون",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 24,
     "shuba": 24,
     "warsh": 23,
@@ -6766,15 +6766,15 @@
    }
   },
   {
-   "id": 64021,
-   "i": 149,
+   "number": 64021,
+   "index": 149,
    "key": "44:كم#1",
    "rasm": "كم",
    "pointed": "كم",
    "uthmani": "كَمۡ",
    "simple": "كم",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 25,
     "shuba": 25,
     "warsh": 24,
@@ -6817,15 +6817,15 @@
    ]
   },
   {
-   "id": 64022,
-   "i": 150,
+   "number": 64022,
+   "index": 150,
    "key": "44:تركوا#1",
    "rasm": "ٮركوا",
    "pointed": "تركوا",
    "uthmani": "تَرَكُواْ",
    "simple": "تركوا",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 25,
     "shuba": 25,
     "warsh": 24,
@@ -6845,15 +6845,15 @@
    }
   },
   {
-   "id": 64023,
-   "i": 151,
+   "number": 64023,
+   "index": 151,
    "key": "44:من#3",
    "rasm": "مں",
    "pointed": "من",
    "uthmani": "مِن",
    "simple": "من",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 25,
     "shuba": 25,
     "warsh": 24,
@@ -6873,15 +6873,15 @@
    }
   },
   {
-   "id": 64024,
-   "i": 152,
+   "number": 64024,
+   "index": 152,
    "key": "44:جنات#1",
    "rasm": "حٮٮ",
    "pointed": "جنات",
    "uthmani": "جَنَّٰتࣲ",
    "simple": "جنّات",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 25,
     "shuba": 25,
     "warsh": 24,
@@ -6920,15 +6920,15 @@
    ]
   },
   {
-   "id": 64025,
-   "i": 153,
+   "number": 64025,
+   "index": 153,
    "key": "44:وعيون#1",
    "rasm": "وعٮوں",
    "pointed": "وعيون",
    "uthmani": "وَعُيُونࣲ",
    "simple": "وعيون",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 25,
     "shuba": 25,
     "warsh": 24,
@@ -6972,15 +6972,15 @@
    ]
   },
   {
-   "id": 64026,
-   "i": 154,
+   "number": 64026,
+   "index": 154,
    "key": "44:وزروع#1",
    "rasm": "ورروع",
    "pointed": "وزروع",
    "uthmani": "وَزُرُوعࣲ",
    "simple": "وزروع",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 26,
     "shuba": 26,
     "warsh": 25,
@@ -7019,15 +7019,15 @@
    ]
   },
   {
-   "id": 64027,
-   "i": 155,
+   "number": 64027,
+   "index": 155,
    "key": "44:ومقام#1",
    "rasm": "ومڡام",
    "pointed": "ومقام",
    "uthmani": "وَمَقَامࣲ",
    "simple": "ومقام",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 26,
     "shuba": 26,
     "warsh": 25,
@@ -7066,15 +7066,15 @@
    ]
   },
   {
-   "id": 64028,
-   "i": 156,
+   "number": 64028,
+   "index": 156,
    "key": "44:كريم#2",
    "rasm": "كرٮم",
    "pointed": "كريم",
    "uthmani": "كَرِيمࣲ",
    "simple": "كريم",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 26,
     "shuba": 26,
     "warsh": 25,
@@ -7113,15 +7113,15 @@
    ]
   },
   {
-   "id": 64029,
-   "i": 157,
+   "number": 64029,
+   "index": 157,
    "key": "44:ونعمه#1",
    "rasm": "وٮعمه",
    "pointed": "ونعمه",
    "uthmani": "وَنَعۡمَةࣲ",
    "simple": "ونعمة",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 27,
     "shuba": 27,
     "warsh": 26,
@@ -7165,15 +7165,15 @@
    ]
   },
   {
-   "id": 64030,
-   "i": 158,
+   "number": 64030,
+   "index": 158,
    "key": "44:كانوا#1",
    "rasm": "كاٮوا",
    "pointed": "كانوا",
    "uthmani": "كَانُواْ",
    "simple": "كانوا",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 27,
     "shuba": 27,
     "warsh": 26,
@@ -7193,15 +7193,15 @@
    }
   },
   {
-   "id": 64031,
-   "i": 159,
+   "number": 64031,
+   "index": 159,
    "key": "44:فيها#2",
    "rasm": "ڡٮها",
    "pointed": "فيها",
    "uthmani": "فِيهَا",
    "simple": "فيها",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 27,
     "shuba": 27,
     "warsh": 26,
@@ -7221,15 +7221,15 @@
    }
   },
   {
-   "id": 64032,
-   "i": 160,
+   "number": 64032,
+   "index": 160,
    "key": "44:فاكهين#1",
    "rasm": "ڡكهٮں",
    "pointed": "فاكهين",
    "uthmani": "فَٰكِهِينَ",
    "simple": "فاكهين",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 27,
     "shuba": 27,
     "warsh": 26,
@@ -7252,15 +7252,15 @@
    }
   },
   {
-   "id": 64033,
-   "i": 161,
+   "number": 64033,
+   "index": 161,
    "key": "44:كذالك#1",
    "rasm": "كدلك",
    "pointed": "كذالك",
    "uthmani": "كَذَٰلِكَ",
    "simple": "كذالك",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 28,
     "shuba": 28,
     "warsh": 27,
@@ -7288,15 +7288,15 @@
    }
   },
   {
-   "id": 64034,
-   "i": 162,
+   "number": 64034,
+   "index": 162,
    "key": "44:واورثناها#1",
    "rasm": "واورٮٮها",
    "pointed": "واورثناها",
    "uthmani": "وَأَوۡرَثۡنَٰهَا",
    "simple": "وأورثناها",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 28,
     "shuba": 28,
     "warsh": 27,
@@ -7335,15 +7335,15 @@
    ]
   },
   {
-   "id": 64035,
-   "i": 163,
+   "number": 64035,
+   "index": 163,
    "key": "44:قوما#1",
    "rasm": "ڡوما",
    "pointed": "قوما",
    "uthmani": "قَوۡمًا",
    "simple": "قوما",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 28,
     "shuba": 28,
     "warsh": 27,
@@ -7382,15 +7382,15 @@
    ]
   },
   {
-   "id": 64036,
-   "i": 164,
+   "number": 64036,
+   "index": 164,
    "key": "44:اخرين#1",
    "rasm": "احرٮں",
    "pointed": "اخرين",
    "uthmani": "ءَاخَرِينَ",
    "simple": "ءاخرين",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 28,
     "shuba": 28,
     "warsh": 27,
@@ -7432,15 +7432,15 @@
    }
   },
   {
-   "id": 64037,
-   "i": 165,
+   "number": 64037,
+   "index": 165,
    "key": "44:فما#1",
    "rasm": "ڡما",
    "pointed": "فما",
    "uthmani": "فَمَا",
    "simple": "فما",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 29,
     "shuba": 29,
     "warsh": 28,
@@ -7460,15 +7460,15 @@
    }
   },
   {
-   "id": 64038,
-   "i": 166,
+   "number": 64038,
+   "index": 166,
    "key": "44:بكت#1",
    "rasm": "ٮكٮ",
    "pointed": "بكت",
    "uthmani": "بَكَتۡ",
    "simple": "بكت",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 29,
     "shuba": 29,
     "warsh": 28,
@@ -7507,15 +7507,15 @@
    ]
   },
   {
-   "id": 64039,
-   "i": 167,
+   "number": 64039,
+   "index": 167,
    "key": "44:عليهم#1",
    "rasm": "علٮهم",
    "pointed": "عليهم",
    "uthmani": "عَلَيۡهِمُ",
    "simple": "عليهم",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 29,
     "shuba": 29,
     "warsh": 28,
@@ -7559,15 +7559,15 @@
    ]
   },
   {
-   "id": 64040,
-   "i": 168,
+   "number": 64040,
+   "index": 168,
    "key": "44:السما#2",
    "rasm": "السما",
    "pointed": "السما",
    "uthmani": "ٱلسَّمَآءُ",
    "simple": "السّمآء",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 29,
     "shuba": 29,
     "warsh": 28,
@@ -7616,15 +7616,15 @@
    ]
   },
   {
-   "id": 64041,
-   "i": 169,
+   "number": 64041,
+   "index": 169,
    "key": "44:والارض#2",
    "rasm": "والارص",
    "pointed": "والارض",
    "uthmani": "وَٱلۡأَرۡضُ",
    "simple": "والأرض",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 29,
     "shuba": 29,
     "warsh": 28,
@@ -7678,15 +7678,15 @@
    ]
   },
   {
-   "id": 64042,
-   "i": 170,
+   "number": 64042,
+   "index": 170,
    "key": "44:وما#2",
    "rasm": "وما",
    "pointed": "وما",
    "uthmani": "وَمَا",
    "simple": "وما",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 29,
     "shuba": 29,
     "warsh": 28,
@@ -7706,15 +7706,15 @@
    }
   },
   {
-   "id": 64043,
-   "i": 171,
+   "number": 64043,
+   "index": 171,
    "key": "44:كانوا#2",
    "rasm": "كاٮوا",
    "pointed": "كانوا",
    "uthmani": "كَانُواْ",
    "simple": "كانوا",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 29,
     "shuba": 29,
     "warsh": 28,
@@ -7734,15 +7734,15 @@
    }
   },
   {
-   "id": 64044,
-   "i": 172,
+   "number": 64044,
+   "index": 172,
    "key": "44:منظرين#1",
    "rasm": "مٮطرٮں",
    "pointed": "منظرين",
    "uthmani": "مُنظَرِينَ",
    "simple": "منظرين",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 29,
     "shuba": 29,
     "warsh": 28,
@@ -7765,15 +7765,15 @@
    }
   },
   {
-   "id": 64045,
-   "i": 173,
+   "number": 64045,
+   "index": 173,
    "key": "44:ولقد#2",
    "rasm": "ولڡد",
    "pointed": "ولقد",
    "uthmani": "وَلَقَدۡ",
    "simple": "ولقد",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 30,
     "shuba": 30,
     "warsh": 29,
@@ -7816,15 +7816,15 @@
    ]
   },
   {
-   "id": 64046,
-   "i": 174,
+   "number": 64046,
+   "index": 174,
    "key": "44:نجينا#1",
    "rasm": "ٮحٮٮا",
    "pointed": "نجينا",
    "uthmani": "نَجَّيۡنَا",
    "simple": "نجّينا",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 30,
     "shuba": 30,
     "warsh": 29,
@@ -7863,15 +7863,15 @@
    ]
   },
   {
-   "id": 64047,
-   "i": 175,
+   "number": 64047,
+   "index": 175,
    "key": "44:بني#1",
    "rasm": "ٮٮى",
    "pointed": "بني",
    "uthmani": "بَنِيٓ",
    "simple": "بني",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 30,
     "shuba": 30,
     "warsh": 29,
@@ -7920,15 +7920,15 @@
    ]
   },
   {
-   "id": 64048,
-   "i": 176,
+   "number": 64048,
+   "index": 176,
    "key": "44:اسرايل#1",
    "rasm": "اسرٮل",
    "pointed": "اسرايل",
    "uthmani": "إِسۡرَٰٓءِيلَ",
    "simple": "إسراءيل",
    "status": "alif_variant",
-   "aya": {
+   "ayah": {
     "hafs": 30,
     "shuba": 30,
     "warsh": 29,
@@ -7967,15 +7967,15 @@
    ]
   },
   {
-   "id": 64049,
-   "i": 177,
+   "number": 64049,
+   "index": 177,
    "key": "44:من#4",
    "rasm": "مں",
    "pointed": "من",
    "uthmani": "مِنَ",
    "simple": "من",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 30,
     "shuba": 30,
     "warsh": 29,
@@ -7995,15 +7995,15 @@
    }
   },
   {
-   "id": 64050,
-   "i": 178,
+   "number": 64050,
+   "index": 178,
    "key": "44:العذاب#3",
    "rasm": "العداٮ",
    "pointed": "العذاب",
    "uthmani": "ٱلۡعَذَابِ",
    "simple": "العذاب",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 30,
     "shuba": 30,
     "warsh": 29,
@@ -8052,15 +8052,15 @@
    ]
   },
   {
-   "id": 64051,
-   "i": 179,
+   "number": 64051,
+   "index": 179,
    "key": "44:المهين#1",
    "rasm": "المهٮں",
    "pointed": "المهين",
    "uthmani": "ٱلۡمُهِينِ",
    "simple": "المهين",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 30,
     "shuba": 30,
     "warsh": 29,
@@ -8109,15 +8109,15 @@
    ]
   },
   {
-   "id": 64052,
-   "i": 180,
+   "number": 64052,
+   "index": 180,
    "key": "44:من#5",
    "rasm": "مں",
    "pointed": "من",
    "uthmani": "مِن",
    "simple": "من",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 31,
     "shuba": 31,
     "warsh": 30,
@@ -8137,15 +8137,15 @@
    }
   },
   {
-   "id": 64053,
-   "i": 181,
+   "number": 64053,
+   "index": 181,
    "key": "44:فرعون#2",
    "rasm": "ڡرعوں",
    "pointed": "فرعون",
    "uthmani": "فِرۡعَوۡنَ",
    "simple": "فرعون",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 31,
     "shuba": 31,
     "warsh": 30,
@@ -8192,15 +8192,15 @@
    }
   },
   {
-   "id": 64054,
-   "i": 182,
+   "number": 64054,
+   "index": 182,
    "key": "44:انه#2",
    "rasm": "اٮه",
    "pointed": "انه",
    "uthmani": "إِنَّهُۥ",
    "simple": "إنّه",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 31,
     "shuba": 31,
     "warsh": 30,
@@ -8220,15 +8220,15 @@
    }
   },
   {
-   "id": 64055,
-   "i": 183,
+   "number": 64055,
+   "index": 183,
    "key": "44:كان#1",
    "rasm": "كاں",
    "pointed": "كان",
    "uthmani": "كَانَ",
    "simple": "كان",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 31,
     "shuba": 31,
     "warsh": 30,
@@ -8248,15 +8248,15 @@
    }
   },
   {
-   "id": 64056,
-   "i": 184,
+   "number": 64056,
+   "index": 184,
    "key": "44:عاليا#1",
    "rasm": "عالٮا",
    "pointed": "عاليا",
    "uthmani": "عَالِيࣰا",
    "simple": "عاليا",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 31,
     "shuba": 31,
     "warsh": 30,
@@ -8300,15 +8300,15 @@
    ]
   },
   {
-   "id": 64057,
-   "i": 185,
+   "number": 64057,
+   "index": 185,
    "key": "44:من#6",
    "rasm": "مں",
    "pointed": "من",
    "uthmani": "مِّنَ",
    "simple": "مّن",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 31,
     "shuba": 31,
     "warsh": 30,
@@ -8328,15 +8328,15 @@
    }
   },
   {
-   "id": 64058,
-   "i": 186,
+   "number": 64058,
+   "index": 186,
    "key": "44:المسرفين#1",
    "rasm": "المسرڡٮں",
    "pointed": "المسرفين",
    "uthmani": "ٱلۡمُسۡرِفِينَ",
    "simple": "المسرفين",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 31,
     "shuba": 31,
     "warsh": 30,
@@ -8388,15 +8388,15 @@
    }
   },
   {
-   "id": 64059,
-   "i": 187,
+   "number": 64059,
+   "index": 187,
    "key": "44:ولقد#3",
    "rasm": "ولڡد",
    "pointed": "ولقد",
    "uthmani": "وَلَقَدِ",
    "simple": "ولقد",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 32,
     "shuba": 32,
     "warsh": 31,
@@ -8416,15 +8416,15 @@
    }
   },
   {
-   "id": 64060,
-   "i": 188,
+   "number": 64060,
+   "index": 188,
    "key": "44:اخترناهم#1",
    "rasm": "احٮرٮهم",
    "pointed": "اخترناهم",
    "uthmani": "ٱخۡتَرۡنَٰهُمۡ",
    "simple": "اخترناهم",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 32,
     "shuba": 32,
     "warsh": 31,
@@ -8478,15 +8478,15 @@
    ]
   },
   {
-   "id": 64061,
-   "i": 189,
+   "number": 64061,
+   "index": 189,
    "key": "44:عليا#1",
    "rasm": "على",
    "pointed": "عليا",
    "uthmani": "عَلَىٰ",
    "simple": "علىا",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 32,
     "shuba": 32,
     "warsh": 31,
@@ -8506,15 +8506,15 @@
    }
   },
   {
-   "id": 64062,
-   "i": 190,
+   "number": 64062,
+   "index": 190,
    "key": "44:علم#1",
    "rasm": "علم",
    "pointed": "علم",
    "uthmani": "عِلۡمٍ",
    "simple": "علم",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 32,
     "shuba": 32,
     "warsh": 31,
@@ -8553,15 +8553,15 @@
    ]
   },
   {
-   "id": 64063,
-   "i": 191,
+   "number": 64063,
+   "index": 191,
    "key": "44:علي#2",
    "rasm": "على",
    "pointed": "علي",
    "uthmani": "عَلَى",
    "simple": "على",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 32,
     "shuba": 32,
     "warsh": 31,
@@ -8581,15 +8581,15 @@
    }
   },
   {
-   "id": 64064,
-   "i": 192,
+   "number": 64064,
+   "index": 192,
    "key": "44:العالمين#1",
    "rasm": "العلمٮں",
    "pointed": "العالمين",
    "uthmani": "ٱلۡعَٰلَمِينَ",
    "simple": "العالمين",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 32,
     "shuba": 32,
     "warsh": 31,
@@ -8638,15 +8638,15 @@
    ]
   },
   {
-   "id": 64065,
-   "i": 193,
+   "number": 64065,
+   "index": 193,
    "key": "44:واتيناهم#1",
    "rasm": "واٮٮٮهم",
    "pointed": "واتيناهم",
    "uthmani": "وَءَاتَيۡنَٰهُم",
    "simple": "وءاتيناهم",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 33,
     "shuba": 33,
     "warsh": 32,
@@ -8690,15 +8690,15 @@
    ]
   },
   {
-   "id": 64066,
-   "i": 194,
+   "number": 64066,
+   "index": 194,
    "key": "44:من#7",
    "rasm": "مں",
    "pointed": "من",
    "uthmani": "مِّنَ",
    "simple": "مّن",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 33,
     "shuba": 33,
     "warsh": 32,
@@ -8737,15 +8737,15 @@
    ]
   },
   {
-   "id": 64067,
-   "i": 195,
+   "number": 64067,
+   "index": 195,
    "key": "44:الايات#1",
    "rasm": "الاٮٮ",
    "pointed": "الايات",
    "uthmani": "ٱلۡأٓيَٰتِ",
    "simple": "الأيات",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 33,
     "shuba": 33,
     "warsh": 32,
@@ -8799,15 +8799,15 @@
    ]
   },
   {
-   "id": 64068,
-   "i": 196,
+   "number": 64068,
+   "index": 196,
    "key": "44:ما#1",
    "rasm": "ما",
    "pointed": "ما",
    "uthmani": "مَا",
    "simple": "ما",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 33,
     "shuba": 33,
     "warsh": 32,
@@ -8827,15 +8827,15 @@
    }
   },
   {
-   "id": 64069,
-   "i": 197,
+   "number": 64069,
+   "index": 197,
    "key": "44:فيه#1",
    "rasm": "ڡٮه",
    "pointed": "فيه",
    "uthmani": "فِيهِ",
    "simple": "فيه",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 33,
     "shuba": 33,
     "warsh": 32,
@@ -8874,15 +8874,15 @@
    ]
   },
   {
-   "id": 64070,
-   "i": 198,
+   "number": 64070,
+   "index": 198,
    "key": "44:بلاوا#1",
    "rasm": "ٮلوا",
    "pointed": "بلاوا",
    "uthmani": "بَلَٰٓؤࣱاْ",
    "simple": "بلاؤا",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 33,
     "shuba": 33,
     "warsh": 32,
@@ -8921,15 +8921,15 @@
    ]
   },
   {
-   "id": 64071,
-   "i": 199,
+   "number": 64071,
+   "index": 199,
    "key": "44:مبين#4",
    "rasm": "مٮٮں",
    "pointed": "مبين",
    "uthmani": "مُّبِينٌ",
    "simple": "مّبين",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 33,
     "shuba": 33,
     "warsh": 32,
@@ -8952,15 +8952,15 @@
    }
   },
   {
-   "id": 64072,
-   "i": 200,
+   "number": 64072,
+   "index": 200,
    "key": "44:ان#5",
    "rasm": "اں",
    "pointed": "ان",
    "uthmani": "إِنَّ",
    "simple": "إنّ",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 34,
     "shuba": 34,
     "warsh": 33,
@@ -8999,15 +8999,15 @@
    ]
   },
   {
-   "id": 64073,
-   "i": 201,
+   "number": 64073,
+   "index": 201,
    "key": "44:هاولا#2",
    "rasm": "هولا",
    "pointed": "هاولا",
    "uthmani": "هَٰٓؤُلَآءِ",
    "simple": "هاؤلآء",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 34,
     "shuba": 34,
     "warsh": 33,
@@ -9046,15 +9046,15 @@
    ]
   },
   {
-   "id": 64074,
-   "i": 202,
+   "number": 64074,
+   "index": 202,
    "key": "44:ليقولون#1",
    "rasm": "لٮڡولوں",
    "pointed": "ليقولون",
    "uthmani": "لَيَقُولُونَ",
    "simple": "ليقولون",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 34,
     "shuba": 34,
     "warsh": 33,
@@ -9074,15 +9074,15 @@
    }
   },
   {
-   "id": 64075,
-   "i": 203,
+   "number": 64075,
+   "index": 203,
    "key": "44:ان#6",
    "rasm": "اں",
    "pointed": "ان",
    "uthmani": "إِنۡ",
    "simple": "إن",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 35,
     "shuba": 35,
     "warsh": 33,
@@ -9121,15 +9121,15 @@
    ]
   },
   {
-   "id": 64076,
-   "i": 204,
+   "number": 64076,
+   "index": 204,
    "key": "44:هي#1",
    "rasm": "هى",
    "pointed": "هي",
    "uthmani": "هِيَ",
    "simple": "هي",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 35,
     "shuba": 35,
     "warsh": 33,
@@ -9149,15 +9149,15 @@
    }
   },
   {
-   "id": 64077,
-   "i": 205,
+   "number": 64077,
+   "index": 205,
    "key": "44:الا#2",
    "rasm": "الا",
    "pointed": "الا",
    "uthmani": "إِلَّا",
    "simple": "إلّا",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 35,
     "shuba": 35,
     "warsh": 33,
@@ -9177,15 +9177,15 @@
    }
   },
   {
-   "id": 64078,
-   "i": 206,
+   "number": 64078,
+   "index": 206,
    "key": "44:موتتنا#1",
    "rasm": "موٮٮٮا",
    "pointed": "موتتنا",
    "uthmani": "مَوۡتَتُنَا",
    "simple": "موتتنا",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 35,
     "shuba": 35,
     "warsh": 33,
@@ -9224,15 +9224,15 @@
    ]
   },
   {
-   "id": 64079,
-   "i": 207,
+   "number": 64079,
+   "index": 207,
    "key": "44:الاوليا#1",
    "rasm": "الاولى",
    "pointed": "الاوليا",
    "uthmani": "ٱلۡأُولَىٰ",
    "simple": "الأولىا",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 35,
     "shuba": 35,
     "warsh": 33,
@@ -9286,15 +9286,15 @@
    ]
   },
   {
-   "id": 64080,
-   "i": 208,
+   "number": 64080,
+   "index": 208,
    "key": "44:وما#3",
    "rasm": "وما",
    "pointed": "وما",
    "uthmani": "وَمَا",
    "simple": "وما",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 35,
     "shuba": 35,
     "warsh": 33,
@@ -9314,15 +9314,15 @@
    }
   },
   {
-   "id": 64081,
-   "i": 209,
+   "number": 64081,
+   "index": 209,
    "key": "44:نحن#1",
    "rasm": "ٮحں",
    "pointed": "نحن",
    "uthmani": "نَحۡنُ",
    "simple": "نحن",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 35,
     "shuba": 35,
     "warsh": 33,
@@ -9361,15 +9361,15 @@
    ]
   },
   {
-   "id": 64082,
-   "i": 210,
+   "number": 64082,
+   "index": 210,
    "key": "44:بمنشرين#1",
    "rasm": "ٮمٮسرٮں",
    "pointed": "بمنشرين",
    "uthmani": "بِمُنشَرِينَ",
    "simple": "بمنشرين",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 35,
     "shuba": 35,
     "warsh": 33,
@@ -9389,15 +9389,15 @@
    }
   },
   {
-   "id": 64083,
-   "i": 211,
+   "number": 64083,
+   "index": 211,
    "key": "44:فاتوا#1",
    "rasm": "ڡاٮوا",
    "pointed": "فاتوا",
    "uthmani": "فَأۡتُواْ",
    "simple": "فأتوا",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 36,
     "shuba": 36,
     "warsh": 34,
@@ -9441,15 +9441,15 @@
    ]
   },
   {
-   "id": 64084,
-   "i": 212,
+   "number": 64084,
+   "index": 212,
    "key": "44:باباينا#1",
    "rasm": "ٮاٮاٮٮا",
    "pointed": "باباينا",
    "uthmani": "بَِٔابَآئِنَآ",
    "simple": "بابآئنآ",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 36,
     "shuba": 36,
     "warsh": 34,
@@ -9488,15 +9488,15 @@
    ]
   },
   {
-   "id": 64085,
-   "i": 213,
+   "number": 64085,
+   "index": 213,
    "key": "44:ان#7",
    "rasm": "اں",
    "pointed": "ان",
    "uthmani": "إِن",
    "simple": "إن",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 36,
     "shuba": 36,
     "warsh": 34,
@@ -9516,15 +9516,15 @@
    }
   },
   {
-   "id": 64086,
-   "i": 214,
+   "number": 64086,
+   "index": 214,
    "key": "44:كنتم#2",
    "rasm": "كٮٮم",
    "pointed": "كنتم",
    "uthmani": "كُنتُمۡ",
    "simple": "كنتم",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 36,
     "shuba": 36,
     "warsh": 34,
@@ -9568,15 +9568,15 @@
    ]
   },
   {
-   "id": 64087,
-   "i": 215,
+   "number": 64087,
+   "index": 215,
    "key": "44:صادقين#1",
    "rasm": "صدڡٮں",
    "pointed": "صادقين",
    "uthmani": "صَٰدِقِينَ",
    "simple": "صادقين",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 36,
     "shuba": 36,
     "warsh": 34,
@@ -9599,15 +9599,15 @@
    }
   },
   {
-   "id": 64088,
-   "i": 216,
+   "number": 64088,
+   "index": 216,
    "key": "44:اهم#1",
    "rasm": "اهم",
    "pointed": "اهم",
    "uthmani": "أَهُمۡ",
    "simple": "أهم",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 37,
     "shuba": 37,
     "warsh": 35,
@@ -9651,15 +9651,15 @@
    ]
   },
   {
-   "id": 64089,
-   "i": 217,
+   "number": 64089,
+   "index": 217,
    "key": "44:خير#1",
    "rasm": "حٮر",
    "pointed": "خير",
    "uthmani": "خَيۡرٌ",
    "simple": "خير",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 37,
     "shuba": 37,
     "warsh": 35,
@@ -9698,15 +9698,15 @@
    ]
   },
   {
-   "id": 64090,
-   "i": 218,
+   "number": 64090,
+   "index": 218,
    "key": "44:ام#1",
    "rasm": "ام",
    "pointed": "ام",
    "uthmani": "أَمۡ",
    "simple": "أم",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 37,
     "shuba": 37,
     "warsh": 35,
@@ -9750,15 +9750,15 @@
    ]
   },
   {
-   "id": 64091,
-   "i": 219,
+   "number": 64091,
+   "index": 219,
    "key": "44:قوم#3",
    "rasm": "ڡوم",
    "pointed": "قوم",
    "uthmani": "قَوۡمُ",
    "simple": "قوم",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 37,
     "shuba": 37,
     "warsh": 35,
@@ -9797,15 +9797,15 @@
    ]
   },
   {
-   "id": 64092,
-   "i": 220,
+   "number": 64092,
+   "index": 220,
    "key": "44:تبع#1",
    "rasm": "ٮٮع",
    "pointed": "تبع",
    "uthmani": "تُبَّعࣲ",
    "simple": "تبّع",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 37,
     "shuba": 37,
     "warsh": 35,
@@ -9847,15 +9847,15 @@
    }
   },
   {
-   "id": 64093,
-   "i": 221,
+   "number": 64093,
+   "index": 221,
    "key": "44:والذين#1",
    "rasm": "والدٮں",
    "pointed": "والذين",
    "uthmani": "وَٱلَّذِينَ",
    "simple": "والّذين",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 37,
     "shuba": 37,
     "warsh": 35,
@@ -9904,15 +9904,15 @@
    ]
   },
   {
-   "id": 64094,
-   "i": 222,
+   "number": 64094,
+   "index": 222,
    "key": "44:من#8",
    "rasm": "مں",
    "pointed": "من",
    "uthmani": "مِن",
    "simple": "من",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 37,
     "shuba": 37,
     "warsh": 35,
@@ -9932,15 +9932,15 @@
    }
   },
   {
-   "id": 64095,
-   "i": 223,
+   "number": 64095,
+   "index": 223,
    "key": "44:قبلهم#2",
    "rasm": "ڡٮلهم",
    "pointed": "قبلهم",
    "uthmani": "قَبۡلِهِمۡ",
    "simple": "قبلهم",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 37,
     "shuba": 37,
     "warsh": 35,
@@ -9993,15 +9993,15 @@
    }
   },
   {
-   "id": 64096,
-   "i": 224,
+   "number": 64096,
+   "index": 224,
    "key": "44:اهلكناهم#1",
    "rasm": "اهلكٮهم",
    "pointed": "اهلكناهم",
    "uthmani": "أَهۡلَكۡنَٰهُمۡ",
    "simple": "أهلكناهم",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 37,
     "shuba": 37,
     "warsh": 35,
@@ -10058,15 +10058,15 @@
    }
   },
   {
-   "id": 64097,
-   "i": 225,
+   "number": 64097,
+   "index": 225,
    "key": "44:انهم#2",
    "rasm": "اٮهم",
    "pointed": "انهم",
    "uthmani": "إِنَّهُمۡ",
    "simple": "إنّهم",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 37,
     "shuba": 37,
     "warsh": 35,
@@ -10110,15 +10110,15 @@
    ]
   },
   {
-   "id": 64098,
-   "i": 226,
+   "number": 64098,
+   "index": 226,
    "key": "44:كانوا#3",
    "rasm": "كاٮوا",
    "pointed": "كانوا",
    "uthmani": "كَانُواْ",
    "simple": "كانوا",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 37,
     "shuba": 37,
     "warsh": 35,
@@ -10138,15 +10138,15 @@
    }
   },
   {
-   "id": 64099,
-   "i": 227,
+   "number": 64099,
+   "index": 227,
    "key": "44:مجرمين#1",
    "rasm": "محرمٮں",
    "pointed": "مجرمين",
    "uthmani": "مُجۡرِمِينَ",
    "simple": "مجرمين",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 37,
     "shuba": 37,
     "warsh": 35,
@@ -10188,15 +10188,15 @@
    }
   },
   {
-   "id": 64100,
-   "i": 228,
+   "number": 64100,
+   "index": 228,
    "key": "44:وما#4",
    "rasm": "وما",
    "pointed": "وما",
    "uthmani": "وَمَا",
    "simple": "وما",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 38,
     "shuba": 38,
     "warsh": 36,
@@ -10216,15 +10216,15 @@
    }
   },
   {
-   "id": 64101,
-   "i": 229,
+   "number": 64101,
+   "index": 229,
    "key": "44:خلقنا#1",
    "rasm": "حلڡٮا",
    "pointed": "خلقنا",
    "uthmani": "خَلَقۡنَا",
    "simple": "خلقنا",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 38,
     "shuba": 38,
     "warsh": 36,
@@ -10263,15 +10263,15 @@
    ]
   },
   {
-   "id": 64102,
-   "i": 230,
+   "number": 64102,
+   "index": 230,
    "key": "44:السماوات#2",
    "rasm": "السموٮ",
    "pointed": "السماوات",
    "uthmani": "ٱلسَّمَٰوَٰتِ",
    "simple": "السّماوات",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 38,
     "shuba": 38,
     "warsh": 36,
@@ -10320,15 +10320,15 @@
    ]
   },
   {
-   "id": 64103,
-   "i": 231,
+   "number": 64103,
+   "index": 231,
    "key": "44:والارض#3",
    "rasm": "والارص",
    "pointed": "والارض",
    "uthmani": "وَٱلۡأَرۡضَ",
    "simple": "والأرض",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 38,
     "shuba": 38,
     "warsh": 36,
@@ -10382,15 +10382,15 @@
    ]
   },
   {
-   "id": 64104,
-   "i": 232,
+   "number": 64104,
+   "index": 232,
    "key": "44:وما#5",
    "rasm": "وما",
    "pointed": "وما",
    "uthmani": "وَمَا",
    "simple": "وما",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 38,
     "shuba": 38,
     "warsh": 36,
@@ -10410,15 +10410,15 @@
    }
   },
   {
-   "id": 64105,
-   "i": 233,
+   "number": 64105,
+   "index": 233,
    "key": "44:بينهما#2",
    "rasm": "ٮٮٮهما",
    "pointed": "بينهما",
    "uthmani": "بَيۡنَهُمَا",
    "simple": "بينهما",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 38,
     "shuba": 38,
     "warsh": 36,
@@ -10457,15 +10457,15 @@
    ]
   },
   {
-   "id": 64106,
-   "i": 234,
+   "number": 64106,
+   "index": 234,
    "key": "44:لاعبين#1",
    "rasm": "لعٮٮں",
    "pointed": "لاعبين",
    "uthmani": "لَٰعِبِينَ",
    "simple": "لاعبين",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 38,
     "shuba": 38,
     "warsh": 36,
@@ -10488,15 +10488,15 @@
    }
   },
   {
-   "id": 64107,
-   "i": 235,
+   "number": 64107,
+   "index": 235,
    "key": "44:ما#2",
    "rasm": "ما",
    "pointed": "ما",
    "uthmani": "مَا",
    "simple": "ما",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 39,
     "shuba": 39,
     "warsh": 37,
@@ -10516,15 +10516,15 @@
    }
   },
   {
-   "id": 64108,
-   "i": 236,
+   "number": 64108,
+   "index": 236,
    "key": "44:خلقناهما#1",
    "rasm": "حلڡٮهما",
    "pointed": "خلقناهما",
    "uthmani": "خَلَقۡنَٰهُمَآ",
    "simple": "خلقناهمآ",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 39,
     "shuba": 39,
     "warsh": 37,
@@ -10573,15 +10573,15 @@
    ]
   },
   {
-   "id": 64109,
-   "i": 237,
+   "number": 64109,
+   "index": 237,
    "key": "44:الا#3",
    "rasm": "الا",
    "pointed": "الا",
    "uthmani": "إِلَّا",
    "simple": "إلّا",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 39,
     "shuba": 39,
     "warsh": 37,
@@ -10601,15 +10601,15 @@
    }
   },
   {
-   "id": 64110,
-   "i": 238,
+   "number": 64110,
+   "index": 238,
    "key": "44:بالحق#1",
    "rasm": "ٮالحٯ",
    "pointed": "بالحق",
    "uthmani": "بِٱلۡحَقِّ",
    "simple": "بالحقّ",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 39,
     "shuba": 39,
     "warsh": 37,
@@ -10656,15 +10656,15 @@
    }
   },
   {
-   "id": 64111,
-   "i": 239,
+   "number": 64111,
+   "index": 239,
    "key": "44:ولاكن#1",
    "rasm": "ولكں",
    "pointed": "ولاكن",
    "uthmani": "وَلَٰكِنَّ",
    "simple": "ولاكنّ",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 39,
     "shuba": 39,
     "warsh": 37,
@@ -10684,15 +10684,15 @@
    }
   },
   {
-   "id": 64112,
-   "i": 240,
+   "number": 64112,
+   "index": 240,
    "key": "44:اكثرهم#1",
    "rasm": "اكٮرهم",
    "pointed": "اكثرهم",
    "uthmani": "أَكۡثَرَهُمۡ",
    "simple": "أكثرهم",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 39,
     "shuba": 39,
     "warsh": 37,
@@ -10736,15 +10736,15 @@
    ]
   },
   {
-   "id": 64113,
-   "i": 241,
+   "number": 64113,
+   "index": 241,
    "key": "44:لا#3",
    "rasm": "لا",
    "pointed": "لا",
    "uthmani": "لَا",
    "simple": "لا",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 39,
     "shuba": 39,
     "warsh": 37,
@@ -10764,15 +10764,15 @@
    }
   },
   {
-   "id": 64114,
-   "i": 242,
+   "number": 64114,
+   "index": 242,
    "key": "44:يعلمون#1",
    "rasm": "ٮعلموں",
    "pointed": "يعلمون",
    "uthmani": "يَعۡلَمُونَ",
    "simple": "يعلمون",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 39,
     "shuba": 39,
     "warsh": 37,
@@ -10814,15 +10814,15 @@
    }
   },
   {
-   "id": 64115,
-   "i": 243,
+   "number": 64115,
+   "index": 243,
    "key": "44:ان#8",
    "rasm": "اں",
    "pointed": "ان",
    "uthmani": "إِنَّ",
    "simple": "إنّ",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 40,
     "shuba": 40,
     "warsh": 38,
@@ -10842,15 +10842,15 @@
    }
   },
   {
-   "id": 64116,
-   "i": 244,
+   "number": 64116,
+   "index": 244,
    "key": "44:يوم#3",
    "rasm": "ٮوم",
    "pointed": "يوم",
    "uthmani": "يَوۡمَ",
    "simple": "يوم",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 40,
     "shuba": 40,
     "warsh": 38,
@@ -10889,15 +10889,15 @@
    ]
   },
   {
-   "id": 64117,
-   "i": 245,
+   "number": 64117,
+   "index": 245,
    "key": "44:الفصل#1",
    "rasm": "الڡصل",
    "pointed": "الفصل",
    "uthmani": "ٱلۡفَصۡلِ",
    "simple": "الفصل",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 40,
     "shuba": 40,
     "warsh": 38,
@@ -10946,15 +10946,15 @@
    ]
   },
   {
-   "id": 64118,
-   "i": 246,
+   "number": 64118,
+   "index": 246,
    "key": "44:ميقاتهم#1",
    "rasm": "مٮڡٮهم",
    "pointed": "ميقاتهم",
    "uthmani": "مِيقَٰتُهُمۡ",
    "simple": "ميقاتهم",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 40,
     "shuba": 40,
     "warsh": 38,
@@ -11003,15 +11003,15 @@
    ]
   },
   {
-   "id": 64119,
-   "i": 247,
+   "number": 64119,
+   "index": 247,
    "key": "44:اجمعين#1",
    "rasm": "احمعٮں",
    "pointed": "اجمعين",
    "uthmani": "أَجۡمَعِينَ",
    "simple": "أجمعين",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 40,
     "shuba": 40,
     "warsh": 38,
@@ -11050,15 +11050,15 @@
    ]
   },
   {
-   "id": 64120,
-   "i": 248,
+   "number": 64120,
+   "index": 248,
    "key": "44:يوم#4",
    "rasm": "ٮوم",
    "pointed": "يوم",
    "uthmani": "يَوۡمَ",
    "simple": "يوم",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 41,
     "shuba": 41,
     "warsh": 39,
@@ -11097,15 +11097,15 @@
    ]
   },
   {
-   "id": 64121,
-   "i": 249,
+   "number": 64121,
+   "index": 249,
    "key": "44:لا#4",
    "rasm": "لا",
    "pointed": "لا",
    "uthmani": "لَا",
    "simple": "لا",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 41,
     "shuba": 41,
     "warsh": 39,
@@ -11125,15 +11125,15 @@
    }
   },
   {
-   "id": 64122,
-   "i": 250,
+   "number": 64122,
+   "index": 250,
    "key": "44:يغني#1",
    "rasm": "ٮعٮى",
    "pointed": "يغني",
    "uthmani": "يُغۡنِي",
    "simple": "يغني",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 41,
     "shuba": 41,
     "warsh": 39,
@@ -11172,15 +11172,15 @@
    ]
   },
   {
-   "id": 64123,
-   "i": 251,
+   "number": 64123,
+   "index": 251,
    "key": "44:مولي#1",
    "rasm": "مولى",
    "pointed": "مولي",
    "uthmani": "مَوۡلًى",
    "simple": "مولى",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 41,
     "shuba": 41,
     "warsh": 39,
@@ -11219,15 +11219,15 @@
    ]
   },
   {
-   "id": 64124,
-   "i": 252,
+   "number": 64124,
+   "index": 252,
    "key": "44:عن#1",
    "rasm": "عں",
    "pointed": "عن",
    "uthmani": "عَن",
    "simple": "عن",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 41,
     "shuba": 41,
     "warsh": 39,
@@ -11247,15 +11247,15 @@
    }
   },
   {
-   "id": 64125,
-   "i": 253,
+   "number": 64125,
+   "index": 253,
    "key": "44:مولي#2",
    "rasm": "مولى",
    "pointed": "مولي",
    "uthmani": "مَّوۡلࣰى",
    "simple": "مّولى",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 41,
     "shuba": 41,
     "warsh": 39,
@@ -11299,15 +11299,15 @@
    ]
   },
   {
-   "id": 64126,
-   "i": 254,
+   "number": 64126,
+   "index": 254,
    "key": "44:شيا#1",
    "rasm": "سٮا",
    "pointed": "شيا",
    "uthmani": "شَيࣰۡٔا",
    "simple": "شيا",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 41,
     "shuba": 41,
     "warsh": 39,
@@ -11351,15 +11351,15 @@
    ]
   },
   {
-   "id": 64127,
-   "i": 255,
+   "number": 64127,
+   "index": 255,
    "key": "44:ولا#1",
    "rasm": "ولا",
    "pointed": "ولا",
    "uthmani": "وَلَا",
    "simple": "ولا",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 41,
     "shuba": 41,
     "warsh": 39,
@@ -11379,15 +11379,15 @@
    }
   },
   {
-   "id": 64128,
-   "i": 256,
+   "number": 64128,
+   "index": 256,
    "key": "44:هم#2",
    "rasm": "هم",
    "pointed": "هم",
    "uthmani": "هُمۡ",
    "simple": "هم",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 41,
     "shuba": 41,
     "warsh": 39,
@@ -11431,15 +11431,15 @@
    ]
   },
   {
-   "id": 64129,
-   "i": 257,
+   "number": 64129,
+   "index": 257,
    "key": "44:ينصرون#1",
    "rasm": "ٮٮصروں",
    "pointed": "ينصرون",
    "uthmani": "يُنصَرُونَ",
    "simple": "ينصرون",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 41,
     "shuba": 41,
     "warsh": 39,
@@ -11459,15 +11459,15 @@
    }
   },
   {
-   "id": 64130,
-   "i": 258,
+   "number": 64130,
+   "index": 258,
    "key": "44:الا#4",
    "rasm": "الا",
    "pointed": "الا",
    "uthmani": "إِلَّا",
    "simple": "إلّا",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 42,
     "shuba": 42,
     "warsh": 40,
@@ -11487,15 +11487,15 @@
    }
   },
   {
-   "id": 64131,
-   "i": 259,
+   "number": 64131,
+   "index": 259,
    "key": "44:من#9",
    "rasm": "مں",
    "pointed": "من",
    "uthmani": "مَن",
    "simple": "من",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 42,
     "shuba": 42,
     "warsh": 40,
@@ -11515,15 +11515,15 @@
    }
   },
   {
-   "id": 64132,
-   "i": 260,
+   "number": 64132,
+   "index": 260,
    "key": "44:رحم#1",
    "rasm": "رحم",
    "pointed": "رحم",
    "uthmani": "رَّحِمَ",
    "simple": "رّحم",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 42,
     "shuba": 42,
     "warsh": 40,
@@ -11543,15 +11543,15 @@
    }
   },
   {
-   "id": 64133,
-   "i": 261,
+   "number": 64133,
+   "index": 261,
    "key": "44:الله#3",
    "rasm": "الله",
    "pointed": "الله",
    "uthmani": "ٱللَّهُ",
    "simple": "اللّه",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 42,
     "shuba": 42,
     "warsh": 40,
@@ -11608,15 +11608,15 @@
    }
   },
   {
-   "id": 64134,
-   "i": 262,
+   "number": 64134,
+   "index": 262,
    "key": "44:انه#3",
    "rasm": "اٮه",
    "pointed": "انه",
    "uthmani": "إِنَّهُۥ",
    "simple": "إنّه",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 42,
     "shuba": 42,
     "warsh": 40,
@@ -11655,15 +11655,15 @@
    ]
   },
   {
-   "id": 64135,
-   "i": 263,
+   "number": 64135,
+   "index": 263,
    "key": "44:هو#3",
    "rasm": "هو",
    "pointed": "هو",
    "uthmani": "هُوَ",
    "simple": "هو",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 42,
     "shuba": 42,
     "warsh": 40,
@@ -11702,15 +11702,15 @@
    ]
   },
   {
-   "id": 64136,
-   "i": 264,
+   "number": 64136,
+   "index": 264,
    "key": "44:العزيز#1",
    "rasm": "العرٮر",
    "pointed": "العزيز",
    "uthmani": "ٱلۡعَزِيزُ",
    "simple": "العزيز",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 42,
     "shuba": 42,
     "warsh": 40,
@@ -11759,15 +11759,15 @@
    ]
   },
   {
-   "id": 64137,
-   "i": 265,
+   "number": 64137,
+   "index": 265,
    "key": "44:الرحيم#1",
    "rasm": "الرحٮم",
    "pointed": "الرحيم",
    "uthmani": "ٱلرَّحِيمُ",
    "simple": "الرّحيم",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 42,
     "shuba": 42,
     "warsh": 40,
@@ -11814,15 +11814,15 @@
    }
   },
   {
-   "id": 64138,
-   "i": 266,
+   "number": 64138,
+   "index": 266,
    "key": "44:ان#9",
    "rasm": "اں",
    "pointed": "ان",
    "uthmani": "إِنَّ",
    "simple": "إنّ",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 43,
     "shuba": 43,
     "warsh": 41,
@@ -11842,15 +11842,15 @@
    }
   },
   {
-   "id": 64139,
-   "i": 267,
+   "number": 64139,
+   "index": 267,
    "key": "44:شجرت#1",
    "rasm": "سحرٮ",
    "pointed": "شجرت",
    "uthmani": "شَجَرَتَ",
    "simple": "شجرت",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 43,
     "shuba": 43,
     "warsh": 41,
@@ -11870,15 +11870,15 @@
    }
   },
   {
-   "id": 64140,
-   "i": 268,
+   "number": 64140,
+   "index": 268,
    "key": "44:الزقوم#1",
    "rasm": "الرڡوم",
    "pointed": "الزقوم",
    "uthmani": "ٱلزَّقُّومِ",
    "simple": "الزّقّوم",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 43,
     "shuba": 43,
     "warsh": 41,
@@ -11927,15 +11927,15 @@
    ]
   },
   {
-   "id": 64141,
-   "i": 269,
+   "number": 64141,
+   "index": 269,
    "key": "44:طعام#1",
    "rasm": "طعام",
    "pointed": "طعام",
    "uthmani": "طَعَامُ",
    "simple": "طعام",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 44,
     "shuba": 44,
     "warsh": 41,
@@ -11955,15 +11955,15 @@
    }
   },
   {
-   "id": 64142,
-   "i": 270,
+   "number": 64142,
+   "index": 270,
    "key": "44:الاثيم#1",
    "rasm": "الاٮٮم",
    "pointed": "الاثيم",
    "uthmani": "ٱلۡأَثِيمِ",
    "simple": "الأثيم",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 44,
     "shuba": 44,
     "warsh": 41,
@@ -12017,15 +12017,15 @@
    ]
   },
   {
-   "id": 64143,
-   "i": 271,
+   "number": 64143,
+   "index": 271,
    "key": "44:كالمهل#1",
    "rasm": "كالمهل",
    "pointed": "كالمهل",
    "uthmani": "كَٱلۡمُهۡلِ",
    "simple": "كالمهل",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 45,
     "shuba": 45,
     "warsh": 42,
@@ -12069,15 +12069,15 @@
    ]
   },
   {
-   "id": 64144,
-   "i": 272,
+   "number": 64144,
+   "index": 272,
    "key": "44:يغلي#1",
    "rasm": "ٮعلى",
    "pointed": "يغلي",
    "uthmani": "يَغۡلِي",
    "simple": "يغلي",
    "status": "dotting_variant",
-   "aya": {
+   "ayah": {
     "hafs": 45,
     "shuba": 45,
     "warsh": 42,
@@ -12121,15 +12121,15 @@
    ]
   },
   {
-   "id": 64145,
-   "i": 273,
+   "number": 64145,
+   "index": 273,
    "key": "44:في#3",
    "rasm": "ڡى",
    "pointed": "في",
    "uthmani": "فِي",
    "simple": "في",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 45,
     "shuba": 45,
     "warsh": 42,
@@ -12168,15 +12168,15 @@
    ]
   },
   {
-   "id": 64146,
-   "i": 274,
+   "number": 64146,
+   "index": 274,
    "key": "44:البطون#1",
    "rasm": "الٮطوں",
    "pointed": "البطون",
    "uthmani": "ٱلۡبُطُونِ",
    "simple": "البطون",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 45,
     "shuba": 45,
     "warsh": 42,
@@ -12225,15 +12225,15 @@
    ]
   },
   {
-   "id": 64147,
-   "i": 275,
+   "number": 64147,
+   "index": 275,
    "key": "44:كغلي#1",
    "rasm": "كعلى",
    "pointed": "كغلي",
    "uthmani": "كَغَلۡيِ",
    "simple": "كغلي",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 46,
     "shuba": 46,
     "warsh": 43,
@@ -12272,15 +12272,15 @@
    ]
   },
   {
-   "id": 64148,
-   "i": 276,
+   "number": 64148,
+   "index": 276,
    "key": "44:الحميم#1",
    "rasm": "الحمٮم",
    "pointed": "الحميم",
    "uthmani": "ٱلۡحَمِيمِ",
    "simple": "الحميم",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 46,
     "shuba": 46,
     "warsh": 43,
@@ -12332,15 +12332,15 @@
    }
   },
   {
-   "id": 64149,
-   "i": 277,
+   "number": 64149,
+   "index": 277,
    "key": "44:خذوه#1",
    "rasm": "حدوه",
    "pointed": "خذوه",
    "uthmani": "خُذُوهُ",
    "simple": "خذوه",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 47,
     "shuba": 47,
     "warsh": 44,
@@ -12379,15 +12379,15 @@
    ]
   },
   {
-   "id": 64150,
-   "i": 278,
+   "number": 64150,
+   "index": 278,
    "key": "44:فاعتلوه#1",
    "rasm": "ڡاعٮلوه",
    "pointed": "فاعتلوه",
    "uthmani": "فَٱعۡتِلُوهُ",
    "simple": "فاعتلوه",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 47,
     "shuba": 47,
     "warsh": 44,
@@ -12436,15 +12436,15 @@
    ]
   },
   {
-   "id": 64151,
-   "i": 279,
+   "number": 64151,
+   "index": 279,
    "key": "44:اليا#1",
    "rasm": "الى",
    "pointed": "اليا",
    "uthmani": "إِلَىٰ",
    "simple": "إلىا",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 47,
     "shuba": 47,
     "warsh": 44,
@@ -12464,15 +12464,15 @@
    }
   },
   {
-   "id": 64152,
-   "i": 280,
+   "number": 64152,
+   "index": 280,
    "key": "44:سوا#1",
    "rasm": "سوا",
    "pointed": "سوا",
    "uthmani": "سَوَآءِ",
    "simple": "سوآء",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 47,
     "shuba": 47,
     "warsh": 44,
@@ -12492,15 +12492,15 @@
    }
   },
   {
-   "id": 64153,
-   "i": 281,
+   "number": 64153,
+   "index": 281,
    "key": "44:الجحيم#1",
    "rasm": "الححٮم",
    "pointed": "الجحيم",
    "uthmani": "ٱلۡجَحِيمِ",
    "simple": "الجحيم",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 47,
     "shuba": 47,
     "warsh": 44,
@@ -12549,15 +12549,15 @@
    ]
   },
   {
-   "id": 64154,
-   "i": 282,
+   "number": 64154,
+   "index": 282,
    "key": "44:ثم#2",
    "rasm": "ٮم",
    "pointed": "ثم",
    "uthmani": "ثُمَّ",
    "simple": "ثمّ",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 48,
     "shuba": 48,
     "warsh": 45,
@@ -12577,15 +12577,15 @@
    }
   },
   {
-   "id": 64155,
-   "i": 283,
+   "number": 64155,
+   "index": 283,
    "key": "44:صبوا#1",
    "rasm": "صٮوا",
    "pointed": "صبوا",
    "uthmani": "صُبُّواْ",
    "simple": "صبّوا",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 48,
     "shuba": 48,
     "warsh": 45,
@@ -12605,15 +12605,15 @@
    }
   },
   {
-   "id": 64156,
-   "i": 284,
+   "number": 64156,
+   "index": 284,
    "key": "44:فوق#1",
    "rasm": "ڡوٯ",
    "pointed": "فوق",
    "uthmani": "فَوۡقَ",
    "simple": "فوق",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 48,
     "shuba": 48,
     "warsh": 45,
@@ -12652,15 +12652,15 @@
    ]
   },
   {
-   "id": 64157,
-   "i": 285,
+   "number": 64157,
+   "index": 285,
    "key": "44:راسه#1",
    "rasm": "راسه",
    "pointed": "راسه",
    "uthmani": "رَأۡسِهِۦ",
    "simple": "رأسه",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 48,
     "shuba": 48,
     "warsh": 45,
@@ -12704,15 +12704,15 @@
    ]
   },
   {
-   "id": 64158,
-   "i": 286,
+   "number": 64158,
+   "index": 286,
    "key": "44:من#10",
    "rasm": "مں",
    "pointed": "من",
    "uthmani": "مِنۡ",
    "simple": "من",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 48,
     "shuba": 48,
     "warsh": 45,
@@ -12751,15 +12751,15 @@
    ]
   },
   {
-   "id": 64159,
-   "i": 287,
+   "number": 64159,
+   "index": 287,
    "key": "44:عذاب#2",
    "rasm": "عداٮ",
    "pointed": "عذاب",
    "uthmani": "عَذَابِ",
    "simple": "عذاب",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 48,
     "shuba": 48,
     "warsh": 45,
@@ -12779,15 +12779,15 @@
    }
   },
   {
-   "id": 64160,
-   "i": 288,
+   "number": 64160,
+   "index": 288,
    "key": "44:الحميم#2",
    "rasm": "الحمٮم",
    "pointed": "الحميم",
    "uthmani": "ٱلۡحَمِيمِ",
    "simple": "الحميم",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 48,
     "shuba": 48,
     "warsh": 45,
@@ -12836,15 +12836,15 @@
    ]
   },
   {
-   "id": 64161,
-   "i": 289,
+   "number": 64161,
+   "index": 289,
    "key": "44:ذق#1",
    "rasm": "دٯ",
    "pointed": "ذق",
    "uthmani": "ذُقۡ",
    "simple": "ذق",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 49,
     "shuba": 49,
     "warsh": 46,
@@ -12891,15 +12891,15 @@
    }
   },
   {
-   "id": 64162,
-   "i": 290,
+   "number": 64162,
+   "index": 290,
    "key": "44:انك#1",
    "rasm": "اٮك",
    "pointed": "انك",
    "uthmani": "إِنَّكَ",
    "simple": "إنّك",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 49,
     "shuba": 49,
     "warsh": 46,
@@ -12938,15 +12938,15 @@
    ]
   },
   {
-   "id": 64163,
-   "i": 291,
+   "number": 64163,
+   "index": 291,
    "key": "44:انت#1",
    "rasm": "اٮٮ",
    "pointed": "انت",
    "uthmani": "أَنتَ",
    "simple": "أنت",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 49,
     "shuba": 49,
     "warsh": 46,
@@ -12966,15 +12966,15 @@
    }
   },
   {
-   "id": 64164,
-   "i": 292,
+   "number": 64164,
+   "index": 292,
    "key": "44:العزيز#2",
    "rasm": "العرٮر",
    "pointed": "العزيز",
    "uthmani": "ٱلۡعَزِيزُ",
    "simple": "العزيز",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 49,
     "shuba": 49,
     "warsh": 46,
@@ -13023,15 +13023,15 @@
    ]
   },
   {
-   "id": 64165,
-   "i": 293,
+   "number": 64165,
+   "index": 293,
    "key": "44:الكريم#1",
    "rasm": "الكرٮم",
    "pointed": "الكريم",
    "uthmani": "ٱلۡكَرِيمُ",
    "simple": "الكريم",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 49,
     "shuba": 49,
     "warsh": 46,
@@ -13083,15 +13083,15 @@
    }
   },
   {
-   "id": 64166,
-   "i": 294,
+   "number": 64166,
+   "index": 294,
    "key": "44:ان#10",
    "rasm": "اں",
    "pointed": "ان",
    "uthmani": "إِنَّ",
    "simple": "إنّ",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 50,
     "shuba": 50,
     "warsh": 47,
@@ -13111,15 +13111,15 @@
    }
   },
   {
-   "id": 64167,
-   "i": 295,
+   "number": 64167,
+   "index": 295,
    "key": "44:هاذا#2",
    "rasm": "هدا",
    "pointed": "هاذا",
    "uthmani": "هَٰذَا",
    "simple": "هاذا",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 50,
     "shuba": 50,
     "warsh": 47,
@@ -13139,15 +13139,15 @@
    }
   },
   {
-   "id": 64168,
-   "i": 296,
+   "number": 64168,
+   "index": 296,
    "key": "44:ما#3",
    "rasm": "ما",
    "pointed": "ما",
    "uthmani": "مَا",
    "simple": "ما",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 50,
     "shuba": 50,
     "warsh": 47,
@@ -13167,15 +13167,15 @@
    }
   },
   {
-   "id": 64169,
-   "i": 297,
+   "number": 64169,
+   "index": 297,
    "key": "44:كنتم#3",
    "rasm": "كٮٮم",
    "pointed": "كنتم",
    "uthmani": "كُنتُم",
    "simple": "كنتم",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 50,
     "shuba": 50,
     "warsh": 47,
@@ -13214,15 +13214,15 @@
    ]
   },
   {
-   "id": 64170,
-   "i": 298,
+   "number": 64170,
+   "index": 298,
    "key": "44:به#1",
    "rasm": "ٮه",
    "pointed": "به",
    "uthmani": "بِهِۦ",
    "simple": "به",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 50,
     "shuba": 50,
     "warsh": 47,
@@ -13242,15 +13242,15 @@
    }
   },
   {
-   "id": 64171,
-   "i": 299,
+   "number": 64171,
+   "index": 299,
    "key": "44:تمترون#1",
    "rasm": "ٮمٮروں",
    "pointed": "تمترون",
    "uthmani": "تَمۡتَرُونَ",
    "simple": "تمترون",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 50,
     "shuba": 50,
     "warsh": 47,
@@ -13292,15 +13292,15 @@
    }
   },
   {
-   "id": 64172,
-   "i": 300,
+   "number": 64172,
+   "index": 300,
    "key": "44:ان#11",
    "rasm": "اں",
    "pointed": "ان",
    "uthmani": "إِنَّ",
    "simple": "إنّ",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 51,
     "shuba": 51,
     "warsh": 48,
@@ -13320,15 +13320,15 @@
    }
   },
   {
-   "id": 64173,
-   "i": 301,
+   "number": 64173,
+   "index": 301,
    "key": "44:المتقين#1",
    "rasm": "المٮڡٮں",
    "pointed": "المتقين",
    "uthmani": "ٱلۡمُتَّقِينَ",
    "simple": "المتّقين",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 51,
     "shuba": 51,
     "warsh": 48,
@@ -13377,15 +13377,15 @@
    ]
   },
   {
-   "id": 64174,
-   "i": 302,
+   "number": 64174,
+   "index": 302,
    "key": "44:في#4",
    "rasm": "ڡى",
    "pointed": "في",
    "uthmani": "فِي",
    "simple": "في",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 51,
     "shuba": 51,
     "warsh": 48,
@@ -13424,15 +13424,15 @@
    ]
   },
   {
-   "id": 64175,
-   "i": 303,
+   "number": 64175,
+   "index": 303,
    "key": "44:مقام#1",
    "rasm": "مڡام",
    "pointed": "مقام",
    "uthmani": "مَقَامٍ",
    "simple": "مقام",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 51,
     "shuba": 51,
     "warsh": 48,
@@ -13471,15 +13471,15 @@
    ]
   },
   {
-   "id": 64176,
-   "i": 304,
+   "number": 64176,
+   "index": 304,
    "key": "44:امين#2",
    "rasm": "امٮں",
    "pointed": "امين",
    "uthmani": "أَمِينࣲ",
    "simple": "أمين",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 51,
     "shuba": 51,
     "warsh": 48,
@@ -13523,15 +13523,15 @@
    ]
   },
   {
-   "id": 64177,
-   "i": 305,
+   "number": 64177,
+   "index": 305,
    "key": "44:في#5",
    "rasm": "ڡى",
    "pointed": "في",
    "uthmani": "فِي",
    "simple": "في",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 52,
     "shuba": 52,
     "warsh": 49,
@@ -13570,15 +13570,15 @@
    ]
   },
   {
-   "id": 64178,
-   "i": 306,
+   "number": 64178,
+   "index": 306,
    "key": "44:جنات#2",
    "rasm": "حٮٮ",
    "pointed": "جنات",
    "uthmani": "جَنَّٰتࣲ",
    "simple": "جنّات",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 52,
     "shuba": 52,
     "warsh": 49,
@@ -13617,15 +13617,15 @@
    ]
   },
   {
-   "id": 64179,
-   "i": 307,
+   "number": 64179,
+   "index": 307,
    "key": "44:وعيون#2",
    "rasm": "وعٮوں",
    "pointed": "وعيون",
    "uthmani": "وَعُيُونࣲ",
    "simple": "وعيون",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 52,
     "shuba": 52,
     "warsh": 49,
@@ -13669,15 +13669,15 @@
    ]
   },
   {
-   "id": 64180,
-   "i": 308,
+   "number": 64180,
+   "index": 308,
    "key": "44:يلبسون#1",
    "rasm": "ٮلٮسوں",
    "pointed": "يلبسون",
    "uthmani": "يَلۡبَسُونَ",
    "simple": "يلبسون",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 53,
     "shuba": 53,
     "warsh": 50,
@@ -13716,15 +13716,15 @@
    ]
   },
   {
-   "id": 64181,
-   "i": 309,
+   "number": 64181,
+   "index": 309,
    "key": "44:من#11",
    "rasm": "مں",
    "pointed": "من",
    "uthmani": "مِن",
    "simple": "من",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 53,
     "shuba": 53,
     "warsh": 50,
@@ -13744,15 +13744,15 @@
    }
   },
   {
-   "id": 64182,
-   "i": 310,
+   "number": 64182,
+   "index": 310,
    "key": "44:سندس#1",
    "rasm": "سٮدس",
    "pointed": "سندس",
    "uthmani": "سُندُسࣲ",
    "simple": "سندس",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 53,
     "shuba": 53,
     "warsh": 50,
@@ -13791,15 +13791,15 @@
    ]
   },
   {
-   "id": 64183,
-   "i": 311,
+   "number": 64183,
+   "index": 311,
    "key": "44:واستبرق#1",
    "rasm": "واسٮٮرٯ",
    "pointed": "واستبرق",
    "uthmani": "وَإِسۡتَبۡرَقࣲ",
    "simple": "وإستبرق",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 53,
     "shuba": 53,
     "warsh": 50,
@@ -13843,15 +13843,15 @@
    ]
   },
   {
-   "id": 64184,
-   "i": 312,
+   "number": 64184,
+   "index": 312,
    "key": "44:متقابلين#1",
    "rasm": "مٮڡٮلٮں",
    "pointed": "متقابلين",
    "uthmani": "مُّتَقَٰبِلِينَ",
    "simple": "مّتقابلين",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 53,
     "shuba": 53,
     "warsh": 50,
@@ -13874,15 +13874,15 @@
    }
   },
   {
-   "id": 64185,
-   "i": 313,
+   "number": 64185,
+   "index": 313,
    "key": "44:كذالك#2",
    "rasm": "كدلك",
    "pointed": "كذالك",
    "uthmani": "كَذَٰلِكَ",
    "simple": "كذالك",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 54,
     "shuba": 54,
     "warsh": 51,
@@ -13905,15 +13905,15 @@
    }
   },
   {
-   "id": 64186,
-   "i": 314,
+   "number": 64186,
+   "index": 314,
    "key": "44:وزوجناهم#1",
    "rasm": "وروحٮهم",
    "pointed": "وزوجناهم",
    "uthmani": "وَزَوَّجۡنَٰهُم",
    "simple": "وزوّجناهم",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 54,
     "shuba": 54,
     "warsh": 51,
@@ -13957,15 +13957,15 @@
    ]
   },
   {
-   "id": 64187,
-   "i": 315,
+   "number": 64187,
+   "index": 315,
    "key": "44:بحور#1",
    "rasm": "ٮحور",
    "pointed": "بحور",
    "uthmani": "بِحُورٍ",
    "simple": "بحور",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 54,
     "shuba": 54,
     "warsh": 51,
@@ -13985,15 +13985,15 @@
    }
   },
   {
-   "id": 64188,
-   "i": 316,
+   "number": 64188,
+   "index": 316,
    "key": "44:عين#1",
    "rasm": "عٮں",
    "pointed": "عين",
    "uthmani": "عِينࣲ",
    "simple": "عين",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 54,
     "shuba": 54,
     "warsh": 51,
@@ -14035,15 +14035,15 @@
    }
   },
   {
-   "id": 64189,
-   "i": 317,
+   "number": 64189,
+   "index": 317,
    "key": "44:يدعون#1",
    "rasm": "ٮدعوں",
    "pointed": "يدعون",
    "uthmani": "يَدۡعُونَ",
    "simple": "يدعون",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 55,
     "shuba": 55,
     "warsh": 52,
@@ -14082,15 +14082,15 @@
    ]
   },
   {
-   "id": 64190,
-   "i": 318,
+   "number": 64190,
+   "index": 318,
    "key": "44:فيها#3",
    "rasm": "ڡٮها",
    "pointed": "فيها",
    "uthmani": "فِيهَا",
    "simple": "فيها",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 55,
     "shuba": 55,
     "warsh": 52,
@@ -14110,15 +14110,15 @@
    }
   },
   {
-   "id": 64191,
-   "i": 319,
+   "number": 64191,
+   "index": 319,
    "key": "44:بكل#1",
    "rasm": "ٮكل",
    "pointed": "بكل",
    "uthmani": "بِكُلِّ",
    "simple": "بكلّ",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 55,
     "shuba": 55,
     "warsh": 52,
@@ -14138,15 +14138,15 @@
    }
   },
   {
-   "id": 64192,
-   "i": 320,
+   "number": 64192,
+   "index": 320,
    "key": "44:فاكهه#1",
    "rasm": "ڡكهه",
    "pointed": "فاكهه",
    "uthmani": "فَٰكِهَةٍ",
    "simple": "فاكهة",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 55,
     "shuba": 55,
     "warsh": 52,
@@ -14166,15 +14166,15 @@
    }
   },
   {
-   "id": 64193,
-   "i": 321,
+   "number": 64193,
+   "index": 321,
    "key": "44:امنين#1",
    "rasm": "امٮٮں",
    "pointed": "امنين",
    "uthmani": "ءَامِنِينَ",
    "simple": "ءامنين",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 55,
     "shuba": 55,
     "warsh": 52,
@@ -14216,15 +14216,15 @@
    }
   },
   {
-   "id": 64194,
-   "i": 322,
+   "number": 64194,
+   "index": 322,
    "key": "44:لا#5",
    "rasm": "لا",
    "pointed": "لا",
    "uthmani": "لَا",
    "simple": "لا",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 56,
     "shuba": 56,
     "warsh": 53,
@@ -14244,15 +14244,15 @@
    }
   },
   {
-   "id": 64195,
-   "i": 323,
+   "number": 64195,
+   "index": 323,
    "key": "44:يذوقون#1",
    "rasm": "ٮدوڡوں",
    "pointed": "يذوقون",
    "uthmani": "يَذُوقُونَ",
    "simple": "يذوقون",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 56,
     "shuba": 56,
     "warsh": 53,
@@ -14272,15 +14272,15 @@
    }
   },
   {
-   "id": 64196,
-   "i": 324,
+   "number": 64196,
+   "index": 324,
    "key": "44:فيها#4",
    "rasm": "ڡٮها",
    "pointed": "فيها",
    "uthmani": "فِيهَا",
    "simple": "فيها",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 56,
     "shuba": 56,
     "warsh": 53,
@@ -14300,15 +14300,15 @@
    }
   },
   {
-   "id": 64197,
-   "i": 325,
+   "number": 64197,
+   "index": 325,
    "key": "44:الموت#1",
    "rasm": "الموٮ",
    "pointed": "الموت",
    "uthmani": "ٱلۡمَوۡتَ",
    "simple": "الموت",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 56,
     "shuba": 56,
     "warsh": 53,
@@ -14360,15 +14360,15 @@
    }
   },
   {
-   "id": 64198,
-   "i": 326,
+   "number": 64198,
+   "index": 326,
    "key": "44:الا#5",
    "rasm": "الا",
    "pointed": "الا",
    "uthmani": "إِلَّا",
    "simple": "إلّا",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 56,
     "shuba": 56,
     "warsh": 53,
@@ -14388,15 +14388,15 @@
    }
   },
   {
-   "id": 64199,
-   "i": 327,
+   "number": 64199,
+   "index": 327,
    "key": "44:الموته#1",
    "rasm": "الموٮه",
    "pointed": "الموته",
    "uthmani": "ٱلۡمَوۡتَةَ",
    "simple": "الموتة",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 56,
     "shuba": 56,
     "warsh": 53,
@@ -14445,15 +14445,15 @@
    ]
   },
   {
-   "id": 64200,
-   "i": 328,
+   "number": 64200,
+   "index": 328,
    "key": "44:الاوليا#2",
    "rasm": "الاولى",
    "pointed": "الاوليا",
    "uthmani": "ٱلۡأُولَىٰ",
    "simple": "الأولىا",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 56,
     "shuba": 56,
     "warsh": 53,
@@ -14515,15 +14515,15 @@
    }
   },
   {
-   "id": 64201,
-   "i": 329,
+   "number": 64201,
+   "index": 329,
    "key": "44:ووقياهم#1",
    "rasm": "ووڡٮهم",
    "pointed": "ووقياهم",
    "uthmani": "وَوَقَىٰهُمۡ",
    "simple": "ووقىاهم",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 56,
     "shuba": 56,
     "warsh": 53,
@@ -14572,15 +14572,15 @@
    ]
   },
   {
-   "id": 64202,
-   "i": 330,
+   "number": 64202,
+   "index": 330,
    "key": "44:عذاب#3",
    "rasm": "عداٮ",
    "pointed": "عذاب",
    "uthmani": "عَذَابَ",
    "simple": "عذاب",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 56,
     "shuba": 56,
     "warsh": 53,
@@ -14600,15 +14600,15 @@
    }
   },
   {
-   "id": 64203,
-   "i": 331,
+   "number": 64203,
+   "index": 331,
    "key": "44:الجحيم#2",
    "rasm": "الححٮم",
    "pointed": "الجحيم",
    "uthmani": "ٱلۡجَحِيمِ",
    "simple": "الجحيم",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 56,
     "shuba": 56,
     "warsh": 53,
@@ -14657,15 +14657,15 @@
    ]
   },
   {
-   "id": 64204,
-   "i": 332,
+   "number": 64204,
+   "index": 332,
    "key": "44:فضلا#1",
    "rasm": "ڡصلا",
    "pointed": "فضلا",
    "uthmani": "فَضۡلࣰا",
    "simple": "فضلا",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 57,
     "shuba": 57,
     "warsh": 54,
@@ -14709,15 +14709,15 @@
    ]
   },
   {
-   "id": 64205,
-   "i": 333,
+   "number": 64205,
+   "index": 333,
    "key": "44:من#12",
    "rasm": "مں",
    "pointed": "من",
    "uthmani": "مِّن",
    "simple": "مّن",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 57,
     "shuba": 57,
     "warsh": 54,
@@ -14737,15 +14737,15 @@
    }
   },
   {
-   "id": 64206,
-   "i": 334,
+   "number": 64206,
+   "index": 334,
    "key": "44:ربك#2",
    "rasm": "رٮك",
    "pointed": "ربك",
    "uthmani": "رَّبِّكَ",
    "simple": "رّبّك",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 57,
     "shuba": 57,
     "warsh": 54,
@@ -14773,15 +14773,15 @@
    }
   },
   {
-   "id": 64207,
-   "i": 335,
+   "number": 64207,
+   "index": 335,
    "key": "44:ذالك#1",
    "rasm": "دلك",
    "pointed": "ذالك",
    "uthmani": "ذَٰلِكَ",
    "simple": "ذالك",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 57,
     "shuba": 57,
     "warsh": 54,
@@ -14801,15 +14801,15 @@
    }
   },
   {
-   "id": 64208,
-   "i": 336,
+   "number": 64208,
+   "index": 336,
    "key": "44:هو#4",
    "rasm": "هو",
    "pointed": "هو",
    "uthmani": "هُوَ",
    "simple": "هو",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 57,
     "shuba": 57,
     "warsh": 54,
@@ -14829,15 +14829,15 @@
    }
   },
   {
-   "id": 64209,
-   "i": 337,
+   "number": 64209,
+   "index": 337,
    "key": "44:الفوز#1",
    "rasm": "الڡور",
    "pointed": "الفوز",
    "uthmani": "ٱلۡفَوۡزُ",
    "simple": "الفوز",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 57,
     "shuba": 57,
     "warsh": 54,
@@ -14886,15 +14886,15 @@
    ]
   },
   {
-   "id": 64210,
-   "i": 338,
+   "number": 64210,
+   "index": 338,
    "key": "44:العظيم#1",
    "rasm": "العطٮم",
    "pointed": "العظيم",
    "uthmani": "ٱلۡعَظِيمُ",
    "simple": "العظيم",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 57,
     "shuba": 57,
     "warsh": 54,
@@ -14946,15 +14946,15 @@
    }
   },
   {
-   "id": 64211,
-   "i": 339,
+   "number": 64211,
+   "index": 339,
    "key": "44:فانما#1",
    "rasm": "ڡاٮما",
    "pointed": "فانما",
    "uthmani": "فَإِنَّمَا",
    "simple": "فإنّما",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 58,
     "shuba": 58,
     "warsh": 55,
@@ -14974,15 +14974,15 @@
    }
   },
   {
-   "id": 64212,
-   "i": 340,
+   "number": 64212,
+   "index": 340,
    "key": "44:يسرناه#1",
    "rasm": "ٮسرٮه",
    "pointed": "يسرناه",
    "uthmani": "يَسَّرۡنَٰهُ",
    "simple": "يسّرناه",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 58,
     "shuba": 58,
     "warsh": 55,
@@ -15026,15 +15026,15 @@
    ]
   },
   {
-   "id": 64213,
-   "i": 341,
+   "number": 64213,
+   "index": 341,
    "key": "44:بلسانك#1",
    "rasm": "ٮلساٮك",
    "pointed": "بلسانك",
    "uthmani": "بِلِسَانِكَ",
    "simple": "بلسانك",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 58,
     "shuba": 58,
     "warsh": 55,
@@ -15054,15 +15054,15 @@
    }
   },
   {
-   "id": 64214,
-   "i": 342,
+   "number": 64214,
+   "index": 342,
    "key": "44:لعلهم#1",
    "rasm": "لعلهم",
    "pointed": "لعلهم",
    "uthmani": "لَعَلَّهُمۡ",
    "simple": "لعلّهم",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 58,
     "shuba": 58,
     "warsh": 55,
@@ -15106,15 +15106,15 @@
    ]
   },
   {
-   "id": 64215,
-   "i": 343,
+   "number": 64215,
+   "index": 343,
    "key": "44:يتذكرون#1",
    "rasm": "ٮٮدكروں",
    "pointed": "يتذكرون",
    "uthmani": "يَتَذَكَّرُونَ",
    "simple": "يتذكّرون",
    "status": "identical",
-   "aya": {
+   "ayah": {
     "hafs": 58,
     "shuba": 58,
     "warsh": 55,
@@ -15137,15 +15137,15 @@
    }
   },
   {
-   "id": 64216,
-   "i": 344,
+   "number": 64216,
+   "index": 344,
    "key": "44:فارتقب#2",
    "rasm": "ڡارٮڡٮ",
    "pointed": "فارتقب",
    "uthmani": "فَٱرۡتَقِبۡ",
    "simple": "فارتقب",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 59,
     "shuba": 59,
     "warsh": 56,
@@ -15197,15 +15197,15 @@
    }
   },
   {
-   "id": 64217,
-   "i": 345,
+   "number": 64217,
+   "index": 345,
    "key": "44:انهم#3",
    "rasm": "اٮهم",
    "pointed": "انهم",
    "uthmani": "إِنَّهُم",
    "simple": "إنّهم",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 59,
     "shuba": 59,
     "warsh": 56,
@@ -15249,15 +15249,15 @@
    ]
   },
   {
-   "id": 64218,
-   "i": 346,
+   "number": 64218,
+   "index": 346,
    "key": "44:مرتقبون#1",
    "rasm": "مرٮڡٮوں",
    "pointed": "مرتقبون",
    "uthmani": "مُّرۡتَقِبُونَ",
    "simple": "مّرتقبون",
    "status": "diacritic_variant",
-   "aya": {
+   "ayah": {
     "hafs": 59,
     "shuba": 59,
     "warsh": 56,
