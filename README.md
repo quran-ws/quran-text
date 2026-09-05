@@ -29,25 +29,47 @@ beside it is the same text as sūrah → āyah → words. Agents: see
 
 ## Why this exists
 
-Most Qurʾān datasets give you one riwāyah, Ḥafṣ, as āyāt. That is enough for a
-reader and not enough for anything that has to *reason* about the text:
+Every Qurʾān database in use today has three gaps, and this one is built to
+close them.
 
-- **Seven riwāyāt, not one.** The others are not variants of Ḥafṣ; each is a
-  printed muṣḥaf of its own, and here each is published on its own terms —
-  its words, its spelling, its āyah division, its typesetting.
-- **Words, not āyāt, are the unit.** The riwāyāt agree on the words almost
-  everywhere and disagree on where āyāt end far more often, so the āyah is an
-  attribute of a word here, not a container. That is what lets one number
-  mean one word in all seven, and what lets data cross between them.
-- **The āyah count belongs to the edition.** Dūrī and Sūsī are both First
-  Madinan and differ at exactly one documented point; Bazzī counts one āyah
-  no source yet explains. Each edition's counting system is *derived* from
-  what it prints and checked against the classical systems, not assumed from
-  the riwāyah, and every disagreement is named with the authority it follows.
+**1. Nobody says which text it is.** Ask a Qurʾān API which printed edition its
+text comes from, which release, what was changed on the way in, and you get
+silence. Here every file names its source — the King Fahd Complex release, the
+member inside it, its SHA-256 — and every place this build departs from that
+source is listed *in the file itself*: a word re-spaced, a line reconstructed
+rather than read, an āyah count no source explains. The text is the KFGQPC
+release's, hash for hash, and a reader can prove it without trusting us.
+
+**2. Nobody agrees on what a word is.** Split the same āyah in three apps and
+you get three word counts: مَا لِيَ joined or apart, وَأَلَّوِ as one word or two,
+a pause mark counted as a word or not. There is no stable word-level reference
+to attach a translation, a grammar entry or an audio segment to. Here the word
+is defined once, reviewed against the classical sources where the muṣḥafs
+divide the text differently, and given one number that means the same word in
+all seven riwāyāt — so word-level data attached once can be read off any of
+them.
+
+**3. The qirāʾāt are missing.** The Qurʾān is recited in ten qirāʾāt, and
+apart from Ḥafṣ they exist in software, if at all, as a font trick over the
+Ḥafṣ text or as scanned pages. Here Warsh, Qālūn, Dūrī, Sūsī, Shuʿbah and
+Bazzī are text: each riwāyah's own words and spelling, its own āyah division
+and count, its own pages and pause marks, from the printed muṣḥaf the King
+Fahd Complex publishes for it, aligned word by word with the others so a
+reader can move between them and a dataset can cover all of them at once.
+
+## What is different
+
+- **Seven riwāyāt, not one.** Each is a printed muṣḥaf of its own, published on
+  its own terms: its words, its spelling, its āyah division, its typesetting.
+- **Words, not āyāt, are the unit.** The riwāyāt agree on the words and
+  disagree on where āyāt end, so the āyah is an attribute of a word, not a
+  container. That is what lets one number mean one word in all seven.
+- **The āyah count belongs to the edition.** Each edition's counting system is
+  derived from what it prints and checked against the classical systems; every
+  disagreement is named with the authority it follows.
 - **Nothing is invented, and every departure is disclosed.** The text is the
-  KFGQPC release's, hash for hash. Where this build re-spaces a word, where a
-  line is reconstructed rather than read, where a count is unexplained — it
-  is in the file, not in a footnote.
+  KFGQPC release's, hash for hash; what this build changed is in the file, not
+  in a footnote.
 
 ## What you get
 
