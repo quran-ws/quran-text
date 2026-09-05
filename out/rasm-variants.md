@@ -2,11 +2,11 @@
 
 Every word where the seven riwāyāt disagree about the letters on the line, in order. Dots, hamza and vowelling have all been set aside, and so has the dagger alif — a superscript alef is by definition an alef the scribe did not write on the line.
 
-The 62 `rasm_variant` words come first: a letter one riwāyah has and another does not, splitting the seven 14 different ways. The 198 `alif_variant` words follow: one skeleton once every ā is spelled out, differing only in where the ā was written, and splitting the seven exactly one way. See *The ā on the line or above it* in `COMPARISON.md` for why that difference is reported apart.
+The 60 `rasm_variant` words come first: a letter one riwāyah has and another does not, splitting the seven 13 different ways. The 198 `alif_variant` words follow: one skeleton once every ā is spelled out, differing only in where the ā was written, and splitting the seven exactly one way. See *The ā on the line or above it* in `COMPARISON.md` for why that difference is reported apart.
 
 Machine-readable: `conflicts.csv`, `conflicts.json`.
 
-## Letters — 62
+## Letters — 60
 
 | word id | sūrah:āyah | word # | rasm on each side | as printed |
 |---|---|---|---|---|
@@ -49,7 +49,7 @@ Machine-readable: `conflicts.csv`, `conflicts.json`.
 | 57749 | 37:68 | 346 | `لالى` hafs,shuba,bazzi,qaloun,warsh  ·  `لاالى` douri,sousi | **لَإِلَى** hafs,shuba,bazzi,qaloun,warsh  ·  **لَإِاْلَى** douri,sousi |
 | 59548 | 39:34 | 551 | `حرا` hafs,shuba,bazzi,douri,sousi  ·  `حروا` qaloun,warsh | **جَزَآءُ** hafs,shuba,bazzi,douri,sousi  ·  **جَزَٰٓؤُاْ** qaloun,warsh |
 | 60056 | 39:69 | 1059 | `وحاى` hafs,shuba,bazzi,douri,sousi  ·  `وحى` qaloun,warsh | **وَجِاْيٓءَ** hafs,shuba,bazzi,douri,sousi  ·  **وَجِےٓءَ** qaloun,warsh |
-| 60522 | 40:26 | 353 | `او` hafs,shuba  ·  `واں` bazzi,qaloun,warsh,douri,sousi | **أَوۡ** hafs,shuba  ·  **وَأَن** bazzi,douri,sousi  ·  **وَأَنْ** qaloun,warsh |
+| 60523 | 40:26 | 354 | `اں` hafs,shuba  ·  `واں` bazzi,qaloun,warsh,douri,sousi | **أَن** hafs,shuba  ·  **وَأَن** bazzi,douri,sousi  ·  **وَأَنْ** qaloun,warsh |
 | 62695 | 42:30 | 513 | `ڡٮما` hafs,shuba,bazzi,douri,sousi  ·  `ٮما` qaloun,warsh | **فَبِمَا** hafs,shuba,bazzi,douri,sousi  ·  **بِمَا** qaloun,warsh |
 | 63696 | 43:68 | 654 | `ٮعٮاد` hafs,bazzi  ·  `ٮعٮادى` shuba,qaloun,warsh,douri,sousi | **يَٰعِبَادِ** hafs,bazzi  ·  **يَٰعِبَادِيَ** shuba  ·  **يَٰعِبَادِے** qaloun,warsh  ·  **يَٰعِبَادِي** douri,sousi |
 | 63722 | 43:71 | 680 | `ٮسٮهٮه` hafs,qaloun,warsh  ·  `ٮسٮهى` shuba,bazzi,douri,sousi | **تَشۡتَهِيهِ** hafs  ·  **تَشۡتَهِي** shuba,bazzi,douri,sousi  ·  **تَشْتَهِيهِ** qaloun,warsh |
@@ -62,9 +62,7 @@ Machine-readable: `conflicts.csv`, `conflicts.json`.
 | 71303 | 61:14 | 192 | `الله` hafs,shuba  ·  `لله` bazzi,qaloun,warsh,douri,sousi | **ٱللَّهِ** hafs,shuba  ·  **لِّلَّهِ** bazzi,douri,sousi  ·  **لِّلهِ** qaloun,warsh |
 | 72021 | 65:4 | 93 | `والى` hafs,shuba,bazzi,warsh,douri,sousi  ·  `والٮى` qaloun | **وَٱلَِّٰٓٔي** hafs,shuba  ·  **وَٱلَّٰٓيۡ** bazzi  ·  **وَالَّٰٓئِے** qaloun  ·  **وَالٜےْ** warsh  ·  **وَاَلَّٰٓيۡ** douri  ·  **وَࡱلَّٰٓيۡ** sousi |
 | 72032 | 65:4 | 104 | `والى` hafs,shuba,bazzi,warsh,douri,sousi  ·  `والٮى` qaloun | **وَٱلَِّٰٓٔي** hafs,shuba  ·  **وَٱلَّٰٓيۡ** bazzi  ·  **وَالَّٰٓئِے** qaloun  ·  **وَالٜےْ** warsh  ·  **وَاَلَّٰٓيۡ** douri  ·  **وَࡱلَّٰٓيۡ** sousi |
-| 73950 | 72:16 | 152 | `والو` hafs,shuba,bazzi  ·  `واں` qaloun,warsh,douri,sousi | **وَأَلَّوِ** hafs,shuba,bazzi  ·  **وَأَن** qaloun,warsh,douri,sousi |
 | 73986 | 72:20 | 188 | `ڡل` hafs,shuba  ·  `ڡال` bazzi,qaloun,warsh,douri,sousi | **قُلۡ** hafs,shuba  ·  **قَالَ** bazzi,qaloun,warsh,douri,sousi |
-| 74226 | 73:20 | 142 | `اں` hafs,shuba,bazzi,qaloun,warsh  ·  `الں` douri,sousi | **أَن** hafs,shuba,bazzi,qaloun,warsh  ·  **أَلَّن** douri,sousi |
 | 74439 | 74:33 | 156 | `اد` hafs,qaloun,warsh  ·  `ادا` shuba,bazzi,douri,sousi | **إِذۡ** hafs  ·  **إِذَا** shuba,bazzi,douri,sousi  ·  **إِذْ** qaloun  ·  **إِذَ** warsh |
 | 74440 | 74:33 | 157 | `ادٮر` hafs,qaloun,warsh  ·  `دٮر` shuba,bazzi,douri,sousi | **أَدۡبَرَ** hafs  ·  **دَبَرَ** shuba,bazzi,douri,sousi  ·  **أَدْبَرَ** qaloun  ·  **ࡰدْبَرَ** warsh |
 | 75690 | 81:24 | 79 | `ٮصٮٮں` hafs,shuba,qaloun,warsh  ·  `ٮصطٮٮں` bazzi,douri,sousi | **بِضَنِينࣲ** hafs,shuba,qaloun,warsh  ·  **بِضظَنِينࣲ** bazzi  ·  **بِضظَنِينٖ** douri  ·  **بِّضظَنِينࣲ** sousi |

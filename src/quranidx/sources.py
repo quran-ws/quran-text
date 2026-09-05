@@ -40,14 +40,9 @@ class Riwaya:
     name_ar: str
     qari_en: str
     qari_ar: str
-    #: The tradition of ʿadd al-āy this riwāyah is *conventionally* associated
-    #: with.  A label for grouping and display only — emphatically **not** a
-    #: claim about where this package puts its fawāṣil.  The qirāʾah does not
-    #: determine the count: KFGQPC's Dūrī printings all state المدني الأول and
-    #: still total 6,218, 6,217 and 6,214 across three printings.  For where
-    #: the āyāt actually end, read ``out/fawasil.json``, which is derived from
-    #: the packages themselves.
-    counting: str            # conventional label only — see SourceSpec.counting
+    #: No counting field: the āyah count belongs to the printed edition, not
+    #: the riwāyah, and is derived from the package itself.  See
+    #: :mod:`quranidx.counting` and ``counting`` in each muṣḥaf file.
     source: str              # provenance of ``ayat``
     ayat: list[Ayah] = field(default_factory=list)
     #: (sura, aya) -> {jozz, page, line_start, line_end}, from the v2 CSVs.
@@ -237,7 +232,6 @@ class SourceSpec:
     name_ar: str
     qari_en: str
     qari_ar: str
-    counting: str
     primary_zip: str
     primary_member: str
     primary_kind: str          # "docx" | "csv"
@@ -270,26 +264,26 @@ RELEASE_POLICY = ("within one riwāyah the later release is a correction; "
 
 
 REGISTRY: list[SourceSpec] = [
-    SourceSpec("hafs", "Ḥafṣ", "حفص", "ʿĀṣim al-Kūfī", "عاصم الكوفي", "kufi",
+    SourceSpec("hafs", "Ḥafṣ", "حفص", "ʿĀṣim al-Kūfī", "عاصم الكوفي",
                "UthmanicHafs-v-3.0", "UthmanicHafs-v-3.0.docx", "docx",
                "UthmanicHafs_v2-0", "UthmanicHafs_v2-0 data/hafsData_v2-0.csv"),
-    SourceSpec("shuba", "Shuʿbah", "شعبة", "ʿĀṣim al-Kūfī", "عاصم الكوفي", "kufi",
+    SourceSpec("shuba", "Shuʿbah", "شعبة", "ʿĀṣim al-Kūfī", "عاصم الكوفي",
                "UthmanicShubah-v-3.0", "UthmanicShubah-v-3.0.docx", "docx",
                "UthmanicShuba_v2-0", "UthmanicShuba_v2-0 data/shubaData_v2-0.csv"),
-    SourceSpec("warsh", "Warsh", "ورش", "Nāfiʿ al-Madanī", "نافع المدني", "madani",
+    SourceSpec("warsh", "Warsh", "ورش", "Nāfiʿ al-Madanī", "نافع المدني",
                "UthmanicWarsh-v-3.0", "UthmanicWarsh-v-3.0.docx", "docx",
                "UthmanicWarsh_v2-1", "UthmanicWarsh_v2-1 data/warshData_v2-1.csv"),
-    SourceSpec("qaloun", "Qālūn", "قالون", "Nāfiʿ al-Madanī", "نافع المدني", "madani",
+    SourceSpec("qaloun", "Qālūn", "قالون", "Nāfiʿ al-Madanī", "نافع المدني",
                "UthmanicQaloun-v-3.0", "UthmanicQaloun-v-3.0.docx", "docx",
                "UthmanicQaloun_v2-1", "UthmanicQaloun_v2-1 data/QalounData_v2-1.csv"),
-    SourceSpec("douri", "Dūrī", "الدوري", "Abū ʿAmr al-Baṣrī", "أبو عمرو البصري", "basri",
+    SourceSpec("douri", "Dūrī", "الدوري", "Abū ʿAmr al-Baṣrī", "أبو عمرو البصري",
                "UthmanicDouri_V20", "UthmanicDouri V20.docx", "docx",
                "UthmanicDouri_v2-0", "UthmanicDouri_v2-0 data/DouriData_v2-0.csv",
                primary_year=2022, csv_year=2022),
-    SourceSpec("sousi", "Sūsī", "السوسي", "Abū ʿAmr al-Baṣrī", "أبو عمرو البصري", "basri",
+    SourceSpec("sousi", "Sūsī", "السوسي", "Abū ʿAmr al-Baṣrī", "أبو عمرو البصري",
                "UthmanicSousi-v-3.0", "UthmanicSousi-v-3.0.docx", "docx",
                "UthmanicSousi_v2-0", "UthmanicSousi_v2-0 data/SousiData_v2-0.csv"),
-    SourceSpec("bazzi", "Bazzī", "البزي", "Ibn Kathīr al-Makkī", "ابن كثير المكي", "makki",
+    SourceSpec("bazzi", "Bazzī", "البزي", "Ibn Kathīr al-Makkī", "ابن كثير المكي",
                "UthmanicBazzi-v-3.0", "UthmanicBazzi-v-3.0.docx", "docx"),
 ]
 
@@ -318,7 +312,7 @@ def load_all() -> list[Riwaya]:
             source = f"{spec.primary_zip}.zip :: {spec.primary_member}"
 
         r = Riwaya(spec.key, spec.name_en, spec.name_ar, spec.qari_en,
-                   spec.qari_ar, spec.counting, source, ayat)
+                   spec.qari_ar, source, ayat)
         r.release_year = spec.primary_year
         r.spec = spec
         if spec.primary_kind == "docx":

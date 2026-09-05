@@ -201,12 +201,31 @@ printed joined (`كَانُواْيَعۡمَلُونَ`) is split back apart at
 marks staying on the letter they sit on. Without this, the next word is falsely
 reported absent from that riwāyah.
 
+When the letters do *not* agree, two things can be going on, and they are told
+apart in this order:
+
+1. **A declared written-joined word.** At 72:16 Ḥafṣ prints `وَأَلَّوِ` for
+   `وَأَن لَّوِ`, and at 73:20 Dūrī prints `أَلَّن` for `أَن لَّن`: the nūn
+   assimilates and is not written, so the rasm differs, but nothing is added
+   or dropped. These places are declared in `data/written-joined.json` — no
+   rule can tell an unwritten nūn from a different word — and the one token is
+   placed in the first column and recorded as *covering* the second
+   (`Column.covers`). Both words keep their numbers; the muṣḥaf's
+   `numbering.written_joined` says its one printed word covers both.
+2. **A real difference of wording.** The block is paired by shared letters,
+   order-preserving, with the shorter side fully paired. Left-to-right pairing
+   used to put Warsh's `وَأَنْ` at 40:26 against Ḥafṣ's `أَوۡ` (one shared letter)
+   when the `أَن` beside it shares all of them; now `وَأَنْ` takes the number of
+   `أَن` and `أَوۡ` is the word Warsh does not read.
+
 The result is one `Column` per canonical word, holding at most one token from
-each riwāyah. Its position is the word's ID.
+each riwāyah. Its position is the word's number.
 
 ## Identifiers
 
-- **`id`** — a running integer over the whole corpus, `1 … 77434`.
+- **`id`** / **`n`** — the shared number, a running integer over the whole
+  corpus, `1 … 77434`, counting the finest division any muṣḥaf prints. The
+  scheme is specified in `docs/MUSHAF-FORMAT.md`, *Numbering*.
 - **`i`** — the word's 1-based position within its sūrah.
 - **`key`** — `sūrah:pointed#occurrence`, e.g. `1:مالك#1`. This is rebuild-stable
   and does not shift if a future release adds or removes a word earlier in the
@@ -217,17 +236,23 @@ each riwāyah. Its position is the word's ID.
 
 ## 5. Fawāṣil
 
-The āyah boundaries are a layer *over* the word index, in `out/fawasil.json`.
-Each system lists the ID of the last word of every āyah; the riwāyāt sharing a
-system agree on all of them. There are five, not four: Dūrī and Sūsī are both
-Baṣrī but part company at exactly one fāṣilah, which is the whole of the
-6217/6218 difference between them.
+The āyah boundaries are a layer *over* the word index: each muṣḥaf file's
+`ayah_starts`, and `out/fawasil.json` keyed by counting system. **The count
+belongs to the edition, not the qirāʾah.** Each edition's system is derived by
+comparing its own āyah ends to the six systems' boundaries, taken from
+[qiraat-ayah-map](https://github.com/quranpedia/qiraat-ayah-map) (vendored
+under `data/counting/`, anchors resolved to shared numbers); the points where a
+system's own authorities disagree are this repository's overlay
+`data/counting/khilaf.json`, cited from al-Dānī. Dūrī and Sūsī are both First
+Madinan and part company at exactly one such point, 67:9, where Dūrī follows
+Abū Jaʿfar and Sūsī follows Shayba — the whole of the 6217/6218 difference.
+See `docs/MUSHAF-FORMAT.md`, *Counting*.
 
 ## Verification
 
 `python3 build.py` runs three families of check and prints what it finds.
 
-1. **Structural** — IDs contiguous, `key` unique, `i` contiguous per sūrah.
+1. **Structural** — numbers contiguous, `key` unique, `i` contiguous per sūrah.
 2. **Round-trip** — for each riwāyah, the concatenated rasm of every form in the
    index must equal the concatenated rasm of tokenising that riwāyah's source
    directly. Comparing letters rather than word counts makes the check
@@ -235,11 +260,22 @@ Baṣrī but part company at exactly one fāṣilah, which is the whole of the
    duplicated word. This passes for all seven.
 3. **Release policy** — the text of each riwāyah must come from its latest
    package, since that is the only correction this pipeline assumes.
+4. **Numbering** — over the seven published files: the runs and `missing` tile
+   `1 … total` exactly, the sum invariant holds, `total` agrees, every
+   `written_joined` run is length ≥ 2, and no number is read by nobody.
+5. **Positions** — every `*_starts` layer is strictly increasing inside
+   `words`, `ayah_starts` has `counting.ayah_count` entries, and the sūrah
+   header's `first_ayah` is the prefix sum of its `ayat`.
+6. **Counting** — every `unexplained` point in a `counting` block is an
+   acknowledged entry in `data/counting/open-findings.json`, and every entry
+   there still occurs.
+7. **Schema** — the field set of every file matches `schema/mushaf-1.0.json`.
 
-There is deliberately **no** check of āyah totals against the counting
-traditions. An earlier version had one, and it was measuring an assumption: the
-qirāʾah does not determine the count, many fawāṣil are مختلف فيها, and KFGQPC's
-own Dūrī printings total 6,218, 6,217 and 6,214 while all three state they
-follow المدني الأول. See `docs/ISSUES.md`.
+There is deliberately **no** check of āyah totals *per riwāyah*. An earlier
+version had one, and it was measuring an assumption: the qirāʾah does not
+determine the count. What is checked instead is that each edition's division
+matches a counting system once the documented khilāf is set aside — see
+`docs/ISSUES.md`.
 
-Plus 24 unit tests over the normalisation, splitting and alignment primitives.
+Plus 70 unit tests over the normalisation, splitting and alignment primitives,
+the numbering block, and the committed `out/` files.

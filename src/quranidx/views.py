@@ -9,8 +9,7 @@ who would rather answer a question in SQL than write a program.
 
 The distinction is kept explicit, in ``docs/MUSHAF-FORMAT.md`` and in a
 ``view_of`` field on every file, because the alternative is that whichever form
-turns out to be handiest silently becomes the standard and the word ID it was
-supposed to carry becomes decorative.
+turns out to be handiest silently becomes the standard.
 """
 
 from __future__ import annotations
@@ -20,28 +19,91 @@ import gzip
 import json
 import shutil
 import sqlite3
-from collections import defaultdict
+from bisect import bisect_right
 from pathlib import Path
 
 from .mushaf import FORMAT, FORMAT_VERSION, MUSHAF_DIR
 
 
-def _coords(doc: dict) -> dict[int, tuple[int, int, int]]:
-    """word id -> (sura, ayah, position within the āyah)."""
-    out: dict[int, tuple[int, int, int]] = {}
-    for span in doc["ayat"]:
-        first, last = span["words"]
-        for pos, wid in enumerate(range(first, last + 1), start=1):
-            out[wid] = (span["sura"], span["n"], pos)
-    return out
+# --------------------------------------------------------------------------
+# reading the layers
+# --------------------------------------------------------------------------
+
+def unit_of(starts: list[int], pos: int) -> int:
+    """Index of the unit (āyah, page, …) that position ``pos`` falls in.
+
+    ``-1`` before the first start — the unnumbered basmalah, which precedes
+    the first āyah in the muṣḥafs that do not count it.
+    """
+    return bisect_right(starts, pos) - 1
 
 
-def _juz_of(doc: dict) -> dict[int, int]:
-    out: dict[int, int] = {}
-    for span in doc.get("juz", []):
-        for wid in range(span["words"][0], span["words"][1] + 1):
-            out[wid] = span["n"]
-    return out
+def numbers_of(doc: dict) -> list[tuple[int, int]]:
+    """position -> ``(first, last)`` run of shared numbers, by the one-pass walk
+    the spec describes: advance one per word, skip ``missing``, advance by the
+    run length at a ``written_joined`` position."""
+    numbering = doc["numbering"]
+    missing = set(numbering["missing"])
+    joined = {j["position"]: j["numbers"] for j in numbering["written_joined"]}
+    runs = []
+    n = 1
+    for pos in range(len(doc["words"])):
+        while n in missing:
+            n += 1
+        first, last = joined.get(pos, (n, n))
+        runs.append((first, last))
+        n = last + 1
+    return runs
+
+
+class Coords:
+    """Per-position coordinates of one muṣḥaf, read off its layers once."""
+
+    def __init__(self, doc: dict):
+        self.doc = doc
+        self.sura_starts = doc["sura_starts"]
+        self.ayah_starts = doc["ayah_starts"]
+        self.page_starts = doc.get("page_starts")
+        self.line_starts = doc.get("line_starts")
+        self.juz_starts = doc.get("juz_starts")
+        self.numbers = numbers_of(doc)
+        self.first_ayah = {s["n"]: s["first_ayah"] for s in doc["suras"]}
+        self.marks: dict[int, list[dict]] = {}
+        for pos, t in doc["marks"]:
+            self.marks.setdefault(pos, []).append(doc["mark_types"][t])
+
+    def sura(self, pos: int) -> int:
+        return self.doc["suras"][unit_of(self.sura_starts, pos)]["n"]
+
+    def ayah(self, pos: int) -> tuple[int, int]:
+        """``(āyah number in this muṣḥaf, position within the āyah)``.
+
+        Āyah ``0`` is the unnumbered basmalah, before the sūrah's first āyah.
+        """
+        sura = self.sura(pos)
+        k = unit_of(self.ayah_starts, pos)
+        if k < 0 or self.sura(self.ayah_starts[k]) != sura:
+            return 0, pos - self.sura_starts[unit_of(self.sura_starts, pos)] + 1
+        return k - self.first_ayah[sura] + 1, pos - self.ayah_starts[k] + 1
+
+    def page(self, pos: int) -> int | None:
+        return unit_of(self.page_starts, pos) + 1 if self.page_starts else None
+
+    def line(self, pos: int) -> int | None:
+        """Line within the page, counted from the page's first line."""
+        if not self.line_starts or not self.page_starts:
+            return None
+        page_start = self.page_starts[unit_of(self.page_starts, pos)]
+        return unit_of(self.line_starts, pos) - unit_of(self.line_starts, page_start) + 1
+
+    def juz(self, pos: int) -> int | None:
+        return unit_of(self.juz_starts, pos) + 1 if self.juz_starts else None
+
+    def imlaei(self, pos: int) -> str | None:
+        return self.doc["imlaei"][pos] if self.doc.get("imlaei") else None
+
+    def resegmented(self) -> set[int]:
+        return {p for e in self.doc["resegmentation"] for p in e["positions"]}
 
 
 def _write_gz(path: Path, text: str) -> None:
@@ -56,8 +118,25 @@ def _write_gz(path: Path, text: str) -> None:
         fh.write(text)
 
 
-def _mark_text(word: dict) -> str:
-    return "|".join(f"{m['k']}:{m['at']}:{m['sign']}" for m in word.get("marks", []))
+def _mark_text(marks: list[dict]) -> str:
+    return "|".join(f"{m['k']}:{m['at']}:{m['sign']}" for m in marks)
+
+
+def _word_record(c: Coords, pos: int) -> dict:
+    """One word of a view, with every layer's value repeated on it."""
+    first, last = c.numbers[pos]
+    ayah, pos_in_ayah = c.ayah(pos)
+    rec = {"pos": pos, "text": c.doc["words"][pos], "number": first}
+    if last > first:
+        rec["number_last"] = last
+    rec.update({"sura": c.sura(pos), "ayah": ayah, "pos_in_ayah": pos_in_ayah})
+    for name, value in (("page", c.page(pos)), ("line", c.line(pos)),
+                        ("juz", c.juz(pos)), ("imlaei", c.imlaei(pos))):
+        if value is not None:
+            rec[name] = value
+    if pos in c.marks:
+        rec["marks"] = c.marks[pos]
+    return rec
 
 
 # --------------------------------------------------------------------------
@@ -69,24 +148,27 @@ def write_nested(docs: dict[str, dict]) -> None:
 
     The coordinates it repeats on every word are the reason this is a view and
     not the format: the same path names a different word in each muṣḥaf, because
-    the muṣḥafs count āyāt differently.  The global ``w`` is carried on every
-    word here too, so a consumer who starts in the tree can still leave it.
+    the muṣḥafs count āyāt differently.  The shared ``number`` is carried on
+    every word here too, so a consumer who starts in the tree can still leave.
+    The unnumbered basmalah of Al-Fātiḥah sits under ``"basmalah"`` rather
+    than under an āyah number it does not have.
     """
     out = MUSHAF_DIR / "nested"
     out.mkdir(parents=True, exist_ok=True)
     for key, doc in docs.items():
-        coords = _coords(doc)
+        c = Coords(doc)
+        resegmented = c.resegmented()
         tree: dict[str, dict] = {}
-        for word in doc["words"]:
-            sura, ayah, pos = coords[word["w"]]
-            s = tree.setdefault(str(sura), {"ayat": {}})
-            s["ayat"].setdefault(str(ayah), {"words": []})["words"].append(
-                {**word, "sura": sura, "ayah": ayah, "pos": pos})
+        for pos in range(len(doc["words"])):
+            rec = _word_record(c, pos)
+            if pos in resegmented:
+                rec["resegmented"] = True
+            s = tree.setdefault(str(rec["sura"]), {"ayat": {}})
+            slot = str(rec["ayah"]) if rec["ayah"] else "basmalah"
+            s["ayat"].setdefault(slot, {"words": []})["words"].append(rec)
         for row in doc["suras"]:
-            # `ayat` is the map of āyāt here, so the header's āyah *count* is
-            # renamed rather than merged over it.
             head = {("ayah_count" if k == "ayat" else k): v
-                    for k, v in row.items() if k != "n"}
+                    for k, v in row.items() if k not in ("n", "first_ayah")}
             tree[str(row["n"])] = {**head, "ayat": tree[str(row["n"])]["ayat"]}
         _write_gz(out / f"{key}.json.gz", json.dumps({
             "format": FORMAT,
@@ -94,8 +176,10 @@ def write_nested(docs: dict[str, dict]) -> None:
             "view_of": f"out/mushaf/{key}.json",
             "view": "nested",
             "note": "Generated view. The normative file is the flat one; an "
-                    "āyah path is not stable across muṣḥafs, `w` is.",
+                    "āyah path is not stable across muṣḥafs, `number` is.",
             "mushaf": doc["mushaf"],
+            "counting": {k: doc["counting"][k] for k in
+                         ("system", "ayah_count", "basmalah_counted")},
             "provenance": doc["provenance"],
             "suras": tree,
         }, ensure_ascii=False, indent=1))
@@ -105,55 +189,95 @@ def write_nested(docs: dict[str, dict]) -> None:
 # per-sūrah shards
 # --------------------------------------------------------------------------
 
+def _shift(starts: list[int] | None, lo: int, hi: int) -> list[int] | None:
+    """The starts that fall in ``[lo, hi)``, made local to ``lo``.
+
+    A unit that began before ``lo`` and runs into the sūrah (a page, a line, a
+    juz) is included as starting at ``0``, so the sūrah's first word is always
+    inside a unit.
+    """
+    if starts is None:
+        return None
+    inside = [s - lo for s in starts if lo <= s < hi]
+    if not inside or inside[0] != 0:
+        inside.insert(0, 0)
+    return inside
+
+
 def write_shards(docs: dict[str, dict]) -> None:
-    """The canonical shape, cut to one sūrah, so a page can fetch what it shows."""
+    """The canonical shape, cut to one sūrah, so a page can fetch what it shows.
+
+    Positions inside a shard run from 0; ``offset`` is where the sūrah starts
+    in the whole muṣḥaf, so whole-muṣḥaf positions — and through them the
+    ``numbering`` block, which is not repeated here — can be reconstructed.
+    """
     for key, doc in docs.items():
         out = MUSHAF_DIR / "suras" / key
         out.mkdir(parents=True, exist_ok=True)
-        words = defaultdict(list)
-        coords = _coords(doc)
-        for word in doc["words"]:
-            words[coords[word["w"]][0]].append(word)
-        for row in doc["suras"]:
-            sura = row["n"]
-            first, last = row["words"]
-            (out / f"{sura:03d}.json").write_text(json.dumps({
+        starts = doc["sura_starts"] + [len(doc["words"])]
+        c = Coords(doc)
+        for i, row in enumerate(doc["suras"]):
+            lo, hi = starts[i], starts[i + 1]
+            shard = {
                 "format": FORMAT,
                 "format_version": FORMAT_VERSION,
                 "view_of": f"out/mushaf/{key}.json",
                 "view": "sura-shard",
                 "mushaf": doc["mushaf"]["key"],
                 "provenance": doc["provenance"],
-                "sura": row,
-                "ayat": [a for a in doc["ayat"] if a["sura"] == sura],
-                "pages": [p for p in doc["pages"]
-                          if p["words"][1] >= first and p["words"][0] <= last],
-                "words": words[sura],
-            }, ensure_ascii=False, indent=1), encoding="utf-8")
+                "sura": {k: v for k, v in row.items() if k != "first_ayah"},
+                "offset": lo,
+                "words": doc["words"][lo:hi],
+                "imlaei": doc["imlaei"][lo:hi] if doc.get("imlaei") else None,
+                "numbers": [c.numbers[p][0] for p in range(lo, hi)],
+                "ayah_starts": _shift(doc["ayah_starts"], lo, hi),
+                "page_starts": _shift(doc.get("page_starts"), lo, hi),
+                "line_starts": _shift(doc.get("line_starts"), lo, hi),
+                "juz_starts": _shift(doc.get("juz_starts"), lo, hi),
+                "marks": [[p - lo, t] for p, t in doc["marks"] if lo <= p < hi],
+                "mark_types": doc["mark_types"],
+                "resegmentation": [
+                    {**e, "positions": [p - lo for p in e["positions"]]}
+                    for e in doc["resegmentation"]
+                    if e["positions"] and lo <= e["positions"][0] < hi],
+            }
+            # The first āyah of a sūrah that opens with an unnumbered basmalah
+            # does not start at 0; `_shift` must not pretend it does.
+            first_ayah = [s - lo for s in doc["ayah_starts"] if lo <= s < hi]
+            shard["ayah_starts"] = first_ayah
+            for name in ("page_starts", "line_starts", "juz_starts"):
+                if shard[name] is None:
+                    del shard[name]
+            (out / f"{row['n']:03d}.json").write_text(
+                json.dumps(shard, ensure_ascii=False, indent=1), encoding="utf-8")
 
 
 # --------------------------------------------------------------------------
 # flat table
 # --------------------------------------------------------------------------
 
-COLUMNS = ["word_id", "sura", "ayah", "pos", "uthmani", "imlaei",
-           "page", "line", "juz", "marks", "resegmented"]
+COLUMNS = ["pos", "sura", "ayah", "pos_in_ayah", "page", "line", "juz",
+           "number", "number_last", "text", "imlaei", "marks", "resegmented"]
 
 
 def write_csv(docs: dict[str, dict]) -> None:
+    """One row per printed word.  ``number_last`` equals ``number`` except where
+    the word covers a run, so the table stays one-row-per-word."""
     for key, doc in docs.items():
-        coords = _coords(doc)
-        juz = _juz_of(doc)
+        c = Coords(doc)
+        resegmented = c.resegmented()
         with gzip.open(MUSHAF_DIR / f"{key}.csv.gz", "wt", encoding="utf-8",
                        newline="", compresslevel=9) as fh:
             wr = csv.writer(fh)
             wr.writerow(COLUMNS)
-            for word in doc["words"]:
-                sura, ayah, pos = coords[word["w"]]
-                wr.writerow([word["w"], sura, ayah, pos, word["t"],
-                             word.get("e", ""), word.get("pg", ""),
-                             word.get("ln", ""), juz.get(word["w"], ""),
-                             _mark_text(word), int(word.get("resegmented", False))])
+            for pos in range(len(doc["words"])):
+                first, last = c.numbers[pos]
+                ayah, pos_in_ayah = c.ayah(pos)
+                wr.writerow([pos, c.sura(pos), ayah, pos_in_ayah,
+                             c.page(pos) or "", c.line(pos) or "", c.juz(pos) or "",
+                             first, last, doc["words"][pos], c.imlaei(pos) or "",
+                             _mark_text(c.marks.get(pos, [])),
+                             int(pos in resegmented)])
 
 
 # --------------------------------------------------------------------------
@@ -163,63 +287,92 @@ def write_csv(docs: dict[str, dict]) -> None:
 SCHEMA = """
 CREATE TABLE mushaf (
   key TEXT PRIMARY KEY, name_en TEXT, name_ar TEXT, qari_en TEXT, qari_ar TEXT,
-  counting TEXT, ayah_count INTEGER, word_count INTEGER,
+  counting_system TEXT, ayah_count INTEGER, basmalah_counted INTEGER,
+  word_count INTEGER,
   text_package TEXT, text_sha256 TEXT, layout_package TEXT);
 CREATE TABLE sura (
   mushaf TEXT, n INTEGER, name_ar TEXT, name_en TEXT, revelation TEXT,
-  basmalah INTEGER, ayat INTEGER, first_word INTEGER, last_word INTEGER,
+  basmalah INTEGER, ayat INTEGER, first_pos INTEGER, last_pos INTEGER,
   PRIMARY KEY (mushaf, n));
 CREATE TABLE word (
-  mushaf TEXT, word_id INTEGER, sura INTEGER, ayah INTEGER, pos INTEGER,
+  mushaf TEXT, pos INTEGER, sura INTEGER, ayah INTEGER, pos_in_ayah INTEGER,
+  number INTEGER, number_last INTEGER,
   uthmani TEXT, imlaei TEXT, page INTEGER, line INTEGER, juz INTEGER,
   resegmented INTEGER,
-  PRIMARY KEY (mushaf, word_id));
+  PRIMARY KEY (mushaf, pos));
+CREATE TABLE spine (
+  number INTEGER PRIMARY KEY, sura INTEGER, rasm TEXT, pointed TEXT,
+  uthmani TEXT, simple TEXT, status TEXT,
+  hafs_sura INTEGER, hafs_ayah INTEGER, hafs_pos INTEGER);
 CREATE TABLE mark (
-  mushaf TEXT, word_id INTEGER, kind TEXT, side TEXT, sign TEXT);
+  mushaf TEXT, pos INTEGER, kind TEXT, side TEXT, sign TEXT);
 CREATE TABLE resegmentation (
-  mushaf TEXT, word_ids TEXT, sura INTEGER, ayah INTEGER, kind TEXT,
+  mushaf TEXT, positions TEXT, sura INTEGER, ayah INTEGER, kind TEXT,
   source_text TEXT, emitted TEXT, riwayat_agree INTEGER);
 CREATE TABLE line_disagreement (
   mushaf TEXT, sura INTEGER, ayah INTEGER, derived INTEGER, source INTEGER);
-CREATE INDEX word_by_id ON word (word_id);
+CREATE INDEX word_by_number ON word (number);
 CREATE INDEX word_by_ref ON word (mushaf, sura, ayah);
-CREATE INDEX mark_by_word ON mark (mushaf, word_id);
+CREATE INDEX mark_by_word ON mark (mushaf, pos);
 """
 
 
-def write_sqlite(docs: dict[str, dict], path: Path) -> None:
-    """All seven muṣḥafs in one queryable file.
+def write_sqlite(docs: dict[str, dict], spine: dict, path: Path) -> None:
+    """All seven muṣḥafs and the spine in one queryable file.
 
-    ``word.word_id`` is the global ID, indexed on its own, so comparing two
-    muṣḥafs is a self-join rather than a program.
+    ``word.number`` is the shared number, indexed on its own, so comparing two
+    muṣḥafs is a self-join rather than a program:
+
+        SELECT a.number, a.uthmani, b.uthmani
+        FROM word a LEFT JOIN word b
+          ON b.number = a.number AND b.mushaf = 'warsh'
+        WHERE a.mushaf = 'hafs' AND (b.uthmani IS NULL OR b.uthmani <> a.uthmani);
+
+    ``LEFT JOIN`` rather than ``JOIN`` because the answer is sometimes *no row*:
+    Warsh does not recite ``هُوَ`` at 57:24, and a word-level dataset projected
+    from Ḥafṣ has to see that rather than skip silently past it.  Where a word
+    covers a run of numbers, ``number`` is the first and ``number_last`` the
+    last; join on ``b.number BETWEEN a.number AND a.number_last`` to catch
+    those too.
     """
     for stale in (path, path.with_suffix(path.suffix + ".gz")):
         if stale.exists():
             stale.unlink()
     db = sqlite3.connect(path)
     db.executescript(SCHEMA)
+    db.executemany("INSERT INTO spine VALUES (?,?,?,?,?,?,?,?,?,?)", [
+        (w["n"], w["sura"], w["rasm"], w["pointed"], w["uthmani"], w["simple"],
+         w["status"], *(w["hafs"] or (None, None, None)))
+        for w in spine["words"]])
     for key, doc in docs.items():
-        m, prov = doc["mushaf"], doc["provenance"]
-        db.execute("INSERT INTO mushaf VALUES (?,?,?,?,?,?,?,?,?,?,?)", (
+        m, prov, cnt = doc["mushaf"], doc["provenance"], doc["counting"]
+        db.execute("INSERT INTO mushaf VALUES (?,?,?,?,?,?,?,?,?,?,?,?)", (
             key, m["name_en"], m["name_ar"], m["qari_en"], m["qari_ar"],
-            m["counting"], m["ayah_count"], m["word_count"],
+            cnt["system"], cnt["ayah_count"], int(cnt["basmalah_counted"]),
+            m["word_count"],
             prov["text"]["package"], prov["text"]["sha256"],
             prov.get("layout", {}).get("package")))
+        starts = doc["sura_starts"] + [len(doc["words"])]
         db.executemany("INSERT INTO sura VALUES (?,?,?,?,?,?,?,?,?)", [
             (key, r["n"], r["name_ar"], r["name_en"], r["revelation"],
-             int(r["basmalah"]), r["ayat"], r["words"][0], r["words"][1])
-            for r in doc["suras"]])
+             int(r["basmalah"]), r["ayat"], starts[i], starts[i + 1] - 1)
+            for i, r in enumerate(doc["suras"])])
 
-        coords, juz = _coords(doc), _juz_of(doc)
-        db.executemany("INSERT INTO word VALUES (?,?,?,?,?,?,?,?,?,?,?)", [
-            (key, w["w"], *coords[w["w"]], w["t"], w.get("e"), w.get("pg"),
-             w.get("ln"), juz.get(w["w"]), int(w.get("resegmented", False)))
-            for w in doc["words"]])
+        c = Coords(doc)
+        resegmented = c.resegmented()
+        rows = []
+        for pos in range(len(doc["words"])):
+            first, last = c.numbers[pos]
+            ayah, pos_in_ayah = c.ayah(pos)
+            rows.append((key, pos, c.sura(pos), ayah, pos_in_ayah, first, last,
+                         doc["words"][pos], c.imlaei(pos), c.page(pos),
+                         c.line(pos), c.juz(pos), int(pos in resegmented)))
+        db.executemany("INSERT INTO word VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)", rows)
         db.executemany("INSERT INTO mark VALUES (?,?,?,?,?)", [
-            (key, w["w"], mk["k"], mk["at"], mk["sign"])
-            for w in doc["words"] for mk in w.get("marks", [])])
+            (key, pos, mk["k"], mk["at"], mk["sign"])
+            for pos, t in doc["marks"] for mk in [doc["mark_types"][t]]])
         db.executemany("INSERT INTO resegmentation VALUES (?,?,?,?,?,?,?,?)", [
-            (key, "|".join(str(i) for i in e["words"]), e["sura"], e["ayah"],
+            (key, "|".join(str(i) for i in e["positions"]), e["sura"], e["ayah"],
              e["kind"], e["source_text"], " ".join(e["emitted"]),
              int(e["riwayat_agree"]))
             for e in doc["resegmentation"]])
@@ -230,8 +383,8 @@ def write_sqlite(docs: dict[str, dict], path: Path) -> None:
     db.execute("VACUUM")
     db.close()
 
-    # Shipped compressed: it is a view, and an uncompressed one is 56 MB of
-    # binary that git can neither diff nor pack.
+    # Shipped compressed: it is a view, and an uncompressed one is tens of
+    # megabytes of binary that git can neither diff nor pack.
     with path.open("rb") as raw, gzip.open(
             path.with_suffix(path.suffix + ".gz"), "wb", compresslevel=9) as gz:
         shutil.copyfileobj(raw, gz)

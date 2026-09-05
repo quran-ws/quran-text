@@ -17,7 +17,7 @@ import gzip
 import json
 from datetime import date
 
-from .build import ORDER, OUT, Word, fawasil
+from .build import ORDER, OUT, Word
 from .sources import Riwaya
 from .suras import names
 
@@ -65,10 +65,8 @@ def write_viewer(words: list[Word], riwayat: list[Riwaya]) -> None:
         "generated": date.today().isoformat(),
         "order": ORDER,
         "statuses": STATUSES,
-        "riwayat": {r.key: {"en": r.name_en, "ar": r.name_ar,
-                            "qari": r.qari_en, "counting": r.counting}
+        "riwayat": {r.key: {"en": r.name_en, "ar": r.name_ar, "qari": r.qari_en}
                     for r in riwayat},
-        "systems": {name: v["mushaf"] for name, v in fawasil(words).items()},
         "suras": {str(s): {"name_ar": names()[s]["name_ar"],
                            "name_en": names()[s]["name_en"]}
                   for s in range(1, 115)},
