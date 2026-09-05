@@ -15,10 +15,10 @@
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["kufi", "kind", "anchor", "word", "counted_by"],
+        "required": ["kufi", "kind", "anchor", "number", "counted_by"],
         "properties": {
           "kufi": { "type": "string" }, "kind": { "enum": ["end", "internal"] },
-          "anchor": { "type": "string" }, "word": { "type": "integer", "description": "The number the boundary follows." },
+          "anchor": { "type": "string" }, "number": { "type": "integer", "description": "The number the boundary follows." },
           "counted_by": { "type": "array", "items": { "type": "string" } }
         }
       }
@@ -27,13 +27,13 @@
       "type": "object",
       "additionalProperties": {
         "type": "object",
-        "required": ["name_ar", "name_en", "reference_total", "editions", "khilaf_points", "ends"],
+        "required": ["name_ar", "name_en", "reference_total", "editions", "khilaf_points", "ayah_ends"],
         "properties": {
           "name_ar": { "type": "string" }, "name_en": { "type": "string" },
           "reference_total": { "type": "integer" },
           "editions": { "type": "array", "items": { "type": "object" } },
           "khilaf_points": { "type": "array", "items": { "type": "object" } },
-          "ends": { "type": "array", "items": { "type": "integer" }, "description": "Sorted numbers after which an āyah ends in this system." }
+          "ayah_ends": { "type": "array", "items": { "type": "integer" }, "description": "Sorted numbers after which an āyah ends in this system." }
         }
       }
     },

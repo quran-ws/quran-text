@@ -18,10 +18,10 @@
       "minItems": 1,
       "items": {
         "type": "object",
-        "required": ["n", "sura", "rasm", "pointed", "uthmani", "simple", "status", "hafs", "forms", "aya"],
+        "required": ["number", "sura", "rasm", "pointed", "uthmani", "simple", "status", "hafs", "forms", "ayah"],
         "additionalProperties": false,
         "properties": {
-          "n": { "type": "integer", "minimum": 1, "description": "The shared number; words[i].n == i + 1." },
+          "number": { "type": "integer", "minimum": 1, "description": "The shared number; words[i].number == i + 1." },
           "sura": { "type": "integer", "minimum": 1, "maximum": 114 },
           "rasm": { "type": "string" },
           "pointed": { "type": "string" },
@@ -29,10 +29,12 @@
           "simple": { "type": "string" },
           "status": { "enum": ["identical", "diacritic_variant", "dotting_variant", "alif_variant", "rasm_variant", "word_boundary", "partial"] },
           "hafs": {
-            "description": "[sura, ayah, position in the āyah] in the Kūfī count, or null where Ḥafṣ does not read the word. Two numbers Ḥafṣ writes as one word share a triple.",
+            "description": "The word's sūrah, āyah and position in the āyah in the Kūfī count, or null where Ḥafṣ does not read the word. Two numbers Ḥafṣ writes as one word share the same coordinates.",
             "oneOf": [
               { "type": "null" },
-              { "type": "array", "minItems": 3, "maxItems": 3, "items": { "type": "integer", "minimum": 1 } }
+              { "type": "object", "required": ["sura", "ayah", "pos"], "additionalProperties": false,
+                "properties": { "sura": { "type": "integer", "minimum": 1 }, "ayah": { "type": "integer", "minimum": 1 },
+                                "pos": { "type": "integer", "minimum": 1 } } }
             ]
           },
           "forms": {
@@ -40,7 +42,7 @@
             "description": "Each muṣḥaf's own spelling; absent iff the muṣḥaf does not read the word. Where a muṣḥaf writes the number joined with its neighbour this is the joined word, repeated on both numbers.",
             "additionalProperties": { "type": "string" }
           },
-          "aya": {
+          "ayah": {
             "type": "object",
             "description": "Āyah number in each muṣḥaf's own count; 0 is the unnumbered basmalah of Al-Fātiḥah.",
             "additionalProperties": { "type": "integer", "minimum": 0 }

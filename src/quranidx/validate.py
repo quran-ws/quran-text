@@ -345,10 +345,10 @@ def check_positions(docs: dict[str, dict]) -> list[dict]:
         for row in doc["suras"]:
             if row["first_ayah"] != expect:
                 problems.append({"check": "positions_first_ayah", "riwaya": key,
-                                 "detail": f"sūrah {row['n']}: first_ayah "
+                                 "detail": f"sūrah {row['number']}: first_ayah "
                                            f"{row['first_ayah']} != {expect}"})
                 break
-            expect += row["ayat"]
+            expect += row["ayah_count"]
         if doc.get("imlaei") is not None and len(doc["imlaei"]) != n:
             problems.append({"check": "positions_imlaei", "riwaya": key,
                              "detail": "imlaei is not parallel to words"})

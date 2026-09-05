@@ -121,17 +121,17 @@ publisher. Rasm agreement between any two riwāyāt is **99.5 %–100 %**.
 
 ```json
 {
- "id": 11, "i": 11, "key": "1:مالك#1",
+ "number": 11, "index": 11, "key": "1:مالك#1",
  "rasm": "ملك", "pointed": "مالك", "uthmani": "مَٰلِكِ", "simple": "مالك",
  "status": "dotting_variant",
- "aya":   { "hafs": 4, "shuba": 4, "warsh": 3, "qaloun": 3,
+ "ayah":  { "hafs": 4, "shuba": 4, "warsh": 3, "qaloun": 3,
             "douri": 3, "sousi": 3, "bazzi": 4 },
  "forms": { "hafs": "مَٰلِكِ", "shuba": "مَٰلِكِ", "warsh": "مَلِكِ", "qaloun": "مَلِكِ",
             "douri": "مَلِكِ", "sousi": "مَّلِكِ", "bazzi": "مَلِكِ" }
 }
 ```
 
-One number, one word. `aya` records that this word is in āyah 4 for the Kūfī
+One number, one word. `ayah` records that this word is in āyah 4 for the Kūfī
 and Makkī counts and āyah 3 for the Madanī ones. `forms` records that Ḥafṣ and
 Shuʿbah read *māliki* where the rest read *maliki* — and `rasm` records that
 the codex writes `ملك` either way. Ḥafṣ's ā is printed as a superscript alef,

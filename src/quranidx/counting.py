@@ -289,7 +289,7 @@ def _khilaf_entry(words: list[Word], key: str, anchor: tuple, n: int,
     sura, ayah = _ayah_of(words, key, n)
     return {
         "sura": sura, "ayah": ayah, "kufi": f"{anchor[0]}:{anchor[1]}",
-        "word": n, "anchor": anchor[3],
+        "number": n, "anchor": anchor[3],
         "counted": counted,
         "follows": [a for a, v in auth.items() if v == counted],
         "against": [a for a, v in auth.items() if v != counted],
@@ -320,7 +320,7 @@ def derive(doc: dict, words: list[Word]) -> dict:
         unexplained.append({
             "sura": sura, "ayah": ayah,
             "kufi": f"{anchor[0]}:{anchor[1]}" if anchor else None,
-            "word": n, "anchor": anchor[3] if anchor else None,
+            "number": n, "anchor": anchor[3] if anchor else None,
             "counted": n in mine,
         })
 
@@ -341,8 +341,6 @@ def derive(doc: dict, words: list[Word]) -> dict:
     }
     if stated and stated.get("system") and stated["system"] != system:
         block["declared_disagrees"] = True
-    if ambiguous:
-        block["resolved_anchors"] = ambiguous
     return block
 
 
@@ -377,12 +375,12 @@ def write_fawasil(words: list[Word], docs: dict[str, dict]) -> dict:
             "reference_total": reference_total(system),
             "editions": editions,
             "khilaf_points": [
-                {"kufi": f"{a[0]}:{a[1]}", "anchor": a[3], "word": anchors[a],
+                {"kufi": f"{a[0]}:{a[1]}", "anchor": a[3], "number": anchors[a],
                  "authorities": p["khilaf"][system]["authorities"],
                  "source": p["khilaf"][system]["source"]}
                 for a, p in sorted(points().items(), key=lambda kv: anchors[kv[0]])
                 if system in p["khilaf"]],
-            "ends": sorted(per_system[system]),
+            "ayah_ends": sorted(per_system[system]),
         }
 
     doc = {
@@ -396,7 +394,7 @@ def write_fawasil(words: list[Word], docs: dict[str, dict]) -> dict:
                  "the system's own authorities disagree.",
         "source": provenance(),
         "disputed_points": [
-            {"kufi": f"{a[0]}:{a[1]}", "kind": a[2], "anchor": a[3], "word": n,
+            {"kufi": f"{a[0]}:{a[1]}", "kind": a[2], "anchor": a[3], "number": n,
              "counted_by": sorted(points()[a]["counted_by"], key=system_order().index)}
             for n, a in sorted(by_anchor.items())],
         "systems": out_systems,
@@ -421,7 +419,7 @@ def check_unexplained(docs: dict[str, dict]) -> list[dict]:
             if k not in allowed:
                 problems.append({"check": "counting_unexplained", "riwaya": key,
                                  "detail": f"āyah end at {u['sura']}:{u['ayah']} "
-                                           f"(after number {u['word']}) differs from "
+                                           f"(after number {u['number']}) differs from "
                                            f"{doc['counting']['system']} and no "
                                            f"source records a khilāf there"})
     for k in allowed - seen:

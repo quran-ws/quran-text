@@ -79,16 +79,15 @@
           "description": "Āyah ends where the edition differs from its system and no source records a khilāf. Must be empty, or listed in data/counting/open-findings.json.",
           "items": {
             "type": "object",
-            "required": ["sura", "ayah", "word", "counted"],
+            "required": ["sura", "ayah", "number", "counted"],
             "properties": {
               "sura": { "type": "integer" }, "ayah": { "type": "integer" },
-              "kufi": { "type": ["string", "null"] }, "word": { "type": "integer" },
+              "kufi": { "type": ["string", "null"] }, "number": { "type": "integer" },
               "anchor": { "type": ["string", "null"] }, "counted": { "type": "boolean" }
             }
           }
         },
         "distance_to_systems": { "type": "object", "additionalProperties": { "type": "integer" } },
-        "resolved_anchors": { "type": "array", "items": { "type": "object" } },
         "checked_against": { "type": "object" }
       }
     },
@@ -159,17 +158,17 @@
       "maxItems": 114,
       "items": {
         "type": "object",
-        "required": ["n", "name_ar", "name_en", "basmalah", "ayat", "first_ayah"],
+        "required": ["number", "name_ar", "name_en", "has_basmalah", "ayah_count", "first_ayah"],
         "additionalProperties": false,
         "properties": {
-          "n": { "type": "integer", "minimum": 1, "maximum": 114 },
+          "number": { "type": "integer", "minimum": 1, "maximum": 114 },
           "name_ar": { "type": "string" },
           "name_en": { "type": "string" },
           "revelation": { "enum": ["makki", "madani"] },
-          "basmalah": { "type": "boolean", "description": "A basmalah is printed above this sūrah." },
-          "ayat": { "type": "integer", "minimum": 1, "description": "Number of numbered āyāt in this edition." },
+          "has_basmalah": { "type": "boolean", "description": "A basmalah is printed above this sūrah; false for at-Tawbah alone. Whether it is counted as an āyah is counting.basmalah_counted." },
+          "ayah_count": { "type": "integer", "minimum": 1, "description": "Number of numbered āyāt in this edition." },
           "first_ayah": { "type": "integer", "minimum": 0,
-                          "description": "Index into ayah_starts of this sūrah's first āyah; the prefix sum of ayat." }
+                          "description": "Index into ayah_starts of this sūrah's first āyah; the prefix sum of ayah_count." }
         }
       }
     },
@@ -182,11 +181,11 @@
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["k", "at", "sign"],
+        "required": ["kind", "side", "sign"],
         "additionalProperties": false,
         "properties": {
-          "k": { "enum": ["waqf", "hizb", "sajdah"] },
-          "at": { "enum": ["before", "after"] },
+          "kind": { "enum": ["waqf", "hizb", "sajdah"] },
+          "side": { "enum": ["before", "after"], "description": "Which side of the word the sign is printed on." },
           "sign": { "type": "string", "minLength": 1, "maxLength": 1 }
         }
       }
@@ -244,12 +243,12 @@
     },
     "khilaf_point": {
       "type": "object",
-      "required": ["sura", "ayah", "kufi", "word", "counted", "follows", "against"],
+      "required": ["sura", "ayah", "kufi", "number", "counted", "follows", "against"],
       "properties": {
         "sura": { "type": "integer", "description": "This edition's own numbering." },
         "ayah": { "type": "integer" },
         "kufi": { "type": "string", "pattern": "^\\d+:\\d+$" },
-        "word": { "type": "integer", "description": "The shared number the āyah ends after." },
+        "number": { "type": "integer", "description": "The shared number the āyah ends after." },
         "anchor": { "type": "string" },
         "counted": { "type": "boolean" },
         "follows": { "type": "array", "items": { "type": "string" } },
