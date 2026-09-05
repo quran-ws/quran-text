@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/quranpedia/quran-word-index/schema/mushaf-1.0.json",
+  "$id": "https://github.com/quranpedia/quran-text/schema/mushaf-1.0.json",
   "title": "quran-mushaf 1.0",
-  "description": "One muṣḥaf, published on its own: an ordered array of word strings, with every other fact a layer over that array addressed by position. Normative form; see docs/MUSHAF-FORMAT.md.",
+  "description": "One muṣḥaf, published on its own: an ordered array of word strings, with every other fact a layer over that array addressed by position. Normative form; see docs/format.md.",
   "type": "object",
   "required": [
     "format",

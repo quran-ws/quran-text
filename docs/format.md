@@ -7,7 +7,8 @@ This document is the specification. **Only `out/mushaf/<key>.json` and
 `out/word-index.json` (with `out/word-index.csv`) are normative.** The nested,
 CSV and SQLite forms are generated from them and are labelled views; a consumer
 may read them, but a claim about "the format" refers to the files above.
-`docs/SCHEMA.md` lists every file under `out/` and what it answers.
+[`files.md`](files.md) lists every file under `out/`, the views of these two
+included, and what each answers.
 
 ## The shape
 
@@ -49,12 +50,8 @@ that array, addressed by position.**
 }
 ```
 
-The reason is the one this project is built on: *the āyah is an attribute of a
-word, not a level of nesting.* The editions count 6,214 to 6,236 āyāt, so
-`2:255:3` names a different word in each of them. Nesting words under āyāt
-would put the unstable coordinate on the outside and make the seven files
-incomparable. Reconstructing a nested view takes three lines, and
-`out/mushaf/<key>.nested.json.gz` ships one already.
+Why the file is shaped this way is in [`design.md`](design.md); the views
+generated from it are in [`files.md`](files.md).
 
 ## Two kinds of integer, kept apart
 
@@ -152,7 +149,7 @@ some muṣḥafs and not others — `مِن` at 9:101 (Bazzī alone), `أَوۡ`
 (Ḥafṣ and Shuʿbah, where the other five read `وَ`), `هُوَ` at 57:24 (all but
 Warsh and Qālūn) — and two pairs of words are written joined: `وَأَلَّوِ` at
 72:16 by Ḥafṣ, Shuʿbah and Bazzī, and `أَلَّن` at 73:20 by Dūrī and Sūsī. Which
-places are joins is declared in `data/written-joined.json`, because the
+places are joins is declared in `data/alignment/written-joined.json`, because the
 unwritten nūn changes the rasm and no rule can tell a join from a different
 reading; the build asserts the list is exactly these.
 
@@ -169,7 +166,7 @@ They are separate keys.
 
 The scheme is a property of the format, bound by `format_version`, not a field
 a file may set. Numbers are stable across rebuilds of the same sources and are
-*not* promised across a future KFGQPC release — see `docs/LIMITATIONS.md`.
+*not* promised across a future KFGQPC release — see `docs/limitations.md`.
 
 ## The word index
 
@@ -201,7 +198,7 @@ of its own, normative alongside the seven: `out/word-index.json`, and
   writes the number joined with its neighbour the form is the joined word,
   repeated on both numbers, and `written_joined` names those muṣḥafs.
 - `ayah[key]` is absent in the same places; `0` is the unnumbered basmalah.
-- `status` keeps the vocabulary of `docs/SCHEMA.md`, which also lists the
+- `status` keeps the vocabulary of `docs/files.md`, which also lists the
   optional fields: `groups` (the distinct spellings and who uses each),
   `missing`, `resegmented`, `waqf`, `hizb`, `sajdah`.
 
@@ -211,20 +208,11 @@ normative. `out/differences.json` is the same records filtered to the words
 where the riwāyāt disagree, and `out/ayah-map.json` answers what a Kūfī āyah
 reference is in each edition.
 
-## Counting: system, transmission, edition
+## Counting
 
-An āyah count is not a property of the qirāʾah. It belongs to the **edition**,
-and there is a level in between:
-
-| level | what it is | example |
-|---|---|---|
-| **counting system** | one of the six madhhabs of ʿadd al-āy, as the classical sources define it | المدني الأول |
-| **transmission within the system** | the system reached us through more than one authority, and at some points they differ | Abū Jaʿfar and Shayba differ at 3:92, 3:97, 37:167, 67:9, 80:24, 81:26 |
-| **edition** | one printing declares a system and, at the points of khilāf inside it, follows one authority, a stated rule, or sets them aside | the 1429 KFGQPC Dūrī: «(٦٢١٤) … ما عدا الآيات المختلف فيها بين أبي جعفر وشيبة» |
-
-Three KFGQPC printings of the Dūrī muṣḥaf carry two different āyah divisions
-and three different colophons. None of that is an error; it is the third level
-doing its job, and a string cannot hold it. So the `counting` block:
+The āyah count belongs to the printed edition, not to the riwāyah; the three
+levels — counting system, transmission within it, edition — are explained in
+[`design.md`](design.md). The `counting` block records what this edition does:
 
 ```json
 "counting": {
@@ -384,38 +372,8 @@ discovering a missing key at runtime. Bazzī:
 Bazzī still has `page_starts`, because page comes from the `.docx` that every
 muṣḥaf has.
 
-## Views
-
-| path | shape |
-|---|---|
-| `out/mushaf/<key>.nested.json.gz` | sūrah → āyah → words, with every layer's value repeated on the word; the unnumbered basmalah under `"basmalah"` |
-| `out/mushaf/<key>.csv.gz` | one row per word: `pos, sura, ayah, pos_in_ayah, page, line, juz, number, number_last, text, imlaei, marks, resegmented` |
-| `out/quran.sqlite.gz` | all seven plus the word index; `word(mushaf, pos, …, number, number_last, …)` and `word_index(number, …)` |
-| `out/ayah-map.json` | what a Kūfī āyah reference is in every edition |
-| `out/counting.json` | the counting systems, their boundaries as numbers, and the editions under each |
-
-There is no per-sūrah file: a whole muṣḥaf is about half a megabyte gzipped,
-and a sūrah, a page or a juz is one slice of it.
-
-`ayah` in the CSV and SQLite views is `0` for the unnumbered basmalah. Where a
-word covers a run of numbers, `number` is the first and `number_last` the
-last; elsewhere they are equal, so the table stays one row per word.
-
-Comparing two muṣḥafs in SQL:
-
-```sql
-SELECT a.number, a.uthmani, b.uthmani
-FROM word a LEFT JOIN word b
-  ON b.number = a.number AND b.mushaf = 'warsh'
-WHERE a.mushaf = 'hafs' AND (b.uthmani IS NULL OR b.uthmani <> a.uthmani);
-```
-
-`LEFT JOIN` rather than `JOIN` because the answer is sometimes *no row*: Warsh
-does not recite `هُوَ` at 57:24, and a word-level dataset projected from Ḥafṣ
-has to see that rather than skip silently past it.
-
 ## Known issues
 
-Listed in full in `docs/ISSUES.md`: the reconstructed lines, the ۞ discrepancy,
-the incomparable waqf conventions, Bazzī's missing layers, the imlāʾī residual,
-and the open counting finding at 78:40.
+Listed in full in [`known-issues.md`](known-issues.md): the reconstructed
+lines, the ۞ discrepancy, the incomparable waqf conventions, Bazzī's missing
+layers, the imlāʾī residual, and the open counting finding at 78:40.

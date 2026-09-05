@@ -10,21 +10,21 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent / "src"))
 
-from quranidx import counting                   # noqa: E402
-from quranidx.ayah_map import write_ayah_map    # noqa: E402
-from quranidx.build import build_words          # noqa: E402
-from quranidx.catalog import write_catalog      # noqa: E402
-from quranidx.mushaf import write_manifest, write_mushafs  # noqa: E402
-from quranidx.report import write_report        # noqa: E402
-from quranidx.sources import load_all           # noqa: E402
-from quranidx.validate import (check_ayah_numbers, check_index,  # noqa: E402
+from qurantext import counting                   # noqa: E402
+from qurantext.ayah_map import write_ayah_map    # noqa: E402
+from qurantext.build import build_words          # noqa: E402
+from qurantext.catalog import write_catalog      # noqa: E402
+from qurantext.mushaf import write_manifest, write_mushafs  # noqa: E402
+from qurantext.report import write_report        # noqa: E402
+from qurantext.sources import load_all           # noqa: E402
+from qurantext.validate import (check_ayah_numbers, check_index,  # noqa: E402
                                check_layout_alignment,
                                check_mushaf_roundtrip,
                                check_numbering, check_positions,
                                check_release_policy, check_schema_fields)
-from quranidx.viewer import write_viewer        # noqa: E402
-from quranidx.views import write_csv, write_nested, write_sqlite  # noqa: E402
-from quranidx.word_index import write_differences, write_word_index  # noqa: E402
+from qurantext.viewer import write_viewer        # noqa: E402
+from qurantext.views import write_csv, write_nested, write_sqlite  # noqa: E402
+from qurantext.word_index import write_differences, write_word_index  # noqa: E402
 
 
 def main() -> int:

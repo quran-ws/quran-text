@@ -11,21 +11,21 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from quranidx.align import (WRITTEN_JOINED, Column, _distribute,  # noqa: E402
+from qurantext.align import (WRITTEN_JOINED, Column, _distribute,  # noqa: E402
                             _pair_by_letters, merge)
-from quranidx.build import (STATUS_ALIF, STATUS_IDENTICAL,     # noqa: E402
+from qurantext.build import (STATUS_ALIF, STATUS_IDENTICAL,     # noqa: E402
                             STATUS_RASM, Word,
                             classify)
-from quranidx.normalize import (forms, pointed, rasm, rasm_plene,  # noqa: E402
+from qurantext.normalize import (forms, pointed, rasm, rasm_plene,  # noqa: E402
                                 simple, split_by_rasm, split_trailing_waqf,
                                 unpositioned)
-from quranidx.report import _difference_is_length                 # noqa: E402
-from quranidx.validate import check_alif_splits                    # noqa: E402
-from quranidx.tokenize import Token, tokenize_ayah             # noqa: E402
-from quranidx.imlaei import _pair                              # noqa: E402
-from quranidx.layout import Place                              # noqa: E402
-from quranidx.mushaf import _marks, _starts, numbering, printed_words  # noqa: E402
-from quranidx.validate import check_numbering, check_positions  # noqa: E402
+from qurantext.report import _difference_is_length                 # noqa: E402
+from qurantext.validate import check_alif_splits                    # noqa: E402
+from qurantext.tokenize import Token, tokenize_ayah             # noqa: E402
+from qurantext.imlaei import _pair                              # noqa: E402
+from qurantext.layout import Place                              # noqa: E402
+from qurantext.mushaf import _marks, _starts, numbering, printed_words  # noqa: E402
+from qurantext.validate import check_numbering, check_positions  # noqa: E402
 
 
 def tok(rasm_: str, sura: int = 1) -> Token:
@@ -535,7 +535,7 @@ class TestPublishedFiles(unittest.TestCase):
                          ["shayba"])
 
     def test_unexplained_is_allowlisted(self):
-        from quranidx.counting import check_unexplained, open_findings
+        from qurantext.counting import check_unexplained, open_findings
         self.assertEqual(check_unexplained(self.docs), [])
         unexplained = {(k, u["sura"], u["ayah"]) for k, d in self.docs.items()
                        for u in d["counting"]["unexplained"]}
