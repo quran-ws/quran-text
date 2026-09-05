@@ -1,13 +1,13 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/quranpedia/quran-word-index/schema/spine-1.0.json",
-  "title": "quran-spine 1.0",
-  "description": "The shared numbering: every number with a text, its Ḥafṣ coordinates, and each muṣḥaf's form of it. Normative alongside the muṣḥaf files; see docs/MUSHAF-FORMAT.md.",
+  "$id": "https://github.com/quranpedia/quran-word-index/schema/word-index-1.0.json",
+  "title": "quran-word-index 1.0",
+  "description": "The word index: every number of the shared numbering with a text, its Ḥafṣ coordinates, and each muṣḥaf's form of it. Normative alongside the muṣḥaf files; see docs/MUSHAF-FORMAT.md.",
   "type": "object",
   "required": ["format", "format_version", "generated", "total", "mushafs", "words"],
   "additionalProperties": false,
   "properties": {
-    "format": { "const": "quran-spine" },
+    "format": { "const": "quran-word-index" },
     "format_version": { "type": "string", "pattern": "^\\d+\\.\\d+$" },
     "generated": { "type": "string", "format": "date" },
     "total": { "type": "integer", "minimum": 1 },
@@ -18,11 +18,13 @@
       "minItems": 1,
       "items": {
         "type": "object",
-        "required": ["number", "sura", "rasm", "pointed", "uthmani", "simple", "status", "hafs", "forms", "ayah"],
+        "required": ["number", "sura", "index", "key", "rasm", "pointed", "uthmani", "simple", "status", "hafs", "forms", "ayah"],
         "additionalProperties": false,
         "properties": {
           "number": { "type": "integer", "minimum": 1, "description": "The shared number; words[i].number == i + 1." },
           "sura": { "type": "integer", "minimum": 1, "maximum": 114 },
+          "index": { "type": "integer", "minimum": 1, "description": "1-based position within the sūrah." },
+          "key": { "type": "string", "description": "sūrah:pointed#occurrence — content-derived, stable across rebuilds." },
           "rasm": { "type": "string" },
           "pointed": { "type": "string" },
           "uthmani": { "type": "string", "description": "Canonical spelling of this one word, from a muṣḥaf that writes it apart." },
@@ -51,7 +53,18 @@
             "type": "array",
             "description": "The muṣḥafs whose printed word here covers more than this number.",
             "items": { "type": "string" }
-          }
+          },
+          "groups": {
+            "type": "array",
+            "description": "The distinct spellings, each with the muṣḥafs using it; present only when there is more than one.",
+            "items": { "type": "object", "required": ["text", "riwayat"],
+                       "properties": { "text": { "type": "string" }, "riwayat": { "type": "array", "items": { "type": "string" } } } }
+          },
+          "missing": { "type": "array", "description": "The muṣḥafs that do not read this word.", "items": { "type": "string" } },
+          "resegmented": { "type": "object", "description": "The muṣḥafs whose source spacing this build changed here, and how.", "additionalProperties": { "type": "string" } },
+          "waqf": { "type": "object", "description": "Pause marks that trail the word, per muṣḥaf.", "additionalProperties": { "type": "string" } },
+          "hizb": { "type": "array", "description": "The muṣḥafs printing ۞ before this word.", "items": { "type": "string" } },
+          "sajdah": { "type": "array", "description": "The muṣḥafs printing ۩ on this word.", "items": { "type": "string" } }
         }
       }
     }

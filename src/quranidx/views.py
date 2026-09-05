@@ -3,9 +3,8 @@
 None of these is normative.  ``out/mushaf/<key>.json`` is the format of record;
 everything here is written from the same build so it cannot drift from it, and
 exists only to meet consumers where they already are — a nested tree for people
-arriving from verse-level XML, per-sūrah shards for a page that fetches over
-static hosting, a flat table for pandas and R, and one SQLite file for anyone
-who would rather answer a question in SQL than write a program.
+arriving from verse-level XML, a flat table for pandas and R, and one SQLite
+file for anyone who would rather answer a question in SQL than write a program.
 
 The distinction is kept explicit, in ``docs/MUSHAF-FORMAT.md`` and in a
 ``view_of`` field on every file, because the alternative is that whichever form
@@ -136,8 +135,6 @@ def write_nested(docs: dict[str, dict]) -> None:
     The unnumbered basmalah of Al-Fātiḥah sits under ``"basmalah"`` rather
     than under an āyah number it does not have.
     """
-    out = MUSHAF_DIR / "nested"
-    out.mkdir(parents=True, exist_ok=True)
     for key, doc in docs.items():
         c = Coords(doc)
         resegmented = c.resegmented()
@@ -152,7 +149,7 @@ def write_nested(docs: dict[str, dict]) -> None:
         for row in doc["suras"]:
             head = {k: v for k, v in row.items() if k not in ("number", "first_ayah")}
             tree[str(row["number"])] = {**head, "ayat": tree[str(row["number"])]["ayat"]}
-        _write_gz(out / f"{key}.json.gz", json.dumps({
+        _write_gz(MUSHAF_DIR / f"{key}.nested.json.gz", json.dumps({
             "format": FORMAT,
             "format_version": FORMAT_VERSION,
             "view_of": f"out/mushaf/{key}.json",
@@ -165,73 +162,6 @@ def write_nested(docs: dict[str, dict]) -> None:
             "provenance": doc["provenance"],
             "suras": tree,
         }, ensure_ascii=False, indent=1))
-
-
-# --------------------------------------------------------------------------
-# per-sūrah shards
-# --------------------------------------------------------------------------
-
-def _shift(starts: list[int] | None, lo: int, hi: int) -> list[int] | None:
-    """The starts that fall in ``[lo, hi)``, made local to ``lo``.
-
-    A unit that began before ``lo`` and runs into the sūrah (a page, a line, a
-    juz) is included as starting at ``0``, so the sūrah's first word is always
-    inside a unit.
-    """
-    if starts is None:
-        return None
-    inside = [s - lo for s in starts if lo <= s < hi]
-    if not inside or inside[0] != 0:
-        inside.insert(0, 0)
-    return inside
-
-
-def write_shards(docs: dict[str, dict]) -> None:
-    """The canonical shape, cut to one sūrah, so a page can fetch what it shows.
-
-    Positions inside a shard run from 0; ``offset`` is where the sūrah starts
-    in the whole muṣḥaf, so whole-muṣḥaf positions — and through them the
-    ``numbering`` block, which is not repeated here — can be reconstructed.
-    """
-    for key, doc in docs.items():
-        out = MUSHAF_DIR / "suras" / key
-        out.mkdir(parents=True, exist_ok=True)
-        starts = doc["sura_starts"] + [len(doc["words"])]
-        c = Coords(doc)
-        for i, row in enumerate(doc["suras"]):
-            lo, hi = starts[i], starts[i + 1]
-            shard = {
-                "format": FORMAT,
-                "format_version": FORMAT_VERSION,
-                "view_of": f"out/mushaf/{key}.json",
-                "view": "sura-shard",
-                "mushaf": doc["mushaf"],
-                "provenance": doc["provenance"],
-                "sura": {k: v for k, v in row.items() if k != "first_ayah"},
-                "offset": lo,
-                "words": doc["words"][lo:hi],
-                "imlaei": doc["imlaei"][lo:hi] if doc.get("imlaei") else None,
-                "numbers": [c.numbers[p][0] for p in range(lo, hi)],
-                "ayah_starts": _shift(doc["ayah_starts"], lo, hi),
-                "page_starts": _shift(doc.get("page_starts"), lo, hi),
-                "line_starts": _shift(doc.get("line_starts"), lo, hi),
-                "juz_starts": _shift(doc.get("juz_starts"), lo, hi),
-                "marks": [[p - lo, t] for p, t in doc["marks"] if lo <= p < hi],
-                "mark_types": doc["mark_types"],
-                "resegmentation": [
-                    {**e, "positions": [p - lo for p in e["positions"]]}
-                    for e in doc["resegmentation"]
-                    if e["positions"] and lo <= e["positions"][0] < hi],
-            }
-            # The first āyah of a sūrah that opens with an unnumbered basmalah
-            # does not start at 0; `_shift` must not pretend it does.
-            first_ayah = [s - lo for s in doc["ayah_starts"] if lo <= s < hi]
-            shard["ayah_starts"] = first_ayah
-            for name in ("page_starts", "line_starts", "juz_starts"):
-                if shard[name] is None:
-                    del shard[name]
-            (out / f"{row['number']:03d}.json").write_text(
-                json.dumps(shard, ensure_ascii=False, indent=1), encoding="utf-8")
 
 
 # --------------------------------------------------------------------------
@@ -282,7 +212,7 @@ CREATE TABLE word (
   uthmani TEXT, imlaei TEXT, page INTEGER, line INTEGER, juz INTEGER,
   resegmented INTEGER,
   PRIMARY KEY (mushaf, pos));
-CREATE TABLE spine (
+CREATE TABLE word_index (
   number INTEGER PRIMARY KEY, sura INTEGER, rasm TEXT, pointed TEXT,
   uthmani TEXT, simple TEXT, status TEXT,
   hafs_sura INTEGER, hafs_ayah INTEGER, hafs_pos INTEGER);
@@ -299,9 +229,9 @@ CREATE INDEX mark_by_word ON mark (mushaf, pos);
 """
 
 
-def write_sqlite(docs: dict[str, dict], spine: dict,
+def write_sqlite(docs: dict[str, dict], word_index: dict,
                  path: Path = OUT / "quran.sqlite") -> None:
-    """All seven muṣḥafs and the spine in one queryable file.
+    """All seven muṣḥafs and the word index in one queryable file.
 
     ``word.number`` is the shared number, indexed on its own, so comparing two
     muṣḥafs is a self-join rather than a program:
@@ -323,11 +253,11 @@ def write_sqlite(docs: dict[str, dict], spine: dict,
             stale.unlink()
     db = sqlite3.connect(path)
     db.executescript(SCHEMA)
-    db.executemany("INSERT INTO spine VALUES (?,?,?,?,?,?,?,?,?,?)", [
+    db.executemany("INSERT INTO word_index VALUES (?,?,?,?,?,?,?,?,?,?)", [
         (w["number"], w["sura"], w["rasm"], w["pointed"], w["uthmani"], w["simple"],
          w["status"], *((w["hafs"]["sura"], w["hafs"]["ayah"], w["hafs"]["pos"])
                         if w["hafs"] else (None, None, None)))
-        for w in spine["words"]])
+        for w in word_index["words"]])
     for key, doc in docs.items():
         m, prov, cnt = doc["mushaf"], doc["provenance"], doc["counting"]
         db.execute("INSERT INTO mushaf VALUES (?,?,?,?,?,?,?,?,?,?,?,?)", (

@@ -226,7 +226,7 @@ def check_layout_alignment(riwayat) -> list[dict]:
 def check_mushaf_roundtrip(words, riwayat) -> list[dict]:
     """Each muṣḥaf's published words must be that muṣḥaf's words.
 
-    The same invariant :func:`check_index` asserts for the spine, asserted again
+    The same invariant :func:`check_index` asserts for the word index, asserted again
     for the per-muṣḥaf files: concatenating what is published for one muṣḥaf has
     to reproduce what tokenising its source gives, once the handful of places
     where this build re-spaced the text are accounted for.  Those places are
@@ -247,7 +247,7 @@ def check_mushaf_roundtrip(words, riwayat) -> list[dict]:
                         "detail": "published text does not reproduce the source"})
 
         from .align import WRITTEN_JOINED
-        from .output import boundary_events
+        from .word_index import boundary_events
         declared = {i for e in boundary_events(words) if key in e["riwayat"]
                     for i in e["word_ids"] if key in next(
                         w for w in words if w.id == i).forms}
