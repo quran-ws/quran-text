@@ -18,9 +18,9 @@ positions, as do ``marks[][0]`` and ``resegmentation[].positions``.  A
 the ``numbering`` block holds numbers.  A consumer who works in one muṣḥaf
 never reads it.
 
-Only ``out/mushaf/<key>.json`` and ``out/spine.json`` are normative.  The
-nested, sharded, CSV and SQLite forms in :mod:`quranidx.views` are generated
-from the same build and are labelled views, so that whichever one turns out to
+Only ``out/mushaf/<key>.json`` and ``out/word-index.json`` are normative.  The
+nested, CSV and SQLite forms in :mod:`quranidx.views` are generated from the
+same build and are labelled views, so that whichever one turns out to
 be most convenient cannot quietly become the standard.
 
 Nothing here is asserted that the packages do not say.  Where a fact is derived
@@ -39,7 +39,7 @@ from pathlib import Path
 
 from . import counting, imlaei
 from .build import OUT, Word
-from .output import boundary_events
+from .word_index import boundary_events
 from .sources import DATA, RELEASE_POLICY, Riwaya
 from .suras import names
 
@@ -468,17 +468,15 @@ def write_manifest(docs: dict[str, dict]) -> dict:
     proof: the source hashes let anyone re-derive the build, and the output
     hashes let anyone check that the copy they hold is the one described here.
     """
-    files = sorted(p for p in MUSHAF_DIR.rglob("*")
+    files = sorted(p for p in OUT.rglob("*")
                    if p.is_file() and p.name != "manifest.json")
-    extra = [OUT / "spine.json", OUT / "spine.csv", OUT / "fawasil.json",
-             OUT / "quran.sqlite.gz"]
 
     manifest = {
         "format": FORMAT,
         "format_version": FORMAT_VERSION,
         "generated": date.today().isoformat(),
         "normative": [f"out/mushaf/{k}.json" for k in docs]
-                     + ["out/spine.json", "out/spine.csv"],
+                     + ["out/word-index.json", "out/word-index.csv"],
         "note": "Only the files listed under `normative` define the format. "
                 "Everything else is a generated view of them.",
         "sources": {
@@ -492,8 +490,8 @@ def write_manifest(docs: dict[str, dict]) -> dict:
             {"path": str(p).replace("\\", "/"),
              "bytes": p.stat().st_size,
              "sha256": _sha256(p)}
-            for p in files + [x for x in extra if x.exists()]
+            for p in files
         ],
     }
-    _dump(MUSHAF_DIR / "manifest.json", manifest)
+    _dump(OUT / "manifest.json", manifest)
     return manifest

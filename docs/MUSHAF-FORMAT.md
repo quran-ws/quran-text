@@ -1,12 +1,13 @@
 # The muṣḥaf format
 
-`out/mushaf/<key>.json` publishes one muṣḥaf on its own. `out/spine.json`
+`out/mushaf/<key>.json` publishes one muṣḥaf on its own. `out/word-index.json`
 publishes the shared numbering that means the same word in all seven.
 
 This document is the specification. **Only `out/mushaf/<key>.json` and
-`out/spine.json` (with `out/spine.csv`) are normative.** The nested, sharded,
+`out/word-index.json` (with `out/word-index.csv`) are normative.** The nested,
 CSV and SQLite forms are generated from them and are labelled views; a consumer
 may read them, but a claim about "the format" refers to the files above.
+`docs/SCHEMA.md` lists every file under `out/` and what it answers.
 
 ## The shape
 
@@ -53,7 +54,7 @@ word, not a level of nesting.* The editions count 6,214 to 6,236 āyāt, so
 `2:255:3` names a different word in each of them. Nesting words under āyāt
 would put the unstable coordinate on the outside and make the seven files
 incomparable. Reconstructing a nested view takes three lines, and
-`out/mushaf/nested/` ships one already.
+`out/mushaf/<key>.nested.json.gz` ships one already.
 
 ## Two kinds of integer, kept apart
 
@@ -158,7 +159,7 @@ reading; the build asserts the list is exactly these.
 **`missing` says "does not read this word", nothing finer.** At 40:26 Warsh's
 `وَأَنْ` covers the number of `أَن` and `أَوۡ` is `missing`. That is true, but the
 fuller truth is that Warsh reads `وَ` where Ḥafṣ reads `أَوۡ`. `numbering` does
-not record substitutions; the word text does, and so does the spine.
+not record substitutions; the word text does, and so does the word index.
 
 **`written_joined` is not `resegmentation`.** `written_joined` records a
 muṣḥaf that *really* prints two words as one — an orthographic fact about that
@@ -170,14 +171,15 @@ The scheme is a property of the format, bound by `format_version`, not a field
 a file may set. Numbers are stable across rebuilds of the same sources and are
 *not* promised across a future KFGQPC release — see `docs/LIMITATIONS.md`.
 
-## The spine
+## The word index
 
 Under this numbering the master is a division nobody prints, so it has a file
-of its own, normative alongside the seven: `out/spine.json`, and
-`out/spine.csv` with the same columns flattened.
+of its own, normative alongside the seven: `out/word-index.json`, and
+`out/word-index.csv` with the same columns flattened. One record per number:
 
 ```json
-{ "number": 73951, "sura": 72, "rasm": "لو", "pointed": "لو", "uthmani": "لَّوِ", "simple": "لّو",
+{ "number": 73951, "sura": 72, "index": 153, "key": "72:لو#1",
+  "rasm": "لو", "pointed": "لو", "uthmani": "لَّوِ", "simple": "لّو",
   "status": "word_boundary",
   "hafs": { "sura": 72, "ayah": 16, "pos": 1 },
   "forms": { "hafs": "وَأَلَّوِ", "shuba": "وَأَلَّوِ", "bazzi": "وَأَلَّوِ",
@@ -199,11 +201,15 @@ of its own, normative alongside the seven: `out/spine.json`, and
   writes the number joined with its neighbour the form is the joined word,
   repeated on both numbers, and `written_joined` names those muṣḥafs.
 - `ayah[key]` is absent in the same places; `0` is the unnumbered basmalah.
-- `status` keeps the vocabulary of `docs/SCHEMA.md`.
+- `status` keeps the vocabulary of `docs/SCHEMA.md`, which also lists the
+  optional fields: `groups` (the distinct spellings and who uses each),
+  `missing`, `resegmented`, `waqf`, `hizb`, `sajdah`.
 
-The spine is where a number gets a text. The muṣḥaf files are where a text
-gets a position. Neither is derivable from the other alone, so both are
-normative.
+The word index is where a number gets a text. The muṣḥaf files are where a
+text gets a position. Neither is derivable from the other alone, so both are
+normative. `out/differences.json` is the same records filtered to the words
+where the riwāyāt disagree, and `out/ayah-map.json` answers what a Kūfī āyah
+reference is in each edition.
 
 ## Counting: system, transmission, edition
 
@@ -262,9 +268,9 @@ repository does not yet model, are this repository's overlay
 `data/counting/khilaf.json`, cited point by point from al-Dānī's *al-Bayān*.
 Where an anchor word occurs twice in its Kūfī āyah (three of the 246 points),
 the occurrence the editions actually end at is taken and listed under
-`resolved_anchors` in `out/fawasil.json`.
+`resolved_anchors` in `out/counting.json`.
 
-`out/fawasil.json` is the same information keyed by system: every system's
+`out/counting.json` is the same information keyed by system: every system's
 boundaries as numbers, the editions that follow each, and their `khilaf`
 resolutions alongside.
 
@@ -360,7 +366,7 @@ Every file names the KFGQPC release it came from, with a SHA-256 — in the file
 itself, not only in the manifest, because a muṣḥaf file will be copied and
 vendored on its own and a text whose edition cannot be named is not citable.
 
-`out/mushaf/manifest.json` carries the same hashes for every source package,
+`out/manifest.json` carries the same hashes for every source package,
 for the vendored qiraat-ayah-map data, and for every emitted file, and lists
 the normative set.
 
@@ -382,11 +388,14 @@ muṣḥaf has.
 
 | path | shape |
 |---|---|
-| `out/mushaf/suras/<key>/NNN.json` | the same layers, one sūrah per file, positions **local to the file** and `offset` giving the sūrah's first position in the whole; `numbers[i]` is the number of local word *i* |
-| `out/mushaf/nested/<key>.json.gz` | sūrah → āyah → words, with every layer's value repeated on the word; the unnumbered basmalah under `"basmalah"` |
+| `out/mushaf/<key>.nested.json.gz` | sūrah → āyah → words, with every layer's value repeated on the word; the unnumbered basmalah under `"basmalah"` |
 | `out/mushaf/<key>.csv.gz` | one row per word: `pos, sura, ayah, pos_in_ayah, page, line, juz, number, number_last, text, imlaei, marks, resegmented` |
-| `out/quran.sqlite.gz` | all seven plus the spine; `word(mushaf, pos, …, number, number_last, …)` and `spine(number, …)` |
-| `out/fawasil.json` | the counting systems, their boundaries as numbers, and the editions under each |
+| `out/quran.sqlite.gz` | all seven plus the word index; `word(mushaf, pos, …, number, number_last, …)` and `word_index(number, …)` |
+| `out/ayah-map.json` | what a Kūfī āyah reference is in every edition |
+| `out/counting.json` | the counting systems, their boundaries as numbers, and the editions under each |
+
+There is no per-sūrah file: a whole muṣḥaf is about half a megabyte gzipped,
+and a sūrah, a page or a juz is one slice of it.
 
 `ayah` in the CSV and SQLite views is `0` for the unnumbered basmalah. Where a
 word covers a run of numbers, `number` is the first and `number_last` the

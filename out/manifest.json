@@ -1,0 +1,306 @@
+{
+ "format": "quran-mushaf",
+ "format_version": "1.0",
+ "generated": "2026-09-05",
+ "normative": [
+  "out/mushaf/hafs.json",
+  "out/mushaf/shuba.json",
+  "out/mushaf/warsh.json",
+  "out/mushaf/qaloun.json",
+  "out/mushaf/douri.json",
+  "out/mushaf/sousi.json",
+  "out/mushaf/bazzi.json",
+  "out/word-index.json",
+  "out/word-index.csv"
+ ],
+ "note": "Only the files listed under `normative` define the format. Everything else is a generated view of them.",
+ "sources": {
+  "hafs": {
+   "text": {
+    "package": "UthmanicHafs-v-3.0.zip",
+    "member": "UthmanicHafs-v-3.0.docx",
+    "release_year": 2026,
+    "sha256": "cdec7341b7c684e7b8dd469c4b68988914d2784e924c7e6cbb9cb4b57c24f013"
+   },
+   "layout": {
+    "package": "UthmanicHafs_v2-0.zip",
+    "member": "UthmanicHafs_v2-0 data/hafsData_v2-0.csv",
+    "release_year": 2022,
+    "sha256": "a7b0e5591945712ec5e4d6142938ae4d1e9b49bdc89dff06222789bfebdfd72c"
+   }
+  },
+  "shuba": {
+   "text": {
+    "package": "UthmanicShubah-v-3.0.zip",
+    "member": "UthmanicShubah-v-3.0.docx",
+    "release_year": 2026,
+    "sha256": "28be7e6ac5b3af9b5064c1cb6fc733e7c0d120d453a8894db0ddb01a7f110396"
+   },
+   "layout": {
+    "package": "UthmanicShuba_v2-0.zip",
+    "member": "UthmanicShuba_v2-0 data/shubaData_v2-0.csv",
+    "release_year": 2022,
+    "sha256": "977e64f3f889c084dc82aec4e97092836ca61777cdc93c3ee7da6f59592efbcf"
+   }
+  },
+  "warsh": {
+   "text": {
+    "package": "UthmanicWarsh-v-3.0.zip",
+    "member": "UthmanicWarsh-v-3.0.docx",
+    "release_year": 2026,
+    "sha256": "68e2f1c7a504a8dde797346fd63054c744e073917380f9c56360306b28907e37"
+   },
+   "layout": {
+    "package": "UthmanicWarsh_v2-1.zip",
+    "member": "UthmanicWarsh_v2-1 data/warshData_v2-1.csv",
+    "release_year": 2022,
+    "sha256": "d847a7e7002dfbed5d28db6684fd1d9c3d50b8bb63ad64cb38a46b9dad788b47"
+   }
+  },
+  "qaloun": {
+   "text": {
+    "package": "UthmanicQaloun-v-3.0.zip",
+    "member": "UthmanicQaloun-v-3.0.docx",
+    "release_year": 2026,
+    "sha256": "d55082f903ec3975469da187c20f21f09bc9921530c17041a2638ab2ee23850a"
+   },
+   "layout": {
+    "package": "UthmanicQaloun_v2-1.zip",
+    "member": "UthmanicQaloun_v2-1 data/QalounData_v2-1.csv",
+    "release_year": 2022,
+    "sha256": "6988b782b4268c70a11bc807223fcf2b131a9879a48aad34eb65af523fcb144d"
+   }
+  },
+  "douri": {
+   "text": {
+    "package": "UthmanicDouri_V20.zip",
+    "member": "UthmanicDouri V20.docx",
+    "release_year": 2022,
+    "sha256": "89fe6773ada1a8c153d24005453fa8c183bc33919887664c102e5a9c9c2c5e67"
+   },
+   "layout": {
+    "package": "UthmanicDouri_v2-0.zip",
+    "member": "UthmanicDouri_v2-0 data/DouriData_v2-0.csv",
+    "release_year": 2022,
+    "sha256": "84e5569790f96b05896b8f44ebe8d82d98377a929ac0e87dd8af4dbec52cb0c1"
+   }
+  },
+  "sousi": {
+   "text": {
+    "package": "UthmanicSousi-v-3.0.zip",
+    "member": "UthmanicSousi-v-3.0.docx",
+    "release_year": 2026,
+    "sha256": "1fe37644546506715cb81eb2e3154567c4df9f256a77e9d523bb12d836b06e0d"
+   },
+   "layout": {
+    "package": "UthmanicSousi_v2-0.zip",
+    "member": "UthmanicSousi_v2-0 data/SousiData_v2-0.csv",
+    "release_year": 2022,
+    "sha256": "e912273b3863bbf97ec4a7b1134967e3cdf21de7fcc06df9dee42bce655ce472"
+   }
+  },
+  "bazzi": {
+   "text": {
+    "package": "UthmanicBazzi-v-3.0.zip",
+    "member": "UthmanicBazzi-v-3.0.docx",
+    "release_year": 2026,
+    "sha256": "63083df98ed0015a6e44b3a5e8f67b1b3d84246ebc69d04c9eabe8982314030c"
+   }
+  },
+  "qiraat-ayah-map": {
+   "repository": "https://github.com/quranpedia/qiraat-ayah-map",
+   "commit": "076255281ec6f76241d7e901e27072733d02a18d",
+   "files": {
+    "book-boundary-primitives.json": "63f7bed237871b174a342d5a88688302c06929105af8dc3c3810b4e795a7e6f1",
+    "counting-systems.json": "a4dfad8c302f3a7bd2172a07ecbd70045b448815edd955df2f0bedcb972b8117"
+   },
+   "overlay": {
+    "khilaf.json": "f331c1fba4bfd6bf71e3107bdac3c0eda3dc5f5e86b968067eff0852a15685e2",
+    "open-findings.json": "4ebb71a16e7fcfdbed274c398793d4b09b1564c502f59f477467c7f586d8871c",
+    "declared.json": "25b9a22835d6cc8d539881288d9973f7f56be0a080e2e1000d86ec6de5bad768"
+   }
+  }
+ },
+ "files": [
+  {
+   "path": "out/ayah-map.csv",
+   "bytes": 516364,
+   "sha256": "394177edb92687e3376b146da80f4cda92aa77df7c83523fa658bd8ee8c41b4c"
+  },
+  {
+   "path": "out/ayah-map.json",
+   "bytes": 2247784,
+   "sha256": "5b13579f424300b8a1f0cd44c26f02ef0619aef8021521b520f4bcbf14533e90"
+  },
+  {
+   "path": "out/catalog.json",
+   "bytes": 42499,
+   "sha256": "deb462353ce661c5ac6263b3d79eba09aa5fd54ca223ff086c2af50efc0b32c5"
+  },
+  {
+   "path": "out/counting.json",
+   "bytes": 462243,
+   "sha256": "ef8c91e4bfdf09d66f7a2cf4fdb77ea9674789f7ce81e6f999abc5d603400bae"
+  },
+  {
+   "path": "out/differences.csv",
+   "bytes": 45827,
+   "sha256": "f1249a33e41478f79b8aa752e19e5654a185346f67870df0fc7347254b19de09"
+  },
+  {
+   "path": "out/differences.json",
+   "bytes": 207109,
+   "sha256": "57ef1a665752d462308959a99491871f2c54596f5fdef300346fb57ca8abddc9"
+  },
+  {
+   "path": "out/mushaf/bazzi.csv.gz",
+   "bytes": 1043270,
+   "sha256": "b34178255cc5127b88485a1a8c765de504cf799505f0a3dca543664234895964"
+  },
+  {
+   "path": "out/mushaf/bazzi.json",
+   "bytes": 1994846,
+   "sha256": "e32c18deefc4b2cd92f0a7d20bd01624ec18c96a848e29c411f0540f11049aaf"
+  },
+  {
+   "path": "out/mushaf/bazzi.nested.json.gz",
+   "bytes": 1278171,
+   "sha256": "988c676c099556efdc6d8bd1378aca28b6a753471bf3bc26dee5565196f96f30"
+  },
+  {
+   "path": "out/mushaf/douri.csv.gz",
+   "bytes": 1061830,
+   "sha256": "423505c79aeb63547be073e1552a5eacbf25e3c77fc60fc7ef689af43286fa19"
+  },
+  {
+   "path": "out/mushaf/douri.json",
+   "bytes": 2043350,
+   "sha256": "079e63ee9cc87dc01d1537b674826e25ae9351e3f4c8790d7e2dbb9969be5591"
+  },
+  {
+   "path": "out/mushaf/douri.nested.json.gz",
+   "bytes": 1304103,
+   "sha256": "ba542347ea122a9c24802bcb571c33be811636c899b96a753c9449842ec2a2c1"
+  },
+  {
+   "path": "out/mushaf/hafs.csv.gz",
+   "bytes": 1298048,
+   "sha256": "730393aa339bd972945d9834f2787d5ec3f5c9050a291252a4ffa85bbb191800"
+  },
+  {
+   "path": "out/mushaf/hafs.json",
+   "bytes": 3116735,
+   "sha256": "cb5920b70a5f57e3005ff1b33a37848b3afbfe7cce429512d14d7b621cdfece7"
+  },
+  {
+   "path": "out/mushaf/hafs.nested.json.gz",
+   "bytes": 1722162,
+   "sha256": "bba38565758c48b0c8351249cdc1c766144cd9c43b2e1bdb90d3d3e75adca48d"
+  },
+  {
+   "path": "out/mushaf/qaloun.csv.gz",
+   "bytes": 1062891,
+   "sha256": "4808df5cd7c0253c6d9445cede7eaa9892adc3021ceef76edfcb0907959e69c7"
+  },
+  {
+   "path": "out/mushaf/qaloun.json",
+   "bytes": 2157070,
+   "sha256": "839c5f1c3ff351ec67d50c9be3a3c334d51ed0f4452395eb233d504687abfebe"
+  },
+  {
+   "path": "out/mushaf/qaloun.nested.json.gz",
+   "bytes": 1307958,
+   "sha256": "0ec4fc798039d5bad20046912f6d25b7be7f40b581efd4653eda260e7365de52"
+  },
+  {
+   "path": "out/mushaf/shuba.csv.gz",
+   "bytes": 1050689,
+   "sha256": "0ad295c49403524ca058bbd71d9bdbdeb995db4406d8a093d90f2030b841091a"
+  },
+  {
+   "path": "out/mushaf/shuba.json",
+   "bytes": 1991117,
+   "sha256": "3cf0047ab3047ce755d56bb0c32a7bc2bef1dd798f8851bc9e775a27d762fe49"
+  },
+  {
+   "path": "out/mushaf/shuba.nested.json.gz",
+   "bytes": 1289735,
+   "sha256": "7f9b5a9c520095b7d7f6d09fb11107f3cbca394c83d9ae36d9c8b1b2cd0df56b"
+  },
+  {
+   "path": "out/mushaf/sousi.csv.gz",
+   "bytes": 1059183,
+   "sha256": "a2b1f1046c473d55d99b411fa96d165cf1cc62204ddb42f3149d1fc59221c8c1"
+  },
+  {
+   "path": "out/mushaf/sousi.json",
+   "bytes": 2031985,
+   "sha256": "ff8c6560b3d5daaa10b6aa905622034cec5b2899e4ed86d00c86e7d143781898"
+  },
+  {
+   "path": "out/mushaf/sousi.nested.json.gz",
+   "bytes": 1302146,
+   "sha256": "60b445a53f97e4517483e1642daf954e0eaf5abf017963d8ec3dc29eb540d37d"
+  },
+  {
+   "path": "out/mushaf/warsh.csv.gz",
+   "bytes": 1054142,
+   "sha256": "4fab2d4a942d90bf21cc6b78d29f978042118cd83d46a10a1d2e93d6dcd37626"
+  },
+  {
+   "path": "out/mushaf/warsh.json",
+   "bytes": 1919321,
+   "sha256": "91c02984a6680fbd336b27ef0b0a9e85dc5b8a6d65d1c82601ff56ddbacf3c0c"
+  },
+  {
+   "path": "out/mushaf/warsh.nested.json.gz",
+   "bytes": 1297588,
+   "sha256": "5cb7e295d621743d1966aa7b6f9f4c202c71d5da007982cceb6d41078a31e4e4"
+  },
+  {
+   "path": "out/quran.sqlite.gz",
+   "bytes": 20347968,
+   "sha256": "c602b8f7f04abdcb533bcc1ad2cdb228e4f4d6a1207ea48b2e8b274201f8e0a5"
+  },
+  {
+   "path": "out/reports/COMPARISON.md",
+   "bytes": 43809,
+   "sha256": "f5a8f48d41e25b5fb14e045d80a0807d0e0e37589b38b8ae66b16a6ec2b417d9"
+  },
+  {
+   "path": "out/reports/agreement-matrix.csv",
+   "bytes": 985,
+   "sha256": "58ad68488a49b3591a4809907fe31589dc9bc51865e68af6aeb10851987d7aec"
+  },
+  {
+   "path": "out/reports/compare.html",
+   "bytes": 2076982,
+   "sha256": "02a7b7609c57869129ef67c83806b2e263875d9d32425558794b1b49c2eb2fd9"
+  },
+  {
+   "path": "out/reports/rasm-variants.md",
+   "bytes": 59517,
+   "sha256": "3cd9429b79ebd22c11cfb48334c9668cd0c23ccfffec5a0ac862e4f4e64e63cf"
+  },
+  {
+   "path": "out/reports/resegmentation.csv",
+   "bytes": 1040,
+   "sha256": "70d07635e6c55fa216cdfe1a8a1e973a9ffaf2ab60f217d11440b6d923b0a282"
+  },
+  {
+   "path": "out/reports/variants.csv",
+   "bytes": 11958315,
+   "sha256": "ed56b23c46b8b11699064ed6a928bea82d6591a8336c968e0bf811ee008ee12b"
+  },
+  {
+   "path": "out/word-index.csv",
+   "bytes": 18672302,
+   "sha256": "21e7b80d5ca69eee513b49f047c08295f45aa6fc6c7bca105f40855bee1c00de"
+  },
+  {
+   "path": "out/word-index.json",
+   "bytes": 49757418,
+   "sha256": "374cc189980f31e8669705754a963e8ff34e1bca36589f98f70d00edd3616e30"
+  }
+ ]
+}

@@ -203,14 +203,14 @@ class TestTokenize(unittest.TestCase):
 
 class TestAlign(unittest.TestCase):
     def test_identical_streams_share_every_column(self):
-        spine = [Column(tokens={"a": tok(r)}) for r in ["ا", "ب", "ج"]]
-        out = merge(spine, "b", [tok("ا"), tok("ب"), tok("ج")])
+        columns = [Column(tokens={"a": tok(r)}) for r in ["ا", "ب", "ج"]]
+        out = merge(columns, "b", [tok("ا"), tok("ب"), tok("ج")])
         self.assertEqual(len(out), 3)
         self.assertTrue(all(set(c.tokens) == {"a", "b"} for c in out))
 
     def test_a_joined_word_is_resegmented_into_its_columns(self):
-        spine = [Column(tokens={"a": tok("كانوا")}), Column(tokens={"a": tok("يعملون")})]
-        out = merge(spine, "b", [tok("كانوايعملون")])
+        columns = [Column(tokens={"a": tok("كانوا")}), Column(tokens={"a": tok("يعملون")})]
+        out = merge(columns, "b", [tok("كانوايعملون")])
         self.assertEqual(len(out), 2)
         # Both columns keep riwāyah b, so no word is reported missing.
         self.assertTrue(all("b" in c.tokens for c in out))
@@ -218,8 +218,8 @@ class TestAlign(unittest.TestCase):
                          ["joined_in_source"] * 2)
 
     def test_an_inserted_word_gets_its_own_column(self):
-        spine = [Column(tokens={"a": tok("تجري")}), Column(tokens={"a": tok("تحتها")})]
-        out = merge(spine, "b", [tok("تجري"), tok("من"), tok("تحتها")])
+        columns = [Column(tokens={"a": tok("تجري")}), Column(tokens={"a": tok("تحتها")})]
+        out = merge(columns, "b", [tok("تجري"), tok("من"), tok("تحتها")])
         self.assertEqual([c.rasm for c in out], ["تجري", "من", "تحتها"])
         self.assertNotIn("a", out[1].tokens)      # only Bazzī has مِن at 9:101
 
@@ -239,22 +239,22 @@ class TestAlign(unittest.TestCase):
         self.assertEqual([sorted(c.tokens) for c in out], [["hafs"], ["hafs", "warsh"]])
 
     def test_a_declared_join_covers_both_columns(self):
-        # 73:20 — the spine holds أَن لَّن; Dūrī prints أَلَّن.  Nothing is
+        # 73:20 — the columns hold أَن لَّن; Dūrī prints أَلَّن.  Nothing is
         # missing: the one token covers two numbers.
         an, lan = real("أَن"), real("لَّن")
         an.sura = lan.sura = 73
-        spine = [Column(tokens={"hafs": an}), Column(tokens={"hafs": lan})]
+        columns = [Column(tokens={"hafs": an}), Column(tokens={"hafs": lan})]
         joined = real("أَلَّن")
         joined.sura = 73
-        out = merge(spine, "douri", [joined])
+        out = merge(columns, "douri", [joined])
         self.assertEqual(len(out), 2)
         self.assertTrue(all(c.present("douri") for c in out))
         self.assertEqual([c.boundary["douri"] for c in out], [WRITTEN_JOINED] * 2)
         self.assertIs(out[1].covers["douri"], joined)
         self.assertNotIn("douri", out[1].tokens)
 
-    def test_a_declared_join_in_the_spine_is_split_for_the_others(self):
-        # 72:16 — Ḥafṣ is the spine with وَأَلَّوِ; Warsh brings وَأَن لَّوِ.
+    def test_a_declared_join_already_aligned_is_split_for_the_others(self):
+        # 72:16 — Ḥafṣ came first with وَأَلَّوِ; Warsh brings وَأَن لَّوِ.
         joined = real("وَأَلَّوِ")
         joined.sura = 72
         wa_an, law = real("وَأَن"), real("لَّوِ")
@@ -542,17 +542,36 @@ class TestPublishedFiles(unittest.TestCase):
         self.assertEqual(unexplained,
                          {(f["mushaf"], f["sura"], f["ayah"]) for f in open_findings()})
 
-    def test_the_spine_gives_every_number_a_text(self):
-        path = ROOT / "out" / "spine.json"
+    def test_the_word_index_gives_every_number_a_text(self):
+        path = ROOT / "out" / "word-index.json"
         if not path.exists():
-            self.skipTest("spine not built")
-        spine = json.loads(path.read_text(encoding="utf-8"))
-        self.assertEqual([w["number"] for w in spine["words"]], list(range(1, 77435)))
-        law = spine["words"][73950]
+            self.skipTest("word index not built")
+        index = json.loads(path.read_text(encoding="utf-8"))
+        self.assertEqual([w["number"] for w in index["words"]], list(range(1, 77435)))
+        law = index["words"][73950]
         self.assertEqual(law["uthmani"], "لَّوِ")          # not Ḥafṣ's joined form
         self.assertEqual(law["forms"]["hafs"], "وَأَلَّوِ")
-        self.assertEqual(law["hafs"], spine["words"][73949]["hafs"])
-        self.assertIsNone(spine["words"][25684]["hafs"])   # Ḥafṣ lacks مِن
+        self.assertEqual(law["hafs"], index["words"][73949]["hafs"])
+        self.assertIsNone(index["words"][25684]["hafs"])   # Ḥafṣ lacks مِن
+        self.assertEqual(index["words"][25684]["missing"],
+                         ["hafs", "shuba", "warsh", "qaloun", "douri", "sousi"])
+
+    def test_the_ayah_map_answers_what_an_ayah_is_elsewhere(self):
+        path = ROOT / "out" / "ayah-map.json"
+        if not path.exists():
+            self.skipTest("ayah map not built")
+        rows = json.loads(path.read_text(encoding="utf-8"))["ayat"]
+        self.assertEqual(len(rows), 6236)
+        at = {(r["sura"], r["ayah"]): r for r in rows}
+        # The basmalah is 1:1 in Ḥafṣ and unnumbered in Warsh.
+        self.assertEqual(at[(1, 1)]["warsh"],
+                         {"sura": 1, "ayah": 0, "relation": "unnumbered"})
+        # 67:9 is one āyah in Ḥafṣ and two in Sūsī.
+        self.assertEqual(at[(67, 9)]["sousi"]["relation"], "split")
+        self.assertEqual(at[(67, 9)]["douri"]["relation"], "same")
+        # Everything Ḥafṣ maps onto itself unchanged.
+        self.assertTrue(all(r["hafs"] == {"sura": r["sura"], "ayah": r["ayah"],
+                                          "relation": "same"} for r in rows))
 
 
 class TestImlaeiPairing(unittest.TestCase):

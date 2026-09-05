@@ -1,10 +1,9 @@
-"""Multiple-sequence alignment of the riwāyāt into one word spine.
+"""Multiple-sequence alignment of the riwāyāt into one list of word columns.
 
 The seven riwāyāt share a rasm that is identical almost everywhere, so a
-progressive alignment is enough: take Ḥafṣ as the initial spine, then fold in
-each remaining riwāyah with a diff over the *rasm* (consonantal skeleton) and
-extend the spine with a new column wherever a riwāyah has a word the spine does
-not.
+progressive alignment is enough: start from Ḥafṣ's words, then fold in each
+remaining riwāyah with a diff over the *rasm* (consonantal skeleton) and add a
+new column wherever a riwāyah has a word the columns so far do not.
 
 The result is a list of :class:`Column` per sūrah.  A column is one canonical
 word: it carries at most one token from each riwāyah, and its index in the list
@@ -194,9 +193,9 @@ def _declared_join(cols: list[Column], toks: list[Token], key: str,
                    out: list[Column], sura: int) -> bool:
     """Place a declared written-joined word, if this block contains one.
 
-    Two shapes occur.  The riwāyah writes joined what the spine holds apart
+    Two shapes occur.  The riwāyah writes joined what the columns hold apart
     (Dūrī's ``أَلَّن`` against ``أَن لَّن``): its one token goes into the first
-    column and is recorded as covering the second.  Or the spine holds one
+    column and is recorded as covering the second.  Or the columns hold one
     column for what the riwāyah writes apart (Warsh's ``وَأَن لَّوِ`` against
     Ḥafṣ's ``وَأَلَّوِ``): the column is split in two, every riwāyah already in it
     now covers both, and the riwāyah's two tokens take one column each.
@@ -258,7 +257,7 @@ def _pair_replace(cols: list[Column], toks: list[Token], key: str,
     case, and are almost always a word-boundary disagreement rather than a
     different reading — most often a source that printed two words with no
     space between them.  When the letters on both sides agree, the words are
-    re-segmented so the spine keeps one column per word.  When they do not, a
+    re-segmented so the alignment keeps one column per word.  When they do not, a
     declared written-joined word is looked for first, and the rest of the
     block is a real difference of wording and goes to :func:`_pair_by_letters`.
     """
@@ -283,7 +282,7 @@ def _pair_replace(cols: list[Column], toks: list[Token], key: str,
             # One printed word covering several canonical words.  Sometimes
             # that is the source's own orthography (Bazzī's لَأُاْقۡسِمُ), sometimes
             # a dropped space (Dūrī's كَانُواْيَعۡمَلُونَ); either way the words are
-            # split apart so the spine keeps one column per word, and the
+            # split apart so the alignment keeps one column per word, and the
             # join is recorded for review rather than judged here.
             tok = group_toks[0]
             pieces = split_by_rasm(tok.uthmani, [len(c.rasm) for c in group_cols])
@@ -292,7 +291,7 @@ def _pair_replace(cols: list[Column], toks: list[Token], key: str,
                 col.boundary[key] = "joined_in_source"
                 out.append(col)
         elif len(group_cols) == 1 and len(group_toks) > 1:
-            # The source writes as two words what the spine holds as one.
+            # The source writes as two words what the columns hold as one.
             for offset, tok in enumerate(group_toks):
                 col = group_cols[0] if offset == 0 else Column()
                 col.tokens[key] = tok
@@ -309,33 +308,33 @@ def _pair_replace(cols: list[Column], toks: list[Token], key: str,
                 out.append(Column(tokens={key: tok}, boundary={key: "unresolved_boundary"}))
 
 
-def merge(spine: list[Column], key: str, tokens: list[Token]) -> list[Column]:
-    """Fold one riwāyah's word list into the spine."""
-    a = [c.rasm for c in spine]
+def merge(columns: list[Column], key: str, tokens: list[Token]) -> list[Column]:
+    """Fold one riwāyah's word list into the columns aligned so far."""
+    a = [c.rasm for c in columns]
     b = [t.rasm for t in tokens]
     out: list[Column] = []
 
     for op, i1, i2, j1, j2 in difflib.SequenceMatcher(a=a, b=b, autojunk=False).get_opcodes():
         if op == "equal":
-            for col, tok in zip(spine[i1:i2], tokens[j1:j2]):
+            for col, tok in zip(columns[i1:i2], tokens[j1:j2]):
                 col.tokens[key] = tok
                 out.append(col)
         elif op == "replace":
-            _pair_replace(spine[i1:i2], tokens[j1:j2], key, out)
+            _pair_replace(columns[i1:i2], tokens[j1:j2], key, out)
         elif op == "delete":
-            out.extend(spine[i1:i2])          # riwāyah has no word here
+            out.extend(columns[i1:i2])        # riwāyah has no word here
         elif op == "insert":
-            for tok in tokens[j1:j2]:         # riwāyah has a word the spine lacks
+            for tok in tokens[j1:j2]:         # riwāyah has a word the columns lack
                 col = Column()
                 col.tokens[key] = tok
                 out.append(col)
     return out
 
 
-def build_spine(streams: dict[str, list[Token]], order: list[str]) -> list[Column]:
+def align(streams: dict[str, list[Token]], order: list[str]) -> list[Column]:
     """Align every riwāyah in ``order`` into one list of columns."""
     first = order[0]
-    spine = [Column(tokens={first: tok}) for tok in streams[first]]
+    columns = [Column(tokens={first: tok}) for tok in streams[first]]
     for key in order[1:]:
-        spine = merge(spine, key, streams[key])
-    return spine
+        columns = merge(columns, key, streams[key])
+    return columns

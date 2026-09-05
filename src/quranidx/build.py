@@ -19,14 +19,14 @@ from collections import Counter
 from dataclasses import dataclass, field
 from pathlib import Path
 
-from .align import WRITTEN_JOINED, Column, build_spine
+from .align import WRITTEN_JOINED, Column, align
 from .sources import Riwaya, load_all
 from .tokenize import Token, tokenize
 
 OUT = Path("out")
 
 #: Ḥafṣ first because it is the most widely published text and the best
-#: starting spine; the rest follow so that the closest relatives merge early.
+#: starting point; the rest follow so that the closest relatives merge early.
 ORDER = ["hafs", "shuba", "bazzi", "qaloun", "warsh", "douri", "sousi"]
 
 # Status of a canonical word, most specific first.
@@ -180,10 +180,10 @@ def build_words(riwayat: list[Riwaya]) -> list[Word]:
     next_id = 1
     for sura in range(1, 115):
         per_sura = {k: [t for t in streams[k] if t.sura == sura] for k in ORDER}
-        spine = build_spine(per_sura, ORDER)
+        columns = align(per_sura, ORDER)
 
         seen: Counter[str] = Counter()
-        for index, col in enumerate(spine, start=1):
+        for index, col in enumerate(columns, start=1):
             canon = canonical_form(col)
             present = [k for k in keys if col.present(k)]
             # The key is built from the *pointed* skeleton, not the bare rasm:

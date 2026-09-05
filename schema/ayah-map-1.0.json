@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/quranpedia/quran-word-index/schema/ayah-map-1.0.json",
+  "title": "quran-ayah-map 1.0",
+  "description": "What a Kūfī āyah reference is in every edition. A view derived from the word index.",
+  "type": "object",
+  "required": ["format", "format_version", "generated", "reference", "editions", "ayat"],
+  "properties": {
+    "format": { "const": "quran-ayah-map" },
+    "format_version": { "type": "string", "pattern": "^\\d+\\.\\d+$" },
+    "generated": { "type": "string", "format": "date" },
+    "reference": { "const": "hafs" },
+    "editions": { "type": "array", "items": { "type": "string" } },
+    "note": { "type": "string" },
+    "ayat": {
+      "type": "array",
+      "description": "One entry per Kūfī āyah, in order. Each edition key holds where that āyah's words fall in the edition.",
+      "items": {
+        "type": "object",
+        "required": ["sura", "ayah"],
+        "properties": {
+          "sura": { "type": "integer", "minimum": 1, "maximum": 114 },
+          "ayah": { "type": "integer", "minimum": 1 }
+        },
+        "additionalProperties": {
+          "type": "object",
+          "required": ["sura", "ayah", "relation"],
+          "additionalProperties": false,
+          "properties": {
+            "sura": { "type": "integer", "minimum": 1 },
+            "ayah": { "type": "integer", "minimum": 0, "description": "0 is the unnumbered basmalah of Al-Fātiḥah." },
+            "ayah_last": { "type": "integer", "minimum": 1, "description": "Present when the Kūfī āyah's words span more than one āyah of the edition." },
+            "relation": { "enum": ["same", "merged", "split", "shifted", "unnumbered"] }
+          }
+        }
+      }
+    }
+  }
+}

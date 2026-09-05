@@ -11,20 +11,20 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent / "src"))
 
 from quranidx import counting                   # noqa: E402
+from quranidx.ayah_map import write_ayah_map    # noqa: E402
 from quranidx.build import build_words          # noqa: E402
+from quranidx.catalog import write_catalog      # noqa: E402
 from quranidx.mushaf import write_manifest, write_mushafs  # noqa: E402
-from quranidx.output import write_index         # noqa: E402
 from quranidx.report import write_report        # noqa: E402
 from quranidx.sources import load_all           # noqa: E402
-from quranidx.spine import write_spine          # noqa: E402
 from quranidx.validate import (check_ayah_numbers, check_index,  # noqa: E402
                                check_layout_alignment,
                                check_mushaf_roundtrip,
                                check_numbering, check_positions,
                                check_release_policy, check_schema_fields)
 from quranidx.viewer import write_viewer        # noqa: E402
-from quranidx.views import (write_csv, write_nested,  # noqa: E402
-                            write_shards, write_sqlite)
+from quranidx.views import write_csv, write_nested, write_sqlite  # noqa: E402
+from quranidx.word_index import write_differences, write_word_index  # noqa: E402
 
 
 def main() -> int:
@@ -38,10 +38,10 @@ def main() -> int:
     words = build_words(riwayat)
     print(f"  {len(words):,} canonical words")
 
-    print("writing ...")
-    write_index(words, riwayat)
-    spine = write_spine(words)
-    write_viewer(words, riwayat)
+    print("writing the word index ...")
+    word_index = write_word_index(words)
+    write_differences(words)
+    write_ayah_map(words)
 
     print("publishing each muṣḥaf ...")
     docs = write_mushafs(words, riwayat)
@@ -55,12 +55,15 @@ def main() -> int:
               f"{len(doc.get('page_starts', []))} pages, {scored}, "
               f"{len(doc['resegmentation'])} re-segmented, "
               f"{c['ayah_count']} āyāt = {c['system']}{open_}")
-    counting.write_fawasil(words, docs)
-    write_report(words, riwayat, docs)
+    counting.write_counting(words, docs)
     write_nested(docs)
-    write_shards(docs)
     write_csv(docs)
-    write_sqlite(docs, spine)
+    write_sqlite(docs, word_index)
+
+    print("writing the reports ...")
+    write_report(words, riwayat, docs)
+    write_viewer(words, riwayat)
+    write_catalog(words, riwayat, docs)
     write_manifest(docs)
 
     problems = (check_index(words, riwayat)
