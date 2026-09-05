@@ -22,7 +22,7 @@ from .normalize import strip_controls
 
 W = "{http://schemas.openxmlformats.org/wordprocessingml/2006/main}"
 
-DATA = Path("data")
+DATA = Path("data/kfgqpc")
 WORK = Path("work/raw")
 
 
@@ -42,7 +42,7 @@ class Riwaya:
     qari_ar: str
     #: No counting field: the āyah count belongs to the printed edition, not
     #: the riwāyah, and is derived from the package itself.  See
-    #: :mod:`quranidx.counting` and ``counting`` in each muṣḥaf file.
+    #: :mod:`qurantext.counting` and ``counting`` in each muṣḥaf file.
     source: str              # provenance of ``ayat``
     ayat: list[Ayah] = field(default_factory=list)
     #: (sura, aya) -> {jozz, page, line_start, line_end}, from the v2 CSVs.
@@ -52,7 +52,7 @@ class Riwaya:
     crosscheck_source: str = ""
     release_year: int = 0
     crosscheck_year: int = 0
-    #: One :class:`quranidx.layout.Place` per token of :attr:`ayat`, flat and in
+    #: One :class:`qurantext.layout.Place` per token of :attr:`ayat`, flat and in
     #: document order.  Empty for a riwāyah whose primary release is a CSV,
     #: which carries no typesetting.
     places: list = field(default_factory=list)
@@ -255,7 +255,7 @@ class SourceSpec:
 #: Nothing is inferred from one riwāyah about another, and no difference
 #: between packages is treated as a mistake by either: fawāṣil, orthography and
 #: spacing are editorial choices the publisher is entitled to make differently
-#: in different muṣḥafs.  See the standing rule in ``docs/ISSUES.md``.
+#: in different muṣḥafs.  See the standing rule in ``docs/known-issues.md``.
 #:
 #: It also cannot discriminate for Dūrī, whose two packages are both from 2022.
 #: There the differing word boundaries are recorded and left alone.

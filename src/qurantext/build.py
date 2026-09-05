@@ -8,7 +8,7 @@ everywhere, about the sequence of words.
 
 The numbering counts the finest division any muṣḥaf prints.  It is a property
 of the format, fixed by ``format_version``, not a per-file choice: see
-``docs/MUSHAF-FORMAT.md``, *Numbering*.
+``docs/format.md``, *Numbering*.
 """
 
 from __future__ import annotations

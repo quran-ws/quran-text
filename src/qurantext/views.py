@@ -6,7 +6,7 @@ exists only to meet consumers where they already are — a nested tree for peopl
 arriving from verse-level XML, a flat table for pandas and R, and one SQLite
 file for anyone who would rather answer a question in SQL than write a program.
 
-The distinction is kept explicit, in ``docs/MUSHAF-FORMAT.md`` and in a
+The distinction is kept explicit, in ``docs/format.md`` and in a
 ``view_of`` field on every file, because the alternative is that whichever form
 turns out to be handiest silently becomes the standard.
 """

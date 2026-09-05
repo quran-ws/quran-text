@@ -12,7 +12,7 @@
 The primitives list every disputed āyah boundary, anchored by sūrah, Kūfī āyah
 and the word the boundary follows, with the counting systems that count it.
 Undisputed Kūfī ends are implicit. The build resolves each anchor to a shared
-word number (`src/quranidx/counting.py`), derives each edition's counting
+word number (`src/qurantext/counting.py`), derives each edition's counting
 system from its own `ayah_starts`, and checks the result against
 `khilaf.json`, this repository's overlay for disagreements *inside* a system,
 which upstream does not yet model (qiraat-ayah-map#11).

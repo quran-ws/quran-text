@@ -27,7 +27,7 @@ reconstruction against the CSV so the exact residual travels with the data
 rather than living in a commit message.  Bazzī has no CSV, so its lines cannot
 be checked at all; that too is stated rather than glossed.
 
-See ``docs/ISSUES.md`` §"Reconstructed lines".
+See ``docs/known-issues.md`` §"Reconstructed lines".
 """
 
 from __future__ import annotations
@@ -161,10 +161,10 @@ def _scripture(path: Path) -> list[tuple[str, Place]]:
 def word_places(path: Path) -> list[Place]:
     """A :class:`Place` for every scripture token, in document order.
 
-    The token sequence is the same one :func:`quranidx.sources.load_docx`
+    The token sequence is the same one :func:`qurantext.sources.load_docx`
     produces, filtered the same way, so the two can be zipped by index.  That
     equivalence is asserted rather than assumed — see
-    :func:`quranidx.validate.check_layout_alignment`.
+    :func:`qurantext.validate.check_layout_alignment`.
     """
     return [place for _, place in _scripture(path)]
 

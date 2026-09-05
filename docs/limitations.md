@@ -105,7 +105,7 @@ KFGQPC identifier; they exist only in this repository.
 Two words are written joined by some muṣḥafs — `وَأَلَّوِ` at 72:16, `أَلَّن` at
 73:20 — and the numbering counts them as two words in every file, with the
 joined muṣḥaf's one printed word covering both numbers. That these are joins
-and not different words is a judgement declared in `data/written-joined.json`,
+and not different words is a judgement declared in `data/alignment/written-joined.json`,
 not derived; 40:26 `أَوۡ أَن` / `وَأَنْ` is deliberately *not* on that list.
 
 ## What "identical" means
@@ -131,7 +131,7 @@ Riwāyāt are folded into the alignment one at a time, Ḥafṣ first. A true mu
 sequence alignment could in principle place a disputed word better than this
 does. At the observed level of agreement (99.0 %–99.99 % rasm identity, 19 words
 total in the boundary and partial buckets) the difference is unlikely to matter,
-but the order of `ORDER` in `src/quranidx/build.py` is a parameter of the result
+but the order of `ORDER` in `src/qurantext/build.py` is a parameter of the result
 rather than a neutral choice.
 
 ## Not linguistically annotated

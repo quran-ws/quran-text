@@ -207,7 +207,7 @@ apart in this order:
 1. **A declared written-joined word.** At 72:16 Ḥafṣ prints `وَأَلَّوِ` for
    `وَأَن لَّوِ`, and at 73:20 Dūrī prints `أَلَّن` for `أَن لَّن`: the nūn
    assimilates and is not written, so the rasm differs, but nothing is added
-   or dropped. These places are declared in `data/written-joined.json` — no
+   or dropped. These places are declared in `data/alignment/written-joined.json` — no
    rule can tell an unwritten nūn from a different word — and the one token is
    placed in the first column and recorded as *covering* the second
    (`Column.covers`). Both words keep their numbers; the muṣḥaf's
@@ -226,7 +226,7 @@ each riwāyah. Its position is the word's number.
 - **`number`** — the shared number, a running integer over the whole corpus,
   `1 … 77434`, counting the finest division any muṣḥaf prints; the same key in
   the word index, the muṣḥaf views and SQLite. The scheme is specified
-  in `docs/MUSHAF-FORMAT.md`, *Numbering*.
+  in `docs/format.md`, *Numbering*.
 - **`index`** — the word's 1-based position within its sūrah.
 - **`key`** — `sūrah:pointed#occurrence`, e.g. `1:مالك#1`. This is rebuild-stable
   and does not shift if a future release adds or removes a word earlier in the
@@ -247,7 +247,7 @@ system's own authorities disagree are this repository's overlay
 `data/counting/khilaf.json`, cited from al-Dānī. Dūrī and Sūsī are both First
 Madinan and part company at exactly one such point, 67:9, where Dūrī follows
 Abū Jaʿfar and Sūsī follows Shayba — the whole of the 6217/6218 difference.
-See `docs/MUSHAF-FORMAT.md`, *Counting*.
+See `docs/format.md`, *Counting*.
 
 ## Verification
 
@@ -276,7 +276,7 @@ There is deliberately **no** check of āyah totals *per riwāyah*. An earlier
 version had one, and it was measuring an assumption: the qirāʾah does not
 determine the count. What is checked instead is that each edition's division
 matches a counting system once the documented khilāf is set aside — see
-`docs/ISSUES.md`.
+`docs/known-issues.md`.
 
 Plus 70 unit tests over the normalisation, splitting and alignment primitives,
 the numbering block, and the committed `out/` files.
