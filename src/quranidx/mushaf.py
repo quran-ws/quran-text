@@ -1,22 +1,27 @@
-"""Publish each muṣḥaf on its own, keyed to the shared word index.
+"""Publish each muṣḥaf on its own, as words by position with layers over them.
 
 ``out/`` already answers *how do the muṣḥafs differ?*  It does not answer *give
 me Warsh*: a consumer who wants one muṣḥaf has to take the comparison and
 project it back out.  This module writes the other view — one self-contained
-file per muṣḥaf, every word carrying the global ID that means the same word in
-all seven.
+file per muṣḥaf.
 
-The shape is flat.  A muṣḥaf is an ordered list of words, and the structures
-above a word — āyah, juz, page — are lists of boundaries over word IDs rather
-than levels of nesting.  That is the same model as ``out/fawasil.json`` and it
-is what keeps the seven files comparable while they count 6,214 to 6,236 āyāt:
-nesting words under āyāt would make one path mean a different word in each
-muṣḥaf, which is exactly what the global ID exists to prevent.
+**A muṣḥaf is an ordered array of word strings.  Everything else is a layer over
+that array, addressed by position.**  ``words[i]`` is the *i*-th word of this
+muṣḥaf; ``ayah_starts``, ``page_starts``, ``line_starts``, ``juz_starts`` and
+``sura_starts`` are sorted lists of positions, so unit *k* of any layer is
+``words[starts[k]:starts[k+1]]`` — a slice, correct in all seven files.
 
-Only ``out/mushaf/<key>.json`` is normative.  The nested, sharded, CSV and
-SQLite forms in :mod:`quranidx.views` are generated from the same build and are
-labelled views, so that whichever one turns out to be most convenient cannot
-quietly become the standard.
+Two kinds of integer appear and are kept apart.  A **position** is an index
+into ``words`` of *this* muṣḥaf; every key ending in ``_starts`` holds
+positions, as do ``marks[][0]`` and ``resegmentation[].positions``.  A
+**number** is the shared numbering that means the same word in all seven; only
+the ``numbering`` block holds numbers.  A consumer who works in one muṣḥaf
+never reads it.
+
+Only ``out/mushaf/<key>.json`` and ``out/spine.json`` are normative.  The
+nested, sharded, CSV and SQLite forms in :mod:`quranidx.views` are generated
+from the same build and are labelled views, so that whichever one turns out to
+be most convenient cannot quietly become the standard.
 
 Nothing here is asserted that the packages do not say.  Where a fact is derived
 rather than read it is marked derived, where it is unavailable the field is
@@ -32,6 +37,7 @@ from collections import defaultdict
 from datetime import date
 from pathlib import Path
 
+from .align import WRITTEN_JOINED
 from .build import OUT, Word
 from .output import boundary_events
 from .sources import DATA, RELEASE_POLICY, Riwaya
@@ -109,65 +115,117 @@ def _marks(w: Word, key: str) -> list[dict]:
     return out
 
 
-def _spans(pairs: list[tuple[int, int]]) -> list[dict]:
-    """Collapse ``(value, word_id)`` into ``{n, words:[first,last]}`` runs."""
-    out: list[dict] = []
-    for value, wid in pairs:
-        if out and out[-1]["n"] == value:
-            out[-1]["words"][1] = wid
-        else:
-            out.append({"n": value, "words": [wid, wid]})
+def _starts(values: list) -> list[int]:
+    """Positions at which a per-position value changes — one per unit."""
+    out: list[int] = []
+    prev = object()
+    for i, v in enumerate(values):
+        if v != prev:
+            out.append(i)
+            prev = v
     return out
 
 
-def _suras(key: str, mine: list[Word], r: Riwaya) -> list[dict]:
+class Printed:
+    """One printed word of one muṣḥaf: its position, and the numbers it covers.
+
+    Almost every printed word covers one number.  At 72:16 and 73:20 a muṣḥaf
+    that writes ``وَأَلَّوِ`` or ``أَلَّن`` as one word covers two.  ``word`` is the
+    :class:`Word` of the first number, which carries the text, the āyah and
+    the place; the covered numbers carry the same token and add nothing.
+    """
+
+    __slots__ = ("position", "first", "last", "word")
+
+    def __init__(self, position: int, word: Word):
+        self.position = position
+        self.first = self.last = word.id
+        self.word = word
+
+
+def printed_words(words: list[Word], key: str) -> tuple[list[Printed], list[int]]:
+    """Walk the numbering and return this muṣḥaf's printed words and its gaps."""
+    printed: list[Printed] = []
+    missing: list[int] = []
+    for w in words:
+        if key not in w.forms:
+            missing.append(w.id)
+        elif key in w.continuation:
+            printed[-1].last = w.id
+        else:
+            printed.append(Printed(len(printed), w))
+    return printed, missing
+
+
+def numbering(words: list[Word], printed: list[Printed], missing: list[int]) -> dict:
+    """How this muṣḥaf's positions map onto the shared numbering.
+
+    ``missing`` lists the numbers this muṣḥaf does not read — the only way a
+    number can fail to be covered.  ``written_joined`` lists the printed words
+    that cover more than one number — the only way a position can cover more
+    than one.  Everything else is one word, one number, in step, and is not
+    stored.  See ``docs/MUSHAF-FORMAT.md``, *Numbering*, for the invariants.
+    """
+    return {
+        "total": words[-1].id,
+        "missing": missing,
+        "written_joined": [{"position": p.position, "numbers": [p.first, p.last]}
+                           for p in printed if p.last > p.first],
+    }
+
+
+def _suras(key: str, printed: list[Printed], ayah_starts: list[int],
+           r: Riwaya) -> list[dict]:
     """The 114-row sūrah header, in full, in every muṣḥaf's own file.
 
     Duplicated across the seven rather than shared, because a file that needs a
     second download before it can name a sūrah is not a muṣḥaf that ships alone.
     It costs 114 rows against 77,000 words.
     """
-    printed = {a.sura for a in r.ayat if a.aya == 0} | {1}
-    by_sura: dict[int, list[Word]] = defaultdict(list)
-    for w in mine:
-        by_sura[w.sura].append(w)
+    basmalah_printed = {a.sura for a in r.ayat if a.aya == 0} | {1}
+    by_sura: dict[int, list[Printed]] = defaultdict(list)
+    for p in printed:
+        by_sura[p.word.sura].append(p)
+    first_ayah_of: dict[int, int] = {}
+    for k, pos in enumerate(ayah_starts):
+        first_ayah_of.setdefault(printed[pos].word.sura, k)
 
     out = []
-    for sura, ws in sorted(by_sura.items()):
+    for sura, ps in sorted(by_sura.items()):
         info = names()[sura]
-        pages = [w.place[key][0] for w in ws if key in w.place]
-        row = {
+        out.append({
             "n": sura,
             "name_ar": info["name_ar"],
             "name_en": info["name_en"],
             "revelation": info["revelation"],
-            "basmalah": sura in printed,
-            "ayat": max(w.aya.get(key, 0) for w in ws),
-            "words": [ws[0].id, ws[-1].id],
-        }
-        if pages:
-            row["pages"] = [min(pages), max(pages)]
-        out.append(row)
+            "basmalah": sura in basmalah_printed,
+            "ayat": max(p.word.aya.get(key, 0) for p in ps),
+            "first_ayah": first_ayah_of[sura],
+        })
     return out
 
 
-def _resegmentation(key: str, words: list[Word]) -> list[dict]:
+def _resegmentation(key: str, words: list[Word], at: dict[int, int]) -> list[dict]:
     """Every place this build changed the source's own word spacing.
 
-    A global word ID is only stable because the alignment occasionally overrides
-    a package's spacing — joining what one muṣḥaf splits, or splitting what it
-    joins — so a file claiming to *be* that muṣḥaf has to say where it did so.
-    The list is present even when empty, so silence is never ambiguous.
+    A shared numbering is only stable because the alignment occasionally
+    overrides a package's spacing — splitting what one source printed joined —
+    so a file claiming to *be* that muṣḥaf has to say where it did so.  The
+    list is present even when empty, so silence is never ambiguous.
+
+    A word a muṣḥaf *really* prints joined — ``written_joined`` in
+    ``numbering`` — is not here: that is a fact about the muṣḥaf, not a
+    departure from it.
     """
     out = []
     for event in boundary_events(words):
         if key not in event["riwayat"]:
             continue
-        ids = [i for i in event["word_ids"]]
+        ids = event["word_ids"]
         mine = [w for w in words if w.id in set(ids) and key in w.forms]
         source = next((t for t, ks in event["texts"].items() if key in ks), "")
         out.append({
-            "words": ids,
+            "positions": sorted({at[i] for i in ids if i in at}),
             "sura": event["sura"],
             "ayah": event["aya"],
             "kind": event["kind"],
@@ -178,7 +236,7 @@ def _resegmentation(key: str, words: list[Word]) -> list[dict]:
     return out
 
 
-def _line_check(key: str, mine: list[Word], r: Riwaya) -> dict:
+def _line_check(key: str, printed: list[Printed], r: Riwaya) -> dict:
     """Re-check the reconstructed lines against the release that states them.
 
     The page is read from the document; the line is inferred from its flow (see
@@ -192,8 +250,8 @@ def _line_check(key: str, mine: list[Word], r: Riwaya) -> dict:
                 "reason": "no v2 package released for this riwāyah"}
 
     by_ayah: dict[tuple[int, int], list[Word]] = defaultdict(list)
-    for w in mine:
-        by_ayah[(w.sura, w.aya[key])].append(w)
+    for p in printed:
+        by_ayah[(p.word.sura, p.word.aya[key])].append(p.word)
 
     checked = agreed = 0
     wrong = []
@@ -217,11 +275,11 @@ def _line_check(key: str, mine: list[Word], r: Riwaya) -> dict:
     }
 
 
-def _layers(key: str, r: Riwaya, line_check: dict) -> dict:
+def _layers(r: Riwaya, line_check: dict, has_juz: bool) -> dict:
     """What this file carries, and why it lacks whatever it lacks."""
-    present = ["suras", "ayat", "pages", "marks"]
+    present = ["suras", "ayat", "pages", "lines", "marks"]
     absent: dict[str, str] = {}
-    if r.meta:
+    if has_juz:
         present.append("juz")
     else:
         absent["juz"] = "no v2 package released for this riwāyah"
@@ -251,33 +309,61 @@ def _layers(key: str, r: Riwaya, line_check: dict) -> dict:
     }
 
 
-def _word(w: Word, key: str, imlaei: dict[int, str] | None) -> dict:
-    rec: dict = {"w": w.id, "t": w.forms[key]}
-    if key in w.place:
-        page, line = w.place[key]
-        rec["pg"] = page
-        rec["ln"] = line
-    if imlaei and w.id in imlaei:
-        rec["e"] = imlaei[w.id]
-    marks = _marks(w, key)
-    if marks:
-        rec["marks"] = marks
-    if key in w.boundary:
-        rec["resegmented"] = True
-    return rec
+def _juz_per_position(printed: list[Printed], key: str, r: Riwaya) -> list[int] | None:
+    """The juz of every printed word, from the v2 CSV, or ``None`` without one.
+
+    The CSV is per numbered āyah.  The unnumbered basmalah of Al-Fātiḥah has no
+    row, so its words take the juz of the āyah that follows them.
+    """
+    if not r.meta:
+        return None
+    out: list[int | None] = []
+    for p in printed:
+        meta = r.meta.get((p.word.sura, p.word.aya[key]))
+        jozz = meta["jozz"] if meta and meta["jozz"].isdigit() else None
+        out.append(int(jozz) if jozz else None)
+    for i in range(len(out) - 2, -1, -1):        # fill gaps from the right
+        if out[i] is None:
+            out[i] = out[i + 1]
+    for i in range(1, len(out)):                  # then from the left
+        if out[i] is None:
+            out[i] = out[i - 1]
+    return out                                    # type: ignore[return-value]
 
 
 def document(words: list[Word], r: Riwaya,
              imlaei: dict[int, str] | None = None) -> dict:
-    """The whole of one muṣḥaf, in the canonical shape."""
-    key = r.key
-    mine = [w for w in words if key in w.forms]
+    """The whole of one muṣḥaf, in the canonical shape.
 
-    line_check = _line_check(key, mine, r)
-    ayat = _spans([(w.aya[key], w.id) for w in mine])
-    sura_of = {w.id: w.sura for w in mine}
-    for span in ayat:
-        span["sura"] = sura_of[span["words"][0]]
+    The ``counting`` block is filled in by :func:`quranidx.counting.for_edition`
+    once the file's own āyah layer exists, since it is derived from it.
+    """
+    key = r.key
+    printed, missing = printed_words(words, key)
+    at = {}                                      # number -> position
+    for p in printed:
+        for n in range(p.first, p.last + 1):
+            at[n] = p.position
+
+    line_check = _line_check(key, printed, r)
+    ayahs = [(p.word.sura, p.word.aya[key]) for p in printed]
+    ayah_starts = [i for i in _starts(ayahs) if ayahs[i][1] > 0]
+    sura_starts = _starts([p.word.sura for p in printed])
+    places = [p.word.place.get(key) for p in printed]
+    page_starts = _starts([pl[0] for pl in places]) if all(places) else None
+    line_starts = _starts([pl for pl in places]) if all(places) else None
+    juz = _juz_per_position(printed, key, r)
+
+    mark_types: list[dict] = []
+    type_index: dict[tuple, int] = {}
+    marks: list[list[int]] = []
+    for p in printed:
+        for m in _marks(p.word, key):
+            sig = (m["k"], m["at"], m["sign"])
+            if sig not in type_index:
+                type_index[sig] = len(mark_types)
+                mark_types.append(m)
+            marks.append([p.position, type_index[sig]])
 
     doc = {
         "format": FORMAT,
@@ -289,52 +375,32 @@ def document(words: list[Word], r: Riwaya,
             "name_ar": r.name_ar,
             "qari_en": r.qari_en,
             "qari_ar": r.qari_ar,
-            "counting": r.counting,
-            "ayah_count": sum(1 for a in r.ayat if a.aya > 0),
-            "word_count": len(mine),
+            "word_count": len(printed),
         },
+        "counting": None,
         "provenance": _provenance(r),
-        "spine": {
-            "word_id_range": [words[0].id, words[-1].id],
-            "note": "`w` is the global word ID. The same `w` is the same word "
-                    "in every muṣḥaf that has it. Words absent from this muṣḥaf "
-                    "leave gaps in the sequence.",
-        },
-        "layers": _layers(key, r, line_check),
+        "layers": _layers(r, line_check, juz is not None),
+        "words": [p.word.forms[key] for p in printed],
+        "imlaei": ([imlaei.get(p.first, imlaei.get(p.last)) for p in printed]
+                   if imlaei else None),
+        "numbering": numbering(words, printed, missing),
+        "sura_starts": sura_starts,
+        "ayah_starts": ayah_starts,
+        "page_starts": page_starts,
+        "line_starts": line_starts,
+        "juz_starts": _starts(juz) if juz else None,
+        "suras": _suras(key, printed, ayah_starts, r),
+        "marks": marks,
+        "mark_types": mark_types,
         "mark_signs": {s: {"cp": f"U+{ord(s):04X}", "unicode_name": n}
                        for s, n in MARK_NAMES.items()},
-        "suras": _suras(key, mine, r),
-        "ayat": [{"sura": s["sura"], "n": s["n"], "words": s["words"]}
-                 for s in ayat],
-        "pages": _spans([(w.place[key][0], w.id) for w in mine if key in w.place]),
-        "resegmentation": _resegmentation(key, words),
+        "resegmentation": _resegmentation(key, words, at),
         "line_disagreements": line_check.get("disagreements", []),
-        "words": [_word(w, key, imlaei) for w in mine],
     }
-    if r.meta:
-        doc["juz"] = _spans([(int(r.meta[(w.sura, w.aya[key])]["jozz"]), w.id)
-                             for w in mine
-                             if (w.sura, w.aya[key]) in r.meta
-                             and r.meta[(w.sura, w.aya[key])]["jozz"].isdigit()])
+    for layer in ("page_starts", "line_starts", "juz_starts"):
+        if doc[layer] is None:
+            del doc[layer]
     return doc
-
-
-def minimal(doc: dict) -> dict:
-    """The text and the IDs, and nothing else.
-
-    ``resegmentation`` stays: it is a disclosure about the text itself, so
-    dropping it would make the small file quietly less honest than the large one.
-    """
-    return {
-        **{k: doc[k] for k in ("format", "format_version", "generated",
-                               "mushaf", "provenance", "spine")},
-        "variant": "minimal",
-        "suras": [{k: v for k, v in s.items() if k != "pages"}
-                  for s in doc["suras"]],
-        "ayat": doc["ayat"],
-        "resegmentation": doc["resegmentation"],
-        "words": [{"w": w["w"], "t": w["t"]} for w in doc["words"]],
-    }
 
 
 def _dump(path: Path, doc: dict) -> None:
@@ -346,7 +412,11 @@ def write_mushafs(words: list[Word], riwayat: list[Riwaya],
                   imlaei: dict[str, dict[int, str]] | None = None,
                   reports: dict | None = None) -> dict:
     """Write every muṣḥaf's own file, and return what was written."""
+    from .counting import for_edition
+
     MUSHAF_DIR.mkdir(parents=True, exist_ok=True)
+    for stale in MUSHAF_DIR.glob("*.min.json"):
+        stale.unlink()
     imlaei = imlaei or {}
     docs = {}
     for r in riwayat:
@@ -356,13 +426,13 @@ def write_mushafs(words: list[Word], riwayat: list[Riwaya],
             if reports[r.key].get("available"):
                 doc["layers"]["present"].append("imlaei")
                 doc["layers"]["absent"].pop("imlaei", None)
+        doc["counting"] = for_edition(doc, words, r)
         _dump(MUSHAF_DIR / f"{r.key}.json", doc)
-        _dump(MUSHAF_DIR / f"{r.key}.min.json", minimal(doc))
         docs[r.key] = doc
     return docs
 
 
-def write_manifest(docs: dict[str, dict]) -> dict:
+def write_manifest(docs: dict[str, dict], extra_sources: dict | None = None) -> dict:
     """Every emitted file and every source package, each with its SHA-256.
 
     A dataset becomes citable when a reader can prove which release a file came
@@ -372,20 +442,23 @@ def write_manifest(docs: dict[str, dict]) -> dict:
     """
     files = sorted(p for p in MUSHAF_DIR.rglob("*")
                    if p.is_file() and p.name != "manifest.json")
-    extra = [OUT / "quran.sqlite"]
+    extra = [OUT / "spine.json", OUT / "spine.csv", OUT / "fawasil.json",
+             OUT / "quran.sqlite.gz"]
 
     manifest = {
         "format": FORMAT,
         "format_version": FORMAT_VERSION,
         "generated": date.today().isoformat(),
-        "normative": [f"out/mushaf/{k}.json" for k in docs],
+        "normative": [f"out/mushaf/{k}.json" for k in docs]
+                     + ["out/spine.json", "out/spine.csv"],
         "note": "Only the files listed under `normative` define the format. "
                 "Everything else is a generated view of them.",
         "sources": {
-            k: {n: {kk: vv for kk, vv in part.items() if kk != "used_for"}
-                for n, part in doc["provenance"].items()
-                if isinstance(part, dict)}
-            for k, doc in docs.items()
+            **{k: {n: {kk: vv for kk, vv in part.items() if kk != "used_for"}
+                   for n, part in doc["provenance"].items()
+                   if isinstance(part, dict)}
+               for k, doc in docs.items()},
+            **(extra_sources or {}),
         },
         "files": [
             {"path": str(p).replace("\\", "/"),

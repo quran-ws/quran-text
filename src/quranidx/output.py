@@ -9,7 +9,8 @@ from collections import Counter, defaultdict
 from datetime import date
 from pathlib import Path
 
-from .build import ORDER, OUT, Word, fawasil
+from .align import WRITTEN_JOINED
+from .build import ORDER, OUT, Word
 from .sources import Riwaya
 from .suras import names
 
@@ -23,7 +24,6 @@ def _riwaya_meta(riwayat: list[Riwaya]) -> list[dict]:
         "name_ar": r.name_ar,
         "qari_en": r.qari_en,
         "qari_ar": r.qari_ar,
-        "counting": r.counting,
         "ayah_count": sum(1 for a in r.ayat if a.aya > 0),
         "source": r.source,
         "crosscheck_source": r.crosscheck_source,
@@ -69,6 +69,8 @@ def _word_json(w: Word) -> dict:
         rec["groups"] = groups
     if w.missing:
         rec["missing"] = w.missing
+    if w.continuation:
+        rec["written_joined"] = [k for k, v in w.boundary.items() if v == WRITTEN_JOINED]
     if w.waqf:
         rec["waqf"] = w.waqf
     if w.boundary:
@@ -99,8 +101,8 @@ def write_all(words: list[Word], riwayat: list[Riwaya]) -> dict:
             "riwāyah that has it, because words are identified by their bare "
             "ʿUthmānic rasm — undotted, unvowelled, no hamza — which is what "
             "the seven riwāyāt actually share.  How each riwāyah spells that "
-            "word is in `forms`; where each counting tradition ends its āyāt "
-            "is in `fawasil.json`."
+            "word is in `forms`; where each edition ends its āyāt, and which "
+            "counting system that is, is in `fawasil.json`."
         ),
     }
 
@@ -135,23 +137,11 @@ def write_all(words: list[Word], riwayat: list[Riwaya]) -> dict:
         json.dumps({**meta, "suras": index}, ensure_ascii=False, indent=1),
         encoding="utf-8")
 
-    # --- flat word table --------------------------------------------------
-    keys = [r.key for r in riwayat]
-    with (OUT / "words.csv").open("w", encoding="utf-8", newline="") as fh:
-        wr = csv.writer(fh)
-        wr.writerow(["word_id", "sura", "word_index", "key", "rasm", "pointed",
-                     "uthmani", "simple", "status", "present_count"]
-                    + [f"aya_{k}" for k in keys] + [f"form_{k}" for k in keys])
-        for w in words:
-            wr.writerow([w.id, w.sura, w.index, w.key, w.rasm, w.pointed,
-                         w.uthmani, w.simple, w.status, len(w.present)]
-                        + [w.aya.get(k, "") for k in keys]
-                        + [w.forms.get(k, "") for k in keys])
-
     # --- variants: only where a riwāyah departs from the canonical form ----
+    keys = [r.key for r in riwayat]
     with (OUT / "variants.csv").open("w", encoding="utf-8", newline="") as fh:
         wr = csv.writer(fh)
-        wr.writerow(["word_id", "sura", "word_index", "riwaya", "aya",
+        wr.writerow(["n", "sura", "word_index", "riwaya", "aya",
                      "canonical_uthmani", "riwaya_uthmani", "same_rasm", "status"])
         for w in words:
             for k in keys:
@@ -168,7 +158,7 @@ def write_all(words: list[Word], riwayat: list[Riwaya]) -> dict:
                                "word_boundary")]
     with (OUT / "conflicts.csv").open("w", encoding="utf-8", newline="") as fh:
         wr = csv.writer(fh)
-        wr.writerow(["word_id", "sura", "word_index", "aya_hafs", "status",
+        wr.writerow(["n", "sura", "word_index", "aya_hafs", "status",
                      "rasm", "missing_in", "joined_in", "distinct_forms", "forms"])
         for w in flagged:
             groups = _groups(w)
@@ -185,22 +175,10 @@ def write_all(words: list[Word], riwayat: list[Riwaya]) -> dict:
                     "words": [_word_json(w) for w in flagged]},
                    ensure_ascii=False, indent=1), encoding="utf-8")
 
-    # --- fawāṣil: the āyah boundaries, as a layer over the word index -------
-    systems = fawasil(words)
-    (OUT / "fawasil.json").write_text(
-        json.dumps({
-            "generated": date.today().isoformat(),
-            "model": (
-                "Each system lists the ID of the last word of every āyah, in "
-                "order. The riwāyāt following one system agree on all of them."
-            ),
-            "systems": systems,
-        }, ensure_ascii=False, indent=1), encoding="utf-8")
-
     # --- word-boundary events ----------------------------------------------
     with (OUT / "boundaries.csv").open("w", encoding="utf-8", newline="") as fh:
         wr = csv.writer(fh)
-        wr.writerow(["word_ids", "sura", "aya_hafs", "kind", "riwayat",
+        wr.writerow(["numbers", "sura", "aya_hafs", "kind", "riwayat",
                      "riwayat_agree", "forms"])
         for event in boundary_events(words):
             wr.writerow([
@@ -220,16 +198,23 @@ def boundary_events(words: list[Word]) -> list[dict]:
     between two.  ``agree`` says whether the riwāyāt read the run identically
     once it has been re-segmented — which is how a source that merely lost a
     space is told apart from a muṣḥaf that really does print the words joined.
+
+    A *declared* joined word (``written_joined``) is not an event here: it is
+    the muṣḥaf's own orthography, carried in ``numbering`` and the spine, not a
+    departure this build made from it.
     """
+    def resegmented(w: Word) -> bool:
+        return any(v != WRITTEN_JOINED for v in w.boundary.values())
+
     events: list[dict] = []
     run: list[Word] = []
     for w in words:
-        if w.boundary and run and w.id == run[-1].id + 1:
+        if resegmented(w) and run and w.id == run[-1].id + 1:
             run.append(w)
             continue
         if run:
             events.append(_event(run))
-        run = [w] if w.boundary else []
+        run = [w] if resegmented(w) else []
     if run:
         events.append(_event(run))
     return events
@@ -238,16 +223,17 @@ def boundary_events(words: list[Word]) -> list[dict]:
 def _event(run: list[Word]) -> dict:
     texts: dict[str, list[str]] = defaultdict(list)
     for k in ORDER:
-        parts = [w.forms[k] for w in run if k in w.forms]
+        parts = [w.forms[k] for w in run if k in w.forms and k not in w.continuation]
         if parts:
             texts[" ".join(parts)].append(k)
-    kinds = {kind for w in run for kind in w.boundary.values()}
+    kinds = {kind for w in run for kind in w.boundary.values()} - {WRITTEN_JOINED}
     return {
         "word_ids": [w.id for w in run],
         "sura": run[0].sura,
         "aya": run[0].aya.get("hafs", next(iter(run[0].aya.values()), "")),
         "kind": "|".join(sorted(kinds)),
-        "riwayat": sorted({k for w in run for k in w.boundary}),
+        "riwayat": sorted({k for w in run for k, v in w.boundary.items()
+                           if v != WRITTEN_JOINED}),
         "agree": all(len({w.rasm} | {_rasm_of(w, k) for k in w.forms}) == 1
                      for w in run),
         "texts": dict(texts),
