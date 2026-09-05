@@ -1,155 +1,141 @@
-# quran-word-index
+# quran-text
 
-A **flat, word-level representation of the Uthmānī Qur'anic text** in which every
-word carries one fixed number that means the same word across all seven riwāyāt
-available in `data/`.
+**The Qurʾān as text, in seven riwāyāt, as the printed muṣḥafs have it — with
+one word numbering that means the same word in all seven.**
 
-```
-sūrah  →  [ word, word, word, … ]
-```
+Every word of Ḥafṣ, Shuʿbah, Warsh, Qālūn, Dūrī, Sūsī and Bazzī, taken from the
+King Fahd Complex's own digital releases, published as plain JSON with its
+page, its line, its āyah, its pause marks, and a number shared across the
+seven — so a translation, a grammar entry or an audio segment attached to a
+word once can be read off any riwāyah.
 
-Not `sūrah → āyah → word`. The āyah number is an *attribute* of a word, not a
-level of nesting — because the editions disagree about where āyāt end far more
-than they disagree about words, and **the count belongs to the printed edition,
-not to the qirāʾah**:
+## Just want the text?
 
-| edition | counting system | āyāt | at the points of khilāf inside the system |
-|---|---|---|---|
-| Ḥafṣ, Shuʿbah | Kūfī | 6,236 | — |
-| Warsh, Qālūn | Last Madinan | 6,214 | — |
-| Dūrī | First Madinan | 6,217 | 67:9 not counted, following Abū Jaʿfar |
-| Sūsī | First Madinan | 6,218 | 67:9 counted, following Shayba |
-| Bazzī | Makkī | 6,220 | 78:40 counted, [not yet cited](docs/ISSUES.md) |
+Take **[`out/mushaf/hafs.json`](out/mushaf/hafs.json)** — Ḥafṣ, the riwāyah
+nearly every app uses, as the King Fahd Complex prints it. `words` is the text,
+`ayah_starts` says where each āyah begins, and that is all you need:
 
-Each system is derived from what the edition prints, not assumed from the
-riwāyah — the two Abū ʿAmr editions are First Madinan, not Baṣrī, and they
-differ from each other at exactly one documented point. Nesting words under
-āyāt would make a number mean a different word in each edition. Flattening to
-the sūrah makes one number stable across all of them, and the āyah boundaries
-become their own layer over the word index: [`out/counting.json`](out/counting.json).
-
-## What makes a number mean one word
-
-Words are identified by their **bare ʿUthmānic rasm** — undotted, unvowelled,
-without hamza — because that is what the seven riwāyāt actually share. The
-codices were written that way, and a single skeleton carries several readings
-on purpose:
-
-```
-تَعۡمَلُونَ  ┐
-           ├─►  ٮعملوں   one rasm, one number, two readings
-يَعۡمَلُونَ  ┘
+```python
+import json
+m = json.load(open("out/mushaf/hafs.json", encoding="utf-8"))
+a = m["ayah_starts"]
+k = m["suras"][2 - 1]["first_ayah"] + 255 - 1          # sūrah 2, āyah 255
+print(" ".join(m["words"][a[k]:a[k + 1]]))
 ```
 
-Everything a scribe added later to fix a reading — dots, hamza, vowels — is
-exactly what the riwāyāt are allowed to disagree about, so none of it is part
-of a word's identity. Each riwāyah's own spelling is kept in `forms`.
+Pages, lines, juz and pause marks are in the same file; `.nested.json.gz`
+beside it is the same text as sūrah → āyah → words. Agents: see
+[`skills/quran-text/SKILL.md`](skills/quran-text/SKILL.md).
 
-The numbering counts the **finest division** any muṣḥaf prints. Where one
-muṣḥaf writes two words as one — `وَأَلَّوِ` at 72:16, `أَلَّن` at 73:20 — both
-words keep a number and the joined word covers both; where a muṣḥaf does not
-read a word — Bazzī's `مِن` at 9:101, Nāfiʿ's absent `هُوَ` at 57:24, `أَوۡ` at
-40:26 — the number is simply missing from it. Nothing false is ever stated,
-and each concept means one thing. Specified in
-[`docs/MUSHAF-FORMAT.md`](docs/MUSHAF-FORMAT.md).
+## Why this exists
 
-## What is here
+Most Qurʾān datasets give you one riwāyah, Ḥafṣ, as āyāt. That is enough for a
+reader and not enough for anything that has to *reason* about the text:
 
-Start with [`out/catalog.json`](out/catalog.json): it lists the riwāyāt, the
-sūrahs, and every file below with the question it answers.
+- **Seven riwāyāt, not one.** The others are not variants of Ḥafṣ; each is a
+  printed muṣḥaf of its own, and here each is published on its own terms —
+  its words, its spelling, its āyah division, its typesetting.
+- **Words, not āyāt, are the unit.** The riwāyāt agree on the words almost
+  everywhere and disagree on where āyāt end far more often, so the āyah is an
+  attribute of a word here, not a container. That is what lets one number
+  mean one word in all seven, and what lets data cross between them.
+- **The āyah count belongs to the edition.** Dūrī and Sūsī are both First
+  Madinan and differ at exactly one documented point; Bazzī counts one āyah
+  no source yet explains. Each edition's counting system is *derived* from
+  what it prints and checked against the classical systems, not assumed from
+  the riwāyah, and every disagreement is named with the authority it follows.
+- **Nothing is invented, and every departure is disclosed.** The text is the
+  KFGQPC release's, hash for hash. Where this build re-spaces a word, where a
+  line is reconstructed rather than read, where a count is unexplained — it
+  is in the file, not in a footnote.
+
+## What you get
+
+Start with [`out/catalog.json`](out/catalog.json): the riwāyāt, the sūrahs,
+and every file with the question it answers.
 
 | you want to… | read |
 |---|---|
-| render one muṣḥaf — Warsh, on its own, with its pages, lines, āyāt and pause marks | `out/mushaf/warsh.json` (**normative**), or its views `warsh.nested.json.gz` (sūrah → āyah → words) and `warsh.csv.gz` (one row per word) |
-| use the same word across riwāyāt, attach a Ḥafṣ-keyed dataset, search by plain spelling | `out/word-index.json`, `.csv` (**normative**) — every number with its text, its Ḥafṣ `{sura, ayah, pos}`, and each riwāyah's form |
-| see only where the riwāyāt actually differ | `out/differences.json`, `.csv` |
-| convert an āyah reference: what is 2:255 in Warsh? | `out/ayah-map.json`, `.csv` |
-| know which counting system each edition follows, and the boundaries of all six | `out/counting.json` |
+| render one muṣḥaf — Warsh, on its own, with its pages, lines, āyāt and pause marks | [`out/mushaf/warsh.json`](out/mushaf/warsh.json), or its views `warsh.nested.json.gz` (sūrah → āyah → words) and `warsh.csv.gz` (one row per word) |
+| use the same word across riwāyāt, attach a Ḥafṣ-keyed dataset, search by plain spelling | [`out/word-index.json`](out/word-index.json), `.csv` — every number with its text, its Ḥafṣ `{sura, ayah, pos}`, and each riwāyah's form |
+| see only where the riwāyāt actually differ | [`out/differences.json`](out/differences.json), `.csv` — 277 words |
+| convert an āyah reference: what is 2:255 in Warsh? | [`out/ayah-map.json`](out/ayah-map.json), `.csv` |
+| know which counting system each edition follows, and the boundaries of all six | [`out/counting.json`](out/counting.json) |
 | query it in SQL | `out/quran.sqlite.gz` — all seven plus the word index |
-| verify what you downloaded | `out/manifest.json` — SHA-256 of every source and every file |
-| read the findings and how this was built | `out/reports/` — `COMPARISON.md`, `rasm-variants.md`, `compare.html`, `agreement-matrix.csv`, `variants.csv`, `resegmentation.csv` |
+| verify what you downloaded | [`out/manifest.json`](out/manifest.json) — SHA-256 of every source and every file |
+| read the findings | [`out/reports/`](out/reports/) — the comparison report, every letter-level variant, an interactive comparison page |
 
-A muṣḥaf file is about half a megabyte gzipped, and a sūrah, a page or a juz
-is one slice of its `words`, so there are no per-sūrah files. Each muṣḥaf
-file names the KFGQPC release it came from, says which layers it carries and
-why it lacks the rest, names the counting system its āyah division follows and
-what it does at every point of khilāf, and lists every place this build
-changed the source's own word spacing. The format is specified in
-[`docs/MUSHAF-FORMAT.md`](docs/MUSHAF-FORMAT.md), every file in
-[`docs/SCHEMA.md`](docs/SCHEMA.md), and the JSON Schemas are in
-[`schema/`](schema/).
+## Three lines of use
 
-## Headline numbers
+Print āyat al-Kursī as Warsh prints it — where it is āyāt 253–254 of sūrah 2:
 
-**77,434** numbers · **114** sūrahs · **7** riwāyāt.
-
-| status | words | share | meaning |
-|---|---|---|---|
-| `identical` | 40,558 | 52.4% | one reading, one spelling, everywhere |
-| `diacritic_variant` | 36,261 | 46.8% | same letters and dots — the vowelling differs |
-| `dotting_variant` | 338 | 0.44% | one rasm, pointed two ways |
-| `alif_variant` | 198 | 0.26% | one ā, on the line in one hand and above it in the other |
-| `rasm_variant` | 60 | 0.08% | the riwāyāt disagree about the letters |
-| `word_boundary` | 16 | 0.02% | a source joins the word to its neighbour, or a muṣḥaf really prints it joined |
-| `partial` | 3 | 0.004% | the word is absent from some riwāyah |
-
-So **615 words in 77,434** — one in 126 — are anything more than a difference
-of vowelling, and only **60** of those are a letter one codex has and another
-does not. The other 198 letter-level differences are an ā the two typesettings
-place differently, on the line in one hand and above it in the other. They are
-counted apart because the corpus says they belong apart: all 198 divide the
-seven riwāyāt along one line, Warsh+Qālūn against the rest, in both directions
-and without an exception, while the 60 divide them fourteen different ways.
-Ḥadhf/ithbāt al-alif does vary between the codices of the amṣār — but not by
-publisher. Rasm agreement between any two riwāyāt is **99.5 %–100 %**.
-
-## A word
-
-```json
-{
- "number": 11, "sura": 1, "index": 11, "key": "1:مالك#1",
- "rasm": "ملك", "pointed": "مالك", "uthmani": "مَٰلِكِ", "simple": "مالك",
- "status": "dotting_variant",
- "hafs":  { "sura": 1, "ayah": 4, "pos": 1 },
- "ayah":  { "hafs": 4, "shuba": 4, "warsh": 3, "qaloun": 3,
-            "douri": 3, "sousi": 3, "bazzi": 4 },
- "forms": { "hafs": "مَٰلِكِ", "shuba": "مَٰلِكِ", "warsh": "مَلِكِ", "qaloun": "مَلِكِ",
-            "douri": "مَلِكِ", "sousi": "مَّلِكِ", "bazzi": "مَلِكِ" }
-}
+```python
+import json
+m = json.load(open("out/mushaf/warsh.json", encoding="utf-8"))
+a = m["ayah_starts"]; k = m["suras"][1]["first_ayah"] + 253 - 1   # sūrah 2, āyah 253 in Warsh's own count
+print(" ".join(m["words"][a[k]:a[k + 2]]))
 ```
 
-One number, one word. `ayah` records that this word is in āyah 4 for the Kūfī
-and Makkī counts and āyah 3 for the Madanī ones. `forms` records that Ḥafṣ and
-Shuʿbah read *māliki* where the rest read *maliki* — and `rasm` records that
-the codex writes `ملك` either way. Ḥafṣ's ā is printed as a superscript alef,
-which is precisely the scribal cue that it is *not* on the line: one skeleton,
-deliberately written to carry both readings.
+Find the same word in every riwāyah:
+
+```python
+idx = json.load(open("out/word-index.json", encoding="utf-8"))["words"]
+w = idx[10]                      # number 11
+print(w["hafs"], w["forms"])     # {'sura': 1, 'ayah': 4, 'pos': 1}  {'hafs': 'مَٰلِكِ', 'warsh': 'مَلِكِ', …}
+```
+
+Keep a reader on the same āyah when switching riwāyah:
+
+```python
+rows = json.load(open("out/ayah-map.json", encoding="utf-8"))["ayat"]
+print(next(r for r in rows if (r["sura"], r["ayah"]) == (2, 255))["warsh"])
+# {'sura': 2, 'ayah': 253, 'ayah_last': 254, 'relation': 'split'}
+```
+
+## The seven
+
+| edition | qāriʾ | counting system | āyāt | words |
+|---|---|---|---|---|
+| Ḥafṣ, Shuʿbah | ʿĀṣim al-Kūfī | Kūfī | 6,236 | 77,432 |
+| Warsh, Qālūn | Nāfiʿ al-Madanī | Last Madinan | 6,214 | 77,431 |
+| Dūrī | Abū ʿAmr al-Baṣrī | First Madinan, following Abū Jaʿfar at 67:9 | 6,217 | 77,431 |
+| Sūsī | Abū ʿAmr al-Baṣrī | First Madinan, following Shayba at 67:9 | 6,218 | 77,431 |
+| Bazzī | Ibn Kathīr al-Makkī | Makkī, plus 78:40 ([open](docs/known-issues.md)) | 6,220 | 77,432 |
+
+77,434 numbers in all. The seven agree on the letters of 99.5 % or more of
+them; where they differ, [`out/differences.json`](out/differences.json) says
+who reads what.
+
+## Sources
+
+All text is from King Fahd Glorious Qur'an Printing Complex (KFGQPC) releases,
+listed with hashes in [`docs/sources.md`](docs/sources.md) and in
+every file's `provenance`. Nothing was authored here; the pipeline only
+re-segments and aligns what the packages contain. Redistribution of the text
+remains subject to KFGQPC's terms. The counting-system boundaries under
+`data/counting/` are from
+[quranpedia/qiraat-ayah-map](https://github.com/quranpedia/qiraat-ayah-map),
+MIT, at a pinned commit.
 
 ## Build it
 
-No dependencies beyond the Python standard library (3.11+). The counting-system
-boundaries are vendored under `data/counting/` from
-[qiraat-ayah-map](https://github.com/quranpedia/qiraat-ayah-map) at a pinned
-commit, so the build is reproducible offline.
+No dependencies beyond the Python standard library (3.11+); the build is
+reproducible offline.
 
 ```sh
 python3 build.py                            # ~3 min, writes out/
 python3 -m unittest discover -s tests        # 71 tests
 ```
 
-## Read next
+## Documentation
 
-- [`docs/MUSHAF-FORMAT.md`](docs/MUSHAF-FORMAT.md) — the normative format: words by position, the numbering, the counting block
-- [`docs/METHOD.md`](docs/METHOD.md) — how words are derived and aligned
-- [`docs/SCHEMA.md`](docs/SCHEMA.md) — every file under `out/`, and every field
-- [`docs/DATA-SOURCES.md`](docs/DATA-SOURCES.md) — what is in `data/`
-- [`docs/ISSUES.md`](docs/ISSUES.md) — what the sources contain, and mistakes made building this
-- [`docs/LIMITATIONS.md`](docs/LIMITATIONS.md) — what this does **not** do
-
-## Provenance
-
-All text is derived from King Fahd Glorious Qur'an Printing Complex (KFGQPC)
-releases. Nothing was authored here; the pipeline only re-segments and aligns
-what the packages contain. Redistribution of the text remains subject to
-KFGQPC's terms. The counting-system data under `data/counting/` is from
-quranpedia/qiraat-ayah-map, MIT.
+| | |
+|---|---|
+| [`docs/design.md`](docs/design.md) | **why** — the text is flat, what a number means, the count belongs to the edition |
+| [`docs/format.md`](docs/format.md) | **the spec** — the two normative files, shapes and rules |
+| [`docs/files.md`](docs/files.md) | **the map of `out/`** — every file, its shape, what it answers |
+| [`docs/method.md`](docs/method.md) | **how it is built** — parse, tokenise, normalise, align, verify |
+| [`docs/sources.md`](docs/sources.md) | **what is in `data/`** |
+| [`docs/known-issues.md`](docs/known-issues.md) | **what the sources contain**, and the open findings |
+| [`docs/limitations.md`](docs/limitations.md) | **what this does not do** |
+| [`docs/lessons.md`](docs/lessons.md) | **mistakes made building this** |

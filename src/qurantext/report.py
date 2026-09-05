@@ -143,7 +143,7 @@ def _pairwise(words: list[Word], keys: list[str]) -> list[dict]:
 def write_report(words: list[Word], riwayat: list[Riwaya],
                  docs: dict[str, dict] | None = None) -> None:
     """``out/COMPARISON.md`` and companions.  ``docs`` are the muṣḥaf files
-    from :func:`quranidx.mushaf.write_mushafs`, for their ``counting`` blocks."""
+    from :func:`qurantext.mushaf.write_mushafs`, for their ``counting`` blocks."""
     keys = [r.key for r in riwayat]
     status = Counter(w.status for w in words)
     pairs = _pairwise(words, keys)
@@ -431,7 +431,7 @@ def write_report(words: list[Word], riwayat: list[Riwaya],
         "as one. The numbering counts the finest division, so both words keep a "
         "number and the joined word *covers* both — recorded in each muṣḥaf's "
         "`numbering.written_joined`, never as a missing word. Declared in "
-        "`data/written-joined.json`.")
+        "`data/alignment/written-joined.json`.")
     add("")
     add(_table([[
         w.id, f"{w.sura}:{w.aya.get('hafs') or max(w.aya.values())}", f"`{w.rasm}`",

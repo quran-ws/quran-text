@@ -19,7 +19,7 @@ the ``numbering`` block holds numbers.  A consumer who works in one muṣḥaf
 never reads it.
 
 Only ``out/mushaf/<key>.json`` and ``out/word-index.json`` are normative.  The
-nested, CSV and SQLite forms in :mod:`quranidx.views` are generated from the
+nested, CSV and SQLite forms in :mod:`qurantext.views` are generated from the
 same build and are labelled views, so that whichever one turns out to
 be most convenient cannot quietly become the standard.
 
@@ -164,7 +164,7 @@ def numbering(printed: list[Printed], missing: list[int], total: int) -> dict:
     number can fail to be covered.  ``written_joined`` lists the printed words
     that cover more than one number — the only way a position can cover more
     than one.  Everything else is one word, one number, in step, and is not
-    stored.  See ``docs/MUSHAF-FORMAT.md``, *Numbering*, for the invariants.
+    stored.  See ``docs/format.md``, *Numbering*, for the invariants.
     """
     return {
         "total": total,
@@ -269,7 +269,7 @@ def _line_check(key: str, printed: list[Printed], r: Riwaya) -> dict:
     """Re-check the reconstructed lines against the release that states them.
 
     The page is read from the document; the line is inferred from its flow (see
-    :mod:`quranidx.layout`).  The v2 CSV states the line of every āyah, so the
+    :mod:`qurantext.layout`).  The v2 CSV states the line of every āyah, so the
     inference can be scored rather than merely asserted — and the āyāt it gets
     wrong are listed, so a consumer can exclude them instead of discovering them.
     Bazzī has no v2 release, so its lines cannot be checked at all.
@@ -364,7 +364,7 @@ def document(words: list[Word], r: Riwaya,
              imlaei: dict[int, str] | None = None) -> dict:
     """The whole of one muṣḥaf, in the canonical shape.
 
-    The ``counting`` block is filled in by :func:`quranidx.counting.derive`
+    The ``counting`` block is filled in by :func:`qurantext.counting.derive`
     once the file's own āyah layer exists, since it is derived from it.
     """
     key = r.key
