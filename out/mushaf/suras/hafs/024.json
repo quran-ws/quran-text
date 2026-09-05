@@ -3,7 +3,14 @@
  "format_version": "1.0",
  "view_of": "out/mushaf/hafs.json",
  "view": "sura-shard",
- "mushaf": "hafs",
+ "mushaf": {
+  "key": "hafs",
+  "name_en": "Ḥafṣ",
+  "name_ar": "حفص",
+  "qari_en": "ʿĀṣim al-Kūfī",
+  "qari_ar": "عاصم الكوفي",
+  "word_count": 77432
+ },
  "provenance": {
   "text": {
    "package": "UthmanicHafs-v-3.0.zip",
@@ -24,12 +31,12 @@
   }
  },
  "sura": {
-  "n": 24,
+  "number": 24,
   "name_ar": "النور",
   "name_en": "An-Nūr",
   "revelation": "madani",
-  "basmalah": true,
-  "ayat": 64
+  "has_basmalah": true,
+  "ayah_count": 64
  },
  "offset": 44913,
  "words": [
@@ -4588,43 +4595,43 @@
  ],
  "mark_types": [
   {
-   "k": "waqf",
-   "at": "after",
+   "kind": "waqf",
+   "side": "after",
    "sign": "ۛ"
   },
   {
-   "k": "waqf",
-   "at": "after",
+   "kind": "waqf",
+   "side": "after",
    "sign": "ۖ"
   },
   {
-   "k": "waqf",
-   "at": "after",
+   "kind": "waqf",
+   "side": "after",
    "sign": "ۗ"
   },
   {
-   "k": "waqf",
-   "at": "after",
+   "kind": "waqf",
+   "side": "after",
    "sign": "ۚ"
   },
   {
-   "k": "hizb",
-   "at": "before",
+   "kind": "hizb",
+   "side": "before",
    "sign": "۞"
   },
   {
-   "k": "waqf",
-   "at": "after",
+   "kind": "waqf",
+   "side": "after",
    "sign": "ۘ"
   },
   {
-   "k": "sajdah",
-   "at": "after",
+   "kind": "sajdah",
+   "side": "after",
    "sign": "۩"
   },
   {
-   "k": "waqf",
-   "at": "after",
+   "kind": "waqf",
+   "side": "after",
    "sign": "ۜ"
   }
  ],

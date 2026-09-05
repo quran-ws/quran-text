@@ -3,7 +3,14 @@
  "format_version": "1.0",
  "view_of": "out/mushaf/shuba.json",
  "view": "sura-shard",
- "mushaf": "shuba",
+ "mushaf": {
+  "key": "shuba",
+  "name_en": "Shuʿbah",
+  "name_ar": "شعبة",
+  "qari_en": "ʿĀṣim al-Kūfī",
+  "qari_ar": "عاصم الكوفي",
+  "word_count": 77432
+ },
  "provenance": {
   "text": {
    "package": "UthmanicShubah-v-3.0.zip",
@@ -24,12 +31,12 @@
   }
  },
  "sura": {
-  "n": 80,
+  "number": 80,
   "name_ar": "عَبَسَ",
   "name_en": "‘Abasa",
   "revelation": "makki",
-  "basmalah": true,
-  "ayat": 42
+  "has_basmalah": true,
+  "ayah_count": 42
  },
  "offset": 75476,
  "words": [
@@ -373,43 +380,43 @@
  "marks": [],
  "mark_types": [
   {
-   "k": "waqf",
-   "at": "after",
+   "kind": "waqf",
+   "side": "after",
    "sign": "ۛ"
   },
   {
-   "k": "waqf",
-   "at": "after",
+   "kind": "waqf",
+   "side": "after",
    "sign": "ۖ"
   },
   {
-   "k": "waqf",
-   "at": "after",
+   "kind": "waqf",
+   "side": "after",
    "sign": "ۗ"
   },
   {
-   "k": "waqf",
-   "at": "after",
+   "kind": "waqf",
+   "side": "after",
    "sign": "ۚ"
   },
   {
-   "k": "hizb",
-   "at": "before",
+   "kind": "hizb",
+   "side": "before",
    "sign": "۞"
   },
   {
-   "k": "waqf",
-   "at": "after",
+   "kind": "waqf",
+   "side": "after",
    "sign": "ۘ"
   },
   {
-   "k": "sajdah",
-   "at": "after",
+   "kind": "sajdah",
+   "side": "after",
    "sign": "۩"
   },
   {
-   "k": "waqf",
-   "at": "after",
+   "kind": "waqf",
+   "side": "after",
    "sign": "ۜ"
   }
  ],

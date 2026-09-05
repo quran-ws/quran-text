@@ -54,7 +54,7 @@ A word is a whitespace-delimited run of letters and their marks. Everything else
 is peeled off and kept:
 
 - **āyah numbers** (`U+06DD` + digits, or the presentation-form ligatures
-  `U+FC00 + n − 1` that the v2 CSVs use) become the word's `aya` attribute;
+  `U+FC00 + n − 1` that the v2 CSVs use) become the word's `ayah` attribute;
 - **pause marks** (`ۖ ۗ ۘ ۙ ۚ ۛ`) trail a word with no space; they are recitation
   annotation, not orthography, so they move to a `waqf` field;
 - **rub-el-ḥizb** `۞` and **sajdah** `۩` become flags on the neighbouring word.
@@ -223,10 +223,11 @@ each riwāyah. Its position is the word's number.
 
 ## Identifiers
 
-- **`id`** / **`n`** — the shared number, a running integer over the whole
-  corpus, `1 … 77434`, counting the finest division any muṣḥaf prints. The
-  scheme is specified in `docs/MUSHAF-FORMAT.md`, *Numbering*.
-- **`i`** — the word's 1-based position within its sūrah.
+- **`number`** — the shared number, a running integer over the whole corpus,
+  `1 … 77434`, counting the finest division any muṣḥaf prints; the same key in
+  the index, the spine, the muṣḥaf views and SQLite. The scheme is specified
+  in `docs/MUSHAF-FORMAT.md`, *Numbering*.
+- **`index`** — the word's 1-based position within its sūrah.
 - **`key`** — `sūrah:pointed#occurrence`, e.g. `1:مالك#1`. This is rebuild-stable
   and does not shift if a future release adds or removes a word earlier in the
   sūrah, so it is the safer join key for long-lived references. It is built from
@@ -252,7 +253,7 @@ See `docs/MUSHAF-FORMAT.md`, *Counting*.
 
 `python3 build.py` runs three families of check and prints what it finds.
 
-1. **Structural** — numbers contiguous, `key` unique, `i` contiguous per sūrah.
+1. **Structural** — numbers contiguous, `key` unique, `index` contiguous per sūrah.
 2. **Round-trip** — for each riwāyah, the concatenated rasm of every form in the
    index must equal the concatenated rasm of tokenising that riwāyah's source
    directly. Comparing letters rather than word counts makes the check

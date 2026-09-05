@@ -3,7 +3,14 @@
  "format_version": "1.0",
  "view_of": "out/mushaf/douri.json",
  "view": "sura-shard",
- "mushaf": "douri",
+ "mushaf": {
+  "key": "douri",
+  "name_en": "Dūrī",
+  "name_ar": "الدوري",
+  "qari_en": "Abū ʿAmr al-Baṣrī",
+  "qari_ar": "أبو عمرو البصري",
+  "word_count": 77431
+ },
  "provenance": {
   "text": {
    "package": "UthmanicDouri_V20.zip",
@@ -24,12 +31,12 @@
   }
  },
  "sura": {
-  "n": 64,
+  "number": 64,
   "name_ar": "التغَابُن",
   "name_en": "At-Taghābun",
   "revelation": "madani",
-  "basmalah": true,
-  "ayat": 18
+  "has_basmalah": true,
+  "ayah_count": 18
  },
  "offset": 71685,
  "words": [
@@ -672,43 +679,43 @@
  ],
  "mark_types": [
   {
-   "k": "waqf",
-   "at": "after",
+   "kind": "waqf",
+   "side": "after",
    "sign": "ۚ"
   },
   {
-   "k": "waqf",
-   "at": "after",
+   "kind": "waqf",
+   "side": "after",
    "sign": "ۛ"
   },
   {
-   "k": "waqf",
-   "at": "after",
+   "kind": "waqf",
+   "side": "after",
    "sign": "ۖ"
   },
   {
-   "k": "waqf",
-   "at": "after",
+   "kind": "waqf",
+   "side": "after",
    "sign": "ۗ"
   },
   {
-   "k": "hizb",
-   "at": "before",
+   "kind": "hizb",
+   "side": "before",
    "sign": "۞"
   },
   {
-   "k": "waqf",
-   "at": "after",
+   "kind": "waqf",
+   "side": "after",
    "sign": "ۘ"
   },
   {
-   "k": "sajdah",
-   "at": "after",
+   "kind": "sajdah",
+   "side": "after",
    "sign": "۩"
   },
   {
-   "k": "waqf",
-   "at": "after",
+   "kind": "waqf",
+   "side": "after",
    "sign": "۪"
   }
  ],

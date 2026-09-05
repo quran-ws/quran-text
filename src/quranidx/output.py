@@ -14,7 +14,7 @@ from .build import ORDER, OUT, Word
 from .sources import Riwaya
 from .suras import names
 
-SCHEMA_VERSION = "2.0"
+SCHEMA_VERSION = "3.0"
 
 
 def _riwaya_meta(riwayat: list[Riwaya]) -> list[dict]:
@@ -53,15 +53,15 @@ def _word_json(w: Word) -> dict:
     signal that the riwāyāt part company here.
     """
     rec = {
-        "id": w.id,
-        "i": w.index,
+        "number": w.id,
+        "index": w.index,
         "key": w.key,
         "rasm": w.rasm,
         "pointed": w.pointed,
         "uthmani": w.uthmani,
         "simple": w.simple,
         "status": w.status,
-        "aya": w.aya,
+        "ayah": w.aya,
         "forms": w.forms,
     }
     groups = _groups(w)
@@ -82,7 +82,7 @@ def _word_json(w: Word) -> dict:
     return rec
 
 
-def write_all(words: list[Word], riwayat: list[Riwaya]) -> dict:
+def write_index(words: list[Word], riwayat: list[Riwaya]) -> dict:
     OUT.mkdir(exist_ok=True)
     (OUT / "suras").mkdir(exist_ok=True)
 
@@ -114,8 +114,8 @@ def write_all(words: list[Word], riwayat: list[Riwaya]) -> dict:
             "sura": sura,
             **info,
             "word_count": len(ws),
-            "first_word_id": ws[0].id,
-            "last_word_id": ws[-1].id,
+            "first_number": ws[0].id,
+            "last_number": ws[-1].id,
             "ayah_count": {r.key: max((w.aya.get(r.key, 0) for w in ws), default=0)
                            for r in riwayat},
             "words": [_word_json(w) for w in ws],
@@ -141,7 +141,7 @@ def write_all(words: list[Word], riwayat: list[Riwaya]) -> dict:
     keys = [r.key for r in riwayat]
     with (OUT / "variants.csv").open("w", encoding="utf-8", newline="") as fh:
         wr = csv.writer(fh)
-        wr.writerow(["n", "sura", "word_index", "riwaya", "aya",
+        wr.writerow(["number", "sura", "index", "riwaya", "ayah",
                      "canonical_uthmani", "riwaya_uthmani", "same_rasm", "status"])
         for w in words:
             for k in keys:
@@ -158,7 +158,7 @@ def write_all(words: list[Word], riwayat: list[Riwaya]) -> dict:
                                "word_boundary")]
     with (OUT / "conflicts.csv").open("w", encoding="utf-8", newline="") as fh:
         wr = csv.writer(fh)
-        wr.writerow(["n", "sura", "word_index", "aya_hafs", "status",
+        wr.writerow(["number", "sura", "index", "ayah_hafs", "status",
                      "rasm", "missing_in", "joined_in", "distinct_forms", "forms"])
         for w in flagged:
             groups = _groups(w)
@@ -178,7 +178,7 @@ def write_all(words: list[Word], riwayat: list[Riwaya]) -> dict:
     # --- word-boundary events ----------------------------------------------
     with (OUT / "boundaries.csv").open("w", encoding="utf-8", newline="") as fh:
         wr = csv.writer(fh)
-        wr.writerow(["numbers", "sura", "aya_hafs", "kind", "riwayat",
+        wr.writerow(["numbers", "sura", "ayah_hafs", "kind", "riwayat",
                      "riwayat_agree", "forms"])
         for event in boundary_events(words):
             wr.writerow([

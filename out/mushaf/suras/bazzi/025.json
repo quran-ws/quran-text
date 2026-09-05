@@ -3,7 +3,14 @@
  "format_version": "1.0",
  "view_of": "out/mushaf/bazzi.json",
  "view": "sura-shard",
- "mushaf": "bazzi",
+ "mushaf": {
+  "key": "bazzi",
+  "name_en": "Bazzī",
+  "name_ar": "البزي",
+  "qari_en": "Ibn Kathīr al-Makkī",
+  "qari_ar": "ابن كثير المكي",
+  "word_count": 77432
+ },
  "provenance": {
   "text": {
    "package": "UthmanicBazzi-v-3.0.zip",
@@ -14,12 +21,12 @@
   "policy": "within one riwāyah the later release is a correction; across riwāyāt nothing is assumed"
  },
  "sura": {
-  "n": 25,
+  "number": 25,
   "name_ar": "الفُرقَان",
   "name_en": "Al-Furqān",
   "revelation": "makki",
-  "basmalah": true,
-  "ayat": 77
+  "has_basmalah": true,
+  "ayah_count": 77
  },
  "offset": 46230,
  "words": [
@@ -2152,43 +2159,43 @@
  ],
  "mark_types": [
   {
-   "k": "waqf",
-   "at": "after",
+   "kind": "waqf",
+   "side": "after",
    "sign": "ۚ"
   },
   {
-   "k": "waqf",
-   "at": "after",
+   "kind": "waqf",
+   "side": "after",
    "sign": "ۛ"
   },
   {
-   "k": "waqf",
-   "at": "after",
+   "kind": "waqf",
+   "side": "after",
    "sign": "ۖ"
   },
   {
-   "k": "waqf",
-   "at": "after",
+   "kind": "waqf",
+   "side": "after",
    "sign": "ۗ"
   },
   {
-   "k": "hizb",
-   "at": "before",
+   "kind": "hizb",
+   "side": "before",
    "sign": "۞"
   },
   {
-   "k": "waqf",
-   "at": "after",
+   "kind": "waqf",
+   "side": "after",
    "sign": "ۘ"
   },
   {
-   "k": "sajdah",
-   "at": "after",
+   "kind": "sajdah",
+   "side": "after",
    "sign": "۩"
   },
   {
-   "k": "waqf",
-   "at": "after",
+   "kind": "waqf",
+   "side": "after",
    "sign": "ۜ"
   }
  ],

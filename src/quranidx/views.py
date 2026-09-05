@@ -22,7 +22,8 @@ import sqlite3
 from bisect import bisect_right
 from pathlib import Path
 
-from .mushaf import FORMAT, FORMAT_VERSION, MUSHAF_DIR
+from .build import OUT
+from .mushaf import FORMAT, FORMAT_VERSION, MUSHAF_DIR, numbers_of
 
 
 # --------------------------------------------------------------------------
@@ -38,24 +39,6 @@ def unit_of(starts: list[int], pos: int) -> int:
     return bisect_right(starts, pos) - 1
 
 
-def numbers_of(doc: dict) -> list[tuple[int, int]]:
-    """position -> ``(first, last)`` run of shared numbers, by the one-pass walk
-    the spec describes: advance one per word, skip ``missing``, advance by the
-    run length at a ``written_joined`` position."""
-    numbering = doc["numbering"]
-    missing = set(numbering["missing"])
-    joined = {j["position"]: j["numbers"] for j in numbering["written_joined"]}
-    runs = []
-    n = 1
-    for pos in range(len(doc["words"])):
-        while n in missing:
-            n += 1
-        first, last = joined.get(pos, (n, n))
-        runs.append((first, last))
-        n = last + 1
-    return runs
-
-
 class Coords:
     """Per-position coordinates of one muṣḥaf, read off its layers once."""
 
@@ -67,13 +50,13 @@ class Coords:
         self.line_starts = doc.get("line_starts")
         self.juz_starts = doc.get("juz_starts")
         self.numbers = numbers_of(doc)
-        self.first_ayah = {s["n"]: s["first_ayah"] for s in doc["suras"]}
+        self.first_ayah = {s["number"]: s["first_ayah"] for s in doc["suras"]}
         self.marks: dict[int, list[dict]] = {}
         for pos, t in doc["marks"]:
             self.marks.setdefault(pos, []).append(doc["mark_types"][t])
 
     def sura(self, pos: int) -> int:
-        return self.doc["suras"][unit_of(self.sura_starts, pos)]["n"]
+        return self.doc["suras"][unit_of(self.sura_starts, pos)]["number"]
 
     def ayah(self, pos: int) -> tuple[int, int]:
         """``(āyah number in this muṣḥaf, position within the āyah)``.
@@ -119,7 +102,7 @@ def _write_gz(path: Path, text: str) -> None:
 
 
 def _mark_text(marks: list[dict]) -> str:
-    return "|".join(f"{m['k']}:{m['at']}:{m['sign']}" for m in marks)
+    return "|".join(f"{m['kind']}:{m['side']}:{m['sign']}" for m in marks)
 
 
 def _word_record(c: Coords, pos: int) -> dict:
@@ -167,9 +150,8 @@ def write_nested(docs: dict[str, dict]) -> None:
             slot = str(rec["ayah"]) if rec["ayah"] else "basmalah"
             s["ayat"].setdefault(slot, {"words": []})["words"].append(rec)
         for row in doc["suras"]:
-            head = {("ayah_count" if k == "ayat" else k): v
-                    for k, v in row.items() if k not in ("n", "first_ayah")}
-            tree[str(row["n"])] = {**head, "ayat": tree[str(row["n"])]["ayat"]}
+            head = {k: v for k, v in row.items() if k not in ("number", "first_ayah")}
+            tree[str(row["number"])] = {**head, "ayat": tree[str(row["number"])]["ayat"]}
         _write_gz(out / f"{key}.json.gz", json.dumps({
             "format": FORMAT,
             "format_version": FORMAT_VERSION,
@@ -223,7 +205,7 @@ def write_shards(docs: dict[str, dict]) -> None:
                 "format_version": FORMAT_VERSION,
                 "view_of": f"out/mushaf/{key}.json",
                 "view": "sura-shard",
-                "mushaf": doc["mushaf"]["key"],
+                "mushaf": doc["mushaf"],
                 "provenance": doc["provenance"],
                 "sura": {k: v for k, v in row.items() if k != "first_ayah"},
                 "offset": lo,
@@ -248,7 +230,7 @@ def write_shards(docs: dict[str, dict]) -> None:
             for name in ("page_starts", "line_starts", "juz_starts"):
                 if shard[name] is None:
                     del shard[name]
-            (out / f"{row['n']:03d}.json").write_text(
+            (out / f"{row['number']:03d}.json").write_text(
                 json.dumps(shard, ensure_ascii=False, indent=1), encoding="utf-8")
 
 
@@ -317,7 +299,8 @@ CREATE INDEX mark_by_word ON mark (mushaf, pos);
 """
 
 
-def write_sqlite(docs: dict[str, dict], spine: dict, path: Path) -> None:
+def write_sqlite(docs: dict[str, dict], spine: dict,
+                 path: Path = OUT / "quran.sqlite") -> None:
     """All seven muṣḥafs and the spine in one queryable file.
 
     ``word.number`` is the shared number, indexed on its own, so comparing two
@@ -341,8 +324,9 @@ def write_sqlite(docs: dict[str, dict], spine: dict, path: Path) -> None:
     db = sqlite3.connect(path)
     db.executescript(SCHEMA)
     db.executemany("INSERT INTO spine VALUES (?,?,?,?,?,?,?,?,?,?)", [
-        (w["n"], w["sura"], w["rasm"], w["pointed"], w["uthmani"], w["simple"],
-         w["status"], *(w["hafs"] or (None, None, None)))
+        (w["number"], w["sura"], w["rasm"], w["pointed"], w["uthmani"], w["simple"],
+         w["status"], *((w["hafs"]["sura"], w["hafs"]["ayah"], w["hafs"]["pos"])
+                        if w["hafs"] else (None, None, None)))
         for w in spine["words"]])
     for key, doc in docs.items():
         m, prov, cnt = doc["mushaf"], doc["provenance"], doc["counting"]
@@ -354,8 +338,8 @@ def write_sqlite(docs: dict[str, dict], spine: dict, path: Path) -> None:
             prov.get("layout", {}).get("package")))
         starts = doc["sura_starts"] + [len(doc["words"])]
         db.executemany("INSERT INTO sura VALUES (?,?,?,?,?,?,?,?,?)", [
-            (key, r["n"], r["name_ar"], r["name_en"], r["revelation"],
-             int(r["basmalah"]), r["ayat"], starts[i], starts[i + 1] - 1)
+            (key, r["number"], r["name_ar"], r["name_en"], r["revelation"],
+             int(r["has_basmalah"]), r["ayah_count"], starts[i], starts[i + 1] - 1)
             for i, r in enumerate(doc["suras"])])
 
         c = Coords(doc)
@@ -369,7 +353,7 @@ def write_sqlite(docs: dict[str, dict], spine: dict, path: Path) -> None:
                          c.line(pos), c.juz(pos), int(pos in resegmented)))
         db.executemany("INSERT INTO word VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)", rows)
         db.executemany("INSERT INTO mark VALUES (?,?,?,?,?)", [
-            (key, pos, mk["k"], mk["at"], mk["sign"])
+            (key, pos, mk["kind"], mk["side"], mk["sign"])
             for pos, t in doc["marks"] for mk in [doc["mark_types"][t]]])
         db.executemany("INSERT INTO resegmentation VALUES (?,?,?,?,?,?,?,?)", [
             (key, "|".join(str(i) for i in e["positions"]), e["sura"], e["ayah"],

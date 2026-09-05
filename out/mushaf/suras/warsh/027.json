@@ -3,7 +3,14 @@
  "format_version": "1.0",
  "view_of": "out/mushaf/warsh.json",
  "view": "sura-shard",
- "mushaf": "warsh",
+ "mushaf": {
+  "key": "warsh",
+  "name_en": "Warsh",
+  "name_ar": "ورش",
+  "qari_en": "Nāfiʿ al-Madanī",
+  "qari_ar": "نافع المدني",
+  "word_count": 77431
+ },
  "provenance": {
   "text": {
    "package": "UthmanicWarsh-v-3.0.zip",
@@ -24,12 +31,12 @@
   }
  },
  "sura": {
-  "n": 27,
+  "number": 27,
   "name_ar": "النَّمل",
   "name_en": "An-Naml",
   "revelation": "makki",
-  "basmalah": true,
-  "ayat": 95
+  "has_basmalah": true,
+  "ayah_count": 95
  },
  "offset": 48440,
  "words": [
@@ -2614,13 +2621,13 @@
  ],
  "mark_types": [
   {
-   "k": "hizb",
-   "at": "before",
+   "kind": "hizb",
+   "side": "before",
    "sign": "۞"
   },
   {
-   "k": "sajdah",
-   "at": "after",
+   "kind": "sajdah",
+   "side": "after",
    "sign": "۩"
   }
  ],

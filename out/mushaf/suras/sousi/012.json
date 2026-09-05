@@ -3,7 +3,14 @@
  "format_version": "1.0",
  "view_of": "out/mushaf/sousi.json",
  "view": "sura-shard",
- "mushaf": "sousi",
+ "mushaf": {
+  "key": "sousi",
+  "name_en": "Sūsī",
+  "name_ar": "السوسي",
+  "qari_en": "Abū ʿAmr al-Baṣrī",
+  "qari_ar": "أبو عمرو البصري",
+  "word_count": 77431
+ },
  "provenance": {
   "text": {
    "package": "UthmanicSousi-v-3.0.zip",
@@ -24,12 +31,12 @@
   }
  },
  "sura": {
-  "n": 12,
+  "number": 12,
   "name_ar": "يُوسُف",
   "name_en": "Yūsuf",
   "revelation": "makki",
-  "basmalah": true,
-  "ayat": 111
+  "has_basmalah": true,
+  "ayah_count": 111
  },
  "offset": 30030,
  "words": [
@@ -4422,38 +4429,38 @@
  ],
  "mark_types": [
   {
-   "k": "waqf",
-   "at": "after",
+   "kind": "waqf",
+   "side": "after",
    "sign": "ۚ"
   },
   {
-   "k": "waqf",
-   "at": "after",
+   "kind": "waqf",
+   "side": "after",
    "sign": "ۛ"
   },
   {
-   "k": "waqf",
-   "at": "after",
+   "kind": "waqf",
+   "side": "after",
    "sign": "ۖ"
   },
   {
-   "k": "waqf",
-   "at": "after",
+   "kind": "waqf",
+   "side": "after",
    "sign": "ۗ"
   },
   {
-   "k": "hizb",
-   "at": "before",
+   "kind": "hizb",
+   "side": "before",
    "sign": "۞"
   },
   {
-   "k": "waqf",
-   "at": "after",
+   "kind": "waqf",
+   "side": "after",
    "sign": "ۘ"
   },
   {
-   "k": "sajdah",
-   "at": "after",
+   "kind": "sajdah",
+   "side": "after",
    "sign": "۩"
   }
  ],
