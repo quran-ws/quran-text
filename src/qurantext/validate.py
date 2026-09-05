@@ -196,7 +196,7 @@ def cross_release(riwayat: list[Riwaya]) -> dict[str, dict]:
 def check_layout_alignment(riwayat) -> list[dict]:
     """The typesetting positions must line up with the words they position.
 
-    :func:`quranidx.layout.word_places` walks the document a second time, for
+    :func:`qurantext.layout.word_places` walks the document a second time, for
     positions rather than for text.  Everything downstream zips the two streams
     by index, which is only sound if they are the same stream — so assert it
     rather than trust it.  A future release that moved a heading into the flow

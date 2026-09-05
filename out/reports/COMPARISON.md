@@ -277,7 +277,7 @@ Each is well attested: Ibn Kathīr's `مِن` at 9:101; Nāfiʿ reading `فإن 
 
 ### Written joined — two words some muṣḥafs print as one
 
-Nothing is added and nothing is dropped: the nūn assimilates into the letter after it and is not written, so the same two words are printed as one. The numbering counts the finest division, so both words keep a number and the joined word *covers* both — recorded in each muṣḥaf's `numbering.written_joined`, never as a missing word. Declared in `data/written-joined.json`.
+Nothing is added and nothing is dropped: the nūn assimilates into the letter after it and is not written, so the same two words are printed as one. The numbering counts the finest division, so both words keep a number and the joined word *covers* both — recorded in each muṣḥaf's `numbering.written_joined`, never as a missing word. Declared in `data/alignment/written-joined.json`.
 
 | number | sūrah:āyah | rasm | written joined by | as printed |
 |---|---|---|---|---|

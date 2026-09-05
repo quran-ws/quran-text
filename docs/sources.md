@@ -1,7 +1,9 @@
 # Data sources
 
-Everything in `data/` is a King Fahd Glorious Qur'an Printing Complex (KFGQPC)
-distribution. This is what each one contains and how it is used.
+`data/kfgqpc/` holds the King Fahd Glorious Qur'an Printing Complex (KFGQPC)
+distributions the build reads; `data/counting/` and `data/alignment/` hold the
+small data this repository adds. This is what each one contains and how it is
+used.
 
 ## The short answer about word-level data
 
@@ -38,14 +40,14 @@ covering all the provided qirāʾāt requires it, the `.docx` files are the prim
 source for every riwāyah, which also keeps one parsing path for all seven.
 
 **Dūrī has no v3.0 release.** Its 2022 document is used instead, which is why
-Dūrī alone still carries the older notation (see `docs/METHOD.md`).
+Dūrī alone still carries the older notation (see `docs/method.md`).
 
 ## Used as cross-checks
 
 The `*Data_v2-*` CSV releases, for the six riwāyāt that have them. They supply
 juz'/page/line metadata and the Ḥafṣ imlāʾī text, and — more usefully — a second
 opinion from the same publisher, which is the sharpest available check on each
-document. What it turns up is recorded in `docs/ISSUES.md`, as differences
+document. What it turns up is recorded in `docs/known-issues.md`, as differences
 rather than as defects — see the standing rule at the top of that file.
 
 | riwāyah | cross-check file |
@@ -68,9 +70,9 @@ the manifest. Beside them, this repository's own `khilaf.json` records the
 disagreements *inside* a system between its authorities, cited from al-Dānī's
 *al-Bayān fī ʿadd āy al-Qurʾān*, `open-findings.json` the divisions no source
 yet explains, and `declared.json` what each edition states about its own count
-(nothing, for the `.docx` releases). See `docs/MUSHAF-FORMAT.md`, *Counting*.
+(nothing, for the `.docx` releases). See `docs/format.md`, *Counting*.
 
-`data/written-joined.json` declares the two places where a muṣḥaf prints two
+`data/alignment/written-joined.json` declares the two places where a muṣḥaf prints two
 words as one; see *Numbering* in the same document.
 
 ## Deliberately unused
@@ -96,8 +98,8 @@ Two inputs exceed GitHub's hard 100 MB per-file limit and are excluded by
 
 | file | size |
 |---|---|
-| `data/1441-AI-hafs.zip` | 466 MB |
-| `data/mumtaz-1.pdf` | 360 MB |
+| `data/kfgqpc/1441-AI-hafs.zip` | 466 MB |
+| `data/kfgqpc/mumtaz-1.pdf` | 360 MB |
 
 Neither is used by the build, so the pipeline runs without them. Everything the
 build reads **is** committed, so `python3 build.py` reproduces `out/` from a

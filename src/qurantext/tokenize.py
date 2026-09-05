@@ -43,7 +43,7 @@ def tokenize_ayah(sura: int, aya: int, text: str,
                   places: list | None = None) -> list[Token]:
     """Split one āyah into words.
 
-    ``places`` is one :class:`quranidx.layout.Place` per whitespace-delimited
+    ``places`` is one :class:`qurantext.layout.Place` per whitespace-delimited
     token of ``text``, in order.  It is threaded in rather than looked up
     because only the ``.docx`` releases carry typesetting, and the position of a
     word has to survive the peeling of the marks around it: a standalone ۞ is
@@ -99,9 +99,9 @@ def tokenize(ayat, places: list | None = None) -> list[Token]:
     """Tokenise a stream of āyāt, optionally placing every word on the page.
 
     ``places`` is the flat, document-order position list from
-    :func:`quranidx.layout.word_places`.  It is consumed āyah by āyah in step
+    :func:`qurantext.layout.word_places`.  It is consumed āyah by āyah in step
     with the token counts, which is sound only because the two streams are
-    identical — asserted by :func:`quranidx.validate.check_layout_alignment`.
+    identical — asserted by :func:`qurantext.validate.check_layout_alignment`.
     """
     out: list[Token] = []
     at = 0

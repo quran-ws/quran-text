@@ -14,7 +14,7 @@ The numbering counts the **finest division** anyone prints.  Where one muṣḥa
 writes two words as one — ``وَأَلَّوِ`` at 72:16 for ``وَأَن لَّوِ`` — the two words
 keep two columns and the joined token is placed in the first with the second
 recorded as *covered* by it (:attr:`Column.covers`).  Those places are declared
-in ``data/written-joined.json`` rather than inferred, because the unwritten nūn
+in ``data/alignment/written-joined.json`` rather than inferred, because the unwritten nūn
 changes the rasm and no rule can tell a join from a different reading.
 """
 
@@ -31,7 +31,7 @@ from .normalize import forms, rasm as rasm_of, split_by_rasm
 from .tokenize import Token
 
 WRITTEN_JOINED = "written_joined"
-JOINS_FILE = Path("data/written-joined.json")
+JOINS_FILE = Path("data/alignment/written-joined.json")
 
 
 @dataclass(eq=False)   # identity, not value, semantics: columns are shared and mutated

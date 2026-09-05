@@ -4,7 +4,7 @@ Everything is written by `python3 build.py`. All text is UTF-8, NFC, with no
 BOM. Start with `out/catalog.json`: it lists the riwāyāt, the sūrahs, and every
 file below with the question it answers.
 
-Two files are **normative**, specified in [`MUSHAF-FORMAT.md`](MUSHAF-FORMAT.md)
+Two files are **normative**, specified in [`format.md`](format.md)
 and checkable against `schema/`: `out/mushaf/<key>.json` (one muṣḥaf) and
 `out/word-index.json` (the shared numbering). Everything else is generated
 from them.
@@ -39,12 +39,12 @@ from them.
 One muṣḥaf: `words` by position, with `ayah_starts`, `page_starts`,
 `line_starts`, `juz_starts`, `marks`, and the `numbering` block that maps
 positions onto the shared numbers. Specified in
-[`MUSHAF-FORMAT.md`](MUSHAF-FORMAT.md), schema `schema/mushaf-1.0.json`.
+[`format.md`](format.md), schema `schema/mushaf-1.0.json`.
 
 | view | shape |
 |---|---|
 | `mushaf/<key>.nested.json.gz` | `suras → ayat → words[]`, every layer's value repeated on the word; the unnumbered basmalah under `"basmalah"` |
-| `mushaf/<key>.csv.gz` | one row per word: `pos, sura, ayah, pos_in_ayah, page, line, juz, number, number_last, text, imlaei, marks, resegmented` |
+| `mushaf/<key>.csv.gz` | one row per word: `pos, sura, ayah, pos_in_ayah, page, line, juz, number, number_last, text, imlaei, marks, resegmented`; `ayah` is `0` for the unnumbered basmalah |
 
 A sūrah, a page or a juz is one slice of `words`, so there is no per-sūrah file.
 
@@ -104,7 +104,7 @@ ayah_hafs … ayah_sousi, form_hafs … form_sousi
 
 > **If Warsh, Qālūn or Sūsī look empty**, that is your font, not the data —
 > their v3.0 documents use Arabic Extended-B codepoints (`U+0870`–`U+0882`) that
-> few fonts can draw. See `docs/LIMITATIONS.md`.
+> few fonts can draw. See `docs/limitations.md`.
 
 ### `status`
 
@@ -218,15 +218,29 @@ The count belongs to the printed edition rather than to the qirāʾah, so an
 edition is listed under the system its own `ayah_starts` match, not under the
 system its riwāyah is conventionally associated with; Baṣrī and Damascene have
 no edition here. `ayah_ends[i]` is the number after which an āyah ends.
-Rationale and the derivation are in `MUSHAF-FORMAT.md`, *Counting*.
+Rationale and the derivation are in `format.md`, *Counting*.
 
 ## `out/quran.sqlite.gz`
 
 All seven muṣḥafs and the word index in one file. Tables: `mushaf`, `sura`,
 `word` (one row per printed word, keyed `(mushaf, pos)`, with `number` and
 `number_last`), `word_index` (one row per number), `mark`, `resegmentation`,
-`line_disagreement`. The self-join that compares two muṣḥafs is in
-`MUSHAF-FORMAT.md`, *Views*.
+`line_disagreement`. `ayah` is `0` for the unnumbered basmalah. Where a word
+covers a run of numbers, `number` is the first and `number_last` the last;
+elsewhere they are equal, so the table stays one row per word.
+
+Comparing two muṣḥafs:
+
+```sql
+SELECT a.number, a.uthmani, b.uthmani
+FROM word a LEFT JOIN word b
+  ON b.number = a.number AND b.mushaf = 'warsh'
+WHERE a.mushaf = 'hafs' AND (b.uthmani IS NULL OR b.uthmani <> a.uthmani);
+```
+
+`LEFT JOIN` rather than `JOIN` because the answer is sometimes *no row*: Warsh
+does not recite `هُوَ` at 57:24, and a word-level dataset projected from Ḥafṣ
+has to see that rather than skip silently past it.
 
 ## `out/manifest.json`
 
