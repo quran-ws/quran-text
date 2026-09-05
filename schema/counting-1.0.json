@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/quranpedia/quran-word-index/schema/counting-1.0.json",
+  "title": "quran-counting 1.0",
+  "description": "The six counting systems' āyah boundaries as shared numbers, with the editions that follow each and their choices at points of khilāf. A view over the muṣḥaf files and data/counting/.",
+  "type": "object",
+  "required": ["format", "format_version", "generated", "source", "disputed_points", "systems", "open_findings"],
+  "properties": {
+    "format": { "const": "quran-counting" },
+    "format_version": { "type": "string", "pattern": "^\\d+\\.\\d+$" },
+    "generated": { "type": "string", "format": "date" },
+    "model": { "type": "string" },
+    "source": { "type": "object", "description": "The qiraat-ayah-map commit and file hashes the systems were derived from." },
+    "disputed_points": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["kufi", "kind", "anchor", "number", "counted_by"],
+        "properties": {
+          "kufi": { "type": "string" }, "kind": { "enum": ["end", "internal"] },
+          "anchor": { "type": "string" }, "number": { "type": "integer", "description": "The number the boundary follows." },
+          "counted_by": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "systems": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["name_ar", "name_en", "reference_total", "editions", "khilaf_points", "ayah_ends"],
+        "properties": {
+          "name_ar": { "type": "string" }, "name_en": { "type": "string" },
+          "reference_total": { "type": "integer" },
+          "editions": { "type": "array", "items": { "type": "object" } },
+          "khilaf_points": { "type": "array", "items": { "type": "object" } },
+          "ayah_ends": { "type": "array", "items": { "type": "integer" }, "description": "Sorted numbers after which an āyah ends in this system." }
+        }
+      }
+    },
+    "open_findings": { "type": "array", "items": { "type": "object" } },
+    "resolved_anchors": { "type": "array", "items": { "type": "object" } }
+  }
+}

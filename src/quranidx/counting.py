@@ -353,8 +353,8 @@ def reference_total(system: str) -> int:
     return total
 
 
-def write_fawasil(words: list[Word], docs: dict[str, dict]) -> dict:
-    """``out/fawasil.json``: every system's boundaries as numbers, and the
+def write_counting(words: list[Word], docs: dict[str, dict]) -> dict:
+    """``out/counting.json``: every system's boundaries as numbers, and the
     editions that follow each, with their khilāf resolutions alongside."""
     anchors, ambiguous = resolve_anchors(words)
     per_system = system_ends(words, anchors)
@@ -384,7 +384,7 @@ def write_fawasil(words: list[Word], docs: dict[str, dict]) -> dict:
         }
 
     doc = {
-        "format": "quran-fawasil",
+        "format": "quran-counting",
         "format_version": "1.0",
         "generated": date.today().isoformat(),
         "model": "Each system lists the shared number after which every one of "
@@ -401,7 +401,7 @@ def write_fawasil(words: list[Word], docs: dict[str, dict]) -> dict:
         "open_findings": open_findings(),
         "resolved_anchors": ambiguous,
     }
-    (OUT / "fawasil.json").write_text(
+    (OUT / "counting.json").write_text(
         json.dumps(doc, ensure_ascii=False, indent=1), encoding="utf-8")
     return doc
 
