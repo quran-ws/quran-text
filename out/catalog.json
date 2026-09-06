@@ -16,7 +16,11 @@
    "word_count": 77432,
    "source": "UthmanicHafs-v-3.0.zip :: UthmanicHafs-v-3.0.docx",
    "crosscheck_source": "UthmanicHafs_v2-0.zip :: UthmanicHafs_v2-0 data/hafsData_v2-0.csv",
-   "file": "out/mushaf/hafs.json"
+   "file": "out/mushaf/hafs.json",
+   "font": {
+    "family": "KFGQPC HAFS Uthmanic Script",
+    "file": "out/fonts/UthmanicHafs-v-3.0.ttf"
+   }
   },
   {
    "key": "shuba",
@@ -29,7 +33,11 @@
    "word_count": 77432,
    "source": "UthmanicShubah-v-3.0.zip :: UthmanicShubah-v-3.0.docx",
    "crosscheck_source": "UthmanicShuba_v2-0.zip :: UthmanicShuba_v2-0 data/shubaData_v2-0.csv",
-   "file": "out/mushaf/shuba.json"
+   "file": "out/mushaf/shuba.json",
+   "font": {
+    "family": "KFGQPC Shuba Uthmanic Script",
+    "file": "out/fonts/UthmanicShubah-v-3.0.ttf"
+   }
   },
   {
    "key": "warsh",
@@ -42,7 +50,11 @@
    "word_count": 77431,
    "source": "UthmanicWarsh-v-3.0.zip :: UthmanicWarsh-v-3.0.docx",
    "crosscheck_source": "UthmanicWarsh_v2-1.zip :: UthmanicWarsh_v2-1 data/warshData_v2-1.csv",
-   "file": "out/mushaf/warsh.json"
+   "file": "out/mushaf/warsh.json",
+   "font": {
+    "family": "KFGQPC Warsh Uthmanic Script",
+    "file": "out/fonts/UthmanicWarsh-v-3.0.ttf"
+   }
   },
   {
    "key": "qaloun",
@@ -55,7 +67,11 @@
    "word_count": 77431,
    "source": "UthmanicQaloun-v-3.0.zip :: UthmanicQaloun-v-3.0.docx",
    "crosscheck_source": "UthmanicQaloun_v2-1.zip :: UthmanicQaloun_v2-1 data/QalounData_v2-1.csv",
-   "file": "out/mushaf/qaloun.json"
+   "file": "out/mushaf/qaloun.json",
+   "font": {
+    "family": "KFGQPC Qaloun Uthmanic Script",
+    "file": "out/fonts/UthmanicQaloun-v-3.0.ttf"
+   }
   },
   {
    "key": "douri",
@@ -68,7 +84,11 @@
    "word_count": 77431,
    "source": "UthmanicDouri_V20.zip :: UthmanicDouri V20.docx",
    "crosscheck_source": "UthmanicDouri_v2-0.zip :: UthmanicDouri_v2-0 data/DouriData_v2-0.csv",
-   "file": "out/mushaf/douri.json"
+   "file": "out/mushaf/douri.json",
+   "font": {
+    "family": "KFGQPC Douri Uthmanic Script",
+    "file": "out/fonts/UthmanicDouri-V20.ttf"
+   }
   },
   {
    "key": "sousi",
@@ -81,7 +101,11 @@
    "word_count": 77431,
    "source": "UthmanicSousi-v-3.0.zip :: UthmanicSousi-v-3.0.docx",
    "crosscheck_source": "UthmanicSousi_v2-0.zip :: UthmanicSousi_v2-0 data/SousiData_v2-0.csv",
-   "file": "out/mushaf/sousi.json"
+   "file": "out/mushaf/sousi.json",
+   "font": {
+    "family": "KFGQPC Sousi Uthmanic Script",
+    "file": "out/fonts/UthmanicSousi-v-3.0.ttf"
+   }
   },
   {
    "key": "bazzi",
@@ -94,7 +118,11 @@
    "word_count": 77432,
    "source": "UthmanicBazzi-v-3.0.zip :: UthmanicBazzi-v-3.0.docx",
    "crosscheck_source": "",
-   "file": "out/mushaf/bazzi.json"
+   "file": "out/mushaf/bazzi.json",
+   "font": {
+    "family": "KFGQPC Bazzi Uthmanic Script",
+    "file": "out/fonts/UthmanicBazzi-v-3.0.ttf"
+   }
   }
  ],
  "suras": [
@@ -2169,6 +2197,11 @@
    "format": "csv",
    "view": "flat",
    "answers": "the same muṣḥaf as one row per word, for pandas, R and spreadsheets"
+  },
+  {
+   "path": "out/fonts/<file>.ttf",
+   "format": "truetype",
+   "answers": "the KFGQPC font each muṣḥaf's text is set in — the only one guaranteed to draw it; named in the file's `font` block"
   },
   {
    "path": "out/word-index.json",

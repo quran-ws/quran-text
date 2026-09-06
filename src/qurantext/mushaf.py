@@ -37,7 +37,7 @@ from collections import defaultdict
 from datetime import date
 from pathlib import Path
 
-from . import counting, imlaei
+from . import counting, fonts, imlaei
 from .build import OUT, Word
 from .word_index import boundary_events
 from .sources import DATA, RELEASE_POLICY, Riwaya
@@ -408,6 +408,7 @@ def document(words: list[Word], r: Riwaya,
         },
         "counting": None,
         "provenance": _provenance(r),
+        "font": fonts.describe(r.spec),
         "layers": _layers(r, line_check, juz is not None),
         "words": [p.word.forms[key] for p in printed],
         "imlaei": ([imlaei.get(p.first, imlaei.get(p.last)) for p in printed]

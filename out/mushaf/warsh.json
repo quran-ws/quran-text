@@ -60,6 +60,15 @@
    ]
   }
  },
+ "font": {
+  "family": "KFGQPC Warsh Uthmanic Script",
+  "file": "out/fonts/UthmanicWarsh-v-3.0.ttf",
+  "package": "UthmanicWarsh-v-3.0.zip",
+  "member": "UthmanicWarsh-v-3.0.ttf",
+  "sha256": "b644f1c6665baa95c9c0ab40b01a7f3e89edc42a0f50d3b244318a843bec81a9",
+  "publisher": "https://fonts.qurancomplex.gov.sa/",
+  "note": "The text uses codepoints only this font is guaranteed to draw (Arabic Extended-B alefs, open tanwīn, the pause signs). Ship it with the text; a general Arabic font will show gaps."
+ },
  "layers": {
   "present": [
    "suras",

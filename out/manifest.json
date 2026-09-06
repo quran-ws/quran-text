@@ -134,13 +134,13 @@
   },
   {
    "path": "out/catalog.json",
-   "bytes": 42499,
-   "sha256": "deb462353ce661c5ac6263b3d79eba09aa5fd54ca223ff086c2af50efc0b32c5"
+   "bytes": 43496,
+   "sha256": "b57bef213f012c363903494fbaf93e54feba8431b2b66bc22104fa13e139d5cd"
   },
   {
    "path": "out/counting.json",
-   "bytes": 462243,
-   "sha256": "ef8c91e4bfdf09d66f7a2cf4fdb77ea9674789f7ce81e6f999abc5d603400bae"
+   "bytes": 462242,
+   "sha256": "97801d360d9e5da6fb38121ef7116cfe6291911842f7d4ee7480c1348765d858"
   },
   {
    "path": "out/differences.csv",
@@ -153,14 +153,49 @@
    "sha256": "57ef1a665752d462308959a99491871f2c54596f5fdef300346fb57ca8abddc9"
   },
   {
+   "path": "out/fonts/UthmanicBazzi-v-3.0.ttf",
+   "bytes": 251580,
+   "sha256": "b5fc7fbe012f832be3212b398b523a2e1cb87faacf1e57a65e76522201af8f39"
+  },
+  {
+   "path": "out/fonts/UthmanicDouri-V20.ttf",
+   "bytes": 262344,
+   "sha256": "3a862f8e4ba9b7fd024e2b74981026eb5a901cb292e2b43766795112a35a6b45"
+  },
+  {
+   "path": "out/fonts/UthmanicHafs-v-3.0.ttf",
+   "bytes": 301396,
+   "sha256": "5c47602425fb4190327ab9e1a2e8ed2f53dceaf595d8ccc29ac32b8b209ad398"
+  },
+  {
+   "path": "out/fonts/UthmanicQaloun-v-3.0.ttf",
+   "bytes": 261520,
+   "sha256": "3bf3432429f3bbde673982af2aab9b7a1a7329e295dce250bd96842c2a368ba9"
+  },
+  {
+   "path": "out/fonts/UthmanicShubah-v-3.0.ttf",
+   "bytes": 247280,
+   "sha256": "634a7252b619b934f2e507480d517b8f339503bbf08dded35315a9c1f2be495d"
+  },
+  {
+   "path": "out/fonts/UthmanicSousi-v-3.0.ttf",
+   "bytes": 265472,
+   "sha256": "3b003447bcd36306d76997f07472efef582773f2de6f8615b81c2c46ea4d5d78"
+  },
+  {
+   "path": "out/fonts/UthmanicWarsh-v-3.0.ttf",
+   "bytes": 251428,
+   "sha256": "b644f1c6665baa95c9c0ab40b01a7f3e89edc42a0f50d3b244318a843bec81a9"
+  },
+  {
    "path": "out/mushaf/bazzi.csv.gz",
    "bytes": 1043270,
    "sha256": "69434c5d1f755c97435567dc72640319bfdc8c391166b0cfb31fe380ea0dd669"
   },
   {
    "path": "out/mushaf/bazzi.json",
-   "bytes": 1994846,
-   "sha256": "e32c18deefc4b2cd92f0a7d20bd01624ec18c96a848e29c411f0540f11049aaf"
+   "bytes": 1995357,
+   "sha256": "a264a7cc1786a96fbefcd94649aa0e5b84b07a976c62a959a1178b27a837a003"
   },
   {
    "path": "out/mushaf/bazzi.nested.json.gz",
@@ -174,8 +209,8 @@
   },
   {
    "path": "out/mushaf/douri.json",
-   "bytes": 2043350,
-   "sha256": "079e63ee9cc87dc01d1537b674826e25ae9351e3f4c8790d7e2dbb9969be5591"
+   "bytes": 2043855,
+   "sha256": "70ef891dd37dd0579425dc3aa081723965225c46d19cd411c459d566d9cebad5"
   },
   {
    "path": "out/mushaf/douri.nested.json.gz",
@@ -189,8 +224,8 @@
   },
   {
    "path": "out/mushaf/hafs.json",
-   "bytes": 3116735,
-   "sha256": "cb5920b70a5f57e3005ff1b33a37848b3afbfe7cce429512d14d7b621cdfece7"
+   "bytes": 3117242,
+   "sha256": "e1b575b97239f21b3d818f5c8a67e7dc2de2888da9f8a36019aa2f4e2f869681"
   },
   {
    "path": "out/mushaf/hafs.nested.json.gz",
@@ -204,8 +239,8 @@
   },
   {
    "path": "out/mushaf/qaloun.json",
-   "bytes": 2157070,
-   "sha256": "839c5f1c3ff351ec67d50c9be3a3c334d51ed0f4452395eb233d504687abfebe"
+   "bytes": 2157585,
+   "sha256": "662f2b8357bb99fa59949d62a322ec11dfedf3f0bd298af475128271da18e169"
   },
   {
    "path": "out/mushaf/qaloun.nested.json.gz",
@@ -219,8 +254,8 @@
   },
   {
    "path": "out/mushaf/shuba.json",
-   "bytes": 1991117,
-   "sha256": "3cf0047ab3047ce755d56bb0c32a7bc2bef1dd798f8851bc9e775a27d762fe49"
+   "bytes": 1991631,
+   "sha256": "7d618262bbbb6e58c103c16b26cd579080b79085b3a99644fb2a9691db0559ae"
   },
   {
    "path": "out/mushaf/shuba.nested.json.gz",
@@ -234,8 +269,8 @@
   },
   {
    "path": "out/mushaf/sousi.json",
-   "bytes": 2031985,
-   "sha256": "ff8c6560b3d5daaa10b6aa905622034cec5b2899e4ed86d00c86e7d143781898"
+   "bytes": 2032496,
+   "sha256": "3cf418b3857920100dfd771d1afa421f268595e5d05ca17edaa3f94660046c1d"
   },
   {
    "path": "out/mushaf/sousi.nested.json.gz",
@@ -249,8 +284,8 @@
   },
   {
    "path": "out/mushaf/warsh.json",
-   "bytes": 1919321,
-   "sha256": "91c02984a6680fbd336b27ef0b0a9e85dc5b8a6d65d1c82601ff56ddbacf3c0c"
+   "bytes": 1919832,
+   "sha256": "91e635d70d7751fdedf8b3fb3c2aff1e450b59ca36fd61ef7330af67f4c7d0d8"
   },
   {
    "path": "out/mushaf/warsh.nested.json.gz",
@@ -264,8 +299,8 @@
   },
   {
    "path": "out/reports/COMPARISON.md",
-   "bytes": 43819,
-   "sha256": "9116372f458673bc2d61dcbd36b1a379c39d60dbffc358af1027ae2f16e4f2f6"
+   "bytes": 43818,
+   "sha256": "fcf0ca54cb911ad3b5a52df14e0c4820d99c7b779b7fec8edf8123baafe88185"
   },
   {
    "path": "out/reports/agreement-matrix.csv",
@@ -275,7 +310,7 @@
   {
    "path": "out/reports/compare.html",
    "bytes": 2076982,
-   "sha256": "91e09ae22a487b9a7b658f65670035ed2122f2de7f55c140dc2730a372e1446e"
+   "sha256": "86c722fea7cb99bf203c0cd1799dc81f947c0ddb17ac00704b83ca1050201c49"
   },
   {
    "path": "out/reports/rasm-variants.md",

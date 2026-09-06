@@ -10,7 +10,7 @@ sūrah  →  [ word, word, word, … ]
 
 Not `sūrah → āyah → word`. The āyah number is an *attribute* of a word, not a
 level of nesting — because **the count belongs to the printed edition, not to
-the qirāʾah**:
+the riwāyah**:
 
 | edition | counting system | āyāt | at the points of khilāf inside the system |
 |---|---|---|---|
@@ -36,7 +36,7 @@ the systems.
 
 ## The count belongs to the edition
 
-An āyah count is not a property of the qirāʾah. It belongs to the **edition**,
+An āyah count is not a property of the riwāyah. It belongs to the **edition**,
 and there is a level in between:
 
 | level | what it is | example |

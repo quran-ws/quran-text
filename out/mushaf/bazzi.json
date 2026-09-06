@@ -59,6 +59,15 @@
   },
   "policy": "within one riwāyah the later release is a correction; across riwāyāt nothing is assumed"
  },
+ "font": {
+  "family": "KFGQPC Bazzi Uthmanic Script",
+  "file": "out/fonts/UthmanicBazzi-v-3.0.ttf",
+  "package": "UthmanicBazzi-v-3.0.zip",
+  "member": "UthmanicBazzi-v-3.0.ttf",
+  "sha256": "b5fc7fbe012f832be3212b398b523a2e1cb87faacf1e57a65e76522201af8f39",
+  "publisher": "https://fonts.qurancomplex.gov.sa/",
+  "note": "The text uses codepoints only this font is guaranteed to draw (Arabic Extended-B alefs, open tanwīn, the pause signs). Ship it with the text; a general Arabic font will show gaps."
+ },
  "layers": {
   "present": [
    "suras",

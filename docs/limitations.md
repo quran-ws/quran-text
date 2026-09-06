@@ -21,12 +21,13 @@ boxes or as nothing at all:
 | Ḥafṣ | 6,643 |
 
 **The text is not missing and not corrupt** — `len()` and a codepoint dump both
-show it. It is a font-coverage problem at the point of display. Two ways round
-it: read the `folded` comparison instead, which decomposes those letters back
-into an alef plus a combining vowel that any Arabic font can draw, or install a
-font with Extended-B coverage. KFGQPC's own v3.0 fonts are the reference; among
-freely available faces, recent Scheherazade New and Noto Naskh Arabic cover the
-most of the range.
+show it. It is a font-coverage problem at the point of display. The fix is the
+font KFGQPC ships with each text: every muṣḥaf file names it in its `font`
+block and the build copies it to `out/fonts/`, so a viewer that loads that
+font draws every word. Failing that, read the `folded` comparison instead,
+which decomposes those letters back into an alef plus a combining vowel that
+any Arabic font can draw; among general faces, recent Scheherazade New and Noto
+Naskh Arabic cover the most of the range.
 
 ## The rasm is reconstructed, not transcribed from a manuscript
 

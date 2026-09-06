@@ -8,3 +8,15 @@ __pycache__/
 # See docs/sources.md for what they are and where to get them.
 data/kfgqpc/1441-AI-hafs.zip
 data/kfgqpc/mumtaz-1.pdf
+
+# Library build artefacts
+lib/swift/.build/
+lib/dart/.dart_tool/
+lib/dart/pubspec.lock
+lib/php/vendor/
+lib/kotlin/build/
+lib/kotlin/.gradle/
+lib/js/node_modules/
+
+# Local agent state
+.maestro/

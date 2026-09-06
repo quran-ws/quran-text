@@ -182,6 +182,15 @@
    ]
   }
  },
+ "font": {
+  "family": "KFGQPC Douri Uthmanic Script",
+  "file": "out/fonts/UthmanicDouri-V20.ttf",
+  "package": "UthmanicDouri_V20.zip",
+  "member": "UthmanicDouri V20.ttf",
+  "sha256": "3a862f8e4ba9b7fd024e2b74981026eb5a901cb292e2b43766795112a35a6b45",
+  "publisher": "https://fonts.qurancomplex.gov.sa/",
+  "note": "The text uses codepoints only this font is guaranteed to draw (Arabic Extended-B alefs, open tanwīn, the pause signs). Ship it with the text; a general Arabic font will show gaps."
+ },
  "layers": {
   "present": [
    "suras",

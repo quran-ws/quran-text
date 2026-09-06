@@ -348,6 +348,27 @@ the other 61 the imlāʾī side always has *more* — it writes `أو لا` wher
 and joined, so an entry is always one string. A word the chain cannot resolve
 is `null`. `layers.derived.imlaei` reports the totals.
 
+## Font
+
+Every muṣḥaf file names the font its text is set in:
+
+```json
+"font": { "family": "KFGQPC Warsh Uthmanic Script", "file": "out/fonts/UthmanicWarsh-v-3.0.ttf",
+          "package": "UthmanicWarsh-v-3.0.zip", "member": "UthmanicWarsh-v-3.0.ttf",
+          "sha256": "…", "publisher": "https://fonts.qurancomplex.gov.sa/" }
+```
+
+It is the `.ttf` KFGQPC ships in the same package as the text, and it is
+**required, not decorative**: the words use codepoints — the Arabic Extended-B
+alefs of Warsh, Qālūn and Sūsī, the open tanwīn marks, the pause signs — that
+only this font is guaranteed to draw. A general Arabic font shows gaps where
+those letters should be. `family` is read from the font's own name table so
+a stylesheet or a `Typeface` can refer to it exactly; `file` is the copy under
+`out/fonts/`, hashed like every other emitted file in `manifest.json`.
+
+The `font` block also says which one to ship with which text, because each
+muṣḥaf has its own: seven files, one per riwāyah, not one font for all seven.
+
 ## Provenance
 
 Every file names the KFGQPC release it came from, with a SHA-256 — in the file
