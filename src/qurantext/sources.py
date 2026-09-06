@@ -241,6 +241,9 @@ class SourceSpec:
     #: of one riwāyah disagree.  See ``RELEASE_POLICY``.
     primary_year: int = 2026
     csv_year: int = 2022
+    #: The ``.ttf`` shipped beside the primary text, which is the only font
+    #: guaranteed to draw it.  See :mod:`qurantext.fonts`.
+    font_member: str = ""
 
 
 #: **The one place this pipeline assumes anything about the sources.**
@@ -266,25 +269,31 @@ RELEASE_POLICY = ("within one riwāyah the later release is a correction; "
 REGISTRY: list[SourceSpec] = [
     SourceSpec("hafs", "Ḥafṣ", "حفص", "ʿĀṣim al-Kūfī", "عاصم الكوفي",
                "UthmanicHafs-v-3.0", "UthmanicHafs-v-3.0.docx", "docx",
-               "UthmanicHafs_v2-0", "UthmanicHafs_v2-0 data/hafsData_v2-0.csv"),
+               "UthmanicHafs_v2-0", "UthmanicHafs_v2-0 data/hafsData_v2-0.csv",
+               font_member="UthmanicHafs-v-3.0.ttf"),
     SourceSpec("shuba", "Shuʿbah", "شعبة", "ʿĀṣim al-Kūfī", "عاصم الكوفي",
                "UthmanicShubah-v-3.0", "UthmanicShubah-v-3.0.docx", "docx",
-               "UthmanicShuba_v2-0", "UthmanicShuba_v2-0 data/shubaData_v2-0.csv"),
+               "UthmanicShuba_v2-0", "UthmanicShuba_v2-0 data/shubaData_v2-0.csv",
+               font_member="UthmanicShubah-v-3.0.ttf"),
     SourceSpec("warsh", "Warsh", "ورش", "Nāfiʿ al-Madanī", "نافع المدني",
                "UthmanicWarsh-v-3.0", "UthmanicWarsh-v-3.0.docx", "docx",
-               "UthmanicWarsh_v2-1", "UthmanicWarsh_v2-1 data/warshData_v2-1.csv"),
+               "UthmanicWarsh_v2-1", "UthmanicWarsh_v2-1 data/warshData_v2-1.csv",
+               font_member="UthmanicWarsh-v-3.0.ttf"),
     SourceSpec("qaloun", "Qālūn", "قالون", "Nāfiʿ al-Madanī", "نافع المدني",
                "UthmanicQaloun-v-3.0", "UthmanicQaloun-v-3.0.docx", "docx",
-               "UthmanicQaloun_v2-1", "UthmanicQaloun_v2-1 data/QalounData_v2-1.csv"),
+               "UthmanicQaloun_v2-1", "UthmanicQaloun_v2-1 data/QalounData_v2-1.csv",
+               font_member="UthmanicQaloun-v-3.0.ttf"),
     SourceSpec("douri", "Dūrī", "الدوري", "Abū ʿAmr al-Baṣrī", "أبو عمرو البصري",
                "UthmanicDouri_V20", "UthmanicDouri V20.docx", "docx",
                "UthmanicDouri_v2-0", "UthmanicDouri_v2-0 data/DouriData_v2-0.csv",
-               primary_year=2022, csv_year=2022),
+               primary_year=2022, csv_year=2022, font_member="UthmanicDouri V20.ttf"),
     SourceSpec("sousi", "Sūsī", "السوسي", "Abū ʿAmr al-Baṣrī", "أبو عمرو البصري",
                "UthmanicSousi-v-3.0", "UthmanicSousi-v-3.0.docx", "docx",
-               "UthmanicSousi_v2-0", "UthmanicSousi_v2-0 data/SousiData_v2-0.csv"),
+               "UthmanicSousi_v2-0", "UthmanicSousi_v2-0 data/SousiData_v2-0.csv",
+               font_member="UthmanicSousi-v-3.0.ttf"),
     SourceSpec("bazzi", "Bazzī", "البزي", "Ibn Kathīr al-Makkī", "ابن كثير المكي",
-               "UthmanicBazzi-v-3.0", "UthmanicBazzi-v-3.0.docx", "docx"),
+               "UthmanicBazzi-v-3.0", "UthmanicBazzi-v-3.0.docx", "docx",
+               font_member="UthmanicBazzi-v-3.0.ttf"),
 ]
 
 

@@ -11,6 +11,7 @@
     "mushaf",
     "counting",
     "provenance",
+    "font",
     "layers",
     "words",
     "imlaei",
@@ -98,6 +99,21 @@
         "text": { "$ref": "#/$defs/package" },
         "layout": { "$ref": "#/$defs/package" },
         "policy": { "type": "string" }
+      }
+    },
+    "font": {
+      "type": "object",
+      "description": "The KFGQPC font this text is set in, shipped in the same package as the text. It is the only font guaranteed to draw every codepoint the words use; `file` is the copy under out/fonts/.",
+      "required": ["family", "file", "package", "member", "sha256", "publisher"],
+      "additionalProperties": false,
+      "properties": {
+        "family": { "type": "string", "description": "The family name from the font's own name table, e.g. \"KFGQPC HAFS Uthmanic Script\"" },
+        "file": { "type": "string", "pattern": "^out/fonts/.+\\.ttf$" },
+        "package": { "type": "string" },
+        "member": { "type": "string" },
+        "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "publisher": { "type": "string", "format": "uri" },
+        "note": { "type": "string" }
       }
     },
     "layers": {

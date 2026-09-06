@@ -5,8 +5,12 @@ description: Use the quran-text dataset — the Qurʾān as words in seven riwā
 
 # quran-text
 
-Plain JSON under `out/`. No server, no library: `json.load` a file. Read
-`out/catalog.json` first if unsure; it lists every file and what it answers.
+Plain JSON under `out/`: `json.load` a file. Read `out/catalog.json` first if
+unsure; it lists every file and what it answers. When writing app code, prefer
+the libraries under `lib/` (Python, JS, PHP, Dart, Swift, Kotlin — same API in
+each, see `lib/README.md`): `Mushaf.hafs().ayah(2, 255).render(marks=True, ayah_markers=True)`
+(Ḥafṣ is bundled; `Mushaf.load(path)` for another riwāyah) instead of slicing
+arrays by hand.
 
 ## Which file
 

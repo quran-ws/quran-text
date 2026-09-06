@@ -42,7 +42,7 @@ Four of the seven packages count 67:9. Al-Dānī records this exact position —
 الباقون، وعدها شيبة ولم يعدها أبو جعفر*. The Madanī (Warsh, Qālūn) and Makkī
 (Bazzī) packages counting it is precisely what that says should happen.
 
-**The qirāʾah does not determine the count.** KFGQPC's own printings of the
+**The riwāyah does not determine the count.** KFGQPC's own printings of the
 Dūrī muṣḥaf settle it — all three state they follow **المدني الأول**, and all
 three disagree:
 
@@ -59,7 +59,7 @@ the editorial choices behind its division.
 
 *(Evidence assembled by @quranpedia in
 [qiraat-ayah-map#10](https://github.com/quranpedia/qiraat-ayah-map/pull/10),
-which also found the qirāʾah→system mapping wrong in the other direction: the
+which also found the riwāyah→system mapping wrong in the other direction: the
 Dūrī muṣḥaf measures onto First Madinan in 113 of 114 sūrahs, not Baṣrī.)*
 
 **What changed here as a result.** The build no longer asserts a total per

@@ -48,6 +48,13 @@ positions onto the shared numbers. Specified in
 
 A sūrah, a page or a juz is one slice of `words`, so there is no per-sūrah file.
 
+## `out/fonts/`
+
+The KFGQPC font each muṣḥaf's text is set in, one `.ttf` per riwāyah, copied
+from the same package as the text. Each muṣḥaf file's `font` block names its
+own (`family`, `file`, `sha256`); ship that font with that text, because the
+words use codepoints only it is guaranteed to draw. See `format.md`, *Font*.
+
 ## `out/word-index.json` and `out/word-index.csv` — the numbering
 
 Every number of the shared numbering, `1 … 77434`, one record per line, with
@@ -104,7 +111,8 @@ ayah_hafs … ayah_sousi, form_hafs … form_sousi
 
 > **If Warsh, Qālūn or Sūsī look empty**, that is your font, not the data —
 > their v3.0 documents use Arabic Extended-B codepoints (`U+0870`–`U+0882`) that
-> few fonts can draw. See `docs/limitations.md`.
+> few fonts can draw. Use the font named in each muṣḥaf's `font` block, under
+> `out/fonts/`. See `docs/limitations.md`.
 
 ### `status`
 
@@ -170,7 +178,11 @@ resegmented_in, distinct_forms, forms
 
 ## `out/ayah-map.json` and `out/ayah-map.csv`
 
-What a Kūfī āyah reference is in every edition. One entry per āyah of the
+What a Kūfī āyah reference is in every edition. The table is derived from the
+shared word numbering — an āyah is a run of numbers, and the editions' āyāt
+holding those numbers are its counterparts — so the libraries' `ayah.to(other)`
+computes the same answer between any two editions without this file; it is
+published for readers who load one file rather than two. One entry per āyah of the
 Kūfī count as Ḥafṣ prints it; for each edition, the āyah its words fall in and
 how the two relate. Schema `schema/ayah-map-1.0.json`.
 
@@ -214,7 +226,7 @@ khilāf inside the system. Schema `schema/counting-1.0.json`.
   "resolved_anchors": [ "…" ] }
 ```
 
-The count belongs to the printed edition rather than to the qirāʾah, so an
+The count belongs to the printed edition rather than to the riwāyah, so an
 edition is listed under the system its own `ayah_starts` match, not under the
 system its riwāyah is conventionally associated with; Baṣrī and Damascene have
 no edition here. `ayah_ends[i]` is the number after which an āyah ends.

@@ -239,7 +239,7 @@ each riwāyah. Its position is the word's number.
 
 The āyah boundaries are a layer *over* the word index: each muṣḥaf file's
 `ayah_starts`, and `out/counting.json` keyed by counting system. **The count
-belongs to the edition, not the qirāʾah.** Each edition's system is derived by
+belongs to the edition, not the riwāyah.** Each edition's system is derived by
 comparing its own āyah ends to the six systems' boundaries, taken from
 [qiraat-ayah-map](https://github.com/quranpedia/qiraat-ayah-map) (vendored
 under `data/counting/`, anchors resolved to shared numbers); the points where a
@@ -273,7 +273,7 @@ See `docs/format.md`, *Counting*.
 7. **Schema** — the field set of every file matches `schema/mushaf-1.0.json`.
 
 There is deliberately **no** check of āyah totals *per riwāyah*. An earlier
-version had one, and it was measuring an assumption: the qirāʾah does not
+version had one, and it was measuring an assumption: the riwāyah does not
 determine the count. What is checked instead is that each edition's division
 matches a counting system once the documented khilāf is set aside — see
 `docs/known-issues.md`.
