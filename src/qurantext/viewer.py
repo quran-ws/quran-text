@@ -1,4 +1,4 @@
-"""Build ``out/reports/compare.html`` — a self-contained word-by-word comparison.
+"""Build ``out/reports/compare.html`` — a self-contained word by word comparison.
 
 The whole corpus is 36 MB of JSON, which is too much to paste into a page, and
 a page that fetched the per-sūrah files would need a web server to escape the
@@ -18,8 +18,8 @@ import json
 from datetime import date
 
 from .build import ORDER, OUT, Word
-from .sources import Riwaya
-from .suras import names
+from .sources import Riwayah
+from .surahs import names
 
 #: Status codes, packed as an index into this list.
 STATUSES = ["identical", "diacritic_variant", "dotting_variant",
@@ -29,25 +29,25 @@ STATUSES = ["identical", "diacritic_variant", "dotting_variant",
 def _pack(words: list[Word]) -> dict:
     """The corpus in the smallest shape the page can still read."""
     bit = {k: 1 << i for i, k in enumerate(ORDER)}
-    suras: dict[str, list] = {}
+    surahs: dict[str, list] = {}
     for w in words:
         groups: dict[str, int] = {}
         for k in ORDER:
             if k in w.forms:
                 groups[w.forms[k]] = groups.get(w.forms[k], 0) | bit[k]
-        # aya numbers: one per riwāyah, but they are equal far more often than
+        # ayah numbers: one per riwāyah, but they are equal far more often than
         # not, so store the distinct values with their masks too.
-        ayat: dict[int, int] = {}
+        ayahs: dict[int, int] = {}
         for k in ORDER:
-            if k in w.aya:
-                ayat[w.aya[k]] = ayat.get(w.aya[k], 0) | bit[k]
+            if k in w.ayah:
+                ayahs[w.ayah[k]] = ayahs.get(w.ayah[k], 0) | bit[k]
         rec = [
             w.index,
             w.id,
             w.rasm,
             STATUSES.index(w.status),
             [[t, m] for t, m in groups.items()],
-            [[a, m] for a, m in ayat.items()],
+            [[a, m] for a, m in ayahs.items()],
         ]
         extra = 0
         if w.boundary:
@@ -56,18 +56,18 @@ def _pack(words: list[Word]) -> dict:
             extra |= 2
         if extra:
             rec.append(extra)
-        suras.setdefault(str(w.sura), []).append(rec)
-    return suras
+        surahs.setdefault(str(w.surah), []).append(rec)
+    return surahs
 
 
-def write_viewer(words: list[Word], riwayat: list[Riwaya]) -> None:
+def write_viewer(words: list[Word], riwayahs: list[Riwayah]) -> None:
     payload = {
         "generated": date.today().isoformat(),
         "order": ORDER,
         "statuses": STATUSES,
-        "riwayat": {r.key: {"en": r.name_en, "ar": r.name_ar, "qari": r.qari_en}
-                    for r in riwayat},
-        "suras": {str(s): {"name_ar": names()[s]["name_ar"],
+        "riwayahs": {r.key: {"en": r.name_en, "ar": r.name_ar, "qiraah": r.qiraah_en}
+                    for r in riwayahs},
+        "surahs": {str(s): {"name_ar": names()[s]["name_ar"],
                            "name_en": names()[s]["name_en"]}
                   for s in range(1, 115)},
         "words": _pack(words),
@@ -160,7 +160,7 @@ kbd{background:var(--chip);border-radius:4px;padding:1px 5px;font-size:11px}
 </header>
 
 <div class="bar">
-  <select id="sura"></select>
+  <select id="surah"></select>
   <input type="search" id="q" placeholder="search rasm or spelling…">
   <div class="filters" id="filters"></div>
 </div>
@@ -183,7 +183,7 @@ async function load(){
   return JSON.parse(await new Response(stream).text());
 }
 
-let D, state = {sura: 1, status: null, q: ''};
+let D, state = {surah: 1, status: null, q: ''};
 
 const has = (mask, i) => (mask >> i) & 1;
 const namesOf = mask => D.order.filter((_, i) => has(mask, i));
@@ -195,7 +195,7 @@ function counts(rows){
 }
 
 function render(){
-  const rows = D.words[state.sura] || [];
+  const rows = D.words[state.surah] || [];
   const q = state.q.trim();
   const shown = rows.filter(r =>
     (!state.status || D.statuses[r[3]] === state.status) &&
@@ -211,11 +211,11 @@ function render(){
     (state.status ? ` Filtered to ${state.status.replace(/_/g,' ')}.` : '');
 
   document.getElementById('list').innerHTML = shown.length ? shown.map(r => {
-    const [i, id, rasm, st, groups, ayat] = r;
+    const [i, id, rasm, st, groups, ayahs] = r;
     const status = D.statuses[st];
-    const aya = ayat.map(a => a[0]);
-    const ref = aya.every(a => a === aya[0])
-      ? `${state.sura}:${aya[0]}` : `${state.sura}:${Math.min(...aya)}–${Math.max(...aya)}`;
+    const ayah = ayahs.map(a => a[0]);
+    const ref = ayah.every(a => a === ayah[0])
+      ? `${state.surah}:${ayah[0]}` : `${state.surah}:${Math.min(...ayah)}–${Math.max(...ayah)}`;
     return `<div class="word" data-id="${id}">
       <div class="whead">
         <span class="ref">${ref} · #${i}</span>
@@ -230,22 +230,22 @@ function render(){
 }
 
 function detail(el, id){
-  const r = (D.words[state.sura] || []).find(x => x[1] === +id);
+  const r = (D.words[state.surah] || []).find(x => x[1] === +id);
   if (!r) return;
-  const [i, wid, rasm, st, groups, ayat] = r;
-  const spelling = {}, aya = {};
+  const [i, word_key, rasm, st, groups, ayahs] = r;
+  const spelling = {}, ayah = {};
   for (const [t, m] of groups) namesOf(m).forEach(k => spelling[k] = t);
-  for (const [a, m] of ayat) namesOf(m).forEach(k => aya[k] = a);
+  for (const [a, m] of ayahs) namesOf(m).forEach(k => ayah[k] = a);
   const many = groups.length > 1;
   el.innerHTML = `<table>${D.order.map(k => {
     const s = spelling[k];
     const differs = many && s !== groups[0][0];
     return `<tr class="${differs ? 'differs' : ''}">
-      <td class="k">${D.riwayat[k].en} · ${D.riwayat[k].ar}</td>
+      <td class="k">${D.riwayahs[k].en} · ${D.riwayahs[k].ar}</td>
       <td class="v">${s === undefined ? '—' : s}</td>
-      <td class="a">${aya[k] === undefined ? '' : 'āyah ' + aya[k]}</td></tr>`;
+      <td class="a">${ayah[k] === undefined ? '' : 'āyah ' + ayah[k]}</td></tr>`;
   }).join('')}</table>
-  <p class="note" style="margin:9px 0 0">word id <b>${wid}</b> · rasm <b>${rasm}</b>
+  <p class="note" style="margin:9px 0 0">word id <b>${word_key}</b> · rasm <b>${rasm}</b>
    · ${groups.length} distinct spelling${groups.length > 1 ? 's' : ''}</p>`;
 }
 
@@ -263,10 +263,10 @@ document.addEventListener('click', e => {
 
 load().then(data => {
   D = data;
-  const sel = document.getElementById('sura');
-  sel.innerHTML = Object.entries(D.suras).map(([n, s]) =>
+  const sel = document.getElementById('surah');
+  sel.innerHTML = Object.entries(D.surahs).map(([n, s]) =>
     `<option value="${n}">${n}. ${s.name_en} — ${s.name_ar}</option>`).join('');
-  sel.onchange = () => { state.sura = sel.value; render(); };
+  sel.onchange = () => { state.surah = sel.value; render(); };
   document.getElementById('q').oninput = e => { state.q = e.target.value; render(); };
   render();
 }).catch(err => {

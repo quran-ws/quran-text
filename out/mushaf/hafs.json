@@ -6,14 +6,14 @@
   "key": "hafs",
   "name_en": "Ḥafṣ",
   "name_ar": "حفص",
-  "qari_en": "ʿĀṣim al-Kūfī",
-  "qari_ar": "عاصم الكوفي",
+  "qiraah_en": "ʿĀṣim al-Kūfī",
+  "qiraah_ar": "عاصم الكوفي",
   "word_count": 77432
  },
  "counting": {
   "system": "kufi",
   "system_name_ar": "الكوفي",
-  "system_name_en": "Kufan",
+  "system_name_en": "Kufi Numbering",
   "declared_by": null,
   "ayah_count": 6236,
   "basmalah_counted": true,
@@ -35,9 +35,9 @@
     "counting-systems.json": "a4dfad8c302f3a7bd2172a07ecbd70045b448815edd955df2f0bedcb972b8117"
    },
    "overlay": {
-    "khilaf.json": "4da0ea00d8e7eac40ef9208fecb61cd79e074a01f94614b7d116bb2a456c0f2b",
-    "open-findings.json": "7bfa88abac5b8696bb32730baf354dd84545ad4eec1165b4fe968acea862da9c",
-    "declared.json": "25b9a22835d6cc8d539881288d9973f7f56be0a080e2e1000d86ec6de5bad768"
+    "khilaf.json": "ec884075b480c8d66c42de8a589f25bd34141d2fa2871e087f2add6c6c349046",
+    "open-findings.json": "74b91e8c45d7cc50c85a4d37f4fa9db6e40e962354a6dd20239b60c120d855e6",
+    "declared.json": "feba23ee612ddd2008797432cdaa3c73f3e5ddc2de4ca880c6b6f76c07b22980"
    }
   }
  },
@@ -67,17 +67,17 @@
   "member": "UthmanicHafs-v-3.0.ttf",
   "sha256": "5c47602425fb4190327ab9e1a2e8ed2f53dceaf595d8ccc29ac32b8b209ad398",
   "publisher": "https://fonts.qurancomplex.gov.sa/",
-  "note": "The text uses codepoints only this font is guaranteed to draw (Arabic Extended-B alefs, open tanwīn, the pause signs). Ship it with the text; a general Arabic font will show gaps."
+  "note": "The text uses codepoints only this font is guaranteed to draw (Arabic Extended-B alefs, open tanwīn, the waqf signs). Ship it with the text; a general Arabic font will show gaps."
  },
  "layers": {
   "present": [
-   "suras",
-   "ayat",
+   "surahs",
+   "ayahs",
    "pages",
    "lines",
    "marks",
    "juz",
-   "imlaei"
+   "rasm_imlai"
   ],
   "absent": {},
   "derived": {
@@ -85,24 +85,24 @@
     "how": "reconstructed from the document's line breaks, paragraph boundaries and sūrah headings; printed lines are not encoded in the release",
     "validated": true,
     "against": "UthmanicHafs_v2-0.zip :: UthmanicHafs_v2-0 data/hafsData_v2-0.csv",
-    "ayat_checked": 6236,
-    "ayat_agreeing": 6236
+    "ayahs_checked": 6236,
+    "ayahs_agreeing": 6236
    },
-   "imlaei": {
+   "rasm_imlai": {
     "available": true,
     "source": "UthmanicHafs_v2-0.zip :: UthmanicHafs_v2-0 data/hafsData_v2-0.csv",
     "column": "aya_text_emlaey",
     "words_mapped": 77356,
-    "ayat_needing_join": 57,
-    "ayat_unpaired": 4,
-    "ayat_unaligned": 2,
+    "ayahs_needing_join": 57,
+    "ayahs_unpaired": 4,
+    "ayahs_unaligned": 2,
     "note": "imlāʾī is published only where a release supplies it; it is never derived by rule"
    }
   },
   "notes": {
    "page": "read from explicit page breaks in the release, not inferred",
-   "waqf": "pause-mark conventions differ by muṣḥaf and are not comparable across them: Warsh and Qālūn print one general sign where Ḥafṣ, Dūrī and Sūsī print seven distinct ones",
-   "hizb": "the ۞ symbol is emitted exactly as the release prints it. The releases disagree about how often to print it — 199 times in Ḥafṣ, Shuʿbah and Bazzī against 433–437 in the others — and nothing here reconciles them"
+   "waqf": "waqf-mark conventions differ by muṣḥaf and are not comparable across them: Warsh and Qālūn print one general sign where Ḥafṣ, Dūrī and Sūsī print seven distinct ones",
+   "division": "the ۞ symbol is emitted exactly as the release prints it. The releases disagree about how often to print it — 199 times in Ḥafṣ, Shuʿbah and Bazzī against 433–437 in the others — and nothing here reconciles them"
   }
  },
  "words": [
@@ -77539,7 +77539,7 @@
   "ٱلۡجِنَّةِ",
   "وَٱلنَّاسِ"
  ],
- "imlaei": [
+ "rasm_imlai": [
   "بسم",
   "الله",
   "الرحمن",
@@ -154988,7 +154988,7 @@
    }
   ]
  },
- "sura_starts": [
+ "surah_starts": [
   0,
   29,
   6146,
@@ -170802,7 +170802,7 @@
   72463,
   75124
  ],
- "suras": [
+ "surahs": [
   {
    "number": 1,
    "name_ar": "الفَاتِحة",
@@ -189818,7 +189818,7 @@
    "sign": "ۚ"
   },
   {
-   "kind": "hizb",
+   "kind": "division",
    "side": "before",
    "sign": "۞"
   },

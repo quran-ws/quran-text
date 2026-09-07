@@ -8,16 +8,16 @@ from quran_text import Mushaf, AyahMap
 
 m = Mushaf.hafs()                                    # bundled Ḥafṣ
 m.ayah(2, 255).text                                  # plain words
-m.ayah(2, 255).render(marks=True, ayah_markers=True) # with pause marks and ۝٢٥٥
-m.page(3).render(marks=True, ayah_markers=True, lines=True)
-m.sura(112).ayat                                     # [Ayah(112:1), …]
+m.ayah(2, 255).render(marks=True, ayah_marks=True) # with waqf marks and ۝٢٥٥
+m.page(3).render(marks=True, ayah_marks=True, lines=True)
+m.surah(112).ayahs                                     # [Ayah(112:1), …]
 m.juz(30).first_ayah.key                             # "78:1"
 m.word(1, 4, 1).number                               # 11, the same word in every riwāyah
 m.sajdat()                                           # every āyah printed with ۩
 m.search("مالك يوم الدين")                           # [Span(10, 13)]
 
 w = Mushaf.load("out/mushaf/warsh.json")            # another riwāyah
-AyahMap.load("out/ayah-map.json").convert(2, 255, "warsh")   # AyahRef(2, 253, 'split', 254)
+AyahMap.load("out/ayah-map.json").convert(2, 255, "warsh")   # MappedAyah(2, 253, 'split', 254)
 ```
 
 The font the text needs is bundled too: `m.font.family` names it and `m.font.path`

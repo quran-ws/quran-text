@@ -9,7 +9,7 @@ namespace QuranText;
  *
  *   $m = Mushaf::hafs();                       // bundled; or Mushaf::load('out/mushaf/warsh.json')
  *   $m->ayah(2, 255)->text();
- *   $m->ayah(2, 255)->render(marks: true, ayahMarkers: true);
+ *   $m->ayah(2, 255)->render(marks: true, ayahMarks: true);
  *   $m->page(3)->lines();
  *   $m->juz(30)->firstAyah()->key();          // "78:1"
  *
@@ -24,12 +24,12 @@ final class Mushaf
     public readonly string $key;
     public readonly string $nameEn;
     public readonly string $nameAr;
-    public readonly ?string $qariEn;
-    public readonly ?string $qariAr;
+    public readonly ?string $qiraahEn;
+    public readonly ?string $qiraahAr;
     public readonly string $countingSystem;
     public readonly bool $basmalahCounted;
-    /** @var Sura[] */
-    public readonly array $suras;
+    /** @var Surah[] */
+    public readonly array $surahs;
 
     /** @internal */
     public readonly array $doc;
@@ -39,7 +39,7 @@ final class Mushaf
     public readonly array $marksAt;
     /** @internal position => true for every line start */
     public readonly array $lineStartSet;
-    private readonly array $suraFirstAyah;
+    private readonly array $surahFirstAyah;
     private ?array $numbers = null;
     private ?array $folded = null;
 
@@ -53,16 +53,16 @@ final class Mushaf
         $this->key = $doc['mushaf']['key'];
         $this->nameEn = $doc['mushaf']['name_en'];
         $this->nameAr = $doc['mushaf']['name_ar'];
-        $this->qariEn = $doc['mushaf']['qari_en'] ?? null;
-        $this->qariAr = $doc['mushaf']['qari_ar'] ?? null;
+        $this->qiraahEn = $doc['mushaf']['qiraah_en'] ?? null;
+        $this->qiraahAr = $doc['mushaf']['qiraah_ar'] ?? null;
         $this->countingSystem = $doc['counting']['system'];
         $this->basmalahCounted = $doc['counting']['basmalah_counted'];
-        $suras = [];
+        $surahs = [];
         for ($n = 1; $n <= 114; $n++) {
-            $suras[] = new Sura($this, $n);
+            $surahs[] = new Surah($this, $n);
         }
-        $this->suras = $suras;
-        $this->suraFirstAyah = array_map(fn (Sura $s) => $s->firstAyah, $suras);
+        $this->surahs = $surahs;
+        $this->surahFirstAyah = array_map(fn (Surah $s) => $s->firstAyah, $surahs);
         $ends = [];
         $starts = $doc['ayah_starts'];
         $total = count($this->words);
@@ -72,8 +72,8 @@ final class Mushaf
         $this->ayahEnds = $ends;
         $types = array_map(fn ($t) => new Mark($t['kind'], $t['side'], $t['sign']), $doc['mark_types']);
         $marks = [];
-        foreach ($doc['marks'] as [$pos, $t]) {
-            $marks[$pos][] = $types[$t];
+        foreach ($doc['marks'] as [$position, $t]) {
+            $marks[$position][] = $types[$t];
         }
         $this->marksAt = $marks;
         $this->lineStartSet = array_fill_keys($doc['line_starts'] ?? [], true);
@@ -131,7 +131,7 @@ final class Mushaf
         return $this->doc['layers']['present'];
     }
 
-    /** has('juz'), has('imlaei'), has('lines') … */
+    /** has('juz'), has('rasm_imlai'), has('lines') … */
     public function has(string $layer): bool
     {
         return in_array($layer, $this->doc['layers']['present'], true);
@@ -181,18 +181,18 @@ final class Mushaf
 
     // -- units by number --
 
-    public function sura(int $number): Sura
+    public function surah(int $number): Surah
     {
         if ($number < 1 || $number > 114) {
             throw new \OutOfRangeException("sūrah $number: there are 114");
         }
-        return $this->suras[$number - 1];
+        return $this->surahs[$number - 1];
     }
 
-    /** Āyah $number of $sura in this edition's own count. */
-    public function ayah(int $sura, int $number): Ayah
+    /** Āyah $number of $surah in this edition's own count. */
+    public function ayah(int $surah, int $number): Ayah
     {
-        return new Ayah($this, $sura, $number);
+        return new Ayah($this, $surah, $number);
     }
 
     public function page(int $number): Page
@@ -211,9 +211,9 @@ final class Mushaf
     }
 
     /** Word $index (1-based) of an āyah. */
-    public function word(int $sura, int $ayah, int $index): Word
+    public function word(int $surah, int $ayah, int $index): Word
     {
-        return (new Ayah($this, $sura, $ayah))->word($index);
+        return (new Ayah($this, $surah, $ayah))->word($index);
     }
 
     /** Any run of positions, e.g. to render a selection. */
@@ -231,7 +231,7 @@ final class Mushaf
     }
 
     /** @return Ayah[] */
-    public function ayat(): array
+    public function ayahs(): array
     {
         $out = [];
         for ($k = 0; $k < $this->ayahCount(); $k++) {
@@ -273,9 +273,9 @@ final class Mushaf
         return $k >= 0 ? Ayah::fromIndex($this, $k) : null;
     }
 
-    public function suraAt(int $position): Sura
+    public function surahAt(int $position): Surah
     {
-        return $this->suras[Text::indexOf($this->doc['sura_starts'], $position)];
+        return $this->surahs[Text::indexOf($this->doc['surah_starts'], $position)];
     }
 
     public function pageAt(int $position): Page
@@ -311,16 +311,7 @@ final class Mushaf
 
     // -- the shared numbering --
 
-    /**
-     * @internal Two packed int lists, `[$first, $last]`, parallel to `words`.
-     *
-     * Deliberately not one array of `[first, last]` pairs: 77k two-element
-     * arrays cost around a hundred bytes each in PHP and pushed a plain
-     * `Mushaf::hafs()` past the default 128 MB `memory_limit`. Packed integer
-     * lists cost 16 bytes a slot, so the same data fits in a couple of MB.
-     *
-     * @return array{0: int[], 1: int[]}
-     */
+    /** @internal position => [first, last] */
     public function numbers(): array
     {
         if ($this->numbers === null) {
@@ -330,19 +321,17 @@ final class Mushaf
             foreach ($block['written_joined'] as $j) {
                 $joined[$j['position']] = $j['numbers'];
             }
-            $first = [];
-            $last = [];
+            $runs = [];
             $n = 1;
-            for ($pos = 0, $total = count($this->words); $pos < $total; $pos++) {
+            for ($position = 0, $total = count($this->words); $position < $total; $position++) {
                 while (isset($missing[$n])) {
                     $n++;
                 }
-                [$f, $l] = $joined[$pos] ?? [$n, $n];
-                $first[] = $f;
-                $last[] = $l;
-                $n = $l + 1;
+                [$first, $last] = $joined[$position] ?? [$n, $n];
+                $runs[] = [$first, $last];
+                $n = $last + 1;
             }
-            $this->numbers = [$first, $last];
+            $this->numbers = $runs;
         }
         return $this->numbers;
     }
@@ -356,25 +345,25 @@ final class Mushaf
     /** The shared number of the word at $position. */
     public function numberAt(int $position): int
     {
-        return $this->numbers()[0][$position];
+        return $this->numbers()[$position][0];
     }
 
     /** The printed word carrying a shared number; null where this muṣḥaf does not read it. */
     public function wordByNumber(int $number): ?Word
     {
-        [$first, $last] = $this->numbers();
+        $runs = $this->numbers();
         $lo = 0;
-        $hi = count($first);
+        $hi = count($runs);
         while ($lo < $hi) {
             $mid = ($lo + $hi) >> 1;
-            if ($first[$mid] <= $number) {
+            if ($runs[$mid][0] <= $number) {
                 $lo = $mid + 1;
             } else {
                 $hi = $mid;
             }
         }
         $i = $lo - 1;
-        return $i >= 0 && $first[$i] <= $number && $number <= $last[$i] ? new Word($this, $i) : null;
+        return $i >= 0 && $runs[$i][0] <= $number && $number <= $runs[$i][1] ? new Word($this, $i) : null;
     }
 
     // -- signs and search --
@@ -386,19 +375,19 @@ final class Mushaf
     }
 
     /** Every word printed with ۞ before it, as the release prints them. @return Word[] */
-    public function hizbMarks(): array
+    public function divisionMarks(): array
     {
-        return array_map(fn ($p) => new Word($this, $p), $this->positionsWith('hizb'));
+        return array_map(fn ($p) => new Word($this, $p), $this->positionsWith('division'));
     }
 
     /** @return int[] */
     private function positionsWith(string $kind): array
     {
         $out = [];
-        foreach ($this->marksAt as $pos => $marks) {
+        foreach ($this->marksAt as $position => $marks) {
             foreach ($marks as $mark) {
                 if ($mark->kind === $kind) {
-                    $out[] = $pos;
+                    $out[] = $position;
                     break;
                 }
             }
@@ -409,7 +398,7 @@ final class Mushaf
 
     /**
      * Every place the words of $text occur in sequence, matched on
-     * Text::fold() — diacritics and hamza forms do not matter.
+     * Text::fold() — harakah and hamzah forms do not matter.
      * @return Span[]
      */
     public function search(string $text): array
@@ -440,14 +429,14 @@ final class Mushaf
     // -- internals --
 
     /** @internal */
-    public function suraOfAyahIndex(int $k): int
+    public function surahOfAyahIndex(int $k): int
     {
-        return Text::indexOf($this->suraFirstAyah, $k);
+        return Text::indexOf($this->surahFirstAyah, $k);
     }
 
     /** @internal */
     public function ayahNumber(int $k): int
     {
-        return $k - $this->suraFirstAyah[$this->suraOfAyahIndex($k)] + 1;
+        return $k - $this->surahFirstAyah[$this->surahOfAyahIndex($k)] + 1;
     }
 }

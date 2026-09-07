@@ -85,7 +85,7 @@ already has exceptions at exactly this juz.
 edition prints a ۞ anywhere near juz 26 — 46:1 is a sūrah opening, and marks are
 never printed at those (§7). Of the four disputed juz, only juz 7 has a mark
 standing on the boundary at all; at juz 4 and 11 the nearest marks are 15 and 19
-words away, which makes them neighbouring arbāʿ, not the division.
+words away, which makes them neighbouring rubu_al_hizbs, not the division.
 
 **If answered:** Bazzī gets a juz layer. It has none today.
 

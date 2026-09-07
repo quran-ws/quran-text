@@ -11,9 +11,9 @@
    "counting-systems.json": "a4dfad8c302f3a7bd2172a07ecbd70045b448815edd955df2f0bedcb972b8117"
   },
   "overlay": {
-   "khilaf.json": "4da0ea00d8e7eac40ef9208fecb61cd79e074a01f94614b7d116bb2a456c0f2b",
-   "open-findings.json": "7bfa88abac5b8696bb32730baf354dd84545ad4eec1165b4fe968acea862da9c",
-   "declared.json": "25b9a22835d6cc8d539881288d9973f7f56be0a080e2e1000d86ec6de5bad768"
+   "khilaf.json": "ec884075b480c8d66c42de8a589f25bd34141d2fa2871e087f2add6c6c349046",
+   "open-findings.json": "74b91e8c45d7cc50c85a4d37f4fa9db6e40e962354a6dd20239b60c120d855e6",
+   "declared.json": "feba23ee612ddd2008797432cdaa3c73f3e5ddc2de4ca880c6b6f76c07b22980"
   }
  },
  "disputed_points": [
@@ -2693,16 +2693,16 @@
  "systems": {
   "madani-first": {
    "name_ar": "المدني الأول",
-   "name_en": "First Madinan",
+   "name_en": "First Madani Numbering",
    "reference_total": 6217,
    "editions": [
     {
-     "mushaf": "douri",
+     "mushaf": "duri",
      "ayah_count": 6217,
      "basmalah_counted": false,
      "khilaf": [
       {
-       "sura": 3,
+       "surah": 3,
        "ayah": 91,
        "kufi": "3:92",
        "number": 7715,
@@ -2723,7 +2723,7 @@
        }
       },
       {
-       "sura": 3,
+       "surah": 3,
        "ayah": 97,
        "kufi": "3:97",
        "number": 7784,
@@ -2744,7 +2744,7 @@
        }
       },
       {
-       "sura": 37,
+       "surah": 37,
        "ayah": 167,
        "kufi": "37:167",
        "number": 58203,
@@ -2765,7 +2765,7 @@
        }
       },
       {
-       "sura": 67,
+       "surah": 67,
        "ayah": 9,
        "kufi": "67:9",
        "number": 72557,
@@ -2787,7 +2787,7 @@
        }
       },
       {
-       "sura": 80,
+       "surah": 80,
        "ayah": 24,
        "kufi": "80:24",
        "number": 75556,
@@ -2808,7 +2808,7 @@
        }
       },
       {
-       "sura": 81,
+       "surah": 81,
        "ayah": 26,
        "kufi": "81:26",
        "number": 75697,
@@ -2832,12 +2832,12 @@
      "unexplained": []
     },
     {
-     "mushaf": "sousi",
+     "mushaf": "susi",
      "ayah_count": 6218,
      "basmalah_counted": false,
      "khilaf": [
       {
-       "sura": 3,
+       "surah": 3,
        "ayah": 91,
        "kufi": "3:92",
        "number": 7715,
@@ -2858,7 +2858,7 @@
        }
       },
       {
-       "sura": 3,
+       "surah": 3,
        "ayah": 97,
        "kufi": "3:97",
        "number": 7784,
@@ -2879,7 +2879,7 @@
        }
       },
       {
-       "sura": 37,
+       "surah": 37,
        "ayah": 167,
        "kufi": "37:167",
        "number": 58203,
@@ -2900,7 +2900,7 @@
        }
       },
       {
-       "sura": 67,
+       "surah": 67,
        "ayah": 9,
        "kufi": "67:9",
        "number": 72557,
@@ -2922,7 +2922,7 @@
        }
       },
       {
-       "sura": 80,
+       "surah": 80,
        "ayah": 24,
        "kufi": "80:24",
        "number": 75556,
@@ -2943,7 +2943,7 @@
        }
       },
       {
-       "sura": 81,
+       "surah": 81,
        "ayah": 26,
        "kufi": "81:26",
        "number": 75697,
@@ -9282,7 +9282,7 @@
   },
   "madani-last": {
    "name_ar": "المدني الأخير",
-   "name_en": "Last Madinan",
+   "name_en": "Last Madani Numbering",
    "reference_total": 6214,
    "editions": [
     {
@@ -9293,7 +9293,7 @@
      "unexplained": []
     },
     {
-     "mushaf": "qaloun",
+     "mushaf": "qalun",
      "ayah_count": 6214,
      "basmalah_counted": false,
      "khilaf": [],
@@ -15520,7 +15520,7 @@
   },
   "makki": {
    "name_ar": "المكي",
-   "name_en": "Makkan",
+   "name_en": "Makki Numbering",
    "reference_total": 6219,
    "editions": [
     {
@@ -15529,7 +15529,7 @@
      "basmalah_counted": true,
      "khilaf": [
       {
-       "sura": 78,
+       "surah": 78,
        "ayah": 40,
        "kufi": "78:40",
        "number": 75288,
@@ -15543,7 +15543,7 @@
         "author": "عبد الفتاح القاضي",
         "locator": "سورة القيامة والنبأ",
         "note": "قَرِيبًا الْبَصْرِى وَخُلْفٌ مَكِّهِمْ — «عده البصري والمكي يخلف عنه وتركه الباقون»",
-        "why": "al-Dānī's al-Bayān gives the point to Baṣrī alone («عدها البصري ولم يعدها الباقون», sūrah 78, 41 āyāt in Baṣrī and 40 in the rest). al-Farāʾid al-Ḥisān records khilāf within Makkī at the same word, which is what the KFGQPC Bazzī edition follows. The source does not name the authorities on either side."
+        "why": "al-Dānī's al-Bayān gives the point to Baṣrī alone («عدها البصري ولم يعدها الباقون», sūrah 78, 41 āyahs in Baṣrī and 40 in the rest). al-Farāʾid al-Ḥisān records khilāf within Makkī at the same word, which is what the KFGQPC Bazzī edition follows. The source does not name the authorities on either side."
        }
       }
      ],
@@ -15561,7 +15561,7 @@
       "author": "عبد الفتاح القاضي",
       "locator": "سورة القيامة والنبأ",
       "note": "قَرِيبًا الْبَصْرِى وَخُلْفٌ مَكِّهِمْ — «عده البصري والمكي يخلف عنه وتركه الباقون»",
-      "why": "al-Dānī's al-Bayān gives the point to Baṣrī alone («عدها البصري ولم يعدها الباقون», sūrah 78, 41 āyāt in Baṣrī and 40 in the rest). al-Farāʾid al-Ḥisān records khilāf within Makkī at the same word, which is what the KFGQPC Bazzī edition follows. The source does not name the authorities on either side."
+      "why": "al-Dānī's al-Bayān gives the point to Baṣrī alone («عدها البصري ولم يعدها الباقون», sūrah 78, 41 āyahs in Baṣrī and 40 in the rest). al-Farāʾid al-Ḥisān records khilāf within Makkī at the same word, which is what the KFGQPC Bazzī edition follows. The source does not name the authorities on either side."
      }
     }
    ],
@@ -21789,7 +21789,7 @@
   },
   "basri": {
    "name_ar": "البصري",
-   "name_en": "Basran",
+   "name_en": "Basri Numbering",
    "reference_total": 6204,
    "editions": [],
    "khilaf_points": [],
@@ -28002,7 +28002,7 @@
   },
   "dimashqi": {
    "name_ar": "الدمشقي",
-   "name_en": "Damascene",
+   "name_en": "Dimashqi Numbering",
    "reference_total": 6226,
    "editions": [],
    "khilaf_points": [],
@@ -34237,7 +34237,7 @@
   },
   "kufi": {
    "name_ar": "الكوفي",
-   "name_en": "Kufan",
+   "name_en": "Kufi Numbering",
    "reference_total": 6236,
    "editions": [
     {
@@ -34248,7 +34248,7 @@
      "unexplained": []
     },
     {
-     "mushaf": "shuba",
+     "mushaf": "shubah",
      "ayah_count": 6236,
      "basmalah_counted": true,
      "khilaf": [],

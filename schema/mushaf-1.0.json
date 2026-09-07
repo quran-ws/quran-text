@@ -1,676 +1,676 @@
 {
- "$schema": "https://json-schema.org/draft/2020-12/schema",
- "$id": "https://github.com/quran-ws/quran-text/schema/mushaf-1.0.json",
- "title": "quran-mushaf 1.0",
- "description": "One muṣḥaf, published on its own: an ordered array of word strings, with every other fact a layer over that array addressed by position. Normative form; see docs/format.md.",
- "type": "object",
- "required": [
-  "format",
-  "format_version",
-  "generated",
-  "mushaf",
-  "counting",
-  "provenance",
-  "font",
-  "layers",
-  "words",
-  "imlaei",
-  "numbering",
-  "sura_starts",
-  "ayah_starts",
-  "suras",
-  "marks",
-  "mark_types",
-  "mark_signs",
-  "resegmentation",
-  "line_disagreements"
- ],
- "additionalProperties": false,
- "properties": {
-  "format": {
-   "const": "quran-mushaf"
-  },
-  "format_version": {
-   "type": "string",
-   "pattern": "^\\d+\\.\\d+$"
-  },
-  "generated": {
-   "type": "string",
-   "format": "date"
-  },
-  "mushaf": {
-   "type": "object",
-   "required": [
-    "key",
-    "name_en",
-    "name_ar",
-    "word_count"
-   ],
-   "additionalProperties": false,
-   "properties": {
-    "key": {
-     "type": "string",
-     "pattern": "^[a-z]+$"
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/quran-ws/quran-text/schema/mushaf-1.0.json",
+  "title": "quran-mushaf 1.0",
+  "description": "One muṣḥaf, published on its own: an ordered array of word strings, with every other fact a layer over that array addressed by position. Normative form; see docs/format.md.",
+  "type": "object",
+  "required": [
+    "format",
+    "format_version",
+    "generated",
+    "mushaf",
+    "counting",
+    "provenance",
+    "font",
+    "layers",
+    "words",
+    "rasm_imlai",
+    "numbering",
+    "surah_starts",
+    "ayah_starts",
+    "surahs",
+    "marks",
+    "mark_types",
+    "mark_signs",
+    "resegmentation",
+    "line_disagreements"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "format": {
+      "const": "quran-mushaf"
     },
-    "name_en": {
-     "type": "string"
+    "format_version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+$"
     },
-    "name_ar": {
-     "type": "string"
+    "generated": {
+      "type": "string",
+      "format": "date"
     },
-    "qari_en": {
-     "type": "string"
-    },
-    "qari_ar": {
-     "type": "string"
-    },
-    "word_count": {
-     "type": "integer",
-     "minimum": 1,
-     "description": "Equals words.length; restated so a truncated download can be detected."
-    }
-   }
-  },
-  "counting": {
-   "type": "object",
-   "description": "Which counting system this edition follows, derived from its own ayah_starts, and what it does at every point of khilāf inside that system.",
-   "required": [
-    "system",
-    "declared_by",
-    "ayah_count",
-    "basmalah_counted",
-    "khilaf",
-    "unexplained"
-   ],
-   "additionalProperties": false,
-   "properties": {
-    "system": {
-     "enum": [
-      "madani-first",
-      "madani-last",
-      "makki",
-      "basri",
-      "dimashqi",
-      "kufi"
-     ]
-    },
-    "system_name_ar": {
-     "type": "string"
-    },
-    "system_name_en": {
-     "type": "string"
-    },
-    "declared_by": {
-     "description": "What the edition states about its own count, or null if the source states nothing.",
-     "oneOf": [
-      {
-       "type": "null"
-      },
-      {
-       "type": "object",
-       "required": [
-        "kind",
-        "quote"
-       ],
-       "properties": {
-        "kind": {
-         "enum": [
-          "colophon",
-          "title_page"
-         ]
-        },
-        "quote": {
-         "type": "string"
-        },
-        "page": {
-         "type": "integer"
-        },
-        "system": {
-         "type": "string"
-        }
-       }
-      }
-     ]
-    },
-    "declared_disagrees": {
-     "const": true
-    },
-    "ayah_count": {
-     "type": "integer",
-     "minimum": 1,
-     "description": "ayah_starts.length"
-    },
-    "basmalah_counted": {
-     "type": "boolean",
-     "description": "Whether the basmalah of Al-Fātiḥah is a numbered āyah in this edition."
-    },
-    "khilaf": {
-     "type": "array",
-     "items": {
-      "$ref": "#/$defs/khilaf_point"
-     }
-    },
-    "unexplained": {
-     "type": "array",
-     "description": "Āyah ends where the edition differs from its system and no source records a khilāf. Must be empty, or listed in data/counting/open-findings.json.",
-     "items": {
+    "mushaf": {
       "type": "object",
       "required": [
-       "sura",
-       "ayah",
-       "number",
-       "counted"
-      ],
-      "properties": {
-       "sura": {
-        "type": "integer"
-       },
-       "ayah": {
-        "type": "integer"
-       },
-       "kufi": {
-        "type": [
-         "string",
-         "null"
-        ]
-       },
-       "number": {
-        "type": "integer"
-       },
-       "anchor": {
-        "type": [
-         "string",
-         "null"
-        ]
-       },
-       "counted": {
-        "type": "boolean"
-       }
-      }
-     }
-    },
-    "distance_to_systems": {
-     "type": "object",
-     "additionalProperties": {
-      "type": "integer"
-     }
-    },
-    "checked_against": {
-     "type": "object"
-    }
-   }
-  },
-  "provenance": {
-   "type": "object",
-   "required": [
-    "text",
-    "policy"
-   ],
-   "properties": {
-    "text": {
-     "$ref": "#/$defs/package"
-    },
-    "layout": {
-     "$ref": "#/$defs/package"
-    },
-    "policy": {
-     "type": "string"
-    }
-   }
-  },
-  "font": {
-   "type": "object",
-   "description": "The KFGQPC font this text is set in, shipped in the same package as the text. It is the only font guaranteed to draw every codepoint the words use; `file` is the copy under out/fonts/.",
-   "required": [
-    "family",
-    "file",
-    "package",
-    "member",
-    "sha256",
-    "publisher"
-   ],
-   "additionalProperties": false,
-   "properties": {
-    "family": {
-     "type": "string",
-     "description": "The family name from the font's own name table, e.g. \"KFGQPC HAFS Uthmanic Script\""
-    },
-    "file": {
-     "type": "string",
-     "pattern": "^out/fonts/.+\\.ttf$"
-    },
-    "package": {
-     "type": "string"
-    },
-    "member": {
-     "type": "string"
-    },
-    "sha256": {
-     "type": "string",
-     "pattern": "^[0-9a-f]{64}$"
-    },
-    "publisher": {
-     "type": "string",
-     "format": "uri"
-    },
-    "note": {
-     "type": "string"
-    }
-   }
-  },
-  "layers": {
-   "type": "object",
-   "required": [
-    "present",
-    "absent"
-   ],
-   "properties": {
-    "present": {
-     "type": "array",
-     "items": {
-      "type": "string"
-     }
-    },
-    "absent": {
-     "type": "object",
-     "additionalProperties": {
-      "type": "string"
-     }
-    },
-    "derived": {
-     "type": "object",
-     "additionalProperties": {
-      "type": "object"
-     }
-    },
-    "notes": {
-     "type": "object",
-     "additionalProperties": {
-      "type": "string"
-     }
-    }
-   }
-  },
-  "words": {
-   "type": "array",
-   "minItems": 1,
-   "description": "The muṣḥaf. words[i] is its i-th printed word, in ʿUthmānī spelling exactly as this release prints it, without pause marks.",
-   "items": {
-    "type": "string",
-    "minLength": 1
-   }
-  },
-  "imlaei": {
-   "description": "Parallel to words, or null when the release carries no imlāʾī column. A null entry is a word the chain could not resolve.",
-   "oneOf": [
-    {
-     "type": "null"
-    },
-    {
-     "type": "array",
-     "items": {
-      "type": [
-       "string",
-       "null"
-      ]
-     }
-    }
-   ]
-  },
-  "numbering": {
-   "type": "object",
-   "description": "How this muṣḥaf's positions map onto the shared numbering. The only place numbers appear.",
-   "required": [
-    "total",
-    "missing",
-    "written_joined"
-   ],
-   "additionalProperties": false,
-   "properties": {
-    "total": {
-     "type": "integer",
-     "minimum": 1,
-     "description": "Size of the shared numbering; identical in every file."
-    },
-    "missing": {
-     "type": "array",
-     "items": {
-      "type": "integer",
-      "minimum": 1
-     },
-     "description": "Numbers this muṣḥaf does not read. Sorted."
-    },
-    "written_joined": {
-     "type": "array",
-     "items": {
-      "type": "object",
-      "required": [
-       "position",
-       "numbers"
+        "key",
+        "name_en",
+        "name_ar",
+        "word_count"
       ],
       "additionalProperties": false,
       "properties": {
-       "position": {
+        "key": {
+          "type": "string",
+          "pattern": "^[a-z]+$"
+        },
+        "name_en": {
+          "type": "string"
+        },
+        "name_ar": {
+          "type": "string"
+        },
+        "qiraah_en": {
+          "type": "string"
+        },
+        "qiraah_ar": {
+          "type": "string"
+        },
+        "word_count": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Equals words.length; restated so a truncated download can be detected."
+        }
+      }
+    },
+    "counting": {
+      "type": "object",
+      "description": "Which counting system this edition follows, derived from its own ayah_starts, and what it does at every point of khilāf inside that system.",
+      "required": [
+        "system",
+        "declared_by",
+        "ayah_count",
+        "basmalah_counted",
+        "khilaf",
+        "unexplained"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "system": {
+          "enum": [
+            "madani-first",
+            "madani-last",
+            "makki",
+            "basri",
+            "dimashqi",
+            "kufi"
+          ]
+        },
+        "system_name_ar": {
+          "type": "string"
+        },
+        "system_name_en": {
+          "type": "string"
+        },
+        "declared_by": {
+          "description": "What the edition states about its own count, or null if the source states nothing.",
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "object",
+              "required": [
+                "kind",
+                "quote"
+              ],
+              "properties": {
+                "kind": {
+                  "enum": [
+                    "colophon",
+                    "title_page"
+                  ]
+                },
+                "quote": {
+                  "type": "string"
+                },
+                "page": {
+                  "type": "integer"
+                },
+                "system": {
+                  "type": "string"
+                }
+              }
+            }
+          ]
+        },
+        "declared_disagrees": {
+          "const": true
+        },
+        "ayah_count": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "ayah_starts.length"
+        },
+        "basmalah_counted": {
+          "type": "boolean",
+          "description": "Whether the basmalah of Al-Fātiḥah is a numbered āyah in this edition."
+        },
+        "khilaf": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/khilaf_point"
+          }
+        },
+        "unexplained": {
+          "type": "array",
+          "description": "Āyah ends where the edition differs from its system and no source records a khilāf. Must be empty, or listed in data/counting/open-findings.json.",
+          "items": {
+            "type": "object",
+            "required": [
+              "surah",
+              "ayah",
+              "number",
+              "counted"
+            ],
+            "properties": {
+              "surah": {
+                "type": "integer"
+              },
+              "ayah": {
+                "type": "integer"
+              },
+              "kufi": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "number": {
+                "type": "integer"
+              },
+              "anchor": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "counted": {
+                "type": "boolean"
+              }
+            }
+          }
+        },
+        "distance_to_systems": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "integer"
+          }
+        },
+        "checked_against": {
+          "type": "object"
+        }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "required": [
+        "text",
+        "policy"
+      ],
+      "properties": {
+        "text": {
+          "$ref": "#/$defs/package"
+        },
+        "layout": {
+          "$ref": "#/$defs/package"
+        },
+        "policy": {
+          "type": "string"
+        }
+      }
+    },
+    "font": {
+      "type": "object",
+      "description": "The KFGQPC font this text is set in, shipped in the same package as the text. It is the only font guaranteed to draw every codepoint the words use; `file` is the copy under out/fonts/.",
+      "required": [
+        "family",
+        "file",
+        "package",
+        "member",
+        "sha256",
+        "publisher"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "family": {
+          "type": "string",
+          "description": "The family name from the font's own name table, e.g. \"KFGQPC HAFS Uthmanic Script\""
+        },
+        "file": {
+          "type": "string",
+          "pattern": "^out/fonts/.+\\.ttf$"
+        },
+        "package": {
+          "type": "string"
+        },
+        "member": {
+          "type": "string"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "publisher": {
+          "type": "string",
+          "format": "uri"
+        },
+        "note": {
+          "type": "string"
+        }
+      }
+    },
+    "layers": {
+      "type": "object",
+      "required": [
+        "present",
+        "absent"
+      ],
+      "properties": {
+        "present": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "absent": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "derived": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          }
+        },
+        "notes": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "words": {
+      "type": "array",
+      "minItems": 1,
+      "description": "The muṣḥaf. words[i] is its i-th printed word, in ʿUthmānī spelling exactly as this release prints it, without waqf marks.",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "rasm_imlai": {
+      "description": "Parallel to words, or null when the release carries no imlāʾī column. A null entry is a word the chain could not resolve.",
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      ]
+    },
+    "numbering": {
+      "type": "object",
+      "description": "How this muṣḥaf's positions map onto the shared numbering. The only place numbers appear.",
+      "required": [
+        "total",
+        "missing",
+        "written_joined"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "total": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Size of the shared numbering; identical in every file."
+        },
+        "missing": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "description": "Numbers this muṣḥaf does not read. Sorted."
+        },
+        "written_joined": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "position",
+              "numbers"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "position": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "numbers": {
+                "$ref": "#/$defs/span",
+                "description": "[first, last], inclusive, length ≥ 2."
+              }
+            }
+          }
+        }
+      }
+    },
+    "surah_starts": {
+      "$ref": "#/$defs/starts",
+      "minItems": 114,
+      "maxItems": 114
+    },
+    "ayah_starts": {
+      "$ref": "#/$defs/starts",
+      "description": "One entry per numbered āyah, as this edition prints them. The unnumbered basmalah of Al-Fātiḥah precedes ayah_starts[0]."
+    },
+    "page_starts": {
+      "$ref": "#/$defs/starts"
+    },
+    "line_starts": {
+      "$ref": "#/$defs/starts",
+      "description": "Derived: see layers.derived.line."
+    },
+    "juz_starts": {
+      "$ref": "#/$defs/starts"
+    },
+    "surahs": {
+      "type": "array",
+      "minItems": 114,
+      "maxItems": 114,
+      "items": {
+        "type": "object",
+        "required": [
+          "number",
+          "name_ar",
+          "name_en",
+          "has_basmalah",
+          "ayah_count",
+          "first_ayah"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "number": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 114
+          },
+          "name_ar": {
+            "type": "string"
+          },
+          "name_en": {
+            "type": "string"
+          },
+          "revelation": {
+            "enum": [
+              "makki",
+              "madani"
+            ]
+          },
+          "has_basmalah": {
+            "type": "boolean",
+            "description": "A basmalah is printed above this sūrah; false for Tawbah alone. Whether it is counted as an āyah is counting.basmalah_counted."
+          },
+          "ayah_count": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Number of numbered āyāt in this edition."
+          },
+          "first_ayah": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Index into ayah_starts of this sūrah's first āyah; the prefix sum of ayah_count."
+          }
+        }
+      }
+    },
+    "marks": {
+      "type": "array",
+      "description": "[position, index into mark_types].",
+      "items": {
+        "type": "array",
+        "minItems": 2,
+        "maxItems": 2,
+        "items": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "mark_types": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "kind",
+          "side",
+          "sign"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "kind": {
+            "enum": [
+              "waqf",
+              "division",
+              "sajdah"
+            ]
+          },
+          "side": {
+            "enum": [
+              "before",
+              "after"
+            ],
+            "description": "Which side of the word the sign is printed on."
+          },
+          "sign": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1
+          }
+        }
+      }
+    },
+    "mark_signs": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": [
+          "cp",
+          "unicode_name"
+        ],
+        "properties": {
+          "cp": {
+            "type": "string",
+            "pattern": "^U\\+[0-9A-F]{4}$"
+          },
+          "unicode_name": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "resegmentation": {
+      "type": "array",
+      "description": "Every place this build changed the source's own word spacing. Present even when empty.",
+      "items": {
+        "type": "object",
+        "required": [
+          "positions",
+          "surah",
+          "ayah",
+          "kind",
+          "source_text",
+          "emitted"
+        ],
+        "properties": {
+          "positions": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          "surah": {
+            "type": "integer"
+          },
+          "ayah": {
+            "type": "integer"
+          },
+          "kind": {
+            "type": "string"
+          },
+          "source_text": {
+            "type": "string"
+          },
+          "emitted": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "riwayahs_agree": {
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    "line_disagreements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "surah",
+          "ayah",
+          "derived",
+          "source"
+        ],
+        "properties": {
+          "surah": {
+            "type": "integer"
+          },
+          "ayah": {
+            "type": "integer"
+          },
+          "derived": {
+            "type": "integer"
+          },
+          "source": {
+            "type": "integer"
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "span": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": {
+        "type": "integer",
+        "minimum": 1
+      },
+      "description": "[first, last], inclusive."
+    },
+    "starts": {
+      "type": "array",
+      "items": {
         "type": "integer",
         "minimum": 0
-       },
-       "numbers": {
-        "$ref": "#/$defs/span",
-        "description": "[first, last], inclusive, length ≥ 2."
-       }
-      }
-     }
-    }
-   }
-  },
-  "sura_starts": {
-   "$ref": "#/$defs/starts",
-   "minItems": 114,
-   "maxItems": 114
-  },
-  "ayah_starts": {
-   "$ref": "#/$defs/starts",
-   "description": "One entry per numbered āyah, as this edition prints them. The unnumbered basmalah of Al-Fātiḥah precedes ayah_starts[0]."
-  },
-  "page_starts": {
-   "$ref": "#/$defs/starts"
-  },
-  "line_starts": {
-   "$ref": "#/$defs/starts",
-   "description": "Derived: see layers.derived.line."
-  },
-  "juz_starts": {
-   "$ref": "#/$defs/starts"
-  },
-  "suras": {
-   "type": "array",
-   "minItems": 114,
-   "maxItems": 114,
-   "items": {
-    "type": "object",
-    "required": [
-     "number",
-     "name_ar",
-     "name_en",
-     "has_basmalah",
-     "ayah_count",
-     "first_ayah"
-    ],
-    "additionalProperties": false,
-    "properties": {
-     "number": {
-      "type": "integer",
-      "minimum": 1,
-      "maximum": 114
-     },
-     "name_ar": {
-      "type": "string"
-     },
-     "name_en": {
-      "type": "string"
-     },
-     "revelation": {
-      "enum": [
-       "makki",
-       "madani"
-      ]
-     },
-     "has_basmalah": {
-      "type": "boolean",
-      "description": "A basmalah is printed above this sūrah; false for at-Tawbah alone. Whether it is counted as an āyah is counting.basmalah_counted."
-     },
-     "ayah_count": {
-      "type": "integer",
-      "minimum": 1,
-      "description": "Number of numbered āyāt in this edition."
-     },
-     "first_ayah": {
-      "type": "integer",
-      "minimum": 0,
-      "description": "Index into ayah_starts of this sūrah's first āyah; the prefix sum of ayah_count."
-     }
-    }
-   }
-  },
-  "marks": {
-   "type": "array",
-   "description": "[position, index into mark_types].",
-   "items": {
-    "type": "array",
-    "minItems": 2,
-    "maxItems": 2,
-    "items": {
-     "type": "integer",
-     "minimum": 0
-    }
-   }
-  },
-  "mark_types": {
-   "type": "array",
-   "items": {
-    "type": "object",
-    "required": [
-     "kind",
-     "side",
-     "sign"
-    ],
-    "additionalProperties": false,
-    "properties": {
-     "kind": {
-      "enum": [
-       "waqf",
-       "hizb",
-       "sajdah"
-      ]
-     },
-     "side": {
-      "enum": [
-       "before",
-       "after"
+      },
+      "description": "Sorted, strictly increasing positions into words, one per unit. Unit k is words[starts[k] : starts[k+1] ?? words.length]."
+    },
+    "khilaf_point": {
+      "type": "object",
+      "required": [
+        "surah",
+        "ayah",
+        "kufi",
+        "number",
+        "counted",
+        "follows",
+        "against",
+        "authorities_named"
       ],
-      "description": "Which side of the word the sign is printed on."
-     },
-     "sign": {
-      "type": "string",
-      "minLength": 1,
-      "maxLength": 1
-     }
-    }
-   }
-  },
-  "mark_signs": {
-   "type": "object",
-   "additionalProperties": {
-    "type": "object",
-    "required": [
-     "cp",
-     "unicode_name"
-    ],
-    "properties": {
-     "cp": {
-      "type": "string",
-      "pattern": "^U\\+[0-9A-F]{4}$"
-     },
-     "unicode_name": {
-      "type": "string"
-     }
-    }
-   }
-  },
-  "resegmentation": {
-   "type": "array",
-   "description": "Every place this build changed the source's own word spacing. Present even when empty.",
-   "items": {
-    "type": "object",
-    "required": [
-     "positions",
-     "sura",
-     "ayah",
-     "kind",
-     "source_text",
-     "emitted"
-    ],
-    "properties": {
-     "positions": {
-      "type": "array",
-      "items": {
-       "type": "integer",
-       "minimum": 0
+      "properties": {
+        "surah": {
+          "type": "integer",
+          "description": "This edition's own numbering."
+        },
+        "ayah": {
+          "type": "integer"
+        },
+        "kufi": {
+          "type": "string",
+          "pattern": "^\\d+:\\d+$"
+        },
+        "number": {
+          "type": "integer",
+          "description": "The shared number the āyah ends after."
+        },
+        "anchor": {
+          "type": "string"
+        },
+        "counted": {
+          "type": "boolean"
+        },
+        "authorities_named": {
+          "type": "boolean",
+          "description": "Whether the source names the authorities on each side. When false, follows and against are empty because the source attests the khilāf without attributing it."
+        },
+        "follows": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "against": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "source": {
+          "type": "object"
+        }
       }
-     },
-     "sura": {
-      "type": "integer"
-     },
-     "ayah": {
-      "type": "integer"
-     },
-     "kind": {
-      "type": "string"
-     },
-     "source_text": {
-      "type": "string"
-     },
-     "emitted": {
-      "type": "array",
-      "items": {
-       "type": "string"
-      }
-     },
-     "riwayat_agree": {
-      "type": "boolean"
-     }
-    }
-   }
-  },
-  "line_disagreements": {
-   "type": "array",
-   "items": {
-    "type": "object",
-    "required": [
-     "sura",
-     "ayah",
-     "derived",
-     "source"
-    ],
-    "properties": {
-     "sura": {
-      "type": "integer"
-     },
-     "ayah": {
-      "type": "integer"
-     },
-     "derived": {
-      "type": "integer"
-     },
-     "source": {
-      "type": "integer"
-     }
-    }
-   }
-  }
- },
- "$defs": {
-  "span": {
-   "type": "array",
-   "minItems": 2,
-   "maxItems": 2,
-   "items": {
-    "type": "integer",
-    "minimum": 1
-   },
-   "description": "[first, last], inclusive."
-  },
-  "starts": {
-   "type": "array",
-   "items": {
-    "type": "integer",
-    "minimum": 0
-   },
-   "description": "Sorted, strictly increasing positions into words, one per unit. Unit k is words[starts[k] : starts[k+1] ?? words.length]."
-  },
-  "khilaf_point": {
-   "type": "object",
-   "required": [
-    "sura",
-    "ayah",
-    "kufi",
-    "number",
-    "counted",
-    "follows",
-    "against",
-    "authorities_named"
-   ],
-   "properties": {
-    "sura": {
-     "type": "integer",
-     "description": "This edition's own numbering."
     },
-    "ayah": {
-     "type": "integer"
-    },
-    "kufi": {
-     "type": "string",
-     "pattern": "^\\d+:\\d+$"
-    },
-    "number": {
-     "type": "integer",
-     "description": "The shared number the āyah ends after."
-    },
-    "anchor": {
-     "type": "string"
-    },
-    "counted": {
-     "type": "boolean"
-    },
-    "authorities_named": {
-     "type": "boolean",
-     "description": "Whether the source names the authorities on each side. When false, follows and against are empty because the source attests the khilāf without attributing it."
-    },
-    "follows": {
-     "type": "array",
-     "items": {
-      "type": "string"
-     }
-    },
-    "against": {
-     "type": "array",
-     "items": {
-      "type": "string"
-     }
-    },
-    "source": {
-     "type": "object"
-    }
-   }
-  },
-  "package": {
-   "type": "object",
-   "required": [
-    "package",
-    "member",
-    "sha256"
-   ],
-   "properties": {
     "package": {
-     "type": "string"
-    },
-    "member": {
-     "type": "string"
-    },
-    "release_year": {
-     "type": "integer"
-    },
-    "sha256": {
-     "type": "string",
-     "pattern": "^[0-9a-f]{64}$"
-    },
-    "used_for": {
-     "type": "array",
-     "items": {
-      "type": "string"
-     }
+      "type": "object",
+      "required": [
+        "package",
+        "member",
+        "sha256"
+      ],
+      "properties": {
+        "package": {
+          "type": "string"
+        },
+        "member": {
+          "type": "string"
+        },
+        "release_year": {
+          "type": "integer"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "used_for": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
     }
-   }
   }
- }
 }

@@ -39,7 +39,7 @@ is a pure function of its URL, so `Cache-Control` at the proxy is safe.
 | `/download?…` | one file; every option below is a query parameter |
 | `/editions` | the seven riwāyāt: names, counts, which layers each carries |
 | `/compare?ayah=2:255` | one Kūfī āyah in all seven, differing words flagged |
-| `/map?from=warsh&to=douri&ayah=2:253` | the mapping dataset: every āyah (`by=ayah`, its counterpart āyāt and relation) or every word (`by=word`) of one riwāyah in the others, with the same scope and format options as `/download`; omit `to` for all six, omit the scope for the whole Qurʾān |
+| `/map?from=warsh&to=duri&ayah=2:253` | the mapping dataset: every āyah (`by=ayah`, its counterpart āyāt and relation) or every word (`by=word`) of one riwāyah in the others, with the same scope and format options as `/download`; omit `to` for all six, omit the scope for the whole Qurʾān |
 | `/files`, `/files/{path}` | every file under `out/` with size and SHA-256, and the file |
 | `/docs` | the OpenAPI page with every parameter described |
 
@@ -47,20 +47,20 @@ is a pure function of its URL, so `Cache-Control` at the proxy is safe.
 
 | param | values | default | means |
 |---|---|---|---|
-| `edition` | `hafs shuba warsh qaloun douri sousi bazzi` | `hafs` | the riwāyah |
-| `text` | `uthmani` `imlaei` `plain` | `uthmani` | as printed; modern spelling (Ḥafṣ only); diacritics stripped for search |
+| `edition` | `hafs shubah warsh qalun duri susi bazzi` | `hafs` | the riwāyah |
+| `text` | `rasm_uthmani` `rasm_imlai` `plain` | `rasm_uthmani` | as printed; modern spelling (Ḥafṣ only); harakah stripped for search |
 | `markers` | `none` `sign` `brackets` `latin` | `none` | end-of-āyah marker: ۝٢٥٥, ﴿٢٥٥﴾, (255) |
-| `waqf` `sajdah` `hizb` | `1`/`0` | `1` | keep pause marks, ۩, ۞ |
+| `waqf` `sajdah` `division` | `1`/`0` | `1` | keep waqf marks, ۩, ۞ |
 | `lines` | `1`/`0` | `0` | break the text where the printed lines break |
 | `pages` | `1`/`0` | `0` | txt/md: a `# page N` line at every page turn |
-| `fields` | comma list of `sura ayah pos number page line juz hafs` | `sura,ayah` (+`pos,number` per word) | the columns of structured formats; `hafs` = the Kūfī reference and relation |
-| `sura` | `2` or `2-3` | — | scope |
+| `fields` | comma list of `surah ayah position number page line juz hafs` | `surah,ayah` (+`position,number` per word) | the columns of structured formats; `hafs` = the Kūfī reference and relation |
+| `surah` | `2` or `2-3` | — | scope |
 | `juz` | `1`–`30` | — | scope (not Bazzī, which has no juz layer) |
 | `page` | `3` or `1-10` | — | scope |
 | `ayah` | `2:255` or `2:255-2:286` | — | scope, in the edition's own count |
 | `by` | `ayah` `word` | `ayah` | one record per āyah or per printed word |
 | `format` | `txt` `json` `csv` `xml` `sql` `md` | `txt` | |
-| `prefix` | `1`/`0` | `1` | txt: `sura\|ayah\|` before each line |
+| `prefix` | `1`/`0` | `1` | txt: `surah\|ayah\|` before each line |
 | `nested` | `1`/`0` | `0` | json: sūrah → āyāt instead of a flat array |
 | `header` | `1`/`0` | `1` | the provenance header (a comment in txt/csv/sql/xml/md, `meta` in json) |
 | `limit` | N | — | only the first N records, for previews |

@@ -6,14 +6,14 @@
   "key": "warsh",
   "name_en": "Warsh",
   "name_ar": "ورش",
-  "qari_en": "Nāfiʿ al-Madanī",
-  "qari_ar": "نافع المدني",
+  "qiraah_en": "Nāfiʿ al-Madanī",
+  "qiraah_ar": "نافع المدني",
   "word_count": 77431
  },
  "counting": {
   "system": "madani-last",
   "system_name_ar": "المدني الأخير",
-  "system_name_en": "Last Madinan",
+  "system_name_en": "Last Madani Numbering",
   "declared_by": null,
   "ayah_count": 6214,
   "basmalah_counted": false,
@@ -35,9 +35,9 @@
     "counting-systems.json": "a4dfad8c302f3a7bd2172a07ecbd70045b448815edd955df2f0bedcb972b8117"
    },
    "overlay": {
-    "khilaf.json": "4da0ea00d8e7eac40ef9208fecb61cd79e074a01f94614b7d116bb2a456c0f2b",
-    "open-findings.json": "7bfa88abac5b8696bb32730baf354dd84545ad4eec1165b4fe968acea862da9c",
-    "declared.json": "25b9a22835d6cc8d539881288d9973f7f56be0a080e2e1000d86ec6de5bad768"
+    "khilaf.json": "ec884075b480c8d66c42de8a589f25bd34141d2fa2871e087f2add6c6c349046",
+    "open-findings.json": "74b91e8c45d7cc50c85a4d37f4fa9db6e40e962354a6dd20239b60c120d855e6",
+    "declared.json": "feba23ee612ddd2008797432cdaa3c73f3e5ddc2de4ca880c6b6f76c07b22980"
    }
   }
  },
@@ -67,33 +67,33 @@
   "member": "UthmanicWarsh-v-3.0.ttf",
   "sha256": "b644f1c6665baa95c9c0ab40b01a7f3e89edc42a0f50d3b244318a843bec81a9",
   "publisher": "https://fonts.qurancomplex.gov.sa/",
-  "note": "The text uses codepoints only this font is guaranteed to draw (Arabic Extended-B alefs, open tanwīn, the pause signs). Ship it with the text; a general Arabic font will show gaps."
+  "note": "The text uses codepoints only this font is guaranteed to draw (Arabic Extended-B alefs, open tanwīn, the waqf signs). Ship it with the text; a general Arabic font will show gaps."
  },
  "layers": {
   "present": [
-   "suras",
-   "ayat",
+   "surahs",
+   "ayahs",
    "pages",
    "lines",
    "marks",
    "juz"
   ],
   "absent": {
-   "imlaei": "column not present in this riwāyah's release"
+   "rasm_imlai": "column not present in this riwāyah's release"
   },
   "derived": {
    "line": {
     "how": "reconstructed from the document's line breaks, paragraph boundaries and sūrah headings; printed lines are not encoded in the release",
     "validated": true,
     "against": "UthmanicWarsh_v2-1.zip :: UthmanicWarsh_v2-1 data/warshData_v2-1.csv",
-    "ayat_checked": 6214,
-    "ayat_agreeing": 6210
+    "ayahs_checked": 6214,
+    "ayahs_agreeing": 6210
    }
   },
   "notes": {
    "page": "read from explicit page breaks in the release, not inferred",
-   "waqf": "pause-mark conventions differ by muṣḥaf and are not comparable across them: Warsh and Qālūn print one general sign where Ḥafṣ, Dūrī and Sūsī print seven distinct ones",
-   "hizb": "the ۞ symbol is emitted exactly as the release prints it. The releases disagree about how often to print it — 199 times in Ḥafṣ, Shuʿbah and Bazzī against 433–437 in the others — and nothing here reconciles them"
+   "waqf": "waqf-mark conventions differ by muṣḥaf and are not comparable across them: Warsh and Qālūn print one general sign where Ḥafṣ, Dūrī and Sūsī print seven distinct ones",
+   "division": "the ۞ symbol is emitted exactly as the release prints it. The releases disagree about how often to print it — 199 times in Ḥafṣ, Shuʿbah and Bazzī against 433–437 in the others — and nothing here reconciles them"
   }
  },
  "words": [
@@ -77529,7 +77529,7 @@
   "ࡰ۬لْجِنَّةِ",
   "وَالنَّاسِ"
  ],
- "imlaei": null,
+ "rasm_imlai": null,
  "numbering": {
   "total": 77434,
   "missing": [
@@ -77539,7 +77539,7 @@
   ],
   "written_joined": []
  },
- "sura_starts": [
+ "surah_starts": [
   0,
   29,
   6146,
@@ -93331,7 +93331,7 @@
   72461,
   75123
  ],
- "suras": [
+ "surahs": [
   {
    "number": 1,
    "name_ar": "الفَاتِحة",
@@ -96155,7 +96155,7 @@
  ],
  "mark_types": [
   {
-   "kind": "hizb",
+   "kind": "division",
    "side": "before",
    "sign": "۞"
   },
@@ -96206,25 +96206,25 @@
  "resegmentation": [],
  "line_disagreements": [
   {
-   "sura": 4,
+   "surah": 4,
    "ayah": 44,
    "derived": 15,
    "source": 1
   },
   {
-   "sura": 20,
+   "surah": 20,
    "ayah": 86,
    "derived": 15,
    "source": 2
   },
   {
-   "sura": 24,
+   "surah": 24,
    "ayah": 36,
    "derived": 15,
    "source": 2
   },
   {
-   "sura": 24,
+   "surah": 24,
    "ayah": 42,
    "derived": 15,
    "source": 1

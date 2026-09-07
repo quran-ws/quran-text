@@ -10,25 +10,25 @@ A word is never compared as raw text. Four forms are derived from every spelling
 
 | form | question it answers | example | and what it drops |
 |---|---|---|---|
-| `uthmani` | how is it printed? | `ٱلرَّحۡمَٰنِ` | — |
+| `rasm_uthmani` | how is it printed? | `ٱلرَّحۡمَٰنِ` | — |
 | `folded` | what does it say, ignoring which codepoints the release chose? | `الرَّحْمَٰنِ` | release notation, attached-alef letters, editorial marks |
-| `pointed` | which letters, dots and all? | `الرحمان` | vowels, hamza, madd, ṣilah |
+| `pointed` | which letters, dots and all? | `الرحمان` | vowels, hamzah, madd, ṣilah |
 | `rasm` | what is on the line in the codex? | `الرحماں` | the dots |
 
-The two skeletons are separate on purpose. `تَعۡمَلُونَ` and `يَعۡمَلُونَ` have different `pointed` forms but one `rasm` — `ٮعملوں` — because the codices were written undotted and carry both readings by design. Calling that a rasm variant would be a category error; calling it vowelling would hide a real reading. It is named **`dotting_variant`**.
+The two skeletons are separate on purpose. `تَعۡمَلُونَ` and `يَعۡمَلُونَ` have different `pointed` forms but one `rasm` — `ٮعملوں` — because the codices were written undotted and carry both qiraahs by design. Calling that a rasm variant would be a category error; calling it vowelling would hide a real qiraah. It is named **`dotting_variant`**.
 
-`rasm` drops hamza and every hamza carrier reduces to its seat, because hamza is post-ʿUthmānic notation: `يَسۡتَهۡزِئُ` and `يَسْتَهْزِۓُ` are one word. It also drops the dagger alif, which is by definition an alef the scribe did *not* write on the line, so `هَٰرُوتَ` and `هَارُوتَ` do **not** share a rasm: `هروٮ` against `هاروٮ`. That difference is real inside any one muṣḥaf and is kept, but between these two typesettings it is a house style rather than a codex — see [the ā on the line or above it](#the-ā-on-the-line-or-above-it).
+`rasm` drops hamzah and every hamzah carrier reduces to its seat, because hamzah is post-ʿUthmānic notation: `يَسۡتَهۡزِئُ` and `يَسْتَهْزِۓُ` are one word. It also drops the dagger alif, which is by definition an alef the scribe did *not* write on the line, so `هَٰرُوتَ` and `هَارُوتَ` do **not** share a rasm: `هروٮ` against `هاروٮ`. That difference is real inside any one muṣḥaf and is kept, but between these two typesettings it is a house style rather than a codex — see [the ā on the line or above it](#the-ā-on-the-line-or-above-it).
 
 ## The riwāyāt
 
 | key | riwāyah | الرواية | qāriʾ | counting system | āyāt | words |
 |---|---|---|---|---|---|---|
 | hafs | Ḥafṣ | حفص | ʿĀṣim al-Kūfī | `kufi` | 6,236 | 77,432 |
-| shuba | Shuʿbah | شعبة | ʿĀṣim al-Kūfī | `kufi` | 6,236 | 77,432 |
+| shubah | Shuʿbah | شعبة | ʿĀṣim al-Kūfī | `kufi` | 6,236 | 77,432 |
 | warsh | Warsh | ورش | Nāfiʿ al-Madanī | `madani-last` | 6,214 | 77,431 |
-| qaloun | Qālūn | قالون | Nāfiʿ al-Madanī | `madani-last` | 6,214 | 77,431 |
-| douri | Dūrī | الدوري | Abū ʿAmr al-Baṣrī | `madani-first` | 6,217 | 77,431 |
-| sousi | Sūsī | السوسي | Abū ʿAmr al-Baṣrī | `madani-first` | 6,218 | 77,431 |
+| qalun | Qālūn | قالون | Nāfiʿ al-Madanī | `madani-last` | 6,214 | 77,431 |
+| duri | Dūrī | الدوري | Abū ʿAmr al-Baṣrī | `madani-first` | 6,217 | 77,431 |
+| susi | Sūsī | السوسي | Abū ʿAmr al-Baṣrī | `madani-first` | 6,218 | 77,431 |
 | bazzi | Bazzī | البزي | Ibn Kathīr al-Makkī | `makki` | 6,220 | 77,432 |
 
 The āyah totals are not errors and not deducible from the qāriʾ. Many fawāṣil are مختلف فيها, so every printed edition chooses, and the counting system above is **derived** from what this package prints, not assumed from the riwāyah. That is exactly why the index is flat, and why the āyah boundaries are read off each muṣḥaf: see [the fawāṣil](#fawāṣil-where-the-āyāt-end) below.
@@ -37,7 +37,7 @@ The āyah totals are not errors and not deducible from the qāriʾ. Many fawā�
 
 | status | words | share | meaning |
 |---|---|---|---|
-| `identical` | 40,558 | 52.38% | one reading, one spelling, in all seven |
+| `identical` | 40,558 | 52.38% | one qiraah, one spelling, in all seven |
 | `diacritic_variant` | 36,261 | 46.83% | same letters and same dots — the vowelling differs |
 | `dotting_variant` | 338 | 0.44% | one rasm, pointed differently: تَعۡمَلُونَ against يَعۡمَلُونَ |
 | `alif_variant` | 198 | 0.26% | one skeleton, one ā: on the line in one hand, above it in the other |
@@ -51,29 +51,29 @@ Each word gets the *strongest* label that applies, tested in this order: rasm, �
 
 Share of the words two riwāyāt both have, where they agree at each level.
 
-| pair | shared words | same spelling | same reading | same letters | same rasm |
+| pair | shared words | same spelling | same qiraah | same letters | same rasm |
 |---|---|---|---|---|---|
-| douri–sousi | 77,432 | 66.7% | 82.8% | 99.97% | 100.00% |
-| warsh–qaloun | 77,431 | 85.2% | 87.5% | 99.95% | 99.99% |
-| hafs–shuba | 77,433 | 99.2% | 99.2% | 99.86% | 99.99% |
-| shuba–douri | 77,432 | 70.9% | 74.1% | 99.75% | 99.98% |
-| shuba–sousi | 77,432 | 72.1% | 72.9% | 99.72% | 99.97% |
-| shuba–bazzi | 77,432 | 84.1% | 84.1% | 99.75% | 99.97% |
+| duri–susi | 77,432 | 66.7% | 82.8% | 99.97% | 100.00% |
+| warsh–qalun | 77,431 | 85.2% | 87.5% | 99.95% | 99.99% |
+| hafs–shubah | 77,433 | 99.2% | 99.2% | 99.86% | 99.99% |
+| shubah–duri | 77,432 | 70.9% | 74.1% | 99.75% | 99.98% |
+| shubah–susi | 77,432 | 72.1% | 72.9% | 99.72% | 99.97% |
+| shubah–bazzi | 77,432 | 84.1% | 84.1% | 99.75% | 99.97% |
 | hafs–bazzi | 77,432 | 84.0% | 84.0% | 99.73% | 99.97% |
-| hafs–douri | 77,432 | 70.8% | 74.1% | 99.73% | 99.97% |
-| douri–bazzi | 77,432 | 57.8% | 61.0% | 99.83% | 99.97% |
-| hafs–sousi | 77,432 | 72.0% | 72.8% | 99.70% | 99.97% |
-| sousi–bazzi | 77,432 | 66.6% | 67.4% | 99.80% | 99.97% |
+| hafs–duri | 77,432 | 70.8% | 74.1% | 99.73% | 99.97% |
+| duri–bazzi | 77,432 | 57.8% | 61.0% | 99.83% | 99.97% |
+| hafs–susi | 77,432 | 72.0% | 72.8% | 99.70% | 99.97% |
+| susi–bazzi | 77,432 | 66.6% | 67.4% | 99.80% | 99.97% |
 | hafs–warsh | 77,431 | 41.3% | 75.2% | 99.72% | 99.70% |
-| shuba–warsh | 77,431 | 41.4% | 75.2% | 99.73% | 99.70% |
+| shubah–warsh | 77,431 | 41.4% | 75.2% | 99.73% | 99.70% |
 | warsh–bazzi | 77,431 | 37.2% | 63.4% | 99.72% | 99.70% |
-| warsh–douri | 77,431 | 37.8% | 76.3% | 99.72% | 99.69% |
-| warsh–sousi | 77,431 | 39.2% | 77.7% | 99.74% | 99.69% |
-| hafs–qaloun | 77,431 | 40.4% | 76.6% | 99.76% | 99.69% |
-| shuba–qaloun | 77,431 | 40.5% | 76.6% | 99.77% | 99.69% |
-| qaloun–bazzi | 77,431 | 41.5% | 70.8% | 99.76% | 99.69% |
-| qaloun–douri | 77,431 | 36.8% | 78.5% | 99.75% | 99.69% |
-| qaloun–sousi | 77,431 | 42.6% | 84.4% | 99.72% | 99.69% |
+| warsh–duri | 77,431 | 37.8% | 76.3% | 99.72% | 99.69% |
+| warsh–susi | 77,431 | 39.2% | 77.7% | 99.74% | 99.69% |
+| hafs–qalun | 77,431 | 40.4% | 76.6% | 99.76% | 99.69% |
+| shubah–qalun | 77,431 | 40.5% | 76.6% | 99.77% | 99.69% |
+| qalun–bazzi | 77,431 | 41.5% | 70.8% | 99.76% | 99.69% |
+| qalun–duri | 77,431 | 36.8% | 78.5% | 99.75% | 99.69% |
+| qalun–susi | 77,431 | 42.6% | 84.4% | 99.72% | 99.69% |
 
 Rasm agreement never drops below 99.5%: the seven riwāyāt are one text. Spelling agreement is far lower because the packages were typeset in different years with different conventions — which is what the `folded` and `pointed` columns strip away.
 
@@ -90,7 +90,7 @@ Three things can differ once spelling, vowelling and pointing are set aside: the
 
 ### Letters — rasm disagreements
 
-60 words where the riwāyāt disagree about the letters on the line, after dots, hamza, vowelling and the ā have all been set aside. These are the differences the sources can be trusted on: they split the seven riwāyāt 13 different ways — by miṣr, not by publisher — and they are the khilāf the rasm literature names. All 60 are listed below, grouped by what the difference *is*. Machine-readable: [`rasm-variants.md`](rasm-variants.md), [`differences.csv`](../differences.csv).
+60 words where the riwāyāt disagree about the letters on the line, after dots, hamzah, vowelling and the ā have all been set aside. These are the differences the sources can be trusted on: they split the seven riwāyāt 13 different ways — by miṣr, not by publisher — and they are the khilāf the rasm literature names. All 60 are listed below, grouped by what the difference *is*. Machine-readable: [`rasm-variants.md`](rasm-variants.md), [`differences.csv`](../differences.csv).
 
 #### One skeleton, one letter more
 
@@ -98,62 +98,62 @@ Three things can differ once spelling, vowelling and pointing are set aside: the
 
 | word id | sūrah:āyah | rasm on each side | as printed |
 |---|---|---|---|
-| 2331 | 2:132 | `ووصى` hafs,shuba,bazzi,douri,sousi  ·  `واوصى` qaloun,warsh | **وَوَصَّىٰ** hafs,shuba,bazzi,douri,sousi  ·  **وَأَوْصَىٰ** qaloun  ·  **وَأَوْصٜىٰ** warsh |
-| 8353 | 3:133 | `وسارعوا` hafs,shuba,bazzi,douri,sousi  ·  `سارعوا` qaloun,warsh | **وَسَارِعُوٓاْ** hafs,shuba,douri  ·  **وَسَارِعُواْ** bazzi,sousi  ·  **سَارِعُواْ** qaloun  ·  **سَارِعُوٓاْ** warsh |
-| 8851 | 3:158 | `لالى` hafs,shuba,bazzi,qaloun,warsh  ·  `لاالى` douri,sousi | **لَإِلَى** hafs,shuba,bazzi,qaloun,warsh  ·  **لَإِاْلَى** douri,sousi |
-| 14726 | 5:53 | `وٮڡول` hafs,shuba,douri,sousi  ·  `ٮڡول` bazzi,qaloun,warsh | **وَيَقُولُ** hafs,shuba  ·  **يَقُولُ** bazzi,qaloun,warsh  ·  **وَيَقُولَ** douri,sousi |
-| 14745 | 5:54 | `ٮرٮد` hafs,shuba,bazzi,douri,sousi  ·  `ٮرٮدد` qaloun,warsh | **يَرۡتَدَّ** hafs,shuba,bazzi,douri,sousi  ·  **يَّرْتَدِدْ** qaloun,warsh |
-| 17215 | 6:63 | `اٮحٮٮا` hafs,shuba  ·  `اٮحٮٮٮا` bazzi,qaloun,warsh,douri,sousi | **أَنجَىٰنَا** hafs,shuba  ·  **أَنجَيۡتَنَا** bazzi,douri,sousi  ·  **أَنجَيْتَنَا** qaloun  ·  **ࡰنجَيْتَنَا** warsh |
-| 18334 | 6:124 | `رسالٮه` hafs,bazzi  ·  `رسلٮه` shuba,qaloun,warsh,douri,sousi | **رِسَالَتَهُۥ** hafs,bazzi  ·  **رِسَٰلَٰتِهِۦ** shuba,qaloun,warsh,douri  ·  **رِّسَٰلَٰتِهِۦ** sousi |
-| 19696 | 7:34 | `ٮسٮاحروں` hafs,shuba,bazzi,douri,sousi  ·  `ٮسٮحروں` qaloun,warsh | **يَسۡتَأۡخِرُونَ** hafs,shuba,bazzi,douri  ·  **يَسْتَْٔخِرُونَ** qaloun  ·  **يَسْتَٰخِرُونَ** warsh  ·  **يَسۡتَاخِرُونَ** sousi |
-| 21416 | 7:144 | `ٮرسلٮى` hafs,shuba,douri,sousi  ·  `ٮرسالٮى` bazzi,qaloun,warsh | **بِرِسَٰلَٰتِي** hafs,shuba,douri,sousi  ·  **بِرِسَالَتِي** bazzi  ·  **بِرِسَالَتِے** qaloun,warsh |
-| 23200 | 8:42 | `حى` hafs,douri,sousi  ·  `حٮى` shuba,bazzi,qaloun,warsh | **حَيَّ** hafs,douri,sousi  ·  **حَِۧيَ** shuba,bazzi  ·  **حَۑِيَ** qaloun  ·  **حَيِيَ** warsh |
-| 24700 | 9:47 | `ولاوصعوا` hafs,shuba,bazzi,qaloun,warsh  ·  `ولااوصعوا` douri,sousi | **وَلَأَوۡضَعُواْ** hafs,shuba,bazzi  ·  **وَلَأَوْضَعُواْ** qaloun,warsh  ·  **وَلَأَاْوۡضَعُواْ** douri,sousi |
-| 25793 | 9:107 | `والدٮں` hafs,shuba,bazzi,douri,sousi  ·  `الدٮں` qaloun,warsh | **وَٱلَّذِينَ** hafs,shuba,bazzi  ·  **ࡴ۬لذِينَ** qaloun,warsh  ·  **وَاَلَّذِينَ** douri  ·  **وَࡱلَّذِينَ** sousi |
-| 31777 | 12:110 | `ڡٮحى` hafs,shuba,bazzi,douri,sousi  ·  `ڡٮٮحى` qaloun,warsh | **فَنُجِّيَ** hafs,shuba  ·  **فَنُۨجِي** bazzi,douri,sousi  ·  **فَنُنجِے** qaloun,warsh |
-| 37273 | 17:93 | `ڡل` hafs,shuba,qaloun,warsh,douri,sousi  ·  `ڡال` bazzi | **قُلۡ** hafs,shuba,douri,sousi  ·  **قَالَ** bazzi  ·  **قُلْ** qaloun,warsh |
-| 38135 | 18:36 | `مٮها` hafs,shuba,douri,sousi  ·  `مٮهما` bazzi,qaloun,warsh | **مِّنۡهَا** hafs,shuba,douri,sousi  ·  **مِّنۡهُمَا** bazzi  ·  **مِّنْهُمَا** qaloun,warsh |
-| 38936 | 18:95 | `مكٮى` hafs,shuba,qaloun,warsh,douri,sousi  ·  `مكٮٮى` bazzi | **مَكَّنِّي** hafs,shuba,douri,sousi  ·  **مَكَّنَنِي** bazzi  ·  **مَكَّنِّے** qaloun,warsh |
-| 39298 | 19:19 | `لاهٮ` hafs,shuba,bazzi,qaloun,warsh,douri  ·  `لاٮهٮ` sousi | **لِأَهَبَ** hafs,shuba,bazzi,qaloun  ·  **لِاَهَبَ** warsh  ·  **لِاَ۬هَبَ** douri  ·  **لِاَۧهَبَ** sousi |
-| 41131 | 20:112 | `ٮحاڡ` hafs,shuba,qaloun,warsh,douri,sousi  ·  `ٮحڡ` bazzi | **يَخَافُ** hafs,shuba,qaloun,warsh,douri,sousi  ·  **يَخَفۡ** bazzi |
-| 41455 | 21:4 | `ڡال` hafs  ·  `ڡل` shuba,bazzi,qaloun,warsh,douri,sousi | **قَالَ** hafs  ·  **قُل** shuba,bazzi,qaloun,warsh,douri,sousi |
-| 41720 | 21:30 | `اولم` hafs,shuba,qaloun,warsh,douri,sousi  ·  `الم` bazzi | **أَوَلَمۡ** hafs,shuba,douri,sousi  ·  **أَلَمۡ** bazzi  ·  **أَوَلَمْ** qaloun,warsh |
-| 42341 | 21:88 | `ٮحى` hafs,shuba,bazzi,douri,sousi  ·  `ٮٮحى` qaloun,warsh | **نُۨجِي** hafs,bazzi,douri,sousi  ·  **نُجِّي** shuba  ·  **نُنجِے** qaloun,warsh |
-| 44635 | 23:87 | `لله` hafs,shuba,bazzi,qaloun,warsh  ·  `الله` douri,sousi | **لِلَّهِ** hafs,shuba,bazzi  ·  **لِلهِ** qaloun,warsh  ·  **اَ۬للَّهُ** douri  ·  **ࡱ۬للَّهُ** sousi |
-| 44654 | 23:89 | `لله` hafs,shuba,bazzi,qaloun,warsh  ·  `الله` douri,sousi | **لِلَّهِ** hafs,shuba,bazzi  ·  **لِلهِ** qaloun,warsh  ·  **اَ۬للَّهُ** douri  ·  **ࡱ۬للَّهُ** sousi |
-| 44847 | 23:112 | `ڡل` hafs,shuba,bazzi,douri,sousi  ·  `ڡال` qaloun,warsh | **قَٰلَ** hafs,shuba,douri,sousi  ·  **قُلۡ** bazzi  ·  **قَالَ** qaloun,warsh |
-| 46555 | 25:25 | `وٮرل` hafs,shuba,qaloun,warsh,douri,sousi  ·  `وٮٮرل` bazzi | **وَنُزِّلَ** hafs,shuba,qaloun,warsh,douri,sousi  ·  **وَنُنزِلُ** bazzi |
-| 48694 | 27:21 | `لٮاٮٮٮى` hafs,shuba,qaloun,warsh,douri,sousi  ·  `لٮاٮٮٮٮى` bazzi | **لَيَأۡتِيَنِّي** hafs,shuba,douri  ·  **لَيَأۡتِيَنَّنِي** bazzi  ·  **لَيَأْتِيَنِّے** qaloun  ·  **لَيَاتِيَنِّے** warsh  ·  **لَيَاتِيَنِّي** sousi |
-| 48852 | 27:36 | `اٮٮں` hafs,shuba,bazzi,douri,sousi  ·  `اٮٮٮى` qaloun,warsh | **ءَاتَىٰنِۦَ** hafs,douri,sousi  ·  **ءَاتَىٰنِ** shuba,bazzi  ·  **ءَاتَيٰنِࣉَ** qaloun  ·  **ءَاتٜيٰنِࣉَ** warsh |
-| 50187 | 28:37 | `وڡال` hafs,shuba,qaloun,warsh,douri,sousi  ·  `ڡال` bazzi | **وَقَالَ** hafs,shuba,qaloun,warsh,douri,sousi  ·  **قَالَ** bazzi |
-| 50378 | 28:48 | `سحراں` hafs,shuba,bazzi,douri,sousi  ·  `سحرں` qaloun,warsh | **سِحۡرَانِ** hafs,shuba  ·  **سَٰحِرَانِ** bazzi,douri,sousi  ·  **سَٰحِرَٰنِ** qaloun,warsh |
-| 52070 | 30:8 | `ٮلڡاى` hafs,shuba,bazzi,douri,sousi  ·  `ٮلڡا` qaloun,warsh | **بِلِقَآيِٕ** hafs,shuba,bazzi,douri,sousi  ·  **بِلِقَآءِ** qaloun,warsh |
-| 52159 | 30:16 | `ولڡاى` hafs,shuba,bazzi,douri,sousi  ·  `ولڡا` qaloun,warsh | **وَلِقَآيِٕ** hafs,shuba,bazzi,douri,sousi  ·  **وَلِقَآءِ** qaloun,warsh |
-| 53776 | 33:4 | `الى` hafs,shuba,bazzi,warsh,douri,sousi  ·  `الٮى` qaloun | **ٱلَِّٰٓٔي** hafs,shuba  ·  **ٱلَّٰٓيۡ** bazzi  ·  **ࡲ۬لَّٰٓئِے** qaloun  ·  **ࡲ۬لٜےْ** warsh  ·  **اُ۬لَّٰٓيۡ** douri  ·  **ࡲ۬لَّٰٓيۡ** sousi |
-| 56602 | 35:43 | `السٮى` hafs,shuba,bazzi,warsh,douri,sousi  ·  `السٮٮى` qaloun | **ٱلسَّيِّيِٕ** hafs,shuba,bazzi  ·  **ࡰ۬لسَّيِّئِے** qaloun  ·  **ࡰ۬لسَّيِّےِٕ** warsh  ·  **اَ۬لسَّيِّيِٕ** douri  ·  **ࡱ۬لسَّيِّيِٕ** sousi |
-| 56964 | 36:35 | `عملٮه` hafs,bazzi,qaloun,warsh,douri,sousi  ·  `عملٮ` shuba | **عَمِلَتۡهُ** hafs,douri,sousi  ·  **عَمِلَتۡ** shuba  ·  **عَمِلَتۡهُۥ** bazzi  ·  **عَمِلَتْهُ** qaloun,warsh |
-| 57749 | 37:68 | `لالى` hafs,shuba,bazzi,qaloun,warsh  ·  `لاالى` douri,sousi | **لَإِلَى** hafs,shuba,bazzi,qaloun,warsh  ·  **لَإِاْلَى** douri,sousi |
-| 59548 | 39:34 | `حرا` hafs,shuba,bazzi,douri,sousi  ·  `حروا` qaloun,warsh | **جَزَآءُ** hafs,shuba,bazzi,douri,sousi  ·  **جَزَٰٓؤُاْ** qaloun,warsh |
-| 60056 | 39:69 | `وحاى` hafs,shuba,bazzi,douri,sousi  ·  `وحى` qaloun,warsh | **وَجِاْيٓءَ** hafs,shuba,bazzi,douri,sousi  ·  **وَجِےٓءَ** qaloun,warsh |
-| 60523 | 40:26 | `اں` hafs,shuba  ·  `واں` bazzi,qaloun,warsh,douri,sousi | **أَن** hafs,shuba  ·  **وَأَن** bazzi,douri,sousi  ·  **وَأَنْ** qaloun,warsh |
-| 62695 | 42:30 | `ڡٮما` hafs,shuba,bazzi,douri,sousi  ·  `ٮما` qaloun,warsh | **فَبِمَا** hafs,shuba,bazzi,douri,sousi  ·  **بِمَا** qaloun,warsh |
-| 63696 | 43:68 | `ٮعٮاد` hafs,bazzi  ·  `ٮعٮادى` shuba,qaloun,warsh,douri,sousi | **يَٰعِبَادِ** hafs,bazzi  ·  **يَٰعِبَادِيَ** shuba  ·  **يَٰعِبَادِے** qaloun,warsh  ·  **يَٰعِبَادِي** douri,sousi |
-| 63722 | 43:71 | `ٮسٮهٮه` hafs,qaloun,warsh  ·  `ٮسٮهى` shuba,bazzi,douri,sousi | **تَشۡتَهِيهِ** hafs  ·  **تَشۡتَهِي** shuba,bazzi,douri,sousi  ·  **تَشْتَهِيهِ** qaloun,warsh |
-| 64932 | 46:15 | `احسٮا` hafs,shuba  ·  `حسٮا` bazzi,qaloun,warsh,douri,sousi | **إِحۡسَٰنًا** hafs,shuba  ·  **حُسۡنًا** bazzi,douri,sousi  ·  **حُسْناً** qaloun,warsh |
-| 68622 | 55:22 | `اللولو` hafs,shuba,bazzi,douri,sousi  ·  `اللولوا` qaloun,warsh | **ٱللُّؤۡلُؤُ** hafs,bazzi  ·  **ٱللُّولُؤُ** shuba  ·  **ࡰ۬للُّؤْلُؤُاْ** qaloun,warsh  ·  **اَ۬للُّؤۡلُؤُ** douri  ·  **ࡱ۬للُّولُؤُ** sousi |
-| 69876 | 58:2 | `الى` hafs,shuba,bazzi,warsh,douri,sousi  ·  `الٮى` qaloun | **ٱلَِّٰٓٔي** hafs,shuba  ·  **ٱلَّٰٓيۡ** bazzi  ·  **ࡰ۬لَّٰٓئِے** qaloun  ·  **ࡰ۬لٜےْ** warsh  ·  **اَ۬لَّٰٓيۡ** douri  ·  **ࡱ۬لَّٰٓيۡ** sousi |
-| 70587 | 59:13 | `لاٮٮم` hafs,shuba,bazzi,qaloun,warsh  ·  `لااٮٮم` douri,sousi | **لَأَنتُمۡ** hafs,shuba  ·  **لَأَنتُمُۥ** bazzi  ·  **لَأَنتُمْ** qaloun  ·  **لَأَنتُمُۥٓ** warsh  ·  **لَأَاْنتُمۡ** douri,sousi |
-| 71302 | 61:14 | `اٮصار` hafs,shuba  ·  `اٮصارا` bazzi,qaloun,warsh,douri,sousi | **أَنصَارَ** hafs,shuba  ·  **أَنصَارࣰا** bazzi,sousi  ·  **أَنصَاراࣰ** qaloun,warsh  ·  **أَنصَارٗا** douri |
-| 71303 | 61:14 | `الله` hafs,shuba  ·  `لله` bazzi,qaloun,warsh,douri,sousi | **ٱللَّهِ** hafs,shuba  ·  **لِّلَّهِ** bazzi,douri,sousi  ·  **لِّلهِ** qaloun,warsh |
-| 72021 | 65:4 | `والى` hafs,shuba,bazzi,warsh,douri,sousi  ·  `والٮى` qaloun | **وَٱلَِّٰٓٔي** hafs,shuba  ·  **وَٱلَّٰٓيۡ** bazzi  ·  **وَالَّٰٓئِے** qaloun  ·  **وَالٜےْ** warsh  ·  **وَاَلَّٰٓيۡ** douri  ·  **وَࡱلَّٰٓيۡ** sousi |
-| 72032 | 65:4 | `والى` hafs,shuba,bazzi,warsh,douri,sousi  ·  `والٮى` qaloun | **وَٱلَِّٰٓٔي** hafs,shuba  ·  **وَٱلَّٰٓيۡ** bazzi  ·  **وَالَّٰٓئِے** qaloun  ·  **وَالٜےْ** warsh  ·  **وَاَلَّٰٓيۡ** douri  ·  **وَࡱلَّٰٓيۡ** sousi |
-| 73986 | 72:20 | `ڡل` hafs,shuba  ·  `ڡال` bazzi,qaloun,warsh,douri,sousi | **قُلۡ** hafs,shuba  ·  **قَالَ** bazzi,qaloun,warsh,douri,sousi |
-| 74439 | 74:33 | `اد` hafs,qaloun,warsh  ·  `ادا` shuba,bazzi,douri,sousi | **إِذۡ** hafs  ·  **إِذَا** shuba,bazzi,douri,sousi  ·  **إِذْ** qaloun  ·  **إِذَ** warsh |
-| 74440 | 74:33 | `ادٮر` hafs,qaloun,warsh  ·  `دٮر` shuba,bazzi,douri,sousi | **أَدۡبَرَ** hafs  ·  **دَبَرَ** shuba,bazzi,douri,sousi  ·  **أَدْبَرَ** qaloun  ·  **ࡰدْبَرَ** warsh |
-| 75690 | 81:24 | `ٮصٮٮں` hafs,shuba,qaloun,warsh  ·  `ٮصطٮٮں` bazzi,douri,sousi | **بِضَنِينࣲ** hafs,shuba,qaloun,warsh  ·  **بِضظَنِينࣲ** bazzi  ·  **بِضظَنِينٖ** douri  ·  **بِّضظَنِينࣲ** sousi |
-| 76508 | 89:23 | `وحاى` hafs,shuba,bazzi,douri,sousi  ·  `وحى` qaloun,warsh | **وَجِاْيٓءَ** hafs,shuba,bazzi,douri,sousi  ·  **وَجِےٓءَ** qaloun,warsh |
-| 76592 | 90:14 | `اطعم` hafs,shuba,bazzi,douri,sousi  ·  `اطعام` qaloun,warsh | **إِطۡعَٰمࣱ** hafs,shuba  ·  **أَطۡعَمَ** bazzi,douri,sousi  ·  **إِطْعَامࣱ** qaloun  ·  **ࡴطْعَامࣱ** warsh |
-| 77259 | 106:2 | `الڡهم` hafs,shuba,bazzi,douri,sousi  ·  `اٮلڡهم` qaloun,warsh | **إِۦلَٰفِهِمۡ** hafs,shuba,douri,sousi  ·  **إِۦلَٰفِهِمُۥ** bazzi  ·  **إِيلَٰفِهِمْ** qaloun  ·  **ࡴيلَٰفِهِمْ** warsh |
+| 2331 | 2:132 | `ووصى` hafs,shubah,bazzi,duri,susi  ·  `واوصى` qalun,warsh | **وَوَصَّىٰ** hafs,shubah,bazzi,duri,susi  ·  **وَأَوْصَىٰ** qalun  ·  **وَأَوْصٜىٰ** warsh |
+| 8353 | 3:133 | `وسارعوا` hafs,shubah,bazzi,duri,susi  ·  `سارعوا` qalun,warsh | **وَسَارِعُوٓاْ** hafs,shubah,duri  ·  **وَسَارِعُواْ** bazzi,susi  ·  **سَارِعُواْ** qalun  ·  **سَارِعُوٓاْ** warsh |
+| 8851 | 3:158 | `لالى` hafs,shubah,bazzi,qalun,warsh  ·  `لاالى` duri,susi | **لَإِلَى** hafs,shubah,bazzi,qalun,warsh  ·  **لَإِاْلَى** duri,susi |
+| 14726 | 5:53 | `وٮڡول` hafs,shubah,duri,susi  ·  `ٮڡول` bazzi,qalun,warsh | **وَيَقُولُ** hafs,shubah  ·  **يَقُولُ** bazzi,qalun,warsh  ·  **وَيَقُولَ** duri,susi |
+| 14745 | 5:54 | `ٮرٮد` hafs,shubah,bazzi,duri,susi  ·  `ٮرٮدد` qalun,warsh | **يَرۡتَدَّ** hafs,shubah,bazzi,duri,susi  ·  **يَّرْتَدِدْ** qalun,warsh |
+| 17215 | 6:63 | `اٮحٮٮا` hafs,shubah  ·  `اٮحٮٮٮا` bazzi,qalun,warsh,duri,susi | **أَنجَىٰنَا** hafs,shubah  ·  **أَنجَيۡتَنَا** bazzi,duri,susi  ·  **أَنجَيْتَنَا** qalun  ·  **ࡰنجَيْتَنَا** warsh |
+| 18334 | 6:124 | `رسالٮه` hafs,bazzi  ·  `رسلٮه` shubah,qalun,warsh,duri,susi | **رِسَالَتَهُۥ** hafs,bazzi  ·  **رِسَٰلَٰتِهِۦ** shubah,qalun,warsh,duri  ·  **رِّسَٰلَٰتِهِۦ** susi |
+| 19696 | 7:34 | `ٮسٮاحروں` hafs,shubah,bazzi,duri,susi  ·  `ٮسٮحروں` qalun,warsh | **يَسۡتَأۡخِرُونَ** hafs,shubah,bazzi,duri  ·  **يَسْتَْٔخِرُونَ** qalun  ·  **يَسْتَٰخِرُونَ** warsh  ·  **يَسۡتَاخِرُونَ** susi |
+| 21416 | 7:144 | `ٮرسلٮى` hafs,shubah,duri,susi  ·  `ٮرسالٮى` bazzi,qalun,warsh | **بِرِسَٰلَٰتِي** hafs,shubah,duri,susi  ·  **بِرِسَالَتِي** bazzi  ·  **بِرِسَالَتِے** qalun,warsh |
+| 23200 | 8:42 | `حى` hafs,duri,susi  ·  `حٮى` shubah,bazzi,qalun,warsh | **حَيَّ** hafs,duri,susi  ·  **حَِۧيَ** shubah,bazzi  ·  **حَۑِيَ** qalun  ·  **حَيِيَ** warsh |
+| 24700 | 9:47 | `ولاوصعوا` hafs,shubah,bazzi,qalun,warsh  ·  `ولااوصعوا` duri,susi | **وَلَأَوۡضَعُواْ** hafs,shubah,bazzi  ·  **وَلَأَوْضَعُواْ** qalun,warsh  ·  **وَلَأَاْوۡضَعُواْ** duri,susi |
+| 25793 | 9:107 | `والدٮں` hafs,shubah,bazzi,duri,susi  ·  `الدٮں` qalun,warsh | **وَٱلَّذِينَ** hafs,shubah,bazzi  ·  **ࡴ۬لذِينَ** qalun,warsh  ·  **وَاَلَّذِينَ** duri  ·  **وَࡱلَّذِينَ** susi |
+| 31777 | 12:110 | `ڡٮحى` hafs,shubah,bazzi,duri,susi  ·  `ڡٮٮحى` qalun,warsh | **فَنُجِّيَ** hafs,shubah  ·  **فَنُۨجِي** bazzi,duri,susi  ·  **فَنُنجِے** qalun,warsh |
+| 37273 | 17:93 | `ڡل` hafs,shubah,qalun,warsh,duri,susi  ·  `ڡال` bazzi | **قُلۡ** hafs,shubah,duri,susi  ·  **قَالَ** bazzi  ·  **قُلْ** qalun,warsh |
+| 38135 | 18:36 | `مٮها` hafs,shubah,duri,susi  ·  `مٮهما` bazzi,qalun,warsh | **مِّنۡهَا** hafs,shubah,duri,susi  ·  **مِّنۡهُمَا** bazzi  ·  **مِّنْهُمَا** qalun,warsh |
+| 38936 | 18:95 | `مكٮى` hafs,shubah,qalun,warsh,duri,susi  ·  `مكٮٮى` bazzi | **مَكَّنِّي** hafs,shubah,duri,susi  ·  **مَكَّنَنِي** bazzi  ·  **مَكَّنِّے** qalun,warsh |
+| 39298 | 19:19 | `لاهٮ` hafs,shubah,bazzi,qalun,warsh,duri  ·  `لاٮهٮ` susi | **لِأَهَبَ** hafs,shubah,bazzi,qalun  ·  **لِاَهَبَ** warsh  ·  **لِاَ۬هَبَ** duri  ·  **لِاَۧهَبَ** susi |
+| 41131 | 20:112 | `ٮحاڡ` hafs,shubah,qalun,warsh,duri,susi  ·  `ٮحڡ` bazzi | **يَخَافُ** hafs,shubah,qalun,warsh,duri,susi  ·  **يَخَفۡ** bazzi |
+| 41455 | 21:4 | `ڡال` hafs  ·  `ڡل` shubah,bazzi,qalun,warsh,duri,susi | **قَالَ** hafs  ·  **قُل** shubah,bazzi,qalun,warsh,duri,susi |
+| 41720 | 21:30 | `اولم` hafs,shubah,qalun,warsh,duri,susi  ·  `الم` bazzi | **أَوَلَمۡ** hafs,shubah,duri,susi  ·  **أَلَمۡ** bazzi  ·  **أَوَلَمْ** qalun,warsh |
+| 42341 | 21:88 | `ٮحى` hafs,shubah,bazzi,duri,susi  ·  `ٮٮحى` qalun,warsh | **نُۨجِي** hafs,bazzi,duri,susi  ·  **نُجِّي** shubah  ·  **نُنجِے** qalun,warsh |
+| 44635 | 23:87 | `لله` hafs,shubah,bazzi,qalun,warsh  ·  `الله` duri,susi | **لِلَّهِ** hafs,shubah,bazzi  ·  **لِلهِ** qalun,warsh  ·  **اَ۬للَّهُ** duri  ·  **ࡱ۬للَّهُ** susi |
+| 44654 | 23:89 | `لله` hafs,shubah,bazzi,qalun,warsh  ·  `الله` duri,susi | **لِلَّهِ** hafs,shubah,bazzi  ·  **لِلهِ** qalun,warsh  ·  **اَ۬للَّهُ** duri  ·  **ࡱ۬للَّهُ** susi |
+| 44847 | 23:112 | `ڡل` hafs,shubah,bazzi,duri,susi  ·  `ڡال` qalun,warsh | **قَٰلَ** hafs,shubah,duri,susi  ·  **قُلۡ** bazzi  ·  **قَالَ** qalun,warsh |
+| 46555 | 25:25 | `وٮرل` hafs,shubah,qalun,warsh,duri,susi  ·  `وٮٮرل` bazzi | **وَنُزِّلَ** hafs,shubah,qalun,warsh,duri,susi  ·  **وَنُنزِلُ** bazzi |
+| 48694 | 27:21 | `لٮاٮٮٮى` hafs,shubah,qalun,warsh,duri,susi  ·  `لٮاٮٮٮٮى` bazzi | **لَيَأۡتِيَنِّي** hafs,shubah,duri  ·  **لَيَأۡتِيَنَّنِي** bazzi  ·  **لَيَأْتِيَنِّے** qalun  ·  **لَيَاتِيَنِّے** warsh  ·  **لَيَاتِيَنِّي** susi |
+| 48852 | 27:36 | `اٮٮں` hafs,shubah,bazzi,duri,susi  ·  `اٮٮٮى` qalun,warsh | **ءَاتَىٰنِۦَ** hafs,duri,susi  ·  **ءَاتَىٰنِ** shubah,bazzi  ·  **ءَاتَيٰنِࣉَ** qalun  ·  **ءَاتٜيٰنِࣉَ** warsh |
+| 50187 | 28:37 | `وڡال` hafs,shubah,qalun,warsh,duri,susi  ·  `ڡال` bazzi | **وَقَالَ** hafs,shubah,qalun,warsh,duri,susi  ·  **قَالَ** bazzi |
+| 50378 | 28:48 | `سحراں` hafs,shubah,bazzi,duri,susi  ·  `سحرں` qalun,warsh | **سِحۡرَانِ** hafs,shubah  ·  **سَٰحِرَانِ** bazzi,duri,susi  ·  **سَٰحِرَٰنِ** qalun,warsh |
+| 52070 | 30:8 | `ٮلڡاى` hafs,shubah,bazzi,duri,susi  ·  `ٮلڡا` qalun,warsh | **بِلِقَآيِٕ** hafs,shubah,bazzi,duri,susi  ·  **بِلِقَآءِ** qalun,warsh |
+| 52159 | 30:16 | `ولڡاى` hafs,shubah,bazzi,duri,susi  ·  `ولڡا` qalun,warsh | **وَلِقَآيِٕ** hafs,shubah,bazzi,duri,susi  ·  **وَلِقَآءِ** qalun,warsh |
+| 53776 | 33:4 | `الى` hafs,shubah,bazzi,warsh,duri,susi  ·  `الٮى` qalun | **ٱلَِّٰٓٔي** hafs,shubah  ·  **ٱلَّٰٓيۡ** bazzi  ·  **ࡲ۬لَّٰٓئِے** qalun  ·  **ࡲ۬لٜےْ** warsh  ·  **اُ۬لَّٰٓيۡ** duri  ·  **ࡲ۬لَّٰٓيۡ** susi |
+| 56602 | 35:43 | `السٮى` hafs,shubah,bazzi,warsh,duri,susi  ·  `السٮٮى` qalun | **ٱلسَّيِّيِٕ** hafs,shubah,bazzi  ·  **ࡰ۬لسَّيِّئِے** qalun  ·  **ࡰ۬لسَّيِّےِٕ** warsh  ·  **اَ۬لسَّيِّيِٕ** duri  ·  **ࡱ۬لسَّيِّيِٕ** susi |
+| 56964 | 36:35 | `عملٮه` hafs,bazzi,qalun,warsh,duri,susi  ·  `عملٮ` shubah | **عَمِلَتۡهُ** hafs,duri,susi  ·  **عَمِلَتۡ** shubah  ·  **عَمِلَتۡهُۥ** bazzi  ·  **عَمِلَتْهُ** qalun,warsh |
+| 57749 | 37:68 | `لالى` hafs,shubah,bazzi,qalun,warsh  ·  `لاالى` duri,susi | **لَإِلَى** hafs,shubah,bazzi,qalun,warsh  ·  **لَإِاْلَى** duri,susi |
+| 59548 | 39:34 | `حرا` hafs,shubah,bazzi,duri,susi  ·  `حروا` qalun,warsh | **جَزَآءُ** hafs,shubah,bazzi,duri,susi  ·  **جَزَٰٓؤُاْ** qalun,warsh |
+| 60056 | 39:69 | `وحاى` hafs,shubah,bazzi,duri,susi  ·  `وحى` qalun,warsh | **وَجِاْيٓءَ** hafs,shubah,bazzi,duri,susi  ·  **وَجِےٓءَ** qalun,warsh |
+| 60523 | 40:26 | `اں` hafs,shubah  ·  `واں` bazzi,qalun,warsh,duri,susi | **أَن** hafs,shubah  ·  **وَأَن** bazzi,duri,susi  ·  **وَأَنْ** qalun,warsh |
+| 62695 | 42:30 | `ڡٮما` hafs,shubah,bazzi,duri,susi  ·  `ٮما` qalun,warsh | **فَبِمَا** hafs,shubah,bazzi,duri,susi  ·  **بِمَا** qalun,warsh |
+| 63696 | 43:68 | `ٮعٮاد` hafs,bazzi  ·  `ٮعٮادى` shubah,qalun,warsh,duri,susi | **يَٰعِبَادِ** hafs,bazzi  ·  **يَٰعِبَادِيَ** shubah  ·  **يَٰعِبَادِے** qalun,warsh  ·  **يَٰعِبَادِي** duri,susi |
+| 63722 | 43:71 | `ٮسٮهٮه` hafs,qalun,warsh  ·  `ٮسٮهى` shubah,bazzi,duri,susi | **تَشۡتَهِيهِ** hafs  ·  **تَشۡتَهِي** shubah,bazzi,duri,susi  ·  **تَشْتَهِيهِ** qalun,warsh |
+| 64932 | 46:15 | `احسٮا` hafs,shubah  ·  `حسٮا` bazzi,qalun,warsh,duri,susi | **إِحۡسَٰنًا** hafs,shubah  ·  **حُسۡنًا** bazzi,duri,susi  ·  **حُسْناً** qalun,warsh |
+| 68622 | 55:22 | `اللولو` hafs,shubah,bazzi,duri,susi  ·  `اللولوا` qalun,warsh | **ٱللُّؤۡلُؤُ** hafs,bazzi  ·  **ٱللُّولُؤُ** shubah  ·  **ࡰ۬للُّؤْلُؤُاْ** qalun,warsh  ·  **اَ۬للُّؤۡلُؤُ** duri  ·  **ࡱ۬للُّولُؤُ** susi |
+| 69876 | 58:2 | `الى` hafs,shubah,bazzi,warsh,duri,susi  ·  `الٮى` qalun | **ٱلَِّٰٓٔي** hafs,shubah  ·  **ٱلَّٰٓيۡ** bazzi  ·  **ࡰ۬لَّٰٓئِے** qalun  ·  **ࡰ۬لٜےْ** warsh  ·  **اَ۬لَّٰٓيۡ** duri  ·  **ࡱ۬لَّٰٓيۡ** susi |
+| 70587 | 59:13 | `لاٮٮم` hafs,shubah,bazzi,qalun,warsh  ·  `لااٮٮم` duri,susi | **لَأَنتُمۡ** hafs,shubah  ·  **لَأَنتُمُۥ** bazzi  ·  **لَأَنتُمْ** qalun  ·  **لَأَنتُمُۥٓ** warsh  ·  **لَأَاْنتُمۡ** duri,susi |
+| 71302 | 61:14 | `اٮصار` hafs,shubah  ·  `اٮصارا` bazzi,qalun,warsh,duri,susi | **أَنصَارَ** hafs,shubah  ·  **أَنصَارࣰا** bazzi,susi  ·  **أَنصَاراࣰ** qalun,warsh  ·  **أَنصَارٗا** duri |
+| 71303 | 61:14 | `الله` hafs,shubah  ·  `لله` bazzi,qalun,warsh,duri,susi | **ٱللَّهِ** hafs,shubah  ·  **لِّلَّهِ** bazzi,duri,susi  ·  **لِّلهِ** qalun,warsh |
+| 72021 | 65:4 | `والى` hafs,shubah,bazzi,warsh,duri,susi  ·  `والٮى` qalun | **وَٱلَِّٰٓٔي** hafs,shubah  ·  **وَٱلَّٰٓيۡ** bazzi  ·  **وَالَّٰٓئِے** qalun  ·  **وَالٜےْ** warsh  ·  **وَاَلَّٰٓيۡ** duri  ·  **وَࡱلَّٰٓيۡ** susi |
+| 72032 | 65:4 | `والى` hafs,shubah,bazzi,warsh,duri,susi  ·  `والٮى` qalun | **وَٱلَِّٰٓٔي** hafs,shubah  ·  **وَٱلَّٰٓيۡ** bazzi  ·  **وَالَّٰٓئِے** qalun  ·  **وَالٜےْ** warsh  ·  **وَاَلَّٰٓيۡ** duri  ·  **وَࡱلَّٰٓيۡ** susi |
+| 73986 | 72:20 | `ڡل` hafs,shubah  ·  `ڡال` bazzi,qalun,warsh,duri,susi | **قُلۡ** hafs,shubah  ·  **قَالَ** bazzi,qalun,warsh,duri,susi |
+| 74439 | 74:33 | `اد` hafs,qalun,warsh  ·  `ادا` shubah,bazzi,duri,susi | **إِذۡ** hafs  ·  **إِذَا** shubah,bazzi,duri,susi  ·  **إِذْ** qalun  ·  **إِذَ** warsh |
+| 74440 | 74:33 | `ادٮر` hafs,qalun,warsh  ·  `دٮر` shubah,bazzi,duri,susi | **أَدۡبَرَ** hafs  ·  **دَبَرَ** shubah,bazzi,duri,susi  ·  **أَدْبَرَ** qalun  ·  **ࡰدْبَرَ** warsh |
+| 75690 | 81:24 | `ٮصٮٮں` hafs,shubah,qalun,warsh  ·  `ٮصطٮٮں` bazzi,duri,susi | **بِضَنِينࣲ** hafs,shubah,qalun,warsh  ·  **بِضظَنِينࣲ** bazzi  ·  **بِضظَنِينٖ** duri  ·  **بِّضظَنِينࣲ** susi |
+| 76508 | 89:23 | `وحاى` hafs,shubah,bazzi,duri,susi  ·  `وحى` qalun,warsh | **وَجِاْيٓءَ** hafs,shubah,bazzi,duri,susi  ·  **وَجِےٓءَ** qalun,warsh |
+| 76592 | 90:14 | `اطعم` hafs,shubah,bazzi,duri,susi  ·  `اطعام` qalun,warsh | **إِطۡعَٰمࣱ** hafs,shubah  ·  **أَطۡعَمَ** bazzi,duri,susi  ·  **إِطْعَامࣱ** qalun  ·  **ࡴطْعَامࣱ** warsh |
+| 77259 | 106:2 | `الڡهم` hafs,shubah,bazzi,duri,susi  ·  `اٮلڡهم` qalun,warsh | **إِۦلَٰفِهِمۡ** hafs,shubah,duri,susi  ·  **إِۦلَٰفِهِمُۥ** bazzi  ·  **إِيلَٰفِهِمْ** qalun  ·  **ࡴيلَٰفِهِمْ** warsh |
 
 #### One letter for another
 
@@ -161,119 +161,119 @@ Three things can differ once spelling, vowelling and pointing are set aside: the
 
 | word id | sūrah:āyah | rasm on each side | as printed |
 |---|---|---|---|
-| 21269 | 7:137 | `كلمٮ` hafs,shuba,bazzi,douri,sousi  ·  `كلمه` qaloun,warsh | **كَلِمَتُ** hafs,shuba,bazzi,douri,sousi  ·  **كَلِمَةُ** qaloun,warsh |
-| 48378 | 26:217 | `وٮوكل` hafs,shuba,bazzi,douri,sousi  ·  `ڡٮوكل` qaloun,warsh | **وَتَوَكَّلۡ** hafs,shuba,bazzi,douri,sousi  ·  **فَتَوَكَّلْ** qaloun,warsh |
-| 68790 | 55:54 | `وحٮى` hafs,shuba,bazzi,douri,sousi  ·  `وحٮا` qaloun,warsh | **وَجَنَى** hafs,shuba,bazzi,douri,sousi  ·  **وَجَنَا** qaloun,warsh |
-| 76676 | 91:15 | `ولا` hafs,shuba,bazzi,douri,sousi  ·  `ڡلا` qaloun,warsh | **وَلَا** hafs,shuba,bazzi,douri,sousi  ·  **فَلَا** qaloun,warsh |
+| 21269 | 7:137 | `كلمٮ` hafs,shubah,bazzi,duri,susi  ·  `كلمه` qalun,warsh | **كَلِمَتُ** hafs,shubah,bazzi,duri,susi  ·  **كَلِمَةُ** qalun,warsh |
+| 48378 | 26:217 | `وٮوكل` hafs,shubah,bazzi,duri,susi  ·  `ڡٮوكل` qalun,warsh | **وَتَوَكَّلۡ** hafs,shubah,bazzi,duri,susi  ·  **فَتَوَكَّلْ** qalun,warsh |
+| 68790 | 55:54 | `وحٮى` hafs,shubah,bazzi,duri,susi  ·  `وحٮا` qalun,warsh | **وَجَنَى** hafs,shubah,bazzi,duri,susi  ·  **وَجَنَا** qalun,warsh |
+| 76676 | 91:15 | `ولا` hafs,shubah,bazzi,duri,susi  ·  `ڡلا` qalun,warsh | **وَلَا** hafs,shubah,bazzi,duri,susi  ·  **فَلَا** qalun,warsh |
 
 ### The ā on the line or above it
 
 198 words whose skeletons agree once every ā is spelled out, and differ only because one hand wrote that ā on the line and the other wrote it above: the Warsh/Qālūn set prints `هَارُوتَ` and `مُبَٰرَك` where the Kūfī set prints `هَٰرُوتَ` and `مُبَارَك`.
 
-They are not counted as the codices disagreeing, and the reason is in the data rather than in a judgement about it. **All 198 split the seven riwāyāt along exactly one line — `bazzi,douri,hafs,shuba,sousi` against `qaloun,warsh` — in both directions and without one exception.** The 60 real letter differences split them 13 different ways. Ḥadhf and ithbāt al-alif do vary between the codices of the amṣār, but they do not put Makkah with Madinah 198 times out of 198 and never once apart; a publisher's house style does. Bazzī goes its own way 7 times among the 60 and not once among these.
+They are not counted as the codices disagreeing, and the reason is in the data rather than in a judgement about it. **All 198 split the seven riwāyāt along exactly one line — `bazzi,duri,hafs,shubah,susi` against `qalun,warsh` — in both directions and without one exception.** The 60 real letter differences split them 13 different ways. Ḥadhf and ithbāt al-alif do vary between the codices of the amṣār, but they do not put Makkah with Madinah 198 times out of 198 and never once apart; a publisher's house style does. Bazzī goes its own way 7 times among the 60 and not once among these.
 
 The distinction is still kept in `rasm`, because inside any one muṣḥaf it is that muṣḥaf's own ḥadhf, carried consistently: Ḥafṣ writes قال plene 412 times and defective 4, سبحان defective 12 and plene once, and 175 of these 198 words show the identical split at *every* occurrence of the word in the corpus. What the sources cannot answer is which of the two hands is the codex's. A sample:
 
 | word id | sūrah:āyah | rasm on each side | as printed |
 |---|---|---|---|
-| 425 | 2:28 | `ڡاحٮكم` hafs,shuba,bazzi,douri,sousi  ·  `ڡاحٮاكم` qaloun,warsh | **فَأَحۡيَٰكُمۡ** hafs,shuba,douri,sousi  ·  **فَأَحۡيَٰكُمُۥ** bazzi  ·  **فَأَحْيَاكُمْ** qaloun  ·  **فَأَحْيٜاكُمْ** warsh |
-| 618 | 2:40 | `اسرٮل` hafs,shuba,bazzi,douri,sousi  ·  `اسراٮل` qaloun,warsh | **إِسۡرَٰٓءِيلَ** hafs,shuba,bazzi,douri,sousi  ·  **إِسْرَآءِيلَ** qaloun,warsh |
-| 690 | 2:47 | `اسرٮل` hafs,shuba,bazzi,douri,sousi  ·  `اسراٮل` qaloun,warsh | **إِسۡرَٰٓءِيلَ** hafs,shuba,bazzi,douri,sousi  ·  **إِسْرَآءِيلَ** qaloun,warsh |
-| 823 | 2:57 | `العمام` hafs,shuba,bazzi,douri,sousi  ·  `العمم` qaloun,warsh | **ٱلۡغَمَامَ** hafs,shuba,bazzi  ·  **ࡲ۬لْغَمَٰمَ** qaloun,warsh  ·  **اُ۬لۡغَمَامَ** douri  ·  **ࡲ۬لۡغَمَامَ** sousi |
-| 1333 | 2:83 | `اسرٮل` hafs,shuba,bazzi,douri,sousi  ·  `اسراٮل` qaloun,warsh | **إِسۡرَٰٓءِيلَ** hafs,shuba,bazzi,douri  ·  **إِسْرَآءِيلَ** qaloun,warsh  ·  **إِسۡرَٰٓءِيل** sousi |
-| 1339 | 2:83 | `احساٮا` hafs,shuba,bazzi,douri,sousi  ·  `احسٮا` qaloun,warsh | **إِحۡسَانࣰا** hafs,shuba,bazzi,sousi  ·  **إِحْسَٰناࣰ** qaloun,warsh  ·  **إِحۡسَانٗا** douri |
-| 1738 | 2:102 | `هروٮ` hafs,shuba,bazzi,douri,sousi  ·  `هاروٮ` qaloun,warsh | **هَٰرُوتَ** hafs,shuba,bazzi,douri,sousi  ·  **هَارُوتَ** qaloun,warsh |
-| 1739 | 2:102 | `ومروٮ` hafs,shuba,bazzi,douri,sousi  ·  `وماروٮ` qaloun,warsh | **وَمَٰرُوتَ** hafs,shuba,bazzi,douri,sousi  ·  **وَمَارُوتَ** qaloun,warsh |
-| 1741 | 2:102 | `ٮعلماں` hafs,shuba,bazzi,douri,sousi  ·  `ٮعلمں` qaloun,warsh | **يُعَلِّمَانِ** hafs,shuba,bazzi,douri,sousi  ·  **يُعَلِّمَٰنِ** qaloun,warsh |
-| 2147 | 2:121 | `ٮلاوٮه` hafs,shuba,bazzi,douri,sousi  ·  `ٮلوٮه` qaloun,warsh | **تِلَاوَتِهِۦٓ** hafs,shuba,douri  ·  **تِلَاوَتِهِۦ** bazzi,sousi  ·  **تِلَٰوَتِهِۦ** qaloun  ·  **تِلَٰوَتِهِۦٓ** warsh |
-| 2158 | 2:122 | `اسرٮل` hafs,shuba,bazzi,douri,sousi  ·  `اسراٮل` qaloun,warsh | **إِسۡرَٰٓءِيلَ** hafs,shuba,bazzi,douri,sousi  ·  **إِسْرَآءِيلَ** qaloun,warsh |
-| 2824 | 2:158 | `سعاٮر` hafs,shuba,bazzi,douri,sousi  ·  `سعٮر` qaloun,warsh | **شَعَآئِرِ** hafs,shuba,bazzi,douri,sousi  ·  **شَعَٰٓئِرِ** qaloun,warsh |
-| 2991 | 2:166 | `الاسٮاٮ` hafs,shuba,bazzi,douri,sousi  ·  `الاسٮٮ` qaloun,warsh | **ٱلۡأَسۡبَابُ** hafs,shuba,bazzi  ·  **ࡲ۬لْأَسْبَٰبُ** qaloun  ·  **ࡲ۬لَاسْبَٰبُ** warsh  ·  **اِ۬لۡأَسۡبَابُ** douri  ·  **ࡵ۬لۡأَسۡبَابُ** sousi |
-| 3929 | 2:210 | `العمام` hafs,shuba,bazzi,douri,sousi  ·  `العمم` qaloun,warsh | **ٱلۡغَمَامِ** hafs,shuba,bazzi  ·  **ࡰ۬لْغَمَٰمِ** qaloun,warsh  ·  **اَ۬لۡغَمَامِ** douri  ·  **ࡱ۬لۡغَمَامِ** sousi |
-| 3939 | 2:211 | `اسرٮل` hafs,shuba,bazzi,douri,sousi  ·  `اسراٮل` qaloun,warsh | **إِسۡرَٰٓءِيلَ** hafs,shuba,bazzi,douri,sousi  ·  **إِسْرَآءِيلَ** qaloun,warsh |
+| 425 | 2:28 | `ڡاحٮكم` hafs,shubah,bazzi,duri,susi  ·  `ڡاحٮاكم` qalun,warsh | **فَأَحۡيَٰكُمۡ** hafs,shubah,duri,susi  ·  **فَأَحۡيَٰكُمُۥ** bazzi  ·  **فَأَحْيَاكُمْ** qalun  ·  **فَأَحْيٜاكُمْ** warsh |
+| 618 | 2:40 | `اسرٮل` hafs,shubah,bazzi,duri,susi  ·  `اسراٮل` qalun,warsh | **إِسۡرَٰٓءِيلَ** hafs,shubah,bazzi,duri,susi  ·  **إِسْرَآءِيلَ** qalun,warsh |
+| 690 | 2:47 | `اسرٮل` hafs,shubah,bazzi,duri,susi  ·  `اسراٮل` qalun,warsh | **إِسۡرَٰٓءِيلَ** hafs,shubah,bazzi,duri,susi  ·  **إِسْرَآءِيلَ** qalun,warsh |
+| 823 | 2:57 | `العمام` hafs,shubah,bazzi,duri,susi  ·  `العمم` qalun,warsh | **ٱلۡغَمَامَ** hafs,shubah,bazzi  ·  **ࡲ۬لْغَمَٰمَ** qalun,warsh  ·  **اُ۬لۡغَمَامَ** duri  ·  **ࡲ۬لۡغَمَامَ** susi |
+| 1333 | 2:83 | `اسرٮل` hafs,shubah,bazzi,duri,susi  ·  `اسراٮل` qalun,warsh | **إِسۡرَٰٓءِيلَ** hafs,shubah,bazzi,duri  ·  **إِسْرَآءِيلَ** qalun,warsh  ·  **إِسۡرَٰٓءِيل** susi |
+| 1339 | 2:83 | `احساٮا` hafs,shubah,bazzi,duri,susi  ·  `احسٮا` qalun,warsh | **إِحۡسَانࣰا** hafs,shubah,bazzi,susi  ·  **إِحْسَٰناࣰ** qalun,warsh  ·  **إِحۡسَانٗا** duri |
+| 1738 | 2:102 | `هروٮ` hafs,shubah,bazzi,duri,susi  ·  `هاروٮ` qalun,warsh | **هَٰرُوتَ** hafs,shubah,bazzi,duri,susi  ·  **هَارُوتَ** qalun,warsh |
+| 1739 | 2:102 | `ومروٮ` hafs,shubah,bazzi,duri,susi  ·  `وماروٮ` qalun,warsh | **وَمَٰرُوتَ** hafs,shubah,bazzi,duri,susi  ·  **وَمَارُوتَ** qalun,warsh |
+| 1741 | 2:102 | `ٮعلماں` hafs,shubah,bazzi,duri,susi  ·  `ٮعلمں` qalun,warsh | **يُعَلِّمَانِ** hafs,shubah,bazzi,duri,susi  ·  **يُعَلِّمَٰنِ** qalun,warsh |
+| 2147 | 2:121 | `ٮلاوٮه` hafs,shubah,bazzi,duri,susi  ·  `ٮلوٮه` qalun,warsh | **تِلَاوَتِهِۦٓ** hafs,shubah,duri  ·  **تِلَاوَتِهِۦ** bazzi,susi  ·  **تِلَٰوَتِهِۦ** qalun  ·  **تِلَٰوَتِهِۦٓ** warsh |
+| 2158 | 2:122 | `اسرٮل` hafs,shubah,bazzi,duri,susi  ·  `اسراٮل` qalun,warsh | **إِسۡرَٰٓءِيلَ** hafs,shubah,bazzi,duri,susi  ·  **إِسْرَآءِيلَ** qalun,warsh |
+| 2824 | 2:158 | `سعاٮر` hafs,shubah,bazzi,duri,susi  ·  `سعٮر` qalun,warsh | **شَعَآئِرِ** hafs,shubah,bazzi,duri,susi  ·  **شَعَٰٓئِرِ** qalun,warsh |
+| 2991 | 2:166 | `الاسٮاٮ` hafs,shubah,bazzi,duri,susi  ·  `الاسٮٮ` qalun,warsh | **ٱلۡأَسۡبَابُ** hafs,shubah,bazzi  ·  **ࡲ۬لْأَسْبَٰبُ** qalun  ·  **ࡲ۬لَاسْبَٰبُ** warsh  ·  **اِ۬لۡأَسۡبَابُ** duri  ·  **ࡵ۬لۡأَسۡبَابُ** susi |
+| 3929 | 2:210 | `العمام` hafs,shubah,bazzi,duri,susi  ·  `العمم` qalun,warsh | **ٱلۡغَمَامِ** hafs,shubah,bazzi  ·  **ࡰ۬لْغَمَٰمِ** qalun,warsh  ·  **اَ۬لۡغَمَامِ** duri  ·  **ࡱ۬لۡغَمَامِ** susi |
+| 3939 | 2:211 | `اسرٮل` hafs,shubah,bazzi,duri,susi  ·  `اسراٮل` qalun,warsh | **إِسۡرَٰٓءِيلَ** hafs,shubah,bazzi,duri,susi  ·  **إِسْرَآءِيلَ** qalun,warsh |
 
-### Pointing — one rasm, two readings
+### Pointing — one rasm, two qiraahs
 
-338 words share a rasm but are pointed differently. These are real differences in reading, not in the codex: an undotted skeleton carries them all. A sample:
+338 words share a rasm but are pointed differently. These are real differences in qiraah, not in the codex: an undotted skeleton carries them all. A sample:
 
 | word id | sūrah:āyah | shared rasm | pointed as |
 |---|---|---|---|
-| 11 | 1:4 | `ملك` | **مالك** hafs,shuba  ·  **ملك** bazzi,qaloun,warsh,douri,sousi |
-| 105 | 2:9 | `ٮحدعوں` | **يخدعون** hafs,shuba  ·  **يخادعون** bazzi,qaloun,warsh,douri,sousi |
-| 709 | 2:48 | `ٮڡٮل` | **يقبل** hafs,shuba,qaloun,warsh  ·  **تقبل** bazzi,douri,sousi |
-| 748 | 2:51 | `وعدٮا` | **واعدنا** hafs,shuba,bazzi,qaloun,warsh  ·  **وعدنا** douri,sousi |
-| 854 | 2:58 | `ٮعڡر` | **نغفر** hafs,shuba,bazzi,douri,sousi  ·  **يغفر** qaloun,warsh |
-| 1142 | 2:72 | `ڡادرٮم` | **فاداراتم** hafs,shuba,bazzi,qaloun,douri,sousi  ·  **فادارتم** warsh |
-| 1196 | 2:74 | `ٮعملوں` | **تعملون** hafs,shuba,qaloun,warsh,douri,sousi  ·  **يعملون** bazzi |
-| 1312 | 2:81 | `حطٮٮه` | **خطيته** hafs,shuba,bazzi,douri,sousi  ·  **خطياته** qaloun,warsh |
-| 1335 | 2:83 | `ٮعٮدوں` | **تعبدون** hafs,shuba,qaloun,warsh,douri,sousi  ·  **يعبدون** bazzi |
-| 1390 | 2:85 | `ٮڡدوهم` | **تفادوهم** hafs,shuba,qaloun,warsh  ·  **تفدوهم** bazzi,douri,sousi |
-| 1421 | 2:85 | `ٮعملوں` | **تعملون** hafs,douri,sousi  ·  **يعملون** shuba,bazzi,qaloun,warsh |
-| 1670 | 2:98 | `ومٮكٮل` | **وميكيال** hafs,douri,sousi  ·  **وميكايل** shuba,bazzi,qaloun,warsh |
-| 2479 | 2:140 | `ٮڡولوں` | **تقولون** hafs  ·  **يقولون** shuba,bazzi,qaloun,warsh,douri,sousi |
-| 2711 | 2:149 | `ٮعملوں` | **تعملون** hafs,shuba,bazzi,qaloun,warsh  ·  **يعملون** douri,sousi |
-| 2966 | 2:165 | `ٮرى` | **يري** hafs,shuba,bazzi,douri,sousi  ·  **تري** qaloun,warsh |
+| 11 | 1:4 | `ملك` | **مالك** hafs,shubah  ·  **ملك** bazzi,qalun,warsh,duri,susi |
+| 105 | 2:9 | `ٮحدعوں` | **يخدعون** hafs,shubah  ·  **يخادعون** bazzi,qalun,warsh,duri,susi |
+| 709 | 2:48 | `ٮڡٮل` | **يقبل** hafs,shubah,qalun,warsh  ·  **تقبل** bazzi,duri,susi |
+| 748 | 2:51 | `وعدٮا` | **واعدنا** hafs,shubah,bazzi,qalun,warsh  ·  **وعدنا** duri,susi |
+| 854 | 2:58 | `ٮعڡر` | **نغفر** hafs,shubah,bazzi,duri,susi  ·  **يغفر** qalun,warsh |
+| 1142 | 2:72 | `ڡادرٮم` | **فاداراتم** hafs,shubah,bazzi,qalun,duri,susi  ·  **فادارتم** warsh |
+| 1196 | 2:74 | `ٮعملوں` | **تعملون** hafs,shubah,qalun,warsh,duri,susi  ·  **يعملون** bazzi |
+| 1312 | 2:81 | `حطٮٮه` | **خطيته** hafs,shubah,bazzi,duri,susi  ·  **خطياته** qalun,warsh |
+| 1335 | 2:83 | `ٮعٮدوں` | **تعبدون** hafs,shubah,qalun,warsh,duri,susi  ·  **يعبدون** bazzi |
+| 1390 | 2:85 | `ٮڡدوهم` | **تفادوهم** hafs,shubah,qalun,warsh  ·  **تفدوهم** bazzi,duri,susi |
+| 1421 | 2:85 | `ٮعملوں` | **تعملون** hafs,duri,susi  ·  **يعملون** shubah,bazzi,qalun,warsh |
+| 1670 | 2:98 | `ومٮكٮل` | **وميكيال** hafs,duri,susi  ·  **وميكايل** shubah,bazzi,qalun,warsh |
+| 2479 | 2:140 | `ٮڡولوں` | **تقولون** hafs  ·  **يقولون** shubah,bazzi,qalun,warsh,duri,susi |
+| 2711 | 2:149 | `ٮعملوں` | **تعملون** hafs,shubah,bazzi,qalun,warsh  ·  **يعملون** duri,susi |
+| 2966 | 2:165 | `ٮرى` | **يري** hafs,shubah,bazzi,duri,susi  ·  **تري** qalun,warsh |
 
 ### Boundaries — where the space falls
 
 A boundary disagreement is never about one word; it is about the space between two. Each event below shows the whole run, exactly as each riwāyah prints it. The last column is the one that matters: **agree** means every riwāyah reads the run identically once it is re-segmented, so the flag is a *source* that lost a space, not a muṣḥaf that really prints the words joined.
 
-**4:91** — word ids 11634, 11635 · joined in `douri`, `qaloun` · **all riwāyāt agree** (a dropped space in the source)
+**4:91** — word ids 11634, 11635 · joined in `duri`, `qalun` · **all riwāyāt agree** (a dropped space in the source)
 
 | riwāyāt | as printed |
 |---|---|
-| `hafs,shuba,warsh,douri` | مَا رُدُّوٓاْ |
-| `bazzi,qaloun,sousi` | مَا رُدُّواْ |
+| `hafs,shubah,warsh,duri` | مَا رُدُّوٓاْ |
+| `bazzi,qalun,susi` | مَا رُدُّواْ |
 
-**10:26** — word ids 26811, 26812 · joined in `douri` · **all riwāyāt agree** (a dropped space in the source)
-
-| riwāyāt | as printed |
-|---|---|
-| `hafs,shuba,bazzi,qaloun,warsh,sousi` | قَتَرࣱ وَلَا |
-| `douri` | قَتَرٞ وَلَا |
-
-**11:78** — word ids 29368, 29369 · joined in `douri` · **all riwāyāt agree** (a dropped space in the source)
+**10:26** — word ids 26811, 26812 · joined in `duri` · **all riwāyāt agree** (a dropped space in the source)
 
 | riwāyāt | as printed |
 |---|---|
-| `hafs,shuba,bazzi,douri,sousi` | كَانُواْ يَعۡمَلُونَ |
-| `qaloun,warsh` | كَانُواْ يَعْمَلُونَ |
+| `hafs,shubah,bazzi,qalun,warsh,susi` | قَتَرࣱ وَلَا |
+| `duri` | قَتَرٞ وَلَا |
 
-**27:20** — word ids 48679, 48680 · joined in `bazzi`, `douri` · **all riwāyāt agree** (a dropped space in the source)
-
-| riwāyāt | as printed |
-|---|---|
-| `hafs,shuba,bazzi` | مَا لِيَ |
-| `qaloun,warsh` | مَا لِے |
-| `douri,sousi` | مَا لِي |
-
-**36:22** — word ids 56845, 56846 · joined in `bazzi`, `douri` · **all riwāyāt agree** (a dropped space in the source)
+**11:78** — word ids 29368, 29369 · joined in `duri` · **all riwāyāt agree** (a dropped space in the source)
 
 | riwāyāt | as printed |
 |---|---|
-| `hafs,shuba,bazzi,qaloun,warsh,douri,sousi` | وَمَا لِيَ |
+| `hafs,shubah,bazzi,duri,susi` | كَانُواْ يَعۡمَلُونَ |
+| `qalun,warsh` | كَانُواْ يَعْمَلُونَ |
+
+**27:20** — word ids 48679, 48680 · joined in `bazzi`, `duri` · **all riwāyāt agree** (a dropped space in the source)
+
+| riwāyāt | as printed |
+|---|---|
+| `hafs,shubah,bazzi` | مَا لِيَ |
+| `qalun,warsh` | مَا لِے |
+| `duri,susi` | مَا لِي |
+
+**36:22** — word ids 56845, 56846 · joined in `bazzi`, `duri` · **all riwāyāt agree** (a dropped space in the source)
+
+| riwāyāt | as printed |
+|---|---|
+| `hafs,shubah,bazzi,qalun,warsh,duri,susi` | وَمَا لِيَ |
 
 **75:1** — word ids 74539, 74540 · joined in `bazzi` · **all riwāyāt agree** (a dropped space in the source)
 
 | riwāyāt | as printed |
 |---|---|
-| `hafs,shuba,douri` | لَآ أُقۡسِمُ |
+| `hafs,shubah,duri` | لَآ أُقۡسِمُ |
 | `bazzi` | لَأُ اْقۡسِمُ |
-| `qaloun` | لَا أُقْسِمُ |
+| `qalun` | لَا أُقْسِمُ |
 | `warsh` | لَآ أُقْسِمُ |
-| `sousi` | لَا أُقۡسِم |
+| `susi` | لَا أُقۡسِم |
 
 Machine-readable: [`resegmentation.csv`](resegmentation.csv).
 
 ### Absence — words not every riwāyah has
 
-Each is well attested: Ibn Kathīr's `مِن` at 9:101; Nāfiʿ reading `فإن الله الغني` at 57:24 where the others read `فإن الله هو الغني`; and `أَوۡ` at 40:26, where Ḥafṣ and Shuʿbah read *aw* and the other five read *wa* — a different word, so the number of `أَوۡ` is absent from them and their `وَأَنْ` takes the number of `أَن`.
+Each is well attested: Ibn Kathīr's `مِن` at 9:101; Nāfiʿ reciting `فإن الله الغني` at 57:24 where the others read `فإن الله هو الغني`; and `أَوۡ` at 40:26, where Ḥafṣ and Shuʿbah read *aw* and the other five read *wa* — a different word, so the number of `أَوۡ` is absent from them and their `وَأَنْ` takes the number of `أَن`.
 
 | number | sūrah:āyah | rasm | present in | absent from | as printed |
 |---|---|---|---|---|---|
-| 25685 | 9:101 | `مں` | bazzi | hafs, shuba, warsh, qaloun, douri, sousi | **مِن** bazzi |
-| 60522 | 40:26 | `او` | hafs, shuba | warsh, qaloun, douri, sousi, bazzi | **أَوۡ** hafs,shuba |
-| 69720 | 57:24 | `هو` | hafs, shuba, douri, sousi, bazzi | warsh, qaloun | **هُوَ** hafs,shuba,bazzi,douri  ·  **هُّوَ** sousi |
+| 25685 | 9:101 | `مں` | bazzi | hafs, shubah, warsh, qalun, duri, susi | **مِن** bazzi |
+| 60522 | 40:26 | `او` | hafs, shubah | warsh, qalun, duri, susi, bazzi | **أَوۡ** hafs,shubah |
+| 69720 | 57:24 | `هو` | hafs, shubah, duri, susi, bazzi | warsh, qalun | **هُوَ** hafs,shubah,bazzi,duri  ·  **هُّوَ** susi |
 
 ### Written joined — two words some muṣḥafs print as one
 
@@ -281,38 +281,38 @@ Nothing is added and nothing is dropped: the nūn assimilates into the letter af
 
 | number | sūrah:āyah | rasm | written joined by | as printed |
 |---|---|---|---|---|
-| 73950 | 72:16 | `واں` | hafs, shuba, bazzi | **وَأَلَّوِ** hafs,shuba,bazzi  ·  **وَأَن** qaloun,warsh,douri,sousi |
-| 73951 | 72:16 | `لو` | hafs, shuba, bazzi | **وَأَلَّوِ** hafs,shuba,bazzi  ·  **لَّوِ** qaloun,warsh,douri,sousi |
-| 74226 | 73:20 | `اں` | douri, sousi | **أَن** hafs,shuba,bazzi,qaloun,warsh  ·  **أَلَّن** douri,sousi |
-| 74227 | 73:20 | `لں` | douri, sousi | **لَّن** hafs,shuba,bazzi,qaloun,warsh  ·  **أَلَّن** douri,sousi |
+| 73950 | 72:16 | `واں` | hafs, shubah, bazzi | **وَأَلَّوِ** hafs,shubah,bazzi  ·  **وَأَن** qalun,warsh,duri,susi |
+| 73951 | 72:16 | `لو` | hafs, shubah, bazzi | **وَأَلَّوِ** hafs,shubah,bazzi  ·  **لَّوِ** qalun,warsh,duri,susi |
+| 74226 | 73:20 | `اں` | duri, susi | **أَن** hafs,shubah,bazzi,qalun,warsh  ·  **أَلَّن** duri,susi |
+| 74227 | 73:20 | `لں` | duri, susi | **لَّن** hafs,shubah,bazzi,qalun,warsh  ·  **أَلَّن** duri,susi |
 
 ## Fawāṣil: where the āyāt end
 
-The āyah boundaries are a layer *over* the word index, not a property of it, and **the count belongs to the printed edition, not to the riwāyah**. An edition follows one of the six classical counting systems, and at the points where the system's own authorities disagree it follows one of them: al-Dānī records Al-Mulk 67:9 «قد جاءنا نذير» as counted by Shayba and not by Abū Jaʿfar inside the First Madinan, and KFGQPC's own Dūrī printings all state they follow المدني الأول and still total 6,218 (1429 AH), 6,217 (1436) and 6,214 (1443).
+The āyah boundaries are a layer *over* the word index, not a property of it, and **the count belongs to the printed edition, not to the riwāyah**. An edition follows one of the six classical counting systems, and at the points where the system's own authorities disagree it follows one of them: al-Dānī records Mulk 67:9 «قد جاءنا نذير» as counted by Shayba and not by Abū Jaʿfar inside the First Madani, and KFGQPC's own Dūrī printings all state they follow المدني الأول and still total 6,218 (1429 AH), 6,217 (1436) and 6,214 (1443).
 
 Each edition's system is **derived** by comparing its own āyah ends to every system's boundaries (from [qiraat-ayah-map](https://github.com/quranpedia/qiraat-ayah-map), vendored under `data/counting/`), then the points of khilāf inside the system are named with the authority the edition follows. Whatever is left is `unexplained` and is an open finding. Machine-readable: [`counting.json`](../counting.json).
 
 | muṣḥaf | system |  | āyāt | basmalah counted | khilāf inside the system | unexplained |
 |---|---|---|---|---|---|---|
 | hafs | `kufi` | الكوفي | 6,236 | yes | — | — |
-| shuba | `kufi` | الكوفي | 6,236 | yes | — | — |
+| shubah | `kufi` | الكوفي | 6,236 | yes | — | — |
 | warsh | `madani-last` | المدني الأخير | 6,214 | no | — | — |
-| qaloun | `madani-last` | المدني الأخير | 6,214 | no | — | — |
-| douri | `madani-first` | المدني الأول | 6,217 | no | 3:92 counted (shayba); 3:97 not counted (shayba); 37:167 counted (shayba); 67:9 not counted (abu-jafar); 80:24 counted (shayba); 81:26 counted (shayba) | — |
-| sousi | `madani-first` | المدني الأول | 6,218 | no | 3:92 counted (shayba); 3:97 not counted (shayba); 37:167 counted (shayba); 67:9 counted (shayba); 80:24 counted (shayba); 81:26 counted (shayba) | — |
+| qalun | `madani-last` | المدني الأخير | 6,214 | no | — | — |
+| duri | `madani-first` | المدني الأول | 6,217 | no | 3:92 counted (shayba); 3:97 not counted (shayba); 37:167 counted (shayba); 67:9 not counted (abu-jafar); 80:24 counted (shayba); 81:26 counted (shayba) | — |
+| susi | `madani-first` | المدني الأول | 6,218 | no | 3:92 counted (shayba); 3:97 not counted (shayba); 37:167 counted (shayba); 67:9 counted (shayba); 80:24 counted (shayba); 81:26 counted (shayba) | — |
 | bazzi | `makki` | المكي | 6,220 | yes | 78:40 counted () | — |
 
-| edition | `hafs` | `shuba` | `warsh` | `qaloun` | `douri` | `sousi` | `bazzi` |
+| edition | `hafs` | `shubah` | `warsh` | `qalun` | `duri` | `susi` | `bazzi` |
 |---|---|---|---|---|---|---|---|
 | `hafs` | — | 0 | 140 | 140 | 133 | 134 | 150 |
-| `shuba` | 0 | — | 140 | 140 | 133 | 134 | 150 |
+| `shubah` | 0 | — | 140 | 140 | 133 | 134 | 150 |
 | `warsh` | 140 | 140 | — | 0 | 57 | 56 | 48 |
-| `qaloun` | 140 | 140 | 0 | — | 57 | 56 | 48 |
-| `douri` | 133 | 133 | 57 | 57 | — | 1 | 39 |
-| `sousi` | 134 | 134 | 56 | 56 | 1 | — | 38 |
+| `qalun` | 140 | 140 | 0 | — | 57 | 56 | 48 |
+| `duri` | 133 | 133 | 57 | 57 | — | 1 | 39 |
+| `susi` | 134 | 134 | 56 | 56 | 1 | — | 38 |
 | `bazzi` | 150 | 150 | 48 | 48 | 39 | 38 | — |
 
-Āyah ends where two editions differ. Dūrī and Sūsī, both First Madinan, part company at exactly one place — 67:9 — which is the whole of the 6,217/6,218 difference between them: Dūrī follows Abū Jaʿfar there and Sūsī follows Shayba. Bazzī counts 78:40, which no source yet gives to the Makkī count; it is reported as an open finding, not corrected.
+Āyah ends where two editions differ. Dūrī and Sūsī, both First Madani, part company at exactly one place — 67:9 — which is the whole of the 6,217/6,218 difference between them: Dūrī follows Abū Jaʿfar there and Sūsī follows Shayba. Bazzī counts 78:40, which no source yet gives to the Makkī count; it is reported as an open finding, not corrected.
 
 ## Source integrity
 
@@ -323,11 +323,11 @@ Six riwāyāt ship two releases. Comparing them is the sharpest available check 
 | riwāyah | āyāt compared | byte-identical | notation only | marks/vowels only | rasm differs |
 |---|---|---|---|---|---|
 | hafs | 6,236 | 2,715 | 700 | 2,819 | 2 |
-| shuba | 6,236 | 2,715 | 697 | 2,822 | 2 |
+| shubah | 6,236 | 2,715 | 697 | 2,822 | 2 |
 | warsh | 6,214 | 160 | 410 | 5,635 | 9 |
-| qaloun | 6,214 | 733 | 2,319 | 3,154 | 8 |
-| douri | 6,217 | 6,214 | 0 | 0 | 3 |
-| sousi | 6,217 | 508 | 1,916 | 3,768 | 25 |
+| qalun | 6,214 | 733 | 2,319 | 3,154 | 8 |
+| duri | 6,217 | 6,214 | 0 | 0 | 3 |
+| susi | 6,217 | 508 | 1,916 | 3,768 | 25 |
 
 `notation only` is dominated by the 2026 files adopting the Arabic Extended-B alif letters (`U+0870`–`U+0882`), which fold an alef and its vowel into one codepoint where the 2022 files used an alef plus combining marks. The `folded` form decomposes them again, so none of it reaches the word index.
 

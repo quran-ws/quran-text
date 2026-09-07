@@ -24,7 +24,7 @@ from fastapi.responses import FileResponse, HTMLResponse, JSONResponse
 from dataset import EDITIONS, Dataset
 from download import (FIELDS, FORMATS, GRANULARITIES, MARKER_STYLES, SIGN_LAYOUTS,
                       TEXT_FORMS, BadRequest, Options, build)
-from download import _ayah_ref  # the one ayah parser, reused by /compare
+from download import _ayah_key  # the one ayah parser, reused by /compare
 from mapping import MapOptions, build as build_map
 
 HERE = Path(__file__).resolve().parent
@@ -61,25 +61,25 @@ def download(
     request: Request,
     edition: Edition = "hafs",
     text: Annotated[str, Query(description=(
-        "Text forms, comma-separated, each its own column: `uthmani` as the KFGQPC muṣḥaf "
-        "prints it; `imlaei` plain modern spelling (Ḥafṣ only — the only release that carries "
-        "it); `plain` diacritics stripped for search indexes — a matching form, not a spelling. "
-        "The first is the `text` column; e.g. `uthmani,imlaei`"),
-        examples=["uthmani", "uthmani,imlaei", "uthmani,plain"])] = "uthmani",
+        "Text forms, comma-separated, each its own column: `rasm_uthmani` as the KFGQPC muṣḥaf "
+        "prints it; `rasm_imlai` plain modern spelling (Ḥafṣ only — the only release that carries "
+        "it); `plain` harakah stripped for search indexes — a matching form, not a spelling. "
+        "The first is the `text` column; e.g. `rasm_uthmani,rasm_imlai`"),
+        examples=["rasm_uthmani", "rasm_uthmani,rasm_imlai", "rasm_uthmani,plain"])] = "rasm_uthmani",
     markers: Annotated[str, Query(description=(
         "End-of-āyah marker appended to each āyah: `sign` ۝٢٥٥, `brackets` ﴿٢٥٥﴾, "
         "`latin` (255), or `none`"), enum=list(MARKER_STYLES))] = "none",
-    waqf: Annotated[bool, Query(description="Keep the pause (waqf) marks ۖ ۗ ۚ … as printed")] = True,
+    waqf: Annotated[bool, Query(description="Keep the waqf marks ۖ ۗ ۚ … as printed")] = True,
     sajdah: Annotated[bool, Query(description="Keep the sajdah sign ۩")] = True,
-    hizb: Annotated[bool, Query(description="Keep the rub-el-hizb sign ۞")] = True,
+    division: Annotated[bool, Query(description="Keep the ۞ sign")] = True,
     lines: Annotated[bool, Query(description=(
         "Break the text where the printed lines break (lines are reconstructed, see docs/format.md)"))] = False,
     pages: Annotated[bool, Query(description="txt/md: a `# page N` line at every page turn")] = False,
     fields: Annotated[str | None, Query(description=(
         "Extra columns, comma-separated, from: " + ", ".join(FIELDS) + ". `hafs` adds the Kūfī "
-        "(Ḥafṣ) reference and its relation for non-Ḥafṣ editions. Default `sura,ayah`, "
-        "plus `pos,number` per word"))] = None,
-    sura: Annotated[str | None, Query(description="Scope: one sūrah `2` or a range `2-3`")] = None,
+        "(Ḥafṣ) reference and its relation for non-Ḥafṣ editions. Default `surah,ayah`, "
+        "plus `position,number` per word"))] = None,
+    surah: Annotated[str | None, Query(description="Scope: one sūrah `2` or a range `2-3`")] = None,
     juz: Annotated[int | None, Query(description="Scope: one juz 1–30 (Bazzī has no juz layer)")] = None,
     page: Annotated[str | None, Query(description="Scope: one page `3` or a range `1-10`")] = None,
     ayah: Annotated[str | None, Query(description=(
@@ -87,24 +87,24 @@ def download(
     by: Annotated[str, Query(description="One record per `ayah` or per printed `word`",
                              enum=list(GRANULARITIES))] = "ayah",
     signs: Annotated[str, Query(description=(
-        "Per word: `columns` puts the pause marks, ۩ and ۞ in their own `waqf`, `sajdah`, "
-        "`hizb` columns and leaves `text` bare; `attached` prints them on the word as the "
-        "muṣḥaf does. Which kinds appear follows the waqf/sajdah/hizb switches"),
+        "Per word: `columns` puts the waqf marks, ۩ and ۞ in their own `waqf`, `sajdah`, "
+        "`division` columns and leaves `text` bare; `attached` prints them on the word as the "
+        "muṣḥaf does. Which kinds appear follows the waqf/sajdah/division switches"),
         enum=list(SIGN_LAYOUTS))] = "columns",
     format: Annotated[str, Query(description=(
         "`txt` one āyah per line · `json` array or nested · `csv` · `xml` Tanzil-compatible · "
         "`sql` CREATE TABLE + INSERTs · `md`"), enum=list(FORMATS))] = "txt",
-    prefix: Annotated[bool, Query(description="txt: prefix each line with `sura|ayah|`")] = True,
-    nested: Annotated[bool, Query(description="json: nest as sura → ayat instead of a flat array")] = False,
+    prefix: Annotated[bool, Query(description="txt: prefix each line with `surah|ayah|`")] = True,
+    nested: Annotated[bool, Query(description="json: nest as surah → ayahs instead of a flat array")] = False,
     header: Annotated[bool, Query(description="Start the file with the provenance header")] = True,
     limit: Annotated[int | None, Query(description="Only the first N records (for previews)", ge=1)] = None,
     inline: Annotated[bool, Query(description="Show in the browser instead of downloading")] = False,
 ) -> Response:
     options = Options(
-        edition=edition, text=text, markers=markers, waqf=waqf, sajdah=sajdah, hizb=hizb,
+        edition=edition, text=text, markers=markers, waqf=waqf, sajdah=sajdah, division=division,
         lines=lines, pages=pages,
         fields=tuple(f.strip() for f in fields.split(",") if f.strip()) if fields is not None else None,
-        sura=sura, juz=juz, page=page, ayah=ayah, by=by, signs=signs, format=format,
+        surah=surah, juz=juz, page=page, ayah=ayah, by=by, signs=signs, format=format,
         prefix=prefix, nested=nested, header=header, limit=limit)
     try:
         data.mushaf(edition)
@@ -132,12 +132,12 @@ def map_dataset(
     request: Request,
     source: Annotated[Edition, Query(alias="from", description="The riwāyah being mapped from; scope and references are in its own count")] = "hafs",
     to: Annotated[str | None, Query(description="Target riwāyāt, comma-separated; every other one when omitted")] = None,
-    sura: Annotated[str | None, Query(description="Scope: one sūrah `2` or a range `2-3`")] = None,
+    surah: Annotated[str | None, Query(description="Scope: one sūrah `2` or a range `2-3`")] = None,
     juz: Annotated[int | None, Query(description="Scope: one juz 1–30")] = None,
     page: Annotated[str | None, Query(description="Scope: one page `3` or a range `1-10`")] = None,
     ayah: Annotated[str | None, Query(description="Scope: one āyah `2:253` or a range `2:253-2:286`")] = None,
     by: Annotated[str, Query(description="One row per `ayah` (its counterpart āyāt and relation) or per `word` (its counterpart word)", enum=list(GRANULARITIES))] = "ayah",
-    text: Annotated[str, Query(description="Per word, which text form to show: uthmani, imlaei (Ḥafṣ only), plain", enum=list(TEXT_FORMS))] = "uthmani",
+    text: Annotated[str, Query(description="Per word, which text form to show: rasm_uthmani, rasm_imlai (Ḥafṣ only), plain", enum=list(TEXT_FORMS))] = "rasm_uthmani",
     format: Annotated[str, Query(description="`json` (default) · `csv` · `txt` · `xml` · `sql` · `md`", enum=list(FORMATS))] = "json",
     header: Annotated[bool, Query(description="Start the file with the provenance header")] = True,
     limit: Annotated[int | None, Query(description="Only the first N rows (for previews)", ge=1)] = None,
@@ -149,7 +149,7 @@ def map_dataset(
     unnumbered or missing. Join your data on `number`, never on sūrah:āyah."""
     options = MapOptions(
         source=source, to=tuple(t.strip() for t in to.split(",") if t.strip()) if to else (),
-        sura=sura, juz=juz, page=page, ayah=ayah, by=by, text=text, format=format,
+        surah=surah, juz=juz, page=page, ayah=ayah, by=by, text=text, format=format,
         header=header, limit=limit)
     file = build_map(data, options, url=_canonical_url(request))
     disposition = "inline" if inline or limit or format == "json" else "attachment"
@@ -179,18 +179,18 @@ def compare(
     words. A word `differs` when the seven do not all spell it the same, and
     `kind` says how much: `letters` (rasm, ā, dotting, presence or boundary),
     `vowels` (same letters and dots, different vowelling), `notation` (the
-    same reading written with different codepoints)."""
-    ref = _ayah_ref(data.mushaf("hafs"), ayah)
+    same qiraah written with different codepoints)."""
+    ref = _ayah_key(data.mushaf("hafs"), ayah)
     index = data.word_index
     out = {"ayah": ref.key, "editions": []}
     for key in EDITIONS:
         m = data.mushaf(key)
-        target = data.ayah_map.convert(ref.sura.number, ref.number, key)
+        target = data.ayah_map.convert(ref.surah.number, ref.number, key)
         if target.relation == "unnumbered":
-            span = m.sura(target.sura).basmalah
+            span = m.surah(target.surah).basmalah
         else:
-            span = m.span(m.ayah(target.sura, target.ayah).start,
-                          m.ayah(target.sura, target.ayah_last or target.ayah).end)
+            span = m.span(m.ayah(target.surah, target.ayah).start,
+                          m.ayah(target.surah, target.ayah_last or target.ayah).end)
         words = []
         for w in span:
             entry = index.word(w.number)

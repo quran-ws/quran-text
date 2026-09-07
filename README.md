@@ -4,7 +4,7 @@
 them — with one word numbering that means the same word in all seven.**
 
 Ḥafṣ, Shuʿbah, Warsh, Qālūn, Dūrī, Sūsī and Bazzī: every word with its page,
-line, āyah, juz and pause marks, published as plain JSON, and a number shared
+line, āyah, juz and waqf marks, published as plain JSON, and a number shared
 across the seven so a translation, a grammar entry or an audio segment attached
 to a word once can be read off any riwāyah.
 
@@ -28,7 +28,7 @@ Every Qurʾān database in use today has three gaps.
 
 | you are… | go to |
 |---|---|
-| building an app (Flutter, iOS, Android, web, PHP, Python) | [`lib/`](lib/) — one small library per platform, Ḥafṣ bundled: `Mushaf.hafs().ayah(2, 255).render(marks: true, ayahMarkers: true)`, pages, lines, juz, search |
+| building an app (Flutter, iOS, Android, web, PHP, Python) | [`lib/`](lib/) — one small library per platform, Ḥafṣ bundled: `Mushaf.hafs().ayah(2, 255).render(marks: true, ayahMarks: true)`, pages, lines, juz, search |
 | after a file: one riwāyah, with the marks and format you want | [`service/`](service/) — the download service, an interactive page and an HTTP API that produce text, JSON, CSV, XML or SQL for any selection |
 | working with the data directly | [`out/`](out/) — start with [`out/catalog.json`](out/catalog.json); [`docs/files.md`](docs/files.md) maps every file, [`docs/format.md`](docs/format.md) is the spec |
 | an agent | [`skills/quran-text/SKILL.md`](skills/quran-text/SKILL.md) |
@@ -39,7 +39,7 @@ The one-minute version, in Python:
 import json
 m = json.load(open("out/mushaf/hafs.json", encoding="utf-8"))
 a = m["ayah_starts"]
-k = m["suras"][2 - 1]["first_ayah"] + 255 - 1          # sūrah 2, āyah 255
+k = m["surahs"][2 - 1]["first_ayah"] + 255 - 1          # sūrah 2, āyah 255
 print(" ".join(m["words"][a[k]:a[k + 1]]))
 ```
 

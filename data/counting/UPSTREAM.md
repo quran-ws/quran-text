@@ -17,7 +17,7 @@ system from its own `ayah_starts`, and checks the result against
 `khilaf.json`, this repository's overlay for disagreements *inside* a system,
 which upstream does not yet model (qiraat-ayah-map#11).
 
-`counting-systems.json` on this commit still gives First Madinan a total of
+`counting-systems.json` on this commit still gives First Madani a total of
 6214; al-Dānī's 6217 (qiraat-ayah-map#7) is applied by `khilaf.json`'s
 `system_corrections`. To refresh: copy the two files, update the SHA-256 and
 commit above, rebuild, and delete from `khilaf.json` whatever upstream now
