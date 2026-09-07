@@ -1,11 +1,9 @@
 # quran-text
 
-**The Qurʾān as words.** The text of the Madinah muṣḥaf, exactly as printed,
-where every word carries one number that means the same word in all seven
-riwāyāt.
+**The Qurʾān exactly as the Madinah muṣḥaf prints it.** Seven riwāyāt,
+unedited — every file names the package it came from and its SHA-256.
 
-The text as it is printed, not as anyone retyped it: every file names the
-package it came from and its SHA-256.
+And every word carries one number that means the same word in all seven.
 
 **Building an app** → [Use it in your app](#use-it-in-your-app) ·
 **Just need the files** → [Download the text](#download-the-text) ·
