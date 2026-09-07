@@ -74,7 +74,7 @@ def write_viewer(words: list[Word], riwayahs: list[Riwayah]) -> None:
     }
     raw = json.dumps(payload, ensure_ascii=False, separators=(",", ":"))
     blob = base64.b64encode(
-        gzip.compress(raw.encode("utf-8"), 9)).decode("ascii")
+        gzip.compress(raw.encode("utf-8"), 9, mtime=0)).decode("ascii")
     (OUT / "reports").mkdir(exist_ok=True)
     (OUT / "reports" / "compare.html").write_text(
         _TEMPLATE.replace("__DATA__", blob).replace("__WORDS__", f"{len(words):,}"),
