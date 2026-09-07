@@ -13,7 +13,7 @@ a FastAPI application that reads the committed dataset and returns files. Path
 traversal, resource exhaustion and anything that lets a caller read outside
 `out/` are in scope.
 
-The **build pipeline** in `src/` parses `.docx` and `.zip` files from `data/`.
+The **build pipeline** in `pipeline/` parses `.docx` and `.zip` files from `data/`.
 It is meant to be run on the committed inputs, whose SHA-256 is recorded in
 `out/manifest.json`. Pointing it at a hostile archive is not a supported use,
 but a crash or an escape from the working directory is still worth reporting.

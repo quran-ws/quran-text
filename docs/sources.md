@@ -139,5 +139,5 @@ Two inputs exceed GitHub's hard 100 MB per-file limit and are excluded by
 | `data/kfgqpc/mumtaz-1.pdf` | 360 MB |
 
 Neither is used by the build, so the pipeline runs without them. Everything the
-build reads **is** committed, so `python3 build.py` reproduces `out/` from a
-fresh clone.
+build reads **is** committed, so `python3 pipeline/build.py` reproduces `out/`
+from a fresh clone.

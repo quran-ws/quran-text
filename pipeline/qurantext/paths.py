@@ -11,7 +11,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
-#: This file is ``<root>/src/qurantext/paths.py``.
+#: This file is ``<root>/pipeline/qurantext/paths.py``.
 ROOT = Path(__file__).resolve().parents[2]
 
 #: The KFGQPC packages and the hand-recorded evidence beside them.

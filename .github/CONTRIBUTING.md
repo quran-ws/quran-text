@@ -33,11 +33,11 @@ declined. One that records the difference, with a source, is the contribution.
 ## Before you open a pull request
 
 ```sh
-python3 build.py                              # ~3 min; exits non-zero on any finding
-python3 -m unittest discover -s tests
+python3 pipeline/build.py                     # ~3 min; exits non-zero on any finding
+python3 -m unittest discover -s pipeline/tests
 ```
 
-`out/` is generated and committed, so a change to `src/` means rebuilding and
+`out/` is generated and committed, so a change to `pipeline/` means rebuilding and
 committing the result. CI runs both, plus the service suite and a terminology
 audit.
 

@@ -14,7 +14,7 @@ Everything in this repository that this project authored:
 | the seven muṣḥaf files and derived layers | `out/mushaf/`, `out/counting.json` |
 | the counting analysis and its citations | `data/counting/khilaf.json`, `declared.json`, `open-findings.json` |
 | the alignment data | `data/alignment/` |
-| the pipeline and the service | `src/`, `build.py`, `service/` |
+| the pipeline and the service | `pipeline/`, `service/` |
 | the schemas, the reports, the documentation | `schema/`, `out/reports/`, `docs/` |
 
 Word-level data is **derived** here — no source package contains it — and that

@@ -111,9 +111,9 @@ the build departed from it:
                     "sha256": "cdec7341b7c684e7b8dd469c4b68988914d2784e924c7e6cbb9cb4b57c24f013" } }
 ```
 
-`python3 build.py` rebuilds every file in `out/` from those committed packages,
-offline, with no dependencies. Nothing in the text is hand-edited, and the build
-fails if a letter moves.
+`python3 pipeline/build.py` rebuilds every file in `out/` from those
+committed packages, offline, with no dependencies. Nothing in the text is
+hand-edited, and the build fails if a letter moves.
 
 The checks prove the data is faithful to the packages, not that the packages are
 faithful to a printed muṣḥaf. [`limitations.md`](docs/limitations.md) says
@@ -150,8 +150,8 @@ recorded for all but Bazzī, whose source carries none.
 Python 3.11, no dependencies:
 
 ```sh
-python3 build.py                          # ~3 min, writes out/
-python3 -m unittest discover -s tests
+python3 pipeline/build.py                          # ~3 min, writes out/
+python3 -m unittest discover -s pipeline/tests
 ```
 
 ## Licence

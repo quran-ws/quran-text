@@ -251,7 +251,7 @@ See `docs/format.md`, *Counting*.
 
 ## Verification
 
-`python3 build.py` runs three families of check and prints what it finds.
+`python3 pipeline/build.py` runs three families of check and prints what it finds.
 
 1. **Structural** — numbers contiguous, `key` unique, `index` contiguous per sūrah.
 2. **Round-trip** — for each riwāyah, the concatenated rasm of every form in the
