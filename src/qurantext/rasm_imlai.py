@@ -34,14 +34,14 @@ from collections import defaultdict
 from . import chars
 from .build import Word
 from .normalize import pointed, rasm
-from .sources import Riwaya
+from .sources import Riwayah
 from .tokenize import tokenize_ayah
 
 #: Symbols that stand between words rather than being part of one.
-_STANDALONE = (chars.RUB_EL_HIZB, chars.SAJDAH)
+_STANDALONE = (chars.RUBU_AL_HIZB, chars.SAJDAH)
 
 
-def _uthmani_tokens(text: str) -> list[str]:
+def _rasm_uthmani_tokens(text: str) -> list[str]:
     for sym in _STANDALONE:
         text = text.replace(sym, " ")
     return text.split()
@@ -83,7 +83,7 @@ def _skeleton(token: str) -> str:
     return pointed(token).replace("ٱ", "ا").replace("أ", "ا").replace("إ", "ا")
 
 
-def derive(words: list[Word], riwaya: Riwaya) -> tuple[dict[int, str], dict]:
+def derive(words: list[Word], riwayah: Riwayah) -> tuple[dict[int, str], dict]:
     """``word id -> imlāʾī``, with a report of what could not be mapped.
 
     Asked of every riwāyah and answered for the one that can answer.  Having a
@@ -91,27 +91,27 @@ def derive(words: list[Word], riwaya: Riwaya) -> tuple[dict[int, str], dict]:
     none of them carries the column — so the test is whether the column holds
     anything, not whether it exists.
     """
-    if not any((m.get("emlaey") or "").strip() for m in riwaya.meta.values()):
+    if not any((m.get("emlaey") or "").strip() for m in riwayah.meta.values()):
         return {}, {"available": False,
                     "reason": "release carries no imlāʾī column"}
 
-    key = riwaya.key
+    key = riwayah.key
     by_ayah: dict[tuple[int, int], list[Word]] = defaultdict(list)
     for w in words:
         if key in w.forms and key not in w.continuation:
-            by_ayah[(w.sura, w.aya[key])].append(w)
+            by_ayah[(w.surah, w.ayah[key])].append(w)
 
     out: dict[int, str] = {}
     unpaired = unaligned = 0
     joined = 0
-    for (sura, aya), meta in riwaya.meta.items():
+    for (surah, ayah), meta in riwayah.meta.items():
         emlaey = (meta.get("emlaey") or "").split()
-        source = riwaya.crosscheck.get((sura, aya))
-        target = by_ayah.get((sura, aya))
+        source = riwayah.crosscheck.get((surah, ayah))
+        target = by_ayah.get((surah, ayah))
         if not emlaey or not source or not target:
             continue
 
-        uth = _uthmani_tokens(source)
+        uth = _rasm_uthmani_tokens(source)
         paired = _pair(uth, emlaey)
         if paired is None:
             unpaired += 1
@@ -120,7 +120,7 @@ def derive(words: list[Word], riwaya: Riwaya) -> tuple[dict[int, str], dict]:
             joined += 1
 
         # The CSV is a different release from the text of record; align on rasm.
-        csv_toks = tokenize_ayah(sura, aya, " ".join(uth))
+        csv_toks = tokenize_ayah(surah, ayah, " ".join(uth))
         if len(csv_toks) != len(paired):
             unaligned += 1
             continue
@@ -136,12 +136,12 @@ def derive(words: list[Word], riwaya: Riwaya) -> tuple[dict[int, str], dict]:
 
     return out, {
         "available": True,
-        "source": riwaya.crosscheck_source,
+        "source": riwayah.crosscheck_source,
         "column": "aya_text_emlaey",
         "words_mapped": len(out),
-        "ayat_needing_join": joined,
-        "ayat_unpaired": unpaired,
-        "ayat_unaligned": unaligned,
+        "ayahs_needing_join": joined,
+        "ayahs_unpaired": unpaired,
+        "ayahs_unaligned": unaligned,
         "note": "imlāʾī is published only where a release supplies it; it is "
                 "never derived by rule",
     }

@@ -10,17 +10,17 @@ final m = await Mushaf.hafs(read: rootBundle.loadString);           // Flutter
 final m = await Mushaf.hafs();                                       // Dart VM
 
 m.ayah(2, 255).text;                                              // plain words
-m.ayah(2, 255).render(marks: true, ayahMarkers: true);            // with pause marks and ۝٢٥٥
-m.page(3).render(marks: true, ayahMarkers: true, lines: true);
+m.ayah(2, 255).render(marks: true, ayahMarks: true);            // with waqf marks and ۝٢٥٥
+m.page(3).render(marks: true, ayahMarks: true, lines: true);
 m.page(3).lines;                                                  // for a page layout
-m.sura(112).ayat;                                                 // [Ayah, …]
+m.surah(112).ayahs;                                                 // [Ayah, …]
 m.juz(30).firstAyah!.key;                                         // "78:1"
 m.word(1, 4, 1).number;                                           // 11, the same word in every riwāyah
 m.sajdat();                                                       // every āyah printed with ۩
 m.search('مالك يوم الدين');                                       // [Span]
 
 final w = Mushaf.fromJson(await rootBundle.loadString('assets/warsh.json'));   // another riwāyah, your asset
-AyahMap.fromJson(json).convert(2, 255, 'warsh');                  // AyahRef(2, 253, 'split', 254)
+AyahMap.fromJson(json).convert(2, 255, 'warsh');                  // MappedAyah(2, 253, 'split', 254)
 ```
 
 The font the text needs is bundled and declared in the package's pubspec, so

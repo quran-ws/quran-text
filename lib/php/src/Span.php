@@ -54,40 +54,40 @@ class Span implements \Countable, \IteratorAggregate
     /**
      * The text as the muṣḥaf prints it, with what you ask for.
      *
-     * $marks: true for every sign, or an array of kinds among "waqf", "hizb",
-     * "sajdah".  $ayahMarkers appends ۝ with the āyah number after each āyah
+     * $marks: true for every sign, or an array of kinds among "waqf", "division",
+     * "sajdah".  $ayahMarks appends ۝ with the āyah number after each āyah
      * that ends inside the span.  $lines breaks the text where the printed
      * lines break.
      */
-    public function render(bool|array $marks = false, bool $ayahMarkers = false, bool $lines = false): string
+    public function render(bool|array $marks = false, bool $ayahMarks = false, bool $lines = false): string
     {
         $m = $this->mushaf;
         $kinds = Text::markKinds($marks);
         $lineStarts = $lines ? $m->lineStartSet : null;
         $out = '';
-        for ($pos = $this->start; $pos < $this->end; $pos++) {
-            if ($lineStarts !== null && $pos !== $this->start && isset($lineStarts[$pos])) {
+        for ($position = $this->start; $position < $this->end; $position++) {
+            if ($lineStarts !== null && $position !== $this->start && isset($lineStarts[$position])) {
                 $out .= "\n";
-            } elseif ($pos !== $this->start) {
+            } elseif ($position !== $this->start) {
                 $out .= ' ';
             }
-            $token = $m->words[$pos];
-            foreach ($m->marksAt[$pos] ?? [] as $mark) {
+            $token = $m->words[$position];
+            foreach ($m->marksAt[$position] ?? [] as $mark) {
                 if (!isset($kinds[$mark->kind])) {
                     continue;
                 }
                 $token = $mark->side === 'before' ? $mark->sign . ' ' . $token : $token . $mark->sign;
             }
             $out .= $token;
-            if ($ayahMarkers && isset($m->ayahEnds[$pos])) {
-                $out .= ' ' . Text::ayahMarker($m->ayahNumber($m->ayahEnds[$pos]));
+            if ($ayahMarks && isset($m->ayahEnds[$position])) {
+                $out .= ' ' . Text::ayahMark($m->ayahNumber($m->ayahEnds[$position]));
             }
         }
         return $out;
     }
 
     /** Every numbered āyah with at least one word in the span. @return Ayah[] */
-    public function ayat(): array
+    public function ayahs(): array
     {
         $starts = $this->mushaf->doc['ayah_starts'];
         $first = max(Text::indexOf($starts, $this->start), 0);
@@ -101,23 +101,23 @@ class Span implements \Countable, \IteratorAggregate
 
     public function firstAyah(): ?Ayah
     {
-        $a = $this->ayat();
+        $a = $this->ayahs();
         return $a[0] ?? null;
     }
 
     public function lastAyah(): ?Ayah
     {
-        $a = $this->ayat();
+        $a = $this->ayahs();
         return $a ? $a[count($a) - 1] : null;
     }
 
-    /** @return Sura[] */
-    public function suras(): array
+    /** @return Surah[] */
+    public function surahs(): array
     {
-        $starts = $this->mushaf->doc['sura_starts'];
+        $starts = $this->mushaf->doc['surah_starts'];
         $first = Text::indexOf($starts, $this->start);
         $last = Text::indexOf($starts, $this->end - 1);
-        return array_slice($this->mushaf->suras, $first, $last - $first + 1);
+        return array_slice($this->mushaf->surahs, $first, $last - $first + 1);
     }
 
     /** @return Page[] */

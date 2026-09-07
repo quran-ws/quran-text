@@ -25,9 +25,9 @@ every run.
 
 ## What the sources contain
 
-### 1. ~~Sūsī v3.0 splits Al-Mulk 67:9 into two āyāt~~ — not a defect
+### 1. ~~Sūsī v3.0 splits Mulk 67:9 into two āyāt~~ — not a defect
 
-**This entry was wrong and is kept as a correction.** It claimed Al-Mulk has 30
+**This entry was wrong and is kept as a correction.** It claimed Mulk has 30
 āyāt "in every counting tradition" and reported Sūsī's 31 as an error. Both
 halves are false, and the second was refutable from this repository's own
 output:
@@ -60,7 +60,7 @@ the editorial choices behind its division.
 *(Evidence assembled by @quranpedia in
 [qiraat-ayah-map#10](https://github.com/quranpedia/qiraat-ayah-map/pull/10),
 which also found the riwāyah→system mapping wrong in the other direction: the
-Dūrī muṣḥaf measures onto First Madinan in 113 of 114 sūrahs, not Baṣrī.)*
+Dūrī muṣḥaf measures onto First Madani in 113 of 114 sūrahs, not Baṣrī.)*
 
 **What changed here as a result.** The build no longer asserts a total per
 tradition. `COUNTING_TOTALS = {"kufi": 6236, "madani": 6214, "basri": 6217}` is
@@ -72,7 +72,7 @@ label" was itself wrong for two of the seven: Dūrī and Sūsī were labelled
 `basri`, and Baṣrī is 6,204 — no printed Abū ʿAmr muṣḥaf follows it. Comparing
 each edition's āyah ends against the six systems' boundaries from
 [qiraat-ayah-map](https://github.com/quranpedia/qiraat-ayah-map) puts both on
-**First Madinan** at distance zero once al-Dānī's six Abū Jaʿfar/Shayba points
+**First Madani** at distance zero once al-Dānī's six Abū Jaʿfar/Shayba points
 are set aside, differing from each other only at 67:9. So `mushaf.counting` is
 now a block that names the *derived* system and what the edition does at every
 point of khilāf inside it (`docs/format.md`, *Counting*), and
@@ -97,7 +97,7 @@ than a printing slip, but it is uncited, so the file reports it under
 `counting.unexplained`, it is listed in `data/counting/open-findings.json`, and
 it has been reported to qiraat-ayah-map. It is **not** corrected on either side.
 
-### 2. Qālūn v3.0 carries the Al-Baqarah heading inside the previous paragraph
+### 2. Qālūn v3.0 carries the Baqarah heading inside the previous paragraph
 
 `UthmanicQaloun-v-3.0.docx` has 113 sūrah headings in their own paragraphs
 instead of 114. The text `سُورَةُ البَقَرَةِ` sits at the **end of the Al-Fātiḥah
@@ -110,7 +110,7 @@ Two consequences for anything that parses the file, both handled here:
 - heading-driven sūrah segmentation shifts every sūrah after Al-Fātiḥah by one.
   Segmenting on āyah-numbering resets instead removes the dependency entirely,
   and is the more robust rule regardless.
-- the stranded heading was landing as two words at the head of Al-Baqarah 2:1.
+- the stranded heading was landing as two words at the head of Baqarah 2:1.
   Text after the final āyah mark of a paragraph is now stripped when it matches
   the heading pattern. That anchor is deliberately narrow: sūrah 24 opens with
   `سُورَةٌ أَنزَلۡنَٰهَا`, which *is* scripture, and a looser rule would eat it.
@@ -119,7 +119,7 @@ Two consequences for anything that parses the file, both handled here:
 
 Six word pairs are printed joined in one package and separated in another. The
 pipeline re-segments them so the index keeps one column per word, records
-`boundary: {"<riwaya>": "joined_in_source"}`, and **does not judge which
+`boundary: {"<riwayah>": "joined_in_source"}`, and **does not judge which
 spacing is correct**. Left alone, each join would falsely report the following
 word absent from that riwāyah.
 
@@ -133,19 +133,19 @@ Three are cases where a riwāyah's two releases disagree with each other:
 
 Three are cases where packages differ from each other:
 
-- Bazzī `لَأُاْقۡسِمُ` (75:1) — Ibn Kathīr's reading, written as one word;
+- Bazzī `لَأُاْقۡسِمُ` (75:1) — Ibn Kathīr's qiraah, written as one word;
 - Bazzī and Dūrī `مَالِيَ` / `وَمَالِيَ` (27:20, 36:22) — the traditional muṣḥaf
   spelling. The 2026 Ḥafṣ document moved the other way and separated
   `مَا لِيَ`, where Ḥafṣ's own 2022 CSV joins it: a change of convention
   between releases.
 
-`out/reports/resegmentation.csv` carries a `riwayat_agree` column saying whether the riwāyāt
+`out/reports/resegmentation.csv` carries a `riwayahs_agree` column saying whether the riwāyāt
 read the run identically once re-segmented. That is a statement about agreement,
 not about correctness.
 
 ### 4. Characters carrying no textual weight
 
-Stripped because they do not affect the letters or the reading: kashida
+Stripped because they do not affect the letters or the qiraah: kashida
 `U+0640` (6,838 occurrences — KFGQPC's own changelogs record removing these),
 zero-width joiner, and right-to-left marks. One dotless beh `U+066E` in Bazzī
 and one small low seen `U+06E3` in Ḥafṣ v3.0 occur exactly once each; both are
@@ -210,16 +210,16 @@ reconciled**, because 240 is not a number any package in `data/` states, and
 inventing the missing marks would be this project adding data its sources do not
 carry.
 
-### 8. Pause-mark conventions are not comparable between muṣḥafs
+### 8. Waqf-mark conventions are not comparable between muṣḥafs
 
-Warsh and Qālūn print one general pause sign 9,948 times. Ḥafṣ, Dūrī and Sūsī
+Warsh and Qālūn print one general waqf sign 9,948 times. Ḥafṣ, Dūrī and Sūsī
 print seven distinct ones — ۖ ۗ ۘ ۚ ۛ ۜ and ۩ — totalling far fewer. A consumer
 diffing the `waqf` layers of Ḥafṣ and Warsh is comparing publishing conventions,
-not readings.
+not qiraahs.
 
 Nothing here normalises them. There is no mapping in the sources from Warsh's
 general sign to the Ḥafṣ set, and any mapping this project supplied would be its
-own claim about where a reciter may stop.
+own claim about where a reciter may make waqf.
 
 ### 9. Bazzī has no v2 release, so it has no juz layer
 

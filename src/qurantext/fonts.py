@@ -1,7 +1,7 @@
 """The font each muṣḥaf needs, taken from the same KFGQPC package as its text.
 
 Every v3.0 release ships one ``.ttf`` beside its ``.docx``, and the text uses
-codepoints — Arabic Extended-B alefs, open tanwīn, the pause signs — that only
+codepoints — Arabic Extended-B alefs, open tanwīn, the waqf signs — that only
 that font is guaranteed to draw.  A muṣḥaf file therefore names its font, with
 the family name read from the font's own ``name`` table, and the build copies
 the file to ``out/fonts/`` so the link inside the JSON resolves.
@@ -55,6 +55,6 @@ def describe(spec: SourceSpec) -> dict:
         "sha256": hashlib.sha256(data).hexdigest(),
         "publisher": KFGQPC_FONTS,
         "note": "The text uses codepoints only this font is guaranteed to draw "
-                "(Arabic Extended-B alefs, open tanwīn, the pause signs). Ship it "
+                "(Arabic Extended-B alefs, open tanwīn, the waqf signs). Ship it "
                 "with the text; a general Arabic font will show gaps.",
     }

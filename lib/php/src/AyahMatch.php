@@ -12,25 +12,25 @@ namespace QuranText;
  */
 final class AyahMatch
 {
-    /** @param Ayah[] $ayat */
-    public function __construct(public readonly array $ayat, public readonly string $relation)
+    /** @param Ayah[] $ayahs */
+    public function __construct(public readonly array $ayahs, public readonly string $relation)
     {
     }
 
     public function first(): ?Ayah
     {
-        return $this->ayat[0] ?? null;
+        return $this->ayahs[0] ?? null;
     }
 
     public function last(): ?Ayah
     {
-        return $this->ayat ? $this->ayat[count($this->ayat) - 1] : null;
+        return $this->ayahs ? $this->ayahs[count($this->ayahs) - 1] : null;
     }
 
     /** "2:253-254" */
     public function key(): string
     {
-        if (!$this->ayat) {
+        if (!$this->ayahs) {
             return '';
         }
         $a = $this->first();

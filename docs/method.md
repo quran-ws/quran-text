@@ -38,7 +38,7 @@ otherwise leaks into the text, which is how the first attempt acquired a
 paragraph of tab-stop definitions.
 
 **Sūrah boundaries come from resets in the āyah numbering, not from headings.**
-The v3.0 Qālūn document is missing the heading for Al-Baqarah, and typed it at
+The v3.0 Qālūn document is missing the heading for Baqarah, and typed it at
 the end of the previous paragraph instead. Heading-driven segmentation
 therefore shifted every sūrah after Al-Fātiḥah by one, silently. Numbering
 resets are intrinsic to the text and let the parser assert, at the end, that it
@@ -55,9 +55,9 @@ is peeled off and kept:
 
 - **āyah numbers** (`U+06DD` + digits, or the presentation-form ligatures
   `U+FC00 + n − 1` that the v2 CSVs use) become the word's `ayah` attribute;
-- **pause marks** (`ۖ ۗ ۘ ۙ ۚ ۛ`) trail a word with no space; they are recitation
-  annotation, not orthography, so they move to a `waqf` field;
-- **rub-el-ḥizb** `۞` and **sajdah** `۩` become flags on the neighbouring word.
+- **waqf marks** (`ۖ ۗ ۘ ۙ ۚ ۛ`) trail a word with no space; they are recitation
+  annotation, not rasm, so they move to a `waqf` field;
+- the **۞** and **۩** signs become flags on the neighbouring word.
 
 Nothing is dropped silently: a token with no consonantal content at all is
 folded into its predecessor with a note.
@@ -68,16 +68,16 @@ Five forms are derived from every word, each answering a different question.
 
 | form | question | example |
 |---|---|---|
-| `uthmani` | how is it printed? | `ٱلرَّحۡمَٰنِ` |
+| `rasm_uthmani` | how is it printed? | `ٱلرَّحۡمَٰنِ` |
 | `folded` | what does it say, ignoring which codepoints the release used? | `الرَّحْمَٰنِ` |
 | `pointed` | which letters, dots and all, as the word is *read*? | `الرحمان` |
 | `rasm` | what is on the line in the codex? | `الرحمں` |
-| `simple` | how would you type it plainly? | `الرّحمان` |
+| `plain` | how would you type it plainly? | `الرّحمان` |
 
 `pointed` and `rasm` part company over the dagger alif: the ā of `ٱلرَّحۡمَٰنِ` is
 read, so `pointed` writes it, and it is not on the line, so `rasm` does not.
 
-**`folded` exists because the packages spell the same reading differently.** It
+**`folded` exists because the packages spell the same qiraah differently.** It
 neutralises three things:
 
 - **release notation** — the 2022 files write the KFGQPC sukūn head `U+06E1` and
@@ -93,42 +93,42 @@ neutralises three things:
   spurious differences in the corpus, and it is not text.
 
 **`rasm` is the alignment key and the identity of a word.** It is the bare
-ʿUthmānic skeleton: undotted, unvowelled, and without hamza.
+ʿUthmānic skeleton: undotted, unvowelled, and without hamzah.
 
 That is not a convenience. The codices were written that way, and a skeleton
 that keeps what was added later is not a rasm:
 
-- **hamza** was devised by al-Khalīl in the 8th century, two centuries after the
+- **hamzah** was devised by al-Khalīl in the 8th century, two centuries after the
   codices. It is dropped, and every carrier reduces to its seat — which is what
   makes `يَسۡتَهۡزِئُ` and `يَسْتَهْزِۓُ` one word, and `هَٰٓؤُلَآءِ` and `هَٰؤُلَآࢇ` one word.
-- **the dots** came later still. One skeleton carries several readings by design:
+- **the dots** came later still. One skeleton carries several qiraahs by design:
   `تَعۡمَلُونَ` and `يَعۡمَلُونَ` are `ٮعملوں` twice over. Letters merge only where
   their shapes merge, which depends on position — `ب ت ث ن ي` share one tooth
   medially but part company at the end of a word, where `ب ت ث` keep the bowl,
   `ن` takes its own curve and `ي` its own tail.
 - **the dagger alif** is, by definition, an alef the scribe did *not* write on
   the line. It is the reader's cue for ḥadhf al-alif, and it is the mechanism by
-  which one skeleton carries two readings: `ملك` is what every codex has at 1:4,
+  which one skeleton carries two qiraahs: `ملك` is what every codex has at 1:4,
   and it is written that way so as to be read both `مَٰلِكِ` and `مَلِكِ`. The same
   goes for `دفع` (`دِفَٰعُ`/`دَفۡعُ`), `الريح` (`ٱلرِّيَٰحَ`/`ٱلرِّيحَ`), `كلمٮ`
   (`كَلِمَٰتُ`/`كَلِمَتُ`) and `طٮرا` (`طَٰٓئِراً`/`طَيۡرًا`). Counting the dagger as a
   letter reports all of those as disagreements between codices that agree, and
   it is what the build used to do: 170 of the 232 rasm disagreements it reported
   were this and nothing else. The ā is not lost — it is read, so `pointed` keeps
-  it, and 1:4 is a `dotting_variant`: one rasm, two readings.
+  it, and 1:4 is a `dotting_variant`: one rasm, two qiraahs.
 
   A dagger riding on a final `ى` was also emitted as a *second* letter, so
   `عَلَىٰٓ` came out `علٮا` and 34:17 `يُجَٰزَىٰ` came out six letters long. 3,071
   word positions carried an inflated skeleton for this reason.
 
-  `pointed` still counts the dagger, since it spells the reading, and there it
+  `pointed` still counts the dagger, since it spells the qiraah, and there it
   needs the one rule that looks further than a character and its neighbour: `ٰٓ`
-  is a madd *over* something, and what it is over decides. Over a hamza
+  is a madd *over* something, and what it is over decides. Over a hamzah
   (`إِسۡرَٰٓءِيلَ`), over a doubled letter (`تَتَّبِعَٰٓنِّ`, madd lāzim), or at the end
   of a word (`عَلَىٰٓ`), the dagger is a real ā. Over a plain undoubled letter
-  there is no hamza for the madd to be over, because the reading suppressed it —
-  Warsh's `ࡰرَٰٓيْتَ` against Ḥafṣ's `أَرَءَيۡتَ` — so the dagger *is* the hamza, and
-  hamza is not part of the reading's letters either.
+  there is no hamzah for the madd to be over, because the qiraah suppressed it —
+  Warsh's `ࡰرَٰٓيْتَ` against Ḥafṣ's `أَرَءَيۡتَ` — so the dagger *is* the hamzah, and
+  hamzah is not one of the qiraah's letters either.
 
 An alef that *is* on the line stays, whichever hand wrote it, so a difference in
 one is a difference in the rasm — 260 words. But **the bare rasm cannot settle
@@ -195,7 +195,7 @@ Each diff opcode has one meaning:
 - `replace` — the same slot, spelled differently.
 
 `replace` blocks of unequal length are the interesting case, and are almost
-always a **word-boundary disagreement** rather than a different reading. When
+always a **word-boundary disagreement** rather than a different qiraah. When
 the letters on both sides agree, the block is re-segmented: a word one source
 printed joined (`كَانُواْيَعۡمَلُونَ`) is split back apart at the right offset, with
 marks staying on the letter they sit on. Without this, the next word is falsely
@@ -245,7 +245,7 @@ comparing its own āyah ends to the six systems' boundaries, taken from
 under `data/counting/`, anchors resolved to shared numbers); the points where a
 system's own authorities disagree are this repository's overlay
 `data/counting/khilaf.json`, cited from al-Dānī. Dūrī and Sūsī are both First
-Madinan and part company at exactly one such point, 67:9, where Dūrī follows
+Madani and part company at exactly one such point, 67:9, where Dūrī follows
 Abū Jaʿfar and Sūsī follows Shayba — the whole of the 6217/6218 difference.
 See `docs/format.md`, *Counting*.
 
@@ -266,7 +266,7 @@ See `docs/format.md`, *Counting*.
    `written_joined` run is length ≥ 2, and no number is read by nobody.
 5. **Positions** — every `*_starts` layer is strictly increasing inside
    `words`, `ayah_starts` has `counting.ayah_count` entries, and the sūrah
-   header's `first_ayah` is the prefix sum of its `ayat`.
+   header's `first_ayah` is the prefix sum of its `ayahs`.
 6. **Counting** — every `unexplained` point in a `counting` block is an
    acknowledged entry in `data/counting/open-findings.json`, and every entry
    there still occurs.

@@ -27,12 +27,12 @@ from quran_text import Mushaf
 class MapOptions:
     source: str = "hafs"
     to: tuple[str, ...] = ()
-    sura: str | None = None
+    surah: str | None = None
     juz: int | None = None
     page: str | None = None
     ayah: str | None = None
     by: str = "ayah"
-    text: str = "uthmani"
+    text: str = "rasm_uthmani"
     format: str = "json"
     header: bool = True
     limit: int | None = None
@@ -54,7 +54,7 @@ class MapOptions:
 
     def scope_options(self) -> Options:
         """The scope, expressed as download options so ``select`` validates it."""
-        return Options(edition=self.source, sura=self.sura, juz=self.juz, page=self.page,
+        return Options(edition=self.source, surah=self.surah, juz=self.juz, page=self.page,
                        ayah=self.ayah, text=self.text)
 
     @property
@@ -63,9 +63,9 @@ class MapOptions:
 
 
 def columns(o: MapOptions) -> list[str]:
-    cols = ["sura", "ayah"]
+    cols = ["surah", "ayah"]
     if o.by == "word":
-        cols += ["pos", "number", "text"]
+        cols += ["position", "number", "text"]
     else:
         cols += ["first_number", "last_number"]
     for t in o.to:
@@ -81,21 +81,21 @@ def records(data: Dataset, o: MapOptions) -> list[dict]:
     if o.by == "word":
         for w in span:
             a = w.ayah
-            r = {"sura": w.sura.number, "ayah": a.number if a else 0, "pos": w.index or 0,
+            r = {"surah": w.surah.number, "ayah": a.number if a else 0, "position": w.index or 0,
                  "number": w.number, "text": word_form(w, o.text)}
             for t, tm in targets.items():
                 x = w.to(tm)
-                r[f"{t}_word"] = None if x is None else f"{x.sura.number}:{x.ayah.number if x.ayah else 0}:{x.index or 0}"
+                r[f"{t}_word"] = None if x is None else f"{x.surah.number}:{x.ayah.number if x.ayah else 0}:{x.index or 0}"
                 r[f"{t}_text"] = None if x is None else word_form(x, o.text)
             out.append(r)
             if o.limit and len(out) >= o.limit:
                 break
         return out
-    for unit, sura, ayah in units(m, span):
+    for unit, surah, ayah in units(m, span):
         if ayah == 0:
             continue                      # the unnumbered basmalah is no āyah to map
         numbers = unit.numbers
-        r = {"sura": sura, "ayah": ayah, "first_number": min(numbers), "last_number": max(numbers)}
+        r = {"surah": surah, "ayah": ayah, "first_number": min(numbers), "last_number": max(numbers)}
         for t, tm in targets.items():
             match = unit.to(tm)
             r[f"{t}_ayah"] = match.key or None
@@ -199,7 +199,7 @@ def as_xml(rows, meta, o) -> str:
 
 def as_sql(rows, meta, o) -> str:
     cols = columns(o)
-    types = {c: ("INTEGER" if c in ("sura", "ayah", "pos", "number", "first_number", "last_number") else "TEXT") for c in cols}
+    types = {c: ("INTEGER" if c in ("surah", "ayah", "position", "number", "first_number", "last_number") else "TEXT") for c in cols}
     table = "quran_map_words" if o.by == "word" else "quran_map"
     out = ["-- " + l for l in header_lines(meta)] if o.header else []
     out.append(f"CREATE TABLE {table} (")

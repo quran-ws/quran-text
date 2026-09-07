@@ -6,13 +6,13 @@
 /// final m = await Mushaf.hafs(read: rootBundle.loadString); // Flutter
 /// final m = Mushaf.fromJson(await rootBundle.loadString('assets/warsh.json')); // another riwāyah
 /// m.ayah(2, 255).text;
-/// m.ayah(2, 255).render(marks: true, ayahMarkers: true);
+/// m.ayah(2, 255).render(marks: true, ayahMarks: true);
 /// m.page(3).lines;
 /// m.juz(30).firstAyah!.key;        // "78:1"
 /// ```
 ///
 /// Everything is a slice of one `words` list.  A [Span] is a slice with
-/// [Span.text] and [Span.render]; [Sura], [Ayah], [Page], [Line] and [Juz]
+/// [Span.text] and [Span.render]; [Surah], [Ayah], [Page], [Line] and [Juz]
 /// are spans that know their place.  Positions are 0-based indices into
 /// `words`; sūrah, āyah, page, line and juz numbers are 1-based, as printed.
 /// Āyah numbers are in this edition's own count; use [AyahMap] to convert
@@ -25,12 +25,12 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:isolate';
 
-const String endOfAyah = '۝';
+const String ayahMarkSign = '۝';
 
 const _arabicIndic = '٠١٢٣٤٥٦٧٨٩';
 
 /// The end-of-āyah sign with its number, as the muṣḥaf prints it: ۝٢٥٥
-String ayahMarker(int number) => endOfAyah +
+String ayahMark(int number) => ayahMarkSign +
     number.toString().split('').map((d) => _arabicIndic[int.parse(d)]).join();
 
 final _foldAlef = RegExp('[\\u0670\\u0671\\u0623\\u0625\\u0622\\u0870-\\u0882]');
@@ -38,7 +38,7 @@ final _foldYeh = RegExp('[\\u06D2\\u06D1\\u0649]');
 final _foldDrop = RegExp(
     '[\\u0640\\u0610-\\u061A\\u064B-\\u065F\\u06D6-\\u06DC\\u06DF-\\u06E8\\u06EA-\\u06ED\\u08CA-\\u08FF\\u0888]');
 
-/// Reduce a word to plain letters for matching: no diacritics, no pause
+/// Reduce a word to plain letters for matching: no harakah, no waqf
 /// marks, one alif, one yāʾ.  For search only — it is not a spelling.
 String fold(String text) => text
     .replaceAll(_foldAlef, '\u0627')
@@ -59,7 +59,7 @@ int _indexOf(List<int> starts, int position) {
   return lo - 1;
 }
 
-enum MarkKind { waqf, hizb, sajdah }
+enum MarkKind { waqf, division, sajdah }
 
 MarkKind _kindOf(String s) => MarkKind.values.byName(s);
 
@@ -108,8 +108,8 @@ class Word {
   String get text => _m.words[position];
 
   /// Plain modern spelling, Ḥafṣ only; null elsewhere.
-  String? get imlaei => _m._imlaei?[position];
-  Sura get sura => _m.suraAt(position);
+  String? get rasm_imlai => _m._rasm_imlai?[position];
+  Surah get surah => _m.surahAt(position);
 
   /// The āyah this word is in; null for the unnumbered basmalah.
   Ayah? get ayah => _m.ayahAt(position);
@@ -177,46 +177,46 @@ class Span extends Iterable<Word> {
   /// The text as the muṣḥaf prints it, with what you ask for.
   ///
   /// [marks]: `true` for every sign, or an iterable of [MarkKind].
-  /// [ayahMarkers] appends ۝ with the āyah number after each āyah that ends
+  /// [ayahMarks] appends ۝ with the āyah number after each āyah that ends
   /// inside the span.  [lines] breaks the text where the printed lines break.
-  String render({Object marks = false, bool ayahMarkers = false, bool lines = false}) {
+  String render({Object marks = false, bool ayahMarks = false, bool lines = false}) {
     final kinds = _markKinds(marks);
     final lineStarts = lines ? _m._lineStartSet : null;
     final out = StringBuffer();
-    for (var pos = start; pos < end; pos++) {
-      if (lineStarts != null && pos != start && lineStarts.contains(pos)) {
+    for (var position = start; position < end; position++) {
+      if (lineStarts != null && position != start && lineStarts.contains(position)) {
         out.write('\n');
-      } else if (pos != start) {
+      } else if (position != start) {
         out.write(' ');
       }
-      var token = _m.words[pos];
-      for (final mk in _m._marksAt[pos] ?? const <Mark>[]) {
+      var token = _m.words[position];
+      for (final mk in _m._marksAt[position] ?? const <Mark>[]) {
         if (!kinds.contains(mk.kind)) continue;
         token = mk.side == 'before' ? '${mk.sign} $token' : token + mk.sign;
       }
       out.write(token);
-      if (ayahMarkers) {
-        final k = _m._ayahEnds[pos];
-        if (k != null) out.write(' ${ayahMarker(_m._ayahNumber(k))}');
+      if (ayahMarks) {
+        final k = _m._ayahEnds[position];
+        if (k != null) out.write(' ${ayahMark(_m._ayahNumber(k))}');
       }
     }
     return out.toString();
   }
 
   /// Every numbered āyah with at least one word in the span.
-  List<Ayah> get ayat {
+  List<Ayah> get ayahs {
     final starts = _m._ayahStarts;
     final first = _indexOf(starts, start).clamp(0, starts.length);
     final last = _indexOf(starts, end - 1);
     return [for (var k = first; k <= last; k++) Ayah._fromIndex(_m, k)];
   }
 
-  Ayah? get firstAyah => ayat.firstOrNull;
-  Ayah? get lastAyah => ayat.lastOrNull;
+  Ayah? get firstAyah => ayahs.firstOrNull;
+  Ayah? get lastAyah => ayahs.lastOrNull;
 
-  List<Sura> get suras {
-    final starts = _m._suraStarts;
-    return _m.suras.sublist(_indexOf(starts, start), _indexOf(starts, end - 1) + 1);
+  List<Surah> get surahs {
+    final starts = _m._surahStarts;
+    return _m.surahs.sublist(_indexOf(starts, start), _indexOf(starts, end - 1) + 1);
   }
 
   List<Page> get pages {
@@ -254,16 +254,16 @@ class Span extends Iterable<Word> {
 /// (one āyah, boundaries crossing), unnumbered (the basmalah printed without
 /// a number), missing (no word of it).
 class AyahMatch {
-  final List<Ayah> ayat;
+  final List<Ayah> ayahs;
   final String relation;
-  const AyahMatch(this.ayat, this.relation);
-  Ayah? get first => ayat.firstOrNull;
-  Ayah? get last => ayat.lastOrNull;
+  const AyahMatch(this.ayahs, this.relation);
+  Ayah? get first => ayahs.firstOrNull;
+  Ayah? get last => ayahs.lastOrNull;
 
   /// "2:253-254"
   String get key {
-    if (ayat.isEmpty) return '';
-    final a = ayat.first, b = ayat.last;
+    if (ayahs.isEmpty) return '';
+    final a = ayahs.first, b = ayahs.last;
     return a == b ? a.key : '${a.key}-${b.number}';
   }
 
@@ -273,18 +273,18 @@ class AyahMatch {
 
 /// One numbered āyah, in this edition's own count.
 class Ayah extends Span {
-  final Sura sura;
+  final Surah surah;
   final int number;
 
   /// 0-based ordinal of the āyah in the muṣḥaf.
   final int index;
 
-  Ayah._(Mushaf m, this.sura, this.number, this.index)
+  Ayah._(Mushaf m, this.surah, this.number, this.index)
       : super(m, m._ayahStarts[index],
             index + 1 < m._ayahStarts.length ? m._ayahStarts[index + 1] : m.words.length);
 
-  factory Ayah(Mushaf m, int sura, int number) {
-    final s = m.sura(sura);
+  factory Ayah(Mushaf m, int surah, int number) {
+    final s = m.surah(surah);
     if (number < 1 || number > s.ayahCount) {
       throw RangeError('${s.nameEn} has ${s.ayahCount} āyāt in ${m.nameEn}, not $number');
     }
@@ -292,23 +292,23 @@ class Ayah extends Span {
   }
 
   factory Ayah._fromIndex(Mushaf m, int k) {
-    final s = m.suras[m._suraOfAyahIndex(k)];
+    final s = m.surahs[m._surahOfAyahIndex(k)];
     return Ayah._(m, s, k - s._firstAyah + 1, k);
   }
 
   /// "2:255"
-  String get key => '${sura.number}:$number';
+  String get key => '${surah.number}:$number';
 
   /// The printed line the āyah starts on.
   Line? get line => _m.lineAt(start);
 
   /// Every printed line the āyah touches.
   List<Line> get lines => _m._linesBetween(start, end);
-  List<String?>? get imlaei => _m._imlaei?.sublist(start, end);
+  List<String?>? get rasm_imlai => _m._rasm_imlai?.sublist(start, end);
   bool get hasSajdah => marks.any((e) => e.$2.kind == MarkKind.sajdah);
 
   /// ۝٢٥٥
-  String get marker => ayahMarker(number);
+  String get marker => ayahMark(number);
 
   /// The shared numbers of this āyah's words.
   Set<int> get numbers {
@@ -351,7 +351,7 @@ class Ayah extends Span {
   String toString() => key;
 }
 
-class Sura extends Span {
+class Surah extends Span {
   final int number;
   final String nameAr;
   final String nameEn;
@@ -360,17 +360,17 @@ class Sura extends Span {
   final int ayahCount;
   final int _firstAyah;
 
-  Sura._(Mushaf m, this.number, Map<String, dynamic> info)
+  Surah._(Mushaf m, this.number, Map<String, dynamic> info)
       : nameAr = info['name_ar'] as String,
         nameEn = info['name_en'] as String,
         revelation = info['revelation'] as String,
         hasBasmalah = info['has_basmalah'] as bool,
         ayahCount = info['ayah_count'] as int,
         _firstAyah = info['first_ayah'] as int,
-        super(m, m._suraStarts[number - 1],
-            number < m._suraStarts.length ? m._suraStarts[number] : m.words.length);
+        super(m, m._surahStarts[number - 1],
+            number < m._surahStarts.length ? m._surahStarts[number] : m.words.length);
 
-  List<Ayah> get ayat => [for (var n = 1; n <= ayahCount; n++) Ayah(_m, number, n)];
+  List<Ayah> get ayahs => [for (var n = 1; n <= ayahCount; n++) Ayah(_m, number, n)];
   Ayah ayah(int number) => Ayah(_m, this.number, number);
 
   /// The basmalah where it is printed unnumbered before āyah 1 (Warsh,
@@ -467,19 +467,19 @@ class Mushaf {
   final String key;
   final String nameEn;
   final String nameAr;
-  final String? qariEn;
-  final String? qariAr;
+  final String? qiraahEn;
+  final String? qiraahAr;
   final String countingSystem;
   final bool basmalahCounted;
-  late final List<Sura> suras;
+  late final List<Surah> surahs;
 
-  final List<String?>? _imlaei;
-  final List<int> _suraStarts;
+  final List<String?>? _rasm_imlai;
+  final List<int> _surahStarts;
   final List<int> _ayahStarts;
   final List<int> _pageStarts;
   final List<int>? _lineStarts;
   final List<int>? _juzStarts;
-  late final List<int> _suraFirstAyah;
+  late final List<int> _surahFirstAyah;
   final Map<int, int> _ayahEnds = {};
   final Map<int, List<Mark>> _marksAt = {};
   late final Set<int> _lineStartSet;
@@ -491,18 +491,18 @@ class Mushaf {
         key = _doc['mushaf']['key'] as String,
         nameEn = _doc['mushaf']['name_en'] as String,
         nameAr = _doc['mushaf']['name_ar'] as String,
-        qariEn = _doc['mushaf']['qari_en'] as String?,
-        qariAr = _doc['mushaf']['qari_ar'] as String?,
+        qiraahEn = _doc['mushaf']['qiraah_en'] as String?,
+        qiraahAr = _doc['mushaf']['qiraah_ar'] as String?,
         countingSystem = _doc['counting']['system'] as String,
         basmalahCounted = _doc['counting']['basmalah_counted'] as bool,
-        _imlaei = _doc['imlaei'] == null ? null : List<String?>.from(_doc['imlaei'] as List),
-        _suraStarts = List<int>.from(_doc['sura_starts'] as List),
+        _rasm_imlai = _doc['rasm_imlai'] == null ? null : List<String?>.from(_doc['rasm_imlai'] as List),
+        _surahStarts = List<int>.from(_doc['surah_starts'] as List),
         _ayahStarts = List<int>.from(_doc['ayah_starts'] as List),
         _pageStarts = List<int>.from(_doc['page_starts'] as List),
         _lineStarts = _doc['line_starts'] == null ? null : List<int>.from(_doc['line_starts'] as List),
         _juzStarts = _doc['juz_starts'] == null ? null : List<int>.from(_doc['juz_starts'] as List) {
-    suras = [for (var n = 1; n <= 114; n++) Sura._(this, n, (_doc['suras'] as List)[n - 1])];
-    _suraFirstAyah = [for (final s in suras) s._firstAyah];
+    surahs = [for (var n = 1; n <= 114; n++) Surah._(this, n, (_doc['surahs'] as List)[n - 1])];
+    _surahFirstAyah = [for (final s in surahs) s._firstAyah];
     for (var k = 0; k < _ayahStarts.length; k++) {
       final end = k + 1 < _ayahStarts.length ? _ayahStarts[k + 1] : words.length;
       _ayahEnds[end - 1] = k;
@@ -547,7 +547,7 @@ class Mushaf {
 
   List<String> get layers => List<String>.from(_doc['layers']['present'] as List);
 
-  /// `has('juz')`, `has('imlaei')`, `has('lines')` …
+  /// `has('juz')`, `has('rasm_imlai')`, `has('lines')` …
   bool has(String layer) => layers.contains(layer);
   String _absent(String layer) {
     final why = (_doc['layers']['absent'] as Map)[layer] ?? 'not in this file';
@@ -564,19 +564,19 @@ class Mushaf {
 
   // -- units by number --
 
-  Sura sura(int number) {
+  Surah surah(int number) {
     if (number < 1 || number > 114) throw RangeError('sūrah $number: there are 114');
-    return suras[number - 1];
+    return surahs[number - 1];
   }
 
-  /// Āyah [number] of [sura] in this edition's own count.
-  Ayah ayah(int sura, int number) => Ayah(this, sura, number);
+  /// Āyah [number] of [surah] in this edition's own count.
+  Ayah ayah(int surah, int number) => Ayah(this, surah, number);
   Page page(int number) => Page(this, number);
   Juz juz(int number) => Juz(this, number);
   Line line(int page, int number) => Page(this, page).line(number);
 
   /// Word [index] (1-based) of an āyah.
-  Word word(int sura, int ayah, int index) => Ayah(this, sura, ayah).word(index);
+  Word word(int surah, int ayah, int index) => Ayah(this, surah, ayah).word(index);
 
   /// Any run of positions, e.g. to render a selection.
   Span span(int start, int end) {
@@ -587,7 +587,7 @@ class Mushaf {
   }
 
   Span get all => Span(this, 0, words.length);
-  List<Ayah> get ayat => [for (var k = 0; k < ayahCount; k++) Ayah._fromIndex(this, k)];
+  List<Ayah> get ayahs => [for (var k = 0; k < ayahCount; k++) Ayah._fromIndex(this, k)];
   List<Page> get pages => [for (var n = 1; n <= pageCount; n++) Page(this, n)];
   List<Juz> get ajza => [for (var n = 1; n <= juzCount; n++) Juz(this, n)];
 
@@ -599,7 +599,7 @@ class Mushaf {
     return k >= 0 ? Ayah._fromIndex(this, k) : null;
   }
 
-  Sura suraAt(int position) => suras[_indexOf(_suraStarts, position)];
+  Surah surahAt(int position) => surahs[_indexOf(_surahStarts, position)];
   Page pageAt(int position) => Page(this, _indexOf(_pageStarts, position) + 1);
   Line? lineAt(int position) =>
       _lineStarts == null ? null : Line._fromIndex(this, _indexOf(_lineStarts!, position));
@@ -627,11 +627,11 @@ class Mushaf {
       };
       final runs = <(int, int)>[];
       var n = 1;
-      for (var pos = 0; pos < words.length; pos++) {
+      for (var position = 0; position < words.length; position++) {
         while (missing.contains(n)) {
           n++;
         }
-        final run = joined[pos] ?? (n, n);
+        final run = joined[position] ?? (n, n);
         runs.add(run);
         n = run.$2 + 1;
       }
@@ -668,7 +668,7 @@ class Mushaf {
   List<Ayah> sajdat() => [for (final p in _positionsWith(MarkKind.sajdah)) ayahAt(p)!];
 
   /// Every word printed with ۞ before it, as the release prints them.
-  List<Word> hizbMarks() => [for (final p in _positionsWith(MarkKind.hizb)) Word(this, p)];
+  List<Word> divisionMarks() => [for (final p in _positionsWith(MarkKind.division)) Word(this, p)];
 
   List<int> _positionsWith(MarkKind kind) => [
         for (final e in _marksAt.entries)
@@ -676,7 +676,7 @@ class Mushaf {
       ]..sort();
 
   /// Every place the words of [text] occur in sequence, matched on [fold]:
-  /// diacritics and hamza forms do not matter.
+  /// harakah and hamzah forms do not matter.
   List<Span> search(String text) {
     final query = text.trim().split(RegExp(r'\s+')).where((t) => t.isNotEmpty).map(fold).toList();
     if (query.isEmpty || query.any((q) => q.isEmpty)) return const [];
@@ -697,8 +697,8 @@ class Mushaf {
     return out;
   }
 
-  int _suraOfAyahIndex(int k) => _indexOf(_suraFirstAyah, k);
-  int _ayahNumber(int k) => k - _suraFirstAyah[_suraOfAyahIndex(k)] + 1;
+  int _surahOfAyahIndex(int k) => _indexOf(_surahFirstAyah, k);
+  int _ayahNumber(int k) => k - _surahFirstAyah[_surahOfAyahIndex(k)] + 1;
 
   @override
   String toString() => 'Mushaf($key)';
@@ -708,15 +708,15 @@ class Mushaf {
 
 /// Where a Kūfī āyah falls in one edition.  [relation] is same, merged,
 /// split (then [ayahLast] is set), shifted or unnumbered ([ayah] is 0).
-class AyahRef {
-  final int sura;
+class MappedAyah {
+  final int surah;
   final int ayah;
   final String relation;
   final int? ayahLast;
-  const AyahRef(this.sura, this.ayah, this.relation, [this.ayahLast]);
+  const MappedAyah(this.surah, this.ayah, this.relation, [this.ayahLast]);
 
   /// "2:253-254"
-  String get key => ayahLast != null ? '$sura:$ayah-$ayahLast' : '$sura:$ayah';
+  String get key => ayahLast != null ? '$surah:$ayah-$ayahLast' : '$surah:$ayah';
   @override
   String toString() => key;
 }
@@ -734,22 +734,22 @@ class AyahMap {
       throw ArgumentError('not a quran-ayah-map file');
     }
     return AyahMap._(List<String>.from(doc['editions'] as List), {
-      for (final r in doc['ayat'] as List) '${r['sura']}:${r['ayah']}': r as Map<String, dynamic>
+      for (final r in doc['ayahs'] as List) '${r['surah']}:${r['ayah']}': r as Map<String, dynamic>
     });
   }
 
-  /// `convert(2, 255, 'warsh')` → `AyahRef(2, 253, 'split', 254)`
-  AyahRef convert(int sura, int ayah, String to) {
-    final row = _rows['$sura:$ayah'];
-    if (row == null) throw RangeError('$sura:$ayah is not a Kūfī āyah');
+  /// `convert(2, 255, 'warsh')` → `MappedAyah(2, 253, 'split', 254)`
+  MappedAyah convert(int surah, int ayah, String to) {
+    final row = _rows['$surah:$ayah'];
+    if (row == null) throw RangeError('$surah:$ayah is not a Kūfī āyah');
     final r = row[to];
     if (r == null) throw ArgumentError('no edition "$to"; editions are $editions');
-    return AyahRef(r['sura'] as int, r['ayah'] as int, r['relation'] as String, r['ayah_last'] as int?);
+    return MappedAyah(r['surah'] as int, r['ayah'] as int, r['relation'] as String, r['ayah_last'] as int?);
   }
 
   /// The reference in every edition.
-  Map<String, AyahRef> all(int sura, int ayah) =>
-      {for (final e in editions) e: convert(sura, ayah, e)};
+  Map<String, MappedAyah> all(int surah, int ayah) =>
+      {for (final e in editions) e: convert(surah, ayah, e)};
 }
 
 // --- word index --------------------------------------------------------------
@@ -760,16 +760,16 @@ class IndexedWord {
   const IndexedWord(this.raw);
 
   int get number => raw['number'] as int;
-  int get sura => raw['sura'] as int;
+  int get surah => raw['surah'] as int;
   int get index => raw['index'] as int;
   String get key => raw['key'] as String;
-  String get uthmani => raw['uthmani'] as String;
-  String get simple => raw['simple'] as String;
+  String get rasm_uthmani => raw['rasm_uthmani'] as String;
+  String get plain => raw['plain'] as String;
   String get rasm => raw['rasm'] as String;
   String get pointed => raw['pointed'] as String;
   String get status => raw['status'] as String;
 
-  /// `{sura, ayah, pos}` in the Kūfī count, or null where Ḥafṣ lacks the word.
+  /// `{surah, ayah, position}` in the Kūfī count, or null where Ḥafṣ lacks the word.
   Map<String, dynamic>? get hafs => raw['hafs'] as Map<String, dynamic>?;
 
   /// Āyah number per riwāyah.
@@ -785,7 +785,7 @@ class IndexedWord {
   /// How one riwāyah spells it; null where it does not read the word.
   String? form(String riwayah) => (raw['forms'] as Map)[riwayah] as String?;
   @override
-  String toString() => '$number $uthmani';
+  String toString() => '$number $rasm_uthmani';
 }
 
 /// `out/word-index.json`: the numbering shared by all seven muṣḥafs.
@@ -794,7 +794,7 @@ class WordIndex extends Iterable<IndexedWord> {
   final int total;
   final List _words;
   Map<String, Map<String, dynamic>>? _byHafs;
-  Map<String, List<Map<String, dynamic>>>? _bySimple;
+  Map<String, List<Map<String, dynamic>>>? _byPlain;
 
   WordIndex._(this.mushafs, this.total, this._words);
 
@@ -812,25 +812,25 @@ class WordIndex extends Iterable<IndexedWord> {
   }
 
   /// By Ḥafṣ coordinates: sūrah, āyah in the Kūfī count, 1-based word.
-  IndexedWord? find(int sura, int ayah, int index) {
+  IndexedWord? find(int surah, int ayah, int index) {
     _byHafs ??= {
       for (final r in _words.cast<Map<String, dynamic>>())
-        if (r['hafs'] != null) '${r['hafs']['sura']}:${r['hafs']['ayah']}:${r['hafs']['pos']}': r
+        if (r['hafs'] != null) '${r['hafs']['surah']}:${r['hafs']['ayah']}:${r['hafs']['position']}': r
     };
-    final r = _byHafs!['$sura:$ayah:$index'];
+    final r = _byHafs!['$surah:$ayah:$index'];
     return r == null ? null : IndexedWord(r);
   }
 
   /// Every number whose folded spelling equals [text], folded.
   List<IndexedWord> search(String text) {
-    if (_bySimple == null) {
+    if (_byPlain == null) {
       final by = <String, List<Map<String, dynamic>>>{};
       for (final r in _words.cast<Map<String, dynamic>>()) {
-        by.putIfAbsent(fold(r['uthmani'] as String), () => []).add(r);
+        by.putIfAbsent(fold(r['rasm_uthmani'] as String), () => []).add(r);
       }
-      _bySimple = by;
+      _byPlain = by;
     }
-    return [for (final r in _bySimple![fold(text)] ?? const []) IndexedWord(r)];
+    return [for (final r in _byPlain![fold(text)] ?? const []) IndexedWord(r)];
   }
 
   /// Every number the riwāyāt spell in more than one way.

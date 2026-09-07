@@ -13,7 +13,7 @@ totals would never have found.
 ### Regexing XML
 
 `re.findall(r'<w:t[^>]*>(.*?)</w:t>')` over `document.xml` looked fine on Ḥafṣ
-and returned a paragraph of `<w:tab w:val="left" w:pos="4377"/>` tab-stop
+and returned a paragraph of `<w:tab w:val="left" w:position="4377"/>` tab-stop
 definitions on Qālūn. Walking the element tree is barely more code and cannot
 do this.
 
@@ -40,7 +40,7 @@ that produced it is worth keeping because it was wrong in an instructive way.
 
 A superscript alef is by definition an alef the scribe did **not** write on the
 line. It is the reader's cue for ḥadhf al-alif — the device by which one
-skeleton is written so as to carry two readings. `ملك` is what every codex has
+skeleton is written so as to carry two qiraahs. `ملك` is what every codex has
 at 1:4, written that way so that it can be read both `مَٰلِكِ` and `مَلِكِ`; that
 is the point of it, and al-Dānī says so plainly: *كتبوا في جميع المصاحف ملك بغير
 ألف*. Promoting the dagger to a letter therefore reported the codices as
@@ -56,7 +56,7 @@ list is recognisably the received one: `ووصى`/`وأوصى` 2:132, `وسار�
 `إذا`/`إذ` 74:33. Converging on the received list from a completely different
 direction is the strongest check available here.
 
-A second defect fell out of the same code. The guard that stops `اٰ` from
+A second defect fell out of the same code. The guard that keeps `اٰ` from
 emitting two alefs tested only for a preceding `ا`, so a dagger riding on a
 final `ى` was emitted as an *extra letter*: `عَلَىٰٓ` came out `علٮا` and 34:17
 `يُجَٰزَىٰ` came out `ٮحارٮا`, six letters for a four-letter word. **3,071 word
@@ -64,7 +64,7 @@ positions** carried an inflated skeleton. 34:17 was consequently filed as a rasm
 disagreement when `نُجَٰزِي` and `يُجَٰزَىٰ` are one skeleton pointed two ways.
 
 The ā is not lost. It is read, so `pointed` keeps it, and 1:4 is now a
-`dotting_variant`: one rasm, two readings — which is what it is.
+`dotting_variant`: one rasm, two qiraahs — which is what it is.
 
 ### What the old reasoning got right, and what to do with it
 
@@ -100,7 +100,7 @@ here, and all 198 stay `rasm_variant`. Both halves of that are wrong. The
 directions were counted — 134 one way, 64 the other — but *who* was on each side
 was never counted at all, and that is the whole question.
 
-**All 198 split the seven riwāyāt along exactly one line: `qaloun,warsh` against
+**All 198 split the seven riwāyāt along exactly one line: `qalun,warsh` against
 the other five. One partition, 198 words, no exception. The 62 real letter
 differences split them 14 ways** — Bazzī alone 7 times, Ḥafṣ+Shuʿbah alone 6,
 Qālūn alone 5, Sūsī alone once, and eight more shapes besides.
@@ -119,7 +119,7 @@ distinction, because within any one muṣḥaf it is that muṣḥaf's own ḥad
 is carried faithfully: Ḥafṣ writes قال plene 412 times and defective 4, سبحان
 defective 12 and plene once, and 175 of the 198 words show the identical split
 at *every* occurrence in the corpus. Each book is self-consistent. It is only
-between the two typesettings that the choice stops tracking anything textual.
+between the two typesettings that the choice no longer tracks anything textual.
 
 The one-partition fact is now a check rather than a paragraph
 (`validate.check_alif_splits`), because it is the ground the status stands on:
@@ -182,15 +182,15 @@ through the same normalisation, so it cannot drift again.
 reasoning that a join *causes* an apparent absence. It does — but it also meant
 five of the six boundary events were reported as disagreements when all seven
 riwāyāt read them identically and one source had merely lost a space. Content
-is decided first now, and `reports/resegmentation.csv` carries a `riwayat_agree` column so
+is decided first now, and `reports/resegmentation.csv` carries a `riwayahs_agree` column so
 the two cases are told apart rather than conflated.
 
 ### "No local rule can separate these" — there was one
 
 34 words of the `أَرَءَيۡتَ` family were shipped as a known residual, reported as
 `rasm_variant` when the codices agree. Warsh writes `ࡰرَٰٓيْتَ`, spelling the
-tashīl'd hamza as a dagger alif; Ḥafṣ writes `أَرَءَيۡتَ` with a hamza. Dropping
-hamza and folding the dagger to an alef made Ḥafṣ lose a letter and Warsh gain
+tashīl'd hamzah as a dagger alif; Ḥafṣ writes `أَرَءَيۡتَ` with a hamzah. Dropping
+hamzah and folding the dagger to an alef made Ḥafṣ lose a letter and Warsh gain
 one.
 
 Three rules were tried and rejected, and the conclusion drawn was that no rule
@@ -203,10 +203,10 @@ was being looked at.
 
 | after the `ٰٓ` | example | the dagger is |
 |---|---|---|
-| a hamza | `إِسۡرَٰٓءِيلَ`, `هَٰٓؤُلَآءِ`, `مَلَٰٓئِكَةِ` | a written ā |
+| a hamzah | `إِسۡرَٰٓءِيلَ`, `هَٰٓؤُلَآءِ`, `مَلَٰٓئِكَةِ` | a written ā |
 | a doubled letter | `تَتَّبِعَٰٓنِّ`, `فَذَٰٓنِّكَ` | a written ā (madd lāzim) |
 | nothing — end of word | `عَلَىٰٓ` | a written ā |
-| a plain undoubled letter | `ࡰرَٰٓيْتَ` | **the suppressed hamza** |
+| a plain undoubled letter | `ࡰرَٰٓيْتَ` | **the suppressed hamzah** |
 
 The first attempt at this rule handled only the first and third rows and
 introduced two new false positives at 10:89 and 28:32 — caught by diffing the
@@ -216,7 +216,7 @@ the same madd with `U+06EC` instead of a maddah, which was a second miss.
 
 Result: 266 → 232 rasm disagreements, 34 resolved, none newly flagged.
 
-The generalisable part is not about hamza. It is that "no rule can distinguish
+The generalisable part is not about hamzah. It is that "no rule can distinguish
 these" is a claim about the rules tried, and it was stated in the docs as
 though it were a claim about the data.
 
@@ -231,8 +231,8 @@ shared letters, order-preserving, and `أَوۡ` is the absent word.
 
 ### A joined word reported as a missing one
 
-The old numbering reported Ḥafṣ as not reading `لَّوِ` at 72:16 and Dūrī as not
-reading `أَن` at 73:20, because each writes the two words as one and the union
+The old numbering reported Ḥafṣ as not reciting `لَّوِ` at 72:16 and Dūrī as not
+reciting `أَن` at 73:20, because each writes the two words as one and the union
 numbering had a number for the second word that the joined muṣḥaf's one token
 could not take. Both statements were false: the words are read, inside
 `وَأَلَّوِ` and `أَلَّن`. A printed word may now cover a run of two numbers

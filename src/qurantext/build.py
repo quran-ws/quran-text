@@ -20,14 +20,14 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 from .align import WRITTEN_JOINED, Column, align
-from .sources import Riwaya, load_all
+from .sources import Riwayah, load_all
 from .tokenize import Token, tokenize
 
 OUT = Path("out")
 
 #: Ḥafṣ first because it is the most widely published text and the best
 #: starting point; the rest follow so that the closest relatives merge early.
-ORDER = ["hafs", "shuba", "bazzi", "qaloun", "warsh", "douri", "sousi"]
+ORDER = ["hafs", "shubah", "bazzi", "qalun", "warsh", "duri", "susi"]
 
 # Status of a canonical word, most specific first.
 STATUS_RASM = "rasm_variant"
@@ -44,21 +44,21 @@ class Word:
     #: The shared number, ``1 … total``: the same integer is the same word in
     #: every muṣḥaf that has it.
     id: int
-    sura: int
+    surah: int
     index: int            # 1-based position within the sūrah
-    key: str              # rebuild-stable identity: "sura:pointed#occurrence"
+    key: str              # rebuild-stable identity: "surah:pointed#occurrence"
     rasm: str             # bare ʿUthmānic skeleton, shared by every riwāyah
     pointed: str          # canonical word's dotted skeleton
-    uthmani: str
-    simple: str
+    rasm_uthmani: str
+    plain: str
     status: str
     present: list[str]
     missing: list[str]
     forms: dict[str, str]
-    aya: dict[str, int]
+    ayah: dict[str, int]
     waqf: dict[str, str]
     boundary: dict[str, str]
-    hizb: list[str]
+    division: list[str]
     sajdah: list[str]
     #: riwāyah -> (page, line) in that muṣḥaf's own typesetting.  The page is
     #: read from the release; the line is reconstructed.  See ``layout.py``.
@@ -69,23 +69,23 @@ class Word:
     continuation: list[str] = field(default_factory=list)
 
 
-def streams_for(riwayat: list[Riwaya]) -> dict[str, list[Token]]:
+def streams_for(riwayahs: list[Riwayah]) -> dict[str, list[Token]]:
     """Tokenise each riwāyah, keeping only words that some riwāyah numbers.
 
-    Every sūrah but at-Tawbah is printed with a basmalah above it.  Only
+    Every sūrah but Tawbah is printed with a basmalah above it.  Only
     Al-Fātiḥah's is *numbered* as an āyah, and only by Ḥafṣ, Shuʿbah and Bazzī.
     A word belongs in the index when any riwāyah numbers it, so Al-Fātiḥah's
     basmalah is in (for all seven, unnumbered where it is unnumbered) and the
     other 112 openings stay out, recorded as sūrah metadata instead.
     """
     out = {}
-    for r in riwayat:
+    for r in riwayahs:
         # Tokenise the *whole* stream before filtering.  The typesetting
         # positions are a flat list over every āyah the document prints,
         # including the 112 unnumbered basmalahs, so dropping āyāt first would
         # slide every later word onto the wrong line.
-        toks = tokenize(r.ayat, r.places or None)
-        out[r.key] = [t for t in toks if t.aya > 0 or t.sura == 1]
+        toks = tokenize(r.ayahs, r.places or None)
+        out[r.key] = [t for t in toks if t.ayah > 0 or t.surah == 1]
     return out
 
 
@@ -140,13 +140,13 @@ def classify(col: Column, all_keys: list[str]) -> str:
 def ayah_ends(words: list[Word], key: str) -> list[int]:
     """The ID of the last word of every āyah, for one riwāyah's muṣḥaf."""
     ends: list[int] = []
-    run = [w for w in words if w.aya.get(key, 0) > 0]
+    run = [w for w in words if w.ayah.get(key, 0) > 0]
     # A number covered by the previous printed word cannot end an āyah of its
     # own; the āyah ends after the printed word, i.e. after the *last* number
     # it covers.  Both numbers share the āyah, so the last one is what ends it.
     for i, w in enumerate(run):
         nxt = run[i + 1] if i + 1 < len(run) else None
-        if nxt is None or (nxt.sura, nxt.aya[key]) != (w.sura, w.aya[key]):
+        if nxt is None or (nxt.surah, nxt.ayah[key]) != (w.surah, w.ayah[key]):
             ends.append(w.id)
     return ends
 
@@ -163,24 +163,24 @@ def canonical_form(col: Column) -> Token:
              if col.boundary.get(k) != WRITTEN_JOINED} or dict(col.tokens)
     if "hafs" in apart:
         return apart["hafs"]
-    counts = Counter(t.uthmani for t in apart.values())
+    counts = Counter(t.rasm_uthmani for t in apart.values())
     best = counts.most_common(1)[0][0]
     for key in ORDER:
         tok = apart.get(key)
-        if tok and tok.uthmani == best:
+        if tok and tok.rasm_uthmani == best:
             return tok
     return next(iter(apart.values()))
 
 
-def build_words(riwayat: list[Riwaya]) -> list[Word]:
-    streams = streams_for(riwayat)
-    keys = [r.key for r in riwayat]
+def build_words(riwayahs: list[Riwayah]) -> list[Word]:
+    streams = streams_for(riwayahs)
+    keys = [r.key for r in riwayahs]
 
     words: list[Word] = []
     next_id = 1
-    for sura in range(1, 115):
-        per_sura = {k: [t for t in streams[k] if t.sura == sura] for k in ORDER}
-        columns = align(per_sura, ORDER)
+    for surah in range(1, 115):
+        per_surah = {k: [t for t in streams[k] if t.surah == surah] for k in ORDER}
+        columns = align(per_surah, ORDER)
 
         seen: Counter[str] = Counter()
         for index, col in enumerate(columns, start=1):
@@ -191,24 +191,24 @@ def build_words(riwayat: list[Riwaya]) -> list[Word]:
             # as stable, since it comes from one canonical spelling.
             seen[canon.pointed] += 1
             tokens = {k: col.token(k) for k in present}
-            forms = {k: tokens[k].uthmani for k in present}
+            forms = {k: tokens[k].rasm_uthmani for k in present}
             words.append(Word(
                 id=next_id,
-                sura=sura,
+                surah=surah,
                 index=index,
-                key=f"{sura}:{canon.pointed}#{seen[canon.pointed]}",
+                key=f"{surah}:{canon.pointed}#{seen[canon.pointed]}",
                 rasm=col.rasm,
                 pointed=canon.pointed,
-                uthmani=canon.uthmani,
-                simple=canon.simple,
+                rasm_uthmani=canon.rasm_uthmani,
+                plain=canon.plain,
                 status=classify(col, keys),
                 present=present,
                 missing=[k for k in keys if not col.present(k)],
                 forms=forms,
-                aya={k: tokens[k].aya for k in present},
+                ayah={k: tokens[k].ayah for k in present},
                 waqf={k: tokens[k].waqf for k in present if tokens[k].waqf},
                 boundary=dict(col.boundary),
-                hizb=[k for k in present if tokens[k].hizb],
+                division=[k for k in present if tokens[k].division],
                 sajdah=[k for k in present if tokens[k].sajdah],
                 place={k: (tokens[k].page, tokens[k].line)
                        for k in present if tokens[k].page},

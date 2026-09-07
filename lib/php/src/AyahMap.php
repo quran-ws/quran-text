@@ -18,8 +18,8 @@ final class AyahMap
         }
         $this->editions = $doc['editions'];
         $rows = [];
-        foreach ($doc['ayat'] as $r) {
-            $rows["{$r['sura']}:{$r['ayah']}"] = $r;
+        foreach ($doc['ayahs'] as $r) {
+            $rows["{$r['surah']}:{$r['ayah']}"] = $r;
         }
         $this->rows = $rows;
     }
@@ -34,26 +34,26 @@ final class AyahMap
         return new self(is_string($data) ? json_decode($data, true, 512, JSON_THROW_ON_ERROR) : $data);
     }
 
-    /** convert(2, 255, 'warsh') → AyahRef(2, 253, 'split', 254) */
-    public function convert(int $sura, int $ayah, string $to): AyahRef
+    /** convert(2, 255, 'warsh') → MappedAyah(2, 253, 'split', 254) */
+    public function convert(int $surah, int $ayah, string $to): MappedAyah
     {
-        $row = $this->rows["$sura:$ayah"] ?? null;
+        $row = $this->rows["$surah:$ayah"] ?? null;
         if ($row === null) {
-            throw new \OutOfRangeException("$sura:$ayah is not a Kūfī āyah");
+            throw new \OutOfRangeException("$surah:$ayah is not a Kūfī āyah");
         }
         if (!isset($row[$to])) {
             throw new \InvalidArgumentException("no edition '$to'; editions are " . implode(', ', $this->editions));
         }
         $r = $row[$to];
-        return new AyahRef($r['sura'], $r['ayah'], $r['relation'], $r['ayah_last'] ?? null);
+        return new MappedAyah($r['surah'], $r['ayah'], $r['relation'], $r['ayah_last'] ?? null);
     }
 
-    /** The reference in every edition. @return array<string, AyahRef> */
-    public function all(int $sura, int $ayah): array
+    /** The reference in every edition. @return array<string, MappedAyah> */
+    public function all(int $surah, int $ayah): array
     {
         $out = [];
         foreach ($this->editions as $e) {
-            $out[$e] = $this->convert($sura, $ayah, $e);
+            $out[$e] = $this->convert($surah, $ayah, $e);
         }
         return $out;
     }

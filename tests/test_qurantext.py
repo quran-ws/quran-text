@@ -17,28 +17,28 @@ from qurantext.build import (STATUS_ALIF, STATUS_IDENTICAL,     # noqa: E402
                             STATUS_RASM, Word,
                             classify)
 from qurantext.normalize import (forms, pointed, rasm, rasm_plene,  # noqa: E402
-                                simple, split_by_rasm, split_trailing_waqf,
+                                plain, split_by_rasm, split_trailing_waqf,
                                 unpositioned)
 from qurantext.report import _difference_is_length                 # noqa: E402
 from qurantext.validate import check_alif_splits                    # noqa: E402
 from qurantext.tokenize import Token, tokenize_ayah             # noqa: E402
-from qurantext.imlaei import _pair                              # noqa: E402
+from qurantext.rasm_imlai import _pair                              # noqa: E402
 from qurantext.layout import Place                              # noqa: E402
 from qurantext.mushaf import _marks, _starts, numbering, printed_words  # noqa: E402
 from qurantext.validate import check_numbering, check_positions  # noqa: E402
 
 
-def tok(rasm_: str, sura: int = 1) -> Token:
-    return Token(sura=sura, aya=1, pos=1, uthmani=rasm_, folded=rasm_,
-                 pointed=rasm_, rasm=rasm_, rasm_plene=rasm_, simple=rasm_)
+def tok(rasm_: str, surah: int = 1) -> Token:
+    return Token(surah=surah, ayah=1, position=1, rasm_uthmani=rasm_, folded=rasm_,
+                 pointed=rasm_, rasm=rasm_, rasm_plene=rasm_, plain=rasm_)
 
 
 def real(word: str) -> Token:
     """A token with every form derived from ``word``, as the build makes it."""
     f = forms(word)
-    return Token(sura=1, aya=1, pos=1, uthmani=f["uthmani"], folded=f["folded"],
+    return Token(surah=1, ayah=1, position=1, rasm_uthmani=f["rasm_uthmani"], folded=f["folded"],
                  pointed=f["pointed"], rasm=f["rasm"],
-                 rasm_plene=f["rasm_plene"], simple=f["simple"])
+                 rasm_plene=f["rasm_plene"], plain=f["plain"])
 
 
 class TestNormalize(unittest.TestCase):
@@ -48,8 +48,8 @@ class TestNormalize(unittest.TestCase):
             self.assertEqual(rasm(word), "الله", word)
 
     def test_rasm_drops_the_dots(self):
-        # The codices were undotted, so one rasm carries both readings and the
-        # word keeps one ID.  The reading itself survives in `pointed`.
+        # The codices were undotted, so one rasm carries both qiraahs and the
+        # word keeps one ID.  The qiraah itself survives in `pointed`.
         self.assertEqual(rasm("تَعۡمَلُونَ"), rasm("يَعۡمَلُونَ"))
         self.assertEqual(rasm("تَعۡمَلُونَ"), "ٮعملوں")
         self.assertNotEqual(pointed("تَعۡمَلُونَ"), pointed("يَعۡمَلُونَ"))
@@ -59,13 +59,13 @@ class TestNormalize(unittest.TestCase):
         self.assertEqual(rasm("نَبَتَ")[:-1], "ٮٮ")
         self.assertNotEqual(rasm("مِن"), rasm("مِي"))
 
-    def test_rasm_drops_hamza(self):
-        # Hamza is 8th-century notation, not part of the codices.  Warsh's
-        # yeh-barree-with-hamza and Ḥafṣ's hamza-on-yeh are one word.
+    def test_rasm_drops_hamzah(self):
+        # Hamzah is 8th-century notation, not part of the codices.  Warsh's
+        # yeh-barree-with-hamzah and Ḥafṣ's hamzah-on-yeh are one word.
         self.assertEqual(rasm("يَسۡتَهۡزِئُ"), rasm("يَسْتَهْزِۓُ"))
         self.assertEqual(rasm("هَٰٓؤُلَآءِ"), rasm("هَٰؤُلَآࢇ"))
 
-    def test_the_dagger_alif_is_not_on_the_line(self):
+    def test_the_omitted_alif_is_not_on_the_line(self):
         # A superscript alef is by definition an alef the scribe did not write.
         # ملك is the skeleton that carries both مَٰلِكِ and مَلِكِ — the ḥadhf
         # al-alif that lets one muṣḥaf serve seven riwāyāt — so folding it to a
@@ -75,9 +75,9 @@ class TestNormalize(unittest.TestCase):
         self.assertEqual(rasm("ٱلرِّيَٰحَ"), rasm("ٱلرِّيحَ"))
         self.assertEqual(rasm("طَٰٓئِراَۢ"), rasm("طَيۡرَۢا"))
 
-    def test_the_reading_keeps_the_a_that_the_line_does_not(self):
+    def test_the_qiraah_keeps_the_a_that_the_line_does_not(self):
         # The ā is real, it is just not written: `pointed` spells the word as
-        # it is read, so مَٰلِكِ and مَلِكِ stay two readings of one rasm.
+        # it is recited, so مَٰلِكِ and مَلِكِ stay two qiraahs of one rasm.
         self.assertNotEqual(pointed("مَٰلِكِ"), pointed("مَلِكِ"))
         self.assertEqual(pointed("مَٰلِكِ"), "مالك")
 
@@ -101,31 +101,31 @@ class TestNormalize(unittest.TestCase):
         # separate letters, and collapsing them would break 75:1.
         self.assertEqual(rasm("لَأُاْقۡسِمُ"), rasm("لَآ") + rasm("أُقۡسِمُ"))
 
-    def test_dagger_standing_in_for_a_suppressed_hamza_is_not_an_alef(self):
-        # Warsh's tashīl drops the hamza of أَرَءَيۡتَ and leaves its madd on a
-        # dagger alif.  A madd with no hamza after it is notating a hamza, not
-        # an ā — so it is not a letter even in the form that spells the reading.
+    def test_dagger_standing_in_for_a_suppressed_hamzah_is_not_an_alef(self):
+        # Warsh's tashīl drops the hamzah of أَرَءَيۡتَ and leaves its madd on a
+        # dagger alif.  A madd with no hamzah after it is notating a hamzah, not
+        # an ā — so it is not a letter even in the form that spells the qiraah.
         self.assertEqual(rasm("أَرَءَيۡتَ"), rasm("ࡰرَٰٓيْتَ"))
         self.assertEqual(pointed("أَرَءَيۡتَ"), pointed("ࡰرَٰٓيْتَ"))
         self.assertEqual(rasm("أَرَءَيۡتَكُمۡ"), rasm("أَرَٰ۬يْتَكُمْ"))
 
-    def test_a_madd_that_does_have_its_hamza_is_still_an_alef(self):
-        # Where the hamza is present the dagger is a genuine ā, so it belongs
-        # to the reading — and to `rasm_plene`, which is what makes Ḥafṣ's
+    def test_a_madd_that_does_have_its_hamzah_is_still_an_alef(self):
+        # Where the hamzah is present the dagger is a genuine ā, so it belongs
+        # to the qiraah — and to `rasm_plene`, which is what makes Ḥafṣ's
         # إِسۡرَٰٓءِيلَ and Warsh's إِسْرَآءِيلَ one spelling of one word.
         self.assertEqual(pointed("إِسۡرَٰٓءِيلَ"), pointed("إِسْرَآءِيلَ"))
         self.assertEqual(rasm_plene("إِسۡرَٰٓءِيلَ"), rasm_plene("إِسْرَآءِيلَ"))
         self.assertEqual(rasm("هَٰٓؤُلَآءِ"), rasm("هَٰؤُلَآࢇ"))
 
-    def test_madd_lazim_over_a_shadda_is_still_an_alef(self):
+    def test_madd_lazim_over_a_shaddah_is_still_an_alef(self):
         # تَتَّبِعَٰٓنِّ and فَذَٰٓنِّكَ put the madd over a doubled letter, not a
-        # hamza: a real long ā, which other packages write on the line.
+        # hamzah: a real long ā, which other packages write on the line.
         self.assertEqual(pointed("تَتَّبِعَآنِّ"), pointed("تَتَّبِعَٰٓنِّ"))
         self.assertEqual(rasm_plene("فَذَٰنِكَ"), rasm_plene("فَذَٰٓنِّكَ"))
 
     def test_a_word_final_madd_is_not_a_letter_of_its_own(self):
         # عَلَىٰٓ is ʿalā and عَلَيَّ is ʿalayya — a real variant at 7:105, and a
-        # variant of *reading*: both are written على, which is the point of the
+        # variant of *qiraah*: both are written على, which is the point of the
         # skeleton.  Emitting the dagger as an extra alef made the word علىا.
         self.assertEqual(rasm("عَلَىٰٓ"), "على")
         self.assertEqual(rasm("عَلَىٰٓ"), rasm("عَلَيَّ"))
@@ -138,7 +138,7 @@ class TestNormalize(unittest.TestCase):
         # Bazzī reads قَالَ where the others read قُلۡ: different letters.
         self.assertNotEqual(rasm("قُلۡ"), rasm("قَالَ"))
 
-    def test_silah_is_a_vowel_not_a_letter(self):
+    def test_madd_al_silah_is_a_vowel_not_a_letter(self):
         # Bazzī's ṣilat al-mīm is written superscript, so it is not part of the
         # rasm: عَلَيۡهِمُۥ and عَلَيۡهِمۡ are one word read two ways, and must align.
         self.assertEqual(rasm("عَلَيۡهِمُۥ"), rasm("عَلَيۡهِمۡ"))
@@ -148,8 +148,8 @@ class TestNormalize(unittest.TestCase):
         # ٱلنَّبِيِّۧنَ writes its second yāʾ superscript; Warsh prints it as ۑ.
         self.assertEqual(rasm("ٱلنَّبِيِّۧنَ"), rasm("ࡰ۬لنَّبِيِٕٓۑنَ"))
 
-    def test_simple_spelling_expands_superscript_alef(self):
-        self.assertEqual(simple("مَٰلِكِ"), "مالك")
+    def test_plain_spelling_expands_superscript_alef(self):
+        self.assertEqual(plain("مَٰلِكِ"), "مالك")
 
     def test_waqf_is_peeled_not_dropped(self):
         word, waqf = split_trailing_waqf("رَيۡبَۛ")
@@ -161,15 +161,15 @@ class TestNormalize(unittest.TestCase):
         self.assertEqual(forms("بِسۡمِ")["folded"], forms("بِسْمِ")["folded"])
 
     def test_notation_folding_decomposes_the_attached_alef(self):
-        # ࡰ is one codepoint for what other releases write as alef + fatha.
+        # ࡰ is one codepoint for what other releases write as alef + fathah.
         self.assertEqual(forms("ࡰلۡحَمۡدُ")["folded"], forms("اَلۡحَمۡدُ")["folded"])
 
     def test_notation_folding_ignores_the_editorial_sah(self):
         # U+08CC is a proofreader's mark, and the largest single source of
         # spurious differences in the corpus.
-        self.assertEqual(forms("وَمَارُوتَ࣌")["uthmani"], forms("وَمَارُوتَ")["uthmani"])
+        self.assertEqual(forms("وَمَارُوتَ࣌")["rasm_uthmani"], forms("وَمَارُوتَ")["rasm_uthmani"])
 
-    def test_notation_folding_ignores_tanween_order(self):
+    def test_notation_folding_ignores_tanwin_order(self):
         self.assertEqual(forms("حَطَبࣰا")["folded"], forms("حَطَباࣰ")["folded"])
 
 
@@ -189,10 +189,10 @@ class TestSplitByRasm(unittest.TestCase):
 
 
 class TestTokenize(unittest.TestCase):
-    def test_hizb_symbol_is_not_a_word(self):
+    def test_division_symbol_is_not_a_word(self):
         toks = tokenize_ayah(2, 1, "۞ وَٱللَّهُ")
         self.assertEqual(len(toks), 1)
-        self.assertTrue(toks[0].hizb)
+        self.assertTrue(toks[0].division)
 
     def test_sajdah_is_recorded_not_dropped(self):
         toks = tokenize_ayah(7, 206, "يَسۡجُدُونَۤ۩")
@@ -242,23 +242,23 @@ class TestAlign(unittest.TestCase):
         # 73:20 — the columns hold أَن لَّن; Dūrī prints أَلَّن.  Nothing is
         # missing: the one token covers two numbers.
         an, lan = real("أَن"), real("لَّن")
-        an.sura = lan.sura = 73
+        an.surah = lan.surah = 73
         columns = [Column(tokens={"hafs": an}), Column(tokens={"hafs": lan})]
         joined = real("أَلَّن")
-        joined.sura = 73
-        out = merge(columns, "douri", [joined])
+        joined.surah = 73
+        out = merge(columns, "duri", [joined])
         self.assertEqual(len(out), 2)
-        self.assertTrue(all(c.present("douri") for c in out))
-        self.assertEqual([c.boundary["douri"] for c in out], [WRITTEN_JOINED] * 2)
-        self.assertIs(out[1].covers["douri"], joined)
-        self.assertNotIn("douri", out[1].tokens)
+        self.assertTrue(all(c.present("duri") for c in out))
+        self.assertEqual([c.boundary["duri"] for c in out], [WRITTEN_JOINED] * 2)
+        self.assertIs(out[1].covers["duri"], joined)
+        self.assertNotIn("duri", out[1].tokens)
 
     def test_a_declared_join_already_aligned_is_split_for_the_others(self):
         # 72:16 — Ḥafṣ came first with وَأَلَّوِ; Warsh brings وَأَن لَّوِ.
         joined = real("وَأَلَّوِ")
-        joined.sura = 72
+        joined.surah = 72
         wa_an, law = real("وَأَن"), real("لَّوِ")
-        wa_an.sura = law.sura = 72
+        wa_an.surah = law.surah = 72
         out = merge([Column(tokens={"hafs": joined})], "warsh", [wa_an, law])
         self.assertEqual(len(out), 2)
         self.assertEqual([c.rasm for c in out], [wa_an.rasm, law.rasm])
@@ -302,12 +302,12 @@ class TestClassify(unittest.TestCase):
                          STATUS_RASM)
 
     def test_a_word_written_joined_is_not_a_rasm_variant(self):
-        col = Column(tokens={"hafs": real("أَن"), "douri": real("أَلَّن")},
-                     boundary={"douri": WRITTEN_JOINED})
-        self.assertEqual(classify(col, ["hafs", "douri"]), "word_boundary")
+        col = Column(tokens={"hafs": real("أَن"), "duri": real("أَلَّن")},
+                     boundary={"duri": WRITTEN_JOINED})
+        self.assertEqual(classify(col, ["hafs", "duri"]), "word_boundary")
 
     def test_a_dagger_against_nothing_is_not_a_rasm_variant(self):
-        # 1:4 — ملك in every codex, read مالك by Ḥafṣ.  The reading survives in
+        # 1:4 — ملك in every codex, read مالك by Ḥafṣ.  The qiraah survives in
         # `pointed`, so this is a dotting/vowelling difference, not a rasm one.
         self.assertNotEqual(classify(self.column("مَٰلِكِ", "مَلِكِ"), self.KEYS),
                             STATUS_RASM)
@@ -319,10 +319,10 @@ class TestAlifSplitsOneWay(unittest.TestCase):
     """The one fact `alif_variant` rests on, asserted rather than assumed."""
 
     def word(self, id_: int, **forms_: str) -> Word:
-        return Word(id=id_, sura=1, index=id_, key=f"k{id_}", rasm="", pointed="",
-                    uthmani="", simple="", status="alif_variant",
-                    present=list(forms_), missing=[], forms=forms_, aya={},
-                    waqf={}, boundary={}, hizb=[], sajdah=[])
+        return Word(id=id_, surah=1, index=id_, key=f"k{id_}", rasm="", pointed="",
+                    rasm_uthmani="", plain="", status="alif_variant",
+                    present=list(forms_), missing=[], forms=forms_, ayah={},
+                    waqf={}, boundary={}, division=[], sajdah=[])
 
     def test_one_partition_passes(self):
         # Both directions are fine — what matters is who is on each side.
@@ -349,11 +349,11 @@ class TestShapeOfDifference(unittest.TestCase):
     """What kind of letter difference a rasm variant is."""
 
     def word(self, **forms_: str) -> Word:
-        return Word(id=1, sura=1, index=1, key="k",
-                    rasm=rasm(next(iter(forms_.values()))), pointed="", uthmani="",
-                    simple="", status=STATUS_RASM, present=list(forms_),
-                    missing=[], forms=forms_, aya={}, waqf={}, boundary={},
-                    hizb=[], sajdah=[])
+        return Word(id=1, surah=1, index=1, key="k",
+                    rasm=rasm(next(iter(forms_.values()))), pointed="", rasm_uthmani="",
+                    plain="", status=STATUS_RASM, present=list(forms_),
+                    missing=[], forms=forms_, ayah={}, waqf={}, boundary={},
+                    division=[], sajdah=[])
 
     def test_final_shapes_fold_to_their_class(self):
         # ں and ى are a nūn and a yāʾ at the end of a word; medially both are ٮ.
@@ -397,40 +397,40 @@ class TestMarks(unittest.TestCase):
     """A mark says which side of the word it is printed on."""
 
     def word(self, **kw):
-        return Word(id=1, sura=1, index=1, key="k", rasm="r", pointed="p",
-                    uthmani="u", simple="s", status=STATUS_IDENTICAL,
+        return Word(id=1, surah=1, index=1, key="k", rasm="r", pointed="p",
+                    rasm_uthmani="u", plain="s", status=STATUS_IDENTICAL,
                     present=["hafs"], missing=[], forms={"hafs": "u"},
-                    aya={"hafs": 1}, waqf=kw.get("waqf", {}), boundary={},
-                    hizb=kw.get("hizb", []), sajdah=kw.get("sajdah", []),
+                    ayah={"hafs": 1}, waqf=kw.get("waqf", {}), boundary={},
+                    division=kw.get("division", []), sajdah=kw.get("sajdah", []),
                     place={})
 
-    def test_rub_el_hizb_sits_before_the_word(self):
-        self.assertEqual(_marks(self.word(hizb=["hafs"]), "hafs"),
-                         [{"kind": "hizb", "side": "before", "sign": "۞"}])
+    def test_rubu_al_hizb_sits_before_the_word(self):
+        self.assertEqual(_marks(self.word(division=["hafs"]), "hafs"),
+                         [{"kind": "division", "side": "before", "sign": "۞"}])
 
-    def test_a_pause_mark_sits_after_it(self):
+    def test_a_waqf_mark_sits_after_it(self):
         self.assertEqual(_marks(self.word(waqf={"hafs": "ۖ"}), "hafs"),
                          [{"kind": "waqf", "side": "after", "sign": "ۖ"}])
 
-    def test_sajdah_is_its_own_kind_not_a_pause_mark(self):
-        # ۩ arrives through the same channel as the pause marks and must not
+    def test_sajdah_is_its_own_kind_not_a_waqf_mark(self):
+        # ۩ arrives through the same channel as the waqf marks and must not
         # also be reported as one.
         marks = _marks(self.word(waqf={"hafs": "۩"}, sajdah=["hafs"]), "hafs")
         self.assertEqual(marks, [{"kind": "sajdah", "side": "after", "sign": "۩"}])
 
-    def test_a_word_of_another_riwaya_carries_none_of_them(self):
-        self.assertEqual(_marks(self.word(hizb=["hafs"]), "warsh"), [])
+    def test_a_word_of_another_riwayah_carries_none_of_them(self):
+        self.assertEqual(_marks(self.word(division=["hafs"]), "warsh"), [])
 
 
 class TestNumbering(unittest.TestCase):
     """The numbering block is the whole map from positions to numbers."""
 
     def word(self, n, **kw):
-        return Word(id=n, sura=1, index=n, key="k", rasm="r", pointed="p",
-                    uthmani="u", simple="s", status=STATUS_IDENTICAL,
+        return Word(id=n, surah=1, index=n, key="k", rasm="r", pointed="p",
+                    rasm_uthmani="u", plain="s", status=STATUS_IDENTICAL,
                     present=list(kw.get("forms", {"a": "u"})), missing=[],
-                    forms=kw.get("forms", {"a": "u"}), aya={"a": 1}, waqf={},
-                    boundary={}, hizb=[], sajdah=[], place={},
+                    forms=kw.get("forms", {"a": "u"}), ayah={"a": 1}, waqf={},
+                    boundary={}, division=[], sajdah=[], place={},
                     continuation=kw.get("continuation", []))
 
     def test_a_missing_number_is_a_gap_not_a_position(self):
@@ -461,7 +461,7 @@ class TestPublishedFiles(unittest.TestCase):
     Skipped when out/ has not been built; run after ``python3 build.py``.
     """
 
-    KEYS = ["hafs", "shuba", "warsh", "qaloun", "douri", "sousi", "bazzi"]
+    KEYS = ["hafs", "shubah", "warsh", "qalun", "duri", "susi", "bazzi"]
 
     @classmethod
     def setUpClass(cls):
@@ -479,16 +479,16 @@ class TestPublishedFiles(unittest.TestCase):
     def test_positions_are_well_formed(self):
         self.assertEqual(check_positions(self.docs), [])
 
-    def test_written_joined_is_exactly_the_two_ayat(self):
+    def test_written_joined_is_exactly_the_two_ayahs(self):
         # Ḥafṣ, Shuʿbah, Bazzī at 72:16; Dūrī, Sūsī at 73:20.  The issue's
         # claim that these five āyāt are the entire scope, asserted.
         seen = {(k, tuple(j["numbers"]))
                 for k, d in self.docs.items()
                 for j in d["numbering"]["written_joined"]}
         self.assertEqual(seen, {
-            ("hafs", (73950, 73951)), ("shuba", (73950, 73951)),
+            ("hafs", (73950, 73951)), ("shubah", (73950, 73951)),
             ("bazzi", (73950, 73951)),
-            ("douri", (74226, 74227)), ("sousi", (74226, 74227))})
+            ("duri", (74226, 74227)), ("susi", (74226, 74227))})
 
     def test_missing_is_exactly_the_three_words(self):
         missing = {k: d["numbering"]["missing"] for k, d in self.docs.items()}
@@ -509,22 +509,22 @@ class TestPublishedFiles(unittest.TestCase):
             self.assertEqual(len(a), d["counting"]["ayah_count"], k)
             # Slicing never crosses a sūrah: the last āyah of sūrah 1 ends
             # where sūrah 2 starts.
-            self.assertEqual(a[d["suras"][1]["first_ayah"]], d["sura_starts"][1], k)
+            self.assertEqual(a[d["surahs"][1]["first_ayah"]], d["surah_starts"][1], k)
 
     def test_counting_systems_are_as_expected(self):
         systems = {k: d["counting"]["system"] for k, d in self.docs.items()}
         self.assertEqual(systems, {
-            "hafs": "kufi", "shuba": "kufi",
-            "warsh": "madani-last", "qaloun": "madani-last",
-            "douri": "madani-first", "sousi": "madani-first",
+            "hafs": "kufi", "shubah": "kufi",
+            "warsh": "madani-last", "qalun": "madani-last",
+            "duri": "madani-first", "susi": "madani-first",
             "bazzi": "makki"})
         counts = {k: d["counting"]["ayah_count"] for k, d in self.docs.items()}
-        self.assertEqual(counts, {"hafs": 6236, "shuba": 6236, "warsh": 6214,
-                                  "qaloun": 6214, "douri": 6217, "sousi": 6218,
+        self.assertEqual(counts, {"hafs": 6236, "shubah": 6236, "warsh": 6214,
+                                  "qalun": 6214, "duri": 6217, "susi": 6218,
                                   "bazzi": 6220})
 
     def test_duri_and_susi_part_company_at_67_9_only(self):
-        d, s = self.docs["douri"]["counting"], self.docs["sousi"]["counting"]
+        d, s = self.docs["duri"]["counting"], self.docs["susi"]["counting"]
         differ = [(a["kufi"], a["counted"], b["counted"])
                   for a, b in zip(d["khilaf"], s["khilaf"])
                   if a["counted"] != b["counted"]]
@@ -537,10 +537,10 @@ class TestPublishedFiles(unittest.TestCase):
     def test_unexplained_is_allowlisted(self):
         from qurantext.counting import check_unexplained, open_findings
         self.assertEqual(check_unexplained(self.docs), [])
-        unexplained = {(k, u["sura"], u["ayah"]) for k, d in self.docs.items()
+        unexplained = {(k, u["surah"], u["ayah"]) for k, d in self.docs.items()
                        for u in d["counting"]["unexplained"]}
         self.assertEqual(unexplained,
-                         {(f["mushaf"], f["sura"], f["ayah"]) for f in open_findings()})
+                         {(f["mushaf"], f["surah"], f["ayah"]) for f in open_findings()})
 
     def test_the_word_index_gives_every_number_a_text(self):
         path = ROOT / "out" / "word-index.json"
@@ -549,43 +549,43 @@ class TestPublishedFiles(unittest.TestCase):
         index = json.loads(path.read_text(encoding="utf-8"))
         self.assertEqual([w["number"] for w in index["words"]], list(range(1, 77435)))
         law = index["words"][73950]
-        self.assertEqual(law["uthmani"], "لَّوِ")          # not Ḥafṣ's joined form
+        self.assertEqual(law["rasm_uthmani"], "لَّوِ")          # not Ḥafṣ's joined form
         self.assertEqual(law["forms"]["hafs"], "وَأَلَّوِ")
         self.assertEqual(law["hafs"], index["words"][73949]["hafs"])
         self.assertIsNone(index["words"][25684]["hafs"])   # Ḥafṣ lacks مِن
         self.assertEqual(index["words"][25684]["missing"],
-                         ["hafs", "shuba", "warsh", "qaloun", "douri", "sousi"])
+                         ["hafs", "shubah", "warsh", "qalun", "duri", "susi"])
 
     def test_the_ayah_map_answers_what_an_ayah_is_elsewhere(self):
         path = ROOT / "out" / "ayah-map.json"
         if not path.exists():
             self.skipTest("ayah map not built")
-        rows = json.loads(path.read_text(encoding="utf-8"))["ayat"]
+        rows = json.loads(path.read_text(encoding="utf-8"))["ayahs"]
         self.assertEqual(len(rows), 6236)
-        at = {(r["sura"], r["ayah"]): r for r in rows}
+        at = {(r["surah"], r["ayah"]): r for r in rows}
         # The basmalah is 1:1 in Ḥafṣ and unnumbered in Warsh.
         self.assertEqual(at[(1, 1)]["warsh"],
-                         {"sura": 1, "ayah": 0, "relation": "unnumbered"})
+                         {"surah": 1, "ayah": 0, "relation": "unnumbered"})
         # 67:9 is one āyah in Ḥafṣ and two in Sūsī.
-        self.assertEqual(at[(67, 9)]["sousi"]["relation"], "split")
-        self.assertEqual(at[(67, 9)]["douri"]["relation"], "same")
+        self.assertEqual(at[(67, 9)]["susi"]["relation"], "split")
+        self.assertEqual(at[(67, 9)]["duri"]["relation"], "same")
         # Everything Ḥafṣ maps onto itself unchanged.
-        self.assertTrue(all(r["hafs"] == {"sura": r["sura"], "ayah": r["ayah"],
+        self.assertTrue(all(r["hafs"] == {"surah": r["surah"], "ayah": r["ayah"],
                                           "relation": "same"} for r in rows))
 
 
-class TestImlaeiPairing(unittest.TestCase):
+class TestRasmImlaiPairing(unittest.TestCase):
     """Bringing an āyah-level column down to the word."""
 
     def test_equal_counts_pair_across(self):
         self.assertEqual(_pair(["ا", "ب"], ["a", "b"]), ["a", "b"])
 
-    def test_one_uthmani_word_written_as_two_imlaei_ones_is_joined(self):
+    def test_one_rasm_uthmani_word_written_as_two_rasm_imlai_ones_is_joined(self):
         # أَوَلَا is one word on the line and two in plain spelling.
         got = _pair(["أَوَلَا", "يَعۡلَمُونَ"], ["أو", "لا", "يعلمون"])
         self.assertEqual(got, ["أو لا", "يعلمون"])
 
-    def test_fewer_imlaei_tokens_is_refused_rather_than_guessed(self):
+    def test_fewer_rasm_imlai_tokens_is_refused_rather_than_guessed(self):
         self.assertIsNone(_pair(["ا", "ب", "ج"], ["a", "b"]))
 
 
@@ -603,7 +603,7 @@ class TestTokenPlacement(unittest.TestCase):
         toks = tokenize_ayah(2, 26, "۞ إِنَّ ٱللَّهَ",
                              [Place(5, 1), Place(5, 1), Place(5, 2)])
         self.assertEqual(len(toks), 2)
-        self.assertTrue(toks[0].hizb)
+        self.assertTrue(toks[0].division)
         self.assertEqual([(t.page, t.line) for t in toks], [(5, 1), (5, 2)])
 
     def test_no_places_means_no_placement_rather_than_a_wrong_one(self):

@@ -21,20 +21,20 @@ from datetime import date
 from xml.sax.saxutils import quoteattr
 
 from dataset import Dataset
-from quran_text import Ayah, Mushaf, Span, Word, ayah_marker, fold
+from quran_text import Ayah, Mushaf, Span, Word, ayah_mark, fold
 
 PROJECT_URL = "https://github.com/quranpedia/quran-text"
 LICENSE_NOTE = ("The text is the King Fahd Glorious Qur'an Printing Complex's (KFGQPC); "
                 "redistribution is subject to their terms.")
 
-TEXT_FORMS = ("uthmani", "imlaei", "plain")
+TEXT_FORMS = ("rasm_uthmani", "rasm_imlai", "plain")
 MARKER_STYLES = ("none", "sign", "brackets", "latin")
 FORMATS = ("txt", "json", "csv", "xml", "sql", "md")
 GRANULARITIES = ("ayah", "word")
 SIGN_LAYOUTS = ("columns", "attached")
-SIGN_KINDS = ("waqf", "sajdah", "hizb")
-FIELDS = ("sura", "ayah", "pos", "number", "page", "line", "juz", "hafs")
-DEFAULT_FIELDS = {"ayah": ("sura", "ayah"), "word": ("sura", "ayah", "pos", "number")}
+SIGN_KINDS = ("waqf", "sajdah", "division")
+FIELDS = ("surah", "ayah", "position", "number", "page", "line", "juz", "hafs")
+DEFAULT_FIELDS = {"ayah": ("surah", "ayah"), "word": ("surah", "ayah", "position", "number")}
 
 
 class BadRequest(ValueError):
@@ -44,15 +44,15 @@ class BadRequest(ValueError):
 @dataclass
 class Options:
     edition: str = "hafs"
-    text: str = "uthmani"
+    text: str = "rasm_uthmani"
     markers: str = "none"
     waqf: bool = True
     sajdah: bool = True
-    hizb: bool = True
+    division: bool = True
     lines: bool = False
     pages: bool = False
     fields: tuple[str, ...] | None = None
-    sura: str | None = None
+    surah: str | None = None
     juz: int | None = None
     page: str | None = None
     ayah: str | None = None
@@ -67,7 +67,7 @@ class Options:
     def __post_init__(self):
         # `text` is a comma list: every form asked for becomes a column, the
         # first one is `text` itself, so a single form reads as before.
-        self.forms = tuple(dict.fromkeys(t.strip() for t in self.text.split(",") if t.strip())) or ("uthmani",)
+        self.forms = tuple(dict.fromkeys(t.strip() for t in self.text.split(",") if t.strip())) or ("rasm_uthmani",)
         for form in self.forms:
             _one_of("text", form, TEXT_FORMS)
         self.text = ",".join(self.forms)
@@ -79,7 +79,7 @@ class Options:
             self.fields = DEFAULT_FIELDS[self.by]
         for f in self.fields:
             _one_of("fields", f, FIELDS)
-        scopes = [k for k in ("sura", "juz", "page", "ayah") if getattr(self, k) is not None]
+        scopes = [k for k in ("surah", "juz", "page", "ayah") if getattr(self, k) is not None]
         if len(scopes) > 1:
             raise BadRequest(f"give one scope, not {', '.join(scopes)}")
         if self.limit is not None and self.limit < 1:
@@ -92,11 +92,11 @@ class Options:
 
     @property
     def mark_kinds(self) -> frozenset:
-        return frozenset(k for k in ("waqf", "sajdah", "hizb") if getattr(self, k))
+        return frozenset(k for k in ("waqf", "sajdah", "division") if getattr(self, k))
 
     @property
     def scope(self) -> str:
-        for k in ("sura", "juz", "page", "ayah"):
+        for k in ("surah", "juz", "page", "ayah"):
             v = getattr(self, k)
             if v is not None:
                 return f"{k} {v}"
@@ -129,10 +129,10 @@ class File:
 def select(m: Mushaf, o: Options) -> Span:
     """The run of words a request asks for, validated against this edition."""
     try:
-        if o.sura is not None:
-            a, b = _range(o.sura, "sura")
-            _check(1 <= a <= b <= 114, f"sura {o.sura}: there are 114 sūrahs")
-            return m.span(m.sura(a).start, m.sura(b).end)
+        if o.surah is not None:
+            a, b = _range(o.surah, "surah")
+            _check(1 <= a <= b <= 114, f"surah {o.surah}: there are 114 sūrahs")
+            return m.span(m.surah(a).start, m.surah(b).end)
         if o.juz is not None:
             if not m.has("juz"):
                 raise BadRequest(m._absent("juz"))
@@ -157,18 +157,18 @@ def _ayah_range(m: Mushaf, spec: str) -> tuple[Ayah, Ayah]:
     parts = spec.replace("–", "-").split("-")
     if len(parts) > 2 or not all(parts):
         raise BadRequest(f"ayah {spec!r}: write 2:255 or 2:255-2:286")
-    refs = [_ayah_ref(m, p) for p in parts]
+    refs = [_ayah_key(m, p) for p in parts]
     return refs[0], refs[-1]
 
 
-def _ayah_ref(m: Mushaf, text: str) -> Ayah:
+def _ayah_key(m: Mushaf, text: str) -> Ayah:
     match = re.fullmatch(r"(\d+):(\d+)", text.strip())
     if not match:
-        raise BadRequest(f"ayah {text!r}: write sura:ayah, e.g. 2:255")
-    sura, ayah = int(match.group(1)), int(match.group(2))
-    _check(1 <= sura <= 114, f"sura {sura}: there are 114 sūrahs")
+        raise BadRequest(f"ayah {text!r}: write surah:ayah, e.g. 2:255")
+    surah, ayah = int(match.group(1)), int(match.group(2))
+    _check(1 <= surah <= 114, f"surah {surah}: there are 114 sūrahs")
     try:
-        return m.ayah(sura, ayah)
+        return m.ayah(surah, ayah)
     except IndexError as e:         # the library names the edition's own count
         raise BadRequest(str(e)) from e
 
@@ -195,20 +195,20 @@ def _one_of(name: str, value, allowed):
 # --- records ------------------------------------------------------------------
 
 def units(m: Mushaf, span: Span) -> list[tuple[Span, int, int]]:
-    """``(span, sura, ayah)`` per āyah in the selection; the unnumbered basmalah
+    """``(span, surah, ayah)`` per āyah in the selection; the unnumbered basmalah
     of al-Fātiḥah comes first as āyah 0 where the edition prints it so."""
     out = []
-    basmalah = m.sura(1).basmalah
+    basmalah = m.surah(1).basmalah
     if basmalah is not None and span.start <= basmalah.start:
         out.append((basmalah, 1, 0))
-    for a in span.ayat:
-        out.append((a, a.sura.number, a.number))
+    for a in span.ayahs:
+        out.append((a, a.surah.number, a.number))
     return out
 
 
 def word_form(w: Word, text: str) -> str:
-    if text == "imlaei":
-        return w.imlaei if w.imlaei is not None else w.text
+    if text == "rasm_imlai":
+        return w.rasm_imlai if w.rasm_imlai is not None else w.text
     if text == "plain":
         return fold(w.text)
     return w.text
@@ -216,7 +216,7 @@ def word_form(w: Word, text: str) -> str:
 
 def render(span: Span, o: Options, form: str) -> str:
     """The words of one span as the file prints them, in one text form."""
-    if form == "uthmani":
+    if form == "rasm_uthmani":
         return span.render(marks=o.mark_kinds, lines=o.lines)
     m = span.mushaf
     line_starts = set(m._doc.get("line_starts") or []) if o.lines else set()
@@ -236,9 +236,9 @@ def marker(number: int, style: str) -> str:
     if style == "none" or number == 0:
         return ""
     if style == "sign":
-        return " " + ayah_marker(number)
+        return " " + ayah_mark(number)
     if style == "brackets":
-        return " ﴿" + ayah_marker(number)[1:] + "﴾"
+        return " ﴿" + ayah_mark(number)[1:] + "﴾"
     return f" ({number})"
 
 
@@ -246,8 +246,8 @@ def records(data: Dataset, m: Mushaf, span: Span, o: Options) -> list[dict]:
     if o.by == "word":
         return _word_records(data, m, span, o)
     out = []
-    for unit, sura, ayah in units(m, span):
-        r = {"sura": sura, "ayah": ayah}
+    for unit, surah, ayah in units(m, span):
+        r = {"surah": surah, "ayah": ayah}
         r["text"] = render(unit, o, o.forms[0]) + marker(ayah, o.markers)
         for form in o.extra_forms:
             r[form] = render(unit, o, form) + marker(ayah, o.markers)
@@ -259,7 +259,7 @@ def records(data: Dataset, m: Mushaf, span: Span, o: Options) -> list[dict]:
         if "juz" in o.fields:
             r["juz"] = unit.juz.number if unit.juz else None
         if "hafs" in o.fields:
-            r.update(_hafs_ref(data, m, sura, ayah))
+            r.update(_hafs_ref(data, m, surah, ayah))
         out.append(r)
         if o.limit and len(out) >= o.limit:
             break
@@ -270,8 +270,8 @@ def _word_records(data: Dataset, m: Mushaf, span: Span, o: Options) -> list[dict
     out = []
     for w in span:
         a = w.ayah
-        sura, ayah = w.sura.number, (a.number if a else 0)
-        r = {"sura": sura, "ayah": ayah, "pos": w.index or 0}
+        surah, ayah = w.surah.number, (a.number if a else 0)
+        r = {"surah": surah, "ayah": ayah, "position": w.index or 0}
         r["number"] = w.number
         r["text"] = _word_text(w, o.forms[0], o)
         for form in o.extra_forms:
@@ -287,7 +287,7 @@ def _word_records(data: Dataset, m: Mushaf, span: Span, o: Options) -> list[dict
         if "juz" in o.fields:
             r["juz"] = w.juz.number if w.juz else None
         if "hafs" in o.fields:
-            r.update(_hafs_ref(data, m, sura, ayah))
+            r.update(_hafs_ref(data, m, surah, ayah))
         out.append(r)
         if o.limit and len(out) >= o.limit:
             break
@@ -305,20 +305,20 @@ def _word_text(w: Word, form: str, o: Options) -> str:
     return before + text + after
 
 
-def _hafs_ref(data: Dataset, m: Mushaf, sura: int, ayah: int) -> dict:
-    refs = data.kufi_refs(m.key, sura, ayah)
+def _hafs_ref(data: Dataset, m: Mushaf, surah: int, ayah: int) -> dict:
+    refs = data.kufi_refs(m.key, surah, ayah)
     if not refs:
         return {"hafs": None, "hafs_relation": None}
-    keys = [f"{r['sura']}:{r['ayah']}" for r in refs]
+    keys = [f"{r['surah']}:{r['ayah']}" for r in refs]
     return {"hafs": keys[0] if len(keys) == 1 else f"{keys[0]}-{refs[-1]['ayah']}",
             "hafs_relation": refs[0]["relation"]}
 
 
 def columns(o: Options) -> list[str]:
     """The record keys in output order."""
-    cols = ["sura", "ayah"]
+    cols = ["surah", "ayah"]
     if o.by == "word":
-        cols += ["pos", "number"]
+        cols += ["position", "number"]
     cols.append("text")
     cols += o.extra_forms
     if o.by == "word" and o.signs == "columns":
@@ -333,8 +333,8 @@ def columns(o: Options) -> list[str]:
 
 def build(data: Dataset, o: Options, url: str = "") -> File:
     m = data.mushaf(o.edition)
-    if "imlaei" in o.forms and not m.has("imlaei"):
-        raise BadRequest(f"text=imlaei: {m._absent('imlaei')}; imlāʾī is published for Ḥafṣ only")
+    if "rasm_imlai" in o.forms and not m.has("rasm_imlai"):
+        raise BadRequest(f"text=rasm_imlai: {m._absent('rasm_imlai')}; imlāʾī is published for Ḥafṣ only")
     if "juz" in o.fields and not m.has("juz"):
         raise BadRequest(m._absent("juz"))
     span = select(m, o)
@@ -348,7 +348,7 @@ def provenance(m: Mushaf, o: Options, url: str, count: int) -> dict:
     src = m.provenance["text"]
     return {
         "edition": {"key": m.key, "name_en": m.name_en, "name_ar": m.name_ar,
-                    "qari_en": m.qari_en, "counting_system": m.counting_system,
+                    "qiraah_en": m.qiraah_en, "counting_system": m.counting_system,
                     "counting_system_en": m.counting.get("system_name_en", m.counting_system),
                     "ayah_count": m.ayah_count},
         "source": {"package": src["package"], "member": src["member"],
@@ -366,7 +366,7 @@ def provenance(m: Mushaf, o: Options, url: str, count: int) -> dict:
 def header_lines(meta: dict) -> list[str]:
     e, s, o = meta["edition"], meta["source"], meta["options"]
     lines = [
-        f"quran-text — {e['name_en']} ({e['name_ar']}), {e['qari_en']}, "
+        f"quran-text — {e['name_en']} ({e['name_ar']}), {e['qiraah_en']}, "
         f"{e['counting_system_en']} count, {e['ayah_count']} āyāt",
         f"source: KFGQPC {s['package']} :: {s['member']}  sha256 {s['sha256']}",
         f"text: {o['text']} | marks: {' '.join(o['marks']) or 'none'} | ayah markers: {o['markers']}"
@@ -383,7 +383,7 @@ def header_lines(meta: dict) -> list[str]:
 
 def filename(m: Mushaf, o: Options) -> str:
     parts = ["quran", m.key, *o.forms]
-    for k in ("sura", "juz", "page", "ayah"):
+    for k in ("surah", "juz", "page", "ayah"):
         v = getattr(o, k)
         if v is not None:
             parts.append(f"{k}{str(v).replace(':', '_').replace('–', '-')}")
@@ -399,8 +399,8 @@ def _new_page(prev: dict | None, r: dict, o: Options, m: Mushaf) -> int | None:
     if not o.pages:
         return None
     if "page" not in r:
-        r["page"] = (m.ayah(r["sura"], r["ayah"]).page.number if r["ayah"]
-                     else m.sura(r["sura"]).page.number)
+        r["page"] = (m.ayah(r["surah"], r["ayah"]).page.number if r["ayah"]
+                     else m.surah(r["surah"]).page.number)
     return r["page"] if prev is None or prev["page"] != r["page"] else None
 
 
@@ -415,9 +415,9 @@ def as_txt(rows: list[dict], meta: dict, o: Options, m: Mushaf) -> str:
             out.append(("" if prev is None else "\n") + f"# page {page}")
         line = "|".join([r["text"], *(r[f] for f in o.extra_forms)])
         if o.prefix:
-            key = f"{r['sura']}|{r['ayah']}|"
+            key = f"{r['surah']}|{r['ayah']}|"
             if o.by == "word":
-                key += f"{r['pos']}|"
+                key += f"{r['position']}|"
             line = key + line
         out.append(line)
         prev = r
@@ -430,13 +430,13 @@ def as_md(rows: list[dict], meta: dict, o: Options, m: Mushaf) -> str:
         out += ["> " + line for line in header_lines(meta)] + [""]
     prev = None
     for r in rows:
-        if prev is None or prev["sura"] != r["sura"]:
-            s = m.sura(r["sura"])
+        if prev is None or prev["surah"] != r["surah"]:
+            s = m.surah(r["surah"])
             out += [f"## {s.number}. {s.name_ar} — {s.name_en}", ""]
         page = _new_page(prev, r, o, m)
         if page is not None:
             out += [f"*page {page}*", ""]
-        label = f"{r['sura']}:{r['ayah']}" + (f"/{r['pos']}" if o.by == "word" else "")
+        label = f"{r['surah']}:{r['ayah']}" + (f"/{r['position']}" if o.by == "word" else "")
         # plain Markdown: the text, then its reference as a code span; one
         # paragraph per record so a viewer lays the Arabic out right-to-left
         out += [f"{r['text']} `{label}`", ""]
@@ -451,16 +451,16 @@ def as_json(rows: list[dict], meta: dict, o: Options, m: Mushaf) -> str:
     clean = [{k: r.get(k) for k in cols} for r in rows]
     doc: dict = {"meta": meta} if o.header else {}
     if o.nested:
-        suras: list[dict] = []
+        surahs: list[dict] = []
         for r in clean:
-            if not suras or suras[-1]["number"] != r["sura"]:
-                s = m.sura(r["sura"])
-                suras.append({"number": s.number, "name_ar": s.name_ar,
-                              "name_en": s.name_en, "ayat": []})
-            suras[-1]["ayat"].append({k: v for k, v in r.items() if k != "sura"})
-        doc["suras"] = suras
+            if not surahs or surahs[-1]["number"] != r["surah"]:
+                s = m.surah(r["surah"])
+                surahs.append({"number": s.number, "name_ar": s.name_ar,
+                              "name_en": s.name_en, "ayahs": []})
+            surahs[-1]["ayahs"].append({k: v for k, v in r.items() if k != "surah"})
+        doc["surahs"] = surahs
     else:
-        doc["words" if o.by == "word" else "ayat"] = clean
+        doc["words" if o.by == "word" else "ayahs"] = clean
     return json.dumps(doc, ensure_ascii=False, indent=1) + "\n"
 
 
@@ -477,7 +477,7 @@ def as_csv(rows: list[dict], meta: dict, o: Options, m: Mushaf) -> str:
 
 
 def as_xml(rows: list[dict], meta: dict, o: Options, m: Mushaf) -> str:
-    """Tanzil's element names — ``<sura index name><aya index text/>`` — so a
+    """Tanzil's element names — ``<surah index name><ayah index text/>`` — so a
     Tanzil reader can be pointed here unchanged; extra columns are attributes."""
     e, s = meta["edition"], meta["source"]
     out = ['<?xml version="1.0" encoding="UTF-8"?>']
@@ -485,25 +485,25 @@ def as_xml(rows: list[dict], meta: dict, o: Options, m: Mushaf) -> str:
         out.append("<!--\n" + "\n".join("  " + line.replace("--", "—") for line in header_lines(meta)) + "\n-->")
     out.append(f'<quran edition={quoteattr(e["key"])} text={quoteattr(o.forms[0])} '
                f'source={quoteattr(s["package"])} sha256={quoteattr(s["sha256"])}>')
-    extra = [c for c in columns(o) if c not in ("sura", "ayah", "text")]
+    extra = [c for c in columns(o) if c not in ("surah", "ayah", "text")]
     current = None
     for r in rows:
-        if r["sura"] != current:
+        if r["surah"] != current:
             if current is not None:
-                out.append("</sura>")
-            sura = m.sura(r["sura"])
-            out.append(f'<sura index="{sura.number}" name={quoteattr(sura.name_ar)}>')
-            current = r["sura"]
+                out.append("</surah>")
+            surah = m.surah(r["surah"])
+            out.append(f'<surah index="{surah.number}" name={quoteattr(surah.name_ar)}>')
+            current = r["surah"]
         attrs = [f'index="{r["ayah"]}"'] + [
             f"{c}={quoteattr(str(r[c]))}" for c in extra if r.get(c) is not None]
-        out.append(f'<aya {" ".join(attrs)} text={quoteattr(r["text"])}/>')
+        out.append(f'<ayah {" ".join(attrs)} text={quoteattr(r["text"])}/>')
     if current is not None:
-        out.append("</sura>")
+        out.append("</surah>")
     out.append("</quran>")
     return "\n".join(out) + "\n"
 
 
-_SQL_TYPES = {"text": "TEXT", "waqf": "TEXT", "sajdah": "TEXT", "hizb": "TEXT",
+_SQL_TYPES = {"text": "TEXT", "waqf": "TEXT", "sajdah": "TEXT", "division": "TEXT",
               "hafs": "VARCHAR(16)", "hafs_relation": "VARCHAR(16)",
               **{form: "TEXT" for form in TEXT_FORMS}}
 

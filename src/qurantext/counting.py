@@ -8,7 +8,7 @@ An āyah count is not a property of the riwāyah.  It is a property of the
   الدمشقي, الكوفي;
 * a **transmission within the system** — the system reached us through more
   than one authority, and at some points they differ: Abū Jaʿfar and Shayba
-  differ at 3:92, 3:97, 37:167, 67:9, 80:24 and 81:26 inside the First Madinan;
+  differ at 3:92, 3:97, 37:167, 67:9, 80:24 and 81:26 inside the First Madani;
 * an **edition** — one printing declares a system and, at the points of khilāf
   inside it, follows one authority, a stated rule, or sets them aside.
 
@@ -70,10 +70,25 @@ def _sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+#: The English name of each system, from the Quran.ws terminology registry
+#: ``registries/ayah_numbering.tsv``.  The vendored upstream file names the six
+#: schools after their cities in English; those are the same schools under other
+#: names, and this repository publishes the standard's.
+SYSTEM_NAMES_EN = {
+    "madani-first": "First Madani Numbering",
+    "madani-last": "Last Madani Numbering",
+    "makki": "Makki Numbering",
+    "kufi": "Kufi Numbering",
+    "basri": "Basri Numbering",
+    "dimashqi": "Dimashqi Numbering",
+}
+
+
 @lru_cache(maxsize=None)
 def systems() -> dict[str, dict]:
     raw = _load(SYSTEMS)
-    return {k: v for k, v in raw.items() if isinstance(v, dict) and "name_ar" in v}
+    return {k: {**v, "name_en": SYSTEM_NAMES_EN[k]}
+            for k, v in raw.items() if isinstance(v, dict) and "name_ar" in v}
 
 
 @lru_cache(maxsize=None)
@@ -82,7 +97,7 @@ def system_order() -> list[str]:
 
 
 def _anchor(rec: dict) -> tuple[int, int, str, str]:
-    return rec["sura"], rec["ayah"], rec["kind"], rec["word"]
+    return rec["surah"], rec["ayah"], rec["kind"], rec["word"]
 
 
 @lru_cache(maxsize=None)
@@ -91,14 +106,14 @@ def points() -> dict[tuple[int, int, str, str], dict]:
     and this repository's corrections and khilāf applied."""
     out: dict[tuple, dict] = {}
     prim = _load(PRIMITIVES)
-    for sura, ayahs in prim["surahs"].items():
+    for surah, ayahs in prim["surahs"].items():
         for ayah, rec in ayahs.items():
             if "end" in rec:
                 p = rec["end"]
-                out[(int(sura), int(ayah), "end", p["word"])] = {
+                out[(int(surah), int(ayah), "end", p["word"])] = {
                     "counted_by": set(p["counted_by"]), "khilaf": {}}
             for p in rec.get("internal", []):
-                out[(int(sura), int(ayah), "internal", p["word"])] = {
+                out[(int(surah), int(ayah), "internal", p["word"])] = {
                     "counted_by": set(p["counted_by"]), "khilaf": {}}
 
     overlay = _load(KHILAF)
@@ -155,9 +170,9 @@ _TABLES = [str.maketrans({**_FOLD, **seat}) for seat in _SEATS]
 def fold(text: str) -> set[str]:
     """The comparison keys an anchor word and a muṣḥaf word can both reach.
 
-    Marks and formatting characters are dropped, the hamza in all its seats is
+    Marks and formatting characters are dropped, the hamzah in all its seats is
     dropped and the alif forms unified — close to the treatment the upstream
-    build applies to its plain text.  A seated hamza is folded both to its
+    build applies to its plain text.  A seated hamzah is folded both to its
     seat and to nothing (``إسرائيل`` against ``إِسۡرَٰٓءِيلَ``).
     """
     text = unicodedata.normalize("NFC", text)
@@ -167,7 +182,7 @@ def fold(text: str) -> set[str]:
 
 
 def loose(keys: set[str]) -> set[str]:
-    """The same keys without their alifs — a second tier, for ``simple``
+    """The same keys without their alifs — a second tier, for ``plain``
     writing a superscript alif out on the line where the anchor does not
     (``موسى``).  Tried only when nothing matches exactly, since it would
     otherwise let ``كثير`` match ``كثيرا``."""
@@ -175,7 +190,7 @@ def loose(keys: set[str]) -> set[str]:
 
 
 def _candidates(w: Word) -> set[str]:
-    return fold(w.simple) | fold(w.pointed) | fold(w.uthmani)
+    return fold(w.plain) | fold(w.pointed) | fold(w.rasm_uthmani)
 
 
 def _last_covered(words: list[Word], w: Word) -> int:
@@ -199,20 +214,20 @@ def _resolve(words: list[Word]) -> tuple[dict, list]:
     by_ayah: dict[tuple[int, int], list[Word]] = defaultdict(list)
     for w in words:
         if "hafs" in w.forms and "hafs" not in w.continuation:
-            by_ayah[(w.sura, w.aya["hafs"])].append(w)
+            by_ayah[(w.surah, w.ayah["hafs"])].append(w)
     edition_ends = [set(ayah_ends(words, k)) for k in ORDER]
 
     resolved: dict[tuple, int] = {}
     ambiguous: list[dict] = []
     for key in points():
-        sura, ayah, kind, word = key
+        surah, ayah, kind, word = key
         target = fold(word)
-        ws = by_ayah[(sura, ayah)]
+        ws = by_ayah[(surah, ayah)]
         hits = [w for w in ws if target & _candidates(w)]
         if not hits:
             hits = [w for w in ws if loose(target) & loose(_candidates(w))]
         if not hits:
-            raise ValueError(f"anchor {sura}:{ayah} {kind} «{word}» not found in Ḥafṣ")
+            raise ValueError(f"anchor {surah}:{ayah} {kind} «{word}» not found in Ḥafṣ")
         # An end point is the Kūfī āyah's last word by definition; an internal
         # point cannot be, so an occurrence there is not a candidate.
         if kind == "end" and ws[-1] in hits:
@@ -236,7 +251,7 @@ def _resolve(words: list[Word]) -> tuple[dict, list]:
             taken, by = OCCURRENCE_OVERRIDES.get(
                 key, len(hits) if kind == "end" else 1), "upstream rule"
         resolved[key] = numbers[taken - 1]
-        ambiguous.append({"anchor": f"{sura}:{ayah}:{kind}:{word}",
+        ambiguous.append({"anchor": f"{surah}:{ayah}:{kind}:{word}",
                           "occurrences": len(hits), "taken": taken,
                           "decided_by": by, "number": resolved[key]})
     _RESOLVED[id(words)] = (resolved, ambiguous)
@@ -280,15 +295,15 @@ def _edition_ends(words: list[Word], key: str) -> set[int]:
 
 def _ayah_of(words: list[Word], key: str, n: int) -> tuple[int, int]:
     w = words[n - 1]
-    return w.sura, w.aya.get(key, 0)
+    return w.surah, w.ayah.get(key, 0)
 
 
 def _khilaf_entry(words: list[Word], key: str, anchor: tuple, n: int,
                   counted: bool, p: dict, system: str) -> dict:
     auth = p["khilaf"][system]["authorities"]
-    sura, ayah = _ayah_of(words, key, n)
+    surah, ayah = _ayah_of(words, key, n)
     return {
-        "sura": sura, "ayah": ayah, "kufi": f"{anchor[0]}:{anchor[1]}",
+        "surah": surah, "ayah": ayah, "kufi": f"{anchor[0]}:{anchor[1]}",
         "number": n, "anchor": anchor[3],
         "counted": counted,
         "follows": [a for a, v in auth.items() if v == counted],
@@ -316,15 +331,15 @@ def derive(doc: dict, words: list[Word]) -> dict:
             diff.discard(n)
     for n in sorted(diff):
         anchor = next((a for a, m in anchors.items() if m == n), None)
-        sura, ayah = _ayah_of(words, key, n)
+        surah, ayah = _ayah_of(words, key, n)
         unexplained.append({
-            "sura": sura, "ayah": ayah,
+            "surah": surah, "ayah": ayah,
             "kufi": f"{anchor[0]}:{anchor[1]}" if anchor else None,
             "number": n, "anchor": anchor[3] if anchor else None,
             "counted": n in mine,
         })
 
-    basmalah_counted = not any(w.aya.get(key) == 0 for w in words if w.sura == 1)
+    basmalah_counted = not any(w.ayah.get(key) == 0 for w in words if w.surah == 1)
     info = systems()[system]
     stated = declared().get(key)
     block = {
@@ -410,20 +425,20 @@ def check_unexplained(docs: dict[str, dict]) -> list[dict]:
     """Every ``unexplained`` point must be an acknowledged open finding, and
     every acknowledged finding must still occur — a stale allowlist fails too."""
     problems = []
-    allowed = {(f["mushaf"], f["sura"], f["ayah"]) for f in open_findings()}
+    allowed = {(f["mushaf"], f["surah"], f["ayah"]) for f in open_findings()}
     seen = set()
     for key, doc in docs.items():
         for u in doc["counting"]["unexplained"]:
-            k = (key, u["sura"], u["ayah"])
+            k = (key, u["surah"], u["ayah"])
             seen.add(k)
             if k not in allowed:
-                problems.append({"check": "counting_unexplained", "riwaya": key,
-                                 "detail": f"āyah end at {u['sura']}:{u['ayah']} "
+                problems.append({"check": "counting_unexplained", "riwayah": key,
+                                 "detail": f"āyah end at {u['surah']}:{u['ayah']} "
                                            f"(after number {u['number']}) differs from "
                                            f"{doc['counting']['system']} and no "
                                            f"source records a khilāf there"})
     for k in allowed - seen:
         problems.append({"check": "counting_open_finding_stale",
-                         "riwaya": k[0],
+                         "riwayah": k[0],
                          "detail": f"open finding {k[1]}:{k[2]} no longer occurs"})
     return problems
