@@ -1,9 +1,9 @@
 import ws.quran.qurantext.AyahMap
-import ws.quran.qurantext.AyahRef
+import ws.quran.qurantext.MappedAyah
 import ws.quran.qurantext.MarkKind
 import ws.quran.qurantext.Mushaf
 import ws.quran.qurantext.WordIndex
-import ws.quran.qurantext.ayahMarker
+import ws.quran.qurantext.ayahMark
 import ws.quran.qurantext.fold
 import java.io.File
 import kotlin.test.Test
@@ -29,10 +29,10 @@ class QuranTextTest {
         assertEquals(50, a.size)
         assertEquals(listOf(42, 3, 8), listOf(a.page.number, a.juz!!.number, a.line!!.number))
         assertTrue(a.text.startsWith("ٱللَّهُ لَآ إِلَٰهَ"))
-        assertTrue(a.render(ayahMarkers = true).endsWith(" ۝٢٥٥"))
+        assertTrue(a.render(ayahMarks = true).endsWith(" ۝٢٥٥"))
         assertTrue(a.render(marks = MarkKind.all).contains("ۚ"))
         assertTrue(a.render(marks = setOf(MarkKind.waqf)).contains("ۚ"))
-        assertFalse(a.render(marks = setOf(MarkKind.hizb)).contains("ۚ"))
+        assertFalse(a.render(marks = setOf(MarkKind.division)).contains("ۚ"))
         assertFalse(a.render().contains("ۚ"))
         assertEquals("2:256", a.next()!!.key)
         assertEquals("3:1", hafs.ayah(2, 286).next()!!.key)
@@ -40,30 +40,30 @@ class QuranTextTest {
         assertFailsWith<IllegalArgumentException> { hafs.ayah(2, 287) }
     }
 
-    @Test fun suraPageLineJuz() {
-        val s = hafs.sura(112)
-        assertEquals(4, s.ayat.size)
-        assertEquals(4, s.render(ayahMarkers = true).count { it == '۝' })
+    @Test fun surahPageLineJuz() {
+        val s = hafs.surah(112)
+        assertEquals(4, s.ayahs.size)
+        assertEquals(4, s.render(ayahMarks = true).count { it == '۝' })
         assertNull(s.basmalah)
         val p = hafs.page(3)
         assertEquals(15, p.lines.size)
-        assertEquals(listOf("2:6", "2:16"), listOf(p.ayat.first().key, p.ayat.last().key))
+        assertEquals(listOf("2:6", "2:16"), listOf(p.ayahs.first().key, p.ayahs.last().key))
         assertEquals(15, p.render(lines = true).split("\n").size)
         assertEquals(p.lines[0].text, p.line(1).text)
         assertEquals("78:1", hafs.juz(30).firstAyah!!.key)
         assertEquals(604, hafs.juz(30).pages.last().number)
-        assertEquals(49, hafs.sura(2).lastPage.number)
-        assertEquals(listOf("1:3", "1:4"), hafs.line(1, 3).ayat.map { it.key })
+        assertEquals(49, hafs.surah(2).lastPage.number)
+        assertEquals(listOf("1:3", "1:4"), hafs.line(1, 3).ayahs.map { it.key })
     }
 
     @Test fun wordsMarksNumbering() {
         val w = hafs.word(1, 4, 1)
-        assertEquals(listOf("مَٰلِكِ", 11, "مالك", 1), listOf(w.text, w.number, w.imlaei, w.index))
+        assertEquals(listOf("مَٰلِكِ", 11, "مالك", 1), listOf(w.text, w.number, w.rasm_imlai, w.index))
         assertEquals(listOf("7:206", "13:15"), hafs.sajdat().take(2).map { it.key })
         assertEquals(15, hafs.sajdat().size)
         assertTrue(hafs.ayah(7, 206).hasSajdah)
-        assertEquals(199, hafs.hizbMarks().size)
-        assertEquals("۞ إِنَّ", hafs.hizbMarks()[0].render())
+        assertEquals(199, hafs.divisionMarks().size)
+        assertEquals("۞ إِنَّ", hafs.divisionMarks()[0].render())
         assertEquals(73950, hafs.numberAt(73948))
         assertEquals(73951, hafs.wordAt(73948).numberLast)
         assertNull(hafs.wordByNumber(25685))
@@ -73,18 +73,18 @@ class QuranTextTest {
 
     @Test fun unnumberedBasmalahAndAbsentLayers() {
         assertFalse(warsh.basmalahCounted)
-        assertEquals(4, warsh.sura(1).basmalah!!.size)
+        assertEquals(4, warsh.surah(1).basmalah!!.size)
         assertNull(warsh.wordAt(0).ayah)
         assertNull(warsh.ayahAt(3))
         assertEquals(4, warsh.ayah(1, 1).size)
-        assertEquals(7, warsh.sura(1).ayat.size)
-        assertTrue(warsh.ayah(2, 253).render(ayahMarkers = true).endsWith("۝٢٥٣"))
+        assertEquals(7, warsh.surah(1).ayahs.size)
+        assertTrue(warsh.ayah(2, 253).render(ayahMarks = true).endsWith("۝٢٥٣"))
         val e = assertFailsWith<IllegalStateException> { bazzi.juz(1) }
         assertTrue(e.message!!.contains("no juz layer"))
         assertNotNull(bazzi.whyAbsent("juz"))
         assertNull(bazzi.wordAt(5).juz)
         assertFalse(bazzi.has("juz"))
-        assertNull(bazzi.wordAt(5).imlaei)
+        assertNull(bazzi.wordAt(5).rasm_imlai)
     }
 
     @Test fun search() {
@@ -92,7 +92,7 @@ class QuranTextTest {
         assertEquals(1, hits.size)
         assertEquals("1:4", hits[0].firstAyah!!.key)
         assertEquals("الحمد", fold("ٱلۡحَمۡدُ"))
-        assertEquals("۝٢٥٥", ayahMarker(255))
+        assertEquals("۝٢٥٥", ayahMark(255))
     }
 
     @Test fun bundledHafs() {
@@ -118,7 +118,7 @@ class QuranTextTest {
 
     @Test fun ayahMap() {
         val map = AyahMap.load(File(out, "ayah-map.json"))
-        assertEquals(AyahRef(2, 253, "split", 254), map.convert(2, 255, "warsh"))
+        assertEquals(MappedAyah(2, 253, "split", 254), map.convert(2, 255, "warsh"))
         assertEquals("2:253-254", map.convert(2, 255, "warsh").key)
         assertEquals("unnumbered", map.all(1, 1)["warsh"]!!.relation)
         assertFailsWith<IllegalArgumentException> { map.convert(2, 255, "nope") }
@@ -127,7 +127,7 @@ class QuranTextTest {
     @Test fun wordIndex() {
         val idx = WordIndex.load(File(out, "word-index.json"))
         assertEquals("مَلِكِ", idx.word(11).form("warsh"))
-        assertEquals("إِلَٰهَ", idx.find(2, 255, 3)!!.uthmani)
+        assertEquals("إِلَٰهَ", idx.find(2, 255, 3)!!.rasm_uthmani)
         assertTrue(idx.search("مالك").any { it.number == 11 })
         assertEquals(53134, idx.differing().size)
     }

@@ -3,12 +3,12 @@
 //     let m = try Mushaf.hafs()                                   // bundled Ḥafṣ
 //     let m = try Mushaf.load(URL(fileURLWithPath: "warsh.json")) // another riwāyah
 //     m.ayah(2, 255).text
-//     m.ayah(2, 255).render(marks: .all, ayahMarkers: true)
+//     m.ayah(2, 255).render(marks: .all, ayahMarks: true)
 //     m.page(3).lines
 //     m.juz(30)?.firstAyah?.key          // "78:1"
 //
 // Everything is a slice of one `words` array.  A Span is a slice with `text`
-// and `render`; Sura, Ayah, Page, Line and Juz are spans that know their
+// and `render`; Surah, Ayah, Page, Line and Juz are spans that know their
 // place.  Positions are 0-based indices into `words`; sūrah, āyah, page,
 // line and juz numbers are 1-based, as printed.  Āyah numbers are in this
 // edition's own count; use AyahMap to convert between editions.
@@ -21,13 +21,13 @@
 
 import Foundation
 
-public let endOfAyah = "\u{06DD}"
+public let ayahMarkSign = "\u{06DD}"
 
 private let arabicIndic = Array("٠١٢٣٤٥٦٧٨٩")
 
 /// The end-of-āyah sign with its number, as the muṣḥaf prints it: ۝٢٥٥
-public func ayahMarker(_ number: Int) -> String {
-    endOfAyah + String(String(number).map { arabicIndic[Int(String($0))!] })
+public func ayahMark(_ number: Int) -> String {
+    ayahMarkSign + String(String(number).map { arabicIndic[Int(String($0))!] })
 }
 
 private let foldAlef: Set<Unicode.Scalar> = {
@@ -44,7 +44,7 @@ private func isDropped(_ v: UInt32) -> Bool {
         || (0x06EA...0x06ED).contains(v) || (0x08CA...0x08FF).contains(v)
 }
 
-/// Reduce a word to plain letters for matching: no diacritics, no pause
+/// Reduce a word to plain letters for matching: no harakah, no waqf
 /// marks, one alif, one yāʾ.  For search only — it is not a spelling.
 public func fold(_ text: String) -> String {
     var out = String.UnicodeScalarView()
@@ -80,7 +80,7 @@ public struct Font: Sendable {
     public let url: URL?
 }
 
-public enum MarkKind: String, CaseIterable, Sendable { case waqf, hizb, sajdah }
+public enum MarkKind: String, CaseIterable, Sendable { case waqf, division, sajdah }
 
 public enum MarkSide: String, Sendable { case before, after }
 
@@ -109,8 +109,8 @@ public struct Word: CustomStringConvertible {
 
     public var text: String { m.words[position] }
     /// Plain modern spelling, Ḥafṣ only; nil elsewhere.
-    public var imlaei: String? { m.imlaeiColumn?[position] }
-    public var sura: Sura { m.suraAt(position) }
+    public var rasm_imlai: String? { m.rasm_imlaiColumn?[position] }
+    public var surah: Surah { m.surahAt(position) }
     /// The āyah this word is in; nil for the unnumbered basmalah.
     public var ayah: Ayah? { m.ayahAt(position) }
     /// 1-based position within the āyah; nil when unnumbered.
@@ -164,34 +164,34 @@ public class Span: Sequence {
     /// The text as the muṣḥaf prints it, with what you ask for.
     ///
     /// `marks`: the kinds of sign to print (`.all` for every kind).
-    /// `ayahMarkers` appends ۝ with the āyah number after each āyah that ends
+    /// `ayahMarks` appends ۝ with the āyah number after each āyah that ends
     /// inside the span.  `lines` breaks the text where the printed lines break.
-    public func render(marks kinds: Set<MarkKind> = [], ayahMarkers: Bool = false, lines: Bool = false) -> String {
+    public func render(marks kinds: Set<MarkKind> = [], ayahMarks: Bool = false, lines: Bool = false) -> String {
         var out = ""
-        for pos in start..<end {
-            if lines, pos != start, m.lineStartSet.contains(pos) { out += "\n" }
-            else if pos != start { out += " " }
-            var token = m.words[pos]
-            for mk in m.marksAt[pos] ?? [] where kinds.contains(mk.kind) {
+        for position in start..<end {
+            if lines, position != start, m.lineStartSet.contains(position) { out += "\n" }
+            else if position != start { out += " " }
+            var token = m.words[position]
+            for mk in m.marksAt[position] ?? [] where kinds.contains(mk.kind) {
                 token = mk.side == .before ? mk.sign + " " + token : token + mk.sign
             }
             out += token
-            if ayahMarkers, let k = m.ayahEnds[pos] { out += " " + ayahMarker(m.ayahNumber(k)) }
+            if ayahMarks, let k = m.ayahEnds[position] { out += " " + ayahMark(m.ayahNumber(k)) }
         }
         return out
     }
 
     /// Every numbered āyah with at least one word in the span.
-    public var ayat: [Ayah] {
+    public var ayahs: [Ayah] {
         let first = Swift.max(indexOf(m.ayahStarts, start), 0)
         let last = indexOf(m.ayahStarts, end - 1)
         return first > last ? [] : (first...last).map { Ayah(m, index: $0) }
     }
-    public var firstAyah: Ayah? { ayat.first }
-    public var lastAyah: Ayah? { ayat.last }
+    public var firstAyah: Ayah? { ayahs.first }
+    public var lastAyah: Ayah? { ayahs.last }
 
-    public var suras: [Sura] {
-        Array(m.suras[indexOf(m.suraStarts, start)...indexOf(m.suraStarts, end - 1)])
+    public var surahs: [Surah] {
+        Array(m.surahs[indexOf(m.surahStarts, start)...indexOf(m.surahStarts, end - 1)])
     }
     public var pages: [Page] {
         (indexOf(m.pageStarts, start)...indexOf(m.pageStarts, end - 1)).map { Page(m, $0 + 1) }
@@ -217,13 +217,13 @@ public class Span: Sequence {
 /// (one āyah, boundaries crossing), unnumbered (the basmalah printed without a
 /// number), missing (no word of it).
 public struct AyahMatch: CustomStringConvertible {
-    public let ayat: [Ayah]
+    public let ayahs: [Ayah]
     public let relation: String
-    public var first: Ayah? { ayat.first }
-    public var last: Ayah? { ayat.last }
+    public var first: Ayah? { ayahs.first }
+    public var last: Ayah? { ayahs.last }
     /// "2:253-254"
     public var key: String {
-        guard let a = ayat.first, let b = ayat.last else { return "" }
+        guard let a = ayahs.first, let b = ayahs.last else { return "" }
         return a == b ? a.key : "\(a.key)-\(b.number)"
     }
     public var description: String { "\(key.isEmpty ? "-" : key) (\(relation))" }
@@ -231,25 +231,25 @@ public struct AyahMatch: CustomStringConvertible {
 
 /// One numbered āyah, in this edition's own count.
 public final class Ayah: Span, CustomStringConvertible, Equatable {
-    public let sura: Sura
+    public let surah: Surah
     public let number: Int
     /// 0-based ordinal of the āyah in the muṣḥaf.
     public let index: Int
 
-    convenience init(_ m: Mushaf, sura: Int, number: Int) {
-        let s = m.sura(sura)
+    convenience init(_ m: Mushaf, surah: Int, number: Int) {
+        let s = m.surah(surah)
         precondition(number >= 1 && number <= s.ayahCount,
                      "\(s.nameEn) has \(s.ayahCount) āyāt in \(m.nameEn), not \(number)")
-        self.init(m, sura: s, number: number, index: s.firstAyahIndex + number - 1)
+        self.init(m, surah: s, number: number, index: s.firstAyahIndex + number - 1)
     }
 
     convenience init(_ m: Mushaf, index k: Int) {
-        let s = m.suras[m.suraOfAyahIndex(k)]
-        self.init(m, sura: s, number: k - s.firstAyahIndex + 1, index: k)
+        let s = m.surahs[m.surahOfAyahIndex(k)]
+        self.init(m, surah: s, number: k - s.firstAyahIndex + 1, index: k)
     }
 
-    private init(_ m: Mushaf, sura: Sura, number: Int, index: Int) {
-        self.sura = sura
+    private init(_ m: Mushaf, surah: Surah, number: Int, index: Int) {
+        self.surah = surah
         self.number = number
         self.index = index
         let starts = m.ayahStarts
@@ -257,15 +257,15 @@ public final class Ayah: Span, CustomStringConvertible, Equatable {
     }
 
     /// "2:255"
-    public var key: String { "\(sura.number):\(number)" }
+    public var key: String { "\(surah.number):\(number)" }
     /// The printed line the āyah starts on.
     public var line: Line? { m.lineAt(start) }
     /// Every printed line the āyah touches.
     public var lines: [Line] { m.linesBetween(start, end) }
-    public var imlaei: [String?]? { m.imlaeiColumn.map { Array($0[start..<end]) } }
+    public var rasm_imlai: [String?]? { m.rasm_imlaiColumn.map { Array($0[start..<end]) } }
     public var hasSajdah: Bool { marks.contains { $0.mark.kind == .sajdah } }
     /// ۝٢٥٥
-    public var marker: String { ayahMarker(number) }
+    public var marker: String { ayahMark(number) }
     /// The shared numbers of this āyah's words.
     public var numbers: Set<Int> {
         let first = m.numbers[start].first, last = m.numbers[end - 1].last
@@ -286,11 +286,11 @@ public final class Ayah: Span, CustomStringConvertible, Equatable {
                 unnumbered = true
             }
         }
-        if hits.isEmpty { return AyahMatch(ayat: [], relation: unnumbered ? "unnumbered" : "missing") }
-        if hits.count > 1 { return AyahMatch(ayat: hits, relation: "split") }
+        if hits.isEmpty { return AyahMatch(ayahs: [], relation: unnumbered ? "unnumbered" : "missing") }
+        if hits.count > 1 { return AyahMatch(ayahs: hits, relation: "split") }
         let theirs = hits[0].numbers
         let relation = theirs == mine ? "same" : theirs.isSuperset(of: mine) ? "merged" : "shifted"
-        return AyahMatch(ayat: hits, relation: relation)
+        return AyahMatch(ayahs: hits, relation: relation)
     }
 
     public func next() -> Ayah? { index + 1 < m.ayahCount ? Ayah(m, index: index + 1) : nil }
@@ -300,7 +300,7 @@ public final class Ayah: Span, CustomStringConvertible, Equatable {
     public var description: String { key }
 }
 
-public final class Sura: Span, CustomStringConvertible {
+public final class Surah: Span, CustomStringConvertible {
     public let number: Int
     public let nameAr: String
     public let nameEn: String
@@ -317,12 +317,12 @@ public final class Sura: Span, CustomStringConvertible {
         hasBasmalah = info["has_basmalah"] as! Bool
         ayahCount = info["ayah_count"] as! Int
         firstAyahIndex = info["first_ayah"] as! Int
-        let starts = m.suraStarts
+        let starts = m.surahStarts
         super.init(m, starts[number - 1], number < starts.count ? starts[number] : m.words.count)
     }
 
-    public override var ayat: [Ayah] { (1...ayahCount).map { Ayah(m, sura: number, number: $0) } }
-    public func ayah(_ number: Int) -> Ayah { Ayah(m, sura: self.number, number: number) }
+    public override var ayahs: [Ayah] { (1...ayahCount).map { Ayah(m, surah: number, number: $0) } }
+    public func ayah(_ number: Int) -> Ayah { Ayah(m, surah: self.number, number: number) }
     /// The basmalah where it is printed unnumbered before āyah 1 (Warsh,
     /// Qālūn, Dūrī, Sūsī at al-Fātiḥah); nil otherwise.
     public var basmalah: Span? {
@@ -395,27 +395,27 @@ public final class Mushaf {
     public let key: String
     public let nameEn: String
     public let nameAr: String
-    public let qariEn: String?
-    public let qariAr: String?
+    public let qiraahEn: String?
+    public let qiraahAr: String?
     public let countingSystem: String
     public let basmalahCounted: Bool
-    public private(set) var suras: [Sura] = []
+    public private(set) var surahs: [Surah] = []
     /// The `counting` block of the file.
     public let counting: [String: Any]
     /// The `provenance` block of the file.
     public let provenance: [String: Any]
-    /// The layers the file carries, e.g. `["suras", "ayat", "pages", "lines", "marks", "juz", "imlaei"]`.
+    /// The layers the file carries, e.g. `["surahs", "ayahs", "pages", "lines", "marks", "juz", "rasm_imlai"]`.
     public let layers: [String]
     private let absentLayers: [String: String]
 
-    let imlaeiColumn: [String?]?
-    let suraStarts: [Int]
+    let rasm_imlaiColumn: [String?]?
+    let surahStarts: [Int]
     let ayahStarts: [Int]
     let pageStarts: [Int]
     let lineStarts: [Int]?
     let juzStarts: [Int]?
     let lineStartSet: Set<Int>
-    private var suraFirstAyah: [Int] = []
+    private var surahFirstAyah: [Int] = []
     var ayahEnds: [Int: Int] = [:]
     var marksAt: [Int: [Mark]] = [:]
     private let numbering: [String: Any]
@@ -436,8 +436,8 @@ public final class Mushaf {
         key = info["key"] as! String
         nameEn = info["name_en"] as! String
         nameAr = info["name_ar"] as! String
-        qariEn = info["qari_en"] as? String
-        qariAr = info["qari_ar"] as? String
+        qiraahEn = info["qiraah_en"] as? String
+        qiraahAr = info["qiraah_ar"] as? String
         counting = try field("counting")
         countingSystem = counting["system"] as! String
         basmalahCounted = counting["basmalah_counted"] as! Bool
@@ -445,8 +445,8 @@ public final class Mushaf {
         let layersBlock: [String: Any] = try field("layers")
         layers = layersBlock["present"] as! [String]
         absentLayers = layersBlock["absent"] as? [String: String] ?? [:]
-        imlaeiColumn = (doc["imlaei"] as? [Any]).map { $0.map { $0 as? String } }
-        suraStarts = try field("sura_starts")
+        rasm_imlaiColumn = (doc["rasm_imlai"] as? [Any]).map { $0.map { $0 as? String } }
+        surahStarts = try field("surah_starts")
         ayahStarts = try field("ayah_starts")
         pageStarts = try field("page_starts")
         lineStarts = doc["line_starts"] as? [Int]
@@ -455,9 +455,9 @@ public final class Mushaf {
         numbering = try field("numbering")
         fontBlock = try field("font")
 
-        let suraInfo: [[String: Any]] = try field("suras")
-        suras = (1...114).map { Sura(self, $0, suraInfo[$0 - 1]) }
-        suraFirstAyah = suras.map { $0.firstAyahIndex }
+        let surahInfo: [[String: Any]] = try field("surahs")
+        surahs = (1...114).map { Surah(self, $0, surahInfo[$0 - 1]) }
+        surahFirstAyah = surahs.map { $0.firstAyahIndex }
         for k in ayahStarts.indices {
             let end = k + 1 < ayahStarts.count ? ayahStarts[k + 1] : words.count
             ayahEnds[end - 1] = k
@@ -498,7 +498,7 @@ public final class Mushaf {
 
     // MARK: what the file carries
 
-    /// `has("juz")`, `has("imlaei")`, `has("lines")` …
+    /// `has("juz")`, `has("rasm_imlai")`, `has("lines")` …
     public func has(_ layer: String) -> Bool { layers.contains(layer) }
     /// Why a layer is absent, e.g. Bazzī's juz.
     public func whyAbsent(_ layer: String) -> String? { absentLayers[layer] }
@@ -510,25 +510,25 @@ public final class Mushaf {
 
     // MARK: units by number
 
-    public func sura(_ number: Int) -> Sura {
+    public func surah(_ number: Int) -> Surah {
         precondition(number >= 1 && number <= 114, "sūrah \(number): there are 114")
-        return suras[number - 1]
+        return surahs[number - 1]
     }
-    /// Āyah `number` of `sura` in this edition's own count.
-    public func ayah(_ sura: Int, _ number: Int) -> Ayah { Ayah(self, sura: sura, number: number) }
+    /// Āyah `number` of `surah` in this edition's own count.
+    public func ayah(_ surah: Int, _ number: Int) -> Ayah { Ayah(self, surah: surah, number: number) }
     public func page(_ number: Int) -> Page { Page(self, number) }
     /// nil when the file has no juz layer (Bazzī); see `whyAbsent("juz")`.
     public func juz(_ number: Int) -> Juz? { juzStarts.map { Juz(self, number, starts: $0) } }
     public func line(_ page: Int, _ number: Int) -> Line { Page(self, page).line(number) }
     /// Word `index` (1-based) of an āyah.
-    public func word(_ sura: Int, _ ayah: Int, _ index: Int) -> Word { Ayah(self, sura: sura, number: ayah).word(index) }
+    public func word(_ surah: Int, _ ayah: Int, _ index: Int) -> Word { Ayah(self, surah: surah, number: ayah).word(index) }
     /// Any run of positions, e.g. to render a selection.
     public func span(_ start: Int, _ end: Int) -> Span {
         precondition(start >= 0 && start < end && end <= words.count, "span \(start):\(end) is outside the muṣḥaf")
         return Span(self, start, end)
     }
     public var all: Span { Span(self, 0, words.count) }
-    public var ayat: [Ayah] { (0..<ayahCount).map { Ayah(self, index: $0) } }
+    public var ayahs: [Ayah] { (0..<ayahCount).map { Ayah(self, index: $0) } }
     public var pages: [Page] { (1...pageCount).map { Page(self, $0) } }
     public var ajza: [Juz] { juzStarts.map { s in (1...s.count).map { Juz(self, $0, starts: s) } } ?? [] }
 
@@ -539,7 +539,7 @@ public final class Mushaf {
         let k = indexOf(ayahStarts, position)
         return k >= 0 ? Ayah(self, index: k) : nil
     }
-    public func suraAt(_ position: Int) -> Sura { suras[indexOf(suraStarts, position)] }
+    public func surahAt(_ position: Int) -> Surah { surahs[indexOf(surahStarts, position)] }
     public func pageAt(_ position: Int) -> Page { Page(self, indexOf(pageStarts, position) + 1) }
     public func lineAt(_ position: Int) -> Line? { lineStarts.map { Line(self, index: indexOf($0, position)) } }
     public func juzAt(_ position: Int) -> Juz? { juzStarts.map { Juz(self, indexOf($0, position) + 1, starts: $0) } }
@@ -558,9 +558,9 @@ public final class Mushaf {
         var runs: [(first: Int, last: Int)] = []
         runs.reserveCapacity(words.count)
         var n = 1
-        for pos in words.indices {
+        for position in words.indices {
             while missing.contains(n) { n += 1 }
-            let run = joined[pos].map { ($0[0], $0[1]) } ?? (n, n)
+            let run = joined[position].map { ($0[0], $0[1]) } ?? (n, n)
             runs.append(run)
             n = run.1 + 1
         }
@@ -585,12 +585,12 @@ public final class Mushaf {
     /// Every āyah printed with ۩.
     public func sajdat() -> [Ayah] { positionsWith(.sajdah).compactMap { ayahAt($0) } }
     /// Every word printed with ۞ before it, as the release prints them.
-    public func hizbMarks() -> [Word] { positionsWith(.hizb).map { Word(self, $0) } }
+    public func divisionMarks() -> [Word] { positionsWith(.division).map { Word(self, $0) } }
     private func positionsWith(_ kind: MarkKind) -> [Int] {
         marksAt.filter { $0.value.contains { $0.kind == kind } }.keys.sorted()
     }
     /// Every place the words of `text` occur in sequence, matched on `fold`:
-    /// diacritics and hamza forms do not matter.
+    /// harakah and hamzah forms do not matter.
     public func search(_ text: String) -> [Span] {
         let query = text.split(whereSeparator: { $0.isWhitespace }).map { fold(String($0)) }
         guard !query.isEmpty, !query.contains("") else { return [] }
@@ -604,21 +604,21 @@ public final class Mushaf {
         return out
     }
 
-    func suraOfAyahIndex(_ k: Int) -> Int { indexOf(suraFirstAyah, k) }
-    func ayahNumber(_ k: Int) -> Int { k - suraFirstAyah[suraOfAyahIndex(k)] + 1 }
+    func surahOfAyahIndex(_ k: Int) -> Int { indexOf(surahFirstAyah, k) }
+    func ayahNumber(_ k: Int) -> Int { k - surahFirstAyah[surahOfAyahIndex(k)] + 1 }
 }
 
 // MARK: - āyah map
 
 /// Where a Kūfī āyah falls in one edition.  `relation` is same, merged,
 /// split (then `ayahLast` is set), shifted or unnumbered (`ayah` is 0).
-public struct AyahRef: Hashable, CustomStringConvertible, Sendable {
-    public let sura: Int
+public struct MappedAyah: Hashable, CustomStringConvertible, Sendable {
+    public let surah: Int
     public let ayah: Int
     public let relation: String
     public let ayahLast: Int?
     /// "2:253-254"
-    public var key: String { ayahLast.map { "\(sura):\(ayah)-\($0)" } ?? "\(sura):\(ayah)" }
+    public var key: String { ayahLast.map { "\(surah):\(ayah)-\($0)" } ?? "\(surah):\(ayah)" }
     public var description: String { key }
 }
 
@@ -630,12 +630,12 @@ public final class AyahMap {
     public enum Error: Swift.Error { case notAnAyahMapFile, notAKufiAyah(String), noEdition(String) }
 
     public init(json doc: [String: Any]) throws {
-        guard doc["format"] as? String == "quran-ayah-map", let ayat = doc["ayat"] as? [[String: Any]] else {
+        guard doc["format"] as? String == "quran-ayah-map", let ayahs = doc["ayahs"] as? [[String: Any]] else {
             throw Error.notAnAyahMapFile
         }
         editions = doc["editions"] as! [String]
         var rows: [String: [String: Any]] = [:]
-        for r in ayat { rows["\(r["sura"] as! Int):\(r["ayah"] as! Int)"] = r }
+        for r in ayahs { rows["\(r["surah"] as! Int):\(r["ayah"] as! Int)"] = r }
         self.rows = rows
     }
     public convenience init(data: Data) throws {
@@ -644,17 +644,17 @@ public final class AyahMap {
     }
     public static func load(_ url: URL) throws -> AyahMap { try AyahMap(data: Data(contentsOf: url)) }
 
-    /// `convert(2, 255, to: "warsh")` → `AyahRef(sura: 2, ayah: 253, relation: "split", ayahLast: 254)`
-    public func convert(_ sura: Int, _ ayah: Int, to edition: String) throws -> AyahRef {
-        guard let row = rows["\(sura):\(ayah)"] else { throw Error.notAKufiAyah("\(sura):\(ayah)") }
+    /// `convert(2, 255, to: "warsh")` → `MappedAyah(surah: 2, ayah: 253, relation: "split", ayahLast: 254)`
+    public func convert(_ surah: Int, _ ayah: Int, to edition: String) throws -> MappedAyah {
+        guard let row = rows["\(surah):\(ayah)"] else { throw Error.notAKufiAyah("\(surah):\(ayah)") }
         guard let r = row[edition] as? [String: Any] else { throw Error.noEdition(edition) }
-        return AyahRef(sura: r["sura"] as! Int, ayah: r["ayah"] as! Int,
+        return MappedAyah(surah: r["surah"] as! Int, ayah: r["ayah"] as! Int,
                        relation: r["relation"] as! String, ayahLast: r["ayah_last"] as? Int)
     }
     /// The reference in every edition.
-    public func all(_ sura: Int, _ ayah: Int) throws -> [String: AyahRef] {
-        var out: [String: AyahRef] = [:]
-        for e in editions { out[e] = try convert(sura, ayah, to: e) }
+    public func all(_ surah: Int, _ ayah: Int) throws -> [String: MappedAyah] {
+        var out: [String: MappedAyah] = [:]
+        for e in editions { out[e] = try convert(surah, ayah, to: e) }
         return out
     }
 }
@@ -665,17 +665,17 @@ public final class AyahMap {
 public struct IndexedWord: CustomStringConvertible {
     public let raw: [String: Any]
     public var number: Int { raw["number"] as! Int }
-    public var sura: Int { raw["sura"] as! Int }
+    public var surah: Int { raw["surah"] as! Int }
     public var index: Int { raw["index"] as! Int }
     public var key: String { raw["key"] as! String }
-    public var uthmani: String { raw["uthmani"] as! String }
-    public var simple: String { raw["simple"] as! String }
+    public var rasm_uthmani: String { raw["rasm_uthmani"] as! String }
+    public var plain: String { raw["plain"] as! String }
     public var rasm: String { raw["rasm"] as! String }
     public var pointed: String { raw["pointed"] as! String }
     public var status: String { raw["status"] as! String }
-    /// `(sura, ayah, pos)` in the Kūfī count, or nil where Ḥafṣ lacks the word.
-    public var hafs: (sura: Int, ayah: Int, pos: Int)? {
-        (raw["hafs"] as? [String: Int]).map { ($0["sura"]!, $0["ayah"]!, $0["pos"]!) }
+    /// `(surah, ayah, position)` in the Kūfī count, or nil where Ḥafṣ lacks the word.
+    public var hafs: (surah: Int, ayah: Int, position: Int)? {
+        (raw["hafs"] as? [String: Int]).map { ($0["surah"]!, $0["ayah"]!, $0["position"]!) }
     }
     /// Āyah number per riwāyah.
     public var ayah: [String: Int] { raw["ayah"] as! [String: Int] }
@@ -686,7 +686,7 @@ public struct IndexedWord: CustomStringConvertible {
     public var writtenJoined: [String] { raw["written_joined"] as? [String] ?? [] }
     /// How one riwāyah spells it; nil where it does not read the word.
     public func form(_ riwayah: String) -> String? { forms[riwayah] }
-    public var description: String { "\(number) \(uthmani)" }
+    public var description: String { "\(number) \(rasm_uthmani)" }
 }
 
 /// `out/word-index.json`: the numbering shared by all seven muṣḥafs.
@@ -695,7 +695,7 @@ public final class WordIndex: Sequence {
     public let total: Int
     private let records: [[String: Any]]
     private var byHafs: [String: [String: Any]]?
-    private var bySimple: [String: [[String: Any]]]?
+    private var byPlain: [String: [[String: Any]]]?
 
     public enum Error: Swift.Error { case notAWordIndexFile }
 
@@ -718,27 +718,27 @@ public final class WordIndex: Sequence {
         return IndexedWord(raw: records[number - 1])
     }
     /// By Ḥafṣ coordinates: sūrah, āyah in the Kūfī count, 1-based word.
-    public func find(_ sura: Int, _ ayah: Int, _ index: Int) -> IndexedWord? {
+    public func find(_ surah: Int, _ ayah: Int, _ index: Int) -> IndexedWord? {
         if byHafs == nil {
             var by: [String: [String: Any]] = [:]
             for r in records {
                 if let h = r["hafs"] as? [String: Int] {
-                    let k = "\(h["sura"]!):\(h["ayah"]!):\(h["pos"]!)"
+                    let k = "\(h["surah"]!):\(h["ayah"]!):\(h["position"]!)"
                     if by[k] == nil { by[k] = r }
                 }
             }
             byHafs = by
         }
-        return byHafs!["\(sura):\(ayah):\(index)"].map { IndexedWord(raw: $0) }
+        return byHafs!["\(surah):\(ayah):\(index)"].map { IndexedWord(raw: $0) }
     }
     /// Every number whose folded spelling equals `text`, folded.
     public func search(_ text: String) -> [IndexedWord] {
-        if bySimple == nil {
+        if byPlain == nil {
             var by: [String: [[String: Any]]] = [:]
-            for r in records { by[fold(r["uthmani"] as! String), default: []].append(r) }
-            bySimple = by
+            for r in records { by[fold(r["rasm_uthmani"] as! String), default: []].append(r) }
+            byPlain = by
         }
-        return (bySimple![fold(text)] ?? []).map { IndexedWord(raw: $0) }
+        return (byPlain![fold(text)] ?? []).map { IndexedWord(raw: $0) }
     }
     /// Every number the riwāyāt spell in more than one way.
     public func differing() -> [IndexedWord] { records.filter { $0["groups"] != nil }.map { IndexedWord(raw: $0) } }

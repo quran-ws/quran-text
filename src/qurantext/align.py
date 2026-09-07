@@ -15,7 +15,7 @@ writes two words as one — ``وَأَلَّوِ`` at 72:16 for ``وَأَن ل�
 keep two columns and the joined token is placed in the first with the second
 recorded as *covered* by it (:attr:`Column.covers`).  Those places are declared
 in ``data/alignment/written-joined.json`` rather than inferred, because the unwritten nūn
-changes the rasm and no rule can tell a join from a different reading.
+changes the rasm and no rule can tell a join from a different qiraah.
 """
 
 from __future__ import annotations
@@ -39,12 +39,12 @@ class Column:
     """One canonical word position, shared by all riwāyāt that have it."""
 
     tokens: dict[str, Token] = field(default_factory=dict)
-    #: Riwāyāt whose word here was produced by splitting or merging, or whose
+    #: Riwāyāt whose word here was produced by a split or a join, or whose
     #: printed word covers this column and its neighbour (``written_joined``).
     boundary: dict[str, str] = field(default_factory=dict)
     #: Riwāyāt whose token sits in the *previous* column and covers this one
     #: too: the muṣḥaf prints the two words as one.  The token is repeated here
-    #: so that ``forms`` and ``aya`` can be read off any column, but it is not a
+    #: so that ``forms`` and ``ayah`` can be read off any column, but it is not a
     #: word of its own at this position.
     covers: dict[str, Token] = field(default_factory=dict)
 
@@ -76,13 +76,13 @@ class Column:
         return self.tokens[key] if key in self.tokens else self.covers[key]
 
 
-def _retoken(tok: Token, text: str, pos: int) -> Token:
+def _retoken(tok: Token, text: str, position: int) -> Token:
     """A new token carrying part of ``tok``'s text."""
     f = forms(text)
-    return replace(tok, uthmani=f["uthmani"], folded=f["folded"],
+    return replace(tok, rasm_uthmani=f["rasm_uthmani"], folded=f["folded"],
                    pointed=f["pointed"], rasm=f["rasm"],
-                   rasm_plene=f["rasm_plene"], simple=f["simple"],
-                   pos=pos, notes=[*tok.notes, "resegmented"])
+                   rasm_plene=f["rasm_plene"], plain=f["plain"],
+                   position=position, notes=[*tok.notes, "resegmented"])
 
 
 def _distribute(cols: list[Column], toks: list[Token]) -> list[tuple[list[Column], list[Token]]]:
@@ -115,11 +115,11 @@ def _distribute(cols: list[Column], toks: list[Token]) -> list[tuple[list[Column
 
 @lru_cache(maxsize=None)
 def declared_joins(path: Path = JOINS_FILE) -> tuple[tuple[int, str, tuple[str, ...]], ...]:
-    """``(sura, joined rasm, part rasms)`` for every declared written-joined word."""
+    """``(surah, joined rasm, part rasms)`` for every declared written-joined word."""
     if not path.exists():
         return ()
     spec = json.loads(path.read_text(encoding="utf-8"))
-    return tuple((j["sura"], rasm_of(j["joined"]),
+    return tuple((j["surah"], rasm_of(j["joined"]),
                   tuple(rasm_of(p) for p in j["parts"]))
                  for j in spec["joins"])
 
@@ -190,7 +190,7 @@ def _pair_by_letters(cols: list[Column], toks: list[Token], key: str,
 
 
 def _declared_join(cols: list[Column], toks: list[Token], key: str,
-                   out: list[Column], sura: int) -> bool:
+                   out: list[Column], surah: int) -> bool:
     """Place a declared written-joined word, if this block contains one.
 
     Two shapes occur.  The riwāyah writes joined what the columns hold apart
@@ -205,7 +205,7 @@ def _declared_join(cols: list[Column], toks: list[Token], key: str,
     fall through.
     """
     for jsura, joined, parts in declared_joins():
-        if jsura != sura:
+        if jsura != surah:
             continue
         k = len(parts)
         # Shape 1: one token, k columns.
@@ -255,7 +255,7 @@ def _pair_replace(cols: list[Column], toks: list[Token], key: str,
 
     Equal-length blocks pair one-to-one.  Unequal blocks are the interesting
     case, and are almost always a word-boundary disagreement rather than a
-    different reading — most often a source that printed two words with no
+    different qiraah — most often a source that printed two words with no
     space between them.  When the letters on both sides agree, the words are
     re-segmented so the alignment keeps one column per word.  When they do not, a
     declared written-joined word is looked for first, and the rest of the
@@ -268,8 +268,8 @@ def _pair_replace(cols: list[Column], toks: list[Token], key: str,
         return
 
     if "".join(c.rasm for c in cols) != "".join(t.rasm for t in toks):
-        sura = toks[0].sura if toks else next(iter(cols[0].tokens.values())).sura
-        if not _declared_join(cols, toks, key, out, sura):
+        surah = toks[0].surah if toks else next(iter(cols[0].tokens.values())).surah
+        if not _declared_join(cols, toks, key, out, surah):
             _pair_by_letters(cols, toks, key, out)
         return
 
@@ -280,14 +280,14 @@ def _pair_replace(cols: list[Column], toks: list[Token], key: str,
                 out.append(col)
         elif len(group_toks) == 1 and len(group_cols) > 1:
             # One printed word covering several canonical words.  Sometimes
-            # that is the source's own orthography (Bazzī's لَأُاْقۡسِمُ), sometimes
+            # that is the source's own rasm (Bazzī's لَأُاْقۡسِمُ), sometimes
             # a dropped space (Dūrī's كَانُواْيَعۡمَلُونَ); either way the words are
             # split apart so the alignment keeps one column per word, and the
             # join is recorded for review rather than judged here.
             tok = group_toks[0]
-            pieces = split_by_rasm(tok.uthmani, [len(c.rasm) for c in group_cols])
+            pieces = split_by_rasm(tok.rasm_uthmani, [len(c.rasm) for c in group_cols])
             for offset, (col, piece) in enumerate(zip(group_cols, pieces)):
-                col.tokens[key] = _retoken(tok, piece, tok.pos + offset)
+                col.tokens[key] = _retoken(tok, piece, tok.position + offset)
                 col.boundary[key] = "joined_in_source"
                 out.append(col)
         elif len(group_cols) == 1 and len(group_toks) > 1:

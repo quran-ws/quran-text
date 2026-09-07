@@ -1,7 +1,7 @@
 {
   "name": "quran-text",
   "version": "0.1.0",
-  "description": "Read the quran-text dataset: the Qurʾān in seven riwāyāt with pages, lines, āyāt, pause marks and one shared word numbering.",
+  "description": "Read the quran-text dataset: the Qurʾān in seven riwāyāt with pages, lines, āyāt, waqf marks and one shared word numbering.",
   "type": "module",
   "main": "./quran-text.js",
   "types": "./quran-text.d.ts",
@@ -28,15 +28,15 @@
     "mushaf",
     "hafs",
     "warsh",
-    "qaloun",
-    "riwayat",
+    "qalun",
+    "riwayahs",
     "arabic"
   ],
-  "author": "quran-ws <service@quran.ws>",
   "homepage": "https://quran.ws",
   "bugs": {
     "url": "https://github.com/quran-ws/quran-text/issues"
   },
+  "author": "quran-ws <service@quran.ws>",
   "engines": {
     "node": ">=18"
   }

@@ -7,34 +7,34 @@ namespace QuranText;
 /** One numbered āyah, in this edition's own count. */
 final class Ayah extends Span
 {
-    public readonly Sura $sura;
+    public readonly Surah $surah;
     /** 0-based ordinal of the āyah in the muṣḥaf. */
     public readonly int $index;
 
-    public function __construct(Mushaf $mushaf, int $sura, public readonly int $number)
+    public function __construct(Mushaf $mushaf, int $surah, public readonly int $number)
     {
-        $s = $mushaf->sura($sura);
+        $s = $mushaf->surah($surah);
         if ($number < 1 || $number > $s->ayahCount) {
             throw new \OutOfRangeException("{$s->nameEn} has {$s->ayahCount} āyāt in {$mushaf->nameEn}, not $number");
         }
         $k = $s->firstAyah + $number - 1;
         $starts = $mushaf->doc['ayah_starts'];
         parent::__construct($mushaf, $starts[$k], $starts[$k + 1] ?? count($mushaf->words));
-        $this->sura = $s;
+        $this->surah = $s;
         $this->index = $k;
     }
 
     /** @internal */
     public static function fromIndex(Mushaf $mushaf, int $k): self
     {
-        $s = $mushaf->suras[$mushaf->suraOfAyahIndex($k)];
+        $s = $mushaf->surahs[$mushaf->surahOfAyahIndex($k)];
         return new self($mushaf, $s->number, $k - $s->firstAyah + 1);
     }
 
     /** "2:255" */
     public function key(): string
     {
-        return "{$this->sura->number}:{$this->number}";
+        return "{$this->surah->number}:{$this->number}";
     }
 
     /** The printed line the āyah starts on. */
@@ -50,9 +50,9 @@ final class Ayah extends Span
     }
 
     /** @return array<int, ?string>|null */
-    public function imlaei(): ?array
+    public function rasm_imlai(): ?array
     {
-        $col = $this->mushaf->doc['imlaei'];
+        $col = $this->mushaf->doc['rasm_imlai'];
         return $col ? array_slice($col, $this->start, $this->end - $this->start) : null;
     }
 
@@ -69,7 +69,7 @@ final class Ayah extends Span
     /** ۝٢٥٥ */
     public function marker(): string
     {
-        return Text::ayahMarker($this->number);
+        return Text::ayahMark($this->number);
     }
 
     /** The shared numbers of this āyah's words. @return array<int,true> */

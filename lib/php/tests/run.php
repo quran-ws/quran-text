@@ -36,38 +36,38 @@ check('page', $a->page()->number, 42);
 check('juz', $a->juz()->number, 3);
 check('line', $a->line()->number, 8);
 check('text', str_starts_with($a->text(), 'ٱللَّهُ لَآ إِلَٰهَ'), true);
-check('marker', str_ends_with($a->render(ayahMarkers: true), ' ۝٢٥٥'), true);
+check('marker', str_ends_with($a->render(ayahMarks: true), ' ۝٢٥٥'), true);
 check('waqf on', str_contains($a->render(marks: true), 'ۚ'), true);
 check('waqf kinds', str_contains($a->render(marks: ['waqf']), 'ۚ'), true);
 check('waqf off', str_contains($a->render(), 'ۚ'), false);
 check('next', $a->next()->key(), '2:256');
-check('next sura', $hafs->ayah(2, 286)->next()->key(), '3:1');
+check('next surah', $hafs->ayah(2, 286)->next()->key(), '3:1');
 check('previous', $hafs->ayah(1, 1)->previous(), null);
 try { $hafs->ayah(2, 287); check('range', false, true); } catch (OutOfRangeException) {}
 
-$s = $hafs->sura(112);
-check('sura ayat', count($s->ayat()), 4);
-check('sura markers', substr_count($s->render(ayahMarkers: true), '۝'), 4);
+$s = $hafs->surah(112);
+check('surah ayahs', count($s->ayahs()), 4);
+check('surah markers', substr_count($s->render(ayahMarks: true), '۝'), 4);
 check('basmalah hafs', $s->basmalah(), null);
 $p = $hafs->page(3);
 check('lines', count($p->lines()), 15);
-check('page first ayah', $p->ayat()[0]->key(), '2:6');
+check('page first ayah', $p->ayahs()[0]->key(), '2:6');
 check('page last ayah', $p->lastAyah()->key(), '2:16');
 check('render lines', count(explode("\n", $p->render(lines: true))), 15);
 check('line 1', $p->line(1)->text(), $p->lines()[0]->text());
 check('juz 30', $hafs->juz(30)->firstAyah()->key(), '78:1');
 $pages = $hafs->juz(30)->pages();
 check('juz pages', end($pages)->number, 604);
-check('sura 2 last page', $hafs->sura(2)->lastPage()->number, 49);
-check('line 1:3', array_map(fn ($x) => $x->key(), $hafs->line(1, 3)->ayat()), ['1:3', '1:4']);
+check('surah 2 last page', $hafs->surah(2)->lastPage()->number, 49);
+check('line 1:3', array_map(fn ($x) => $x->key(), $hafs->line(1, 3)->ayahs()), ['1:3', '1:4']);
 
 $w = $hafs->word(1, 4, 1);
-check('word', [$w->text(), $w->number(), $w->imlaei(), $w->index()], ['مَٰلِكِ', 11, 'مالك', 1]);
+check('word', [$w->text(), $w->number(), $w->rasm_imlai(), $w->index()], ['مَٰلِكِ', 11, 'مالك', 1]);
 check('sajdat', array_map(fn ($x) => $x->key(), array_slice($hafs->sajdat(), 0, 2)), ['7:206', '13:15']);
 check('sajdat count', count($hafs->sajdat()), 15);
 check('has sajdah', $hafs->ayah(7, 206)->hasSajdah(), true);
-check('hizb count', count($hafs->hizbMarks()), 199);
-check('hizb render', $hafs->hizbMarks()[0]->render(), '۞ إِنَّ');
+check('division count', count($hafs->divisionMarks()), 199);
+check('division render', $hafs->divisionMarks()[0]->render(), '۞ إِنَّ');
 check('numberAt', $hafs->numberAt(73948), 73950);
 check('numberLast', $hafs->wordAt(73948)->numberLast(), 73951);
 check('missing', $hafs->wordByNumber(25685), null);
@@ -75,22 +75,22 @@ check('joined', $hafs->wordByNumber(73951)->text(), 'وَأَلَّوِ');
 check('by number', $hafs->wordByNumber(11)->text(), 'مَٰلِكِ');
 
 check('warsh counted', $warsh->basmalahCounted, false);
-check('warsh basmalah', count($warsh->sura(1)->basmalah()), 4);
+check('warsh basmalah', count($warsh->surah(1)->basmalah()), 4);
 check('warsh word 0', $warsh->wordAt(0)->ayah(), null);
 check('warsh ayahAt 3', $warsh->ayahAt(3), null);
 check('warsh 1:1', count($warsh->ayah(1, 1)), 4);
-check('warsh ayat', count($warsh->sura(1)->ayat()), 7);
-check('warsh marker', str_ends_with($warsh->ayah(2, 253)->render(ayahMarkers: true), '۝٢٥٣'), true);
+check('warsh ayahs', count($warsh->surah(1)->ayahs()), 7);
+check('warsh marker', str_ends_with($warsh->ayah(2, 253)->render(ayahMarks: true), '۝٢٥٣'), true);
 try { $bazzi->juz(1); check('bazzi juz', false, true); } catch (LogicException $e) { check('bazzi msg', str_contains($e->getMessage(), 'no juz layer'), true); }
 check('bazzi juzAt', $bazzi->wordAt(5)->juz(), null);
 check('bazzi has', $bazzi->has('juz'), false);
-check('bazzi imlaei', $bazzi->wordAt(5)->imlaei(), null);
+check('bazzi rasm_imlai', $bazzi->wordAt(5)->rasm_imlai(), null);
 
 $hits = $hafs->search('مالك يوم الدين');
 check('search', count($hits), 1);
 check('search ayah', $hits[0]->firstAyah()->key(), '1:4');
 check('fold', Text::fold('ٱلۡحَمۡدُ'), 'الحمد');
-check('marker fn', Text::ayahMarker(255), '۝٢٥٥');
+check('marker fn', Text::ayahMark(255), '۝٢٥٥');
 
 check('bundled', Mushaf::hafs()->wordCount(), $hafs->wordCount());
 check('font family', Mushaf::hafs()->font()->family, 'KFGQPC HAFS Uthmanic Script');
@@ -109,14 +109,14 @@ check('word to', $warsh->word(2, 253, 3)->to($hafs)->text(), 'إِلَٰهَ');
 
 $map = AyahMap::load($out . 'ayah-map.json');
 $r = $map->convert(2, 255, 'warsh');
-check('convert', [$r->sura, $r->ayah, $r->ayahLast, $r->relation], [2, 253, 254, 'split']);
+check('convert', [$r->surah, $r->ayah, $r->ayahLast, $r->relation], [2, 253, 254, 'split']);
 check('ref key', $r->key(), '2:253-254');
 check('all', $map->all(1, 1)['warsh']->relation, 'unnumbered');
 try { $map->convert(2, 255, 'nope'); check('no edition', false, true); } catch (InvalidArgumentException) {}
 
 $idx = WordIndex::load($out . 'word-index.json');
 check('form', $idx->word(11)->form('warsh'), 'مَلِكِ');
-check('find', $idx->find(2, 255, 3)->uthmani(), 'إِلَٰهَ');
+check('find', $idx->find(2, 255, 3)->rasm_uthmani(), 'إِلَٰهَ');
 check('index search', in_array(11, array_map(fn ($x) => $x->number(), $idx->search('مالك')), true), true);
 check('differing', iterator_count($idx->differing()), 53134);
 

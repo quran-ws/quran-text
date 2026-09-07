@@ -25,9 +25,9 @@ every run.
 
 ## What the sources contain
 
-### 1. ~~Sūsī v3.0 splits Al-Mulk 67:9 into two āyāt~~ — not a defect
+### 1. ~~Sūsī v3.0 splits Mulk 67:9 into two āyāt~~ — not a defect
 
-**This entry was wrong and is kept as a correction.** It claimed Al-Mulk has 30
+**This entry was wrong and is kept as a correction.** It claimed Mulk has 30
 āyāt "in every counting tradition" and reported Sūsī's 31 as an error. Both
 halves are false, and the second was refutable from this repository's own
 output:
@@ -62,7 +62,7 @@ the editorial choices behind its division.
 *(Evidence assembled by @quranpedia in
 [qiraat-ayah-map#10](https://github.com/quranpedia/qiraat-ayah-map/pull/10),
 which also found the riwāyah→system mapping wrong in the other direction: the
-Dūrī muṣḥaf measures onto First Madinan in 113 of 114 sūrahs, not Baṣrī.)*
+Dūrī muṣḥaf measures onto First Madani in 113 of 114 sūrahs, not Baṣrī.)*
 
 **What changed here as a result.** The build no longer asserts a total per
 tradition. `COUNTING_TOTALS = {"kufi": 6236, "madani": 6214, "basri": 6217}` is
@@ -74,7 +74,7 @@ label" was itself wrong for two of the seven: Dūrī and Sūsī were labelled
 `basri`, and Baṣrī is 6,204 — no printed Abū ʿAmr muṣḥaf follows it. Comparing
 each edition's āyah ends against the six systems' boundaries from
 [qiraat-ayah-map](https://github.com/quranpedia/qiraat-ayah-map) puts both on
-**First Madinan** at distance zero once al-Dānī's six Abū Jaʿfar/Shayba points
+**First Madani** at distance zero once al-Dānī's six Abū Jaʿfar/Shayba points
 are set aside, differing from each other only at 67:9. So `mushaf.counting` is
 now a block that names the *derived* system and what the edition does at every
 point of khilāf inside it (`docs/format.md`, *Counting*), and
@@ -115,7 +115,7 @@ end after ﴿قريبًا﴾ at 78:40 and totals 6,220 where the classical Makk�
 6,219, that upstream gave the point to Baṣrī alone, and that no source was known
 to place it inside the Makkī count. One does.
 
-**al-Dānī, *al-Bayān*, sūrat al-Nabaʾ** puts it in Baṣrī and nowhere else:
+**al-Dānī, *al-Bayān*, sūrah 78 (Naba)** puts it in Baṣrī and nowhere else:
 
 > وهي إحدى وأربعون آية في البصري، وأربعون في عدد الباقين.
 > اختلافها آية: ﴿عذابًا قريبًا﴾ [٤٠] **عدها البصري ولم يعدها الباقون**.
@@ -153,7 +153,7 @@ the entry carries an empty `authorities` map and the emitted point says
 the shape does not vary, and the flag says why they are empty rather than
 letting an absent attribution read as an absent disagreement.*
 
-### 2. Qālūn v3.0 carries the Al-Baqarah heading inside the previous paragraph
+### 2. Qālūn v3.0 carries the Baqarah heading inside the previous paragraph
 
 `UthmanicQaloun-v-3.0.docx` has 113 sūrah headings in their own paragraphs
 instead of 114. The text `سُورَةُ البَقَرَةِ` sits at the **end of the Al-Fātiḥah
@@ -166,7 +166,7 @@ Two consequences for anything that parses the file, both handled here:
 - heading-driven sūrah segmentation shifts every sūrah after Al-Fātiḥah by one.
   Segmenting on āyah-numbering resets instead removes the dependency entirely,
   and is the more robust rule regardless.
-- the stranded heading was landing as two words at the head of Al-Baqarah 2:1.
+- the stranded heading was landing as two words at the head of Baqarah 2:1.
   Text after the final āyah mark of a paragraph is now stripped when it matches
   the heading pattern. That anchor is deliberately narrow: sūrah 24 opens with
   `سُورَةٌ أَنزَلۡنَٰهَا`, which *is* scripture, and a looser rule would eat it.
@@ -175,7 +175,7 @@ Two consequences for anything that parses the file, both handled here:
 
 Six word pairs are printed joined in one package and separated in another. The
 pipeline re-segments them so the index keeps one column per word, records
-`boundary: {"<riwaya>": "joined_in_source"}`, and **does not judge which
+`boundary: {"<riwayah>": "joined_in_source"}`, and **does not judge which
 spacing is correct**. Left alone, each join would falsely report the following
 word absent from that riwāyah.
 
@@ -189,19 +189,19 @@ Three are cases where a riwāyah's two releases disagree with each other:
 
 Three are cases where packages differ from each other:
 
-- Bazzī `لَأُاْقۡسِمُ` (75:1) — Ibn Kathīr's reading, written as one word;
+- Bazzī `لَأُاْقۡسِمُ` (75:1) — Ibn Kathīr's qiraah, written as one word;
 - Bazzī and Dūrī `مَالِيَ` / `وَمَالِيَ` (27:20, 36:22) — the traditional muṣḥaf
   spelling. The 2026 Ḥafṣ document moved the other way and separated
   `مَا لِيَ`, where Ḥafṣ's own 2022 CSV joins it: a change of convention
   between releases.
 
-`out/reports/resegmentation.csv` carries a `riwayat_agree` column saying whether the riwāyāt
+`out/reports/resegmentation.csv` carries a `riwayahs_agree` column saying whether the riwāyāt
 read the run identically once re-segmented. That is a statement about agreement,
 not about correctness.
 
 ### 4. Characters carrying no textual weight
 
-Stripped because they do not affect the letters or the reading: kashida
+Stripped because they do not affect the letters or the qiraah: kashida
 `U+0640` (6,838 occurrences — KFGQPC's own changelogs record removing these),
 zero-width joiner, and right-to-left marks. One dotless beh `U+066E` in Bazzī
 and one small low seen `U+06E3` in Ḥafṣ v3.0 occur exactly once each; both are
@@ -301,28 +301,28 @@ were not made to answer this question; the defect was in reading them.
 
 | release | ۞ | division marked | markable | not printed |
 |---|---|---|---|---|
-| Ḥafṣ, Shuʿbah, Bazzī | 199 | 240 arbāʿ | 239 | 40 |
-| Dūrī, Sūsī | 433 | 480 athmān | 479 | 46 |
-| Warsh | 435 | 480 athmān | 479 | 44 |
-| Qālūn | 437 | 480 athmān | 479 | 42 |
+| Ḥafṣ, Shuʿbah, Bazzī | 199 | 240 rubu_al_hizbs | 239 | 40 |
+| Dūrī, Sūsī | 433 | 480 thumns | 479 | 46 |
+| Warsh | 435 | 480 thumns | 479 | 44 |
+| Qālūn | 437 | 480 thumns | 479 | 42 |
 
-This entry used to say only that "the conventional division is 240 arbāʿ, and no
+This entry used to say only that "the conventional division is 240 rubu_al_hizbs, and no
 release prints that many", and left it unreconciled. Every part of that needed
 work.
 
 **There are two conventions, not four.** Ḥafṣ, Shuʿbah and Bazzī mark the 240
-**arbāʿ** — and at the same 199 words, identically. The other four mark the 480
-**athmān** (60 ḥizb × 8), at exactly double the density: median gap 164–166
+**rubu_al_hizbs** — and at the same 199 words, identically. The other four mark the 480
+**thumns** (60 ḥizb × 8), at exactly double the density: median gap 164–166
 words against 334.
 
 **One division is never markable.** The Qurʾān opens at 1:1, the start of the
-first rubʿ, ḥizb and juz, and no release prints a ۞ there. So the markable
-positions are 239 and 479. Ḥafṣ's first mark stands at 2:26, one full rubʿ in;
-its last at 100:9, one rubʿ before the end.
+first rubu_al_hizb, ḥizb and juz, and no release prints a ۞ there. So the markable
+positions are 239 and 479. Ḥafṣ's first mark stands at 2:26, one full rubu_al_hizb in;
+its last at 100:9, one rubu_al_hizb before the end.
 
 **The rest are not absent from the muṣḥaf — they are marked in the margin.**
 The printed muṣḥaf carries a medallion in the outer margin at **every one of the
-240 arbāʿ**, reading «الحِزْبُ N» at a ḥizb start and «رُبْعُ / نِصْفُ /
+240 rubu_al_hizbs**, reading «الحِزْبُ N» at a ḥizb start and «رُبْعُ / نِصْفُ /
 ثَلَاثَةُ أَرْبَاعِ الحِزْبِ N» at the quarters between. Where a sūrah heading
 occupies the place the inline symbol would take, the medallion alone states the
 division. At **7:1** the print shows «الحِزْبُ ١٦» in the margin and no ۞.
@@ -336,7 +336,7 @@ complete record of the muṣḥaf's divisions**: it is a complete record of its
 inline ۞.
 
 **The full division can nonetheless be recovered, and closes exactly.** Each juz
-holds 8 arbāʿ, so the grid is countable rather than estimated. For Ḥafṣ:
+holds 8 rubu_al_hizbs, so the grid is countable rather than estimated. For Ḥafṣ:
 
 | source | positions |
 |---|---|
@@ -356,7 +356,7 @@ The absences concentrate where sūrahs are short: juz 28 is missing 4 of 8, juz
 | 413 | a ۞ at 31:22 | the same ۞ at 31:22 |
 | 151 | سورة الأعراف opens; «الحِزْبُ ١٦» in the margin, no ۞ | no ۞ — and juz 8 is one short, at 7:1 |
 
-A medallion marks *every* rubʿ, including the 199 that also carry a ۞, so a
+A medallion marks *every* rubu_al_hizb, including the 199 that also carry a ۞, so a
 medallion on a page does not by itself mean the division sits at that page's
 sūrah opening. Two readings had to be corrected on exactly that point: p554's
 «رُبْعُ الحِزْبِ ٥٦» is the ۞ at 63:4, not 63:1, and p575's «رُبْعُ الحِزْبِ
@@ -370,19 +370,19 @@ error — but a consumer who reads `marks` as "every division in this muṣḥaf
 be wrong, and that is what this entry exists to say.
 
 *A naming note: `mark_types` calls the ۞ kind `hizb`. The symbol is the
-**rubʿ al-ḥizb** sign, and the ḥizb proper is the marginal label these files do
+**rubu_al_hizb** sign, and the ḥizb proper is the marginal label these files do
 not carry. The name is imprecise and predates this entry.*
 
-### 8. Pause-mark conventions are not comparable between muṣḥafs
+### 8. Waqf-mark conventions are not comparable between muṣḥafs
 
-Warsh and Qālūn print one general pause sign 9,948 times. Ḥafṣ, Dūrī and Sūsī
+Warsh and Qālūn print one general waqf sign 9,948 times. Ḥafṣ, Dūrī and Sūsī
 print seven distinct ones — ۖ ۗ ۘ ۚ ۛ ۜ and ۩ — totalling far fewer. A consumer
 diffing the `waqf` layers of Ḥafṣ and Warsh is comparing publishing conventions,
-not readings.
+not qiraahs.
 
 Nothing here normalises them. There is no mapping in the sources from Warsh's
 general sign to the Ḥafṣ set, and any mapping this project supplied would be its
-own claim about where a reciter may stop.
+own claim about where a reciter may make waqf.
 
 ### 9. Bazzī has no v2 release, so it has no juz layer
 
@@ -417,10 +417,10 @@ no mark is printed there, since 46:1 is a sūrah opening:
 The layout argument and the majority of the editions point opposite ways, so it
 is left open rather than decided here. See `docs/verify-in-print.md`, Q2.
 
-**The ۞ marks do not decide this.** A ۞ marks the rubʿ al-ḥizb, not the juz, and
-a juz start landing on one is the rubʿ falling there. Of the four disputed juz
+**The ۞ marks do not decide this.** A ۞ marks the rubu_al_hizb, not the juz, and
+a juz start landing on one is the rubu_al_hizb falling there. Of the four disputed juz
 only juz 7 has a mark standing on the boundary; at juz 4 and 11 the nearest are
-15 and 19 words away — neighbouring arbāʿ — and at juz 26 no edition prints one
+15 and 19 words away — neighbouring rubu_al_hizbs — and at juz 26 no edition prints one
 at all, since 46:1 is a sūrah opening and §7 shows marks are never printed
 there.
 
@@ -451,7 +451,7 @@ all (§9), so the conflict is not incidental — it is the reason two of those f
 looked unresolved.
 
 **How it surfaced.** Not by comparing editions, but by counting. Every juz holds
-exactly 8 arbāʿ, so once the 240 rubʿ positions are assembled the total must be
+exactly 8 rubu_al_hizbs, so once the 240 rubu_al_hizb positions are assembled the total must be
 240 and every juz must hold 8. Taking the CSV's juz starts gives **242**, with
 juz 4 and juz 10 holding 9 apiece — because the CSV's juz start and the muṣḥaf's
 own mark, 15 and 19 words apart, were being counted as two divisions rather than
@@ -461,7 +461,7 @@ one. Taking the printed mark instead closes both: **240, every juz exactly 8.**
 is what the package states and the standing rule holds. This entry records that
 at these two positions the same publisher's document and data file disagree, and
 that the document is the one consistent with the division it prints. A consumer
-computing arbāʿ from `juz_starts` will be one out in juz 4 and juz 11; one
+computing rubu_al_hizbs from `juz_starts` will be one out in juz 4 and juz 11; one
 reading `marks` will not.
 
 *The two are recorded here rather than in `open-findings.json`, which holds

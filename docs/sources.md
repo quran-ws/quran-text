@@ -79,9 +79,9 @@ committed** — it is 232 MB, far past GitHub's limit, and the build does not re
 it.
 
 **What it was used for.** The `.docx` releases encode the inline ۞ and nothing
-else; the printed muṣḥaf also marks every rubʿ with a margin medallion reading
+else; the printed muṣḥaf also marks every rubu_al_hizb with a margin medallion reading
 «الحِزْبُ N» or «رُبْعُ / نِصْفُ / ثَلَاثَةُ أَرْبَاعِ الحِزْبِ N». Thirteen of
-those medallions were read to complete the 240 arbāʿ, which the packages alone
+those medallions were read to complete the 240 rubu_al_hizbs, which the packages alone
 cannot supply. See `docs/known-issues.md` §7.
 
 **It was verified against this repository before being trusted.** Its muṣḥaf

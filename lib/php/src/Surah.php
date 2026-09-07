@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace QuranText;
 
-final class Sura extends Span
+final class Surah extends Span
 {
     public readonly string $nameAr;
     public readonly string $nameEn;
@@ -19,8 +19,8 @@ final class Sura extends Span
         if ($number < 1 || $number > 114) {
             throw new \OutOfRangeException("sūrah $number: there are 114");
         }
-        $info = $mushaf->doc['suras'][$number - 1];
-        $starts = $mushaf->doc['sura_starts'];
+        $info = $mushaf->doc['surahs'][$number - 1];
+        $starts = $mushaf->doc['surah_starts'];
         parent::__construct($mushaf, $starts[$number - 1], $starts[$number] ?? count($mushaf->words));
         $this->nameAr = $info['name_ar'];
         $this->nameEn = $info['name_en'];
@@ -31,7 +31,7 @@ final class Sura extends Span
     }
 
     /** @return Ayah[] */
-    public function ayat(): array
+    public function ayahs(): array
     {
         $out = [];
         for ($n = 1; $n <= $this->ayahCount; $n++) {

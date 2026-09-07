@@ -32,7 +32,7 @@ Naskh Arabic cover the most of the range.
 ## The rasm is reconstructed, not transcribed from a manuscript
 
 The `rasm` field is derived by normalising KFGQPC's vowelled text — dropping
-dots, hamza, vowels and the dagger alif. It is **not** a transcription of any
+dots, hamzah, vowels and the dagger alif. It is **not** a transcription of any
 ʿUthmānic codex. Where the packages themselves disagree about a letter, the
 disagreement is reported; where they agree, the result is only as good as the
 reconstruction.
@@ -53,8 +53,8 @@ reasonably make differently:
   the two hands is the codex's, or that no genuine ḥadhf khilāf is hiding inside
   the class. Deciding that needs a manuscript, not a font, and a project working
   from manuscripts should take these case by case.
-- **Hamza is dropped entirely.** Correct for a rasm, but it means `النبي` and
-  `النبيء` compare equal at the rasm level. The reading difference survives in
+- **Hamzah is dropped entirely.** Correct for a rasm, but it means `النبي` and
+  `النبيء` compare equal at the rasm level. The difference in qiraah survives in
   `pointed` and in `forms`, but not in the word's identity.
 
 ## Coverage
@@ -99,7 +99,7 @@ boundaries should read `out/reports/COMPARISON.md` first.
 The shared number is a position in the union of the seven texts. If KFGQPC
 ships a release that adds or removes a word, every number after it shifts. Use
 **`key`** (`sūrah:pointed#occurrence`) or the word index's Ḥafṣ coordinates
-`{sura, ayah, pos}` as the join key for anything long-lived — both are
+`{surah, ayah, position}` as the join key for anything long-lived — both are
 derived from content, not from the running count. Neither identifier is a
 KFGQPC identifier; they exist only in this repository.
 
@@ -113,7 +113,7 @@ not derived; 40:26 `أَوۡ أَن` / `وَأَنْ` is deliberately *not* on t
 
 `status: identical` means identical **after notation folding** — the fold that
 makes the 2022 sukūn `U+06E1` equal the 2026 `U+0652`. It is a claim about the
-reading, not about bytes. The raw spelling of each riwāyah is always in `forms`;
+qiraah, not about bytes. The raw spelling of each riwāyah is always in `forms`;
 compare those if you need byte equality.
 
 The folding table itself is a judgement. It covers the mappings that could be
@@ -138,9 +138,9 @@ rather than a neutral choice.
 ## Not linguistically annotated
 
 There is no root, lemma, part of speech, morphology or translation here, and no
-tajwīd analysis. Pause marks are preserved per riwāyah but not interpreted.
-`simple` is a mechanical de-vowelling for search and diffing, not a
-transliteration or a standard imlāʾī orthography — the Ḥafṣ v2 CSV ships a real
+tajwīd analysis. Waqf marks are preserved per riwāyah but not interpreted.
+`plain` is a mechanical de-vowelling for search and diffing, not a
+transliteration or the standard imlāʾī rasm — the Ḥafṣ v2 CSV ships a real
 `aya_text_emlaey` column, which is loaded as metadata but not reconciled to the
 word level.
 

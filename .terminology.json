@@ -1,0 +1,26 @@
+{
+  "_": "How this repository is read against the Quran.ws terminology standard. See https://github.com/quranws/guidelines.",
+  "_exclude": "work/ is the build's scratch copy of the KFGQPC packages; the two counting files are vendored verbatim from quranpedia/qiraat-ayah-map and are corrected upstream, not here — their English names are replaced on load, see src/qurantext/counting.py. out/ is generated from src/ and the audit already skips it.",
+  "exclude": [
+    "work/**",
+    "data/counting/counting-systems.json",
+    "data/counting/book-boundary-primitives.json"
+  ],
+  "_ignore_words": "`part` and `parts` are ordinary English here — a part of a word, riwayat that part company — and never the juz.",
+  "ignore_words": [
+    "part",
+    "parts"
+  ],
+  "_external_names": "Names this repository does not own: the KFGQPC package, member and font names; the columns of their CSVs; Unicode character names; and the upstream repository. They are quoted, not chosen, so they are read as locators rather than as names.",
+  "external_names": [
+    "Uthmanic[A-Za-z]*",
+    "(hafs|shuba|warsh|Qaloun|Douri|Sousi)Data_v[0-9-]*",
+    "hafs_tafseerMouaser_v[0-9]+",
+    "kfgqpc_hafs_smart_v?[0-9]+",
+    "ARABIC [A-Z ]+",
+    "KFGQPC[A-Za-z ]*",
+    "(sura|aya)_(no|text|name_ar|name_en)",
+    "aya_text_emlaey",
+    "qiraat-ayah-map"
+  ]
+}

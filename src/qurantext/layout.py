@@ -84,10 +84,10 @@ def _placed_paragraphs(path: Path) -> list[list[tuple[str, int, int]]]:
             if tag == W + "p":
                 if not state["first"]:
                     state["line"] += 1
-                para: list[tuple[str, int, int]] = []
-                walk(el, para)
-                out.append(para)
-                if _is_heading("".join(c for c, _, _ in para)):
+                paragraph: list[tuple[str, int, int]] = []
+                walk(el, paragraph)
+                out.append(paragraph)
+                if _is_heading("".join(c for c, _, _ in paragraph)):
                     state["line"] += HEADING_LINES
             elif tag == W + "br":
                 if el.get(W + "type") == "page":
@@ -107,7 +107,7 @@ def _placed_paragraphs(path: Path) -> list[list[tuple[str, int, int]]]:
     return out
 
 
-def _clean(para: list[tuple[str, int, int]]) -> list[tuple[str, int, int]]:
+def _clean(paragraph: list[tuple[str, int, int]]) -> list[tuple[str, int, int]]:
     """Apply the same filtering :func:`sources.load_docx` applies, positionally.
 
     Each transform is done on the ``(char, page, line)`` list rather than on a
@@ -117,7 +117,7 @@ def _clean(para: list[tuple[str, int, int]]) -> list[tuple[str, int, int]]:
     """
     # strip_controls: drop controls and kashida, fold NBSP to a plain space.
     out = [(" " if c in (" ", "\u00a0") else c, p, l)
-           for c, p, l in para
+           for c, p, l in paragraph
            if c not in chars.CONTROLS and c != chars.TATWEEL]
 
     # A sūrah heading stranded at the end of a paragraph belongs to no āyah.
@@ -139,12 +139,12 @@ def _clean(para: list[tuple[str, int, int]]) -> list[tuple[str, int, int]]:
     return keep
 
 
-def _tokens_with_places(para: list[tuple[str, int, int]]) -> list[tuple[str, Place]]:
+def _tokens_with_places(paragraph: list[tuple[str, int, int]]) -> list[tuple[str, Place]]:
     """Split one cleaned paragraph into tokens, each at its first character."""
     out: list[tuple[str, Place]] = []
     buf: list[str] = []
     start: Place | None = None
-    for ch, page, line in para:
+    for ch, page, line in paragraph:
         if ch.isspace():
             if buf:
                 out.append(("".join(buf), start))
@@ -160,10 +160,10 @@ def _tokens_with_places(para: list[tuple[str, int, int]]) -> list[tuple[str, Pla
 
 def _scripture(path: Path) -> list[tuple[str, Place]]:
     out: list[tuple[str, Place]] = []
-    for para in _placed_paragraphs(path):
-        if _is_heading("".join(c for c, _, _ in para)):
+    for paragraph in _placed_paragraphs(path):
+        if _is_heading("".join(c for c, _, _ in paragraph)):
             continue
-        out.extend(_tokens_with_places(_clean(para)))
+        out.extend(_tokens_with_places(_clean(paragraph)))
     return out
 
 

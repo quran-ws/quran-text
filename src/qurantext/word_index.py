@@ -6,9 +6,9 @@ it.  This file is where a number gets a text.  The muṣḥaf files are where a
 text gets a position.  Neither is derivable from the other alone, so both are
 normative.
 
-Every number carries its Ḥafṣ coordinates ``{sura, ayah, pos}`` in the Kūfī
+Every number carries its Ḥafṣ coordinates ``{surah, ayah, position}`` in the Kūfī
 count, because almost every existing word-level dataset — the corpus.quran.com
-morphology, quran.com's word audio segments, word-by-word translations — is
+morphology, quran.com's word audio segments, word by word translations — is
 keyed that way, and this column is what lets them attach in one lookup.  At
 72:16 two numbers carry the same coordinates, which is the honest statement
 that Ḥafṣ writes them as one word.
@@ -35,13 +35,13 @@ DIFFERENCE_STATUSES = ("rasm_variant", "alif_variant", "partial", "word_boundary
 
 
 def hafs_coordinates(words: list[Word]) -> dict[int, dict]:
-    """number -> ``{sura, ayah, pos}`` in Ḥafṣ, where it has the word.
+    """number -> ``{surah, ayah, position}`` in Ḥafṣ, where it has the word.
 
     The position counts *printed* words: a number Ḥafṣ covers with the same
     printed word as the number before it takes that word's position.
     """
     out: dict[int, dict] = {}
-    pos = 0
+    position = 0
     at: tuple[int, int] | None = None
     for w in words:
         if "hafs" not in w.forms:
@@ -49,11 +49,11 @@ def hafs_coordinates(words: list[Word]) -> dict[int, dict]:
         if "hafs" in w.continuation:
             out[w.id] = out[w.id - 1]
             continue
-        here = (w.sura, w.aya["hafs"])
+        here = (w.surah, w.ayah["hafs"])
         if here != at:
-            at, pos = here, 0
-        pos += 1
-        out[w.id] = {"sura": w.sura, "ayah": w.aya["hafs"], "pos": pos}
+            at, position = here, 0
+        position += 1
+        out[w.id] = {"surah": w.surah, "ayah": w.ayah["hafs"], "position": position}
     return out
 
 
@@ -67,7 +67,7 @@ def groups(w: Word) -> list[dict]:
     for k in ORDER:
         if k in w.forms:
             seen.setdefault(w.forms[k], []).append(k)
-    return [{"text": t, "riwayat": ks} for t, ks in seen.items()]
+    return [{"text": t, "riwayahs": ks} for t, ks in seen.items()]
 
 
 def word_record(w: Word, hafs: dict[int, dict]) -> dict:
@@ -82,16 +82,16 @@ def word_record(w: Word, hafs: dict[int, dict]) -> dict:
     """
     rec = {
         "number": w.id,
-        "sura": w.sura,
+        "surah": w.surah,
         "index": w.index,
         "key": w.key,
         "rasm": w.rasm,
         "pointed": w.pointed,
-        "uthmani": w.uthmani,
-        "simple": w.simple,
+        "rasm_uthmani": w.rasm_uthmani,
+        "plain": w.plain,
         "status": w.status,
         "hafs": hafs.get(w.id),
-        "ayah": {k: w.aya[k] for k in ORDER if k in w.aya},
+        "ayah": {k: w.ayah[k] for k in ORDER if k in w.ayah},
         "forms": {k: w.forms[k] for k in ORDER if k in w.forms},
     }
     spellings = groups(w)
@@ -107,8 +107,8 @@ def word_record(w: Word, hafs: dict[int, dict]) -> dict:
         rec["resegmented"] = resegmented
     if w.waqf:
         rec["waqf"] = w.waqf
-    if w.hizb:
-        rec["hizb"] = w.hizb
+    if w.division:
+        rec["division"] = w.division
     if w.sajdah:
         rec["sajdah"] = w.sajdah
     return rec
@@ -125,19 +125,19 @@ def _write_records(path, head: dict, records: list[dict]) -> None:
         fh.write("\n ]\n}\n")
 
 
-CSV_COLUMNS = (["number", "sura", "index", "key", "rasm", "pointed", "uthmani",
-                "simple", "status", "hafs_sura", "hafs_ayah", "hafs_pos",
+CSV_COLUMNS = (["number", "surah", "index", "key", "rasm", "pointed", "rasm_uthmani",
+                "plain", "status", "hafs_surah", "hafs_ayah", "hafs_position",
                 "missing", "written_joined"]
                + [f"ayah_{k}" for k in ORDER] + [f"form_{k}" for k in ORDER])
 
 
 def _csv_row(w: Word, hafs: dict[int, dict]) -> list:
     h = hafs.get(w.id)
-    return ([w.id, w.sura, w.index, w.key, w.rasm, w.pointed, w.uthmani, w.simple,
-             w.status, *((h["sura"], h["ayah"], h["pos"]) if h else ("", "", "")),
+    return ([w.id, w.surah, w.index, w.key, w.rasm, w.pointed, w.rasm_uthmani, w.plain,
+             w.status, *((h["surah"], h["ayah"], h["position"]) if h else ("", "", "")),
              "|".join(w.missing),
              "|".join(k for k in ORDER if w.boundary.get(k) == WRITTEN_JOINED)]
-            + [w.aya.get(k, "") for k in ORDER]
+            + [w.ayah.get(k, "") for k in ORDER]
             + [w.forms.get(k, "") for k in ORDER])
 
 
@@ -191,18 +191,18 @@ def write_differences(words: list[Word]) -> dict:
                    doc["words"])
     with (OUT / "differences.csv").open("w", encoding="utf-8", newline="") as fh:
         wr = csv.writer(fh)
-        wr.writerow(["number", "sura", "index", "ayah_hafs", "status", "rasm",
+        wr.writerow(["number", "surah", "index", "ayah_hafs", "status", "rasm",
                      "missing_in", "written_joined_by", "resegmented_in",
                      "distinct_forms", "forms"])
         for w in flagged:
             spellings = groups(w)
             wr.writerow([
-                w.id, w.sura, w.index, w.aya.get("hafs", ""), w.status, w.rasm,
+                w.id, w.surah, w.index, w.ayah.get("hafs", ""), w.status, w.rasm,
                 "|".join(w.missing),
                 "|".join(k for k in ORDER if w.boundary.get(k) == WRITTEN_JOINED),
                 "|".join(k for k in ORDER if w.boundary.get(k) not in (None, WRITTEN_JOINED)),
                 len(spellings),
-                "  ||  ".join(f"{g['text']} [{','.join(g['riwayat'])}]" for g in spellings),
+                "  ||  ".join(f"{g['text']} [{','.join(g['riwayahs'])}]" for g in spellings),
             ])
     return doc
 
@@ -220,7 +220,7 @@ def boundary_events(words: list[Word]) -> list[dict]:
     space is told apart from a muṣḥaf that really does print the words joined.
 
     A *declared* joined word (``written_joined``) is not an event here: it is
-    the muṣḥaf's own orthography, carried in ``numbering`` and the word index,
+    the muṣḥaf's own rasm, carried in ``numbering`` and the word index,
     not a departure this build made from it.
     """
     def resegmented(w: Word) -> bool:
@@ -249,10 +249,10 @@ def _event(run: list[Word]) -> dict:
     kinds = {kind for w in run for kind in w.boundary.values()} - {WRITTEN_JOINED}
     return {
         "word_ids": [w.id for w in run],
-        "sura": run[0].sura,
-        "aya": run[0].aya.get("hafs", next(iter(run[0].aya.values()), "")),
+        "surah": run[0].surah,
+        "ayah": run[0].ayah.get("hafs", next(iter(run[0].ayah.values()), "")),
         "kind": "|".join(sorted(kinds)),
-        "riwayat": sorted({k for w in run for k, v in w.boundary.items()
+        "riwayahs": sorted({k for w in run for k, v in w.boundary.items()
                            if v != WRITTEN_JOINED}),
         "agree": all(len({w.rasm} | {rasm_of(w, k) for k in w.forms}) == 1
                      for w in run),
