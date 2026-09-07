@@ -47,6 +47,12 @@ conversation, so the list survives.
       releases". There is nothing at the other end of that promise yet.
 - [ ] **`out/word-index.json` is 48 MB**, against GitHub's 50 MB warning
       threshold, and it is rewritten on every build.
+- [ ] **The download page has never been redesigned.** `service/page.html` sets
+      prose, headings, buttons, tables and code in one typeface at one size, so
+      nothing on it can outrank anything. A redesign was drawn and discarded. If
+      one is attempted again: the side-by-side comparison against other Qurʾān
+      sources it reached for was never checked against what those sources
+      actually offer, and must not be published until it is.
 - [ ] **Two stale branches**, both predating the terminology rename and so
       needing the same merge treatment: `feat/hybrid-slot-model` (1 commit),
       `review-page` (2).
