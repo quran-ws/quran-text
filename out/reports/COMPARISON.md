@@ -1,6 +1,6 @@
 # Cross-riwāyah comparison
 
-Generated 2026-09-05 from the KFGQPC packages in `data/`. 77,434 canonical words across 114 sūrahs and 7 riwāyāt.
+Generated 2026-09-07 from the KFGQPC packages in `data/`. 77,434 canonical words across 114 sūrahs and 7 riwāyāt.
 
 Every word carries one ID that means the same word in every riwāyah that has it. Where the riwāyāt disagree, the disagreement is recorded against that ID rather than hidden by it.
 
@@ -300,7 +300,7 @@ Each edition's system is **derived** by comparing its own āyah ends to every sy
 | qaloun | `madani-last` | المدني الأخير | 6,214 | no | — | — |
 | douri | `madani-first` | المدني الأول | 6,217 | no | 3:92 counted (shayba); 3:97 not counted (shayba); 37:167 counted (shayba); 67:9 not counted (abu-jafar); 80:24 counted (shayba); 81:26 counted (shayba) | — |
 | sousi | `madani-first` | المدني الأول | 6,218 | no | 3:92 counted (shayba); 3:97 not counted (shayba); 37:167 counted (shayba); 67:9 counted (shayba); 80:24 counted (shayba); 81:26 counted (shayba) | — |
-| bazzi | `makki` | المكي | 6,220 | yes | — | 78:40 counted |
+| bazzi | `makki` | المكي | 6,220 | yes | 78:40 counted () | — |
 
 | edition | `hafs` | `shuba` | `warsh` | `qaloun` | `douri` | `sousi` | `bazzi` |
 |---|---|---|---|---|---|---|---|

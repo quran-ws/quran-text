@@ -1,7 +1,7 @@
 {
  "format": "quran-catalog",
  "format_version": "1.0",
- "generated": "2026-09-05",
+ "generated": "2026-09-07",
  "word_count": 77434,
  "sura_count": 114,
  "riwayat": [
@@ -2184,65 +2184,65 @@
    "path": "out/mushaf/<key>.json",
    "format": "quran-mushaf",
    "normative": true,
-   "answers": "give me one muṣḥaf: its words by position, with āyāt, pages, lines, juz, marks, and the numbering that maps positions onto the shared numbers"
+   "answers": "one riwāyah, word by word, with its āyāt, pages, lines and marks"
   },
   {
    "path": "out/mushaf/<key>.nested.json.gz",
    "format": "quran-mushaf",
    "view": "nested",
-   "answers": "the same muṣḥaf as sūrah → āyah → words, for consumers coming from verse-level formats"
+   "answers": "the same riwāyah, nested sūrah → āyah → words"
   },
   {
    "path": "out/mushaf/<key>.csv.gz",
    "format": "csv",
    "view": "flat",
-   "answers": "the same muṣḥaf as one row per word, for pandas, R and spreadsheets"
+   "answers": "the same riwāyah, one row per word"
   },
   {
    "path": "out/fonts/<file>.ttf",
    "format": "truetype",
-   "answers": "the KFGQPC font each muṣḥaf's text is set in — the only one guaranteed to draw it; named in the file's `font` block"
+   "answers": "the KFGQPC face this riwāyah's text is set in"
   },
   {
    "path": "out/word-index.json",
    "format": "quran-word-index",
    "normative": true,
-   "answers": "what word is number n, who reads it and how, and where it is in Ḥafṣ"
+   "answers": "every word by the number all seven share"
   },
   {
    "path": "out/word-index.csv",
    "format": "csv",
-   "answers": "the word index as a table"
+   "answers": "the word index, one row per word"
   },
   {
    "path": "out/differences.json",
    "format": "quran-differences",
-   "answers": "only the words where the riwāyāt disagree about letters, the ā, presence or boundary"
+   "answers": "only the words the riwāyāt disagree on"
   },
   {
    "path": "out/ayah-map.json",
    "format": "quran-ayah-map",
-   "answers": "what a Kūfī āyah reference is in every edition"
+   "answers": "one āyah reference, in all seven numberings"
   },
   {
    "path": "out/counting.json",
    "format": "quran-counting",
-   "answers": "the six counting systems, their boundaries as numbers, and which system each edition follows"
+   "answers": "the six counting systems and their boundaries"
   },
   {
    "path": "out/quran.sqlite.gz",
    "format": "sqlite",
-   "answers": "all seven muṣḥafs and the word index, queryable in SQL"
+   "answers": "all seven riwāyāt and the word index, in SQL"
   },
   {
    "path": "out/manifest.json",
    "format": "quran-manifest",
-   "answers": "the SHA-256 of every source package and every file here"
+   "answers": "the SHA-256 of every source and every file here"
   },
   {
    "path": "out/reports/",
    "format": "markdown, csv, html",
-   "answers": "how the seven compare and how this was built, for reading rather than loading"
+   "answers": "how the seven compare, written to be read"
   }
  ]
 }

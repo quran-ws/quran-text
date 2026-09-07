@@ -1,7 +1,7 @@
 {
  "format": "quran-mushaf",
  "format_version": "1.0",
- "generated": "2026-09-05",
+ "generated": "2026-09-07",
  "mushaf": {
   "key": "bazzi",
   "name_en": "Bazzī",
@@ -17,17 +17,27 @@
   "declared_by": null,
   "ayah_count": 6220,
   "basmalah_counted": true,
-  "khilaf": [],
-  "unexplained": [
+  "khilaf": [
    {
     "sura": 78,
     "ayah": 40,
     "kufi": "78:40",
     "number": 75288,
     "anchor": "قريبا",
-    "counted": true
+    "counted": true,
+    "authorities_named": false,
+    "follows": [],
+    "against": [],
+    "source": {
+     "work": "الفرائد الحسان في عدّ آي القرآن",
+     "author": "عبد الفتاح القاضي",
+     "locator": "سورة القيامة والنبأ",
+     "note": "قَرِيبًا الْبَصْرِى وَخُلْفٌ مَكِّهِمْ — «عده البصري والمكي يخلف عنه وتركه الباقون»",
+     "why": "al-Dānī's al-Bayān gives the point to Baṣrī alone («عدها البصري ولم يعدها الباقون», sūrah 78, 41 āyāt in Baṣrī and 40 in the rest). al-Farāʾid al-Ḥisān records khilāf within Makkī at the same word, which is what the KFGQPC Bazzī edition follows. The source does not name the authorities on either side."
+    }
    }
   ],
+  "unexplained": [],
   "distance_to_systems": {
    "madani-first": 39,
    "madani-last": 48,
@@ -44,8 +54,8 @@
     "counting-systems.json": "a4dfad8c302f3a7bd2172a07ecbd70045b448815edd955df2f0bedcb972b8117"
    },
    "overlay": {
-    "khilaf.json": "f331c1fba4bfd6bf71e3107bdac3c0eda3dc5f5e86b968067eff0852a15685e2",
-    "open-findings.json": "4ebb71a16e7fcfdbed274c398793d4b09b1564c502f59f477467c7f586d8871c",
+    "khilaf.json": "4da0ea00d8e7eac40ef9208fecb61cd79e074a01f94614b7d116bb2a456c0f2b",
+    "open-findings.json": "7bfa88abac5b8696bb32730baf354dd84545ad4eec1165b4fe968acea862da9c",
     "declared.json": "25b9a22835d6cc8d539881288d9973f7f56be0a080e2e1000d86ec6de5bad768"
    }
   }
