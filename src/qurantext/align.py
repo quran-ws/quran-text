@@ -27,11 +27,12 @@ from dataclasses import dataclass, field, replace
 from functools import lru_cache
 from pathlib import Path
 
+from . import paths
 from .normalize import forms, rasm as rasm_of, split_by_rasm
 from .tokenize import Token
 
 WRITTEN_JOINED = "written_joined"
-JOINS_FILE = Path("data/alignment/written-joined.json")
+JOINS_FILE = paths.DATA / "alignment" / "written-joined.json"
 
 
 @dataclass(eq=False)   # identity, not value, semantics: columns are shared and mutated

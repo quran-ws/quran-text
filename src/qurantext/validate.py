@@ -17,6 +17,7 @@ import json
 from collections import Counter, defaultdict
 from pathlib import Path
 
+from . import paths
 from .build import Word
 from .normalize import fold_notation, rasm, rasm_uthmani
 from .sources import Riwayah
@@ -270,7 +271,7 @@ def check_mushaf_roundtrip(words, riwayahs) -> list[dict]:
 # the published files
 # --------------------------------------------------------------------------
 
-SCHEMA = Path("schema/mushaf-1.0.json")
+SCHEMA = paths.SCHEMA / "mushaf-1.0.json"
 
 
 def check_numbering(docs: dict[str, dict]) -> list[dict]:

@@ -14,7 +14,8 @@ if sys.version_info < (3, 11):
         f"Try: python3.11 build.py"
     )
 
-sys.path.insert(0, str(Path(__file__).parent / "src"))
+ROOT = Path(__file__).resolve().parent
+sys.path.insert(0, str(ROOT / "src"))
 
 from qurantext import counting                   # noqa: E402
 from qurantext.ayah_map import write_ayah_map    # noqa: E402
@@ -47,9 +48,9 @@ def sync_bundled_hafs(doc: dict) -> None:
     import json
     import shutil
     text = json.dumps(doc, ensure_ascii=False, separators=(",", ":"))
-    font = Path(doc["font"]["file"])
+    font = ROOT / doc["font"]["file"]
     for d in BUNDLES:
-        dest = Path(__file__).parent / d
+        dest = ROOT / d
         if dest.is_dir():
             (dest / "hafs.json").write_text(text, encoding="utf-8")
             shutil.copy(font, dest / font.name)
