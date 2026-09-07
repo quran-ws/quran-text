@@ -15,6 +15,7 @@ from __future__ import annotations
 
 import csv
 import gzip
+import io
 import json
 import shutil
 import sqlite3
@@ -23,6 +24,19 @@ from pathlib import Path
 
 from .build import OUT
 from .mushaf import FORMAT, FORMAT_VERSION, MUSHAF_DIR, numbers_of
+
+
+def _gz(path: Path):
+    """A gzip file with a zeroed timestamp.
+
+    ``gzip`` stamps the current time into its header, which would make every
+    build produce different bytes for data that had not changed — and the
+    manifest, which records a SHA-256 per file, different with it.  A rebuild
+    of the same sources has to be byte-identical or the checksums promise
+    nothing.
+    """
+    return gzip.GzipFile(path, "wb", compresslevel=9, mtime=0)
+
 
 
 # --------------------------------------------------------------------------
@@ -96,7 +110,7 @@ def _write_gz(path: Path, text: str) -> None:
     read by people, and a standard whose canonical artefact cannot be opened in
     an editor is a worse standard for the few megabytes it saves.
     """
-    with gzip.open(path, "wt", encoding="utf-8", compresslevel=9) as fh:
+    with _gz(path) as gz, io.TextIOWrapper(gz, encoding="utf-8") as fh:
         fh.write(text)
 
 
@@ -178,8 +192,8 @@ def write_csv(docs: dict[str, dict]) -> None:
     for key, doc in docs.items():
         c = Coords(doc)
         resegmented = c.resegmented()
-        with gzip.open(MUSHAF_DIR / f"{key}.csv.gz", "wt", encoding="utf-8",
-                       newline="", compresslevel=9) as fh:
+        with _gz(MUSHAF_DIR / f"{key}.csv.gz") as gz, \
+                io.TextIOWrapper(gz, encoding="utf-8", newline="") as fh:
             wr = csv.writer(fh)
             wr.writerow(COLUMNS)
             for position in range(len(doc["words"])):
@@ -299,7 +313,6 @@ def write_sqlite(docs: dict[str, dict], word_index: dict,
 
     # Shipped compressed: it is a view, and an uncompressed one is tens of
     # megabytes of binary that git can neither diff nor pack.
-    with path.open("rb") as raw, gzip.open(
-            path.with_suffix(path.suffix + ".gz"), "wb", compresslevel=9) as gz:
+    with path.open("rb") as raw, _gz(path.with_suffix(path.suffix + ".gz")) as gz:
         shutil.copyfileobj(raw, gz)
     path.unlink()
