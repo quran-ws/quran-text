@@ -42,9 +42,13 @@ from .sources import _AYAH_MARK, _TRAILING_HEAD, _is_heading
 
 W = "{http://schemas.openxmlformats.org/wordprocessingml/2006/main}"
 
-#: A sūrah heading occupies a printed line of its own.  The paragraph carrying
-#: it is skipped for text, so the line it uses has to be added back by hand.
-HEADING_LINES = 1
+#: A sūrah heading occupies a printed line of its own — but the paragraph rule
+#: in :func:`_placed_paragraphs` already charges one line for it, so nothing is
+#: added back.  Charging it twice was a defect: it cancelled against the
+#: page-break reset for a page's *first* heading and so stayed invisible, while
+#: every heading after the first on the same page pushed the rest of the page
+#: down a line.  See ``docs/known-issues.md`` §6.
+HEADING_LINES = 0
 
 
 @dataclass(frozen=True)
@@ -67,6 +71,11 @@ def _placed_paragraphs(path: Path) -> list[list[tuple[str, int, int]]]:
         root = ET.fromstring(z.read("word/document.xml"))
 
     out: list[list[tuple[str, int, int]]] = []
+    #: ``first`` means "nothing has been printed on this page yet", so the first
+    #: paragraph of a page starts on line 1 rather than line 2.  It is cleared
+    #: when a glyph is placed, not when a paragraph opens: these releases put the
+    #: page break *inside* the heading paragraph, so the heading itself is that
+    #: first printed thing and the paragraph after it must advance normally.
     state = {"page": 1, "line": 1, "first": True}
 
     def walk(node, sink) -> None:
@@ -75,7 +84,6 @@ def _placed_paragraphs(path: Path) -> list[list[tuple[str, int, int]]]:
             if tag == W + "p":
                 if not state["first"]:
                     state["line"] += 1
-                state["first"] = False
                 para: list[tuple[str, int, int]] = []
                 walk(el, para)
                 out.append(para)
@@ -90,6 +98,7 @@ def _placed_paragraphs(path: Path) -> list[list[tuple[str, int, int]]]:
                     state["line"] += 1
             elif tag == W + "t":
                 for ch in (el.text or ""):
+                    state["first"] = False
                     sink.append((ch, state["page"], state["line"]))
             else:
                 walk(el, sink)

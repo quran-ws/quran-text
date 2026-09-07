@@ -272,7 +272,10 @@ def _line_check(key: str, printed: list[Printed], r: Riwaya) -> dict:
     :mod:`qurantext.layout`).  The v2 CSV states the line of every āyah, so the
     inference can be scored rather than merely asserted — and the āyāt it gets
     wrong are listed, so a consumer can exclude them instead of discovering them.
-    Bazzī has no v2 release, so its lines cannot be checked at all.
+
+    Bazzī has no v2 release, so it is not scored here.  That is a gap in the
+    *check*, not in the data: its lines are identical, word for word, to Ḥafṣ's
+    (``docs/known-issues.md`` §6), so they carry Ḥafṣ's accuracy.
     """
     if not r.meta:
         return {"validated": False,
