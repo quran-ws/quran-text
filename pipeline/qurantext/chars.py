@@ -1,6 +1,6 @@
 """Character classification tables for KFGQPC Uthmanic text.
 
-Derived from a full codepoint inventory of every source shipped in ``data/``
+Derived from a full codepoint inventory of every source shipped in ``sources/``
 (see ``docs/CHARSET.md``).  The tables below are the single place where a
 codepoint's role is decided; everything downstream asks these sets.
 """

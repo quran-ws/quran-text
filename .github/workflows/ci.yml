@@ -77,4 +77,4 @@ jobs:
         if: steps.standard.outputs.available == 'true'
         run: |
           python3 /tmp/guidelines/skills/quranic-terminology/scripts/audit_terminology.py \
-            --strict pipeline schema lib service docs data *.md
+            --strict pipeline sources schema lib service docs *.md

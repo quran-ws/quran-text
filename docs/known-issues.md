@@ -104,7 +104,7 @@ its 2026 release**, which is the same kind of change between printings that §3
 records for `مَا لِيَ`, and it is what puts a 6,218 in the packages for a
 narrator of Abū ʿAmr. Per the standing rule it is a difference, not a defect.
 
-What is settled is where 6,218 is attested in `data/`: in Sūsī's 2026 release
+What is settled is where 6,218 is attested in `sources/`: in Sūsī's 2026 release
 and nowhere else. What the forum write-up was itself describing is not settled,
 and no figure has been adjusted on either side to make them agree.
 
@@ -346,7 +346,7 @@ holds 8 rubu_al_hizbs, so the grid is countable rather than estimated. For Ḥaf
 | medallions read from the printed muṣḥaf | 13 |
 | **total** | **240**, and every juz holds exactly 8 |
 
-**The assembled 240 are recorded** in `data/divisions/hafs-rubu-al-hizb.json`, each with the source that fixes it — a printed ۞, a juz start, a count that leaves one candidate, or a margin medallion read from the print. It is evidence, not a published layer: `out/` still carries no `rubu_al_hizb_starts`.
+**The assembled 240 are recorded** in `sources/divisions/hafs-rubu-al-hizb.json`, each with the source that fixes it — a printed ۞, a juz start, a count that leaves one candidate, or a margin medallion read from the print. It is evidence, not a published layer: `out/` still carries no `rubu_al_hizb_starts`.
 
 The absences concentrate where sūrahs are short: juz 28 is missing 4 of 8, juz
 29 5, and juz 30 prints **one** mark for its eight divisions.
@@ -388,7 +388,7 @@ own claim about where a reciter may make waqf.
 
 ### 9. Bazzī has no v2 release, so it has no juz layer
 
-`data/` has `UthmanicBazzi-v-3.0.zip` and no `BazziData` package. The juz number
+`sources/` has `UthmanicBazzi-v-3.0.zip` and no `BazziData` package. The juz number
 comes from the v2 CSVs, so Bazzī has none, and its file names the absence in
 `layers.absent` rather than emitting nulls. Its **pages are unaffected** — those
 come from the `.docx`, which every muṣḥaf has. The Bazzī document names no juz

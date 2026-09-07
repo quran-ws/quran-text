@@ -23,7 +23,7 @@ conversation, so the list survives.
       fastapi and so had never run
 - [x] GitHub homepage and topics set
 - [x] the 240 `rubu_al_hizb` positions recorded with their provenance in
-      `data/divisions/hafs-rubu-al-hizb.json`, so the thirteen medallion
+      `sources/divisions/hafs-rubu-al-hizb.json`, so the thirteen medallion
       readings survive
 
 ## Blocking
@@ -68,6 +68,6 @@ conversation, so the list survives.
       26, and the six āyahs with no `rasm_imlai` — or resolve them first. Both
       are documented rather than hidden, which is what a known-issues file is for.
 - [ ] **Publish the divisions as a layer?** The 240 `rubu_al_hizb` positions are
-      recorded with their provenance in `data/divisions/hafs-rubu-al-hizb.json`,
+      recorded with their provenance in `sources/divisions/hafs-rubu-al-hizb.json`,
       but `out/` still carries no `rubu_al_hizb_starts` or `hizb_starts`. Adding
       them would give Bazzī a juz layer without depending on a v2 CSV.

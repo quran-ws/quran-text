@@ -59,7 +59,7 @@ reasonably make differently:
 
 ## Coverage
 
-**Seven riwāyāt, not ten qirāʾāt.** `data/` provides Ḥafṣ and Shuʿbah (ʿĀṣim),
+**Seven riwāyāt, not ten qirāʾāt.** `sources/` provides Ḥafṣ and Shuʿbah (ʿĀṣim),
 Warsh and Qālūn (Nāfiʿ), Dūrī and Sūsī (Abū ʿAmr), and Bazzī (Ibn Kathīr). That
 is four of the seven canonical qāriʾs, and Ibn Kathīr is represented by only one
 of his two riwāyāt — **Qunbul is absent**. Ibn ʿĀmir, Ḥamzah and al-Kisāʾī are
@@ -106,7 +106,7 @@ KFGQPC identifier; they exist only in this repository.
 Two words are written joined by some muṣḥafs — `وَأَلَّوِ` at 72:16, `أَلَّن` at
 73:20 — and the numbering counts them as two words in every file, with the
 joined muṣḥaf's one printed word covering both numbers. That these are joins
-and not different words is a judgement declared in `data/alignment/written-joined.json`,
+and not different words is a judgement declared in `sources/alignment/written-joined.json`,
 not derived; 40:26 `أَوۡ أَن` / `وَأَنْ` is deliberately *not* on that list.
 
 ## What "identical" means
@@ -121,7 +121,7 @@ established with confidence by comparing two releases of the *same* riwāyah. It
 deliberately does **not** attempt to equate the Arabic Extended-B attached-alif
 letters (`U+0870–U+0879`, new in the 2026 Warsh/Qālūn/Sūsī files) with the
 2022 spelling of alif-plus-marks, because doing so correctly needs KFGQPC's
-specification for those codepoints, which is not in `data/`. Consequence: those
+specification for those codepoints, which is not in `sources/`. Consequence: those
 differences are reported as `diacritic_variant` rather than `identical`, which
 inflates the diacritic bucket and deflates the identical one. The rasm — and so
 the alignment and the ID — is unaffected.
@@ -146,7 +146,7 @@ word level.
 
 ## Verification is internal
 
-The checks prove the index is faithful to the packages in `data/` — round-trip
+The checks prove the index is faithful to the packages in `sources/` — round-trip
 of every letter of every riwāyah, a numbering that tiles, and each edition's
 āyah division matching a classical counting system once the documented khilāf
 is set aside. They do **not** prove the packages are faithful to a printed

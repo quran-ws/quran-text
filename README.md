@@ -163,7 +163,7 @@ condition: keep the link.
 
 That covers the work done here: the word index and its numbering, the
 alignment, the counting analysis, the code and the docs. It does **not** cover
-the Qurʾānic text or the KFGQPC packages and fonts in `data/kfgqpc/` and
+the Qurʾānic text or the KFGQPC packages and fonts in `sources/kfgqpc/` and
 `out/fonts/`, which remain KFGQPC's under KFGQPC's terms.
 [`NOTICE.md`](NOTICE.md) draws the line precisely.
 

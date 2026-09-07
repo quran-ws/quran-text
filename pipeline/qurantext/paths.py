@@ -15,7 +15,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 
 #: The KFGQPC packages and the hand-recorded evidence beside them.
-DATA = ROOT / "data"
+SOURCES = ROOT / "sources"
 
 #: The published dataset.  Committed, and rewritten in full by every build.
 OUT = ROOT / "out"

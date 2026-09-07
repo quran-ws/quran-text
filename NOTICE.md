@@ -12,8 +12,8 @@ Everything in this repository that this project authored:
 |---|---|
 | the word index and its numbering | `out/word-index.*`, `out/ayah-map.*` |
 | the seven muṣḥaf files and derived layers | `out/mushaf/`, `out/counting.json` |
-| the counting analysis and its citations | `data/counting/khilaf.json`, `declared.json`, `open-findings.json` |
-| the alignment data | `data/alignment/` |
+| the counting analysis and its citations | `sources/counting/khilaf.json`, `declared.json`, `open-findings.json` |
+| the alignment data | `sources/alignment/` |
 | the pipeline and the service | `pipeline/`, `service/` |
 | the schemas, the reports, the documentation | `schema/`, `out/reports/`, `docs/` |
 
@@ -46,7 +46,7 @@ was read from:
 
 | | |
 |---|---|
-| `data/kfgqpc/*.zip` | KFGQPC distributions, redistributed unmodified |
+| `sources/kfgqpc/*.zip` | KFGQPC distributions, redistributed unmodified |
 | `out/fonts/*.ttf` | KFGQPC fonts, copied unmodified from those packages |
 
 These are the work of the **King Fahd Glorious Qurʾān Printing Complex**, are
@@ -55,10 +55,10 @@ none in their `read.me` files. Nothing in `LICENSE` grants any right in them,
 and this project makes no claim about what KFGQPC permits — satisfy yourself
 before redistributing them.
 
-`data/counting/book-boundary-primitives.json` and `counting-systems.json` are
+`sources/counting/book-boundary-primitives.json` and `counting-systems.json` are
 copied verbatim from
 [quranpedia/qiraat-ayah-map](https://github.com/quranpedia/qiraat-ayah-map)
-(MIT) at a pinned commit; see `data/counting/UPSTREAM.md`.
+(MIT) at a pinned commit; see `sources/counting/UPSTREAM.md`.
 
 ## Attribution
 

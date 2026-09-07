@@ -3,8 +3,8 @@
   "_exclude": "work/ is the build's scratch copy of the KFGQPC packages; the two counting files are vendored verbatim from quranpedia/qiraat-ayah-map and are corrected upstream, not here — their English names are replaced on load, see pipeline/qurantext/counting.py. out/ is generated from pipeline/ and the audit already skips it.",
   "exclude": [
     "work/**",
-    "data/counting/counting-systems.json",
-    "data/counting/book-boundary-primitives.json"
+    "sources/counting/counting-systems.json",
+    "sources/counting/book-boundary-primitives.json"
   ],
   "_ignore_words": "`part` and `parts` are ordinary English here — a part of a word, riwayat that part company — and never the juz.",
   "ignore_words": [

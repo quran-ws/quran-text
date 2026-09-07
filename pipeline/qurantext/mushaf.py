@@ -40,7 +40,7 @@ from pathlib import Path
 from . import counting, fonts, rasm_imlai
 from .build import OUT, Word
 from .word_index import boundary_events
-from .sources import DATA, RELEASE_POLICY, Riwayah
+from .sources import PACKAGES, RELEASE_POLICY, Riwayah
 from .surahs import names
 
 FORMAT = "quran-mushaf"
@@ -79,7 +79,7 @@ def _provenance(r: Riwayah) -> dict:
     edition cannot be named is not a citable one.
     """
     spec = r.spec
-    text = DATA / f"{spec.primary_zip}.zip"
+    text = PACKAGES / f"{spec.primary_zip}.zip"
     out = {
         "text": {
             "package": text.name,
@@ -90,7 +90,7 @@ def _provenance(r: Riwayah) -> dict:
         "policy": RELEASE_POLICY,
     }
     if spec.csv_zip:
-        layout = DATA / f"{spec.csv_zip}.zip"
+        layout = PACKAGES / f"{spec.csv_zip}.zip"
         out["layout"] = {
             "package": layout.name,
             "member": spec.csv_member,
