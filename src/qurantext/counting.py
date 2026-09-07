@@ -111,10 +111,14 @@ def points() -> dict[tuple[int, int, str, str], dict]:
         key = _anchor(k)
         if key not in out:
             raise ValueError(f"khilaf.json names an unknown point {key}")
+        src = k.get("source", {})
+        # ``source_default`` describes one book.  An entry that names its own
+        # ``work`` is citing a different one, so it inherits nothing — otherwise
+        # that book's editor would travel onto another author's title.
+        base = {} if "work" in src else dict(overlay["source_default"])
         out[key]["khilaf"][k["system"]] = {
             "authorities": dict(k["authorities"]),
-            "source": {**{kk: vv for kk, vv in overlay["source_default"].items()},
-                       **k.get("source", {})},
+            "source": {**base, **src},
         }
     return out
 
@@ -291,6 +295,10 @@ def _khilaf_entry(words: list[Word], key: str, anchor: tuple, n: int,
         "sura": sura, "ayah": ayah, "kufi": f"{anchor[0]}:{anchor[1]}",
         "number": n, "anchor": anchor[3],
         "counted": counted,
+        # A source can attest a khilāf without naming who holds each side.  The
+        # lists stay present and empty so the shape never varies, and this flag
+        # says which of the two situations produced them.
+        "authorities_named": bool(auth),
         "follows": [a for a, v in auth.items() if v == counted],
         "against": [a for a, v in auth.items() if v != counted],
         "source": p["khilaf"][system]["source"],
