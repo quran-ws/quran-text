@@ -446,7 +446,7 @@ def write_report(words: list[Word], riwayat: list[Riwaya],
     add("")
     add("The āyah boundaries are a layer *over* the word index, not a property "
         "of it, and **the count belongs to the printed edition, not to the "
-        "qirāʾah**. An edition follows one of the six classical counting "
+        "riwāyah**. An edition follows one of the six classical counting "
         "systems, and at the points where the system's own authorities disagree "
         "it follows one of them: al-Dānī records Al-Mulk 67:9 «قد جاءنا نذير» as "
         "counted by Shayba and not by Abū Jaʿfar inside the First Madinan, and "

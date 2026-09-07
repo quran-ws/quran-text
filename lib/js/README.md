@@ -1,0 +1,31 @@
+# quran-text for JavaScript
+
+ESM, no dependencies, TypeScript declarations included, Ḥafṣ bundled. Works
+in Node, the browser and React Native.
+
+```js
+import { Mushaf, AyahMap } from "quran-text";
+
+const m = await Mushaf.hafs();                                 // bundled Ḥafṣ
+
+m.ayah(2, 255).text                                            // plain words
+m.ayah(2, 255).render({ marks: true, ayahMarkers: true })      // with pause marks and ۝٢٥٥
+m.page(3).render({ marks: true, ayahMarkers: true, lines: true })
+m.sura(112).ayat                                               // [Ayah, …]
+m.juz(30).firstAyah.key                                        // "78:1"
+m.word(1, 4, 1).number                                         // 11, the same word in every riwāyah
+m.sajdat()                                                     // every āyah printed with ۩
+m.search("مالك يوم الدين")                                     // [Span]
+
+const w = await Mushaf.load("out/mushaf/warsh.json");          // another riwāyah, Node
+const w = Mushaf.fromJson(await (await fetch(url)).json());    // another riwāyah, browser / React Native
+(await AyahMap.load("out/ayah-map.json")).convert(2, 255, "warsh")   // { sura: 2, ayah: 253, ayahLast: 254, relation: "split" }
+```
+
+The font the text needs is bundled too: add `m.fontFace()` to a stylesheet and
+use `m.font.family`. For another riwāyah pass its `out/fonts/` URL to `fontFace(url)`.
+
+Wrong numbers throw `RangeError`; a layer the file lacks (juz in Bazzī) throws
+with the reason from the file. The full API is in [`../README.md`](../README.md).
+
+Test: `node --test` in this directory.

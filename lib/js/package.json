@@ -1,0 +1,14 @@
+{
+  "name": "quran-text",
+  "version": "0.1.0",
+  "description": "Read the quran-text dataset: the Qurʾān in seven riwāyāt with pages, lines, āyāt, pause marks and one shared word numbering.",
+  "type": "module",
+  "main": "./quran-text.js",
+  "types": "./quran-text.d.ts",
+  "exports": { ".": { "types": "./quran-text.d.ts", "default": "./quran-text.js" } },
+  "files": ["quran-text.js", "quran-text.d.ts", "data/hafs.json", "data/UthmanicHafs-v-3.0.ttf", "README.md"],
+  "scripts": { "test": "node --test" },
+  "license": "MIT",
+  "repository": "github:quranpedia/quran-text",
+  "keywords": ["quran", "mushaf", "hafs", "warsh", "qaloun", "riwayat", "arabic"]
+}

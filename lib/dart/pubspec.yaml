@@ -1,0 +1,15 @@
+name: quran_text
+description: Read the quran-text dataset - the Qurʾān in seven riwāyāt with pages, lines, āyāt, pause marks and one shared word numbering.
+version: 0.1.0
+repository: https://github.com/quranpedia/quran-text
+environment:
+  sdk: ^3.0.0
+dev_dependencies:
+  test: ^1.24.0
+flutter:
+  assets:
+    - assets/hafs.json
+  fonts:
+    - family: KFGQPC HAFS Uthmanic Script
+      fonts:
+        - asset: assets/UthmanicHafs-v-3.0.ttf

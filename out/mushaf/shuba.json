@@ -60,6 +60,15 @@
    ]
   }
  },
+ "font": {
+  "family": "KFGQPC Shuba Uthmanic Script",
+  "file": "out/fonts/UthmanicShubah-v-3.0.ttf",
+  "package": "UthmanicShubah-v-3.0.zip",
+  "member": "UthmanicShubah-v-3.0.ttf",
+  "sha256": "634a7252b619b934f2e507480d517b8f339503bbf08dded35315a9c1f2be495d",
+  "publisher": "https://fonts.qurancomplex.gov.sa/",
+  "note": "The text uses codepoints only this font is guaranteed to draw (Arabic Extended-B alefs, open tanwīn, the pause signs). Ship it with the text; a general Arabic font will show gaps."
+ },
  "layers": {
   "present": [
    "suras",

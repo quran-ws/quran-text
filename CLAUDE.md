@@ -19,3 +19,11 @@
 
 The north-star test is: **a developer unfamiliar with this code should be able
 to correctly guess how to use its public API.**
+
+# Website copy guidelines
+
+- Keep website copy short, clear, and instantly understandable, especially for first-time visitors.
+- Assume people scan, not read. Avoid long paragraphs and unnecessary subtitles.
+- Use visuals, layout, styling, typography, text effects, screenshots, and interactive elements to capture attention and communicate ideas instead of explaining everything with text.
+- Each section should communicate one clear message at a glance. Use simple, natural language and remove any copy that does not add real value.
+- Show more. Say less.

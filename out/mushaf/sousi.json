@@ -182,6 +182,15 @@
    ]
   }
  },
+ "font": {
+  "family": "KFGQPC Sousi Uthmanic Script",
+  "file": "out/fonts/UthmanicSousi-v-3.0.ttf",
+  "package": "UthmanicSousi-v-3.0.zip",
+  "member": "UthmanicSousi-v-3.0.ttf",
+  "sha256": "3b003447bcd36306d76997f07472efef582773f2de6f8615b81c2c46ea4d5d78",
+  "publisher": "https://fonts.qurancomplex.gov.sa/",
+  "note": "The text uses codepoints only this font is guaranteed to draw (Arabic Extended-B alefs, open tanwīn, the pause signs). Ship it with the text; a general Arabic font will show gaps."
+ },
  "layers": {
   "present": [
    "suras",

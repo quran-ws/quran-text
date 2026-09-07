@@ -27,7 +27,7 @@ from .tokenize import tokenize
 # An earlier version asserted {"kufi": 6236, "madani": 6214, "basri": 6217} and
 # reported Sūsī's 6,218 as a defect.  Both the premise and the conclusion were
 # wrong.  Many fawāṣil are مختلف فيها, so a printed muṣḥaf has to choose, and
-# the qirāʾah does not determine the choice: KFGQPC's own Dūrī printings state
+# the riwāyah does not determine the choice: KFGQPC's own Dūrī printings state
 # they follow المدني الأول and yet total 6,218 (1429 AH), 6,217 (1436) and
 # 6,214 (1443).  Al-Mulk 67:9 «قد جاءنا نذير» is one such point — al-Dānī has
 # it counted by المدني الأخير والمكي and by Shayba — and four of the seven

@@ -60,6 +60,15 @@
    ]
   }
  },
+ "font": {
+  "family": "KFGQPC HAFS Uthmanic Script",
+  "file": "out/fonts/UthmanicHafs-v-3.0.ttf",
+  "package": "UthmanicHafs-v-3.0.zip",
+  "member": "UthmanicHafs-v-3.0.ttf",
+  "sha256": "5c47602425fb4190327ab9e1a2e8ed2f53dceaf595d8ccc29ac32b8b209ad398",
+  "publisher": "https://fonts.qurancomplex.gov.sa/",
+  "note": "The text uses codepoints only this font is guaranteed to draw (Arabic Extended-B alefs, open tanwīn, the pause signs). Ship it with the text; a general Arabic font will show gaps."
+ },
  "layers": {
   "present": [
    "suras",
