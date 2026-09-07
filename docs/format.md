@@ -85,8 +85,9 @@ No field holds both. A key that ends in `_starts` holds positions. Only the
 - **`page_starts` is read** from the release's explicit page breaks;
   **`line_starts` is reconstructed** and declared under `layers.derived.line`
   with its score. A line is counted within the whole muṣḥaf; the views convert
-  it to a line within the page. Bazzī's lines cannot be validated and its file
-  says so.
+  it to a line within the page. Bazzī has no v2 release to score against, so its
+  file says `"validated": false`; its lines are nonetheless identical, word for
+  word, to Ḥafṣ's.
 - **`juz_starts`** comes from the v2 CSV and is absent for Bazzī, which has
   none; `layers.absent` says why.
 - **`marks`** is a list of `[position, type]` with `mark_types` interned per
@@ -283,10 +284,26 @@ general pause sign where Ḥafṣ, Dūrī and Sūsī print seven distinct ones. 
 a difference of publishing convention, not of reading, and nothing here
 normalises it.
 
-**The ۞ counts disagree between the releases** — 199 in Ḥafṣ, Shuʿbah and Bazzī
-against 433–437 in the others. The symbol is emitted exactly as each release
-prints it. It is *not* reconciled to the 240 arbāʿ, because that number is not in
-any package and this project does not add data its sources do not carry.
+**`marks` records ink, not divisions.** The ۞ counts disagree between the
+releases — 199 in Ḥafṣ, Shuʿbah and Bazzī against 433–437 in the others — and
+the symbol is emitted exactly as each release prints it, reconciled to nothing.
+Two things follow, and a consumer needs both:
+
+- the 199-releases mark the **240 arbāʿ** and the others the **480 athmān**, so
+  `marks` of the two groups are not counting the same division;
+- **a division can be printed in the muṣḥaf and absent from `marks`.** Where a
+  sūrah heading occupies the place the inline symbol would take, the printed
+  muṣḥaf states the division in a margin medallion instead, and the `.docx`
+  releases carry no marginal apparatus at all. Ḥafṣ prints 199 of its 239
+  markable arbāʿ; the other 40 are in the margin.
+
+So `marks` answers "what symbols does this edition print, and where", not "where
+are this muṣḥaf's divisions". Only `juz_starts` is a division layer, and
+`docs/known-issues.md` §11 records two points where even it disagrees with the
+edition's own marks. See §7 for the full reconstruction.
+
+*The kind is named `hizb` for historical reasons; ۞ is the **rubʿ al-ḥizb**
+sign, and the ḥizb proper is the marginal label these files do not carry.*
 
 ## Page is read; line is reconstructed
 
@@ -306,8 +323,10 @@ by one or two on pages the publisher sets specially, al-Fātiḥah above all. So
 - `line_disagreements` lists **every āyah** where the reconstruction differs
   from the release that states it, so a consumer can exclude them rather than
   discover them;
-- Bazzī has no v2 release, so its lines **cannot be checked at all**, and its
-  file says `"validated": false` rather than implying the same confidence.
+- Bazzī has no v2 release, so it is not scored against one, and its file says
+  `"validated": false`. That is a statement about the *check*, not about the
+  data: mapped through the shared numbering its lines are identical, word for
+  word, to Ḥafṣ's, and so carry Ḥafṣ's accuracy. See `docs/known-issues.md` §6.
 
 Treat `line_starts` as an aid to layout, not as a citable fact. Treat
 `page_starts` as a fact.

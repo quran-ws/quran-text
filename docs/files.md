@@ -222,7 +222,7 @@ khilāf inside the system. Schema `schema/counting-1.0.json`.
                                            "authorities": { "abu-jafar": false, "shayba": true }, "source": { "…": "…" } }, "…" ],
                       "ayah_ends": [8, 10, "…"] },
     "basri": { "…": "…", "editions": [] } },
-  "open_findings": [ { "mushaf": "bazzi", "sura": 78, "ayah": 40, "…": "…" } ],
+  "open_findings": [],
   "resolved_anchors": [ "…" ] }
 ```
 

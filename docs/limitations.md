@@ -150,10 +150,10 @@ The checks prove the index is faithful to the packages in `data/` — round-trip
 of every letter of every riwāyah, a numbering that tiles, and each edition's
 āyah division matching a classical counting system once the documented khilāf
 is set aside. They do **not** prove the packages are faithful to a printed
-muṣḥaf, and one division is not yet explained: the Bazzī edition counts 78:40
-﴿قريبًا﴾, which no source consulted gives to the Makkī count. It is reported
-in that file as `unexplained` and listed in `data/counting/open-findings.json`
-rather than corrected. The 258 letter-level variants in `out/reports/rasm-variants.md` —
+muṣḥaf. **No edition has an unexplained āyah end**: the last one — the Bazzī
+edition counting 78:40 ﴿قريبًا﴾ — is cited to al-Qāḍī's *al-Farāʾid al-Ḥisān*,
+which records khilāf inside the Makkī count at that word, and
+`open-findings.json` is now empty. The 258 letter-level variants in `out/reports/rasm-variants.md` —
 62 `rasm_variant` and 198 `alif_variant` — have not been checked against the
 qirāʾāt literature one by one; spot checks against
 well-known variants (9:101 Ibn Kathīr's `مِن`, 57:24 the Madanī rasm omitting

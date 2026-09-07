@@ -59,6 +59,42 @@ rather than as defects — see the standing rule at the top of that file.
 | Dūrī | `UthmanicDouri_v2-0.zip :: …/DouriData_v2-0.csv` |
 | Sūsī | `UthmanicSousi_v2-0.zip :: …/SousiData_v2-0.csv` |
 
+## A printed muṣḥaf, read for what the packages omit
+
+**This is the only source here that is not a KFGQPC package**, and it is used
+for one thing the packages do not carry: the marginal division apparatus.
+
+| | |
+|---|---|
+| file | `القرآن الكريم - المصحف العادي.pdf` |
+| from | [archive.org/details/quran-pdf-download-hafs](https://archive.org/details/quran-pdf-download-hafs) |
+| sha256 | `1cd2a1544860791a0b795e904680f4ad51bee0f692c35c1f764dc833bd1fe5f8` |
+| size | 243,640,743 bytes, 640 pages |
+| internal title | `standard39.pdf`, produced on Esko Automation Engine, 2019 |
+
+**Its provenance is weaker than the packages'**, and that is stated rather than
+glossed: it is a scan hosted on archive.org, it does not name its printing or
+year, and it is not published by KFGQPC as a data release. It is **not
+committed** — it is 232 MB, far past GitHub's limit, and the build does not read
+it.
+
+**What it was used for.** The `.docx` releases encode the inline ۞ and nothing
+else; the printed muṣḥaf also marks every rubʿ with a margin medallion reading
+«الحِزْبُ N» or «رُبْعُ / نِصْفُ / ثَلَاثَةُ أَرْبَاعِ الحِزْبِ N». Thirteen of
+those medallions were read to complete the 240 arbāʿ, which the packages alone
+cannot supply. See `docs/known-issues.md` §7.
+
+**It was verified against this repository before being trusted.** Its muṣḥaf
+page *n* is its PDF page *n+3*, and on page 151 its thirteen text lines match
+`out/mushaf/hafs.json` word for word, with the sūrah heading and the basmalah
+each taking a ruled line — the same layout the line reconstruction produces
+(§6). It has **no text layer**: every page is a 1344×1944 image, so nothing was
+extracted mechanically and each medallion was read.
+
+**Where it contradicts a package it is not silently preferred.** At juz 4 and
+juz 11 its printed marks disagree with `hafsData_v2-0.csv`; §11 records the
+disagreement and `juz_starts` still follows the CSV.
+
 ## Counting-system boundaries
 
 `data/counting/` holds two files copied verbatim from
@@ -68,8 +104,9 @@ rather than as defects — see the standing rule at the top of that file.
 `counting-systems.json` — with the commit and SHA-256 in `UPSTREAM.md` and in
 the manifest. Beside them, this repository's own `khilaf.json` records the
 disagreements *inside* a system between its authorities, cited from al-Dānī's
-*al-Bayān fī ʿadd āy al-Qurʾān*, `open-findings.json` the divisions no source
-yet explains, and `declared.json` what each edition states about its own count
+*al-Bayān fī ʿadd āy al-Qurʾān* and, at 78:40, al-Qāḍī's *al-Farāʾid al-Ḥisān*;
+`open-findings.json` the divisions no source yet explains, which is now empty;
+and `declared.json` what each edition states about its own count
 (nothing, for the `.docx` releases). See `docs/format.md`, *Counting*.
 
 `data/alignment/written-joined.json` declares the two places where a muṣḥaf prints two
