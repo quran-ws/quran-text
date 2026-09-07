@@ -1,9 +1,40 @@
 {
-  "name": "quranpedia/quran-text",
+  "name": "quran-ws/quran-text",
   "description": "Read the quran-text dataset: the Qurʾān in seven riwāyāt with pages, lines, āyāt, pause marks and one shared word numbering.",
   "type": "library",
   "license": "MIT",
-  "require": { "php": ">=8.1", "ext-json": "*", "ext-mbstring": "*" },
-  "autoload": { "psr-4": { "QuranText\\": "src/" } },
-  "scripts": { "test": "php tests/run.php" }
+  "require": {
+    "php": ">=8.1",
+    "ext-json": "*",
+    "ext-mbstring": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "QuranText\\": "src/"
+    }
+  },
+  "scripts": {
+    "test": "php tests/run.php"
+  },
+  "homepage": "https://quran.ws",
+  "keywords": [
+    "quran",
+    "mushaf",
+    "hafs",
+    "warsh",
+    "qaloun",
+    "riwayat",
+    "arabic"
+  ],
+  "authors": [
+    {
+      "name": "quran-ws",
+      "email": "service@quran.ws",
+      "homepage": "https://quran.ws"
+    }
+  ],
+  "support": {
+    "issues": "https://github.com/quran-ws/quran-text/issues",
+    "source": "https://github.com/quran-ws/quran-text"
+  }
 }

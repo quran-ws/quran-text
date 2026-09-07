@@ -75,10 +75,10 @@ final class Ayah extends Span
     /** The shared numbers of this āyah's words. @return array<int,true> */
     public function numbers(): array
     {
-        $runs = $this->mushaf->numbers();
+        [$first, $lastOf] = $this->mushaf->numbers();
         $missing = $this->mushaf->missingNumbers();
         $out = [];
-        for ($n = $runs[$this->start][0], $last = $runs[$this->end - 1][1]; $n <= $last; $n++) {
+        for ($n = $first[$this->start], $last = $lastOf[$this->end - 1]; $n <= $last; $n++) {
             if (!isset($missing[$n])) {
                 $out[$n] = true;
             }

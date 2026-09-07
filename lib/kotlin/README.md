@@ -3,7 +3,7 @@
 Android and JVM, Ḥafṣ bundled. Depends on `org.json` only, which Android ships.
 
 ```kotlin
-import org.quranpedia.qurantext.*
+import ws.quran.qurantext.*
 
 val m = Mushaf.hafs()                                                // bundled Ḥafṣ
 

@@ -208,6 +208,16 @@ def compare(
     return out
 
 
+@app.get("/version", summary="Dataset release identity, for client libraries checking for updates")
+def version(response: Response) -> dict:
+    """The smallest thing a client can fetch to learn whether its bundled copy
+    is stale.  Cached hard: a library polling this daily should almost always
+    get a 304 or a CDN hit rather than touching the application."""
+    response.headers["Cache-Control"] = "public, max-age=3600"
+    response.headers["Access-Control-Allow-Origin"] = "*"
+    return data.versions()
+
+
 @app.get("/files", summary="Every dataset file with size, SHA-256 and what it answers")
 def files(request: Request) -> list[dict]:
     base = str(request.url.replace(query=None, path="/files/"))

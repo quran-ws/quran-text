@@ -47,13 +47,27 @@ print(" ".join(m["words"][a[k]:a[k + 1]]))
 
 All text is from King Fahd Glorious Qur'an Printing Complex releases, listed
 with hashes in [`docs/sources.md`](docs/sources.md); redistribution stays
-subject to KFGQPC's terms. Nothing was authored here. The build needs only
+subject to KFGQPC's terms. No scripture was authored here. The build needs only
 Python 3.11 and is reproducible offline:
 
 ```sh
 python3 build.py                              # ~3 min, writes out/
 python3 -m unittest discover -s tests         # the build's tests
 ```
+
+## Licence
+
+**[CC BY 4.0](LICENSE)** — use it anywhere, commercially, no permission needed.
+One condition: **keep the link.**
+
+> quran-text by quran-ws — https://github.com/quran-ws/quran-text — CC BY 4.0
+
+That link is how whoever gets this data from you reaches corrections and later
+releases. It covers the work this project did — the word index and its
+numbering, the alignment, the counting analysis, the code and the docs. It does
+**not** cover the Qurʾānic text or the KFGQPC packages and fonts in
+`data/kfgqpc/` and `out/fonts/`, which are KFGQPC's and stay under KFGQPC's
+terms. [`NOTICE.md`](NOTICE.md) draws the line precisely.
 
 ## Documentation
 
@@ -62,4 +76,6 @@ python3 -m unittest discover -s tests         # the build's tests
 [`docs/files.md`](docs/files.md) every file in `out/` ·
 [`docs/method.md`](docs/method.md) how it is built ·
 [`docs/known-issues.md`](docs/known-issues.md) and
-[`docs/limitations.md`](docs/limitations.md) what to be careful with.
+[`docs/limitations.md`](docs/limitations.md) what to be careful with ·
+[`docs/verify-in-print.md`](docs/verify-in-print.md) what is still unknown, and
+where in a printed muṣḥaf to look for it.

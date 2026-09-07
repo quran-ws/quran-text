@@ -119,7 +119,7 @@ class Dataset:
 
     def files(self) -> list[dict]:
         """Every file under ``out/`` with size, SHA-256 and the question it answers."""
-        answers = [(re.compile("^" + re.escape(f["path"]).replace(r"<key>", r"[a-z]+")
+        answers = [(re.compile("^" + re.escape(f["path"]).replace(r"<key>", r"[a-z]+").replace(r"<file>", r"[A-Za-z0-9.\-]+")
                                + ("" if f["path"].endswith("/") else "$")), f)
                    for f in self.catalog["files"]]
         out = []
@@ -138,6 +138,34 @@ class Dataset:
             })
         return out
 
+    def versions(self) -> dict:
+        """What a client library compares itself against to spot a new release.
+
+        Deliberately small and free of prose: a client fetches this on a slow
+        cadence, so it must stay cheap to serve and cheap to parse.  Identity is
+        the KFGQPC package a riwāyah was cut from plus the SHA-256 of the built
+        file, because either one moving means the bytes a caller holds are stale.
+        """
+        sha = {f["path"].removeprefix("out/"): f["sha256"] for f in self.manifest["files"]}
+        editions = {}
+        for r in self.catalog["riwayat"]:
+            key = r["key"]
+            text = (self.mushaf(key).provenance or {}).get("text", {})
+            editions[key] = {
+                "source": text.get("package"),
+                "source_sha256": text.get("sha256"),
+                "file": f"mushaf/{key}.json",
+                "file_sha256": sha.get(f"mushaf/{key}.json"),
+                "ayah_count": r.get("ayah_count"),
+                "word_count": r.get("word_count"),
+            }
+        return {
+            "format": "quran-version",
+            "format_version": "1.0",
+            "dataset": self.catalog["generated"],
+            "editions": editions,
+        }
+
     def file_path(self, relative: str) -> Path | None:
         """The on-disk path of a listed file, or ``None`` if it is not one."""
         if any(f["path"] == relative for f in self.files()):
@@ -147,7 +175,7 @@ class Dataset:
 
 _UNLISTED = {
     "out/catalog.json": {"format": "quran-catalog",
-                         "answers": "the riwāyāt, the sūrahs, and every file with the question it answers"},
+                         "answers": "start here: the riwāyāt, the sūrahs and every file"},
 }
 
 

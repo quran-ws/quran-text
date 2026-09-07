@@ -23,7 +23,7 @@ from xml.sax.saxutils import quoteattr
 from dataset import Dataset
 from quran_text import Ayah, Mushaf, Span, Word, ayah_marker, fold
 
-PROJECT_URL = "https://github.com/quranpedia/quran-text"
+PROJECT_URL = "https://github.com/quran-ws/quran-text"
 LICENSE_NOTE = ("The text is the King Fahd Glorious Qur'an Printing Complex's (KFGQPC); "
                 "redistribution is subject to their terms.")
 

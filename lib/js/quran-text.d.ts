@@ -181,6 +181,13 @@ export class Mushaf {
   has(layer: Layer): boolean;
   readonly counting: Record<string, unknown>;
   readonly provenance: Record<string, unknown>;
+  /** Where {@link Mushaf.checkForUpdate} looks by default. */
+  static VERSION_URL: string;
+  /**
+   * Ask whether a newer build of this riwāyah exists. Never called for you,
+   * never rejects: resolves to `null` when the check could not be made.
+   */
+  checkForUpdate(url?: string, timeoutMs?: number): Promise<UpdateStatus | null>;
   readonly wordCount: number;
   readonly ayahCount: number;
   readonly pageCount: number;
@@ -276,4 +283,14 @@ export class WordIndex implements Iterable<IndexedWord> {
   search(text: string): IndexedWord[];
   differing(): IndexedWord[];
   [Symbol.iterator](): Iterator<IndexedWord>;
+}
+
+/** What {@link Mushaf.checkForUpdate} found. */
+export interface UpdateStatus {
+  edition: string;
+  upToDate: boolean;
+  localSource: string | null;
+  latestSource: string | null;
+  dataset: string | null;
+  downloadUrl: string;
 }

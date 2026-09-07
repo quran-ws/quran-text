@@ -8,6 +8,12 @@ import sys
 import time
 from pathlib import Path
 
+if sys.version_info < (3, 11):
+    raise SystemExit(
+        f"build.py needs Python 3.11 or newer; this is {sys.version.split()[0]}.\n"
+        f"Try: python3.11 build.py"
+    )
+
 sys.path.insert(0, str(Path(__file__).parent / "src"))
 
 from qurantext import counting                   # noqa: E402

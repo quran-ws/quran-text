@@ -5,10 +5,39 @@
   "type": "module",
   "main": "./quran-text.js",
   "types": "./quran-text.d.ts",
-  "exports": { ".": { "types": "./quran-text.d.ts", "default": "./quran-text.js" } },
-  "files": ["quran-text.js", "quran-text.d.ts", "data/hafs.json", "data/UthmanicHafs-v-3.0.ttf", "README.md"],
-  "scripts": { "test": "node --test" },
+  "exports": {
+    ".": {
+      "types": "./quran-text.d.ts",
+      "default": "./quran-text.js"
+    }
+  },
+  "files": [
+    "quran-text.js",
+    "quran-text.d.ts",
+    "data/hafs.json",
+    "data/UthmanicHafs-v-3.0.ttf",
+    "README.md"
+  ],
+  "scripts": {
+    "test": "node --test"
+  },
   "license": "MIT",
-  "repository": "github:quranpedia/quran-text",
-  "keywords": ["quran", "mushaf", "hafs", "warsh", "qaloun", "riwayat", "arabic"]
+  "repository": "github:quran-ws/quran-text",
+  "keywords": [
+    "quran",
+    "mushaf",
+    "hafs",
+    "warsh",
+    "qaloun",
+    "riwayat",
+    "arabic"
+  ],
+  "author": "quran-ws <service@quran.ws>",
+  "homepage": "https://quran.ws",
+  "bugs": {
+    "url": "https://github.com/quran-ws/quran-text/issues"
+  },
+  "engines": {
+    "node": ">=18"
+  }
 }
