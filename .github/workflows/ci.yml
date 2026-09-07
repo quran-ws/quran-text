@@ -32,6 +32,22 @@ jobs:
         working-directory: lib/python
         run: python3 -m unittest test_quran_text
 
+  service:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      # The service reads out/, which is committed, so it needs no build step.
+      - name: Install
+        working-directory: service
+        run: pip install -r requirements-dev.txt
+      - name: Tests
+        working-directory: service
+        run: pytest -q
+
   terminology:
     runs-on: ubuntu-latest
     steps:
@@ -61,4 +77,4 @@ jobs:
         if: steps.standard.outputs.available == 'true'
         run: |
           python3 /tmp/guidelines/skills/quranic-terminology/scripts/audit_terminology.py \
-            --strict src schema lib service docs tests data
+            --strict src schema lib service docs tests data *.md

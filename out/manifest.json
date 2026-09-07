@@ -1,7 +1,7 @@
 {
  "format": "quran-mushaf",
  "format_version": "1.0",
- "generated": "2026-09-07",
+ "generated": "2026-09-08",
  "normative": [
   "out/mushaf/hafs.json",
   "out/mushaf/shubah.json",
@@ -130,17 +130,17 @@
   {
    "path": "out/ayah-map.json",
    "bytes": 2285199,
-   "sha256": "ec7537f8229883d589a3ec2d06636fe9dae5a8811a9941881194d5f5f3d14510"
+   "sha256": "b4ea59b14c629ae5a95ca7e1cebca71227d25aa4d92ae4698a79db8caf21eea9"
   },
   {
    "path": "out/catalog.json",
    "bytes": 43311,
-   "sha256": "5addc8660655e55671bff7a593aeebea6b48288942bbc69e78969059e19dc688"
+   "sha256": "a202f8b983fd25794c6387cd559bf767247f2b52be5e023a652312d36ce42d3a"
   },
   {
    "path": "out/counting.json",
    "bytes": 463904,
-   "sha256": "70027a9d5adbb632c9dbb499e1e8e88f00de64a39499a89f3df723ff86bdd59c"
+   "sha256": "c2a143535c979767625f399929aa3daaf68e2d546ca16f1505fc69f918fa75cd"
   },
   {
    "path": "out/differences.csv",
@@ -150,7 +150,7 @@
   {
    "path": "out/differences.json",
    "bytes": 209197,
-   "sha256": "a4f0299ce003a59887c054b6189d4e8e10e88d67e5cc24369befd5146f37537d"
+   "sha256": "ea8c2907702a655d4c8b12e0cc5149ce18051f101cb85318316ec7de1461e1d7"
   },
   {
    "path": "out/fonts/UthmanicBazzi-v-3.0.ttf",
@@ -190,117 +190,117 @@
   {
    "path": "out/mushaf/bazzi.csv.gz",
    "bytes": 1043515,
-   "sha256": "78c8fa47d329f432e73783b20187fa5072b1961556ecdeda63c65d20edaffdc5"
+   "sha256": "6e678cc82c8edaf7c51680935a60a6204ee933c7b6cae9542dcb91455d67e734"
   },
   {
    "path": "out/mushaf/bazzi.json",
    "bytes": 1996206,
-   "sha256": "7538d0b1ce42eef15807688a6e4a2b4be87884b160e4a01d356f94d47aa96117"
+   "sha256": "a196454d8207c618d7ee893e9f30b25985a749de7b0e18b515f264c90b4876d4"
   },
   {
    "path": "out/mushaf/bazzi.nested.json.gz",
    "bytes": 1276976,
-   "sha256": "d756bd130122a56f1df6851dc5731f1e2096753f6d176e6cd53f3bed8a63f209"
+   "sha256": "c5a8bdcbc3ae8b2f52623653705612564a233c78cb75467ae080c315081be28f"
   },
   {
    "path": "out/mushaf/duri.csv.gz",
    "bytes": 1061957,
-   "sha256": "6a45adc8ffbba77cd40579b95505d4fff465aec38e917446079e7b7dba3f4e42"
+   "sha256": "2aa174ef3031ec86d5232a6f9504dc094bf1e0d22333ab5f0e6285f4115ed6f1"
   },
   {
    "path": "out/mushaf/duri.json",
    "bytes": 2036594,
-   "sha256": "33f00cda0a5de1c048b00264ba78977cd6318cae2a34f9cfaffdfb1bb273bc15"
+   "sha256": "743e8e9995d1c2cfb6db7f72be76bc7b2d150c62e77893048e0b9f480d9e39b7"
   },
   {
    "path": "out/mushaf/duri.nested.json.gz",
    "bytes": 1324710,
-   "sha256": "bfa95d4f8c98dd5146cc462b7029c95fd57c44613ad512d133850a5e8597d700"
+   "sha256": "c70e37bda28dc915bcf83480a5820d16d5e3a7c7659ccb0f07a9d992716542af"
   },
   {
    "path": "out/mushaf/hafs.csv.gz",
    "bytes": 1298319,
-   "sha256": "a7e25447ddcf7345177f57bc534f6a932c4ec3832879e57f6bf09e7db14052c8"
+   "sha256": "43a2b247691183e6535b6395280579377b3ce9a1ed7091721687d5dddd01b113"
   },
   {
    "path": "out/mushaf/hafs.json",
    "bytes": 3109708,
-   "sha256": "4f90215acaeac8db1ec948b5fc2f844c8377a419bcd84e9ce0a5695ad89df2ce"
+   "sha256": "5fe46e308a6a1e25365f9a81758a4f306ded52a7bd9b646c64124c5cee687487"
   },
   {
    "path": "out/mushaf/hafs.nested.json.gz",
    "bytes": 1756498,
-   "sha256": "98bd0c586ade57f4c02ddc7084f3a72a3891bb932a3b43d2c51863f7e41035b7"
+   "sha256": "931217c804a058d9afd4a1407ea1f019b7c3cd300655caf0c1cb18cfe0391005"
   },
   {
    "path": "out/mushaf/qalun.csv.gz",
    "bytes": 1063020,
-   "sha256": "a0e2d6913abe9fc9529759ce0b5a7a8811e2cfb86b93f4d597e12431ac67aafe"
+   "sha256": "ee341fb3e6c13c063b204cca344a808b0b438e0ab9d5146e8ea3f6709174e7a5"
   },
   {
    "path": "out/mushaf/qalun.json",
    "bytes": 2149847,
-   "sha256": "5f4ae48ac4f7359e64d4f4d5a23d1a627cef1b609749f370a4a228e0ce10f645"
+   "sha256": "c3c58a7a659206573986f72704b9c6c8be75a5d4a844dd8651b66e6fc43ba143"
   },
   {
    "path": "out/mushaf/qalun.nested.json.gz",
    "bytes": 1328320,
-   "sha256": "9c0faaad7d68566b55aebccf4dd5ab3a1467d41affeee18a3207d4e501469550"
+   "sha256": "7d6ef001862dea40d00ee4400a305b26a08fbf50e0bc888b30494190d9b8ee36"
   },
   {
    "path": "out/mushaf/shubah.csv.gz",
    "bytes": 1050930,
-   "sha256": "9b57accb2206dd9520c41363c250be5e479045e3197736e7c642575fbe347704"
+   "sha256": "581463ab3fcb7ae65803d04e509d8124ed2b6d0632a3c8d52a5641ae4ef170e5"
   },
   {
    "path": "out/mushaf/shubah.json",
    "bytes": 1984091,
-   "sha256": "8353e052b1deaad9684535cdb1bf6e27e9d52683eb40394db77ecf0a1634bb91"
+   "sha256": "ffc90b2b49f1ef177b739c7e93ed5609a64f9ed3f1541969d496dde7ecfbf59c"
   },
   {
    "path": "out/mushaf/shubah.nested.json.gz",
    "bytes": 1309663,
-   "sha256": "e596f49ba0537de1da954b94208a6d0082ce8b3d88f1779bfcc424f7cedafe78"
+   "sha256": "96c200d24cfa22c5af25177f871e5a8cc3b56c79b8eafdc6acf588b808b43cd6"
   },
   {
    "path": "out/mushaf/susi.csv.gz",
    "bytes": 1059321,
-   "sha256": "5e6875b94f218214d77420671613b33e014b67e166979d786a51f673f738e0cf"
+   "sha256": "013a4691c64b9bdfe73997fd1a99e7e8f401dcbfb6addf694b2902868959bd6a"
   },
   {
    "path": "out/mushaf/susi.json",
    "bytes": 2025244,
-   "sha256": "9e99752b300f1853a16acf604d264a6843cc67abd9c1469620ffe9981bb9dbfd"
+   "sha256": "5f5a6cb165369d0bf5b4b5d1640941f99771fc202bf5493465d27b6a4b7b3803"
   },
   {
    "path": "out/mushaf/susi.nested.json.gz",
    "bytes": 1322861,
-   "sha256": "96a05500c22c0e7c1a895f2700f76f5291e926bbfd22df3ca97822b46ed6b3d1"
+   "sha256": "a8ea9570241af7655bdbf11204eb2ac8c6dd4c0be5c8140fc6842d945c78ceee"
   },
   {
    "path": "out/mushaf/warsh.csv.gz",
    "bytes": 1054288,
-   "sha256": "74133bfc5a91ef0ef525bfd22d483cc392b758a20af3b5b710755ddd6b5ab4da"
+   "sha256": "20f12e1207bf4fee88d61cea2c47c527e0196881a68d0e2b06eae03b2741b330"
   },
   {
    "path": "out/mushaf/warsh.json",
    "bytes": 1912369,
-   "sha256": "f37f59f63c272b854bc61fc6a0c786f77d1472b06e674508950ed6fe5a2db0f1"
+   "sha256": "aa0598211adf5b7580f302302d7152115f0504ae940f0248d5d4219386b117b9"
   },
   {
    "path": "out/mushaf/warsh.nested.json.gz",
    "bytes": 1319321,
-   "sha256": "40273678dca96d541986cd4be44350570856e98db38b62d439cd8f71f9f6d9e9"
+   "sha256": "06f140c140ef48fb19889800a3ff5339e599172d217b52146646a48912c7b93f"
   },
   {
    "path": "out/quran.sqlite.gz",
    "bytes": 20337217,
-   "sha256": "0d1da5f853f6e659af166477bc21c3deaec97c28bfd355209e62ceddbe8ef1be"
+   "sha256": "47180b2218e6a531827c0a50ef55fac138696bd51d51c6ee8bed4fe5ef94c38c"
   },
   {
    "path": "out/reports/COMPARISON.md",
    "bytes": 43433,
-   "sha256": "dce4476cc6c83299eeaeafc91a578ab279e1cae6972c282831a493789e08fabf"
+   "sha256": "460b2fb97660be47de255444e4103df946040473d64366f63eb716fe89d38a93"
   },
   {
    "path": "out/reports/agreement-matrix.csv",
@@ -310,7 +310,7 @@
   {
    "path": "out/reports/compare.html",
    "bytes": 2077013,
-   "sha256": "64398809602bbc81c89e782b1ddf26737c8d6e43ce92a60badc33e6e813aff04"
+   "sha256": "d0d2a89c736c4b70f4be17ecbc5fbaac3b83c7c750a1dfa53495cbf5bd67dad4"
   },
   {
    "path": "out/reports/rasm-variants.md",
@@ -335,7 +335,7 @@
   {
    "path": "out/word-index.json",
    "bytes": 50335703,
-   "sha256": "a984157a46ed2decf1ae9a8d5a15ad4406c3bbf7e7dfb4e857f79ed410bde8e7"
+   "sha256": "47ab6fda916feea75b300b535118aa2765207f1d7573bac28a7ef73cf8317059"
   }
  ]
 }

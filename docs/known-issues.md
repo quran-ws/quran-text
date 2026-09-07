@@ -346,6 +346,8 @@ holds 8 rubu_al_hizbs, so the grid is countable rather than estimated. For Ḥaf
 | medallions read from the printed muṣḥaf | 13 |
 | **total** | **240**, and every juz holds exactly 8 |
 
+**The assembled 240 are recorded** in `data/divisions/hafs-rubu-al-hizb.json`, each with the source that fixes it — a printed ۞, a juz start, a count that leaves one candidate, or a margin medallion read from the print. It is evidence, not a published layer: `out/` still carries no `rubu_al_hizb_starts`.
+
 The absences concentrate where sūrahs are short: juz 28 is missing 4 of 8, juz
 29 5, and juz 30 prints **one** mark for its eight divisions.
 

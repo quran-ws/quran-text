@@ -1,6 +1,6 @@
 # Cross-riwāyah comparison
 
-Generated 2026-09-07 from the KFGQPC packages in `data/`. 77,434 canonical words across 114 sūrahs and 7 riwāyāt.
+Generated 2026-09-08 from the KFGQPC packages in `data/`. 77,434 canonical words across 114 sūrahs and 7 riwāyāt.
 
 Every word carries one ID that means the same word in every riwāyah that has it. Where the riwāyāt disagree, the disagreement is recorded against that ID rather than hidden by it.
 
