@@ -21,17 +21,23 @@ Word-level data is **derived** here — no source package contains it — and th
 derivation, together with the alignment, the numbering and the counting
 analysis, is the work being licensed. See `docs/sources.md`.
 
-## The client libraries are MIT
+## The client libraries are CC BY 4.0 too
 
-`lib/` is licensed under the **MIT Licence**, not CC BY 4.0 — each package
-carries its own `LICENSE`. Client libraries are code, and Creative Commons
-advise against CC BY for software: it grants no patent rights and does not
-define "source form". MIT is what a developer pulling `quran-text` from PyPI,
-npm, Packagist, pub.dev or Maven Central expects, and what those registries
-publish as.
+`lib/` carries the same licence as everything else, and each package ships a
+copy of it. One licence covers the whole repository: the dataset, the pipeline,
+the docs and the six client libraries.
 
-This changes nothing about the text: the Qurʾānic text bundled in those
-packages is still KFGQPC's, under KFGQPC's terms, exactly as below.
+That is a deliberate choice against the usual advice. Creative Commons
+discourage CC BY for software — it grants no patent rights and does not define
+"source form" — and MIT is what a developer pulling `quran-text` from PyPI, npm,
+Packagist, pub.dev or Maven Central would expect. But every one of those
+packages **bundles the dataset**: `hafs.json` and its font travel inside them.
+Licensing the wrapper under MIT while the data it carries is CC BY 4.0 would put
+two licences in one package and, in practice, let the data reach people with the
+attribution stripped — which is the one thing this licence exists to prevent.
+
+So the link requirement holds wherever the data goes. If you need the library
+code under different terms, ask.
 
 ## What is not licensed here
 
