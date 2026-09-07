@@ -1,36 +1,22 @@
 # quran-text
 
-**The Qurʾān as words.** Seven riwāyāt, exactly as the Madinah muṣḥaf prints
-them — and one number that means the same word in all seven.
+**The Qurʾān as words.** The text of the Madinah muṣḥaf, exactly as printed,
+where every word carries one number that means the same word in all seven
+riwāyāt.
 
 The text as it is printed, not as anyone retyped it: every file names the
 package it came from and its SHA-256.
+
+**Building an app** → [Use it in your app](#use-it-in-your-app) ·
+**Just need the files** → [Download the text](#download-the-text) ·
+**Checking the source** → [Where the text comes from](#where-the-text-comes-from)
 
 سبع روايات من مصاحف مجمع الملك فهد، مقسَّمة كلمةً كلمة، ولكل كلمة
 رقمٌ واحد يدل عليها في الروايات السبع جميعًا. النص نصُّ المجمع بحرفه، وكل ملف
 يذكر إصداره وبصمته. ابدأ من `lib/` إن كنت تبني تطبيقًا، ومن `service/` إن أردت
 تنزيل النص بالصيغة التي تريد، ومن `out/` إن كنت تعمل على البيانات مباشرة.
 
----
-
-### Word 425 — sūrah 2, āyah 28, sixth word
-
-| | |
-|---|---|
-| Ḥafṣ · Shuʿbah · Dūrī · Sūsī | فَأَحۡيَٰكُمۡ |
-| Bazzī | فَأَحۡيَٰكُمُۥ |
-| Qālūn | فَأَحْيَاكُمْ |
-| Warsh | فَأَحْيٜاكُمْ |
-
-One number, four spellings. There are **77,434 numbers**; **277** read like
-this and the rest are the same word everywhere. Attach a translation, a grammar
-entry or an audio segment to a number once, and it is attached in all seven.
-
-None of the published Madinah packages contain word-level data — every one of
-them is āyah-level ([`docs/sources.md`](docs/sources.md)). The words, and the
-number that ties them together, are what this repository derives.
-
-## Quick start
+## Use it in your app
 
 Ḥafṣ is bundled with every library; nothing to download, nothing to know about
 riwāyāt.
@@ -46,9 +32,25 @@ m.search("مالك يوم الدين")                          # → [Span(10, 
 ```
 
 The same six lines in Python, JavaScript, PHP, Dart, Swift and Kotlin — one
-package each, no dependencies, tested against the same facts. Nothing is
-published to PyPI or npm yet; install from the directory
-(`pip install ./lib/python`) or copy it in. [`lib/`](lib/) has the full API.
+package each, no dependencies, tested against the same facts.
+[`lib/`](lib/) has the full API.
+
+**Nothing is on PyPI or npm yet.** Install from the directory
+(`pip install ./lib/python`) or copy the file in.
+
+**Ship the font.** Some words use codepoints Unicode only added in 2021, and
+almost no general font draws them — without the right font your users see empty
+boxes. Every muṣḥaf file names the font that ships with its source package, and
+the build copies it to [`out/fonts/`](out/fonts/); Warsh, Qālūn and Sūsī
+need it most.
+
+**Join on `key`, not on the number.** The shared number is a position, so a
+future release that adds a word shifts it. `key` (`sūrah:pointed#occurrence`)
+and the Ḥafṣ `{surah, ayah, position}` coordinates come from the text itself
+and survive.
+
+**Ship it commercially**, no permission needed — keep the attribution line
+below. The Qurʾānic text itself stays its publisher's, under their terms.
 
 Āyah numbers are the edition's own, and the libraries convert:
 
@@ -58,6 +60,25 @@ warsh = Mushaf.load("out/mushaf/warsh.json")
 m.ayah(2, 255).to(warsh)      # AyahMatch(2:253-254, split)
 m.word(2, 255, 3).to(warsh)   # Word(5176, 'إِلَٰهَ')
 ```
+
+## One number, seven riwāyāt
+
+**Word 425** — sūrah 2, āyah 28, sixth word:
+
+| | |
+|---|---|
+| Ḥafṣ · Shuʿbah · Dūrī · Sūsī | فَأَحۡيَٰكُمۡ |
+| Bazzī | فَأَحۡيَٰكُمُۥ |
+| Qālūn | فَأَحْيَاكُمْ |
+| Warsh | فَأَحْيٜاكُمْ |
+
+One number, four spellings. There are **77,434 numbers**; **277** read like
+this and the rest are the same word everywhere. Attach a translation, a grammar
+entry or an audio segment to a number once, and it is attached in all seven.
+
+None of the published Madinah packages contain word-level data — every one of
+them is āyah-level ([`docs/sources.md`](docs/sources.md)). The words, and the
+number that ties them together, are what this repository derives.
 
 ## Download the text
 
@@ -98,7 +119,10 @@ The checks prove the data is faithful to the packages, not that the packages are
 faithful to a printed muṣḥaf. [`limitations.md`](docs/limitations.md) says
 exactly what is and is not verified.
 
-## The seven
+## Which riwāyah do you need?
+
+If you don't know, **Ḥafṣ** — it is what most of the world reads, and it is the
+default in every library here. The other six are there for when you need them.
 
 | riwāyah | qāriʾ | counting | āyāt | words |
 |---|---|---|---|---|
@@ -118,8 +142,6 @@ recorded for all but Bazzī, whose source carries none.
 
 | you are… | go to |
 |---|---|
-| building an app | [`lib/`](lib/) — Python, JS, PHP, Dart, Swift, Kotlin |
-| after a file in a particular shape | [`service/`](service/) — the download page and HTTP API above |
 | working with the data | [`out/`](out/) — start at [`catalog.json`](out/catalog.json); [`docs/files.md`](docs/files.md) maps every file |
 | an agent | [`skills/quran-text/SKILL.md`](skills/quran-text/SKILL.md) |
 
