@@ -36,7 +36,7 @@ Seven riwāyāt, one per qāriʾ pair, each parsed from a Word document.
 | Dūrī | Abū ʿAmr al-Baṣrī | `UthmanicDouri_V20.zip :: UthmanicDouri V20.docx` | 2022-04 |
 
 **Bazzī exists only as a v3.0 `.docx`** — there is no `BazziData` release. Since
-covering all the provided qirāʾāt requires it, the `.docx` files are the primary
+covering all the provided riwāyāt requires it, the `.docx` files are the primary
 source for every riwāyah, which also keeps one parsing path for all seven.
 
 **Dūrī has no v3.0 release.** Its 2022 document is used instead, which is why
@@ -86,7 +86,7 @@ words as one; see *Numbering* in the same document.
 | `HafsNastaleeq-Ver10.zip` | a font plus a specimen document |
 | `1441-AI-hafs.zip` | Adobe Illustrator page artwork, not text |
 | `mumtaz-1.pdf` | a scanned muṣḥaf image PDF, not text |
-| all `.ttf` files | fonts |
+| all `.ttf` files | fonts; the one beside each primary `.docx` is copied to `out/fonts/` and named in the muṣḥaf file's `font` block |
 
 The brief was to ignore translations, meanings and similar; that is applied
 here, plus the sources that are images or glyph codes rather than text.

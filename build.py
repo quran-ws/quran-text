@@ -27,6 +27,28 @@ from qurantext.views import write_csv, write_nested, write_sqlite  # noqa: E402
 from qurantext.word_index import write_differences, write_word_index  # noqa: E402
 
 
+#: The client libraries under lib/ ship Ḥafṣ and its font; keep the copies in step.
+BUNDLES = [
+    "lib/python/quran_text_data", "lib/js/data", "lib/php/data", "lib/dart/assets",
+    "lib/swift/Sources/QuranText/Resources", "lib/kotlin/src/main/resources",
+]
+
+
+def sync_bundled_hafs(doc: dict) -> None:
+    """The same document as out/mushaf/hafs.json, minified: nobody reads the
+    bundled copy, so the one-word-per-line layout that makes out/ reviewable
+    would only cost the packages 1.5 MB."""
+    import json
+    import shutil
+    text = json.dumps(doc, ensure_ascii=False, separators=(",", ":"))
+    font = Path(doc["font"]["file"])
+    for d in BUNDLES:
+        dest = Path(__file__).parent / d
+        if dest.is_dir():
+            (dest / "hafs.json").write_text(text, encoding="utf-8")
+            shutil.copy(font, dest / font.name)
+
+
 def main() -> int:
     t0 = time.time()
     print("loading sources ...")
@@ -65,6 +87,7 @@ def main() -> int:
     write_viewer(words, riwayat)
     write_catalog(words, riwayat, docs)
     write_manifest(docs)
+    sync_bundled_hafs(docs["hafs"])
 
     problems = (check_index(words, riwayat)
                 + check_ayah_numbers(riwayat)

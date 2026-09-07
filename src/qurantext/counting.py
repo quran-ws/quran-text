@@ -1,6 +1,6 @@
 """Which counting system each edition follows, and what it does at points of khilāf.
 
-An āyah count is not a property of the qirāʾah.  It is a property of the
+An āyah count is not a property of the riwāyah.  It is a property of the
 **edition**, and there is a level in between:
 
 * a **counting system** — one of the six madhhabs of ʿadd al-āy, as the
@@ -389,7 +389,7 @@ def write_counting(words: list[Word], docs: dict[str, dict]) -> dict:
         "generated": date.today().isoformat(),
         "model": "Each system lists the shared number after which every one of "
                  "its āyāt ends. The count belongs to the edition, not the "
-                 "qirāʾah: an edition is listed under the system its own "
+                 "riwāyah: an edition is listed under the system its own "
                  "ayah_starts match, with what it does at every point where "
                  "the system's own authorities disagree.",
         "source": provenance(),
