@@ -108,7 +108,10 @@ def main() -> int:
     for p in problems:
         print(f"  - [{p['check']}] {p.get('riwayah', '')} {p['detail']}")
     print(f"done in {time.time() - t0:.0f}s -> out/")
-    return 0
+    # A finding means the build wrote out/ but could not vouch for it, so the
+    # exit status has to say so: CI and any caller chaining on `&&` are entitled
+    # to treat a non-zero status as "do not publish this".
+    return 1 if problems else 0
 
 
 if __name__ == "__main__":
