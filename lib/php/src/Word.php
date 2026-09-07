@@ -20,15 +20,15 @@ final class Word
     }
 
     /** Plain modern spelling, Ḥafṣ only; null elsewhere. */
-    public function imlaei(): ?string
+    public function rasm_imlai(): ?string
     {
-        $col = $this->mushaf->doc['imlaei'];
+        $col = $this->mushaf->doc['rasm_imlai'];
         return $col ? $col[$this->position] : null;
     }
 
-    public function sura(): Sura
+    public function surah(): Surah
     {
-        return $this->mushaf->suraAt($this->position);
+        return $this->mushaf->surahAt($this->position);
     }
 
     /** The āyah this word is in; null for the unnumbered basmalah. */

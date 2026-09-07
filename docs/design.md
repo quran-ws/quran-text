@@ -15,13 +15,13 @@ the riwāyah**:
 | edition | counting system | āyāt | at the points of khilāf inside the system |
 |---|---|---|---|
 | Ḥafṣ, Shuʿbah | Kūfī | 6,236 | — |
-| Warsh, Qālūn | Last Madinan | 6,214 | — |
-| Dūrī | First Madinan | 6,217 | 67:9 not counted, following Abū Jaʿfar |
-| Sūsī | First Madinan | 6,218 | 67:9 counted, following Shayba |
+| Warsh, Qālūn | Last Madani | 6,214 | — |
+| Dūrī | First Madani | 6,217 | 67:9 not counted, following Abū Jaʿfar |
+| Sūsī | First Madani | 6,218 | 67:9 counted, following Shayba |
 | Bazzī | Makkī | 6,220 | 78:40 counted, [not yet cited](known-issues.md) |
 
 Each system is derived from what the edition prints, not assumed from the
-riwāyah — the two Abū ʿAmr editions are First Madinan, not Baṣrī, and they
+riwāyah — the two Abū ʿAmr editions are First Madani, not Baṣrī, and they
 differ from each other at exactly one documented point. Nesting words under
 āyāt would make a number mean a different word in each edition. Flattening to
 the sūrah makes one number stable across all of them, and the āyah boundaries
@@ -56,17 +56,17 @@ an open finding in [`known-issues.md`](known-issues.md).
 ## What makes a number mean one word
 
 Words are identified by their **bare ʿUthmānic rasm** — undotted, unvowelled,
-without hamza — because that is what the seven riwāyāt actually share. The
-codices were written that way, and a single skeleton carries several readings
+without hamzah — because that is what the seven riwāyāt actually share. The
+codices were written that way, and a single skeleton carries several qiraahs
 on purpose:
 
 ```
 تَعۡمَلُونَ  ┐
-           ├─►  ٮعملوں   one rasm, one number, two readings
+           ├─►  ٮعملوں   one rasm, one number, two qiraahs
 يَعۡمَلُونَ  ┘
 ```
 
-Everything a scribe added later to fix a reading — dots, hamza, vowels — is
+Everything a scribe added later to fix a qiraah — dots, hamzah, vowels — is
 exactly what the riwāyāt are allowed to disagree about, so none of it is part
 of a word's identity. Each riwāyah's own spelling is kept in `forms`.
 
@@ -84,7 +84,7 @@ and each concept means one thing. Specified in
 
 | status | words | share | meaning |
 |---|---|---|---|
-| `identical` | 40,558 | 52.4% | one reading, one spelling, everywhere |
+| `identical` | 40,558 | 52.4% | one qiraah, one spelling, everywhere |
 | `diacritic_variant` | 36,261 | 46.8% | same letters and dots — the vowelling differs |
 | `dotting_variant` | 338 | 0.44% | one rasm, pointed two ways |
 | `alif_variant` | 198 | 0.26% | one ā, on the line in one hand and above it in the other |
@@ -106,14 +106,14 @@ publisher. Rasm agreement between any two riwāyāt is **99.5 %–100 %**.
 
 ```json
 {
- "number": 11, "sura": 1, "index": 11, "key": "1:مالك#1",
- "rasm": "ملك", "pointed": "مالك", "uthmani": "مَٰلِكِ", "simple": "مالك",
+ "number": 11, "surah": 1, "index": 11, "key": "1:مالك#1",
+ "rasm": "ملك", "pointed": "مالك", "rasm_uthmani": "مَٰلِكِ", "plain": "مالك",
  "status": "dotting_variant",
- "hafs":  { "sura": 1, "ayah": 4, "pos": 1 },
- "ayah":  { "hafs": 4, "shuba": 4, "warsh": 3, "qaloun": 3,
-            "douri": 3, "sousi": 3, "bazzi": 4 },
- "forms": { "hafs": "مَٰلِكِ", "shuba": "مَٰلِكِ", "warsh": "مَلِكِ", "qaloun": "مَلِكِ",
-            "douri": "مَلِكِ", "sousi": "مَّلِكِ", "bazzi": "مَلِكِ" }
+ "hafs":  { "surah": 1, "ayah": 4, "position": 1 },
+ "ayah":  { "hafs": 4, "shubah": 4, "warsh": 3, "qalun": 3,
+            "duri": 3, "susi": 3, "bazzi": 4 },
+ "forms": { "hafs": "مَٰلِكِ", "shubah": "مَٰلِكِ", "warsh": "مَلِكِ", "qalun": "مَلِكِ",
+            "duri": "مَلِكِ", "susi": "مَّلِكِ", "bazzi": "مَلِكِ" }
 }
 ```
 
@@ -122,7 +122,7 @@ and Makkī counts and āyah 3 for the Madanī ones. `forms` records that Ḥaf�
 Shuʿbah read *māliki* where the rest read *maliki* — and `rasm` records that
 the codex writes `ملك` either way. Ḥafṣ's ā is printed as a superscript alef,
 which is precisely the scribal cue that it is *not* on the line: one skeleton,
-deliberately written to carry both readings.
+deliberately written to carry both qiraahs.
 
 ## Read next
 

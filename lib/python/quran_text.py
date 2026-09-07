@@ -3,12 +3,12 @@
     from quran_text import Mushaf
     m = Mushaf.hafs()                         # bundled; or Mushaf.load("out/mushaf/warsh.json")
     m.ayah(2, 255).text                       # plain words
-    m.ayah(2, 255).render(marks=True, ayah_markers=True)
+    m.ayah(2, 255).render(marks=True, ayah_marks=True)
     m.page(3).lines                           # the printed lines
     m.juz(30).first_ayah.key                  # "78:1"
 
 Everything is a slice of one ``words`` array.  A :class:`Span` is a slice with
-``text`` and ``render``; :class:`Sura`, :class:`Ayah`, :class:`Page`,
+``text`` and ``render``; :class:`Surah`, :class:`Ayah`, :class:`Page`,
 :class:`Line` and :class:`Juz` are spans that know their place.  Positions are
 0-based indices into ``words``; sūrah, āyah, page, line and juz numbers are
 1-based, as printed.  Āyah numbers are in *this edition's own count*; use
@@ -25,12 +25,12 @@ from bisect import bisect_right
 from dataclasses import dataclass
 from typing import Iterable, Optional, Union
 
-__all__ = ["Mushaf", "Sura", "Ayah", "Page", "Line", "Juz", "Word", "Mark", "Font", "AyahMatch",
-           "Span", "AyahMap", "AyahRef", "WordIndex", "IndexedWord",
-           "ayah_marker", "fold", "Layer"]
+__all__ = ["Mushaf", "Surah", "Ayah", "Page", "Line", "Juz", "Word", "Mark", "Font", "AyahMatch",
+           "Span", "AyahMap", "MappedAyah", "WordIndex", "IndexedWord",
+           "ayah_mark", "fold", "Layer"]
 
-END_OF_AYAH = "۝"
-Layer = str  # "suras" | "ayat" | "pages" | "lines" | "juz" | "marks" | "imlaei"
+AYAH_MARK = "۝"
+Layer = str  # "surahs" | "ayahs" | "pages" | "lines" | "juz" | "marks" | "rasm_imlai"
 
 
 # --- text helpers ------------------------------------------------------------
@@ -38,9 +38,9 @@ Layer = str  # "suras" | "ayat" | "pages" | "lines" | "juz" | "marks" | "imlaei"
 _ARABIC_INDIC = "٠١٢٣٤٥٦٧٨٩"
 
 
-def ayah_marker(number: int) -> str:
+def ayah_mark(number: int) -> str:
     """The end-of-āyah sign with its number, as the muṣḥaf prints it: ``۝٢٥٥``."""
-    return END_OF_AYAH + "".join(_ARABIC_INDIC[int(d)] for d in str(number))
+    return AYAH_MARK + "".join(_ARABIC_INDIC[int(d)] for d in str(number))
 
 
 _FOLD_ALEF = "ٱأإآ" + "".join(chr(c) for c in range(0x0870, 0x0883))
@@ -48,7 +48,7 @@ _FOLD_YEH = "ےۑى"
 
 
 def fold(text: str) -> str:
-    """Reduce a word to plain letters for matching: no diacritics, no pause marks,
+    """Reduce a word to plain letters for matching: no harakah, no waqf marks,
     one alif, one yāʾ.  For search only — it is not a spelling of anything."""
     out = []
     for ch in text:
@@ -93,7 +93,7 @@ class Font:
 
 @dataclass(frozen=True)
 class Mark:
-    """A sign printed against a word: ``kind`` is waqf, hizb or sajdah;
+    """A sign printed against a word: ``kind`` is waqf, division or sajdah;
     ``side`` is where it is printed."""
     kind: str
     side: str
@@ -116,14 +116,14 @@ class Word:
         return self._m.words[self.position]
 
     @property
-    def imlaei(self) -> Optional[str]:
+    def rasm_imlai(self) -> Optional[str]:
         """Plain modern spelling, Ḥafṣ only; ``None`` elsewhere."""
-        col = self._m._doc["imlaei"]
+        col = self._m._doc["rasm_imlai"]
         return col[self.position] if col else None
 
     @property
-    def sura(self) -> "Sura":
-        return self._m.suras[_index_of(self._m._doc["sura_starts"], self.position)]
+    def surah(self) -> "Surah":
+        return self._m.surahs[_index_of(self._m._doc["surah_starts"], self.position)]
 
     @property
     def ayah(self) -> Optional["Ayah"]:
@@ -186,7 +186,7 @@ class Word:
         return self.text
 
 
-_ALL_KINDS = frozenset({"waqf", "hizb", "sajdah"})
+_ALL_KINDS = frozenset({"waqf", "division", "sajdah"})
 
 
 def _mark_kinds(marks: Union[bool, Iterable[str]]) -> frozenset:
@@ -223,26 +223,26 @@ class Span:
         return " ".join(self.words)
 
     def render(self, marks: Union[bool, Iterable[str]] = False,
-               ayah_markers: bool = False, lines: bool = False) -> str:
+               ayah_marks: bool = False, lines: bool = False) -> str:
         """The text as the muṣḥaf prints it, with what you ask for.
 
         ``marks``: ``True`` for every sign, or a set of kinds among
-        ``"waqf"``, ``"hizb"``, ``"sajdah"``.  ``ayah_markers`` appends
+        ``"waqf"``, ``"division"``, ``"sajdah"``.  ``ayah_marks`` appends
         ``۝`` with the āyah number after each āyah that ends inside the span.
         ``lines`` breaks the text where the printed lines break.
         """
         m = self._m
         kinds = _mark_kinds(marks)
-        ayah_ends = m._ayah_ends if ayah_markers else None
+        ayah_ends = m._ayah_ends if ayah_marks else None
         line_starts = set(m._doc.get("line_starts") or []) if lines else None
         out: list[str] = []
-        for pos in range(self.start, self.end):
-            if line_starts is not None and pos in line_starts and pos != self.start:
+        for position in range(self.start, self.end):
+            if line_starts is not None and position in line_starts and position != self.start:
                 out.append("\n")
             elif out:
                 out.append(" ")
-            token = m.words[pos]
-            for mk in m._marks_at.get(pos, ()):
+            token = m.words[position]
+            for mk in m._marks_at.get(position, ()):
                 if mk.kind not in kinds:
                     continue
                 if mk.side == "before":
@@ -251,13 +251,13 @@ class Span:
                     token = token + mk.sign
             out.append(token)
             if ayah_ends is not None:
-                k = ayah_ends.get(pos)
+                k = ayah_ends.get(position)
                 if k is not None:
-                    out.append(" " + ayah_marker(m._ayah_number(k)))
+                    out.append(" " + ayah_mark(m._ayah_number(k)))
         return "".join(out)
 
     @property
-    def ayat(self) -> list["Ayah"]:
+    def ayahs(self) -> list["Ayah"]:
         """Every numbered āyah with at least one word in the span."""
         m = self._m
         first = _index_of(m._doc["ayah_starts"], self.start)
@@ -266,19 +266,19 @@ class Span:
 
     @property
     def first_ayah(self) -> Optional["Ayah"]:
-        a = self.ayat
+        a = self.ayahs
         return a[0] if a else None
 
     @property
     def last_ayah(self) -> Optional["Ayah"]:
-        a = self.ayat
+        a = self.ayahs
         return a[-1] if a else None
 
     @property
-    def suras(self) -> list["Sura"]:
-        s = self._m.suras
-        first = _index_of(self._m._doc["sura_starts"], self.start)
-        last = _index_of(self._m._doc["sura_starts"], self.end - 1)
+    def surahs(self) -> list["Surah"]:
+        s = self._m.surahs
+        first = _index_of(self._m._doc["surah_starts"], self.start)
+        last = _index_of(self._m._doc["surah_starts"], self.end - 1)
         return s[first:last + 1]
 
     @property
@@ -326,23 +326,23 @@ class AyahMatch:
     āyah, the same words), ``merged`` (one āyah holding more), ``split``
     (several āyāt), ``shifted`` (one āyah, boundaries crossing), ``unnumbered``
     (the basmalah printed without a number), ``missing`` (no word of it)."""
-    ayat: tuple
+    ayahs: tuple
     relation: str
 
     @property
     def first(self) -> Optional["Ayah"]:
-        return self.ayat[0] if self.ayat else None
+        return self.ayahs[0] if self.ayahs else None
 
     @property
     def last(self) -> Optional["Ayah"]:
-        return self.ayat[-1] if self.ayat else None
+        return self.ayahs[-1] if self.ayahs else None
 
     @property
     def key(self) -> str:
         """``"2:253-254"``."""
-        if not self.ayat:
+        if not self.ayahs:
             return ""
-        a, b = self.ayat[0], self.ayat[-1]
+        a, b = self.ayahs[0], self.ayahs[-1]
         return a.key if a is b or a == b else f"{a.key}-{b.number}"
 
     def __repr__(self) -> str:
@@ -352,12 +352,12 @@ class AyahMatch:
 class Ayah(Span):
     """One numbered āyah, in this edition's own count."""
 
-    def __init__(self, mushaf: "Mushaf", sura: int, number: int):
-        s = mushaf.sura(sura)
+    def __init__(self, mushaf: "Mushaf", surah: int, number: int):
+        s = mushaf.surah(surah)
         if not 1 <= number <= s.ayah_count:
             raise IndexError(f"{s.name_en} has {s.ayah_count} āyāt in "
                              f"{mushaf.name_en}, not {number}")
-        self.sura = s
+        self.surah = s
         self.number = number
         self._k = s._first_ayah + number - 1
         starts = mushaf._doc["ayah_starts"]
@@ -366,13 +366,13 @@ class Ayah(Span):
 
     @classmethod
     def _from_index(cls, mushaf: "Mushaf", k: int) -> "Ayah":
-        s = mushaf.suras[mushaf._sura_of_ayah_index(k)]
+        s = mushaf.surahs[mushaf._surah_of_ayah_index(k)]
         return cls(mushaf, s.number, k - s._first_ayah + 1)
 
     @property
     def key(self) -> str:
         """``"2:255"``."""
-        return f"{self.sura.number}:{self.number}"
+        return f"{self.surah.number}:{self.number}"
 
     @property
     def index(self) -> int:
@@ -396,8 +396,8 @@ class Ayah(Span):
         return [Line._from_index(m, i) for i in range(first, last + 1)]
 
     @property
-    def imlaei(self) -> Optional[list[Optional[str]]]:
-        col = self._m._doc["imlaei"]
+    def rasm_imlai(self) -> Optional[list[Optional[str]]]:
+        col = self._m._doc["rasm_imlai"]
         return col[self.start:self.end] if col else None
 
     @property
@@ -407,7 +407,7 @@ class Ayah(Span):
     @property
     def marker(self) -> str:
         """``۝٢٥٥``."""
-        return ayah_marker(self.number)
+        return ayah_mark(self.number)
 
     @property
     def numbers(self) -> frozenset:
@@ -461,12 +461,12 @@ class Ayah(Span):
         return f"Ayah({self.key})"
 
 
-class Sura(Span):
+class Surah(Span):
     def __init__(self, mushaf: "Mushaf", number: int):
         if not 1 <= number <= 114:
             raise IndexError(f"sūrah {number}: there are 114")
-        info = mushaf._doc["suras"][number - 1]
-        starts = mushaf._doc["sura_starts"]
+        info = mushaf._doc["surahs"][number - 1]
+        starts = mushaf._doc["surah_starts"]
         end = starts[number] if number < len(starts) else len(mushaf.words)
         super().__init__(mushaf, starts[number - 1], end)
         self.number = number
@@ -478,7 +478,7 @@ class Sura(Span):
         self._first_ayah: int = info["first_ayah"]
 
     @property
-    def ayat(self) -> list[Ayah]:
+    def ayahs(self) -> list[Ayah]:
         return [Ayah(self._m, self.number, n) for n in range(1, self.ayah_count + 1)]
 
     def ayah(self, number: int) -> Ayah:
@@ -500,7 +500,7 @@ class Sura(Span):
         return self._m.page_at(self.end - 1)
 
     def __repr__(self) -> str:
-        return f"Sura({self.number}, {self.name_en})"
+        return f"Surah({self.number}, {self.name_en})"
 
 
 class Page(Span):
@@ -595,12 +595,12 @@ class Mushaf:
         self.key: str = info["key"]
         self.name_en: str = info["name_en"]
         self.name_ar: str = info["name_ar"]
-        self.qari_en: Optional[str] = info.get("qari_en")
-        self.qari_ar: Optional[str] = info.get("qari_ar")
+        self.qiraah_en: Optional[str] = info.get("qiraah_en")
+        self.qiraah_ar: Optional[str] = info.get("qiraah_ar")
         self.counting_system: str = doc["counting"]["system"]
         self.basmalah_counted: bool = doc["counting"]["basmalah_counted"]
-        self.suras: list[Sura] = [Sura(self, n) for n in range(1, 115)]
-        self._sura_first_ayah = [s._first_ayah for s in self.suras]
+        self.surahs: list[Surah] = [Surah(self, n) for n in range(1, 115)]
+        self._surah_first_ayah = [s._first_ayah for s in self.surahs]
         self._ayah_ends = {}
         starts = doc["ayah_starts"]
         for k, st in enumerate(starts):
@@ -608,8 +608,8 @@ class Mushaf:
             self._ayah_ends[end - 1] = k
         types = [Mark(t["kind"], t["side"], t["sign"]) for t in doc["mark_types"]]
         self._marks_at: dict[int, list[Mark]] = {}
-        for pos, t in doc["marks"]:
-            self._marks_at.setdefault(pos, []).append(types[t])
+        for position, t in doc["marks"]:
+            self._marks_at.setdefault(position, []).append(types[t])
         self._numbers_cache: Optional[list[tuple[int, int]]] = None
 
     # -- loading --
@@ -656,7 +656,7 @@ class Mushaf:
         return list(self._doc["layers"]["present"])
 
     def has(self, layer: Layer) -> bool:
-        """``has("juz")``, ``has("imlaei")``, ``has("lines")`` …"""
+        """``has("juz")``, ``has("rasm_imlai")``, ``has("lines")`` …"""
         return layer in self._doc["layers"]["present"]
 
     def _absent(self, layer: str) -> str:
@@ -693,14 +693,14 @@ class Mushaf:
 
     # -- units by number --
 
-    def sura(self, number: int) -> Sura:
+    def surah(self, number: int) -> Surah:
         if not 1 <= number <= 114:
             raise IndexError(f"sūrah {number}: there are 114")
-        return self.suras[number - 1]
+        return self.surahs[number - 1]
 
-    def ayah(self, sura: int, number: int) -> Ayah:
-        """Āyah ``number`` of ``sura`` in this edition's own count."""
-        return Ayah(self, sura, number)
+    def ayah(self, surah: int, number: int) -> Ayah:
+        """Āyah ``number`` of ``surah`` in this edition's own count."""
+        return Ayah(self, surah, number)
 
     def page(self, number: int) -> Page:
         return Page(self, number)
@@ -711,9 +711,9 @@ class Mushaf:
     def line(self, page: int, number: int) -> Line:
         return Page(self, page).line(number)
 
-    def word(self, sura: int, ayah: int, index: int) -> Word:
+    def word(self, surah: int, ayah: int, index: int) -> Word:
         """Word ``index`` (1-based) of an āyah."""
-        return Ayah(self, sura, ayah).word(index)
+        return Ayah(self, surah, ayah).word(index)
 
     def span(self, start: int, end: int) -> Span:
         """Any run of positions, e.g. to render a selection."""
@@ -726,7 +726,7 @@ class Mushaf:
         return Span(self, 0, len(self.words))
 
     @property
-    def ayat(self) -> list[Ayah]:
+    def ayahs(self) -> list[Ayah]:
         return [Ayah._from_index(self, k) for k in range(self.ayah_count)]
 
     @property
@@ -746,8 +746,8 @@ class Mushaf:
         k = _index_of(self._doc["ayah_starts"], position)
         return Ayah._from_index(self, k) if k >= 0 else None
 
-    def sura_at(self, position: int) -> Sura:
-        return self.suras[_index_of(self._doc["sura_starts"], position)]
+    def surah_at(self, position: int) -> Surah:
+        return self.surahs[_index_of(self._doc["surah_starts"], position)]
 
     def page_at(self, position: int) -> Page:
         return Page(self, _index_of(self._doc["page_starts"], position) + 1)
@@ -769,10 +769,10 @@ class Mushaf:
             missing = set(block["missing"])
             joined = {j["position"]: tuple(j["numbers"]) for j in block["written_joined"]}
             runs, n = [], 1
-            for pos in range(len(self.words)):
+            for position in range(len(self.words)):
                 while n in missing:
                     n += 1
-                first, last = joined.get(pos, (n, n))
+                first, last = joined.get(position, (n, n))
                 runs.append((first, last))
                 n = last + 1
             self._numbers_cache = runs
@@ -803,14 +803,14 @@ class Mushaf:
         return [Word(self, p).ayah for p, ms in sorted(self._marks_at.items())
                 if any(mk.kind == "sajdah" for mk in ms)]
 
-    def hizb_marks(self) -> list[Word]:
+    def division_marks(self) -> list[Word]:
         """Every word printed with ``۞`` before it, as the release prints them."""
         return [Word(self, p) for p, ms in sorted(self._marks_at.items())
-                if any(mk.kind == "hizb" for mk in ms)]
+                if any(mk.kind == "division" for mk in ms)]
 
     def search(self, text: str) -> list[Span]:
         """Every place the words of ``text`` occur in sequence, matched on
-        :func:`fold` — diacritics and hamza forms do not matter."""
+        :func:`fold` — harakah and hamzah forms do not matter."""
         query = [fold(t) for t in text.split()]
         if not query or not all(query):
             return []
@@ -825,11 +825,11 @@ class Mushaf:
 
     # -- internals --
 
-    def _sura_of_ayah_index(self, k: int) -> int:
-        return bisect_right(self._sura_first_ayah, k) - 1
+    def _surah_of_ayah_index(self, k: int) -> int:
+        return bisect_right(self._surah_first_ayah, k) - 1
 
     def _ayah_number(self, k: int) -> int:
-        return k - self._sura_first_ayah[self._sura_of_ayah_index(k)] + 1
+        return k - self._surah_first_ayah[self._surah_of_ayah_index(k)] + 1
 
     def __repr__(self) -> str:
         return f"Mushaf({self.key})"
@@ -838,11 +838,11 @@ class Mushaf:
 # --- āyah map ----------------------------------------------------------------
 
 @dataclass(frozen=True)
-class AyahRef:
+class MappedAyah:
     """Where a Kūfī āyah falls in one edition.  ``relation`` is ``same``,
     ``merged``, ``split`` (then ``ayah_last`` is set), ``shifted`` or
     ``unnumbered`` (``ayah`` is 0)."""
-    sura: int
+    surah: int
     ayah: int
     relation: str
     ayah_last: Optional[int] = None
@@ -850,8 +850,8 @@ class AyahRef:
     @property
     def key(self) -> str:
         if self.ayah_last:
-            return f"{self.sura}:{self.ayah}-{self.ayah_last}"
-        return f"{self.sura}:{self.ayah}"
+            return f"{self.surah}:{self.ayah}-{self.ayah_last}"
+        return f"{self.surah}:{self.ayah}"
 
 
 class AyahMap:
@@ -861,7 +861,7 @@ class AyahMap:
         if doc.get("format") != "quran-ayah-map":
             raise ValueError("not a quran-ayah-map file")
         self.editions: list[str] = doc["editions"]
-        self._rows = {(r["sura"], r["ayah"]): r for r in doc["ayat"]}
+        self._rows = {(r["surah"], r["ayah"]): r for r in doc["ayahs"]}
 
     @classmethod
     def load(cls, path) -> "AyahMap":
@@ -874,19 +874,19 @@ class AyahMap:
             data = json.loads(data)
         return cls(data)
 
-    def convert(self, sura: int, ayah: int, to: str) -> AyahRef:
-        """``convert(2, 255, "warsh")`` → ``AyahRef(2, 253, "split", 254)``."""
-        row = self._rows.get((sura, ayah))
+    def convert(self, surah: int, ayah: int, to: str) -> MappedAyah:
+        """``convert(2, 255, "warsh")`` → ``MappedAyah(2, 253, "split", 254)``."""
+        row = self._rows.get((surah, ayah))
         if row is None:
-            raise KeyError(f"{sura}:{ayah} is not a Kūfī āyah")
+            raise KeyError(f"{surah}:{ayah} is not a Kūfī āyah")
         if to not in row:
             raise KeyError(f"no edition {to!r}; editions are {self.editions}")
         r = row[to]
-        return AyahRef(r["sura"], r["ayah"], r["relation"], r.get("ayah_last"))
+        return MappedAyah(r["surah"], r["ayah"], r["relation"], r.get("ayah_last"))
 
-    def all(self, sura: int, ayah: int) -> dict[str, AyahRef]:
+    def all(self, surah: int, ayah: int) -> dict[str, MappedAyah]:
         """The reference in every edition."""
-        return {e: self.convert(sura, ayah, e) for e in self.editions}
+        return {e: self.convert(surah, ayah, e) for e in self.editions}
 
 
 # --- word index --------------------------------------------------------------
@@ -900,11 +900,11 @@ class IndexedWord:
         self._r = record
 
     number = property(lambda s: s._r["number"])
-    sura = property(lambda s: s._r["sura"])
+    surah = property(lambda s: s._r["surah"])
     index = property(lambda s: s._r["index"])
     key = property(lambda s: s._r["key"])
-    uthmani = property(lambda s: s._r["uthmani"])
-    simple = property(lambda s: s._r["simple"])
+    rasm_uthmani = property(lambda s: s._r["rasm_uthmani"])
+    plain = property(lambda s: s._r["plain"])
     rasm = property(lambda s: s._r["rasm"])
     pointed = property(lambda s: s._r["pointed"])
     status = property(lambda s: s._r["status"])
@@ -924,7 +924,7 @@ class IndexedWord:
         return self._r
 
     def __repr__(self) -> str:
-        return f"IndexedWord({self.number}, {self.uthmani!r})"
+        return f"IndexedWord({self.number}, {self.rasm_uthmani!r})"
 
 
 class WordIndex:
@@ -937,7 +937,7 @@ class WordIndex:
         self.total: int = doc["total"]
         self._words = doc["words"]
         self._by_hafs: Optional[dict] = None
-        self._by_simple: Optional[dict] = None
+        self._by_plain: Optional[dict] = None
 
     @classmethod
     def load(cls, path) -> "WordIndex":
@@ -955,25 +955,25 @@ class WordIndex:
             raise IndexError(f"number {number}: the numbering is 1 … {self.total}")
         return IndexedWord(self._words[number - 1])
 
-    def find(self, sura: int, ayah: int, index: int) -> Optional[IndexedWord]:
+    def find(self, surah: int, ayah: int, index: int) -> Optional[IndexedWord]:
         """By Ḥafṣ coordinates: sūrah, āyah in the Kūfī count, 1-based word."""
         if self._by_hafs is None:
             self._by_hafs = {}
             for r in self._words:
                 h = r["hafs"]
                 if h:
-                    self._by_hafs.setdefault((h["sura"], h["ayah"], h["pos"]), r)
-        r = self._by_hafs.get((sura, ayah, index))
+                    self._by_hafs.setdefault((h["surah"], h["ayah"], h["position"]), r)
+        r = self._by_hafs.get((surah, ayah, index))
         return IndexedWord(r) if r else None
 
     def search(self, text: str) -> list[IndexedWord]:
         """Every number whose folded spelling equals ``text``, folded."""
         q = fold(text)
-        if self._by_simple is None:
-            self._by_simple = {}
+        if self._by_plain is None:
+            self._by_plain = {}
             for r in self._words:
-                self._by_simple.setdefault(fold(r["uthmani"]), []).append(r)
-        return [IndexedWord(r) for r in self._by_simple.get(q, [])]
+                self._by_plain.setdefault(fold(r["rasm_uthmani"]), []).append(r)
+        return [IndexedWord(r) for r in self._by_plain.get(q, [])]
 
     def differing(self) -> list[IndexedWord]:
         """Every number the riwāyāt spell in more than one way."""

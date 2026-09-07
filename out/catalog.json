@@ -1,16 +1,16 @@
 {
  "format": "quran-catalog",
  "format_version": "1.0",
- "generated": "2026-09-05",
+ "generated": "2026-09-07",
  "word_count": 77434,
- "sura_count": 114,
- "riwayat": [
+ "surah_count": 114,
+ "riwayahs": [
   {
    "key": "hafs",
    "name_en": "Ḥafṣ",
    "name_ar": "حفص",
-   "qari_en": "ʿĀṣim al-Kūfī",
-   "qari_ar": "عاصم الكوفي",
+   "qiraah_en": "ʿĀṣim al-Kūfī",
+   "qiraah_ar": "عاصم الكوفي",
    "counting_system": "kufi",
    "ayah_count": 6236,
    "word_count": 77432,
@@ -23,17 +23,17 @@
    }
   },
   {
-   "key": "shuba",
+   "key": "shubah",
    "name_en": "Shuʿbah",
    "name_ar": "شعبة",
-   "qari_en": "ʿĀṣim al-Kūfī",
-   "qari_ar": "عاصم الكوفي",
+   "qiraah_en": "ʿĀṣim al-Kūfī",
+   "qiraah_ar": "عاصم الكوفي",
    "counting_system": "kufi",
    "ayah_count": 6236,
    "word_count": 77432,
    "source": "UthmanicShubah-v-3.0.zip :: UthmanicShubah-v-3.0.docx",
    "crosscheck_source": "UthmanicShuba_v2-0.zip :: UthmanicShuba_v2-0 data/shubaData_v2-0.csv",
-   "file": "out/mushaf/shuba.json",
+   "file": "out/mushaf/shubah.json",
    "font": {
     "family": "KFGQPC Shuba Uthmanic Script",
     "file": "out/fonts/UthmanicShubah-v-3.0.ttf"
@@ -43,8 +43,8 @@
    "key": "warsh",
    "name_en": "Warsh",
    "name_ar": "ورش",
-   "qari_en": "Nāfiʿ al-Madanī",
-   "qari_ar": "نافع المدني",
+   "qiraah_en": "Nāfiʿ al-Madanī",
+   "qiraah_ar": "نافع المدني",
    "counting_system": "madani-last",
    "ayah_count": 6214,
    "word_count": 77431,
@@ -57,51 +57,51 @@
    }
   },
   {
-   "key": "qaloun",
+   "key": "qalun",
    "name_en": "Qālūn",
    "name_ar": "قالون",
-   "qari_en": "Nāfiʿ al-Madanī",
-   "qari_ar": "نافع المدني",
+   "qiraah_en": "Nāfiʿ al-Madanī",
+   "qiraah_ar": "نافع المدني",
    "counting_system": "madani-last",
    "ayah_count": 6214,
    "word_count": 77431,
    "source": "UthmanicQaloun-v-3.0.zip :: UthmanicQaloun-v-3.0.docx",
    "crosscheck_source": "UthmanicQaloun_v2-1.zip :: UthmanicQaloun_v2-1 data/QalounData_v2-1.csv",
-   "file": "out/mushaf/qaloun.json",
+   "file": "out/mushaf/qalun.json",
    "font": {
     "family": "KFGQPC Qaloun Uthmanic Script",
     "file": "out/fonts/UthmanicQaloun-v-3.0.ttf"
    }
   },
   {
-   "key": "douri",
+   "key": "duri",
    "name_en": "Dūrī",
    "name_ar": "الدوري",
-   "qari_en": "Abū ʿAmr al-Baṣrī",
-   "qari_ar": "أبو عمرو البصري",
+   "qiraah_en": "Abū ʿAmr al-Baṣrī",
+   "qiraah_ar": "أبو عمرو البصري",
    "counting_system": "madani-first",
    "ayah_count": 6217,
    "word_count": 77431,
    "source": "UthmanicDouri_V20.zip :: UthmanicDouri V20.docx",
    "crosscheck_source": "UthmanicDouri_v2-0.zip :: UthmanicDouri_v2-0 data/DouriData_v2-0.csv",
-   "file": "out/mushaf/douri.json",
+   "file": "out/mushaf/duri.json",
    "font": {
     "family": "KFGQPC Douri Uthmanic Script",
     "file": "out/fonts/UthmanicDouri-V20.ttf"
    }
   },
   {
-   "key": "sousi",
+   "key": "susi",
    "name_en": "Sūsī",
    "name_ar": "السوسي",
-   "qari_en": "Abū ʿAmr al-Baṣrī",
-   "qari_ar": "أبو عمرو البصري",
+   "qiraah_en": "Abū ʿAmr al-Baṣrī",
+   "qiraah_ar": "أبو عمرو البصري",
    "counting_system": "madani-first",
    "ayah_count": 6218,
    "word_count": 77431,
    "source": "UthmanicSousi-v-3.0.zip :: UthmanicSousi-v-3.0.docx",
    "crosscheck_source": "UthmanicSousi_v2-0.zip :: UthmanicSousi_v2-0 data/SousiData_v2-0.csv",
-   "file": "out/mushaf/sousi.json",
+   "file": "out/mushaf/susi.json",
    "font": {
     "family": "KFGQPC Sousi Uthmanic Script",
     "file": "out/fonts/UthmanicSousi-v-3.0.ttf"
@@ -111,8 +111,8 @@
    "key": "bazzi",
    "name_en": "Bazzī",
    "name_ar": "البزي",
-   "qari_en": "Ibn Kathīr al-Makkī",
-   "qari_ar": "ابن كثير المكي",
+   "qiraah_en": "Ibn Kathīr al-Makkī",
+   "qiraah_ar": "ابن كثير المكي",
    "counting_system": "makki",
    "ayah_count": 6220,
    "word_count": 77432,
@@ -125,7 +125,7 @@
    }
   }
  ],
- "suras": [
+ "surahs": [
   {
    "number": 1,
    "name_ar": "الفَاتِحة",
@@ -136,11 +136,11 @@
    "last_number": 29,
    "ayah_count": {
     "hafs": 7,
-    "shuba": 7,
+    "shubah": 7,
     "warsh": 7,
-    "qaloun": 7,
-    "douri": 7,
-    "sousi": 7,
+    "qalun": 7,
+    "duri": 7,
+    "susi": 7,
     "bazzi": 7
    }
   },
@@ -154,11 +154,11 @@
    "last_number": 6146,
    "ayah_count": {
     "hafs": 286,
-    "shuba": 286,
+    "shubah": 286,
     "warsh": 285,
-    "qaloun": 285,
-    "douri": 285,
-    "sousi": 285,
+    "qalun": 285,
+    "duri": 285,
+    "susi": 285,
     "bazzi": 285
    }
   },
@@ -172,11 +172,11 @@
    "last_number": 9627,
    "ayah_count": {
     "hafs": 200,
-    "shuba": 200,
+    "shubah": 200,
     "warsh": 200,
-    "qaloun": 200,
-    "douri": 200,
-    "sousi": 200,
+    "qalun": 200,
+    "duri": 200,
+    "susi": 200,
     "bazzi": 200
    }
   },
@@ -190,11 +190,11 @@
    "last_number": 13374,
    "ayah_count": {
     "hafs": 176,
-    "shuba": 176,
+    "shubah": 176,
     "warsh": 175,
-    "qaloun": 175,
-    "douri": 175,
-    "sousi": 175,
+    "qalun": 175,
+    "duri": 175,
+    "susi": 175,
     "bazzi": 175
    }
   },
@@ -208,11 +208,11 @@
    "last_number": 16178,
    "ayah_count": {
     "hafs": 120,
-    "shuba": 120,
+    "shubah": 120,
     "warsh": 122,
-    "qaloun": 122,
-    "douri": 122,
-    "sousi": 122,
+    "qalun": 122,
+    "duri": 122,
+    "susi": 122,
     "bazzi": 122
    }
   },
@@ -226,11 +226,11 @@
    "last_number": 19228,
    "ayah_count": {
     "hafs": 165,
-    "shuba": 165,
+    "shubah": 165,
     "warsh": 167,
-    "qaloun": 167,
-    "douri": 167,
-    "sousi": 167,
+    "qalun": 167,
+    "duri": 167,
+    "susi": 167,
     "bazzi": 167
    }
   },
@@ -244,11 +244,11 @@
    "last_number": 22548,
    "ayah_count": {
     "hafs": 206,
-    "shuba": 206,
+    "shubah": 206,
     "warsh": 206,
-    "qaloun": 206,
-    "douri": 206,
-    "sousi": 206,
+    "qalun": 206,
+    "duri": 206,
+    "susi": 206,
     "bazzi": 206
    }
   },
@@ -262,11 +262,11 @@
    "last_number": 23782,
    "ayah_count": {
     "hafs": 75,
-    "shuba": 75,
+    "shubah": 75,
     "warsh": 76,
-    "qaloun": 76,
-    "douri": 76,
-    "sousi": 76,
+    "qalun": 76,
+    "duri": 76,
+    "susi": 76,
     "bazzi": 76
    }
   },
@@ -280,11 +280,11 @@
    "last_number": 26281,
    "ayah_count": {
     "hafs": 129,
-    "shuba": 129,
+    "shubah": 129,
     "warsh": 130,
-    "qaloun": 130,
-    "douri": 130,
-    "sousi": 130,
+    "qalun": 130,
+    "duri": 130,
+    "susi": 130,
     "bazzi": 130
    }
   },
@@ -298,11 +298,11 @@
    "last_number": 28114,
    "ayah_count": {
     "hafs": 109,
-    "shuba": 109,
+    "shubah": 109,
     "warsh": 109,
-    "qaloun": 109,
-    "douri": 109,
-    "sousi": 109,
+    "qalun": 109,
+    "duri": 109,
+    "susi": 109,
     "bazzi": 109
    }
   },
@@ -316,11 +316,11 @@
    "last_number": 30031,
    "ayah_count": {
     "hafs": 123,
-    "shuba": 123,
+    "shubah": 123,
     "warsh": 121,
-    "qaloun": 121,
-    "douri": 122,
-    "sousi": 122,
+    "qalun": 121,
+    "duri": 122,
+    "susi": 122,
     "bazzi": 121
    }
   },
@@ -334,11 +334,11 @@
    "last_number": 31808,
    "ayah_count": {
     "hafs": 111,
-    "shuba": 111,
+    "shubah": 111,
     "warsh": 111,
-    "qaloun": 111,
-    "douri": 111,
-    "sousi": 111,
+    "qalun": 111,
+    "duri": 111,
+    "susi": 111,
     "bazzi": 111
    }
   },
@@ -352,11 +352,11 @@
    "last_number": 32662,
    "ayah_count": {
     "hafs": 43,
-    "shuba": 43,
+    "shubah": 43,
     "warsh": 44,
-    "qaloun": 44,
-    "douri": 44,
-    "sousi": 44,
+    "qalun": 44,
+    "duri": 44,
+    "susi": 44,
     "bazzi": 44
    }
   },
@@ -370,11 +370,11 @@
    "last_number": 33492,
    "ayah_count": {
     "hafs": 52,
-    "shuba": 52,
+    "shubah": 52,
     "warsh": 54,
-    "qaloun": 54,
-    "douri": 54,
-    "sousi": 54,
+    "qalun": 54,
+    "duri": 54,
+    "susi": 54,
     "bazzi": 54
    }
   },
@@ -388,11 +388,11 @@
    "last_number": 34146,
    "ayah_count": {
     "hafs": 99,
-    "shuba": 99,
+    "shubah": 99,
     "warsh": 99,
-    "qaloun": 99,
-    "douri": 99,
-    "sousi": 99,
+    "qalun": 99,
+    "duri": 99,
+    "susi": 99,
     "bazzi": 99
    }
   },
@@ -406,11 +406,11 @@
    "last_number": 35990,
    "ayah_count": {
     "hafs": 128,
-    "shuba": 128,
+    "shubah": 128,
     "warsh": 128,
-    "qaloun": 128,
-    "douri": 128,
-    "sousi": 128,
+    "qalun": 128,
+    "duri": 128,
+    "susi": 128,
     "bazzi": 128
    }
   },
@@ -424,11 +424,11 @@
    "last_number": 37546,
    "ayah_count": {
     "hafs": 111,
-    "shuba": 111,
+    "shubah": 111,
     "warsh": 110,
-    "qaloun": 110,
-    "douri": 110,
-    "sousi": 110,
+    "qalun": 110,
+    "duri": 110,
+    "susi": 110,
     "bazzi": 110
    }
   },
@@ -442,11 +442,11 @@
    "last_number": 39125,
    "ayah_count": {
     "hafs": 110,
-    "shuba": 110,
+    "shubah": 110,
     "warsh": 105,
-    "qaloun": 105,
-    "douri": 105,
-    "sousi": 105,
+    "qalun": 105,
+    "duri": 105,
+    "susi": 105,
     "bazzi": 105
    }
   },
@@ -460,11 +460,11 @@
    "last_number": 40086,
    "ayah_count": {
     "hafs": 98,
-    "shuba": 98,
+    "shubah": 98,
     "warsh": 99,
-    "qaloun": 99,
-    "douri": 98,
-    "sousi": 98,
+    "qalun": 99,
+    "duri": 98,
+    "susi": 98,
     "bazzi": 99
    }
   },
@@ -478,11 +478,11 @@
    "last_number": 41421,
    "ayah_count": {
     "hafs": 135,
-    "shuba": 135,
+    "shubah": 135,
     "warsh": 134,
-    "qaloun": 134,
-    "douri": 134,
-    "sousi": 134,
+    "qalun": 134,
+    "duri": 134,
+    "susi": 134,
     "bazzi": 134
    }
   },
@@ -496,11 +496,11 @@
    "last_number": 42590,
    "ayah_count": {
     "hafs": 112,
-    "shuba": 112,
+    "shubah": 112,
     "warsh": 111,
-    "qaloun": 111,
-    "douri": 111,
-    "sousi": 111,
+    "qalun": 111,
+    "duri": 111,
+    "susi": 111,
     "bazzi": 111
    }
   },
@@ -514,11 +514,11 @@
    "last_number": 43864,
    "ayah_count": {
     "hafs": 78,
-    "shuba": 78,
+    "shubah": 78,
     "warsh": 76,
-    "qaloun": 76,
-    "douri": 76,
-    "sousi": 76,
+    "qalun": 76,
+    "duri": 76,
+    "susi": 76,
     "bazzi": 77
    }
   },
@@ -532,11 +532,11 @@
    "last_number": 44914,
    "ayah_count": {
     "hafs": 118,
-    "shuba": 118,
+    "shubah": 118,
     "warsh": 119,
-    "qaloun": 119,
-    "douri": 119,
-    "sousi": 119,
+    "qalun": 119,
+    "duri": 119,
+    "susi": 119,
     "bazzi": 119
    }
   },
@@ -550,11 +550,11 @@
    "last_number": 46230,
    "ayah_count": {
     "hafs": 64,
-    "shuba": 64,
+    "shubah": 64,
     "warsh": 62,
-    "qaloun": 62,
-    "douri": 62,
-    "sousi": 62,
+    "qalun": 62,
+    "duri": 62,
+    "susi": 62,
     "bazzi": 62
    }
   },
@@ -568,11 +568,11 @@
    "last_number": 47123,
    "ayah_count": {
     "hafs": 77,
-    "shuba": 77,
+    "shubah": 77,
     "warsh": 77,
-    "qaloun": 77,
-    "douri": 77,
-    "sousi": 77,
+    "qalun": 77,
+    "duri": 77,
+    "susi": 77,
     "bazzi": 77
    }
   },
@@ -586,11 +586,11 @@
    "last_number": 48441,
    "ayah_count": {
     "hafs": 227,
-    "shuba": 227,
+    "shubah": 227,
     "warsh": 226,
-    "qaloun": 226,
-    "douri": 227,
-    "sousi": 227,
+    "qalun": 226,
+    "duri": 227,
+    "susi": 227,
     "bazzi": 226
    }
   },
@@ -604,11 +604,11 @@
    "last_number": 49592,
    "ayah_count": {
     "hafs": 93,
-    "shuba": 93,
+    "shubah": 93,
     "warsh": 95,
-    "qaloun": 95,
-    "douri": 95,
-    "sousi": 95,
+    "qalun": 95,
+    "duri": 95,
+    "susi": 95,
     "bazzi": 95
    }
   },
@@ -622,11 +622,11 @@
    "last_number": 51022,
    "ayah_count": {
     "hafs": 88,
-    "shuba": 88,
+    "shubah": 88,
     "warsh": 88,
-    "qaloun": 88,
-    "douri": 88,
-    "sousi": 88,
+    "qalun": 88,
+    "duri": 88,
+    "susi": 88,
     "bazzi": 88
    }
   },
@@ -640,11 +640,11 @@
    "last_number": 51998,
    "ayah_count": {
     "hafs": 69,
-    "shuba": 69,
+    "shubah": 69,
     "warsh": 69,
-    "qaloun": 69,
-    "douri": 69,
-    "sousi": 69,
+    "qalun": 69,
+    "duri": 69,
+    "susi": 69,
     "bazzi": 69
    }
   },
@@ -658,11 +658,11 @@
    "last_number": 52815,
    "ayah_count": {
     "hafs": 60,
-    "shuba": 60,
+    "shubah": 60,
     "warsh": 59,
-    "qaloun": 59,
-    "douri": 60,
-    "sousi": 60,
+    "qalun": 59,
+    "duri": 60,
+    "susi": 60,
     "bazzi": 59
    }
   },
@@ -676,11 +676,11 @@
    "last_number": 53361,
    "ayah_count": {
     "hafs": 34,
-    "shuba": 34,
+    "shubah": 34,
     "warsh": 33,
-    "qaloun": 33,
-    "douri": 33,
-    "sousi": 33,
+    "qalun": 33,
+    "duri": 33,
+    "susi": 33,
     "bazzi": 33
    }
   },
@@ -694,11 +694,11 @@
    "last_number": 53733,
    "ayah_count": {
     "hafs": 30,
-    "shuba": 30,
+    "shubah": 30,
     "warsh": 30,
-    "qaloun": 30,
-    "douri": 30,
-    "sousi": 30,
+    "qalun": 30,
+    "duri": 30,
+    "susi": 30,
     "bazzi": 30
    }
   },
@@ -712,11 +712,11 @@
    "last_number": 55020,
    "ayah_count": {
     "hafs": 73,
-    "shuba": 73,
+    "shubah": 73,
     "warsh": 73,
-    "qaloun": 73,
-    "douri": 73,
-    "sousi": 73,
+    "qalun": 73,
+    "duri": 73,
+    "susi": 73,
     "bazzi": 73
    }
   },
@@ -730,11 +730,11 @@
    "last_number": 55903,
    "ayah_count": {
     "hafs": 54,
-    "shuba": 54,
+    "shubah": 54,
     "warsh": 54,
-    "qaloun": 54,
-    "douri": 54,
-    "sousi": 54,
+    "qalun": 54,
+    "duri": 54,
+    "susi": 54,
     "bazzi": 54
    }
   },
@@ -748,11 +748,11 @@
    "last_number": 56678,
    "ayah_count": {
     "hafs": 45,
-    "shuba": 45,
+    "shubah": 45,
     "warsh": 46,
-    "qaloun": 46,
-    "douri": 45,
-    "sousi": 45,
+    "qalun": 46,
+    "duri": 45,
+    "susi": 45,
     "bazzi": 45
    }
   },
@@ -766,11 +766,11 @@
    "last_number": 57403,
    "ayah_count": {
     "hafs": 83,
-    "shuba": 83,
+    "shubah": 83,
     "warsh": 82,
-    "qaloun": 82,
-    "douri": 82,
-    "sousi": 82,
+    "qalun": 82,
+    "duri": 82,
+    "susi": 82,
     "bazzi": 82
    }
   },
@@ -784,11 +784,11 @@
    "last_number": 58264,
    "ayah_count": {
     "hafs": 182,
-    "shuba": 182,
+    "shubah": 182,
     "warsh": 182,
-    "qaloun": 182,
-    "douri": 182,
-    "sousi": 182,
+    "qalun": 182,
+    "duri": 182,
+    "susi": 182,
     "bazzi": 182
    }
   },
@@ -802,11 +802,11 @@
    "last_number": 58997,
    "ayah_count": {
     "hafs": 88,
-    "shuba": 88,
+    "shubah": 88,
     "warsh": 86,
-    "qaloun": 86,
-    "douri": 86,
-    "sousi": 86,
+    "qalun": 86,
+    "duri": 86,
+    "susi": 86,
     "bazzi": 86
    }
   },
@@ -820,11 +820,11 @@
    "last_number": 60169,
    "ayah_count": {
     "hafs": 75,
-    "shuba": 75,
+    "shubah": 75,
     "warsh": 72,
-    "qaloun": 72,
-    "douri": 72,
-    "sousi": 72,
+    "qalun": 72,
+    "duri": 72,
+    "susi": 72,
     "bazzi": 72
    }
   },
@@ -838,11 +838,11 @@
    "last_number": 61388,
    "ayah_count": {
     "hafs": 85,
-    "shuba": 85,
+    "shubah": 85,
     "warsh": 84,
-    "qaloun": 84,
-    "douri": 84,
-    "sousi": 84,
+    "qalun": 84,
+    "duri": 84,
+    "susi": 84,
     "bazzi": 84
    }
   },
@@ -856,11 +856,11 @@
    "last_number": 62182,
    "ayah_count": {
     "hafs": 54,
-    "shuba": 54,
+    "shubah": 54,
     "warsh": 53,
-    "qaloun": 53,
-    "douri": 53,
-    "sousi": 53,
+    "qalun": 53,
+    "duri": 53,
+    "susi": 53,
     "bazzi": 53
    }
   },
@@ -874,11 +874,11 @@
    "last_number": 63042,
    "ayah_count": {
     "hafs": 53,
-    "shuba": 53,
+    "shubah": 53,
     "warsh": 50,
-    "qaloun": 50,
-    "douri": 50,
-    "sousi": 50,
+    "qalun": 50,
+    "duri": 50,
+    "susi": 50,
     "bazzi": 50
    }
   },
@@ -892,11 +892,11 @@
    "last_number": 63872,
    "ayah_count": {
     "hafs": 89,
-    "shuba": 89,
+    "shubah": 89,
     "warsh": 89,
-    "qaloun": 89,
-    "douri": 89,
-    "sousi": 89,
+    "qalun": 89,
+    "duri": 89,
+    "susi": 89,
     "bazzi": 89
    }
   },
@@ -910,11 +910,11 @@
    "last_number": 64218,
    "ayah_count": {
     "hafs": 59,
-    "shuba": 59,
+    "shubah": 59,
     "warsh": 56,
-    "qaloun": 56,
-    "douri": 56,
-    "sousi": 56,
+    "qalun": 56,
+    "duri": 56,
+    "susi": 56,
     "bazzi": 56
    }
   },
@@ -928,11 +928,11 @@
    "last_number": 64706,
    "ayah_count": {
     "hafs": 37,
-    "shuba": 37,
+    "shubah": 37,
     "warsh": 36,
-    "qaloun": 36,
-    "douri": 36,
-    "sousi": 36,
+    "qalun": 36,
+    "duri": 36,
+    "susi": 36,
     "bazzi": 36
    }
   },
@@ -946,11 +946,11 @@
    "last_number": 65349,
    "ayah_count": {
     "hafs": 35,
-    "shuba": 35,
+    "shubah": 35,
     "warsh": 34,
-    "qaloun": 34,
-    "douri": 34,
-    "sousi": 34,
+    "qalun": 34,
+    "duri": 34,
+    "susi": 34,
     "bazzi": 34
    }
   },
@@ -964,11 +964,11 @@
    "last_number": 65888,
    "ayah_count": {
     "hafs": 38,
-    "shuba": 38,
+    "shubah": 38,
     "warsh": 39,
-    "qaloun": 39,
-    "douri": 39,
-    "sousi": 39,
+    "qalun": 39,
+    "duri": 39,
+    "susi": 39,
     "bazzi": 39
    }
   },
@@ -982,11 +982,11 @@
    "last_number": 66448,
    "ayah_count": {
     "hafs": 29,
-    "shuba": 29,
+    "shubah": 29,
     "warsh": 29,
-    "qaloun": 29,
-    "douri": 29,
-    "sousi": 29,
+    "qalun": 29,
+    "duri": 29,
+    "susi": 29,
     "bazzi": 29
    }
   },
@@ -1000,11 +1000,11 @@
    "last_number": 66795,
    "ayah_count": {
     "hafs": 18,
-    "shuba": 18,
+    "shubah": 18,
     "warsh": 18,
-    "qaloun": 18,
-    "douri": 18,
-    "sousi": 18,
+    "qalun": 18,
+    "duri": 18,
+    "susi": 18,
     "bazzi": 18
    }
   },
@@ -1018,11 +1018,11 @@
    "last_number": 67168,
    "ayah_count": {
     "hafs": 45,
-    "shuba": 45,
+    "shubah": 45,
     "warsh": 45,
-    "qaloun": 45,
-    "douri": 45,
-    "sousi": 45,
+    "qalun": 45,
+    "duri": 45,
+    "susi": 45,
     "bazzi": 45
    }
   },
@@ -1036,11 +1036,11 @@
    "last_number": 67528,
    "ayah_count": {
     "hafs": 60,
-    "shuba": 60,
+    "shubah": 60,
     "warsh": 60,
-    "qaloun": 60,
-    "douri": 60,
-    "sousi": 60,
+    "qalun": 60,
+    "duri": 60,
+    "susi": 60,
     "bazzi": 60
    }
   },
@@ -1054,11 +1054,11 @@
    "last_number": 67840,
    "ayah_count": {
     "hafs": 49,
-    "shuba": 49,
+    "shubah": 49,
     "warsh": 47,
-    "qaloun": 47,
-    "douri": 47,
-    "sousi": 47,
+    "qalun": 47,
+    "duri": 47,
+    "susi": 47,
     "bazzi": 47
    }
   },
@@ -1072,11 +1072,11 @@
    "last_number": 68200,
    "ayah_count": {
     "hafs": 62,
-    "shuba": 62,
+    "shubah": 62,
     "warsh": 61,
-    "qaloun": 61,
-    "douri": 61,
-    "sousi": 61,
+    "qalun": 61,
+    "duri": 61,
+    "susi": 61,
     "bazzi": 61
    }
   },
@@ -1090,11 +1090,11 @@
    "last_number": 68542,
    "ayah_count": {
     "hafs": 55,
-    "shuba": 55,
+    "shubah": 55,
     "warsh": 55,
-    "qaloun": 55,
-    "douri": 55,
-    "sousi": 55,
+    "qalun": 55,
+    "duri": 55,
+    "susi": 55,
     "bazzi": 55
    }
   },
@@ -1108,11 +1108,11 @@
    "last_number": 68893,
    "ayah_count": {
     "hafs": 78,
-    "shuba": 78,
+    "shubah": 78,
     "warsh": 77,
-    "qaloun": 77,
-    "douri": 77,
-    "sousi": 77,
+    "qalun": 77,
+    "duri": 77,
+    "susi": 77,
     "bazzi": 77
    }
   },
@@ -1126,11 +1126,11 @@
    "last_number": 69272,
    "ayah_count": {
     "hafs": 96,
-    "shuba": 96,
+    "shubah": 96,
     "warsh": 99,
-    "qaloun": 99,
-    "douri": 99,
-    "sousi": 99,
+    "qalun": 99,
+    "duri": 99,
+    "susi": 99,
     "bazzi": 99
    }
   },
@@ -1144,11 +1144,11 @@
    "last_number": 69846,
    "ayah_count": {
     "hafs": 29,
-    "shuba": 29,
+    "shubah": 29,
     "warsh": 28,
-    "qaloun": 28,
-    "douri": 28,
-    "sousi": 28,
+    "qalun": 28,
+    "duri": 28,
+    "susi": 28,
     "bazzi": 28
    }
   },
@@ -1162,11 +1162,11 @@
    "last_number": 70318,
    "ayah_count": {
     "hafs": 22,
-    "shuba": 22,
+    "shubah": 22,
     "warsh": 21,
-    "qaloun": 21,
-    "douri": 22,
-    "sousi": 22,
+    "qalun": 21,
+    "duri": 22,
+    "susi": 22,
     "bazzi": 21
    }
   },
@@ -1180,11 +1180,11 @@
    "last_number": 70763,
    "ayah_count": {
     "hafs": 24,
-    "shuba": 24,
+    "shubah": 24,
     "warsh": 24,
-    "qaloun": 24,
-    "douri": 24,
-    "sousi": 24,
+    "qalun": 24,
+    "duri": 24,
+    "susi": 24,
     "bazzi": 24
    }
   },
@@ -1198,11 +1198,11 @@
    "last_number": 71111,
    "ayah_count": {
     "hafs": 13,
-    "shuba": 13,
+    "shubah": 13,
     "warsh": 13,
-    "qaloun": 13,
-    "douri": 13,
-    "sousi": 13,
+    "qalun": 13,
+    "duri": 13,
+    "susi": 13,
     "bazzi": 13
    }
   },
@@ -1216,11 +1216,11 @@
    "last_number": 71332,
    "ayah_count": {
     "hafs": 14,
-    "shuba": 14,
+    "shubah": 14,
     "warsh": 14,
-    "qaloun": 14,
-    "douri": 14,
-    "sousi": 14,
+    "qalun": 14,
+    "duri": 14,
+    "susi": 14,
     "bazzi": 14
    }
   },
@@ -1234,11 +1234,11 @@
    "last_number": 71507,
    "ayah_count": {
     "hafs": 11,
-    "shuba": 11,
+    "shubah": 11,
     "warsh": 11,
-    "qaloun": 11,
-    "douri": 11,
-    "sousi": 11,
+    "qalun": 11,
+    "duri": 11,
+    "susi": 11,
     "bazzi": 11
    }
   },
@@ -1252,11 +1252,11 @@
    "last_number": 71687,
    "ayah_count": {
     "hafs": 11,
-    "shuba": 11,
+    "shubah": 11,
     "warsh": 11,
-    "qaloun": 11,
-    "douri": 11,
-    "sousi": 11,
+    "qalun": 11,
+    "duri": 11,
+    "susi": 11,
     "bazzi": 11
    }
   },
@@ -1270,11 +1270,11 @@
    "last_number": 71928,
    "ayah_count": {
     "hafs": 18,
-    "shuba": 18,
+    "shubah": 18,
     "warsh": 18,
-    "qaloun": 18,
-    "douri": 18,
-    "sousi": 18,
+    "qalun": 18,
+    "duri": 18,
+    "susi": 18,
     "bazzi": 18
    }
   },
@@ -1288,11 +1288,11 @@
    "last_number": 72215,
    "ayah_count": {
     "hafs": 12,
-    "shuba": 12,
+    "shubah": 12,
     "warsh": 12,
-    "qaloun": 12,
-    "douri": 12,
-    "sousi": 12,
+    "qalun": 12,
+    "duri": 12,
+    "susi": 12,
     "bazzi": 12
    }
   },
@@ -1306,11 +1306,11 @@
    "last_number": 72464,
    "ayah_count": {
     "hafs": 12,
-    "shuba": 12,
+    "shubah": 12,
     "warsh": 12,
-    "qaloun": 12,
-    "douri": 12,
-    "sousi": 12,
+    "qalun": 12,
+    "duri": 12,
+    "susi": 12,
     "bazzi": 12
    }
   },
@@ -1324,11 +1324,11 @@
    "last_number": 72797,
    "ayah_count": {
     "hafs": 30,
-    "shuba": 30,
+    "shubah": 30,
     "warsh": 31,
-    "qaloun": 31,
-    "douri": 30,
-    "sousi": 31,
+    "qalun": 31,
+    "duri": 30,
+    "susi": 31,
     "bazzi": 31
    }
   },
@@ -1342,11 +1342,11 @@
    "last_number": 73097,
    "ayah_count": {
     "hafs": 52,
-    "shuba": 52,
+    "shubah": 52,
     "warsh": 52,
-    "qaloun": 52,
-    "douri": 52,
-    "sousi": 52,
+    "qalun": 52,
+    "duri": 52,
+    "susi": 52,
     "bazzi": 52
    }
   },
@@ -1360,11 +1360,11 @@
    "last_number": 73355,
    "ayah_count": {
     "hafs": 52,
-    "shuba": 52,
+    "shubah": 52,
     "warsh": 52,
-    "qaloun": 52,
-    "douri": 52,
-    "sousi": 52,
+    "qalun": 52,
+    "duri": 52,
+    "susi": 52,
     "bazzi": 52
    }
   },
@@ -1378,11 +1378,11 @@
    "last_number": 73572,
    "ayah_count": {
     "hafs": 44,
-    "shuba": 44,
+    "shubah": 44,
     "warsh": 44,
-    "qaloun": 44,
-    "douri": 44,
-    "sousi": 44,
+    "qalun": 44,
+    "duri": 44,
+    "susi": 44,
     "bazzi": 44
    }
   },
@@ -1396,11 +1396,11 @@
    "last_number": 73798,
    "ayah_count": {
     "hafs": 28,
-    "shuba": 28,
+    "shubah": 28,
     "warsh": 30,
-    "qaloun": 30,
-    "douri": 30,
-    "sousi": 30,
+    "qalun": 30,
+    "duri": 30,
+    "susi": 30,
     "bazzi": 30
    }
   },
@@ -1414,11 +1414,11 @@
    "last_number": 74084,
    "ayah_count": {
     "hafs": 28,
-    "shuba": 28,
+    "shubah": 28,
     "warsh": 28,
-    "qaloun": 28,
-    "douri": 28,
-    "sousi": 28,
+    "qalun": 28,
+    "duri": 28,
+    "susi": 28,
     "bazzi": 28
    }
   },
@@ -1432,11 +1432,11 @@
    "last_number": 74283,
    "ayah_count": {
     "hafs": 20,
-    "shuba": 20,
+    "shubah": 20,
     "warsh": 18,
-    "qaloun": 18,
-    "douri": 20,
-    "sousi": 20,
+    "qalun": 18,
+    "duri": 20,
+    "susi": 20,
     "bazzi": 20
    }
   },
@@ -1450,11 +1450,11 @@
    "last_number": 74538,
    "ayah_count": {
     "hafs": 56,
-    "shuba": 56,
+    "shubah": 56,
     "warsh": 55,
-    "qaloun": 55,
-    "douri": 56,
-    "sousi": 56,
+    "qalun": 55,
+    "duri": 56,
+    "susi": 56,
     "bazzi": 55
    }
   },
@@ -1468,11 +1468,11 @@
    "last_number": 74702,
    "ayah_count": {
     "hafs": 40,
-    "shuba": 40,
+    "shubah": 40,
     "warsh": 39,
-    "qaloun": 39,
-    "douri": 39,
-    "sousi": 39,
+    "qalun": 39,
+    "duri": 39,
+    "susi": 39,
     "bazzi": 39
    }
   },
@@ -1486,11 +1486,11 @@
    "last_number": 74945,
    "ayah_count": {
     "hafs": 31,
-    "shuba": 31,
+    "shubah": 31,
     "warsh": 31,
-    "qaloun": 31,
-    "douri": 31,
-    "sousi": 31,
+    "qalun": 31,
+    "duri": 31,
+    "susi": 31,
     "bazzi": 31
    }
   },
@@ -1504,11 +1504,11 @@
    "last_number": 75126,
    "ayah_count": {
     "hafs": 50,
-    "shuba": 50,
+    "shubah": 50,
     "warsh": 50,
-    "qaloun": 50,
-    "douri": 50,
-    "sousi": 50,
+    "qalun": 50,
+    "duri": 50,
+    "susi": 50,
     "bazzi": 50
    }
   },
@@ -1522,11 +1522,11 @@
    "last_number": 75299,
    "ayah_count": {
     "hafs": 40,
-    "shuba": 40,
+    "shubah": 40,
     "warsh": 40,
-    "qaloun": 40,
-    "douri": 40,
-    "sousi": 40,
+    "qalun": 40,
+    "duri": 40,
+    "susi": 40,
     "bazzi": 41
    }
   },
@@ -1540,11 +1540,11 @@
    "last_number": 75478,
    "ayah_count": {
     "hafs": 46,
-    "shuba": 46,
+    "shubah": 46,
     "warsh": 45,
-    "qaloun": 45,
-    "douri": 45,
-    "sousi": 45,
+    "qalun": 45,
+    "duri": 45,
+    "susi": 45,
     "bazzi": 45
    }
   },
@@ -1558,11 +1558,11 @@
    "last_number": 75611,
    "ayah_count": {
     "hafs": 42,
-    "shuba": 42,
+    "shubah": 42,
     "warsh": 42,
-    "qaloun": 42,
-    "douri": 42,
-    "sousi": 42,
+    "qalun": 42,
+    "duri": 42,
+    "susi": 42,
     "bazzi": 42
    }
   },
@@ -1576,11 +1576,11 @@
    "last_number": 75715,
    "ayah_count": {
     "hafs": 29,
-    "shuba": 29,
+    "shubah": 29,
     "warsh": 29,
-    "qaloun": 29,
-    "douri": 29,
-    "sousi": 29,
+    "qalun": 29,
+    "duri": 29,
+    "susi": 29,
     "bazzi": 29
    }
   },
@@ -1594,11 +1594,11 @@
    "last_number": 75795,
    "ayah_count": {
     "hafs": 19,
-    "shuba": 19,
+    "shubah": 19,
     "warsh": 19,
-    "qaloun": 19,
-    "douri": 19,
-    "sousi": 19,
+    "qalun": 19,
+    "duri": 19,
+    "susi": 19,
     "bazzi": 19
    }
   },
@@ -1612,11 +1612,11 @@
    "last_number": 75964,
    "ayah_count": {
     "hafs": 36,
-    "shuba": 36,
+    "shubah": 36,
     "warsh": 36,
-    "qaloun": 36,
-    "douri": 36,
-    "sousi": 36,
+    "qalun": 36,
+    "duri": 36,
+    "susi": 36,
     "bazzi": 36
    }
   },
@@ -1630,11 +1630,11 @@
    "last_number": 76071,
    "ayah_count": {
     "hafs": 25,
-    "shuba": 25,
+    "shubah": 25,
     "warsh": 25,
-    "qaloun": 25,
-    "douri": 25,
-    "sousi": 25,
+    "qalun": 25,
+    "duri": 25,
+    "susi": 25,
     "bazzi": 25
    }
   },
@@ -1648,11 +1648,11 @@
    "last_number": 76180,
    "ayah_count": {
     "hafs": 22,
-    "shuba": 22,
+    "shubah": 22,
     "warsh": 22,
-    "qaloun": 22,
-    "douri": 22,
-    "sousi": 22,
+    "qalun": 22,
+    "duri": 22,
+    "susi": 22,
     "bazzi": 22
    }
   },
@@ -1666,11 +1666,11 @@
    "last_number": 76241,
    "ayah_count": {
     "hafs": 17,
-    "shuba": 17,
+    "shubah": 17,
     "warsh": 17,
-    "qaloun": 17,
-    "douri": 16,
-    "sousi": 16,
+    "qalun": 17,
+    "duri": 16,
+    "susi": 16,
     "bazzi": 17
    }
   },
@@ -1684,11 +1684,11 @@
    "last_number": 76313,
    "ayah_count": {
     "hafs": 19,
-    "shuba": 19,
+    "shubah": 19,
     "warsh": 19,
-    "qaloun": 19,
-    "douri": 19,
-    "sousi": 19,
+    "qalun": 19,
+    "duri": 19,
+    "susi": 19,
     "bazzi": 19
    }
   },
@@ -1702,11 +1702,11 @@
    "last_number": 76405,
    "ayah_count": {
     "hafs": 26,
-    "shuba": 26,
+    "shubah": 26,
     "warsh": 26,
-    "qaloun": 26,
-    "douri": 26,
-    "sousi": 26,
+    "qalun": 26,
+    "duri": 26,
+    "susi": 26,
     "bazzi": 26
    }
   },
@@ -1720,11 +1720,11 @@
    "last_number": 76542,
    "ayah_count": {
     "hafs": 30,
-    "shuba": 30,
+    "shubah": 30,
     "warsh": 32,
-    "qaloun": 32,
-    "douri": 32,
-    "sousi": 32,
+    "qalun": 32,
+    "duri": 32,
+    "susi": 32,
     "bazzi": 32
    }
   },
@@ -1738,11 +1738,11 @@
    "last_number": 76624,
    "ayah_count": {
     "hafs": 20,
-    "shuba": 20,
+    "shubah": 20,
     "warsh": 20,
-    "qaloun": 20,
-    "douri": 20,
-    "sousi": 20,
+    "qalun": 20,
+    "duri": 20,
+    "susi": 20,
     "bazzi": 20
    }
   },
@@ -1756,11 +1756,11 @@
    "last_number": 76678,
    "ayah_count": {
     "hafs": 15,
-    "shuba": 15,
+    "shubah": 15,
     "warsh": 15,
-    "qaloun": 15,
-    "douri": 16,
-    "sousi": 16,
+    "qalun": 15,
+    "duri": 16,
+    "susi": 16,
     "bazzi": 15
    }
   },
@@ -1774,11 +1774,11 @@
    "last_number": 76749,
    "ayah_count": {
     "hafs": 21,
-    "shuba": 21,
+    "shubah": 21,
     "warsh": 21,
-    "qaloun": 21,
-    "douri": 21,
-    "sousi": 21,
+    "qalun": 21,
+    "duri": 21,
+    "susi": 21,
     "bazzi": 21
    }
   },
@@ -1792,11 +1792,11 @@
    "last_number": 76789,
    "ayah_count": {
     "hafs": 11,
-    "shuba": 11,
+    "shubah": 11,
     "warsh": 11,
-    "qaloun": 11,
-    "douri": 11,
-    "sousi": 11,
+    "qalun": 11,
+    "duri": 11,
+    "susi": 11,
     "bazzi": 11
    }
   },
@@ -1810,11 +1810,11 @@
    "last_number": 76816,
    "ayah_count": {
     "hafs": 8,
-    "shuba": 8,
+    "shubah": 8,
     "warsh": 8,
-    "qaloun": 8,
-    "douri": 8,
-    "sousi": 8,
+    "qalun": 8,
+    "duri": 8,
+    "susi": 8,
     "bazzi": 8
    }
   },
@@ -1828,11 +1828,11 @@
    "last_number": 76850,
    "ayah_count": {
     "hafs": 8,
-    "shuba": 8,
+    "shubah": 8,
     "warsh": 8,
-    "qaloun": 8,
-    "douri": 8,
-    "sousi": 8,
+    "qalun": 8,
+    "duri": 8,
+    "susi": 8,
     "bazzi": 8
    }
   },
@@ -1846,11 +1846,11 @@
    "last_number": 76922,
    "ayah_count": {
     "hafs": 19,
-    "shuba": 19,
+    "shubah": 19,
     "warsh": 20,
-    "qaloun": 20,
-    "douri": 20,
-    "sousi": 20,
+    "qalun": 20,
+    "duri": 20,
+    "susi": 20,
     "bazzi": 20
    }
   },
@@ -1864,11 +1864,11 @@
    "last_number": 76952,
    "ayah_count": {
     "hafs": 5,
-    "shuba": 5,
+    "shubah": 5,
     "warsh": 5,
-    "qaloun": 5,
-    "douri": 5,
-    "sousi": 5,
+    "qalun": 5,
+    "duri": 5,
+    "susi": 5,
     "bazzi": 6
    }
   },
@@ -1882,11 +1882,11 @@
    "last_number": 77046,
    "ayah_count": {
     "hafs": 8,
-    "shuba": 8,
+    "shubah": 8,
     "warsh": 8,
-    "qaloun": 8,
-    "douri": 8,
-    "sousi": 8,
+    "qalun": 8,
+    "duri": 8,
+    "susi": 8,
     "bazzi": 8
    }
   },
@@ -1900,11 +1900,11 @@
    "last_number": 77082,
    "ayah_count": {
     "hafs": 8,
-    "shuba": 8,
+    "shubah": 8,
     "warsh": 9,
-    "qaloun": 9,
-    "douri": 8,
-    "sousi": 8,
+    "qalun": 9,
+    "duri": 8,
+    "susi": 8,
     "bazzi": 9
    }
   },
@@ -1918,11 +1918,11 @@
    "last_number": 77122,
    "ayah_count": {
     "hafs": 11,
-    "shuba": 11,
+    "shubah": 11,
     "warsh": 11,
-    "qaloun": 11,
-    "douri": 11,
-    "sousi": 11,
+    "qalun": 11,
+    "duri": 11,
+    "susi": 11,
     "bazzi": 11
    }
   },
@@ -1936,11 +1936,11 @@
    "last_number": 77158,
    "ayah_count": {
     "hafs": 11,
-    "shuba": 11,
+    "shubah": 11,
     "warsh": 10,
-    "qaloun": 10,
-    "douri": 10,
-    "sousi": 10,
+    "qalun": 10,
+    "duri": 10,
+    "susi": 10,
     "bazzi": 10
    }
   },
@@ -1954,11 +1954,11 @@
    "last_number": 77186,
    "ayah_count": {
     "hafs": 8,
-    "shuba": 8,
+    "shubah": 8,
     "warsh": 8,
-    "qaloun": 8,
-    "douri": 8,
-    "sousi": 8,
+    "qalun": 8,
+    "duri": 8,
+    "susi": 8,
     "bazzi": 8
    }
   },
@@ -1972,11 +1972,11 @@
    "last_number": 77200,
    "ayah_count": {
     "hafs": 3,
-    "shuba": 3,
+    "shubah": 3,
     "warsh": 3,
-    "qaloun": 3,
-    "douri": 3,
-    "sousi": 3,
+    "qalun": 3,
+    "duri": 3,
+    "susi": 3,
     "bazzi": 3
    }
   },
@@ -1990,11 +1990,11 @@
    "last_number": 77233,
    "ayah_count": {
     "hafs": 9,
-    "shuba": 9,
+    "shubah": 9,
     "warsh": 9,
-    "qaloun": 9,
-    "douri": 9,
-    "sousi": 9,
+    "qalun": 9,
+    "duri": 9,
+    "susi": 9,
     "bazzi": 9
    }
   },
@@ -2008,11 +2008,11 @@
    "last_number": 77256,
    "ayah_count": {
     "hafs": 5,
-    "shuba": 5,
+    "shubah": 5,
     "warsh": 5,
-    "qaloun": 5,
-    "douri": 5,
-    "sousi": 5,
+    "qalun": 5,
+    "duri": 5,
+    "susi": 5,
     "bazzi": 5
    }
   },
@@ -2026,11 +2026,11 @@
    "last_number": 77273,
    "ayah_count": {
     "hafs": 4,
-    "shuba": 4,
+    "shubah": 4,
     "warsh": 5,
-    "qaloun": 5,
-    "douri": 5,
-    "sousi": 5,
+    "qalun": 5,
+    "duri": 5,
+    "susi": 5,
     "bazzi": 5
    }
   },
@@ -2044,11 +2044,11 @@
    "last_number": 77298,
    "ayah_count": {
     "hafs": 7,
-    "shuba": 7,
+    "shubah": 7,
     "warsh": 6,
-    "qaloun": 6,
-    "douri": 6,
-    "sousi": 6,
+    "qalun": 6,
+    "duri": 6,
+    "susi": 6,
     "bazzi": 6
    }
   },
@@ -2062,11 +2062,11 @@
    "last_number": 77308,
    "ayah_count": {
     "hafs": 3,
-    "shuba": 3,
+    "shubah": 3,
     "warsh": 3,
-    "qaloun": 3,
-    "douri": 3,
-    "sousi": 3,
+    "qalun": 3,
+    "duri": 3,
+    "susi": 3,
     "bazzi": 3
    }
   },
@@ -2080,11 +2080,11 @@
    "last_number": 77334,
    "ayah_count": {
     "hafs": 6,
-    "shuba": 6,
+    "shubah": 6,
     "warsh": 6,
-    "qaloun": 6,
-    "douri": 6,
-    "sousi": 6,
+    "qalun": 6,
+    "duri": 6,
+    "susi": 6,
     "bazzi": 6
    }
   },
@@ -2098,11 +2098,11 @@
    "last_number": 77353,
    "ayah_count": {
     "hafs": 3,
-    "shuba": 3,
+    "shubah": 3,
     "warsh": 3,
-    "qaloun": 3,
-    "douri": 3,
-    "sousi": 3,
+    "qalun": 3,
+    "duri": 3,
+    "susi": 3,
     "bazzi": 3
    }
   },
@@ -2116,11 +2116,11 @@
    "last_number": 77376,
    "ayah_count": {
     "hafs": 5,
-    "shuba": 5,
+    "shubah": 5,
     "warsh": 5,
-    "qaloun": 5,
-    "douri": 5,
-    "sousi": 5,
+    "qalun": 5,
+    "duri": 5,
+    "susi": 5,
     "bazzi": 5
    }
   },
@@ -2134,11 +2134,11 @@
    "last_number": 77391,
    "ayah_count": {
     "hafs": 4,
-    "shuba": 4,
+    "shubah": 4,
     "warsh": 4,
-    "qaloun": 4,
-    "douri": 4,
-    "sousi": 4,
+    "qalun": 4,
+    "duri": 4,
+    "susi": 4,
     "bazzi": 5
    }
   },
@@ -2152,11 +2152,11 @@
    "last_number": 77414,
    "ayah_count": {
     "hafs": 5,
-    "shuba": 5,
+    "shubah": 5,
     "warsh": 5,
-    "qaloun": 5,
-    "douri": 5,
-    "sousi": 5,
+    "qalun": 5,
+    "duri": 5,
+    "susi": 5,
     "bazzi": 5
    }
   },
@@ -2170,11 +2170,11 @@
    "last_number": 77434,
    "ayah_count": {
     "hafs": 6,
-    "shuba": 6,
+    "shubah": 6,
     "warsh": 6,
-    "qaloun": 6,
-    "douri": 6,
-    "sousi": 6,
+    "qalun": 6,
+    "duri": 6,
+    "susi": 6,
     "bazzi": 7
    }
   }
@@ -2190,7 +2190,7 @@
    "path": "out/mushaf/<key>.nested.json.gz",
    "format": "quran-mushaf",
    "view": "nested",
-   "answers": "the same muṣḥaf as sūrah → āyah → words, for consumers coming from verse-level formats"
+   "answers": "the same muṣḥaf as sūrah → āyah → words, for consumers coming from one-record-per-āyah formats"
   },
   {
    "path": "out/mushaf/<key>.csv.gz",
@@ -2242,7 +2242,7 @@
   {
    "path": "out/reports/",
    "format": "markdown, csv, html",
-   "answers": "how the seven compare and how this was built, for reading rather than loading"
+   "answers": "how the seven compare and how this was built, for people to read rather than to load"
   }
  ]
 }

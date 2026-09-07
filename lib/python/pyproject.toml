@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "quran-text"
 version = "0.1.0"
-description = "Read the quran-text dataset: the Qurʾān in seven riwāyāt with pages, lines, āyāt, pause marks and one shared word numbering. Ḥafṣ bundled."
+description = "Read the quran-text dataset: the Qurʾān in seven riwāyāt with pages, lines, āyāt, waqf marks and one shared word numbering. Ḥafṣ bundled."
 requires-python = ">=3.9"
 license = { text = "MIT" }
 

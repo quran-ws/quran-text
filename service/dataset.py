@@ -21,7 +21,7 @@ sys.path.insert(0, str(HERE.parent / "lib" / "python"))
 
 from quran_text import AyahMap, Mushaf, WordIndex  # noqa: E402
 
-EDITIONS = ["hafs", "shuba", "warsh", "qaloun", "douri", "sousi", "bazzi"]
+EDITIONS = ["hafs", "shubah", "warsh", "qalun", "duri", "susi", "bazzi"]
 
 
 class Dataset:
@@ -58,24 +58,24 @@ class Dataset:
     def edition_info(self, key: str) -> dict:
         """What the page shows for one riwāyah: names, counts, what it lacks."""
         m = self.mushaf(key)
-        entry = next(r for r in self.catalog["riwayat"] if r["key"] == key)
+        entry = next(r for r in self.catalog["riwayahs"] if r["key"] == key)
         marks = {}
         for _, mk in m.all.marks:
             marks[mk.kind] = marks.get(mk.kind, 0) + 1
         return {
             "key": key,
             "name_en": m.name_en, "name_ar": m.name_ar,
-            "qari_en": m.qari_en, "qari_ar": m.qari_ar,
+            "qiraah_en": m.qiraah_en, "qiraah_ar": m.qiraah_ar,
             "counting_system": m.counting_system,
             "counting_system_en": m.counting.get("system_name_en"),
             "counting_system_ar": m.counting.get("system_name_ar"),
             "ayah_count": m.ayah_count, "word_count": m.word_count,
             "page_count": m.page_count, "juz_count": m.juz_count,
             "basmalah_counted": m.basmalah_counted,
-            "has": {layer: m.has(layer) for layer in ("imlaei", "juz", "lines")},
+            "has": {layer: m.has(layer) for layer in ("rasm_imlai", "juz", "lines")},
             "absent": m._doc["layers"]["absent"],
             "marks": marks,
-            "sura_ayah_counts": [s.ayah_count for s in m.suras],
+            "surah_ayah_counts": [s.ayah_count for s in m.surahs],
             "source": entry["source"],
             "provenance": m.provenance,
             "font": {**m._doc["font"], "url": "/files/" + m._doc["font"]["file"].removeprefix("out/")},
@@ -85,16 +85,16 @@ class Dataset:
     @staticmethod
     def sample(m: Mushaf) -> dict:
         """A stretch of about ten āyāt that carries every kind of sign the
-        release prints — pause marks, ۩ and ۞ — so a preview shows them all."""
+        release prints — waqf marks, ۩ and ۞ — so a preview shows them all."""
         printed = {mk.kind for _, mk in m.all.marks}
         starts = m._doc["ayah_starts"]
         for a in m.sajdat():
             for first in range(max(0, a.index - 9), a.index + 1):
                 last = min(first + 9, m.ayah_count - 1)
-                span = m.span(starts[first], m.ayat[last].end)
+                span = m.span(starts[first], m.ayahs[last].end)
                 kinds = {mk.kind for _, mk in span.marks}
-                lo, hi = m.ayat[first], m.ayat[last]
-                if printed <= kinds and lo.sura.number == hi.sura.number:
+                lo, hi = m.ayahs[first], m.ayahs[last]
+                if printed <= kinds and lo.surah.number == hi.surah.number:
                     return {"ayah": f"{lo.key}-{hi.key}", "signs": sorted(kinds)}
         return {"ayah": "1:1-1:7", "signs": sorted(printed)}
 
@@ -110,10 +110,10 @@ class Dataset:
 
     # -- āyah references across editions --
 
-    def kufi_refs(self, edition: str, sura: int, ayah: int) -> list[dict]:
-        """The Kūfī (Ḥafṣ) āyāt whose words fall in ``sura:ayah`` of ``edition``,
-        each with how the two relate: ``[{"sura": 2, "ayah": 255, "relation": "split"}]``."""
-        return self._kufi_refs.get((edition, sura, ayah), [])
+    def kufi_refs(self, edition: str, surah: int, ayah: int) -> list[dict]:
+        """The Kūfī (Ḥafṣ) āyāt whose words fall in ``surah:ayah`` of ``edition``,
+        each with how the two relate: ``[{"surah": 2, "ayah": 255, "relation": "split"}]``."""
+        return self._kufi_refs.get((edition, surah, ayah), [])
 
     # -- raw files --
 
@@ -158,10 +158,10 @@ def _read_json(path: Path) -> dict:
 
 def _invert_ayah_map(doc: dict) -> dict[tuple[str, int, int], list[dict]]:
     inverse: dict[tuple[str, int, int], list[dict]] = {}
-    for row in doc["ayat"]:
+    for row in doc["ayahs"]:
         for edition in doc["editions"]:
             r = row[edition]
             for a in range(r["ayah"], r.get("ayah_last", r["ayah"]) + 1):
-                inverse.setdefault((edition, r["sura"], a), []).append(
-                    {"sura": row["sura"], "ayah": row["ayah"], "relation": r["relation"]})
+                inverse.setdefault((edition, r["surah"], a), []).append(
+                    {"surah": row["surah"], "ayah": row["ayah"], "relation": r["relation"]})
     return inverse

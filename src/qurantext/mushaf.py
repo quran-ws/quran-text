@@ -8,7 +8,7 @@ file per muṣḥaf.
 **A muṣḥaf is an ordered array of word strings.  Everything else is a layer over
 that array, addressed by position.**  ``words[i]`` is the *i*-th word of this
 muṣḥaf; ``ayah_starts``, ``page_starts``, ``line_starts``, ``juz_starts`` and
-``sura_starts`` are sorted lists of positions, so unit *k* of any layer is
+``surah_starts`` are sorted lists of positions, so unit *k* of any layer is
 ``words[starts[k]:starts[k+1]]`` — a slice, correct in all seven files.
 
 Two kinds of integer appear and are kept apart.  A **position** is an index
@@ -37,11 +37,11 @@ from collections import defaultdict
 from datetime import date
 from pathlib import Path
 
-from . import counting, fonts, imlaei
+from . import counting, fonts, rasm_imlai
 from .build import OUT, Word
 from .word_index import boundary_events
-from .sources import DATA, RELEASE_POLICY, Riwaya
-from .suras import names
+from .sources import DATA, RELEASE_POLICY, Riwayah
+from .surahs import names
 
 FORMAT = "quran-mushaf"
 FORMAT_VERSION = "1.0"
@@ -71,7 +71,7 @@ def _sha256(path: Path) -> str:
     return h.hexdigest()
 
 
-def _provenance(r: Riwaya) -> dict:
+def _provenance(r: Riwayah) -> dict:
     """Which KFGQPC release every part of this file came from.
 
     Recorded in the file itself and not only in the manifest, because a muṣḥaf
@@ -104,8 +104,8 @@ def _provenance(r: Riwaya) -> dict:
 def _marks(w: Word, key: str) -> list[dict]:
     """Every sign printed against this word, with the side it sits on."""
     out = []
-    if key in w.hizb:
-        out.append({"kind": "hizb", "side": "before", "sign": "۞"})
+    if key in w.division:
+        out.append({"kind": "division", "side": "before", "sign": "۞"})
     for sign in w.waqf.get(key, ""):
         if sign == "۩":
             continue                       # emitted below, as its own kind
@@ -186,14 +186,14 @@ def numbers_of(doc: dict) -> list[tuple[int, int]]:
     missing = set(block["missing"])
     joined = {j["position"]: j["numbers"] for j in block["written_joined"]}
     runs, n = [], 1
-    for pos in range(len(doc["words"])):
+    for position in range(len(doc["words"])):
         while n in missing:
             n += 1
-        first, last = joined.get(pos, (n, n))
+        first, last = joined.get(position, (n, n))
         if first != n:
-            raise AssertionError(f"{key}: run at {pos} starts {first}, expected {n}")
+            raise AssertionError(f"{key}: run at {position} starts {first}, expected {n}")
         if last < first:
-            raise AssertionError(f"{key}: run at {pos} is empty")
+            raise AssertionError(f"{key}: run at {position} is empty")
         runs.append((first, last))
         n = last + 1
     while n in missing:
@@ -203,33 +203,33 @@ def numbers_of(doc: dict) -> list[tuple[int, int]]:
     return runs
 
 
-def _suras(key: str, printed: list[Printed], ayah_starts: list[int],
-           r: Riwaya) -> list[dict]:
+def _surahs(key: str, printed: list[Printed], ayah_starts: list[int],
+           r: Riwayah) -> list[dict]:
     """The 114-row sūrah header, in full, in every muṣḥaf's own file.
 
     Duplicated across the seven rather than shared, because a file that needs a
     second download before it can name a sūrah is not a muṣḥaf that ships alone.
     It costs 114 rows against 77,000 words.
     """
-    basmalah_printed = {a.sura for a in r.ayat if a.aya == 0} | {1}
-    by_sura: dict[int, list[Printed]] = defaultdict(list)
+    basmalah_printed = {a.surah for a in r.ayahs if a.ayah == 0} | {1}
+    by_surah: dict[int, list[Printed]] = defaultdict(list)
     for p in printed:
-        by_sura[p.word.sura].append(p)
+        by_surah[p.word.surah].append(p)
     first_ayah_of: dict[int, int] = {}
-    for k, pos in enumerate(ayah_starts):
-        first_ayah_of.setdefault(printed[pos].word.sura, k)
+    for k, position in enumerate(ayah_starts):
+        first_ayah_of.setdefault(printed[position].word.surah, k)
 
     out = []
-    for sura, ps in sorted(by_sura.items()):
-        info = names()[sura]
+    for surah, ps in sorted(by_surah.items()):
+        info = names()[surah]
         out.append({
-            "number": sura,
+            "number": surah,
             "name_ar": info["name_ar"],
             "name_en": info["name_en"],
             "revelation": info["revelation"],
-            "has_basmalah": sura in basmalah_printed,
-            "ayah_count": max(p.word.aya.get(key, 0) for p in ps),
-            "first_ayah": first_ayah_of[sura],
+            "has_basmalah": surah in basmalah_printed,
+            "ayah_count": max(p.word.ayah.get(key, 0) for p in ps),
+            "first_ayah": first_ayah_of[surah],
         })
     return out
 
@@ -248,24 +248,24 @@ def _resegmentation(key: str, words: list[Word], at: dict[int, int]) -> list[dic
     """
     out = []
     for event in boundary_events(words):
-        if key not in event["riwayat"]:
+        if key not in event["riwayahs"]:
             continue
         ids = event["word_ids"]
         mine = [w for w in words if w.id in set(ids) and key in w.forms]
         source = next((t for t, ks in event["texts"].items() if key in ks), "")
         out.append({
             "positions": sorted({at[i] for i in ids if i in at}),
-            "sura": event["sura"],
-            "ayah": event["aya"],
+            "surah": event["surah"],
+            "ayah": event["ayah"],
             "kind": event["kind"],
             "source_text": source,
             "emitted": [w.forms[key] for w in mine],
-            "riwayat_agree": event["agree"],
+            "riwayahs_agree": event["agree"],
         })
     return out
 
 
-def _line_check(key: str, printed: list[Printed], r: Riwaya) -> dict:
+def _line_check(key: str, printed: list[Printed], r: Riwayah) -> dict:
     """Re-check the reconstructed lines against the release that states them.
 
     The page is read from the document; the line is inferred from its flow (see
@@ -280,7 +280,7 @@ def _line_check(key: str, printed: list[Printed], r: Riwaya) -> dict:
 
     by_ayah: dict[tuple[int, int], list[Word]] = defaultdict(list)
     for p in printed:
-        by_ayah[(p.word.sura, p.word.aya[key])].append(p.word)
+        by_ayah[(p.word.surah, p.word.ayah[key])].append(p.word)
 
     checked = agreed = 0
     wrong = []
@@ -294,25 +294,25 @@ def _line_check(key: str, printed: list[Printed], r: Riwaya) -> dict:
         if got == want:
             agreed += 1
         else:
-            wrong.append({"sura": k[0], "ayah": k[1], "derived": got, "source": want})
+            wrong.append({"surah": k[0], "ayah": k[1], "derived": got, "source": want})
     return {
         "validated": True,
         "against": r.crosscheck_source,
-        "ayat_checked": checked,
-        "ayat_agreeing": agreed,
+        "ayahs_checked": checked,
+        "ayahs_agreeing": agreed,
         "disagreements": wrong,
     }
 
 
-def _layers(r: Riwaya, line_check: dict, has_juz: bool) -> dict:
+def _layers(r: Riwayah, line_check: dict, has_juz: bool) -> dict:
     """What this file carries, and why it lacks whatever it lacks."""
-    present = ["suras", "ayat", "pages", "lines", "marks"]
+    present = ["surahs", "ayahs", "pages", "lines", "marks"]
     absent: dict[str, str] = {}
     if has_juz:
         present.append("juz")
     else:
         absent["juz"] = "no v2 package released for this riwāyah"
-    absent["imlaei"] = "column not present in this riwāyah's release"
+    absent["rasm_imlai"] = "column not present in this riwāyah's release"
 
     return {
         "present": present,
@@ -327,10 +327,10 @@ def _layers(r: Riwaya, line_check: dict, has_juz: bool) -> dict:
         },
         "notes": {
             "page": "read from explicit page breaks in the release, not inferred",
-            "waqf": "pause-mark conventions differ by muṣḥaf and are not "
+            "waqf": "waqf-mark conventions differ by muṣḥaf and are not "
                     "comparable across them: Warsh and Qālūn print one general "
                     "sign where Ḥafṣ, Dūrī and Sūsī print seven distinct ones",
-            "hizb": "the ۞ symbol is emitted exactly as the release prints it. "
+            "division": "the ۞ symbol is emitted exactly as the release prints it. "
                     "The releases disagree about how often to print it — 199 "
                     "times in Ḥafṣ, Shuʿbah and Bazzī against 433–437 in the "
                     "others — and nothing here reconciles them",
@@ -338,7 +338,7 @@ def _layers(r: Riwaya, line_check: dict, has_juz: bool) -> dict:
     }
 
 
-def _juz_per_position(printed: list[Printed], key: str, r: Riwaya) -> list[int] | None:
+def _juz_per_position(printed: list[Printed], key: str, r: Riwayah) -> list[int] | None:
     """The juz of every printed word, from the v2 CSV, or ``None`` without one.
 
     The CSV is per numbered āyah.  The unnumbered basmalah of Al-Fātiḥah has no
@@ -348,7 +348,7 @@ def _juz_per_position(printed: list[Printed], key: str, r: Riwaya) -> list[int] 
         return None
     out: list[int | None] = []
     for p in printed:
-        meta = r.meta.get((p.word.sura, p.word.aya[key]))
+        meta = r.meta.get((p.word.surah, p.word.ayah[key]))
         jozz = meta["jozz"] if meta and meta["jozz"].isdigit() else None
         out.append(int(jozz) if jozz else None)
     for i in range(len(out) - 2, -1, -1):        # fill gaps from the right
@@ -360,8 +360,8 @@ def _juz_per_position(printed: list[Printed], key: str, r: Riwaya) -> list[int] 
     return out                                    # type: ignore[return-value]
 
 
-def document(words: list[Word], r: Riwaya,
-             imlaei: dict[int, str] | None = None) -> dict:
+def document(words: list[Word], r: Riwayah,
+             rasm_imlai: dict[int, str] | None = None) -> dict:
     """The whole of one muṣḥaf, in the canonical shape.
 
     The ``counting`` block is filled in by :func:`qurantext.counting.derive`
@@ -375,9 +375,9 @@ def document(words: list[Word], r: Riwaya,
             at[n] = p.position
 
     line_check = _line_check(key, printed, r)
-    ayahs = [(p.word.sura, p.word.aya[key]) for p in printed]
+    ayahs = [(p.word.surah, p.word.ayah[key]) for p in printed]
     ayah_starts = [i for i in _starts(ayahs) if ayahs[i][1] > 0]
-    sura_starts = _starts([p.word.sura for p in printed])
+    surah_starts = _starts([p.word.surah for p in printed])
     places = [p.word.place.get(key) for p in printed]
     page_starts = _starts([pl[0] for pl in places]) if all(places) else None
     line_starts = _starts([pl for pl in places]) if all(places) else None
@@ -402,8 +402,8 @@ def document(words: list[Word], r: Riwaya,
             "key": key,
             "name_en": r.name_en,
             "name_ar": r.name_ar,
-            "qari_en": r.qari_en,
-            "qari_ar": r.qari_ar,
+            "qiraah_en": r.qiraah_en,
+            "qiraah_ar": r.qiraah_ar,
             "word_count": len(printed),
         },
         "counting": None,
@@ -411,15 +411,15 @@ def document(words: list[Word], r: Riwaya,
         "font": fonts.describe(r.spec),
         "layers": _layers(r, line_check, juz is not None),
         "words": [p.word.forms[key] for p in printed],
-        "imlaei": ([imlaei.get(p.first, imlaei.get(p.last)) for p in printed]
-                   if imlaei else None),
+        "rasm_imlai": ([rasm_imlai.get(p.first, rasm_imlai.get(p.last)) for p in printed]
+                   if rasm_imlai else None),
         "numbering": numbering(printed, missing, words[-1].id),
-        "sura_starts": sura_starts,
+        "surah_starts": surah_starts,
         "ayah_starts": ayah_starts,
         "page_starts": page_starts,
         "line_starts": line_starts,
         "juz_starts": _starts(juz) if juz else None,
-        "suras": _suras(key, printed, ayah_starts, r),
+        "surahs": _surahs(key, printed, ayah_starts, r),
         "marks": marks,
         "mark_types": mark_types,
         "mark_signs": {s: {"cp": f"U+{ord(s):04X}", "unicode_name": n}
@@ -438,7 +438,7 @@ def _dump(path: Path, doc: dict) -> None:
                     encoding="utf-8")
 
 
-def write_mushafs(words: list[Word], riwayat: list[Riwaya]) -> dict[str, dict]:
+def write_mushafs(words: list[Word], riwayahs: list[Riwayah]) -> dict[str, dict]:
     """Write every muṣḥaf's own file, and return the documents by key.
 
     Imlāʾī is derived here for whichever release supplies it, and the
@@ -448,13 +448,13 @@ def write_mushafs(words: list[Word], riwayat: list[Riwaya]) -> dict[str, dict]:
     for stale in MUSHAF_DIR.glob("*.min.json"):
         stale.unlink()
     docs = {}
-    for r in riwayat:
-        mapping, report = imlaei.derive(words, r)
+    for r in riwayahs:
+        mapping, report = rasm_imlai.derive(words, r)
         doc = document(words, r, mapping if report.get("available") else None)
         if report.get("available"):
-            doc["layers"]["derived"]["imlaei"] = report
-            doc["layers"]["present"].append("imlaei")
-            doc["layers"]["absent"].pop("imlaei", None)
+            doc["layers"]["derived"]["rasm_imlai"] = report
+            doc["layers"]["present"].append("rasm_imlai")
+            doc["layers"]["absent"].pop("rasm_imlai", None)
         doc["counting"] = counting.derive(doc, words)
         _dump(MUSHAF_DIR / f"{r.key}.json", doc)
         docs[r.key] = doc
