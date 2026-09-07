@@ -8,6 +8,22 @@ version = "0.1.0"
 description = "Read the quran-text dataset: the Qurʾān in seven riwāyāt with pages, lines, āyāt, pause marks and one shared word numbering. Ḥafṣ bundled."
 requires-python = ">=3.9"
 license = { text = "MIT" }
+readme = "README.md"
+authors = [{ name = "quran-ws", email = "service@quran.ws" }]
+keywords = ["quran", "mushaf", "hafs", "warsh", "qaloun", "riwayat", "arabic", "uthmani"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Topic :: Text Processing :: Linguistic",
+  "Natural Language :: Arabic",
+]
+
+[project.urls]
+Homepage = "https://quran.ws"
+Repository = "https://github.com/quran-ws/quran-text"
+Issues = "https://github.com/quran-ws/quran-text/issues"
 
 [tool.setuptools]
 py-modules = ["quran_text"]

@@ -62,13 +62,13 @@ final class Word
     /** The shared number: the same word in every riwāyah. */
     public function number(): int
     {
-        return $this->mushaf->numbers()[$this->position][0];
+        return $this->mushaf->numbers()[0][$this->position];
     }
 
     /** Equal to number() except where this muṣḥaf writes two numbers as one word. */
     public function numberLast(): int
     {
-        return $this->mushaf->numbers()[$this->position][1];
+        return $this->mushaf->numbers()[1][$this->position];
     }
 
     /** @return Mark[] */

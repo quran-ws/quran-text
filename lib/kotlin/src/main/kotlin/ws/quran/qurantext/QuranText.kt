@@ -15,7 +15,7 @@
 //
 // Depends on org.json only (built into Android).
 
-package org.quranpedia.qurantext
+package ws.quran.qurantext
 
 import org.json.JSONArray
 import org.json.JSONObject

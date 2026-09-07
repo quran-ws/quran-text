@@ -1,10 +1,10 @@
-import org.quranpedia.qurantext.AyahMap
-import org.quranpedia.qurantext.AyahRef
-import org.quranpedia.qurantext.MarkKind
-import org.quranpedia.qurantext.Mushaf
-import org.quranpedia.qurantext.WordIndex
-import org.quranpedia.qurantext.ayahMarker
-import org.quranpedia.qurantext.fold
+import ws.quran.qurantext.AyahMap
+import ws.quran.qurantext.AyahRef
+import ws.quran.qurantext.MarkKind
+import ws.quran.qurantext.Mushaf
+import ws.quran.qurantext.WordIndex
+import ws.quran.qurantext.ayahMarker
+import ws.quran.qurantext.fold
 import java.io.File
 import kotlin.test.Test
 import kotlin.test.assertEquals

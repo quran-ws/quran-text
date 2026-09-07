@@ -25,7 +25,7 @@ from bisect import bisect_right
 from dataclasses import dataclass
 from typing import Iterable, Optional, Union
 
-__all__ = ["Mushaf", "Sura", "Ayah", "Page", "Line", "Juz", "Word", "Mark", "Font", "AyahMatch",
+__all__ = ["Mushaf", "UpdateStatus", "Sura", "Ayah", "Page", "Line", "Juz", "Word", "Mark", "Font", "AyahMatch",
            "Span", "AyahMap", "AyahRef", "WordIndex", "IndexedWord",
            "ayah_marker", "fold", "Layer"]
 
@@ -583,6 +583,20 @@ class Juz(Span):
 
 # --- the muṣḥaf ---------------------------------------------------------------
 
+@dataclass(frozen=True)
+class UpdateStatus:
+    """What :meth:`Mushaf.check_for_update` found. ``up_to_date`` is the only
+    field most callers need; the rest is there so you can show the user what
+    changed rather than just that something did."""
+
+    edition: str
+    up_to_date: bool
+    local_source: Optional[str]
+    latest_source: Optional[str]
+    dataset: Optional[str]
+    download_url: str
+
+
 class Mushaf:
     """One muṣḥaf file, ``out/mushaf/<key>.json``."""
 
@@ -619,6 +633,44 @@ class Mushaf:
         """Ḥafṣ, the riwāyah nearly every app uses, bundled with the library
         together with its font."""
         return cls.load(Path(__file__).parent / "quran_text_data" / "hafs.json")
+
+    #: Where :meth:`check_for_update` looks. Point it at your own mirror if you host one.
+    VERSION_URL = "https://quran.ws/version"
+
+    def check_for_update(self, url: Optional[str] = None, timeout: float = 5.0
+                        ) -> Optional["UpdateStatus"]:
+        """Ask whether a newer build of this riwāyah has been published.
+
+        This library never reaches the network on its own. Nothing calls this
+        for you: run it when it suits your app — at launch on a background
+        thread, behind a "check for updates" button, or from a cron job — and
+        it will not block or raise if the network is unavailable.
+
+        Returns ``None`` when the check could not be made (offline, timeout,
+        bad response), which is deliberately indistinguishable from "do not
+        act": a text this old and this stable is never worth failing an app
+        over. Compare :attr:`UpdateStatus.up_to_date` when you do get an answer.
+        """
+        import urllib.request
+        try:
+            with urllib.request.urlopen(url or self.VERSION_URL, timeout=timeout) as r:
+                doc = json.loads(r.read().decode("utf-8"))
+        except Exception:
+            return None
+        if doc.get("format") != "quran-version":
+            return None
+        latest = (doc.get("editions") or {}).get(self.key)
+        if not latest:
+            return None
+        mine = (self.provenance or {}).get("text", {})
+        return UpdateStatus(
+            edition=self.key,
+            up_to_date=mine.get("sha256") == latest.get("source_sha256"),
+            local_source=mine.get("package"),
+            latest_source=latest.get("source"),
+            dataset=doc.get("dataset"),
+            download_url=f"https://quran.ws/files/{latest.get('file')}",
+        )
 
     @classmethod
     def load(cls, path) -> "Mushaf":

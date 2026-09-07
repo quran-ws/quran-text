@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/quranpedia/quran-text/schema/word-index-1.0.json",
+  "$id": "https://github.com/quran-ws/quran-text/schema/word-index-1.0.json",
   "title": "quran-word-index 1.0",
   "description": "The word index: every number of the shared numbering with a text, its Ḥafṣ coordinates, and each muṣḥaf's form of it. Normative alongside the muṣḥaf files; see docs/format.md.",
   "type": "object",
