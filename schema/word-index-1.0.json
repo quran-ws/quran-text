@@ -18,25 +18,25 @@
       "minItems": 1,
       "items": {
         "type": "object",
-        "required": ["number", "sura", "index", "key", "rasm", "pointed", "uthmani", "simple", "status", "hafs", "forms", "ayah"],
+        "required": ["number", "surah", "index", "key", "rasm", "pointed", "rasm_uthmani", "plain", "status", "hafs", "forms", "ayah"],
         "additionalProperties": false,
         "properties": {
           "number": { "type": "integer", "minimum": 1, "description": "The shared number; words[i].number == i + 1." },
-          "sura": { "type": "integer", "minimum": 1, "maximum": 114 },
+          "surah": { "type": "integer", "minimum": 1, "maximum": 114 },
           "index": { "type": "integer", "minimum": 1, "description": "1-based position within the sūrah." },
           "key": { "type": "string", "description": "sūrah:pointed#occurrence — content-derived, stable across rebuilds." },
           "rasm": { "type": "string" },
           "pointed": { "type": "string" },
-          "uthmani": { "type": "string", "description": "Canonical spelling of this one word, from a muṣḥaf that writes it apart." },
-          "simple": { "type": "string" },
+          "rasm_uthmani": { "type": "string", "description": "Canonical spelling of this one word, from a muṣḥaf that writes it apart." },
+          "plain": { "type": "string" },
           "status": { "enum": ["identical", "diacritic_variant", "dotting_variant", "alif_variant", "rasm_variant", "word_boundary", "partial"] },
           "hafs": {
             "description": "The word's sūrah, āyah and position in the āyah in the Kūfī count, or null where Ḥafṣ does not read the word. Two numbers Ḥafṣ writes as one word share the same coordinates.",
             "oneOf": [
               { "type": "null" },
-              { "type": "object", "required": ["sura", "ayah", "pos"], "additionalProperties": false,
-                "properties": { "sura": { "type": "integer", "minimum": 1 }, "ayah": { "type": "integer", "minimum": 1 },
-                                "pos": { "type": "integer", "minimum": 1 } } }
+              { "type": "object", "required": ["surah", "ayah", "position"], "additionalProperties": false,
+                "properties": { "surah": { "type": "integer", "minimum": 1 }, "ayah": { "type": "integer", "minimum": 1 },
+                                "position": { "type": "integer", "minimum": 1 } } }
             ]
           },
           "forms": {
@@ -57,13 +57,13 @@
           "groups": {
             "type": "array",
             "description": "The distinct spellings, each with the muṣḥafs using it; present only when there is more than one.",
-            "items": { "type": "object", "required": ["text", "riwayat"],
-                       "properties": { "text": { "type": "string" }, "riwayat": { "type": "array", "items": { "type": "string" } } } }
+            "items": { "type": "object", "required": ["text", "riwayahs"],
+                       "properties": { "text": { "type": "string" }, "riwayahs": { "type": "array", "items": { "type": "string" } } } }
           },
           "missing": { "type": "array", "description": "The muṣḥafs that do not read this word.", "items": { "type": "string" } },
           "resegmented": { "type": "object", "description": "The muṣḥafs whose source spacing this build changed here, and how.", "additionalProperties": { "type": "string" } },
-          "waqf": { "type": "object", "description": "Pause marks that trail the word, per muṣḥaf.", "additionalProperties": { "type": "string" } },
-          "hizb": { "type": "array", "description": "The muṣḥafs printing ۞ before this word.", "items": { "type": "string" } },
+          "waqf": { "type": "object", "description": "Waqf marks that trail the word, per muṣḥaf.", "additionalProperties": { "type": "string" } },
+          "division": { "type": "array", "description": "The muṣḥafs printing ۞ before this word.", "items": { "type": "string" } },
           "sajdah": { "type": "array", "description": "The muṣḥafs printing ۩ on this word.", "items": { "type": "string" } }
         }
       }

@@ -23,12 +23,12 @@ from them.
 ## `out/catalog.json`
 
 ```json
-{ "format": "quran-catalog", "word_count": 77434, "sura_count": 114,
-  "riwayat": [ { "key": "douri", "name_en": "Dūrī", "name_ar": "الدوري", "qari_en": "…", "qari_ar": "…",
+{ "format": "quran-catalog", "word_count": 77434, "surah_count": 114,
+  "riwayahs": [ { "key": "duri", "name_en": "Dūrī", "name_ar": "الدوري", "qiraah_en": "…", "qiraah_ar": "…",
                  "counting_system": "madani-first", "ayah_count": 6217, "word_count": 77431,
                  "source": "UthmanicDouri_V20.zip :: UthmanicDouri V20.docx", "crosscheck_source": "…",
-                 "file": "out/mushaf/douri.json" }, "…" ],
-  "suras":   [ { "number": 1, "name_ar": "الفَاتِحة", "name_en": "Al-Fātiḥah", "revelation": "makki",
+                 "file": "out/mushaf/duri.json" }, "…" ],
+  "surahs":   [ { "number": 1, "name_ar": "الفَاتِحة", "name_en": "Al-Fātiḥah", "revelation": "makki",
                  "word_count": 29, "first_number": 1, "last_number": 29,
                  "ayah_count": { "hafs": 7, "warsh": 7, "…": 7 } }, "…" ],
   "files":   [ { "path": "out/mushaf/<key>.json", "format": "quran-mushaf", "normative": true, "answers": "…" }, "…" ] }
@@ -43,8 +43,8 @@ positions onto the shared numbers. Specified in
 
 | view | shape |
 |---|---|
-| `mushaf/<key>.nested.json.gz` | `suras → ayat → words[]`, every layer's value repeated on the word; the unnumbered basmalah under `"basmalah"` |
-| `mushaf/<key>.csv.gz` | one row per word: `pos, sura, ayah, pos_in_ayah, page, line, juz, number, number_last, text, imlaei, marks, resegmented`; `ayah` is `0` for the unnumbered basmalah |
+| `mushaf/<key>.nested.json.gz` | `surahs → ayahs → words[]`, every layer's value repeated on the word; the unnumbered basmalah under `"basmalah"` |
+| `mushaf/<key>.csv.gz` | one row per word: `position, surah, ayah, position_in_ayah, page, line, juz, number, number_last, text, rasm_imlai, marks, resegmented`; `ayah` is `0` for the unnumbered basmalah |
 
 A sūrah, a page or a juz is one slice of `words`, so there is no per-sūrah file.
 
@@ -62,38 +62,38 @@ a text, its Ḥafṣ coordinates, and each riwāyah's form. Schema
 `schema/word-index-1.0.json`.
 
 ```json
-{ "number": 11, "sura": 1, "index": 11, "key": "1:مالك#1",
-  "rasm": "ملك", "pointed": "مالك", "uthmani": "مَٰلِكِ", "simple": "مالك",
+{ "number": 11, "surah": 1, "index": 11, "key": "1:مالك#1",
+  "rasm": "ملك", "pointed": "مالك", "rasm_uthmani": "مَٰلِكِ", "plain": "مالك",
   "status": "dotting_variant",
-  "hafs":  { "sura": 1, "ayah": 4, "pos": 1 },
-  "ayah":  { "hafs": 4, "shuba": 4, "bazzi": 4, "qaloun": 3, "warsh": 3, "douri": 3, "sousi": 3 },
-  "forms": { "hafs": "مَٰلِكِ", "shuba": "مَٰلِكِ", "bazzi": "مَلِكِ", "qaloun": "مَلِكِ",
-             "warsh": "مَلِكِ", "douri": "مَلِكِ", "sousi": "مَّلِكِ" },
-  "groups": [ { "text": "مَٰلِكِ", "riwayat": ["hafs", "shuba"] },
-              { "text": "مَلِكِ", "riwayat": ["bazzi", "qaloun", "warsh", "douri"] },
-              { "text": "مَّلِكِ", "riwayat": ["sousi"] } ] }
+  "hafs":  { "surah": 1, "ayah": 4, "position": 1 },
+  "ayah":  { "hafs": 4, "shubah": 4, "bazzi": 4, "qalun": 3, "warsh": 3, "duri": 3, "susi": 3 },
+  "forms": { "hafs": "مَٰلِكِ", "shubah": "مَٰلِكِ", "bazzi": "مَلِكِ", "qalun": "مَلِكِ",
+             "warsh": "مَلِكِ", "duri": "مَلِكِ", "susi": "مَّلِكِ" },
+  "groups": [ { "text": "مَٰلِكِ", "riwayahs": ["hafs", "shubah"] },
+              { "text": "مَلِكِ", "riwayahs": ["bazzi", "qalun", "warsh", "duri"] },
+              { "text": "مَّلِكِ", "riwayahs": ["susi"] } ] }
 ```
 
 | field | always | meaning |
 |---|---|---|
 | `number` | ✓ | the shared number — the same integer every muṣḥaf file maps its positions onto, and the same key in every view and in SQLite |
-| `sura` | ✓ | the sūrah |
+| `surah` | ✓ | the sūrah |
 | `index` | ✓ | 1-based position within the sūrah |
 | `key` | ✓ | `sūrah:pointed#occurrence` — content-derived, stable across rebuilds |
-| `rasm` | ✓ | bare ʿUthmānic skeleton — undotted, unvowelled, no hamza, no dagger alif. The alignment key: every riwāyah sharing a number shares this exactly, except in the 60 `rasm_variant` and 198 `alif_variant` words |
+| `rasm` | ✓ | bare ʿUthmānic skeleton — undotted, unvowelled, no hamzah, no dagger alif. The alignment key: every riwāyah sharing a number shares this exactly, except in the 60 `rasm_variant` and 198 `alif_variant` words |
 | `pointed` | ✓ | the same skeleton with its dots, from the canonical spelling |
-| `uthmani` | ✓ | canonical display form of this one word — Ḥafṣ's spelling where Ḥafṣ writes the word apart, else the most common |
-| `simple` | ✓ | plain spelling for search: no diacritics, superscript alif written out |
+| `rasm_uthmani` | ✓ | canonical display form of this one word — Ḥafṣ's spelling where Ḥafṣ writes the word apart, else the most common |
+| `plain` | ✓ | plain spelling for search: no harakah, superscript alif written out |
 | `status` | ✓ | see below |
-| `hafs` | ✓ | `{sura, ayah, pos}` in the Kūfī count, `null` where Ḥafṣ does not read the word; two numbers Ḥafṣ writes as one word share the same coordinates |
+| `hafs` | ✓ | `{surah, ayah, position}` in the Kūfī count, `null` where Ḥafṣ does not read the word; two numbers Ḥafṣ writes as one word share the same coordinates |
 | `ayah` | ✓ | āyah number **per riwāyah**; `0` means printed but unnumbered (the basmalah) |
 | `forms` | ✓ | each riwāyah's own spelling; a riwāyah is absent from this map iff it lacks the word. Where a riwāyah writes the word joined with its neighbour, this is the joined word |
 | `groups` | — | the distinct spellings, each with the riwāyāt using it; present only when they are not all the same |
 | `missing` | — | riwāyāt that do not read the word |
 | `written_joined` | — | riwāyāt whose printed word here also covers the previous number: they write the two as one |
 | `resegmented` | — | riwāyāt where this build changed the source's spacing, and how (`joined_in_source`, `split_in_source`, `unresolved_boundary`) |
-| `waqf` | — | pause marks that trailed the word, per riwāyah |
-| `hizb` | — | riwāyāt marking a rub-el-ḥizb `۞` before this word |
+| `waqf` | — | waqf marks that trailed the word, per riwāyah |
+| `division` | — | riwāyāt printing `۞` before this word |
 | `sajdah` | — | riwāyāt marking a sajdah `۩` on this word |
 
 Optional fields are omitted when empty, so their presence is itself the signal.
@@ -104,9 +104,9 @@ scan.
 The CSV has one row per number with the same content flattened:
 
 ```
-number, sura, index, key, rasm, pointed, uthmani, simple, status,
-hafs_sura, hafs_ayah, hafs_pos, missing, written_joined,
-ayah_hafs … ayah_sousi, form_hafs … form_sousi
+number, surah, index, key, rasm, pointed, rasm_uthmani, plain, status,
+hafs_surah, hafs_ayah, hafs_position, missing, written_joined,
+ayah_hafs … ayah_susi, form_hafs … form_susi
 ```
 
 > **If Warsh, Qālūn or Sūsī look empty**, that is your font, not the data —
@@ -118,7 +118,7 @@ ayah_hafs … ayah_sousi, form_hafs … form_sousi
 
 | value | words | meaning |
 |---|---|---|
-| `identical` | 40,558 | same reading and spelling in all seven, after notation folding |
+| `identical` | 40,558 | same qiraah and spelling in all seven, after notation folding |
 | `diacritic_variant` | 36,261 | same letters *and* dots — the vowelling differs |
 | `dotting_variant` | 338 | one rasm, pointed differently: `تَعۡمَلُونَ` against `يَعۡمَلُونَ` |
 | `alif_variant` | 198 | one skeleton once every ā is spelled out; the hands disagree about where the ā was written |
@@ -137,7 +137,7 @@ its form is of two words — and counted as present.
 word with the alef on the line in one hand and above it in the other. It is not
 counted as the codices disagreeing, and the reason is empirical rather than
 editorial: **all 198 of these words divide the seven riwāyāt along exactly one
-line — `qaloun,warsh` against the other five — in both directions and without an
+line — `qalun,warsh` against the other five — in both directions and without an
 exception, while the 60 `rasm_variant` words divide them fourteen different
 ways.** Ḥadhf and ithbāt al-alif do vary between the codices of the amṣār, but
 they do not put Makkah with Madinah 198 times out of 198; a publisher's house
@@ -171,9 +171,9 @@ The word-index records whose `status` is `rasm_variant`, `alif_variant`,
 top. The CSV groups identical spellings so one row shows who reads what:
 
 ```
-number, sura, index, ayah_hafs, status, rasm, missing_in, written_joined_by,
+number, surah, index, ayah_hafs, status, rasm, missing_in, written_joined_by,
 resegmented_in, distinct_forms, forms
-قُلۡ [hafs,shuba,warsh,qaloun,douri,sousi]  ||  قَالَ [bazzi]
+قُلۡ [hafs,shubah,warsh,qalun,duri,susi]  ||  قَالَ [bazzi]
 ```
 
 ## `out/ayah-map.json` and `out/ayah-map.csv`
@@ -187,10 +187,10 @@ Kūfī count as Ḥafṣ prints it; for each edition, the āyah its words fall i
 how the two relate. Schema `schema/ayah-map-1.0.json`.
 
 ```json
-{ "sura": 2, "ayah": 255,
-  "hafs":  { "sura": 2, "ayah": 255, "relation": "same" },
-  "warsh": { "sura": 2, "ayah": 253, "ayah_last": 254, "relation": "split" },
-  "douri": { "sura": 2, "ayah": 253, "relation": "same" }, "…": "…" }
+{ "surah": 2, "ayah": 255,
+  "hafs":  { "surah": 2, "ayah": 255, "relation": "same" },
+  "warsh": { "surah": 2, "ayah": 253, "ayah_last": 254, "relation": "split" },
+  "duri": { "surah": 2, "ayah": 253, "relation": "same" }, "…": "…" }
 ```
 
 | relation | meaning |
@@ -215,27 +215,27 @@ khilāf inside the system. Schema `schema/counting-1.0.json`.
   "source": { "repository": "https://github.com/quranpedia/qiraat-ayah-map", "commit": "…", "files": { "…": "sha256" } },
   "disputed_points": [ { "kufi": "1:1", "kind": "end", "anchor": "الرحيم", "number": 4, "counted_by": ["makki", "kufi"] }, "…" ],
   "systems": {
-    "madani-first": { "name_ar": "المدني الأول", "name_en": "First Madinan", "reference_total": 6217,
-                      "editions": [ { "mushaf": "douri", "ayah_count": 6217, "khilaf": [ "…" ], "unexplained": [] },
-                                    { "mushaf": "sousi", "ayah_count": 6218, "khilaf": [ "…" ], "unexplained": [] } ],
+    "madani-first": { "name_ar": "المدني الأول", "name_en": "First Madani", "reference_total": 6217,
+                      "editions": [ { "mushaf": "duri", "ayah_count": 6217, "khilaf": [ "…" ], "unexplained": [] },
+                                    { "mushaf": "susi", "ayah_count": 6218, "khilaf": [ "…" ], "unexplained": [] } ],
                       "khilaf_points": [ { "kufi": "67:9", "anchor": "نذير", "number": 72557,
                                            "authorities": { "abu-jafar": false, "shayba": true }, "source": { "…": "…" } }, "…" ],
                       "ayah_ends": [8, 10, "…"] },
     "basri": { "…": "…", "editions": [] } },
-  "open_findings": [ { "mushaf": "bazzi", "sura": 78, "ayah": 40, "…": "…" } ],
+  "open_findings": [ { "mushaf": "bazzi", "surah": 78, "ayah": 40, "…": "…" } ],
   "resolved_anchors": [ "…" ] }
 ```
 
 The count belongs to the printed edition rather than to the riwāyah, so an
 edition is listed under the system its own `ayah_starts` match, not under the
-system its riwāyah is conventionally associated with; Baṣrī and Damascene have
+system its riwāyah is conventionally associated with; Baṣrī and Dimashqī have
 no edition here. `ayah_ends[i]` is the number after which an āyah ends.
 Rationale and the derivation are in `format.md`, *Counting*.
 
 ## `out/quran.sqlite.gz`
 
-All seven muṣḥafs and the word index in one file. Tables: `mushaf`, `sura`,
-`word` (one row per printed word, keyed `(mushaf, pos)`, with `number` and
+All seven muṣḥafs and the word index in one file. Tables: `mushaf`, `surah`,
+`word` (one row per printed word, keyed `(mushaf, position)`, with `number` and
 `number_last`), `word_index` (one row per number), `mark`, `resegmentation`,
 `line_disagreement`. `ayah` is `0` for the unnumbered basmalah. Where a word
 covers a run of numbers, `number` is the first and `number_last` the last;
@@ -244,10 +244,10 @@ elsewhere they are equal, so the table stays one row per word.
 Comparing two muṣḥafs:
 
 ```sql
-SELECT a.number, a.uthmani, b.uthmani
+SELECT a.number, a.rasm_uthmani, b.rasm_uthmani
 FROM word a LEFT JOIN word b
   ON b.number = a.number AND b.mushaf = 'warsh'
-WHERE a.mushaf = 'hafs' AND (b.uthmani IS NULL OR b.uthmani <> a.uthmani);
+WHERE a.mushaf = 'hafs' AND (b.rasm_uthmani IS NULL OR b.rasm_uthmani <> a.rasm_uthmani);
 ```
 
 `LEFT JOIN` rather than `JOIN` because the answer is sometimes *no row*: Warsh
@@ -261,13 +261,13 @@ every file under `out/`, and the list of normative files.
 
 ## `out/reports/`
 
-For reading, not loading.
+For people to read, not to load.
 
 | file | what |
 |---|---|
 | `COMPARISON.md` | the cross-riwāyah report: what is compared at each level, each edition's derived counting system, the status distribution, pairwise agreement, every rasm disagreement, every boundary event with each riwāyah's own text, the absent and written-joined words, the fawāṣil and how far apart the editions are, source-integrity cross-checks, a per-sūrah density table |
 | `rasm-variants.md` | every letter-level disagreement in full: the 60 `rasm_variant` words, then the 198 `alif_variant` ones |
 | `compare.html` | a self-contained page: pick a sūrah, see every word with each riwāyah's spelling side by side, filter to one kind of disagreement, search |
-| `agreement-matrix.csv` | `riwaya_a, riwaya_b, shared_words, same_spelling, same_reading, same_pointed, same_rasm` |
-| `variants.csv` | one row per riwāyah form that differs from the canonical spelling: `number, sura, index, riwaya, ayah, canonical_uthmani, riwaya_uthmani, same_rasm, status` |
-| `resegmentation.csv` | one row per place this build re-spaced a source: `numbers, sura, ayah_hafs, kind, riwayat, riwayat_agree, forms`; `riwayat_agree` = 1 means every riwāyah reads the run identically once re-segmented, so the source merely lost a space |
+| `agreement-matrix.csv` | `riwayah_a, riwayah_b, shared_words, same_spelling, same_qiraah, same_pointed, same_rasm` |
+| `variants.csv` | one row per riwāyah form that differs from the canonical spelling: `number, surah, index, riwayah, ayah, canonical_rasm_rasm_uthmani, riwayah_rasm_uthmani, same_rasm, status` |
+| `resegmentation.csv` | one row per place this build re-spaced a source: `numbers, surah, ayah_hafs, kind, riwayahs, riwayahs_agree, forms`; `riwayahs_agree` = 1 means every riwāyah reads the run identically once re-segmented, so the source merely lost a space |

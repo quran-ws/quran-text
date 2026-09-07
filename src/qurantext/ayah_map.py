@@ -33,11 +33,11 @@ REFERENCE = "hafs"
 
 
 def _runs(words: list[Word], key: str) -> dict[tuple[int, int], set[int]]:
-    """``(sura, ayah)`` in one edition -> the numbers it contains."""
+    """``(surah, ayah)`` in one edition -> the numbers it contains."""
     out: dict[tuple[int, int], set[int]] = defaultdict(set)
     for w in words:
-        if key in w.aya:
-            out[(w.sura, w.aya[key])].add(w.id)
+        if key in w.ayah:
+            out[(w.surah, w.ayah[key])].add(w.id)
     return out
 
 
@@ -58,14 +58,14 @@ def ayah_map(words: list[Word]) -> list[dict]:
                       for k, runs in editions.items()}
 
     out = []
-    for (sura, ayah), numbers in sorted(reference.items()):
-        entry: dict = {"sura": sura, "ayah": ayah}
+    for (surah, ayah), numbers in sorted(reference.items()):
+        entry: dict = {"surah": surah, "ayah": ayah}
         for k in ORDER:
             hits = sorted({number_to_ayah[k][n] for n in numbers if n in number_to_ayah[k]})
             if not hits:
                 continue                       # no word of this āyah in that edition
             first, last = hits[0], hits[-1]
-            cell = {"sura": first[0], "ayah": first[1]}
+            cell = {"surah": first[0], "ayah": first[1]}
             if last != first:
                 cell["ayah_last"] = last[1]
             if first[1] == 0:
@@ -80,7 +80,7 @@ def ayah_map(words: list[Word]) -> list[dict]:
 def _cell_text(cell: dict | None) -> str:
     if not cell:
         return ""
-    text = f"{cell['sura']}:{cell['ayah']}"
+    text = f"{cell['surah']}:{cell['ayah']}"
     if "ayah_last" in cell:
         text += f"-{cell['ayah_last']}"
     return text
@@ -101,20 +101,20 @@ def write_ayah_map(words: list[Word]) -> dict:
                 "shifted, or unnumbered for the basmalah of Al-Fātiḥah. An "
                 "edition is absent from an entry only where it reads none of "
                 "the āyah's words, which does not occur in the current sources.",
-        "ayat": rows,
+        "ayahs": rows,
     }
     with (OUT / "ayah-map.json").open("w", encoding="utf-8") as fh:
-        head = {k: v for k, v in doc.items() if k != "ayat"}
+        head = {k: v for k, v in doc.items() if k != "ayahs"}
         text = json.dumps(head, ensure_ascii=False, indent=1)
-        fh.write(text[:-2] + ',\n "ayat": [\n')
+        fh.write(text[:-2] + ',\n "ayahs": [\n')
         fh.write(",\n".join("  " + json.dumps(r, ensure_ascii=False, separators=(",", ":"))
                             for r in rows))
         fh.write("\n ]\n}\n")
     with (OUT / "ayah-map.csv").open("w", encoding="utf-8", newline="") as fh:
         wr = csv.writer(fh)
-        wr.writerow(["sura", "ayah"] + ORDER + [f"{k}_relation" for k in ORDER])
+        wr.writerow(["surah", "ayah"] + ORDER + [f"{k}_relation" for k in ORDER])
         for r in rows:
-            wr.writerow([r["sura"], r["ayah"]]
+            wr.writerow([r["surah"], r["ayah"]]
                         + [_cell_text(r.get(k)) for k in ORDER]
                         + [r.get(k, {}).get("relation", "") for k in ORDER])
     return doc

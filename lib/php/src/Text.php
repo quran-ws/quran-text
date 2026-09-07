@@ -7,17 +7,17 @@ namespace QuranText;
 /** Text helpers shared by the whole library. */
 final class Text
 {
-    public const END_OF_AYAH = "\u{06DD}";
+    public const AYAH_MARK = "\u{06DD}";
 
     /** The end-of-āyah sign with its number, as the muṣḥaf prints it: ۝٢٥٥ */
-    public static function ayahMarker(int $number): string
+    public static function ayahMark(int $number): string
     {
         $digits = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
-        return self::END_OF_AYAH . strtr((string) $number, array_combine(range(0, 9), $digits));
+        return self::AYAH_MARK . strtr((string) $number, array_combine(range(0, 9), $digits));
     }
 
     /**
-     * Reduce a word to plain letters for matching: no diacritics, no pause
+     * Reduce a word to plain letters for matching: no harakah, no waqf
      * marks, one alif, one yāʾ.  For search only — it is not a spelling.
      */
     public static function fold(string $text): string
@@ -51,7 +51,7 @@ final class Text
     public static function markKinds(bool|array $marks): array
     {
         if ($marks === true) {
-            return ['waqf' => true, 'hizb' => true, 'sajdah' => true];
+            return ['waqf' => true, 'division' => true, 'sajdah' => true];
         }
         if ($marks === false) {
             return [];

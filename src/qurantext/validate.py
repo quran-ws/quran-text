@@ -18,8 +18,8 @@ from collections import Counter, defaultdict
 from pathlib import Path
 
 from .build import Word
-from .normalize import fold_notation, rasm, uthmani
-from .sources import Riwaya
+from .normalize import fold_notation, rasm, rasm_uthmani
+from .sources import Riwayah
 from .tokenize import tokenize
 
 # There is deliberately no table of expected āyah totals here.
@@ -29,7 +29,7 @@ from .tokenize import tokenize
 # wrong.  Many fawāṣil are مختلف فيها, so a printed muṣḥaf has to choose, and
 # the riwāyah does not determine the choice: KFGQPC's own Dūrī printings state
 # they follow المدني الأول and yet total 6,218 (1429 AH), 6,217 (1436) and
-# 6,214 (1443).  Al-Mulk 67:9 «قد جاءنا نذير» is one such point — al-Dānī has
+# 6,214 (1443).  Mulk 67:9 «قد جاءنا نذير» is one such point — al-Dānī has
 # it counted by المدني الأخير والمكي and by Shayba — and four of the seven
 # packages here count it.  Sūsī was never an outlier.
 #
@@ -38,7 +38,7 @@ from .tokenize import tokenize
 # coherent, which is what remains below.
 
 
-def check_index(words: list[Word], riwayat: list[Riwaya]) -> list[dict]:
+def check_index(words: list[Word], riwayahs: list[Riwayah]) -> list[dict]:
     problems: list[dict] = []
 
     for i, w in enumerate(words, start=1):
@@ -54,19 +54,19 @@ def check_index(words: list[Word], riwayat: list[Riwaya]) -> list[dict]:
                          "detail": f"{len(dupes)} duplicate stability keys, "
                                    f"e.g. {dupes[:3]}"})
 
-    by_sura: dict[int, list[Word]] = defaultdict(list)
+    by_surah: dict[int, list[Word]] = defaultdict(list)
     for w in words:
-        by_sura[w.sura].append(w)
-    for sura, ws in sorted(by_sura.items()):
+        by_surah[w.surah].append(w)
+    for surah, ws in sorted(by_surah.items()):
         if [w.index for w in ws] != list(range(1, len(ws) + 1)):
-            problems.append({"check": "index_contiguous", "sura": sura,
+            problems.append({"check": "index_contiguous", "surah": surah,
                              "detail": "word_index is not 1..n"})
 
     # Every letter of every riwāyah must survive into the index, in order.
     # Comparing the concatenated rasm rather than the word count makes the
     # check indifferent to words the builder re-segmented.
-    for r in riwayat:
-        source = [a for a in r.ayat if a.aya > 0 or a.sura == 1]
+    for r in riwayahs:
+        source = [a for a in r.ayahs if a.ayah > 0 or a.surah == 1]
         got = "".join(rasm(w.forms[r.key]) for w in words
                       if r.key in w.forms and r.key not in w.continuation)
         want = "".join(t.rasm for t in tokenize(source))
@@ -74,7 +74,7 @@ def check_index(words: list[Word], riwayat: list[Riwaya]) -> list[dict]:
             at = next((i for i, (x, y) in enumerate(zip(got, want)) if x != y),
                       min(len(got), len(want)))
             problems.append({
-                "check": "roundtrip_rasm", "riwaya": r.key,
+                "check": "roundtrip_rasm", "riwayah": r.key,
                 "detail": f"letter streams diverge at offset {at}: index has "
                           f"{got[at:at + 30]!r}, source has {want[at:at + 30]!r}",
             })
@@ -112,7 +112,7 @@ def check_alif_splits(words: list[Word]) -> list[dict]:
                        f"{sorted(ids[0] for ids in splits.values())}"}]
 
 
-def check_release_policy(riwayat: list[Riwaya]) -> list[dict]:
+def check_release_policy(riwayahs: list[Riwayah]) -> list[dict]:
     """The text must come from each riwāyah's *latest* release.
 
     KFGQPC revises these documents deliberately — the 2026 Ḥafṣ separates
@@ -123,30 +123,30 @@ def check_release_policy(riwayat: list[Riwaya]) -> list[dict]:
     rather than assumed.
     """
     out = []
-    for r in riwayat:
+    for r in riwayahs:
         if r.crosscheck and r.crosscheck_year > r.release_year:
-            out.append({"check": "release_policy", "riwaya": r.key,
+            out.append({"check": "release_policy", "riwayah": r.key,
                         "detail": f"the text is loaded from the {r.release_year} "
                                   f"release but a {r.crosscheck_year} one exists"})
     return out
 
 
-def check_ayah_numbers(riwayat: list[Riwaya]) -> list[dict]:
+def check_ayah_numbers(riwayahs: list[Riwayah]) -> list[dict]:
     """Each muṣḥaf's āyah numbers must run 1..n in every sūrah — nothing more.
 
     See the note above on why no total is asserted.
     """
     out = []
-    for r in riwayat:
-        for sura, n in Counter(a.sura for a in r.ayat if a.aya > 0).items():
-            nums = sorted(a.aya for a in r.ayat if a.sura == sura and a.aya > 0)
+    for r in riwayahs:
+        for surah, n in Counter(a.surah for a in r.ayahs if a.ayah > 0).items():
+            nums = sorted(a.ayah for a in r.ayahs if a.surah == surah and a.ayah > 0)
             if nums != list(range(1, n + 1)):
-                out.append({"check": "ayah_contiguous", "riwaya": r.key,
-                            "sura": sura, "detail": "āyah numbers are not 1..n"})
+                out.append({"check": "ayah_contiguous", "riwayah": r.key,
+                            "surah": surah, "detail": "āyah numbers are not 1..n"})
     return out
 
 
-def cross_release(riwayat: list[Riwaya]) -> dict[str, dict]:
+def cross_release(riwayahs: list[Riwayah]) -> dict[str, dict]:
     """Compare each riwāyah's primary release against its other release.
 
     Differences split three ways: pure notation (the 2026 files use the Unicode
@@ -154,16 +154,16 @@ def cross_release(riwayat: list[Riwaya]) -> dict[str, dict]:
     vowelling, and rasm.  Only the last two are textual.
     """
     report: dict[str, dict] = {}
-    for r in riwayat:
+    for r in riwayahs:
         if not r.crosscheck:
             continue
-        primary = {(a.sura, a.aya): a.text for a in r.ayat if a.aya > 0}
+        primary = {(a.surah, a.ayah): a.text for a in r.ayahs if a.ayah > 0}
         shared = primary.keys() & r.crosscheck.keys()
         notation = vowel = rasm_diff = 0
         examples: list[dict] = []
         rasm_examples: list[dict] = []
         for ref in sorted(shared):
-            a, b = uthmani(primary[ref]), uthmani(r.crosscheck[ref])
+            a, b = rasm_uthmani(primary[ref]), rasm_uthmani(r.crosscheck[ref])
             if a == b:
                 continue
             if fold_notation(a) == fold_notation(b):
@@ -180,7 +180,7 @@ def cross_release(riwayat: list[Riwaya]) -> dict[str, dict]:
         report[r.key] = {
             "primary": r.source,
             "other": r.crosscheck_source,
-            "ayat_compared": len(shared),
+            "ayahs_compared": len(shared),
             "only_in_primary": len(primary.keys() - r.crosscheck.keys()),
             "only_in_other": len(r.crosscheck.keys() - primary.keys()),
             "identical": len(shared) - notation - vowel - rasm_diff,
@@ -193,7 +193,7 @@ def cross_release(riwayat: list[Riwaya]) -> dict[str, dict]:
     return report
 
 
-def check_layout_alignment(riwayat) -> list[dict]:
+def check_layout_alignment(riwayahs) -> list[dict]:
     """The typesetting positions must line up with the words they position.
 
     :func:`qurantext.layout.word_places` walks the document a second time, for
@@ -207,23 +207,23 @@ def check_layout_alignment(riwayat) -> list[dict]:
     from .sources import _extract
 
     out = []
-    for r in riwayat:
+    for r in riwayahs:
         spec = r.spec
         if not spec or spec.primary_kind != "docx":
             continue
         path = _extract(spec.primary_zip, spec.primary_member)
-        want = [t for a in r.ayat for t in strip_controls(a.text).split()]
+        want = [t for a in r.ayahs for t in strip_controls(a.text).split()]
         got = raw_tokens(path)
         if want != got:
             where = next((i for i, (x, y) in enumerate(zip(want, got)) if x != y),
                          min(len(want), len(got)))
-            out.append({"check": "layout_alignment", "riwaya": r.key,
+            out.append({"check": "layout_alignment", "riwayah": r.key,
                         "detail": f"position stream diverges from the text at "
                                   f"token {where} ({len(want)} vs {len(got)})"})
     return out
 
 
-def check_mushaf_roundtrip(words, riwayat) -> list[dict]:
+def check_mushaf_roundtrip(words, riwayahs) -> list[dict]:
     """Each muṣḥaf's published words must be that muṣḥaf's words.
 
     The same invariant :func:`check_index` asserts for the word index, asserted again
@@ -236,31 +236,31 @@ def check_mushaf_roundtrip(words, riwayat) -> list[dict]:
     from .normalize import rasm
 
     out = []
-    streams = streams_for(riwayat)
-    for r in riwayat:
+    streams = streams_for(riwayahs)
+    for r in riwayahs:
         key = r.key
         mine = [w for w in words if key in w.forms and key not in w.continuation]
         published = "".join(rasm(w.forms[key]) for w in mine)
         source = "".join(t.rasm for t in streams[key])
         if published != source:
-            out.append({"check": "mushaf_roundtrip", "riwaya": key,
+            out.append({"check": "mushaf_roundtrip", "riwayah": key,
                         "detail": "published text does not reproduce the source"})
 
         from .align import WRITTEN_JOINED
         from .word_index import boundary_events
-        declared = {i for e in boundary_events(words) if key in e["riwayat"]
+        declared = {i for e in boundary_events(words) if key in e["riwayahs"]
                     for i in e["word_ids"] if key in next(
                         w for w in words if w.id == i).forms}
         flagged = {w.id for w in mine
                    if w.boundary.get(key) not in (None, WRITTEN_JOINED)}
         if declared != flagged:
-            out.append({"check": "mushaf_resegmentation", "riwaya": key,
+            out.append({"check": "mushaf_resegmentation", "riwayah": key,
                         "detail": f"{len(flagged - declared)} re-segmented "
                                   f"word(s) not declared"})
 
         stray = {n for t in streams[key] for n in t.notes} - {"resegmented"}
         if stray:
-            out.append({"check": "mushaf_tokenizer_notes", "riwaya": key,
+            out.append({"check": "mushaf_tokenizer_notes", "riwayah": key,
                         "detail": f"undeclared tokenizer departure(s): "
                                   f"{sorted(stray)}"})
     return out
@@ -295,15 +295,15 @@ def check_numbering(docs: dict[str, dict]) -> list[dict]:
             from .mushaf import numbers_of
             runs = numbers_of(doc)
         except AssertionError as e:
-            problems.append({"check": "numbering_tiles", "riwaya": key, "detail": str(e)})
+            problems.append({"check": "numbering_tiles", "riwayah": key, "detail": str(e)})
             continue
         n = doc["numbering"]
         if len(doc["words"]) + sum(l - f for f, l in runs) + len(n["missing"]) != n["total"]:
-            problems.append({"check": "numbering_sum", "riwaya": key,
+            problems.append({"check": "numbering_sum", "riwayah": key,
                              "detail": "len(words) + joined + missing != total"})
         for j in n["written_joined"]:
             if j["numbers"][1] <= j["numbers"][0]:
-                problems.append({"check": "numbering_joined_run", "riwaya": key,
+                problems.append({"check": "numbering_joined_run", "riwayah": key,
                                  "detail": f"run at {j['position']} is not ≥ 2"})
         for f, l in runs:
             for k in range(f, l + 1):
@@ -323,39 +323,39 @@ def check_positions(docs: dict[str, dict]) -> list[dict]:
     problems: list[dict] = []
     for key, doc in docs.items():
         n = len(doc["words"])
-        for layer in ("sura_starts", "ayah_starts", "page_starts",
+        for layer in ("surah_starts", "ayah_starts", "page_starts",
                       "line_starts", "juz_starts"):
             starts = doc.get(layer)
             if starts is None:
                 continue
             if starts != sorted(set(starts)) or starts[0] < 0 or starts[-1] >= n:
-                problems.append({"check": "positions_sorted", "riwaya": key,
+                problems.append({"check": "positions_sorted", "riwayah": key,
                                  "detail": f"{layer} is not strictly increasing "
                                            f"within 0 … {n - 1}"})
-        if doc["sura_starts"][0] != 0 or len(doc["sura_starts"]) != 114:
-            problems.append({"check": "positions_suras", "riwaya": key,
-                             "detail": "sura_starts must be 114 entries from 0"})
+        if doc["surah_starts"][0] != 0 or len(doc["surah_starts"]) != 114:
+            problems.append({"check": "positions_surahs", "riwayah": key,
+                             "detail": "surah_starts must be 114 entries from 0"})
         if len(doc["ayah_starts"]) != doc["counting"]["ayah_count"]:
-            problems.append({"check": "positions_ayah_count", "riwaya": key,
+            problems.append({"check": "positions_ayah_count", "riwayah": key,
                              "detail": "len(ayah_starts) != counting.ayah_count"})
         if doc["mushaf"]["word_count"] != n:
-            problems.append({"check": "positions_word_count", "riwaya": key,
+            problems.append({"check": "positions_word_count", "riwayah": key,
                              "detail": "mushaf.word_count != len(words)"})
         expect = 0
-        for row in doc["suras"]:
+        for row in doc["surahs"]:
             if row["first_ayah"] != expect:
-                problems.append({"check": "positions_first_ayah", "riwaya": key,
+                problems.append({"check": "positions_first_ayah", "riwayah": key,
                                  "detail": f"sūrah {row['number']}: first_ayah "
                                            f"{row['first_ayah']} != {expect}"})
                 break
             expect += row["ayah_count"]
-        if doc.get("imlaei") is not None and len(doc["imlaei"]) != n:
-            problems.append({"check": "positions_imlaei", "riwaya": key,
-                             "detail": "imlaei is not parallel to words"})
-        for pos, t in doc["marks"]:
-            if not (0 <= pos < n and 0 <= t < len(doc["mark_types"])):
-                problems.append({"check": "positions_marks", "riwaya": key,
-                                 "detail": f"mark [{pos}, {t}] out of range"})
+        if doc.get("rasm_imlai") is not None and len(doc["rasm_imlai"]) != n:
+            problems.append({"check": "positions_rasm_imlai", "riwayah": key,
+                             "detail": "rasm_imlai is not parallel to words"})
+        for position, t in doc["marks"]:
+            if not (0 <= position < n and 0 <= t < len(doc["mark_types"])):
+                problems.append({"check": "positions_marks", "riwayah": key,
+                                 "detail": f"mark [{position}, {t}] out of range"})
                 break
     return problems
 
@@ -379,19 +379,19 @@ def check_schema_fields(docs: dict[str, dict], schema: Path = SCHEMA) -> list[di
     for key, doc in sorted(docs.items()):
         undeclared = set(doc) - declared
         if undeclared:
-            problems.append({"check": "schema_fields", "riwaya": key,
+            problems.append({"check": "schema_fields", "riwayah": key,
                              "detail": f"document fields not in the schema: "
                                        f"{sorted(undeclared)}"})
         lacking = required - set(doc)
         if lacking:
-            problems.append({"check": "schema_fields", "riwaya": key,
+            problems.append({"check": "schema_fields", "riwayah": key,
                              "detail": f"required fields missing: {sorted(lacking)}"})
         for name, sub in spec["properties"].items():
             if name in doc and isinstance(doc[name], dict) and "properties" in sub \
                     and sub.get("additionalProperties") is False:
                 extra = set(doc[name]) - set(sub["properties"])
                 if extra:
-                    problems.append({"check": "schema_fields", "riwaya": key,
+                    problems.append({"check": "schema_fields", "riwayah": key,
                                      "detail": f"{name} has fields not in the "
                                                f"schema: {sorted(extra)}"})
     return problems

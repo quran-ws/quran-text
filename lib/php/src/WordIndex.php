@@ -12,7 +12,7 @@ final class WordIndex implements \Countable, \IteratorAggregate
     public readonly int $total;
     private readonly array $words;
     private ?array $byHafs = null;
-    private ?array $bySimple = null;
+    private ?array $byPlain = null;
 
     public function __construct(array $doc)
     {
@@ -43,30 +43,30 @@ final class WordIndex implements \Countable, \IteratorAggregate
     }
 
     /** By Ḥafṣ coordinates: sūrah, āyah in the Kūfī count, 1-based word. */
-    public function find(int $sura, int $ayah, int $index): ?IndexedWord
+    public function find(int $surah, int $ayah, int $index): ?IndexedWord
     {
         if ($this->byHafs === null) {
             $this->byHafs = [];
             foreach ($this->words as $r) {
                 if ($h = $r['hafs']) {
-                    $this->byHafs["{$h['sura']}:{$h['ayah']}:{$h['pos']}"] ??= $r;
+                    $this->byHafs["{$h['surah']}:{$h['ayah']}:{$h['position']}"] ??= $r;
                 }
             }
         }
-        $r = $this->byHafs["$sura:$ayah:$index"] ?? null;
+        $r = $this->byHafs["$surah:$ayah:$index"] ?? null;
         return $r ? new IndexedWord($r) : null;
     }
 
     /** Every number whose folded spelling equals $text, folded. @return IndexedWord[] */
     public function search(string $text): array
     {
-        if ($this->bySimple === null) {
-            $this->bySimple = [];
+        if ($this->byPlain === null) {
+            $this->byPlain = [];
             foreach ($this->words as $r) {
-                $this->bySimple[Text::fold($r['uthmani'])][] = $r;
+                $this->byPlain[Text::fold($r['rasm_uthmani'])][] = $r;
             }
         }
-        return array_map(fn ($r) => new IndexedWord($r), $this->bySimple[Text::fold($text)] ?? []);
+        return array_map(fn ($r) => new IndexedWord($r), $this->byPlain[Text::fold($text)] ?? []);
     }
 
     /** Every number the riwāyāt spell in more than one way. @return IndexedWord[] */
