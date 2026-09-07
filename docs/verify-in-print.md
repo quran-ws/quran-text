@@ -1,52 +1,29 @@
 # What to check in a printed muṣḥaf
 
-Three questions. Everything else in the data is settled.
+Two questions. Everything else in the data is settled.
 
 Nothing here is guessed in the output — each one is a place that carries a
 `null`, an `absent`, or a scored disagreement instead of a value.
 
 | | question | what to do | unlocks |
 |---|---|---|---|
-| **Q1** | Do sūrah headings take a ruled line? | open 13 pages | all 105 line disagreements |
+| ~~Q1~~ | ~~Do sūrah headings take a ruled line?~~ | **closed** | they do — and it was our bug |
 | **Q2** | Where does Bazzī's juz 26 begin? | open 1 page | Bazzī's missing juz layer |
 | **Q3** | Why do 6 āyāt lack imlāʾī? | read the KFGQPC column | 76 null words |
 | ~~Q4~~ | ~~Who cites a Makkī end at 78:40?~~ | **closed** | al-Qāḍī, *al-Farāʾid al-Ḥisān* |
 
 ---
 
-## Q1 · Do sūrah headings take a ruled line?
+## ~~Q1 · Do sūrah headings take a ruled line?~~ — closed
 
-> ### ▶ Do this
-> **Open** page **587** of a Ḥafṣ muṣḥaf.
-> **Find** the heading سُورَةُ المُطَفِّفِينَ.
-> **Answer:** is it *on one of the 15 ruled lines*, or *in the band above them*?
->
-> Then **page 601**, which carries two headings — same question for each.
+**Answered from a printed page 587: yes, and so does the basmalah.** The page
+sets سُورَةُ الانفِطَارِ, its basmalah, nine lines of text, سُورَةُ المُطَفِّفِينَ,
+its basmalah and two more lines — 15 ruled lines, with 83:1 on line 14. The v2
+CSV says the same and never exceeds 15.
 
-**If headings there take no ruled line**, the entire line residual closes: 105
-of 105 for Ḥafṣ, Shuʿbah, Dūrī, Sūsī and Bazzī.
-
-Pages to confirm once you know the answer — the same 13 for Warsh and Qālūn:
-
-| page | sūrah begins | we are off by |
-|---|---|---|
-| 1 | 1 | +1 |
-| 587 | 83 | +1 |
-| 591 | 87 | +1 |
-| 595 | 92 | +1 |
-| 596 | 94 | +1 |
-| 597 | 96 | +1 |
-| 598 | 98 | +1 |
-| 599 | 100 | +1 |
-| 600 | 102 | +1 |
-| 601 | 104, 105 | +1, +2 |
-| 602 | 107, 108 | +1, +2 |
-| 603 | 110, 111 | +1, +2 |
-| 604 | 113, 114 | +1, +2 |
-
-*Why: `ln` is reconstructed, and the reconstruction adds one line per heading.
-Every disagreeing page is a page where a sūrah begins, and the overshoot equals
-the number of headings on it. `docs/known-issues.md` §6.*
+So the muṣḥaf was never the problem. The reconstruction was charging a heading
+**two** lines, and the fix took Ḥafṣ and Shuʿbah to exact — 6,236 of 6,236 —
+with nothing left that is reconstruction error. See `docs/known-issues.md` §6.
 
 ---
 

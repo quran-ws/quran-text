@@ -78,4 +78,5 @@ terms. [`NOTICE.md`](NOTICE.md) draws the line precisely.
 [`docs/known-issues.md`](docs/known-issues.md) and
 [`docs/limitations.md`](docs/limitations.md) what to be careful with ·
 [`docs/verify-in-print.md`](docs/verify-in-print.md) what is still unknown, and
-where in a printed muṣḥaf to look for it.
+where in a printed muṣḥaf to look for it ·
+[`docs/launch.md`](docs/launch.md) what stands between this and a public release.

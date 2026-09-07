@@ -1,0 +1,64 @@
+name: build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      # The build reads only what is committed, so a fresh clone must reproduce
+      # out/ exactly. It exits non-zero if any of its checks find something.
+      - name: Build
+        run: python3 build.py
+
+      - name: Tests
+        run: python3 -m unittest discover -s tests
+
+      # lib/python declares >=3.9, so it is tested there rather than on 3.11.
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
+      - name: Client library, on the version it claims to support
+        working-directory: lib/python
+        run: python3 -m unittest test_quran_text
+
+  terminology:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      # quran-ws/guidelines is private, so the audit needs a token with read
+      # access to it. Without one the step says so and passes: a missing secret
+      # is a configuration gap, not a naming error, and it must not read as one.
+      - name: Fetch the terminology standard
+        id: standard
+        env:
+          GH_TOKEN: ${{ secrets.GUIDELINES_TOKEN }}
+        run: |
+          if [ -z "$GH_TOKEN" ]; then
+            echo "::warning::GUIDELINES_TOKEN is not set — terminology audit skipped."
+            echo "available=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git clone --depth 1 \
+            "https://x-access-token:$GH_TOKEN@github.com/quran-ws/guidelines.git" /tmp/guidelines
+          echo "available=true" >> "$GITHUB_OUTPUT"
+
+      - name: Audit every name against the standard
+        if: steps.standard.outputs.available == 'true'
+        run: |
+          python3 /tmp/guidelines/skills/quranic-terminology/scripts/audit_terminology.py \
+            --strict src schema lib service docs tests data
