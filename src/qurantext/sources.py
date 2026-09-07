@@ -17,13 +17,13 @@ from dataclasses import dataclass, field
 from functools import lru_cache
 from pathlib import Path
 
-from . import chars
+from . import chars, paths
 from .normalize import strip_controls
 
 W = "{http://schemas.openxmlformats.org/wordprocessingml/2006/main}"
 
-DATA = Path("data/kfgqpc")
-WORK = Path("work/raw")
+DATA = paths.DATA / "kfgqpc"
+WORK = paths.WORK / "raw"
 
 
 @dataclass(frozen=True)

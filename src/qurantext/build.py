@@ -17,13 +17,11 @@ import csv
 import json
 from collections import Counter
 from dataclasses import dataclass, field
-from pathlib import Path
 
 from .align import WRITTEN_JOINED, Column, align
+from .paths import OUT
 from .sources import Riwayah, load_all
 from .tokenize import Token, tokenize
-
-OUT = Path("out")
 
 #: Ḥafṣ first because it is the most widely published text and the best
 #: starting point; the rest follow so that the closest relatives merge early.

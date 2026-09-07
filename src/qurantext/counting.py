@@ -39,9 +39,10 @@ from datetime import date
 from functools import lru_cache
 from pathlib import Path
 
+from . import paths
 from .build import ORDER, OUT, Word, ayah_ends
 
-COUNTING_DIR = Path("data/counting")
+COUNTING_DIR = paths.DATA / "counting"
 PRIMITIVES = COUNTING_DIR / "book-boundary-primitives.json"
 SYSTEMS = COUNTING_DIR / "counting-systems.json"
 KHILAF = COUNTING_DIR / "khilaf.json"
