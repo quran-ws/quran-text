@@ -132,7 +132,7 @@ Riwāyāt are folded into the alignment one at a time, Ḥafṣ first. A true mu
 sequence alignment could in principle place a disputed word better than this
 does. At the observed level of agreement (99.0 %–99.99 % rasm identity, 19 words
 total in the boundary and partial buckets) the difference is unlikely to matter,
-but the order of `ORDER` in `src/qurantext/build.py` is a parameter of the result
+but the order of `ORDER` in `pipeline/qurantext/build.py` is a parameter of the result
 rather than a neutral choice.
 
 ## Not linguistically annotated

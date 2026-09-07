@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Build the word index, the seven muṣḥaf files and every derived artefact.
 
-    python3 build.py
+    python3 pipeline/build.py
 """
 
 import sys
@@ -11,11 +11,12 @@ from pathlib import Path
 if sys.version_info < (3, 11):
     raise SystemExit(
         f"build.py needs Python 3.11 or newer; this is {sys.version.split()[0]}.\n"
-        f"Try: python3.11 build.py"
+        f"Try: python3.11 pipeline/build.py"
     )
 
-ROOT = Path(__file__).resolve().parent
-sys.path.insert(0, str(ROOT / "src"))
+HERE = Path(__file__).resolve().parent
+ROOT = HERE.parent
+sys.path.insert(0, str(HERE))
 
 from qurantext import counting                   # noqa: E402
 from qurantext.ayah_map import write_ayah_map    # noqa: E402

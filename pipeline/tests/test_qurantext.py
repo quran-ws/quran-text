@@ -1,6 +1,6 @@
 """Unit tests for the pieces where a silent mistake would corrupt the index.
 
-Run with:  python3 -m unittest discover -s tests
+Run with:  python3 -m unittest discover -s pipeline/tests
 """
 
 import json
@@ -8,8 +8,8 @@ import sys
 import unittest
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "src"))
+ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(ROOT / "pipeline"))
 
 from qurantext.align import (WRITTEN_JOINED, Column, _distribute,  # noqa: E402
                             _pair_by_letters, merge)
@@ -458,7 +458,7 @@ class TestNumbering(unittest.TestCase):
 class TestPublishedFiles(unittest.TestCase):
     """The committed out/ must satisfy what the spec promises.
 
-    Skipped when out/ has not been built; run after ``python3 build.py``.
+    Skipped when out/ has not been built; run after ``python3 pipeline/build.py``.
     """
 
     KEYS = ["hafs", "shubah", "warsh", "qalun", "duri", "susi", "bazzi"]

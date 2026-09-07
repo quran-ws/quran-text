@@ -1,7 +1,7 @@
 # What is in `out/`
 
-Everything is written by `python3 build.py`. All text is UTF-8, NFC, with no
-BOM. Start with `out/catalog.json`: it lists the riwāyāt, the sūrahs, and every
+Everything is written by `python3 pipeline/build.py`. All text is UTF-8, NFC,
+with no BOM. Start with `out/catalog.json`: it lists the riwāyāt, the sūrahs, and every
 file below with the question it answers.
 
 Two files are **normative**, specified in [`format.md`](format.md)
