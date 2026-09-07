@@ -1,12 +1,15 @@
 # quran-text
 
-**The Qurʾān as words.** Seven riwāyāt, exactly as the King Fahd Complex prints
+**The Qurʾān as words.** Seven riwāyāt, exactly as the Madinah muṣḥaf prints
 them — and one number that means the same word in all seven.
 
-**العربية** — سبع روايات من مصاحف مجمع الملك فهد، مقسَّمة كلمةً كلمة، ولكل كلمة
+The text as it is printed, not as anyone retyped it: every file names the
+package it came from and its SHA-256.
+
+سبع روايات من مصاحف مجمع الملك فهد، مقسَّمة كلمةً كلمة، ولكل كلمة
 رقمٌ واحد يدل عليها في الروايات السبع جميعًا. النص نصُّ المجمع بحرفه، وكل ملف
-يذكر إصداره وبصمته. ابدأ من `lib/` إن كنت تبني تطبيقًا، ومن `out/` إن كنت تعمل
-على البيانات مباشرة.
+يذكر إصداره وبصمته. ابدأ من `lib/` إن كنت تبني تطبيقًا، ومن `service/` إن أردت
+تنزيل النص بالصيغة التي تريد، ومن `out/` إن كنت تعمل على البيانات مباشرة.
 
 ---
 
@@ -23,9 +26,9 @@ One number, four spellings. There are **77,434 numbers**; **277** read like
 this and the rest are the same word everywhere. Attach a translation, a grammar
 entry or an audio segment to a number once, and it is attached in all seven.
 
-None of the KFGQPC packages contain word-level data — every one of them is
-āyah-level ([`docs/sources.md`](docs/sources.md)). The words, and the number
-that ties them together, are what this repository derives.
+None of the published Madinah packages contain word-level data — every one of
+them is āyah-level ([`docs/sources.md`](docs/sources.md)). The words, and the
+number that ties them together, are what this repository derives.
 
 ## Quick start
 
@@ -56,6 +59,45 @@ m.ayah(2, 255).to(warsh)      # AyahMatch(2:253-254, split)
 m.word(2, 255, 3).to(warsh)   # Word(5176, 'إِلَٰهَ')
 ```
 
+## Download the text
+
+Any riwāyah, any scope, six formats — the URL *is* the file:
+
+```text
+/download?edition=hafs&surah=2&format=txt
+
+# quran-text — Ḥafṣ (حفص), ʿĀṣim al-Kūfī, Kufi Numbering count, 6236 āyāt
+# source: UthmanicHafs-v-3.0.zip :: UthmanicHafs-v-3.0.docx  sha256 cdec7341…
+2|1|الٓمٓ
+2|2|ذَٰلِكَ ٱلۡكِتَٰبُ لَا رَيۡبَۛ فِيهِۛ هُدࣰى لِّلۡمُتَّقِينَ
+```
+
+`txt` `json` `csv` `xml` `sql` `md` · rasm ʿUthmānī, imlāʾī or plain · waqf,
+sajdah and division marks on or off · by sūrah, juz, page or āyah range · by
+āyah or by word. Every response carries that provenance header and an
+`X-Checksum-SHA256` of the body. The work here is CC BY 4.0; the text stays the
+publisher's, under their terms. [`service/`](service/) runs it in two commands.
+
+## Where the text comes from
+
+The text is the Madinah muṣḥaf's own: the digital packages published by the King
+Fahd Glorious Qurʾān Printing Complex (KFGQPC), unedited. Every file names the
+package it came from and its SHA-256, and lists in the file itself each place
+the build departed from it:
+
+```json
+"hafs": { "text": { "package": "UthmanicHafs-v-3.0.zip",
+                    "sha256": "cdec7341b7c684e7b8dd469c4b68988914d2784e924c7e6cbb9cb4b57c24f013" } }
+```
+
+`python3 build.py` rebuilds every file in `out/` from those committed packages,
+offline, with no dependencies. Nothing in the text is hand-edited, and the build
+fails if a letter moves.
+
+The checks prove the data is faithful to the packages, not that the packages are
+faithful to a printed muṣḥaf. [`limitations.md`](docs/limitations.md) says
+exactly what is and is not verified.
+
 ## The seven
 
 | riwāyah | qāriʾ | counting | āyāt | words |
@@ -72,26 +114,18 @@ Each is a printed muṣḥaf on its own terms: 604 pages, 8,820 lines, its own
 spelling, waqf marks and āyah count — not a font trick over Ḥafṣ. Juz is
 recorded for all but Bazzī, whose source carries none.
 
-Every file names the KFGQPC package it came from and its SHA-256, and lists in
-the file itself each place the build departed from it:
-
-```json
-"hafs": { "text": { "package": "UthmanicHafs-v-3.0.zip",
-                    "sha256": "cdec7341b7c684e7b8dd469c4b68988914d2784e924c7e6cbb9cb4b57c24f013" } }
-```
-
 ## Where to go
 
 | you are… | go to |
 |---|---|
 | building an app | [`lib/`](lib/) — Python, JS, PHP, Dart, Swift, Kotlin |
-| after a file in a particular shape | [`service/`](service/) — a download page and HTTP API producing text, JSON, CSV, XML or SQL for any selection |
+| after a file in a particular shape | [`service/`](service/) — the download page and HTTP API above |
 | working with the data | [`out/`](out/) — start at [`catalog.json`](out/catalog.json); [`docs/files.md`](docs/files.md) maps every file |
 | an agent | [`skills/quran-text/SKILL.md`](skills/quran-text/SKILL.md) |
 
 ## Build
 
-Python 3.11, no dependencies, reproducible offline:
+Python 3.11, no dependencies:
 
 ```sh
 python3 build.py                          # ~3 min, writes out/
