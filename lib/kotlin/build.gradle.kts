@@ -31,8 +31,8 @@ publishing {
                 url.set("https://quran.ws")
                 licenses {
                     license {
-                        name.set("MIT License")
-                        url.set("https://github.com/quran-ws/quran-text/blob/main/lib/kotlin/LICENSE")
+                        name.set("Creative Commons Attribution 4.0 International")
+                        url.set("https://creativecommons.org/licenses/by/4.0/")
                     }
                 }
                 developers {
