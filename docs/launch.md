@@ -18,6 +18,13 @@ conversation, so the list survives.
 - [x] schema `$id`s resolve — they pointed at a GitHub path that would have 404ed
 - [x] no edition has an unexplained āyah end; `open-findings.json` is empty
 - [x] `ln` is exact for Ḥafṣ and Shuʿbah (6,236 / 6,236)
+- [x] `CONTRIBUTING.md`, `SECURITY.md`, `CODE_OF_CONDUCT.md`, `CHANGELOG.md`
+- [x] CI covers the service suite too — 39 tests, which needed pytest and
+      fastapi and so had never run
+- [x] GitHub homepage and topics set
+- [x] the 240 `rubu_al_hizb` positions recorded with their provenance in
+      `data/divisions/hafs-rubu-al-hizb.json`, so the thirteen medallion
+      readings survive
 
 ## Blocking
 
@@ -31,20 +38,18 @@ conversation, so the list survives.
 
 ## Should do
 
-- [ ] `CONTRIBUTING.md`, `SECURITY.md`, `CODE_OF_CONDUCT.md`, `CHANGELOG.md`
-- [ ] **Tag `v1.0.0` and cut a release.** `NOTICE.md` promises whoever receives
+- [ ] **Tag `v1.0.0` and cut a release** — *held deliberately.* A tag says the
+      format is fixed, and two format-visible questions are still open: whether
+      the schema `$id`s should move from `raw.githubusercontent.com` to
+      `quran.ws`, and whether the divisions become a published layer. Tag after
+      those, not before. `NOTICE.md` promises whoever receives
       this data second-hand that the link reaches "corrections and later
       releases". There is nothing at the other end of that promise yet.
 - [ ] **`out/word-index.json` is 48 MB**, against GitHub's 50 MB warning
       threshold, and it is rewritten on every build.
-- [ ] **`service/tests/` cannot run** without pytest and fastapi in a virtualenv,
-      so CI does not cover the service at all. Either wire the venv into CI or
-      say in `service/README.md` that the suite needs one.
 - [ ] **Two stale branches**, both predating the terminology rename and so
       needing the same merge treatment: `feat/hybrid-slot-model` (1 commit),
       `review-page` (2).
-- [ ] GitHub `homepage` is empty while every package manifest points at
-      `quran.ws`.
 
 ## Decisions
 
@@ -56,8 +61,7 @@ conversation, so the list survives.
 - [ ] **Ship with the two open questions in `verify-in-print.md`** — Bazzī's juz
       26, and the six āyahs with no `rasm_imlai` — or resolve them first. Both
       are documented rather than hidden, which is what a known-issues file is for.
-- [ ] **The 240 `rubu_al_hizb` positions exist only as prose in
-      `known-issues.md` §7.** There are no `hizb_starts` or `rubu_al_hizb_starts`
-      layers, and the thirteen medallion readings behind them are not recorded
-      anywhere machine-readable, so that work would have to be redone from the
-      printed muṣḥaf if the layers are wanted later.
+- [ ] **Publish the divisions as a layer?** The 240 `rubu_al_hizb` positions are
+      recorded with their provenance in `data/divisions/hafs-rubu-al-hizb.json`,
+      but `out/` still carries no `rubu_al_hizb_starts` or `hizb_starts`. Adding
+      them would give Bazzī a juz layer without depending on a v2 CSV.

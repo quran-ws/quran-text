@@ -1,0 +1,1521 @@
+{
+  "_description": "The 240 rubu_al_hizb positions of the Ḥafṣ muṣḥaf, assembled and checked: each juz holds exactly 8, and the total is 240. Not yet a published layer — out/ carries no rubu_al_hizb_starts — this file records the evidence so the work does not have to be done from the print again. `number` is the shared word number; `ayah` and `page` are this edition's.",
+  "_sources": {
+    "division_mark": "a ۞ printed in the text of UthmanicHafs-v-3.0.docx",
+    "juz_start": "a juz start from hafsData_v2-0.csv; see docs/known-issues.md §11 for the two this file does not use",
+    "surah_opening_by_count": "a sūrah opening in a juz holding fewer than 8, where the count leaves no other candidate",
+    "margin_medallion": "read from a printed muṣḥaf: «الحزب N» or «ربع/نصف/ثلاثة أرباع الحزب N» in the outer margin. See docs/sources.md"
+  },
+  "_caution": "A medallion marks every rubu_al_hizb, including those that also carry a ۞, so a medallion on a page does not by itself put the division at that page's sūrah opening. Two were corrected on that point: page 554's «ربع الحزب ٥٦» is the ۞ at 63:4, and page 575's «ربع الحزب ٥٨» is the ۞ at 73:20.",
+  "mushaf": "hafs",
+  "total": 240,
+  "positions": [
+    {
+      "number": 1,
+      "ayah": "1:1",
+      "page": 1,
+      "source": "juz_start",
+      "juz": 1
+    },
+    {
+      "number": 361,
+      "ayah": "2:26",
+      "page": 5,
+      "source": "division_mark"
+    },
+    {
+      "number": 663,
+      "ayah": "2:44",
+      "page": 7,
+      "source": "division_mark"
+    },
+    {
+      "number": 877,
+      "ayah": "2:60",
+      "page": 9,
+      "source": "division_mark"
+    },
+    {
+      "number": 1197,
+      "ayah": "2:75",
+      "page": 11,
+      "source": "division_mark"
+    },
+    {
+      "number": 1556,
+      "ayah": "2:92",
+      "page": 14,
+      "source": "division_mark"
+    },
+    {
+      "number": 1840,
+      "ayah": "2:106",
+      "page": 17,
+      "source": "division_mark"
+    },
+    {
+      "number": 2186,
+      "ayah": "2:124",
+      "page": 19,
+      "source": "division_mark"
+    },
+    {
+      "number": 2523,
+      "ayah": "2:142",
+      "page": 22,
+      "source": "division_mark",
+      "juz": 2
+    },
+    {
+      "number": 2820,
+      "ayah": "2:158",
+      "page": 24,
+      "source": "division_mark"
+    },
+    {
+      "number": 3175,
+      "ayah": "2:177",
+      "page": 27,
+      "source": "division_mark"
+    },
+    {
+      "number": 3506,
+      "ayah": "2:189",
+      "page": 29,
+      "source": "division_mark"
+    },
+    {
+      "number": 3814,
+      "ayah": "2:203",
+      "page": 32,
+      "source": "division_mark"
+    },
+    {
+      "number": 4176,
+      "ayah": "2:219",
+      "page": 34,
+      "source": "division_mark"
+    },
+    {
+      "number": 4552,
+      "ayah": "2:233",
+      "page": 37,
+      "source": "division_mark"
+    },
+    {
+      "number": 4811,
+      "ayah": "2:243",
+      "page": 39,
+      "source": "division_mark"
+    },
+    {
+      "number": 5102,
+      "ayah": "2:253",
+      "page": 42,
+      "source": "division_mark",
+      "juz": 3
+    },
+    {
+      "number": 5470,
+      "ayah": "2:263",
+      "page": 44,
+      "source": "division_mark"
+    },
+    {
+      "number": 5674,
+      "ayah": "2:272",
+      "page": 46,
+      "source": "division_mark"
+    },
+    {
+      "number": 6011,
+      "ayah": "2:283",
+      "page": 49,
+      "source": "division_mark"
+    },
+    {
+      "number": 6374,
+      "ayah": "3:15",
+      "page": 51,
+      "source": "division_mark"
+    },
+    {
+      "number": 6710,
+      "ayah": "3:33",
+      "page": 54,
+      "source": "division_mark"
+    },
+    {
+      "number": 7042,
+      "ayah": "3:52",
+      "page": 56,
+      "source": "division_mark"
+    },
+    {
+      "number": 7386,
+      "ayah": "3:75",
+      "page": 59,
+      "source": "division_mark"
+    },
+    {
+      "number": 7724,
+      "ayah": "3:93",
+      "page": 62,
+      "source": "division_mark"
+    },
+    {
+      "number": 8059,
+      "ayah": "3:113",
+      "page": 64,
+      "source": "division_mark"
+    },
+    {
+      "number": 8353,
+      "ayah": "3:133",
+      "page": 67,
+      "source": "division_mark"
+    },
+    {
+      "number": 8676,
+      "ayah": "3:153",
+      "page": 69,
+      "source": "division_mark"
+    },
+    {
+      "number": 9079,
+      "ayah": "3:171",
+      "page": 72,
+      "source": "division_mark"
+    },
+    {
+      "number": 9359,
+      "ayah": "3:186",
+      "page": 74,
+      "source": "division_mark"
+    },
+    {
+      "number": 9628,
+      "ayah": "4:1",
+      "page": 77,
+      "source": "surah_opening_by_count"
+    },
+    {
+      "number": 9898,
+      "ayah": "4:12",
+      "page": 79,
+      "source": "division_mark"
+    },
+    {
+      "number": 10230,
+      "ayah": "4:24",
+      "page": 82,
+      "source": "division_mark",
+      "juz": 5
+    },
+    {
+      "number": 10521,
+      "ayah": "4:36",
+      "page": 84,
+      "source": "division_mark"
+    },
+    {
+      "number": 10933,
+      "ayah": "4:58",
+      "page": 87,
+      "source": "division_mark"
+    },
+    {
+      "number": 11211,
+      "ayah": "4:74",
+      "page": 89,
+      "source": "division_mark"
+    },
+    {
+      "number": 11540,
+      "ayah": "4:88",
+      "page": 92,
+      "source": "division_mark"
+    },
+    {
+      "number": 11863,
+      "ayah": "4:100",
+      "page": 94,
+      "source": "division_mark"
+    },
+    {
+      "number": 12167,
+      "ayah": "4:114",
+      "page": 97,
+      "source": "division_mark"
+    },
+    {
+      "number": 12543,
+      "ayah": "4:135",
+      "page": 100,
+      "source": "division_mark"
+    },
+    {
+      "number": 12809,
+      "ayah": "4:148",
+      "page": 102,
+      "source": "division_mark",
+      "juz": 6
+    },
+    {
+      "number": 13078,
+      "ayah": "4:163",
+      "page": 104,
+      "source": "division_mark"
+    },
+    {
+      "number": 13375,
+      "ayah": "5:1",
+      "page": 106,
+      "source": "surah_opening_by_count"
+    },
+    {
+      "number": 13731,
+      "ayah": "5:12",
+      "page": 109,
+      "source": "division_mark"
+    },
+    {
+      "number": 14091,
+      "ayah": "5:27",
+      "page": 112,
+      "source": "division_mark"
+    },
+    {
+      "number": 14360,
+      "ayah": "5:41",
+      "page": 114,
+      "source": "division_mark"
+    },
+    {
+      "number": 14676,
+      "ayah": "5:51",
+      "page": 117,
+      "source": "division_mark"
+    },
+    {
+      "number": 15009,
+      "ayah": "5:67",
+      "page": 119,
+      "source": "division_mark"
+    },
+    {
+      "number": 15312,
+      "ayah": "5:82",
+      "page": 121,
+      "source": "division_mark",
+      "juz": 7
+    },
+    {
+      "number": 15635,
+      "ayah": "5:97",
+      "page": 124,
+      "source": "division_mark"
+    },
+    {
+      "number": 15894,
+      "ayah": "5:109",
+      "page": 126,
+      "source": "division_mark"
+    },
+    {
+      "number": 16359,
+      "ayah": "6:13",
+      "page": 129,
+      "source": "division_mark"
+    },
+    {
+      "number": 16738,
+      "ayah": "6:36",
+      "page": 132,
+      "source": "division_mark"
+    },
+    {
+      "number": 17122,
+      "ayah": "6:59",
+      "page": 134,
+      "source": "division_mark"
+    },
+    {
+      "number": 17423,
+      "ayah": "6:74",
+      "page": 137,
+      "source": "division_mark"
+    },
+    {
+      "number": 17818,
+      "ayah": "6:95",
+      "page": 140,
+      "source": "division_mark"
+    },
+    {
+      "number": 18086,
+      "ayah": "6:111",
+      "page": 142,
+      "source": "division_mark",
+      "juz": 8
+    },
+    {
+      "number": 18383,
+      "ayah": "6:127",
+      "page": 144,
+      "source": "division_mark"
+    },
+    {
+      "number": 18644,
+      "ayah": "6:141",
+      "page": 146,
+      "source": "division_mark"
+    },
+    {
+      "number": 18906,
+      "ayah": "6:151",
+      "page": 148,
+      "source": "division_mark"
+    },
+    {
+      "number": 19229,
+      "ayah": "7:1",
+      "page": 151,
+      "source": "surah_opening_by_count"
+    },
+    {
+      "number": 19619,
+      "ayah": "7:31",
+      "page": 154,
+      "source": "division_mark"
+    },
+    {
+      "number": 19960,
+      "ayah": "7:47",
+      "page": 156,
+      "source": "division_mark"
+    },
+    {
+      "number": 20267,
+      "ayah": "7:65",
+      "page": 158,
+      "source": "division_mark"
+    },
+    {
+      "number": 20652,
+      "ayah": "7:88",
+      "page": 162,
+      "source": "division_mark",
+      "juz": 9
+    },
+    {
+      "number": 21018,
+      "ayah": "7:117",
+      "page": 164,
+      "source": "division_mark"
+    },
+    {
+      "number": 21346,
+      "ayah": "7:142",
+      "page": 167,
+      "source": "division_mark"
+    },
+    {
+      "number": 21668,
+      "ayah": "7:156",
+      "page": 170,
+      "source": "division_mark"
+    },
+    {
+      "number": 22018,
+      "ayah": "7:171",
+      "page": 173,
+      "source": "division_mark"
+    },
+    {
+      "number": 22317,
+      "ayah": "7:189",
+      "page": 175,
+      "source": "division_mark"
+    },
+    {
+      "number": 22549,
+      "ayah": "8:1",
+      "page": 177,
+      "source": "surah_opening_by_count"
+    },
+    {
+      "number": 22848,
+      "ayah": "8:22",
+      "page": 179,
+      "source": "division_mark"
+    },
+    {
+      "number": 23139,
+      "ayah": "8:41",
+      "page": 182,
+      "source": "division_mark",
+      "juz": 10
+    },
+    {
+      "number": 23503,
+      "ayah": "8:61",
+      "page": 184,
+      "source": "division_mark"
+    },
+    {
+      "number": 23783,
+      "ayah": "9:1",
+      "page": 187,
+      "source": "surah_opening_by_count"
+    },
+    {
+      "number": 24104,
+      "ayah": "9:19",
+      "page": 189,
+      "source": "division_mark"
+    },
+    {
+      "number": 24398,
+      "ayah": "9:34",
+      "page": 192,
+      "source": "division_mark"
+    },
+    {
+      "number": 24678,
+      "ayah": "9:46",
+      "page": 194,
+      "source": "division_mark"
+    },
+    {
+      "number": 24900,
+      "ayah": "9:60",
+      "page": 196,
+      "source": "division_mark"
+    },
+    {
+      "number": 25220,
+      "ayah": "9:75",
+      "page": 199,
+      "source": "division_mark"
+    },
+    {
+      "number": 25528,
+      "ayah": "9:93",
+      "page": 201,
+      "source": "division_mark"
+    },
+    {
+      "number": 25881,
+      "ayah": "9:111",
+      "page": 204,
+      "source": "division_mark"
+    },
+    {
+      "number": 26147,
+      "ayah": "9:122",
+      "page": 206,
+      "source": "division_mark"
+    },
+    {
+      "number": 26456,
+      "ayah": "10:11",
+      "page": 209,
+      "source": "division_mark"
+    },
+    {
+      "number": 26803,
+      "ayah": "10:26",
+      "page": 212,
+      "source": "division_mark"
+    },
+    {
+      "number": 27229,
+      "ayah": "10:53",
+      "page": 214,
+      "source": "division_mark"
+    },
+    {
+      "number": 27513,
+      "ayah": "10:71",
+      "page": 217,
+      "source": "division_mark"
+    },
+    {
+      "number": 27797,
+      "ayah": "10:90",
+      "page": 219,
+      "source": "division_mark"
+    },
+    {
+      "number": 28185,
+      "ayah": "11:6",
+      "page": 222,
+      "source": "division_mark",
+      "juz": 12
+    },
+    {
+      "number": 28506,
+      "ayah": "11:24",
+      "page": 224,
+      "source": "division_mark"
+    },
+    {
+      "number": 28783,
+      "ayah": "11:41",
+      "page": 226,
+      "source": "division_mark"
+    },
+    {
+      "number": 29114,
+      "ayah": "11:61",
+      "page": 228,
+      "source": "division_mark"
+    },
+    {
+      "number": 29460,
+      "ayah": "11:84",
+      "page": 231,
+      "source": "division_mark"
+    },
+    {
+      "number": 29811,
+      "ayah": "11:108",
+      "page": 233,
+      "source": "division_mark"
+    },
+    {
+      "number": 30113,
+      "ayah": "12:7",
+      "page": 236,
+      "source": "division_mark"
+    },
+    {
+      "number": 30446,
+      "ayah": "12:30",
+      "page": 238,
+      "source": "division_mark"
+    },
+    {
+      "number": 30878,
+      "ayah": "12:53",
+      "page": 242,
+      "source": "division_mark",
+      "juz": 13
+    },
+    {
+      "number": 31244,
+      "ayah": "12:77",
+      "page": 244,
+      "source": "division_mark"
+    },
+    {
+      "number": 31637,
+      "ayah": "12:101",
+      "page": 247,
+      "source": "division_mark"
+    },
+    {
+      "number": 31900,
+      "ayah": "13:5",
+      "page": 249,
+      "source": "division_mark"
+    },
+    {
+      "number": 32209,
+      "ayah": "13:19",
+      "page": 252,
+      "source": "division_mark"
+    },
+    {
+      "number": 32507,
+      "ayah": "13:35",
+      "page": 254,
+      "source": "division_mark"
+    },
+    {
+      "number": 32835,
+      "ayah": "14:10",
+      "page": 256,
+      "source": "division_mark"
+    },
+    {
+      "number": 33162,
+      "ayah": "14:28",
+      "page": 259,
+      "source": "division_mark"
+    },
+    {
+      "number": 33492,
+      "ayah": "15:1",
+      "page": 262,
+      "source": "juz_start",
+      "juz": 14
+    },
+    {
+      "number": 33842,
+      "ayah": "15:49",
+      "page": 264,
+      "source": "division_mark"
+    },
+    {
+      "number": 34146,
+      "ayah": "16:1",
+      "page": 267,
+      "source": "surah_opening_by_count"
+    },
+    {
+      "number": 34486,
+      "ayah": "16:30",
+      "page": 270,
+      "source": "division_mark"
+    },
+    {
+      "number": 34797,
+      "ayah": "16:51",
+      "page": 272,
+      "source": "division_mark"
+    },
+    {
+      "number": 35151,
+      "ayah": "16:75",
+      "page": 275,
+      "source": "division_mark"
+    },
+    {
+      "number": 35413,
+      "ayah": "16:90",
+      "page": 277,
+      "source": "division_mark"
+    },
+    {
+      "number": 35734,
+      "ayah": "16:111",
+      "page": 280,
+      "source": "division_mark"
+    },
+    {
+      "number": 35990,
+      "ayah": "17:1",
+      "page": 282,
+      "source": "juz_start",
+      "juz": 15
+    },
+    {
+      "number": 36293,
+      "ayah": "17:23",
+      "page": 284,
+      "source": "division_mark"
+    },
+    {
+      "number": 36652,
+      "ayah": "17:50",
+      "page": 287,
+      "source": "division_mark"
+    },
+    {
+      "number": 36966,
+      "ayah": "17:70",
+      "page": 289,
+      "source": "division_mark"
+    },
+    {
+      "number": 37361,
+      "ayah": "17:99",
+      "page": 292,
+      "source": "division_mark"
+    },
+    {
+      "number": 37734,
+      "ayah": "18:17",
+      "page": 295,
+      "source": "division_mark"
+    },
+    {
+      "number": 38074,
+      "ayah": "18:32",
+      "page": 297,
+      "source": "division_mark"
+    },
+    {
+      "number": 38357,
+      "ayah": "18:51",
+      "page": 299,
+      "source": "division_mark"
+    },
+    {
+      "number": 38674,
+      "ayah": "18:75",
+      "page": 302,
+      "source": "division_mark",
+      "juz": 16
+    },
+    {
+      "number": 38987,
+      "ayah": "18:99",
+      "page": 304,
+      "source": "division_mark"
+    },
+    {
+      "number": 39327,
+      "ayah": "19:22",
+      "page": 306,
+      "source": "division_mark"
+    },
+    {
+      "number": 39720,
+      "ayah": "19:59",
+      "page": 309,
+      "source": "division_mark"
+    },
+    {
+      "number": 40086,
+      "ayah": "20:1",
+      "page": 312,
+      "source": "surah_opening_by_count"
+    },
+    {
+      "number": 40492,
+      "ayah": "20:55",
+      "page": 315,
+      "source": "division_mark"
+    },
+    {
+      "number": 40807,
+      "ayah": "20:83",
+      "page": 317,
+      "source": "division_mark"
+    },
+    {
+      "number": 41114,
+      "ayah": "20:111",
+      "page": 319,
+      "source": "division_mark"
+    },
+    {
+      "number": 41421,
+      "ayah": "21:1",
+      "page": 322,
+      "source": "juz_start",
+      "juz": 17
+    },
+    {
+      "number": 41706,
+      "ayah": "21:29",
+      "page": 324,
+      "source": "division_mark"
+    },
+    {
+      "number": 41970,
+      "ayah": "21:51",
+      "page": 326,
+      "source": "division_mark"
+    },
+    {
+      "number": 42272,
+      "ayah": "21:83",
+      "page": 329,
+      "source": "division_mark"
+    },
+    {
+      "number": 42590,
+      "ayah": "22:1",
+      "page": 332,
+      "source": "surah_opening_by_count"
+    },
+    {
+      "number": 42931,
+      "ayah": "22:19",
+      "page": 334,
+      "source": "division_mark"
+    },
+    {
+      "number": 43231,
+      "ayah": "22:38",
+      "page": 336,
+      "source": "division_mark"
+    },
+    {
+      "number": 43541,
+      "ayah": "22:60",
+      "page": 339,
+      "source": "division_mark"
+    },
+    {
+      "number": 43864,
+      "ayah": "23:1",
+      "page": 342,
+      "source": "juz_start",
+      "juz": 18
+    },
+    {
+      "number": 44209,
+      "ayah": "23:36",
+      "page": 344,
+      "source": "division_mark"
+    },
+    {
+      "number": 44528,
+      "ayah": "23:75",
+      "page": 347,
+      "source": "division_mark"
+    },
+    {
+      "number": 44914,
+      "ayah": "24:1",
+      "page": 350,
+      "source": "surah_opening_by_count"
+    },
+    {
+      "number": 45196,
+      "ayah": "24:21",
+      "page": 352,
+      "source": "division_mark"
+    },
+    {
+      "number": 45533,
+      "ayah": "24:35",
+      "page": 354,
+      "source": "division_mark"
+    },
+    {
+      "number": 45878,
+      "ayah": "24:53",
+      "page": 356,
+      "source": "division_mark"
+    },
+    {
+      "number": 46230,
+      "ayah": "25:1",
+      "page": 359,
+      "source": "surah_opening_by_count"
+    },
+    {
+      "number": 46505,
+      "ayah": "25:21",
+      "page": 362,
+      "source": "division_mark",
+      "juz": 19
+    },
+    {
+      "number": 46840,
+      "ayah": "25:53",
+      "page": 364,
+      "source": "division_mark"
+    },
+    {
+      "number": 47123,
+      "ayah": "26:1",
+      "page": 367,
+      "source": "surah_opening_by_count"
+    },
+    {
+      "number": 47487,
+      "ayah": "26:52",
+      "page": 369,
+      "source": "division_mark"
+    },
+    {
+      "number": 47785,
+      "ayah": "26:111",
+      "page": 371,
+      "source": "division_mark"
+    },
+    {
+      "number": 48176,
+      "ayah": "26:181",
+      "page": 374,
+      "source": "division_mark"
+    },
+    {
+      "number": 48441,
+      "ayah": "27:1",
+      "page": 377,
+      "source": "surah_opening_by_count"
+    },
+    {
+      "number": 48760,
+      "ayah": "27:27",
+      "page": 379,
+      "source": "division_mark"
+    },
+    {
+      "number": 49116,
+      "ayah": "27:56",
+      "page": 382,
+      "source": "division_mark",
+      "juz": 20
+    },
+    {
+      "number": 49426,
+      "ayah": "27:82",
+      "page": 384,
+      "source": "division_mark"
+    },
+    {
+      "number": 49729,
+      "ayah": "28:12",
+      "page": 386,
+      "source": "division_mark"
+    },
+    {
+      "number": 50041,
+      "ayah": "28:29",
+      "page": 389,
+      "source": "division_mark"
+    },
+    {
+      "number": 50419,
+      "ayah": "28:51",
+      "page": 392,
+      "source": "division_mark"
+    },
+    {
+      "number": 50759,
+      "ayah": "28:76",
+      "page": 394,
+      "source": "division_mark"
+    },
+    {
+      "number": 51022,
+      "ayah": "29:1",
+      "page": 396,
+      "source": "surah_opening_by_count"
+    },
+    {
+      "number": 51374,
+      "ayah": "29:26",
+      "page": 399,
+      "source": "division_mark"
+    },
+    {
+      "number": 51670,
+      "ayah": "29:46",
+      "page": 402,
+      "source": "division_mark",
+      "juz": 21
+    },
+    {
+      "number": 51998,
+      "ayah": "30:1",
+      "page": 404,
+      "source": "surah_opening_by_count"
+    },
+    {
+      "number": 52378,
+      "ayah": "30:31",
+      "page": 407,
+      "source": "division_mark"
+    },
+    {
+      "number": 52713,
+      "ayah": "30:54",
+      "page": 410,
+      "source": "division_mark"
+    },
+    {
+      "number": 53128,
+      "ayah": "31:22",
+      "page": 413,
+      "source": "division_mark"
+    },
+    {
+      "number": 53481,
+      "ayah": "32:11",
+      "page": 415,
+      "source": "division_mark"
+    },
+    {
+      "number": 53733,
+      "ayah": "33:1",
+      "page": 418,
+      "source": "surah_opening_by_count"
+    },
+    {
+      "number": 54021,
+      "ayah": "33:18",
+      "page": 420,
+      "source": "division_mark"
+    },
+    {
+      "number": 54252,
+      "ayah": "33:31",
+      "page": 422,
+      "source": "division_mark",
+      "juz": 22
+    },
+    {
+      "number": 54625,
+      "ayah": "33:51",
+      "page": 425,
+      "source": "division_mark"
+    },
+    {
+      "number": 54855,
+      "ayah": "33:60",
+      "page": 426,
+      "source": "division_mark"
+    },
+    {
+      "number": 55185,
+      "ayah": "34:10",
+      "page": 429,
+      "source": "division_mark"
+    },
+    {
+      "number": 55441,
+      "ayah": "34:24",
+      "page": 431,
+      "source": "division_mark"
+    },
+    {
+      "number": 55787,
+      "ayah": "34:46",
+      "page": 433,
+      "source": "division_mark"
+    },
+    {
+      "number": 56192,
+      "ayah": "35:15",
+      "page": 436,
+      "source": "division_mark"
+    },
+    {
+      "number": 56559,
+      "ayah": "35:41",
+      "page": 439,
+      "source": "division_mark"
+    },
+    {
+      "number": 56890,
+      "ayah": "36:28",
+      "page": 442,
+      "source": "division_mark",
+      "juz": 23
+    },
+    {
+      "number": 57188,
+      "ayah": "36:60",
+      "page": 444,
+      "source": "division_mark"
+    },
+    {
+      "number": 57511,
+      "ayah": "37:22",
+      "page": 446,
+      "source": "division_mark"
+    },
+    {
+      "number": 57810,
+      "ayah": "37:83",
+      "page": 449,
+      "source": "division_mark"
+    },
+    {
+      "number": 58100,
+      "ayah": "37:145",
+      "page": 451,
+      "source": "division_mark"
+    },
+    {
+      "number": 58431,
+      "ayah": "38:21",
+      "page": 454,
+      "source": "division_mark"
+    },
+    {
+      "number": 58753,
+      "ayah": "38:52",
+      "page": 456,
+      "source": "division_mark"
+    },
+    {
+      "number": 59152,
+      "ayah": "39:8",
+      "page": 459,
+      "source": "division_mark"
+    },
+    {
+      "number": 59518,
+      "ayah": "39:32",
+      "page": 462,
+      "source": "division_mark",
+      "juz": 24
+    },
+    {
+      "number": 59844,
+      "ayah": "39:53",
+      "page": 464,
+      "source": "division_mark"
+    },
+    {
+      "number": 60169,
+      "ayah": "40:1",
+      "page": 467,
+      "source": "surah_opening_by_count"
+    },
+    {
+      "number": 60434,
+      "ayah": "40:21",
+      "page": 469,
+      "source": "division_mark"
+    },
+    {
+      "number": 60778,
+      "ayah": "40:41",
+      "page": 472,
+      "source": "division_mark"
+    },
+    {
+      "number": 61110,
+      "ayah": "40:66",
+      "page": 474,
+      "source": "division_mark"
+    },
+    {
+      "number": 61457,
+      "ayah": "41:9",
+      "page": 477,
+      "source": "division_mark"
+    },
+    {
+      "number": 61694,
+      "ayah": "41:25",
+      "page": 479,
+      "source": "division_mark"
+    },
+    {
+      "number": 62038,
+      "ayah": "41:47",
+      "page": 482,
+      "source": "division_mark",
+      "juz": 25
+    },
+    {
+      "number": 62339,
+      "ayah": "42:13",
+      "page": 484,
+      "source": "division_mark"
+    },
+    {
+      "number": 62644,
+      "ayah": "42:27",
+      "page": 486,
+      "source": "division_mark"
+    },
+    {
+      "number": 62978,
+      "ayah": "42:51",
+      "page": 488,
+      "source": "division_mark"
+    },
+    {
+      "number": 63259,
+      "ayah": "43:24",
+      "page": 491,
+      "source": "division_mark"
+    },
+    {
+      "number": 63583,
+      "ayah": "43:57",
+      "page": 493,
+      "source": "division_mark"
+    },
+    {
+      "number": 63966,
+      "ayah": "44:17",
+      "page": 496,
+      "source": "division_mark"
+    },
+    {
+      "number": 64331,
+      "ayah": "45:12",
+      "page": 499,
+      "source": "division_mark"
+    },
+    {
+      "number": 64706,
+      "ayah": "46:1",
+      "page": 502,
+      "source": "juz_start",
+      "juz": 26
+    },
+    {
+      "number": 65072,
+      "ayah": "46:21",
+      "page": 505,
+      "source": "division_mark"
+    },
+    {
+      "number": 65461,
+      "ayah": "47:10",
+      "page": 507,
+      "source": "division_mark"
+    },
+    {
+      "number": 65803,
+      "ayah": "47:33",
+      "page": 510,
+      "source": "division_mark"
+    },
+    {
+      "number": 66183,
+      "ayah": "48:18",
+      "page": 513,
+      "source": "division_mark"
+    },
+    {
+      "number": 66448,
+      "ayah": "49:1",
+      "page": 515,
+      "source": "surah_opening_by_count"
+    },
+    {
+      "number": 66705,
+      "ayah": "49:14",
+      "page": 517,
+      "source": "division_mark"
+    },
+    {
+      "number": 67004,
+      "ayah": "50:27",
+      "page": 519,
+      "source": "division_mark"
+    },
+    {
+      "number": 67318,
+      "ayah": "51:31",
+      "page": 522,
+      "source": "division_mark",
+      "juz": 27
+    },
+    {
+      "number": 67651,
+      "ayah": "52:24",
+      "page": 524,
+      "source": "division_mark"
+    },
+    {
+      "number": 67960,
+      "ayah": "53:26",
+      "page": 526,
+      "source": "division_mark"
+    },
+    {
+      "number": 68253,
+      "ayah": "54:9",
+      "page": 529,
+      "source": "division_mark"
+    },
+    {
+      "number": 68542,
+      "ayah": "55:1",
+      "page": 531,
+      "source": "surah_opening_by_count"
+    },
+    {
+      "number": 68893,
+      "ayah": "56:1",
+      "page": 534,
+      "source": "surah_opening_by_count"
+    },
+    {
+      "number": 69178,
+      "ayah": "56:75",
+      "page": 536,
+      "source": "division_mark"
+    },
+    {
+      "number": 69537,
+      "ayah": "57:16",
+      "page": 539,
+      "source": "division_mark"
+    },
+    {
+      "number": 69846,
+      "ayah": "58:1",
+      "page": 542,
+      "source": "juz_start",
+      "juz": 28
+    },
+    {
+      "number": 70164,
+      "ayah": "58:14",
+      "page": 544,
+      "source": "division_mark"
+    },
+    {
+      "number": 70542,
+      "ayah": "59:11",
+      "page": 547,
+      "source": "division_mark"
+    },
+    {
+      "number": 70921,
+      "ayah": "60:7",
+      "page": 550,
+      "source": "division_mark"
+    },
+    {
+      "number": 71332,
+      "ayah": "62:1",
+      "page": 553,
+      "source": "margin_medallion",
+      "medallion": "hizb_start",
+      "hizb": 56,
+      "read_on_page": 553
+    },
+    {
+      "number": 71547,
+      "ayah": "63:4",
+      "page": 554,
+      "source": "division_mark"
+    },
+    {
+      "number": 71928,
+      "ayah": "65:1",
+      "page": 558,
+      "source": "margin_medallion",
+      "medallion": "half",
+      "hizb": 56,
+      "read_on_page": 558
+    },
+    {
+      "number": 72215,
+      "ayah": "66:1",
+      "page": 560,
+      "source": "margin_medallion",
+      "medallion": "three_quarters",
+      "hizb": 56,
+      "read_on_page": 560
+    },
+    {
+      "number": 72464,
+      "ayah": "67:1",
+      "page": 562,
+      "source": "juz_start",
+      "juz": 29
+    },
+    {
+      "number": 72797,
+      "ayah": "68:1",
+      "page": 564,
+      "source": "margin_medallion",
+      "medallion": "quarter",
+      "hizb": 57,
+      "read_on_page": 564
+    },
+    {
+      "number": 73097,
+      "ayah": "69:1",
+      "page": 566,
+      "source": "margin_medallion",
+      "medallion": "half",
+      "hizb": 57,
+      "read_on_page": 566
+    },
+    {
+      "number": 73428,
+      "ayah": "70:19",
+      "page": 569,
+      "source": "division_mark"
+    },
+    {
+      "number": 73798,
+      "ayah": "72:1",
+      "page": 572,
+      "source": "margin_medallion",
+      "medallion": "hizb_start",
+      "hizb": 58,
+      "read_on_page": 572
+    },
+    {
+      "number": 74204,
+      "ayah": "73:20",
+      "page": 575,
+      "source": "division_mark"
+    },
+    {
+      "number": 74537,
+      "ayah": "75:1",
+      "page": 577,
+      "source": "margin_medallion",
+      "medallion": "half",
+      "hizb": 58,
+      "read_on_page": 577
+    },
+    {
+      "number": 74833,
+      "ayah": "76:19",
+      "page": 579,
+      "source": "division_mark"
+    },
+    {
+      "number": 75125,
+      "ayah": "78:1",
+      "page": 582,
+      "source": "juz_start",
+      "juz": 30
+    },
+    {
+      "number": 75477,
+      "ayah": "80:1",
+      "page": 585,
+      "source": "margin_medallion",
+      "medallion": "quarter",
+      "hizb": 59,
+      "read_on_page": 585
+    },
+    {
+      "number": 75714,
+      "ayah": "82:1",
+      "page": 587,
+      "source": "margin_medallion",
+      "medallion": "half",
+      "hizb": 59,
+      "read_on_page": 587
+    },
+    {
+      "number": 75963,
+      "ayah": "84:1",
+      "page": 589,
+      "source": "margin_medallion",
+      "medallion": "three_quarters",
+      "hizb": 59,
+      "read_on_page": 589
+    },
+    {
+      "number": 76240,
+      "ayah": "87:1",
+      "page": 591,
+      "source": "margin_medallion",
+      "medallion": "hizb_start",
+      "hizb": 60,
+      "read_on_page": 591
+    },
+    {
+      "number": 76541,
+      "ayah": "90:1",
+      "page": 594,
+      "source": "margin_medallion",
+      "medallion": "quarter",
+      "hizb": 60,
+      "read_on_page": 594
+    },
+    {
+      "number": 76788,
+      "ayah": "94:1",
+      "page": 596,
+      "source": "margin_medallion",
+      "medallion": "half",
+      "hizb": 60,
+      "read_on_page": 596
+    },
+    {
+      "number": 77105,
+      "ayah": "100:9",
+      "page": 600,
+      "source": "division_mark"
+    }
+  ]
+}
