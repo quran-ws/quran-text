@@ -12,15 +12,15 @@ final class IndexedWord
     }
 
     public function number(): int { return $this->raw['number']; }
-    public function sura(): int { return $this->raw['sura']; }
+    public function surah(): int { return $this->raw['surah']; }
     public function index(): int { return $this->raw['index']; }
     public function key(): string { return $this->raw['key']; }
-    public function uthmani(): string { return $this->raw['uthmani']; }
-    public function simple(): string { return $this->raw['simple']; }
+    public function rasm_uthmani(): string { return $this->raw['rasm_uthmani']; }
+    public function plain(): string { return $this->raw['plain']; }
     public function rasm(): string { return $this->raw['rasm']; }
     public function pointed(): string { return $this->raw['pointed']; }
     public function status(): string { return $this->raw['status']; }
-    /** {sura, ayah, pos} in the Kūfī count, or null where Ḥafṣ lacks the word. */
+    /** {surah, ayah, position} in the Kūfī count, or null where Ḥafṣ lacks the word. */
     public function hafs(): ?array { return $this->raw['hafs']; }
     /** Āyah number per riwāyah. @return array<string,int> */
     public function ayah(): array { return $this->raw['ayah']; }

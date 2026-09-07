@@ -14,11 +14,11 @@
     "font",
     "layers",
     "words",
-    "imlaei",
+    "rasm_imlai",
     "numbering",
-    "sura_starts",
+    "surah_starts",
     "ayah_starts",
-    "suras",
+    "surahs",
     "marks",
     "mark_types",
     "mark_signs",
@@ -38,8 +38,8 @@
         "key": { "type": "string", "pattern": "^[a-z]+$" },
         "name_en": { "type": "string" },
         "name_ar": { "type": "string" },
-        "qari_en": { "type": "string" },
-        "qari_ar": { "type": "string" },
+        "qiraah_en": { "type": "string" },
+        "qiraah_ar": { "type": "string" },
         "word_count": { "type": "integer", "minimum": 1,
                         "description": "Equals words.length; restated so a truncated download can be detected." }
       }
@@ -80,9 +80,9 @@
           "description": "Āyah ends where the edition differs from its system and no source records a khilāf. Must be empty, or listed in data/counting/open-findings.json.",
           "items": {
             "type": "object",
-            "required": ["sura", "ayah", "number", "counted"],
+            "required": ["surah", "ayah", "number", "counted"],
             "properties": {
-              "sura": { "type": "integer" }, "ayah": { "type": "integer" },
+              "surah": { "type": "integer" }, "ayah": { "type": "integer" },
               "kufi": { "type": ["string", "null"] }, "number": { "type": "integer" },
               "anchor": { "type": ["string", "null"] }, "counted": { "type": "boolean" }
             }
@@ -129,10 +129,10 @@
     "words": {
       "type": "array",
       "minItems": 1,
-      "description": "The muṣḥaf. words[i] is its i-th printed word, in ʿUthmānī spelling exactly as this release prints it, without pause marks.",
+      "description": "The muṣḥaf. words[i] is its i-th printed word, in ʿUthmānī spelling exactly as this release prints it, without waqf marks.",
       "items": { "type": "string", "minLength": 1 }
     },
-    "imlaei": {
+    "rasm_imlai": {
       "description": "Parallel to words, or null when the release carries no imlāʾī column. A null entry is a word the chain could not resolve.",
       "oneOf": [
         { "type": "null" },
@@ -162,13 +162,13 @@
         }
       }
     },
-    "sura_starts": { "$ref": "#/$defs/starts", "minItems": 114, "maxItems": 114 },
+    "surah_starts": { "$ref": "#/$defs/starts", "minItems": 114, "maxItems": 114 },
     "ayah_starts": { "$ref": "#/$defs/starts",
                      "description": "One entry per numbered āyah, as this edition prints them. The unnumbered basmalah of Al-Fātiḥah precedes ayah_starts[0]." },
     "page_starts": { "$ref": "#/$defs/starts" },
     "line_starts": { "$ref": "#/$defs/starts", "description": "Derived: see layers.derived.line." },
     "juz_starts": { "$ref": "#/$defs/starts" },
-    "suras": {
+    "surahs": {
       "type": "array",
       "minItems": 114,
       "maxItems": 114,
@@ -181,7 +181,7 @@
           "name_ar": { "type": "string" },
           "name_en": { "type": "string" },
           "revelation": { "enum": ["makki", "madani"] },
-          "has_basmalah": { "type": "boolean", "description": "A basmalah is printed above this sūrah; false for at-Tawbah alone. Whether it is counted as an āyah is counting.basmalah_counted." },
+          "has_basmalah": { "type": "boolean", "description": "A basmalah is printed above this sūrah; false for Tawbah alone. Whether it is counted as an āyah is counting.basmalah_counted." },
           "ayah_count": { "type": "integer", "minimum": 1, "description": "Number of numbered āyāt in this edition." },
           "first_ayah": { "type": "integer", "minimum": 0,
                           "description": "Index into ayah_starts of this sūrah's first āyah; the prefix sum of ayah_count." }
@@ -200,7 +200,7 @@
         "required": ["kind", "side", "sign"],
         "additionalProperties": false,
         "properties": {
-          "kind": { "enum": ["waqf", "hizb", "sajdah"] },
+          "kind": { "enum": ["waqf", "division", "sajdah"] },
           "side": { "enum": ["before", "after"], "description": "Which side of the word the sign is printed on." },
           "sign": { "type": "string", "minLength": 1, "maxLength": 1 }
         }
@@ -222,15 +222,15 @@
       "description": "Every place this build changed the source's own word spacing. Present even when empty.",
       "items": {
         "type": "object",
-        "required": ["positions", "sura", "ayah", "kind", "source_text", "emitted"],
+        "required": ["positions", "surah", "ayah", "kind", "source_text", "emitted"],
         "properties": {
           "positions": { "type": "array", "items": { "type": "integer", "minimum": 0 } },
-          "sura": { "type": "integer" },
+          "surah": { "type": "integer" },
           "ayah": { "type": "integer" },
           "kind": { "type": "string" },
           "source_text": { "type": "string" },
           "emitted": { "type": "array", "items": { "type": "string" } },
-          "riwayat_agree": { "type": "boolean" }
+          "riwayahs_agree": { "type": "boolean" }
         }
       }
     },
@@ -238,9 +238,9 @@
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["sura", "ayah", "derived", "source"],
+        "required": ["surah", "ayah", "derived", "source"],
         "properties": {
-          "sura": { "type": "integer" }, "ayah": { "type": "integer" },
+          "surah": { "type": "integer" }, "ayah": { "type": "integer" },
           "derived": { "type": "integer" }, "source": { "type": "integer" }
         }
       }
@@ -259,9 +259,9 @@
     },
     "khilaf_point": {
       "type": "object",
-      "required": ["sura", "ayah", "kufi", "number", "counted", "follows", "against"],
+      "required": ["surah", "ayah", "kufi", "number", "counted", "follows", "against"],
       "properties": {
-        "sura": { "type": "integer", "description": "This edition's own numbering." },
+        "surah": { "type": "integer", "description": "This edition's own numbering." },
         "ayah": { "type": "integer" },
         "kufi": { "type": "string", "pattern": "^\\d+:\\d+$" },
         "number": { "type": "integer", "description": "The shared number the āyah ends after." },

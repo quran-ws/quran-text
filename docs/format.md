@@ -20,33 +20,33 @@ that array, addressed by position.**
   "format": "quran-mushaf", "format_version": "1.0", "generated": "2026-09-05",
 
   "mushaf":   { "key": "warsh", "name_en": "Warsh", "name_ar": "ورش",
-                "qari_en": "Nāfiʿ al-Madanī", "qari_ar": "نافع المدني", "word_count": 77431 },
+                "qiraah_en": "Nāfiʿ al-Madanī", "qiraah_ar": "نافع المدني", "word_count": 77431 },
   "counting": { "system": "madani-last", "declared_by": null, "ayah_count": 6214,
                 "basmalah_counted": false, "khilaf": [], "unexplained": [] },
   "provenance": { "text": { "package": "UthmanicWarsh-v-3.0.zip", "…": "…" }, "layout": { "…": "…" } },
-  "layers":   { "present": ["suras", "ayat", "pages", "lines", "marks", "juz"], "absent": { "…": "…" } },
+  "layers":   { "present": ["surahs", "ayahs", "pages", "lines", "marks", "juz"], "absent": { "…": "…" } },
 
   "words":  ["بِسْمِ", "ࡴ۬للَّهِ", "ࡴ۬لرَّحْمَٰنِ", "ࡴ۬لرَّحِيمِ", "ࡴ۬لْحَمْدُ", "…"],
-  "imlaei": null,
+  "rasm_imlai": null,
 
   "numbering": { "total": 77434, "missing": [25685, 60522, 69720], "written_joined": [] },
 
-  "sura_starts": [0, 29, 6146, "…"],
+  "surah_starts": [0, 29, 6146, "…"],
   "ayah_starts": [4, 8, 10, "…"],
   "page_starts": [0, 29, 65, "…"],
   "line_starts": [0, 4, 8, "…"],
   "juz_starts":  [0, 2522, "…"],
 
-  "suras": [ { "number": 1, "name_ar": "الفَاتِحة", "name_en": "Al-Fātiḥah", "revelation": "makki",
+  "surahs": [ { "number": 1, "name_ar": "الفَاتِحة", "name_en": "Al-Fātiḥah", "revelation": "makki",
                "has_basmalah": true, "ayah_count": 7, "first_ayah": 0 }, "…" ],
 
   "marks":      [[33, 0], [34, 0], "…"],
   "mark_types": [ { "kind": "waqf", "side": "after", "sign": "ۖ" }, "…" ],
   "mark_signs": { "ۖ": { "cp": "U+06D6", "unicode_name": "…" } },
 
-  "resegmentation":     [ { "positions": [11633, 11634], "sura": 4, "ayah": 91, "kind": "joined_in_source",
-                            "source_text": "مَا رُدُّوٓاْ", "emitted": ["مَا", "رُدُّوٓاْ"], "riwayat_agree": true } ],
-  "line_disagreements": [ { "sura": 1, "ayah": 1, "derived": 3, "source": 2 }, "…" ]
+  "resegmentation":     [ { "positions": [11633, 11634], "surah": 4, "ayah": 91, "kind": "joined_in_source",
+                            "source_text": "مَا رُدُّوٓاْ", "emitted": ["مَا", "رُدُّوٓاْ"], "riwayahs_agree": true } ],
+  "line_disagreements": [ { "surah": 1, "ayah": 1, "derived": 3, "source": 2 }, "…" ]
 }
 ```
 
@@ -66,7 +66,7 @@ No field holds both. A key that ends in `_starts` holds positions. Only the
 ## The rules
 
 - **`words[i]` is the *i*-th printed word of this muṣḥaf**, in ʿUthmānī
-  spelling exactly as the release prints it, without pause marks. That is a
+  spelling exactly as the release prints it, without waqf marks. That is a
   word's address inside its own file, and it does not depend on the numbering.
 - **Every `*_starts` array is a sorted list of positions**, one per unit, and
   unit *k* is `words.slice(starts[k], starts[k+1] ?? words.length)`. Slicing
@@ -77,11 +77,11 @@ No field holds both. A key that ends in `_starts` holds positions. Only the
   is `0`; Warsh, Qālūn, Dūrī and Sūsī print the same four words unnumbered, so
   their `ayah_starts[0]` is `4` and positions `0…3` belong to no āyah.
   `counting.basmalah_counted` states this once instead of an āyah numbered 0.
-- **The sūrah an āyah belongs to** is the last `sura_starts` entry at or before
-  it. `suras[k].ayah_count` is the edition's count for that sūrah and
-  `suras[k].first_ayah` the prefix sum, so `(sūrah, n)` → index into
-  `ayah_starts` is `first_ayah + n − 1`. `suras[k].has_basmalah` is false for
-  at-Tawbah alone; whether the basmalah is *counted* is `counting.basmalah_counted`.
+- **The sūrah an āyah belongs to** is the last `surah_starts` entry at or before
+  it. `surahs[k].ayah_count` is the edition's count for that sūrah and
+  `surahs[k].first_ayah` the prefix sum, so `(sūrah, n)` → index into
+  `ayah_starts` is `first_ayah + n − 1`. `surahs[k].has_basmalah` is false for
+  Tawbah alone; whether the basmalah is *counted* is `counting.basmalah_counted`.
 - **`page_starts` is read** from the release's explicit page breaks;
   **`line_starts` is reconstructed** and declared under `layers.derived.line`
   with its score. A line is counted within the whole muṣḥaf; the views convert
@@ -91,7 +91,7 @@ No field holds both. A key that ends in `_starts` holds positions. Only the
   none; `layers.absent` says why.
 - **`marks`** is a list of `[position, type]` with `mark_types` interned per
   file and `mark_signs` naming every sign's codepoint. See *Marks*.
-- **`imlaei`** is an array parallel to `words`, or `null` when the release
+- **`rasm_imlai`** is an array parallel to `words`, or `null` when the release
   carries no imlāʾī column. A `null` entry is a word the chain could not
   resolve. Ḥafṣ only, as before.
 - **`resegmentation` and `line_disagreements`** are disclosures and are present
@@ -151,7 +151,7 @@ Warsh and Qālūn) — and two pairs of words are written joined: `وَأَلَ�
 72:16 by Ḥafṣ, Shuʿbah and Bazzī, and `أَلَّن` at 73:20 by Dūrī and Sūsī. Which
 places are joins is declared in `data/alignment/written-joined.json`, because the
 unwritten nūn changes the rasm and no rule can tell a join from a different
-reading; the build asserts the list is exactly these.
+qiraah; the build asserts the list is exactly these.
 
 **`missing` says "does not read this word", nothing finer.** At 40:26 Warsh's
 `وَأَنْ` covers the number of `أَن` and `أَوۡ` is `missing`. That is true, but the
@@ -175,23 +175,23 @@ of its own, normative alongside the seven: `out/word-index.json`, and
 `out/word-index.csv` with the same columns flattened. One record per number:
 
 ```json
-{ "number": 73951, "sura": 72, "index": 153, "key": "72:لو#1",
-  "rasm": "لو", "pointed": "لو", "uthmani": "لَّوِ", "simple": "لّو",
+{ "number": 73951, "surah": 72, "index": 153, "key": "72:لو#1",
+  "rasm": "لو", "pointed": "لو", "rasm_uthmani": "لَّوِ", "plain": "لّو",
   "status": "word_boundary",
-  "hafs": { "sura": 72, "ayah": 16, "pos": 1 },
-  "forms": { "hafs": "وَأَلَّوِ", "shuba": "وَأَلَّوِ", "bazzi": "وَأَلَّوِ",
-             "qaloun": "لَّوِ", "warsh": "لَّوِ", "douri": "لَّوِ", "sousi": "لَّوِ" },
-  "ayah":  { "hafs": 16, "shuba": 16, "bazzi": 16, "qaloun": 16, "warsh": 16, "douri": 16, "sousi": 16 },
-  "written_joined": ["hafs", "shuba", "bazzi"] }
+  "hafs": { "surah": 72, "ayah": 16, "position": 1 },
+  "forms": { "hafs": "وَأَلَّوِ", "shubah": "وَأَلَّوِ", "bazzi": "وَأَلَّوِ",
+             "qalun": "لَّوِ", "warsh": "لَّوِ", "duri": "لَّوِ", "susi": "لَّوِ" },
+  "ayah":  { "hafs": 16, "shubah": 16, "bazzi": 16, "qalun": 16, "warsh": 16, "duri": 16, "susi": 16 },
+  "written_joined": ["hafs", "shubah", "bazzi"] }
 ```
 
 - `number` is the shared number, `1 … total`, dense.
-- `uthmani`, `pointed`, `rasm`, `simple` describe *this one word*, taken from a
+- `rasm_uthmani`, `pointed`, `rasm`, `plain` describe *this one word*, taken from a
   muṣḥaf that writes it apart.
-- `hafs` is the word's `sura`, `ayah` and `pos` in the āyah in the Kūfī count,
+- `hafs` is the word's `surah`, `ayah` and `position` in the āyah in the Kūfī count,
   present on every number Ḥafṣ covers and `null` where it does not. This is the column that lets
   every existing word-level dataset — corpus.quran.com morphology, quran.com
-  word audio segments, word-by-word translations — attach in one lookup. At
+  word audio segments, word by word translations — attach in one lookup. At
   72:16 two numbers carry the same coordinates, which is the honest statement
   that Ḥafṣ writes them as one word.
 - `forms[key]` is absent where that muṣḥaf lacks the number. Where a muṣḥaf
@@ -200,7 +200,7 @@ of its own, normative alongside the seven: `out/word-index.json`, and
 - `ayah[key]` is absent in the same places; `0` is the unnumbered basmalah.
 - `status` keeps the vocabulary of `docs/files.md`, which also lists the
   optional fields: `groups` (the distinct spellings and who uses each),
-  `missing`, `resegmented`, `waqf`, `hizb`, `sajdah`.
+  `missing`, `resegmented`, `waqf`, `division`, `sajdah`.
 
 The word index is where a number gets a text. The muṣḥaf files are where a
 text gets a position. Neither is derivable from the other alone, so both are
@@ -216,12 +216,12 @@ levels — counting system, transmission within it, edition — are explained in
 
 ```json
 "counting": {
-  "system": "madani-first", "system_name_ar": "المدني الأول", "system_name_en": "First Madinan",
+  "system": "madani-first", "system_name_ar": "المدني الأول", "system_name_en": "First Madani",
   "declared_by": null,
   "ayah_count": 6217,
   "basmalah_counted": false,
   "khilaf": [
-    { "sura": 67, "ayah": 9, "kufi": "67:9", "number": 72557, "anchor": "نذير", "counted": false,
+    { "surah": 67, "ayah": 9, "kufi": "67:9", "number": 72557, "anchor": "نذير", "counted": false,
       "follows": ["abu-jafar"], "against": ["shayba"],
       "source": { "work": "البيان في عدّ آي القرآن", "locator": "…" } }
   ],
@@ -235,7 +235,7 @@ levels — counting system, transmission within it, edition — are explained in
 | `declared_by` | what the edition states about itself, and where, or `null` if the source in `data/` states nothing — which is the case for every KFGQPC `.docx`, since they carry the text without the printed colophon. A declaration that disagreed with the derived system would be kept and flagged `declared_disagrees`, not overwritten |
 | `ayah_count` | what the edition prints: `ayah_starts.length` |
 | `basmalah_counted` | whether the basmalah of al-Fātiḥah is a numbered āyah |
-| `khilaf[]` | **every** point where the sources record a disagreement *inside* this system — not only the ones where this edition departs from the default — with what this edition does there (`counted`) and whose position that is (`follows`, `against`). `number` is the shared number the āyah ends after and `anchor` the word it follows; `sura`/`ayah` are this edition's own numbering; `kufi` is the Kūfī reference |
+| `khilaf[]` | **every** point where the sources record a disagreement *inside* this system — not only the ones where this edition departs from the default — with what this edition does there (`counted`) and whose position that is (`follows`, `against`). `number` is the shared number the āyah ends after and `anchor` the word it follows; `surah`/`ayah` are this edition's own numbering; `kufi` is the Kūfī reference |
 | `unexplained[]` | āyah ends where the edition differs from the system and no source records a khilāf. The build fails on any that is not listed in `data/counting/open-findings.json`, and on any listed there that no longer occurs |
 
 The seven editions today:
@@ -243,9 +243,9 @@ The seven editions today:
 | edition | system | āyāt | khilāf | unexplained |
 |---|---|---|---|---|
 | Ḥafṣ, Shuʿbah | Kūfī | 6,236 | — | — |
-| Warsh, Qālūn | Last Madinan | 6,214 | — | — |
-| Dūrī | First Madinan | 6,217 | six Abū Jaʿfar/Shayba points; 67:9 not counted, following Abū Jaʿfar | — |
-| Sūsī | First Madinan | 6,218 | the same six; 67:9 counted, following Shayba | — |
+| Warsh, Qālūn | Last Madani | 6,214 | — | — |
+| Dūrī | First Madani | 6,217 | six Abū Jaʿfar/Shayba points; 67:9 not counted, following Abū Jaʿfar | — |
+| Sūsī | First Madani | 6,218 | the same six; 67:9 counted, following Shayba | — |
 | Bazzī | Makkī | 6,220 | — | 78:40 ﴿قريبًا﴾ counted, until a source is cited |
 
 The boundaries come from
@@ -267,7 +267,7 @@ resolutions alongside.
 ```json
 "marks":      [[33, 0], [51, 1]],
 "mark_types": [ { "kind": "waqf",   "side": "after",  "sign": "ۖ" },
-                { "kind": "hizb",   "side": "before", "sign": "۞" },
+                { "kind": "division",   "side": "before", "sign": "۞" },
                 { "kind": "sajdah", "side": "after",  "sign": "۩" } ]
 ```
 
@@ -279,8 +279,8 @@ maps each sign to its codepoint and Unicode name, so no consumer has to
 hard-code a table.
 
 **Waqf marks are not comparable across muṣḥafs.** Warsh and Qālūn print one
-general pause sign where Ḥafṣ, Dūrī and Sūsī print seven distinct ones. This is
-a difference of publishing convention, not of reading, and nothing here
+general waqf sign where Ḥafṣ, Dūrī and Sūsī print seven distinct ones. This is
+a difference of publishing convention, not of qiraah, and nothing here
 normalises it.
 
 **The ۞ counts disagree between the releases** — 199 in Ḥafṣ, Shuʿbah and Bazzī
@@ -321,15 +321,15 @@ listed, addressed by position:
 
 ```json
 "resegmentation": [
-  { "positions": [11633, 11634], "sura": 4, "ayah": 91,
+  { "positions": [11633, 11634], "surah": 4, "ayah": 91,
     "kind": "joined_in_source",
     "source_text": "مَا رُدُّوٓاْ",
     "emitted": ["مَا", "رُدُّوٓاْ"],
-    "riwayat_agree": true }
+    "riwayahs_agree": true }
 ]
 ```
 
-`riwayat_agree` of `true` means every muṣḥaf reads the run identically once
+`riwayahs_agree` of `true` means every muṣḥaf reads the run identically once
 re-segmented — a source that lost a space, not a muṣḥaf that really prints the
 words joined. The list is present even when empty, so silence is never
 ambiguous. In the current sources: **Dūrī 5, Bazzī 3, Qālūn 1**, and none for
@@ -346,7 +346,7 @@ hold exactly as many imlāʾī tokens as ʿUthmānī ones and map across directl
 the other 61 the imlāʾī side always has *more* — it writes `أو لا` where the
 ʿUthmānī line writes `أَوَلَا` — never fewer; those are matched on the skeleton
 and joined, so an entry is always one string. A word the chain cannot resolve
-is `null`. `layers.derived.imlaei` reports the totals.
+is `null`. `layers.derived.rasm_imlai` reports the totals.
 
 ## Font
 
@@ -360,7 +360,7 @@ Every muṣḥaf file names the font its text is set in:
 
 It is the `.ttf` KFGQPC ships in the same package as the text, and it is
 **required, not decorative**: the words use codepoints — the Arabic Extended-B
-alefs of Warsh, Qālūn and Sūsī, the open tanwīn marks, the pause signs — that
+alefs of Warsh, Qālūn and Sūsī, the open tanwīn marks, the waqf signs — that
 only this font is guaranteed to draw. A general Arabic font shows gaps where
 those letters should be. `family` is read from the font's own name table so
 a stylesheet or a `Typeface` can refer to it exactly; `file` is the copy under
@@ -387,7 +387,7 @@ discovering a missing key at runtime. Bazzī:
 
 ```json
 "absent": { "juz": "no v2 package released for this riwāyah",
-            "imlaei": "column not present in this riwāyah's release" }
+            "rasm_imlai": "column not present in this riwāyah's release" }
 ```
 
 Bazzī still has `page_starts`, because page comes from the `.docx` that every
@@ -398,3 +398,15 @@ muṣḥaf has.
 Listed in full in [`known-issues.md`](known-issues.md): the reconstructed
 lines, the ۞ discrepancy, the incomparable waqf conventions, Bazzī's missing
 layers, the imlāʾī residual, and the open counting finding at 78:40.
+
+## The names
+
+Every key here spells its concept the way the [Quran.ws terminology
+standard](https://github.com/quranws/guidelines) does, so that a field in this
+dataset means what the same field means in another Quranic one.
+`.terminology.json` records how this repository is read against that standard —
+which trees are vendored, which words are ordinary English here, and which
+names belong to somebody else — and `audit_terminology.py --strict` passes with
+no finding. Names this repository does not own are quoted, not chosen: the
+KFGQPC package, member and font names, the columns of their CSVs (`sura_no`,
+`aya_text_emlaey`) and the Unicode character names.

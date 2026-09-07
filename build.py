@@ -52,12 +52,12 @@ def sync_bundled_hafs(doc: dict) -> None:
 def main() -> int:
     t0 = time.time()
     print("loading sources ...")
-    riwayat = load_all()
-    for r in riwayat:
-        print(f"  {r.key:8s} {sum(1 for a in r.ayat if a.aya > 0):5d} āyāt  {r.source}")
+    riwayahs = load_all()
+    for r in riwayahs:
+        print(f"  {r.key:8s} {sum(1 for a in r.ayahs if a.ayah > 0):5d} āyāt  {r.source}")
 
     print("aligning ...")
-    words = build_words(riwayat)
+    words = build_words(riwayahs)
     print(f"  {len(words):,} canonical words")
 
     print("writing the word index ...")
@@ -66,10 +66,10 @@ def main() -> int:
     write_ayah_map(words)
 
     print("publishing each muṣḥaf ...")
-    docs = write_mushafs(words, riwayat)
+    docs = write_mushafs(words, riwayahs)
     for key, doc in docs.items():
         line = doc["layers"]["derived"]["line"]
-        scored = (f"{line['ayat_agreeing']}/{line['ayat_checked']} lines"
+        scored = (f"{line['ayahs_agreeing']}/{line['ayahs_checked']} lines"
                   if line.get("validated") else "lines unvalidated")
         c = doc["counting"]
         open_ = f", {len(c['unexplained'])} unexplained" if c["unexplained"] else ""
@@ -83,24 +83,24 @@ def main() -> int:
     write_sqlite(docs, word_index)
 
     print("writing the reports ...")
-    write_report(words, riwayat, docs)
-    write_viewer(words, riwayat)
-    write_catalog(words, riwayat, docs)
+    write_report(words, riwayahs, docs)
+    write_viewer(words, riwayahs)
+    write_catalog(words, riwayahs, docs)
     write_manifest(docs)
     sync_bundled_hafs(docs["hafs"])
 
-    problems = (check_index(words, riwayat)
-                + check_ayah_numbers(riwayat)
-                + check_release_policy(riwayat)
-                + check_layout_alignment(riwayat)
-                + check_mushaf_roundtrip(words, riwayat)
+    problems = (check_index(words, riwayahs)
+                + check_ayah_numbers(riwayahs)
+                + check_release_policy(riwayahs)
+                + check_layout_alignment(riwayahs)
+                + check_mushaf_roundtrip(words, riwayahs)
                 + check_numbering(docs)
                 + check_positions(docs)
                 + counting.check_unexplained(docs)
                 + check_schema_fields(docs))
     print(f"checks: {len(problems)} finding(s)")
     for p in problems:
-        print(f"  - [{p['check']}] {p.get('riwaya', '')} {p['detail']}")
+        print(f"  - [{p['check']}] {p.get('riwayah', '')} {p['detail']}")
     print(f"done in {time.time() - t0:.0f}s -> out/")
     return 0
 

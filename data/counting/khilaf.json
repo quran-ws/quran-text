@@ -1,5 +1,5 @@
 {
-  "_description": "Disagreements recorded by the classical sources *inside* a counting system, between the authorities through whom the system was transmitted. The vendored qiraat-ayah-map primitives give each system one settled position per point; this overlay says where the system's own authorities differ, so an edition's choice at such a point can be named rather than reported as an error. Anchors use the same (sura, kufi ayah, kind, word) key as the primitives. Every entry cites its source. When qiraat-ayah-map models this itself (their issue #11), entries here are deleted in favour of theirs.",
+  "_description": "Disagreements recorded by the classical sources *inside* a counting system, between the authorities through whom the system was transmitted. The vendored qiraat-ayah-map primitives give each system one settled position per point; this overlay says where the system's own authorities differ, so an edition's choice at such a point can be named rather than reported as an error. Anchors use the same (surah, kufi ayah, kind, word) key as the primitives. Every entry cites its source. When qiraat-ayah-map models this itself (their issue #11), entries here are deleted in favour of theirs.",
   "source_default": {
     "work": "البيان في عدّ آي القرآن",
     "author": "أبو عمرو الداني",
@@ -11,31 +11,31 @@
   },
   "system_corrections": [
     {
-      "sura": 3, "ayah": 92, "kind": "internal", "word": "تحبون",
+      "surah": 3, "ayah": 92, "kind": "internal", "word": "تحبون",
       "system": "madani-first", "counted": true,
       "source": {"locator": "ص 143", "note": "لم يعدها الكوفي والبصري وأبو جعفر القارئ وعدها الباقون وشيبة بن نصاح"},
       "why": "qiraat-ayah-map main records Abū Jaʿfar's personal count as the madhhab; al-Dānī's madhhab total is 6217 (qiraat-ayah-map#7)"
     },
     {
-      "sura": 3, "ayah": 97, "kind": "internal", "word": "إبراهيم",
+      "surah": 3, "ayah": 97, "kind": "internal", "word": "إبراهيم",
       "system": "madani-first", "counted": false,
       "source": {"locator": "باب ذكر ما اختلف فيه أبو جعفر وشيبة", "note": "﴿مقام إبراهيم﴾ آية في قول أبي جعفر وليست في قول شيبة"},
-      "why": "as above: the point is Abū Jaʿfar's alone, with the Damascene"
+      "why": "as above: the point is Abū Jaʿfar's alone, with the Dimashqī"
     },
     {
-      "sura": 37, "ayah": 167, "kind": "end", "word": "ليقولون",
+      "surah": 37, "ayah": 167, "kind": "end", "word": "ليقولون",
       "system": "madani-first", "counted": true,
       "source": {"locator": "ص 212", "note": "لم يعدها أبو جعفر وعدها الباقون وشيبة"},
       "why": "as above"
     },
     {
-      "sura": 80, "ayah": 24, "kind": "end", "word": "طعامه",
+      "surah": 80, "ayah": 24, "kind": "end", "word": "طعامه",
       "system": "madani-first", "counted": true,
       "source": {"locator": "ص 264", "note": "لم يعدها أبو جعفر وحده وعدها شيبة والباقون"},
       "why": "as above"
     },
     {
-      "sura": 81, "ayah": 26, "kind": "end", "word": "تذهبون",
+      "surah": 81, "ayah": 26, "kind": "end", "word": "تذهبون",
       "system": "madani-first", "counted": true,
       "source": {"locator": "ص 265", "note": "لم يعدها أبو جعفر وعدها الباقون وشيبة"},
       "why": "as above"
@@ -43,32 +43,32 @@
   ],
   "khilaf": [
     {
-      "sura": 3, "ayah": 92, "kind": "internal", "word": "تحبون", "system": "madani-first",
+      "surah": 3, "ayah": 92, "kind": "internal", "word": "تحبون", "system": "madani-first",
       "authorities": {"abu-jafar": false, "shayba": true},
       "source": {"locator": "ص 143"}
     },
     {
-      "sura": 3, "ayah": 97, "kind": "internal", "word": "إبراهيم", "system": "madani-first",
+      "surah": 3, "ayah": 97, "kind": "internal", "word": "إبراهيم", "system": "madani-first",
       "authorities": {"abu-jafar": true, "shayba": false},
       "source": {"locator": "باب ذكر ما اختلف فيه أبو جعفر وشيبة"}
     },
     {
-      "sura": 37, "ayah": 167, "kind": "end", "word": "ليقولون", "system": "madani-first",
+      "surah": 37, "ayah": 167, "kind": "end", "word": "ليقولون", "system": "madani-first",
       "authorities": {"abu-jafar": false, "shayba": true},
       "source": {"locator": "ص 212"}
     },
     {
-      "sura": 67, "ayah": 9, "kind": "internal", "word": "نذير", "system": "madani-first",
+      "surah": 67, "ayah": 9, "kind": "internal", "word": "نذير", "system": "madani-first",
       "authorities": {"abu-jafar": false, "shayba": true},
       "source": {"locator": "باب ذكر ما اختلف فيه أبو جعفر وشيبة", "note": "عدها المدني الأخير والمكي ولم يعدها الباقون، وعدها شيبة ولم يعدها أبو جعفر"}
     },
     {
-      "sura": 80, "ayah": 24, "kind": "end", "word": "طعامه", "system": "madani-first",
+      "surah": 80, "ayah": 24, "kind": "end", "word": "طعامه", "system": "madani-first",
       "authorities": {"abu-jafar": false, "shayba": true},
       "source": {"locator": "ص 264"}
     },
     {
-      "sura": 81, "ayah": 26, "kind": "end", "word": "تذهبون", "system": "madani-first",
+      "surah": 81, "ayah": 26, "kind": "end", "word": "تذهبون", "system": "madani-first",
       "authorities": {"abu-jafar": false, "shayba": true},
       "source": {"locator": "ص 265"}
     }

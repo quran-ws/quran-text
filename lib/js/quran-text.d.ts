@@ -1,22 +1,22 @@
 /** quran-text — read the muṣḥaf files of the quran-text dataset. */
 
-export type Layer = "suras" | "ayat" | "pages" | "lines" | "juz" | "marks" | "imlaei";
-export type MarkKind = "waqf" | "hizb" | "sajdah";
+export type Layer = "surahs" | "ayahs" | "pages" | "lines" | "juz" | "marks" | "rasm_imlai";
+export type MarkKind = "waqf" | "division" | "sajdah";
 export type Relation = "same" | "merged" | "split" | "shifted" | "unnumbered";
 
 export interface RenderOptions {
   /** `true` for every sign, or the kinds you want. Default: none. */
   marks?: boolean | MarkKind[];
   /** Append ۝ with the āyah number after each āyah that ends inside the span. */
-  ayahMarkers?: boolean;
+  ayahMarks?: boolean;
   /** Break the text where the printed lines break. */
   lines?: boolean;
 }
 
-export const END_OF_AYAH: string;
+export const AYAH_MARK: string;
 /** The end-of-āyah sign with its number, as the muṣḥaf prints it: ۝٢٥٥ */
-export function ayahMarker(number: number): string;
-/** Plain letters for matching: no diacritics, one alif, one yāʾ. Not a spelling. */
+export function ayahMark(number: number): string;
+/** Plain letters for matching: no harakah, one alif, one yāʾ. Not a spelling. */
 export function fold(text: string): string;
 
 export class Mark {
@@ -29,8 +29,8 @@ export class Word {
   readonly position: number;
   readonly text: string;
   /** Plain modern spelling, Ḥafṣ only; null elsewhere. */
-  readonly imlaei: string | null;
-  readonly sura: Sura;
+  readonly rasm_imlai: string | null;
+  readonly surah: Surah;
   /** null for the unnumbered basmalah. */
   readonly ayah: Ayah | null;
   /** 1-based position within the āyah; null when unnumbered. */
@@ -61,10 +61,10 @@ export class Span implements Iterable<Word> {
   readonly text: string;
   render(options?: RenderOptions): string;
   /** Every numbered āyah with at least one word in the span. */
-  readonly ayat: Ayah[];
+  readonly ayahs: Ayah[];
   readonly firstAyah: Ayah | null;
   readonly lastAyah: Ayah | null;
-  readonly suras: Sura[];
+  readonly surahs: Surah[];
   readonly pages: Page[];
   /** The page the span starts on. */
   readonly page: Page;
@@ -77,7 +77,7 @@ export class Span implements Iterable<Word> {
 
 /** Where an āyah falls in another riwāyah. */
 export class AyahMatch {
-  readonly ayat: Ayah[];
+  readonly ayahs: Ayah[];
   readonly relation: Relation | "missing";
   readonly first: Ayah | null;
   readonly last: Ayah | null;
@@ -90,7 +90,7 @@ export class Ayah extends Span {
   readonly numbers: Set<number>;
   /** This āyah in another riwāyah, from the shared numbering. */
   to(other: Mushaf): AyahMatch;
-  readonly sura: Sura;
+  readonly surah: Surah;
   /** In this edition's own count. */
   readonly number: number;
   /** "2:255" */
@@ -99,7 +99,7 @@ export class Ayah extends Span {
   readonly index: number;
   readonly line: Line | null;
   readonly lines: Line[];
-  readonly imlaei: (string | null)[] | null;
+  readonly rasm_imlai: (string | null)[] | null;
   readonly hasSajdah: boolean;
   /** ۝٢٥٥ */
   readonly marker: string;
@@ -108,14 +108,14 @@ export class Ayah extends Span {
   equals(other: unknown): boolean;
 }
 
-export class Sura extends Span {
+export class Surah extends Span {
   readonly number: number;
   readonly nameAr: string;
   readonly nameEn: string;
   readonly revelation: "makki" | "madani";
   readonly hasBasmalah: boolean;
   readonly ayahCount: number;
-  readonly ayat: Ayah[];
+  readonly ayahs: Ayah[];
   ayah(number: number): Ayah;
   /** The unnumbered basmalah before āyah 1, where the edition prints it so. */
   readonly basmalah: Span | null;
@@ -171,11 +171,11 @@ export class Mushaf {
   readonly key: string;
   readonly nameEn: string;
   readonly nameAr: string;
-  readonly qariEn: string | null;
-  readonly qariAr: string | null;
+  readonly qiraahEn: string | null;
+  readonly qiraahAr: string | null;
   readonly countingSystem: string;
   readonly basmalahCounted: boolean;
-  readonly suras: Sura[];
+  readonly surahs: Surah[];
 
   readonly layers: Layer[];
   has(layer: Layer): boolean;
@@ -187,23 +187,23 @@ export class Mushaf {
   readonly lineCount: number;
   readonly juzCount: number;
 
-  sura(number: number): Sura;
-  /** Āyah `number` of `sura` in this edition's own count. */
-  ayah(sura: number, number: number): Ayah;
+  surah(number: number): Surah;
+  /** Āyah `number` of `surah` in this edition's own count. */
+  ayah(surah: number, number: number): Ayah;
   page(number: number): Page;
   juz(number: number): Juz;
   line(page: number, number: number): Line;
   /** Word `index` (1-based) of an āyah. */
-  word(sura: number, ayah: number, index: number): Word;
+  word(surah: number, ayah: number, index: number): Word;
   span(start: number, end: number): Span;
   readonly all: Span;
-  readonly ayat: Ayah[];
+  readonly ayahs: Ayah[];
   readonly pages: Page[];
   readonly ajza: Juz[];
 
   wordAt(position: number): Word;
   ayahAt(position: number): Ayah | null;
-  suraAt(position: number): Sura;
+  surahAt(position: number): Surah;
   pageAt(position: number): Page;
   lineAt(position: number): Line | null;
   juzAt(position: number): Juz | null;
@@ -217,13 +217,13 @@ export class Mushaf {
   /** Every āyah printed with ۩. */
   sajdat(): Ayah[];
   /** Every word printed with ۞ before it. */
-  hizbMarks(): Word[];
+  divisionMarks(): Word[];
   /** Every place the words of `text` occur in sequence, matched on fold(). */
   search(text: string): Span[];
 }
 
-export class AyahRef {
-  readonly sura: number;
+export class MappedAyah {
+  readonly surah: number;
   readonly ayah: number;
   readonly relation: Relation;
   readonly ayahLast: number | null;
@@ -236,27 +236,27 @@ export class AyahMap {
   static load(path: string): Promise<AyahMap>;
   static fromJson(data: string | object): AyahMap;
   readonly editions: string[];
-  /** convert(2, 255, "warsh") → { sura: 2, ayah: 253, ayahLast: 254, relation: "split" } */
-  convert(sura: number, ayah: number, to: string): AyahRef;
-  all(sura: number, ayah: number): Record<string, AyahRef>;
+  /** convert(2, 255, "warsh") → { surah: 2, ayah: 253, ayahLast: 254, relation: "split" } */
+  convert(surah: number, ayah: number, to: string): MappedAyah;
+  all(surah: number, ayah: number): Record<string, MappedAyah>;
 }
 
-export interface HafsCoordinates { sura: number; ayah: number; pos: number; }
+export interface HafsCoordinates { surah: number; ayah: number; position: number; }
 
 export class IndexedWord {
   readonly number: number;
-  readonly sura: number;
+  readonly surah: number;
   readonly index: number;
   readonly key: string;
-  readonly uthmani: string;
-  readonly simple: string;
+  readonly rasm_uthmani: string;
+  readonly plain: string;
   readonly rasm: string;
   readonly pointed: string;
   readonly status: "identical" | "diacritic_variant" | "dotting_variant" | "alif_variant" | "rasm_variant" | "word_boundary" | "partial";
   readonly hafs: HafsCoordinates | null;
   readonly ayah: Record<string, number>;
   readonly forms: Record<string, string>;
-  readonly groups: { text: string; riwayat: string[] }[];
+  readonly groups: { text: string; riwayahs: string[] }[];
   readonly missing: string[];
   readonly writtenJoined: string[];
   form(riwayah: string): string | null;
@@ -272,7 +272,7 @@ export class WordIndex implements Iterable<IndexedWord> {
   readonly length: number;
   word(number: number): IndexedWord;
   /** By Ḥafṣ coordinates: sūrah, āyah in the Kūfī count, 1-based word. */
-  find(sura: number, ayah: number, index: number): IndexedWord | null;
+  find(surah: number, ayah: number, index: number): IndexedWord | null;
   search(text: string): IndexedWord[];
   differing(): IndexedWord[];
   [Symbol.iterator](): Iterator<IndexedWord>;

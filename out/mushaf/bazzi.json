@@ -1,26 +1,26 @@
 {
  "format": "quran-mushaf",
  "format_version": "1.0",
- "generated": "2026-09-05",
+ "generated": "2026-09-07",
  "mushaf": {
   "key": "bazzi",
   "name_en": "Bazzī",
   "name_ar": "البزي",
-  "qari_en": "Ibn Kathīr al-Makkī",
-  "qari_ar": "ابن كثير المكي",
+  "qiraah_en": "Ibn Kathīr al-Makkī",
+  "qiraah_ar": "ابن كثير المكي",
   "word_count": 77432
  },
  "counting": {
   "system": "makki",
   "system_name_ar": "المكي",
-  "system_name_en": "Makkan",
+  "system_name_en": "Makki Numbering",
   "declared_by": null,
   "ayah_count": 6220,
   "basmalah_counted": true,
   "khilaf": [],
   "unexplained": [
    {
-    "sura": 78,
+    "surah": 78,
     "ayah": 40,
     "kufi": "78:40",
     "number": 75288,
@@ -44,9 +44,9 @@
     "counting-systems.json": "a4dfad8c302f3a7bd2172a07ecbd70045b448815edd955df2f0bedcb972b8117"
    },
    "overlay": {
-    "khilaf.json": "f331c1fba4bfd6bf71e3107bdac3c0eda3dc5f5e86b968067eff0852a15685e2",
-    "open-findings.json": "4ebb71a16e7fcfdbed274c398793d4b09b1564c502f59f477467c7f586d8871c",
-    "declared.json": "25b9a22835d6cc8d539881288d9973f7f56be0a080e2e1000d86ec6de5bad768"
+    "khilaf.json": "d945ca074b75fee11e01af65ab0d2866d5e349cf315cbfd4157cb6b554ef96dd",
+    "open-findings.json": "7a014e0fe8345c17d0559869bea6e0a8a3829f471168bd8be4db27a06a8d8bda",
+    "declared.json": "feba23ee612ddd2008797432cdaa3c73f3e5ddc2de4ca880c6b6f76c07b22980"
    }
   }
  },
@@ -66,19 +66,19 @@
   "member": "UthmanicBazzi-v-3.0.ttf",
   "sha256": "b5fc7fbe012f832be3212b398b523a2e1cb87faacf1e57a65e76522201af8f39",
   "publisher": "https://fonts.qurancomplex.gov.sa/",
-  "note": "The text uses codepoints only this font is guaranteed to draw (Arabic Extended-B alefs, open tanwīn, the pause signs). Ship it with the text; a general Arabic font will show gaps."
+  "note": "The text uses codepoints only this font is guaranteed to draw (Arabic Extended-B alefs, open tanwīn, the waqf signs). Ship it with the text; a general Arabic font will show gaps."
  },
  "layers": {
   "present": [
-   "suras",
-   "ayat",
+   "surahs",
+   "ayahs",
    "pages",
    "lines",
    "marks"
   ],
   "absent": {
    "juz": "no v2 package released for this riwāyah",
-   "imlaei": "column not present in this riwāyah's release"
+   "rasm_imlai": "column not present in this riwāyah's release"
   },
   "derived": {
    "line": {
@@ -89,8 +89,8 @@
   },
   "notes": {
    "page": "read from explicit page breaks in the release, not inferred",
-   "waqf": "pause-mark conventions differ by muṣḥaf and are not comparable across them: Warsh and Qālūn print one general sign where Ḥafṣ, Dūrī and Sūsī print seven distinct ones",
-   "hizb": "the ۞ symbol is emitted exactly as the release prints it. The releases disagree about how often to print it — 199 times in Ḥafṣ, Shuʿbah and Bazzī against 433–437 in the others — and nothing here reconciles them"
+   "waqf": "waqf-mark conventions differ by muṣḥaf and are not comparable across them: Warsh and Qālūn print one general sign where Ḥafṣ, Dūrī and Sūsī print seven distinct ones",
+   "division": "the ۞ symbol is emitted exactly as the release prints it. The releases disagree about how often to print it — 199 times in Ḥafṣ, Shuʿbah and Bazzī against 433–437 in the others — and nothing here reconciles them"
   }
  },
  "words": [
@@ -77527,7 +77527,7 @@
   "ٱلۡجِنَّةِ",
   "وَٱلنَّاسِ"
  ],
- "imlaei": null,
+ "rasm_imlai": null,
  "numbering": {
   "total": 77434,
   "missing": [
@@ -77543,7 +77543,7 @@
    }
   ]
  },
- "sura_starts": [
+ "surah_starts": [
   0,
   29,
   6146,
@@ -93309,7 +93309,7 @@
   77425,
   77429
  ],
- "suras": [
+ "surahs": [
   {
    "number": 1,
    "name_ar": "الفَاتِحة",
@@ -112305,7 +112305,7 @@
    "sign": "ۗ"
   },
   {
-   "kind": "hizb",
+   "kind": "division",
    "side": "before",
    "sign": "۞"
   },
@@ -112369,7 +112369,7 @@
     48678,
     48679
    ],
-   "sura": 27,
+   "surah": 27,
    "ayah": 20,
    "kind": "joined_in_source",
    "source_text": "مَا لِيَ",
@@ -112377,14 +112377,14 @@
     "مَا",
     "لِيَ"
    ],
-   "riwayat_agree": true
+   "riwayahs_agree": true
   },
   {
    "positions": [
     56844,
     56845
    ],
-   "sura": 36,
+   "surah": 36,
    "ayah": 22,
    "kind": "joined_in_source",
    "source_text": "وَمَا لِيَ",
@@ -112392,14 +112392,14 @@
     "وَمَا",
     "لِيَ"
    ],
-   "riwayat_agree": true
+   "riwayahs_agree": true
   },
   {
    "positions": [
     74536,
     74537
    ],
-   "sura": 75,
+   "surah": 75,
    "ayah": 1,
    "kind": "joined_in_source",
    "source_text": "لَأُ اْقۡسِمُ",
@@ -112407,7 +112407,7 @@
     "لَأُ",
     "اْقۡسِمُ"
    ],
-   "riwayat_agree": true
+   "riwayahs_agree": true
   }
  ],
  "line_disagreements": []

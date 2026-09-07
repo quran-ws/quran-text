@@ -7,8 +7,8 @@ codepoint's role is decided; everything downstream asks these sets.
 
 # --- structural / non-text ------------------------------------------------
 
-END_OF_AYAH = "۝"          # ۝  ARABIC END OF AYAH (v3 docx)
-RUB_EL_HIZB = "۞"          # ۞  ARABIC START OF RUB EL HIZB
+AYAH_MARK = "۝"          # ۝  ARABIC END OF AYAH (v3 docx)
+RUBU_AL_HIZB = "۞"          # ۞  ARABIC START OF RUB EL HIZB
 SAJDAH      = "۩"          # ۩  ARABIC PLACE OF SAJDAH
 
 ARABIC_DIGITS = {chr(0x0660 + i): str(i) for i in range(10)}
@@ -21,7 +21,7 @@ ARABIC_DIGITS = {chr(0x0660 + i): str(i) for i in range(10)}
 EDITORIAL = {"࣌", "࢈"}
 
 #: Standalone symbols that mark structure, never part of a word.
-STRUCTURAL = {END_OF_AYAH, RUB_EL_HIZB, SAJDAH} | EDITORIAL
+STRUCTURAL = {AYAH_MARK, RUBU_AL_HIZB, SAJDAH} | EDITORIAL
 
 #: Invisible controls that carry no textual meaning here.  Their presence in a
 #: source is itself reportable (see ``issues.STRAY_CONTROL``).
@@ -36,40 +36,40 @@ CONTROLS = {
 
 TATWEEL = "ـ"  # ـ  kashida: pure typography, never semantic
 
-# --- waqf (pause) marks ---------------------------------------------------
+# --- waqf marks ---------------------------------------------------
 # These sit after the last letter of a word with no intervening space.  They
-# annotate recitation, not orthography, so they are peeled off the word and
+# annotate recitation, not rasm, so they are peeled off the word and
 # recorded separately.
 
 WAQF_MARKS = {
     "ۖ",  # ۖ  ṣlā   - preferable to continue
-    "ۗ",  # ۗ  qlā   - preferable to stop
-    "ۘ",  # ۘ  mīm   - compulsory stop
-    "ۙ",  # ۙ  lā    - prohibited stop
-    "ۚ",  # ۚ  jīm   - permissible stop
-    "ۛ",  # ۛ  three dots - mu'ānaqah (stop at one of two)
-    "ۜ",  # ۜ  small high seen  (KFGQPC: sakta / sīn reading cue)
+    "ۗ",  # ۗ  qlā   - waqf preferred
+    "ۘ",  # ۘ  mīm   - waqf lāzim
+    "ۙ",  # ۙ  lā    - waqf prohibited
+    "ۚ",  # ۚ  jīm   - waqf permitted
+    "ۛ",  # ۛ  three dots - mu'ānaqah (waqf at one of two)
+    "ۜ",  # ۜ  small high seen  (KFGQPC: saktah / sīn recitation cue)
     "۩",  # ۩  place of sajdah
-    "۪",  # ۪  empty centre low stop
-    "۫",  # ۫  empty centre high stop
-    "۬",  # ۬  rounded high stop with filled centre
+    "۪",  # ۪  ARABIC EMPTY CENTRE LOW STOP
+    "۫",  # ۫  ARABIC EMPTY CENTRE HIGH STOP
+    "۬",  # ۬  ARABIC ROUNDED HIGH STOP WITH FILLED CENTRE
 }
 
 #: Waqf marks that are *not* peeled in every riwāyah.  U+06EC is used by the
 #: Warsh/Qālūn/Dūrī/Sūsī sets as an orthographic hamzat-waṣl cue on alif rather
-#: than as a pause sign, so it is only treated as waqf when it trails a word.
+#: than as a waqf sign, so it is only treated as waqf when it trails a word.
 CONTEXTUAL_WAQF = {"۬", "۪", "۫"}
 
-# --- vowels, tanwīn, and recitation diacritics ----------------------------
+# --- vowels, tanwīn, and recitation marks ----------------------------
 
-HARAKAT = {
-    "ً",  # ً fathatan
-    "ٌ",  # ٌ dammatan
-    "ٍ",  # ٍ kasratan
-    "َ",  # َ fatha
-    "ُ",  # ُ damma
-    "ِ",  # ِ kasra
-    "ّ",  # ّ shadda
+HARAKAHS = {
+    "ً",  # ً tanwīn al-fatḥ
+    "ٌ",  # ٌ tanwīn al-ḍamm
+    "ٍ",  # ٍ tanwīn al-kasr
+    "َ",  # َ fathah
+    "ُ",  # ُ dammah
+    "ِ",  # ِ kasrah
+    "ّ",  # ّ shaddah
     "ْ",  # ْ sukun
     "ۡ",  # ۡ small high dotless head of khah (KFGQPC sukun)
 }
@@ -77,24 +77,24 @@ HARAKAT = {
 #: "Open" tanwīn (iẓhār/idghām notation).  The v2 data sets encode these with
 #: repurposed combining marks; the v3.0 sets use the dedicated Arabic Extended-A
 #: codepoints added in Unicode 9.  :data:`NOTATION_FOLD` unifies them.
-OPEN_TANWEEN = {"ࣰ", "ࣱ", "ࣲ"}
+OPEN_TANWIN = {"ࣰ", "ࣱ", "ࣲ"}
 
 #: Orthographic marks that belong to the word (madd, small letters, rounded
 #: zeros, iqlāb mīm, ...).  Kept in the Uthmānī form, dropped from the rasm.
 ORTHOGRAPHIC_MARKS = {
     "ٓ",  # ٓ maddah above
-    "ٔ",  # ٔ hamza above
-    "ٕ",  # ٕ hamza below
-    "ٖ",  # ٖ subscript alef      (v2 open kasratan)
-    "ٗ",  # ٗ inverted damma      (v2 open dammatan)
+    "ٔ",  # ٔ hamzah above
+    "ٕ",  # ٕ hamzah below
+    "ٖ",  # ٖ subscript alef      (v2 open tanwīn al-kasr)
+    "ٗ",  # ٗ inverted dammah      (v2 open tanwīn al-ḍamm)
     "ٜ",  # ٜ vowel sign dot below
-    "ٞ",  # ٞ fatha with two dots (v2 open fathatan)
+    "ٞ",  # ٞ fathah with two dots (v2 open tanwīn al-fatḥ)
     "ٰ",  # ٰ superscript alef
     "۟",  # ۟ small high rounded zero
     "۠",  # ۠ small high upright rectangular zero
     "ۢ",  # ۢ small high meem isolated (iqlāb)
     "ۣ",  # ۣ small low seen
-    "ۤ",  # ۤ small high madda
+    "ۤ",  # ۤ small high maddah
     "ۥ",  # ۥ small waw   (ṣilah)
     "ۦ",  # ۦ small yeh   (ṣilah)
     "ۧ",  # ۧ small high yeh
@@ -102,14 +102,14 @@ ORTHOGRAPHIC_MARKS = {
     "ۭ",  # ۭ small low meem (iqlāb)
     "࢈",  # ࢈ raised round dot
     "࣌",  # small high word ṣaḥ
-} | OPEN_TANWEEN
+} | OPEN_TANWIN
 
 #: Everything that is a mark rather than a letter.
-ALL_MARKS = HARAKAT | ORTHOGRAPHIC_MARKS | WAQF_MARKS
+ALL_MARKS = HARAKAHS | ORTHOGRAPHIC_MARKS | WAQF_MARKS
 
 # --- notation folding -----------------------------------------------------
-# The 2022 (v2 / V20) and 2026 (v3.0) releases spell the *same* reading with
-# different codepoints.  Folding them is what stops the comparison from
+# The 2022 (v2 / V20) and 2026 (v3.0) releases spell the *same* qiraah with
+# different codepoints.  Folding them is what keeps the comparison from
 # reporting thousands of false variants between Dūrī and everything else.
 
 #: Alef carrying its vowel in one codepoint (Arabic Extended-B, Unicode 14/16).
@@ -125,16 +125,16 @@ ATTACHED_ALEF_DECOMP = {
 }
 
 NOTATION_FOLD = {
-    "ٞ": "ࣰ",  # fatha with two dots  -> open fathatan
-    "ٗ": "ࣱ",  # inverted damma       -> open dammatan
-    "ٖ": "ࣲ",  # subscript alef       -> open kasratan
+    "ٞ": "ࣰ",  # fathah with two dots  -> open tanwīn al-fatḥ
+    "ٗ": "ࣱ",  # inverted dammah       -> open tanwīn al-ḍamm
+    "ٖ": "ࣲ",  # subscript alef       -> open tanwīn al-kasr
     "ۡ": "ْ",  # KFGQPC sukun head    -> sukun
     "۟": "۠",  # rounded zero         -> rectangular zero
-    # --- glyph choices that say nothing about the reading ------------------
+    # --- glyph choices that say nothing about the qiraah ------------------
     "ے": "ي",  # yeh barree: the Warsh/Qālūn fonts' final yāʾ
     "ۑ": "ي",  # yeh with three dots below: likewise
-    "ۓ": "ئ",  # yeh barree with hamza above
-    "ࢇ": "ء",  # baseline round dot: the v3.0 sets' standalone hamza
+    "ۓ": "ئ",  # yeh barree with hamzah above
+    "ࢇ": "ء",  # baseline round dot: the v3.0 sets' standalone hamzah
     # --- hamzat waṣl, written four different ways across the packages -----
     "ٱ": "ا", "أ": "ا", "إ": "ا",
     "۬": "", "۪": "", "۫": "",   # the waṣl vowel cues that ride on an alef
@@ -155,19 +155,19 @@ RASM_FOLD = {}
 for _c in ALEF_FORMS:
     RASM_FOLD[_c] = "ا"          # every alif -> bare alif
 RASM_FOLD.update({
-    "ؤ": "و",               # ؤ -> و   hamza on a wāw seat: the seat is the letter
+    "ؤ": "و",               # ؤ -> و   hamzah on a wāw seat: the seat is the letter
     "ئ": "ي",               # ئ -> ي
     "ى": "ي",               # ى -> ي
     "ے": "ي",               # ے yeh barree -> ي
     "ۑ": "ي",               # ۑ yeh w/ three dots below -> ي
-    "ۓ": "ي",               # ۓ yeh barree with hamza -> ي
+    "ۓ": "ي",               # ۓ yeh barree with hamzah -> ي
     "ة": "ه",               # ة -> ه
     "ٮ": "ب",               # ٮ dotless beh -> ب
-    "ء": "",                # hamza is not a rasm letter (see below)
-    "ࢇ": "",                # baseline round dot: the same hamza, another glyph
+    "ء": "",                # hamzah is not a rasm letter (see below)
+    "ࢇ": "",                # baseline round dot: the same hamzah, another glyph
 })
 
-# Hamza is post-ʿUthmānic: it was devised by al-Khalīl in the 8th century, two
+# Hamzah is post-ʿUthmānic: it was devised by al-Khalīl in the 8th century, two
 # centuries after the codices were written.  A skeleton that keeps it is not a
 # rasm.  Dropping it — and reducing every carrier to its seat — is what makes
 # يَسۡتَهۡزِئُ and يَسْتَهْزِۓُ one word, and هَٰٓؤُلَآءِ and هَٰؤُلَآࢇ one word.
@@ -185,11 +185,11 @@ RASM_KEEP_MARKS_FOLD = {
 
 #: Dagger alif.  A superscript alef is, by definition, an alef the scribe did
 #: *not* write on the line: it is the reader's cue for ḥadhf al-alif.  So it is
-#: an ā for the reading — :func:`normalize.pointed` counts it — and no letter at
+#: an ā for the qiraah — :func:`normalize.pointed` counts it — and no letter at
 #: all for the rasm.  Counting it as a rasm letter reported مَٰلِكِ against مَلِكِ,
 #: دِفَٰعُ against دَفۡعُ and طَٰٓئِراً against طَيۡرًا as disagreements between the
 #: codices, when ملك, دفع and طير are exactly the skeletons written to carry
-#: both readings at once.
+#: both qiraahs at once.
 #:
 #: What the two typesettings *do* disagree about is which ā to put on the line —
 #: the Warsh/Qālūn set prints هَارُوتَ and مُبَٰرَك where the Kūfī set prints هَٰرُوتَ
@@ -203,25 +203,25 @@ RASM_KEEP_MARKS_FOLD = {
 SUPERSCRIPT_ALEF = "ٰ"
 
 #: Marks a dagger alif can carry that make it a madd *over something* — the
-#: maddah, and the rounded high stop the Warsh/Qālūn family uses for the same
+#: maddah, and the rounded high sign the Warsh/Qālūn family uses for the same
 #: job.  What the madd is over decides whether the dagger is a written ā at
-#: all: see :data:`HAMZA_ANY`.
-HAMZA_MADD_MARKS = {"ٓ", "۬"}
+#: all: see :data:`HAMZAH_ANY`.
+HAMZAH_MADD_MARKS = {"ٓ", "۬"}
 
-#: Hamza in every form it is written: bare, on a seat, and combining.  Used to
+#: Hamzah in every form it is written: bare, on a seat, and combining.  Used to
 #: read the one context where a dagger alif is not an ā.
 #:
-#: ``ٰٓ`` marks a madd over a hamza.  Where the hamza is there — ``إِسۡرَٰٓءِيلَ``,
+#: ``ٰٓ`` marks a madd over a hamzah.  Where the hamzah is there — ``إِسۡرَٰٓءِيلَ``,
 #: ``هَٰٓؤُلَآءِ``, ``مَلَٰٓئِكَةِ`` — the dagger is a genuine written ā and Warsh
 #: prints an alef in its place.  Where a plain letter follows instead, there is
-#: no hamza for the madd to be over, because the reading has suppressed it: in
-#: Warsh's ``ࡰرَٰٓيْتَ`` the dagger *is* the tashīl'd hamza of Ḥafṣ's ``أَرَءَيۡتَ``.
-#: Hamza is not part of the rasm, so neither is that dagger.
-HAMZA_ANY = {"ء", "أ", "إ", "ؤ", "ئ", "آ", "ٱ", "ࢇ", "ٔ", "ٕ", "ۓ"}
+#: no hamzah for the madd to be over, because the qiraah has suppressed it: in
+#: Warsh's ``ࡰرَٰٓيْتَ`` the dagger *is* the tashīl'd hamzah of Ḥafṣ's ``أَرَءَيۡتَ``.
+#: Hamzah is not part of the rasm, so neither is that dagger.
+HAMZAH_ANY = {"ء", "أ", "إ", "ؤ", "ئ", "آ", "ٱ", "ࢇ", "ٔ", "ٕ", "ۓ"}
 
 # --- iʿjām (pointing) -----------------------------------------------------
 # The ʿUthmānic codices were written without dots.  One skeleton therefore
-# carries several readings by design: تَعۡمَلُونَ and يَعۡمَلُونَ are not two rasms,
+# carries several qiraahs by design: تَعۡمَلُونَ and يَعۡمَلُونَ are not two rasms,
 # they are one rasm pointed two ways, and the muṣḥaf accommodates both on
 # purpose.  Folding the dots is what makes the index say so.
 #

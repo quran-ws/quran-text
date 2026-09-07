@@ -1,7 +1,7 @@
 {
  "format": "quran-counting",
  "format_version": "1.0",
- "generated": "2026-09-05",
+ "generated": "2026-09-07",
  "model": "Each system lists the shared number after which every one of its āyāt ends. The count belongs to the edition, not the riwāyah: an edition is listed under the system its own ayah_starts match, with what it does at every point where the system's own authorities disagree.",
  "source": {
   "repository": "https://github.com/quranpedia/qiraat-ayah-map",
@@ -11,9 +11,9 @@
    "counting-systems.json": "a4dfad8c302f3a7bd2172a07ecbd70045b448815edd955df2f0bedcb972b8117"
   },
   "overlay": {
-   "khilaf.json": "f331c1fba4bfd6bf71e3107bdac3c0eda3dc5f5e86b968067eff0852a15685e2",
-   "open-findings.json": "4ebb71a16e7fcfdbed274c398793d4b09b1564c502f59f477467c7f586d8871c",
-   "declared.json": "25b9a22835d6cc8d539881288d9973f7f56be0a080e2e1000d86ec6de5bad768"
+   "khilaf.json": "d945ca074b75fee11e01af65ab0d2866d5e349cf315cbfd4157cb6b554ef96dd",
+   "open-findings.json": "7a014e0fe8345c17d0559869bea6e0a8a3829f471168bd8be4db27a06a8d8bda",
+   "declared.json": "feba23ee612ddd2008797432cdaa3c73f3e5ddc2de4ca880c6b6f76c07b22980"
   }
  },
  "disputed_points": [
@@ -2693,16 +2693,16 @@
  "systems": {
   "madani-first": {
    "name_ar": "المدني الأول",
-   "name_en": "First Madinan",
+   "name_en": "First Madani Numbering",
    "reference_total": 6217,
    "editions": [
     {
-     "mushaf": "douri",
+     "mushaf": "duri",
      "ayah_count": 6217,
      "basmalah_counted": false,
      "khilaf": [
       {
-       "sura": 3,
+       "surah": 3,
        "ayah": 91,
        "kufi": "3:92",
        "number": 7715,
@@ -2722,7 +2722,7 @@
        }
       },
       {
-       "sura": 3,
+       "surah": 3,
        "ayah": 97,
        "kufi": "3:97",
        "number": 7784,
@@ -2742,7 +2742,7 @@
        }
       },
       {
-       "sura": 37,
+       "surah": 37,
        "ayah": 167,
        "kufi": "37:167",
        "number": 58203,
@@ -2762,7 +2762,7 @@
        }
       },
       {
-       "sura": 67,
+       "surah": 67,
        "ayah": 9,
        "kufi": "67:9",
        "number": 72557,
@@ -2783,7 +2783,7 @@
        }
       },
       {
-       "sura": 80,
+       "surah": 80,
        "ayah": 24,
        "kufi": "80:24",
        "number": 75556,
@@ -2803,7 +2803,7 @@
        }
       },
       {
-       "sura": 81,
+       "surah": 81,
        "ayah": 26,
        "kufi": "81:26",
        "number": 75697,
@@ -2826,12 +2826,12 @@
      "unexplained": []
     },
     {
-     "mushaf": "sousi",
+     "mushaf": "susi",
      "ayah_count": 6218,
      "basmalah_counted": false,
      "khilaf": [
       {
-       "sura": 3,
+       "surah": 3,
        "ayah": 91,
        "kufi": "3:92",
        "number": 7715,
@@ -2851,7 +2851,7 @@
        }
       },
       {
-       "sura": 3,
+       "surah": 3,
        "ayah": 97,
        "kufi": "3:97",
        "number": 7784,
@@ -2871,7 +2871,7 @@
        }
       },
       {
-       "sura": 37,
+       "surah": 37,
        "ayah": 167,
        "kufi": "37:167",
        "number": 58203,
@@ -2891,7 +2891,7 @@
        }
       },
       {
-       "sura": 67,
+       "surah": 67,
        "ayah": 9,
        "kufi": "67:9",
        "number": 72557,
@@ -2912,7 +2912,7 @@
        }
       },
       {
-       "sura": 80,
+       "surah": 80,
        "ayah": 24,
        "kufi": "80:24",
        "number": 75556,
@@ -2932,7 +2932,7 @@
        }
       },
       {
-       "sura": 81,
+       "surah": 81,
        "ayah": 26,
        "kufi": "81:26",
        "number": 75697,
@@ -9270,7 +9270,7 @@
   },
   "madani-last": {
    "name_ar": "المدني الأخير",
-   "name_en": "Last Madinan",
+   "name_en": "Last Madani Numbering",
    "reference_total": 6214,
    "editions": [
     {
@@ -9281,7 +9281,7 @@
      "unexplained": []
     },
     {
-     "mushaf": "qaloun",
+     "mushaf": "qalun",
      "ayah_count": 6214,
      "basmalah_counted": false,
      "khilaf": [],
@@ -15508,7 +15508,7 @@
   },
   "makki": {
    "name_ar": "المكي",
-   "name_en": "Makkan",
+   "name_en": "Makki Numbering",
    "reference_total": 6219,
    "editions": [
     {
@@ -15518,7 +15518,7 @@
      "khilaf": [],
      "unexplained": [
       {
-       "sura": 78,
+       "surah": 78,
        "ayah": 40,
        "kufi": "78:40",
        "number": 75288,
@@ -21753,7 +21753,7 @@
   },
   "basri": {
    "name_ar": "البصري",
-   "name_en": "Basran",
+   "name_en": "Basri Numbering",
    "reference_total": 6204,
    "editions": [],
    "khilaf_points": [],
@@ -27966,7 +27966,7 @@
   },
   "dimashqi": {
    "name_ar": "الدمشقي",
-   "name_en": "Damascene",
+   "name_en": "Dimashqi Numbering",
    "reference_total": 6226,
    "editions": [],
    "khilaf_points": [],
@@ -34201,7 +34201,7 @@
   },
   "kufi": {
    "name_ar": "الكوفي",
-   "name_en": "Kufan",
+   "name_en": "Kufi Numbering",
    "reference_total": 6236,
    "editions": [
     {
@@ -34212,7 +34212,7 @@
      "unexplained": []
     },
     {
-     "mushaf": "shuba",
+     "mushaf": "shubah",
      "ayah_count": 6236,
      "basmalah_counted": true,
      "khilaf": [],
@@ -40463,7 +40463,7 @@
  "open_findings": [
   {
    "mushaf": "bazzi",
-   "sura": 78,
+   "surah": 78,
    "ayah": 40,
    "kind": "internal",
    "word": "قريبا",

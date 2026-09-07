@@ -1,19 +1,19 @@
 {
  "format": "quran-mushaf",
  "format_version": "1.0",
- "generated": "2026-09-05",
+ "generated": "2026-09-07",
  "mushaf": {
   "key": "hafs",
   "name_en": "Ḥafṣ",
   "name_ar": "حفص",
-  "qari_en": "ʿĀṣim al-Kūfī",
-  "qari_ar": "عاصم الكوفي",
+  "qiraah_en": "ʿĀṣim al-Kūfī",
+  "qiraah_ar": "عاصم الكوفي",
   "word_count": 77432
  },
  "counting": {
   "system": "kufi",
   "system_name_ar": "الكوفي",
-  "system_name_en": "Kufan",
+  "system_name_en": "Kufi Numbering",
   "declared_by": null,
   "ayah_count": 6236,
   "basmalah_counted": true,
@@ -35,9 +35,9 @@
     "counting-systems.json": "a4dfad8c302f3a7bd2172a07ecbd70045b448815edd955df2f0bedcb972b8117"
    },
    "overlay": {
-    "khilaf.json": "f331c1fba4bfd6bf71e3107bdac3c0eda3dc5f5e86b968067eff0852a15685e2",
-    "open-findings.json": "4ebb71a16e7fcfdbed274c398793d4b09b1564c502f59f477467c7f586d8871c",
-    "declared.json": "25b9a22835d6cc8d539881288d9973f7f56be0a080e2e1000d86ec6de5bad768"
+    "khilaf.json": "d945ca074b75fee11e01af65ab0d2866d5e349cf315cbfd4157cb6b554ef96dd",
+    "open-findings.json": "7a014e0fe8345c17d0559869bea6e0a8a3829f471168bd8be4db27a06a8d8bda",
+    "declared.json": "feba23ee612ddd2008797432cdaa3c73f3e5ddc2de4ca880c6b6f76c07b22980"
    }
   }
  },
@@ -67,17 +67,17 @@
   "member": "UthmanicHafs-v-3.0.ttf",
   "sha256": "5c47602425fb4190327ab9e1a2e8ed2f53dceaf595d8ccc29ac32b8b209ad398",
   "publisher": "https://fonts.qurancomplex.gov.sa/",
-  "note": "The text uses codepoints only this font is guaranteed to draw (Arabic Extended-B alefs, open tanwīn, the pause signs). Ship it with the text; a general Arabic font will show gaps."
+  "note": "The text uses codepoints only this font is guaranteed to draw (Arabic Extended-B alefs, open tanwīn, the waqf signs). Ship it with the text; a general Arabic font will show gaps."
  },
  "layers": {
   "present": [
-   "suras",
-   "ayat",
+   "surahs",
+   "ayahs",
    "pages",
    "lines",
    "marks",
    "juz",
-   "imlaei"
+   "rasm_imlai"
   ],
   "absent": {},
   "derived": {
@@ -85,24 +85,24 @@
     "how": "reconstructed from the document's line breaks, paragraph boundaries and sūrah headings; printed lines are not encoded in the release",
     "validated": true,
     "against": "UthmanicHafs_v2-0.zip :: UthmanicHafs_v2-0 data/hafsData_v2-0.csv",
-    "ayat_checked": 6236,
-    "ayat_agreeing": 6131
+    "ayahs_checked": 6236,
+    "ayahs_agreeing": 6131
    },
-   "imlaei": {
+   "rasm_imlai": {
     "available": true,
     "source": "UthmanicHafs_v2-0.zip :: UthmanicHafs_v2-0 data/hafsData_v2-0.csv",
     "column": "aya_text_emlaey",
     "words_mapped": 77356,
-    "ayat_needing_join": 57,
-    "ayat_unpaired": 4,
-    "ayat_unaligned": 2,
+    "ayahs_needing_join": 57,
+    "ayahs_unpaired": 4,
+    "ayahs_unaligned": 2,
     "note": "imlāʾī is published only where a release supplies it; it is never derived by rule"
    }
   },
   "notes": {
    "page": "read from explicit page breaks in the release, not inferred",
-   "waqf": "pause-mark conventions differ by muṣḥaf and are not comparable across them: Warsh and Qālūn print one general sign where Ḥafṣ, Dūrī and Sūsī print seven distinct ones",
-   "hizb": "the ۞ symbol is emitted exactly as the release prints it. The releases disagree about how often to print it — 199 times in Ḥafṣ, Shuʿbah and Bazzī against 433–437 in the others — and nothing here reconciles them"
+   "waqf": "waqf-mark conventions differ by muṣḥaf and are not comparable across them: Warsh and Qālūn print one general sign where Ḥafṣ, Dūrī and Sūsī print seven distinct ones",
+   "division": "the ۞ symbol is emitted exactly as the release prints it. The releases disagree about how often to print it — 199 times in Ḥafṣ, Shuʿbah and Bazzī against 433–437 in the others — and nothing here reconciles them"
   }
  },
  "words": [
@@ -77539,7 +77539,7 @@
   "ٱلۡجِنَّةِ",
   "وَٱلنَّاسِ"
  ],
- "imlaei": [
+ "rasm_imlai": [
   "بسم",
   "الله",
   "الرحمن",
@@ -154988,7 +154988,7 @@
    }
   ]
  },
- "sura_starts": [
+ "surah_starts": [
   0,
   29,
   6146,
@@ -170802,7 +170802,7 @@
   72463,
   75124
  ],
- "suras": [
+ "surahs": [
   {
    "number": 1,
    "name_ar": "الفَاتِحة",
@@ -189818,7 +189818,7 @@
    "sign": "ۚ"
   },
   {
-   "kind": "hizb",
+   "kind": "division",
    "side": "before",
    "sign": "۞"
   },
@@ -189879,631 +189879,631 @@
  "resegmentation": [],
  "line_disagreements": [
   {
-   "sura": 1,
+   "surah": 1,
    "ayah": 1,
    "derived": 3,
    "source": 2
   },
   {
-   "sura": 1,
+   "surah": 1,
    "ayah": 2,
    "derived": 4,
    "source": 3
   },
   {
-   "sura": 1,
+   "surah": 1,
    "ayah": 3,
    "derived": 5,
    "source": 4
   },
   {
-   "sura": 1,
+   "surah": 1,
    "ayah": 4,
    "derived": 5,
    "source": 4
   },
   {
-   "sura": 1,
+   "surah": 1,
    "ayah": 5,
    "derived": 6,
    "source": 5
   },
   {
-   "sura": 1,
+   "surah": 1,
    "ayah": 6,
    "derived": 7,
    "source": 6
   },
   {
-   "sura": 1,
+   "surah": 1,
    "ayah": 7,
    "derived": 9,
    "source": 8
   },
   {
-   "sura": 83,
+   "surah": 83,
    "ayah": 1,
    "derived": 15,
    "source": 14
   },
   {
-   "sura": 83,
+   "surah": 83,
    "ayah": 2,
    "derived": 15,
    "source": 14
   },
   {
-   "sura": 83,
+   "surah": 83,
    "ayah": 3,
    "derived": 16,
    "source": 15
   },
   {
-   "sura": 83,
+   "surah": 83,
    "ayah": 4,
    "derived": 16,
    "source": 15
   },
   {
-   "sura": 87,
+   "surah": 87,
    "ayah": 1,
    "derived": 13,
    "source": 12
   },
   {
-   "sura": 87,
+   "surah": 87,
    "ayah": 2,
    "derived": 13,
    "source": 12
   },
   {
-   "sura": 87,
+   "surah": 87,
    "ayah": 3,
    "derived": 14,
    "source": 13
   },
   {
-   "sura": 87,
+   "surah": 87,
    "ayah": 4,
    "derived": 14,
    "source": 13
   },
   {
-   "sura": 87,
+   "surah": 87,
    "ayah": 5,
    "derived": 14,
    "source": 13
   },
   {
-   "sura": 87,
+   "surah": 87,
    "ayah": 6,
    "derived": 15,
    "source": 14
   },
   {
-   "sura": 87,
+   "surah": 87,
    "ayah": 7,
    "derived": 15,
    "source": 14
   },
   {
-   "sura": 87,
+   "surah": 87,
    "ayah": 8,
    "derived": 16,
    "source": 15
   },
   {
-   "sura": 87,
+   "surah": 87,
    "ayah": 9,
    "derived": 16,
    "source": 15
   },
   {
-   "sura": 87,
+   "surah": 87,
    "ayah": 10,
    "derived": 16,
    "source": 15
   },
   {
-   "sura": 92,
+   "surah": 92,
    "ayah": 1,
    "derived": 14,
    "source": 13
   },
   {
-   "sura": 92,
+   "surah": 92,
    "ayah": 2,
    "derived": 14,
    "source": 13
   },
   {
-   "sura": 92,
+   "surah": 92,
    "ayah": 3,
    "derived": 14,
    "source": 13
   },
   {
-   "sura": 92,
+   "surah": 92,
    "ayah": 4,
    "derived": 15,
    "source": 14
   },
   {
-   "sura": 92,
+   "surah": 92,
    "ayah": 5,
    "derived": 15,
    "source": 14
   },
   {
-   "sura": 92,
+   "surah": 92,
    "ayah": 6,
    "derived": 15,
    "source": 14
   },
   {
-   "sura": 92,
+   "surah": 92,
    "ayah": 7,
    "derived": 16,
    "source": 15
   },
   {
-   "sura": 92,
+   "surah": 92,
    "ayah": 8,
    "derived": 16,
    "source": 15
   },
   {
-   "sura": 92,
+   "surah": 92,
    "ayah": 9,
    "derived": 16,
    "source": 15
   },
   {
-   "sura": 94,
+   "surah": 94,
    "ayah": 1,
    "derived": 16,
    "source": 15
   },
   {
-   "sura": 94,
+   "surah": 94,
    "ayah": 2,
    "derived": 16,
    "source": 15
   },
   {
-   "sura": 96,
+   "surah": 96,
    "ayah": 1,
    "derived": 12,
    "source": 11
   },
   {
-   "sura": 96,
+   "surah": 96,
    "ayah": 2,
    "derived": 12,
    "source": 11
   },
   {
-   "sura": 96,
+   "surah": 96,
    "ayah": 3,
    "derived": 13,
    "source": 12
   },
   {
-   "sura": 96,
+   "surah": 96,
    "ayah": 4,
    "derived": 13,
    "source": 12
   },
   {
-   "sura": 96,
+   "surah": 96,
    "ayah": 5,
    "derived": 14,
    "source": 13
   },
   {
-   "sura": 96,
+   "surah": 96,
    "ayah": 6,
    "derived": 14,
    "source": 13
   },
   {
-   "sura": 96,
+   "surah": 96,
    "ayah": 7,
    "derived": 14,
    "source": 13
   },
   {
-   "sura": 96,
+   "surah": 96,
    "ayah": 8,
    "derived": 15,
    "source": 14
   },
   {
-   "sura": 96,
+   "surah": 96,
    "ayah": 9,
    "derived": 15,
    "source": 14
   },
   {
-   "sura": 96,
+   "surah": 96,
    "ayah": 10,
    "derived": 16,
    "source": 15
   },
   {
-   "sura": 96,
+   "surah": 96,
    "ayah": 11,
    "derived": 16,
    "source": 15
   },
   {
-   "sura": 96,
+   "surah": 96,
    "ayah": 12,
    "derived": 16,
    "source": 15
   },
   {
-   "sura": 98,
+   "surah": 98,
    "ayah": 1,
    "derived": 13,
    "source": 12
   },
   {
-   "sura": 98,
+   "surah": 98,
    "ayah": 2,
    "derived": 13,
    "source": 12
   },
   {
-   "sura": 98,
+   "surah": 98,
    "ayah": 3,
    "derived": 14,
    "source": 13
   },
   {
-   "sura": 98,
+   "surah": 98,
    "ayah": 4,
    "derived": 15,
    "source": 14
   },
   {
-   "sura": 98,
+   "surah": 98,
    "ayah": 5,
    "derived": 16,
    "source": 15
   },
   {
-   "sura": 100,
+   "surah": 100,
    "ayah": 1,
    "derived": 15,
    "source": 14
   },
   {
-   "sura": 100,
+   "surah": 100,
    "ayah": 2,
    "derived": 15,
    "source": 14
   },
   {
-   "sura": 100,
+   "surah": 100,
    "ayah": 3,
    "derived": 16,
    "source": 15
   },
   {
-   "sura": 100,
+   "surah": 100,
    "ayah": 4,
    "derived": 16,
    "source": 15
   },
   {
-   "sura": 100,
+   "surah": 100,
    "ayah": 5,
    "derived": 16,
    "source": 15
   },
   {
-   "sura": 102,
+   "surah": 102,
    "ayah": 1,
    "derived": 14,
    "source": 13
   },
   {
-   "sura": 102,
+   "surah": 102,
    "ayah": 2,
    "derived": 14,
    "source": 13
   },
   {
-   "sura": 102,
+   "surah": 102,
    "ayah": 3,
    "derived": 14,
    "source": 13
   },
   {
-   "sura": 102,
+   "surah": 102,
    "ayah": 4,
    "derived": 15,
    "source": 14
   },
   {
-   "sura": 102,
+   "surah": 102,
    "ayah": 5,
    "derived": 15,
    "source": 14
   },
   {
-   "sura": 102,
+   "surah": 102,
    "ayah": 6,
    "derived": 15,
    "source": 14
   },
   {
-   "sura": 102,
+   "surah": 102,
    "ayah": 7,
    "derived": 16,
    "source": 15
   },
   {
-   "sura": 102,
+   "surah": 102,
    "ayah": 8,
    "derived": 16,
    "source": 15
   },
   {
-   "sura": 104,
+   "surah": 104,
    "ayah": 1,
    "derived": 8,
    "source": 7
   },
   {
-   "sura": 104,
+   "surah": 104,
    "ayah": 2,
    "derived": 8,
    "source": 7
   },
   {
-   "sura": 104,
+   "surah": 104,
    "ayah": 3,
    "derived": 9,
    "source": 8
   },
   {
-   "sura": 104,
+   "surah": 104,
    "ayah": 4,
    "derived": 9,
    "source": 8
   },
   {
-   "sura": 104,
+   "surah": 104,
    "ayah": 5,
    "derived": 10,
    "source": 9
   },
   {
-   "sura": 104,
+   "surah": 104,
    "ayah": 6,
    "derived": 10,
    "source": 9
   },
   {
-   "sura": 104,
+   "surah": 104,
    "ayah": 7,
    "derived": 11,
    "source": 10
   },
   {
-   "sura": 104,
+   "surah": 104,
    "ayah": 8,
    "derived": 11,
    "source": 10
   },
   {
-   "sura": 104,
+   "surah": 104,
    "ayah": 9,
    "derived": 11,
    "source": 10
   },
   {
-   "sura": 105,
+   "surah": 105,
    "ayah": 1,
    "derived": 15,
    "source": 13
   },
   {
-   "sura": 105,
+   "surah": 105,
    "ayah": 2,
    "derived": 16,
    "source": 14
   },
   {
-   "sura": 105,
+   "surah": 105,
    "ayah": 3,
    "derived": 16,
    "source": 14
   },
   {
-   "sura": 105,
+   "surah": 105,
    "ayah": 4,
    "derived": 17,
    "source": 15
   },
   {
-   "sura": 105,
+   "surah": 105,
    "ayah": 5,
    "derived": 17,
    "source": 15
   },
   {
-   "sura": 107,
+   "surah": 107,
    "ayah": 1,
    "derived": 9,
    "source": 8
   },
   {
-   "sura": 107,
+   "surah": 107,
    "ayah": 2,
    "derived": 10,
    "source": 9
   },
   {
-   "sura": 107,
+   "surah": 107,
    "ayah": 3,
    "derived": 10,
    "source": 9
   },
   {
-   "sura": 107,
+   "surah": 107,
    "ayah": 4,
    "derived": 11,
    "source": 10
   },
   {
-   "sura": 107,
+   "surah": 107,
    "ayah": 5,
    "derived": 11,
    "source": 10
   },
   {
-   "sura": 107,
+   "surah": 107,
    "ayah": 6,
    "derived": 12,
    "source": 11
   },
   {
-   "sura": 107,
+   "surah": 107,
    "ayah": 7,
    "derived": 12,
    "source": 11
   },
   {
-   "sura": 108,
+   "surah": 108,
    "ayah": 1,
    "derived": 16,
    "source": 14
   },
   {
-   "sura": 108,
+   "surah": 108,
    "ayah": 2,
    "derived": 16,
    "source": 14
   },
   {
-   "sura": 108,
+   "surah": 108,
    "ayah": 3,
    "derived": 17,
    "source": 15
   },
   {
-   "sura": 110,
+   "surah": 110,
    "ayah": 1,
    "derived": 9,
    "source": 8
   },
   {
-   "sura": 110,
+   "surah": 110,
    "ayah": 2,
    "derived": 10,
    "source": 9
   },
   {
-   "sura": 110,
+   "surah": 110,
    "ayah": 3,
    "derived": 11,
    "source": 10
   },
   {
-   "sura": 111,
+   "surah": 111,
    "ayah": 1,
    "derived": 15,
    "source": 13
   },
   {
-   "sura": 111,
+   "surah": 111,
    "ayah": 2,
    "derived": 15,
    "source": 13
   },
   {
-   "sura": 111,
+   "surah": 111,
    "ayah": 3,
    "derived": 16,
    "source": 14
   },
   {
-   "sura": 111,
+   "surah": 111,
    "ayah": 4,
    "derived": 16,
    "source": 14
   },
   {
-   "sura": 111,
+   "surah": 111,
    "ayah": 5,
    "derived": 17,
    "source": 15
   },
   {
-   "sura": 113,
+   "surah": 113,
    "ayah": 1,
    "derived": 8,
    "source": 7
   },
   {
-   "sura": 113,
+   "surah": 113,
    "ayah": 2,
    "derived": 8,
    "source": 7
   },
   {
-   "sura": 113,
+   "surah": 113,
    "ayah": 3,
    "derived": 9,
    "source": 8
   },
   {
-   "sura": 113,
+   "surah": 113,
    "ayah": 4,
    "derived": 9,
    "source": 8
   },
   {
-   "sura": 113,
+   "surah": 113,
    "ayah": 5,
    "derived": 10,
    "source": 9
   },
   {
-   "sura": 114,
+   "surah": 114,
    "ayah": 1,
    "derived": 14,
    "source": 12
   },
   {
-   "sura": 114,
+   "surah": 114,
    "ayah": 2,
    "derived": 14,
    "source": 12
   },
   {
-   "sura": 114,
+   "surah": 114,
    "ayah": 3,
    "derived": 15,
    "source": 13
   },
   {
-   "sura": 114,
+   "surah": 114,
    "ayah": 4,
    "derived": 15,
    "source": 13
   },
   {
-   "sura": 114,
+   "surah": 114,
    "ayah": 5,
    "derived": 16,
    "source": 14
   },
   {
-   "sura": 114,
+   "surah": 114,
    "ayah": 6,
    "derived": 17,
    "source": 15

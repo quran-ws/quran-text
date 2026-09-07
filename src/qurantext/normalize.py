@@ -3,22 +3,22 @@
 Five forms are derived from every raw token, each answering a different
 question:
 
-``uthmani``  the word as printed, minus pause marks and structural symbols.
+``rasm_uthmani``  the word as printed, minus waqf marks and structural symbols.
              This is the canonical display form.
-``folded``   ``uthmani`` with release-specific notation unified, so that the
-             2022 and 2026 spellings of one reading compare equal.
+``folded``   ``rasm_uthmani`` with release-specific notation unified, so that the
+             2022 and 2026 spellings of one qiraah compare equal.
 ``pointed``  the consonantal skeleton *with* its dots: what a modern reader
              would call the letters of the word.
-``rasm``     the bare ʿUthmānic skeleton — undotted, no hamza, no vowels.  This
+``rasm``     the bare ʿUthmānic skeleton — undotted, no hamzah, no vowels.  This
              is the alignment key and the identity of a word across riwāyāt.
-``simple``   plain modern spelling, for search and for human-readable diffs.
+``plain``   plain modern spelling, for search and for human-readable diffs.
 
 ``pointed`` and ``rasm`` are separate because the difference between them is
 itself a category of variation.  تَعۡمَلُونَ and يَعۡمَلُونَ have different pointed
 forms but one rasm: the codices were written undotted, so a single skeleton
-carries both readings on purpose.  Calling that a "rasm variant" would be a
+carries both qiraahs on purpose.  Calling that a "rasm variant" would be a
 category error; calling it a mere vowelling difference would hide a real
-reading.  It gets its own name, ``dotting_variant``.
+qiraah.  It gets its own name, ``dotting_variant``.
 """
 
 from __future__ import annotations
@@ -40,7 +40,7 @@ def strip_controls(text: str) -> str:
 
 
 def split_trailing_waqf(token: str) -> tuple[str, str]:
-    """Peel pause marks off the end of a token.
+    """Peel waqf marks off the end of a token.
 
     Returns ``(word, waqf)``.  Only *trailing* marks are peeled: U+06EC and
     friends double as orthographic cues in the Warsh family when they sit on an
@@ -52,7 +52,7 @@ def split_trailing_waqf(token: str) -> tuple[str, str]:
     return token[:i], token[i:]
 
 
-def uthmani(word: str) -> str:
+def rasm_uthmani(word: str) -> str:
     """Canonical display form: NFC, no controls, no structural symbols."""
     cleaned = "".join(
         ch for ch in strip_controls(word)
@@ -62,12 +62,12 @@ def uthmani(word: str) -> str:
 
 
 #: A tanwīn written before the alif it sits on, rather than after it.  The two
-#: orders are the same reading: ``حَطَبࣰا`` and ``حَطَباࣰ`` are one word.
-_TANWEEN_BEFORE_ALEF = re.compile("([ًࣰٌࣱٍࣲ])(ا)")
+#: orders are the same qiraah: ``حَطَبࣰا`` and ``حَطَباࣰ`` are one word.
+_TANWIN_BEFORE_ALEF = re.compile("([ًࣰٌࣱٍࣲ])(ا)")
 
 
 def fold_notation(word: str) -> str:
-    """Unify the spellings of one reading across releases and typesettings.
+    """Unify the spellings of one qiraah across releases and typesettings.
 
     Three kinds of difference are neutralised: the v2 (2022) and v3.0 (2026)
     codepoints for the same mark; the several ways the packages write an alef
@@ -76,40 +76,40 @@ def fold_notation(word: str) -> str:
     and its alef seat are stored.
     """
     folded = "".join(chars.NOTATION_FOLD.get(ch, ch) for ch in word)
-    folded = _TANWEEN_BEFORE_ALEF.sub(r"\2\1", folded)
+    folded = _TANWIN_BEFORE_ALEF.sub(r"\2\1", folded)
     return unicodedata.normalize("NFC", folded)
 
 
-def _is_suppressed_hamza(text: str, i: int) -> bool:
-    """True when the dagger alif at ``text[i]`` stands in for a hamza.
+def _is_suppressed_hamzah(text: str, i: int) -> bool:
+    """True when the dagger alif at ``text[i]`` stands in for a hamzah.
 
     ``ٰٓ`` — or ``ٰ۬``, which the Warsh/Qālūn set writes for the same thing — is a
-    madd over a hamza.  Warsh's tashīl suppresses the hamza itself
-    and leaves the madd behind, so a dagger-plus-maddah with no hamza after it
-    is notating a hamza rather than a written ā — and hamza is not rasm.  With
-    the hamza still present (``إِسۡرَٰٓءِيلَ``, ``مَلَٰٓئِكَةِ``) or with nothing after
+    madd over a hamzah.  Warsh's tashīl suppresses the hamzah itself
+    and leaves the madd behind, so a dagger-plus-maddah with no hamzah after it
+    is notating a hamzah rather than a written ā — and hamzah is not rasm.  With
+    the hamzah still present (``إِسۡرَٰٓءِيلَ``, ``مَلَٰٓئِكَةِ``) or with nothing after
     it at all (``عَلَىٰٓ``), the dagger is a genuine ā that other packages print
     as an alef on the line.
 
     Deciding this needs the *word*, not the character: the two cases are
     identical up to and including the dagger, and differ only in what follows.
     """
-    if i + 1 >= len(text) or text[i + 1] not in chars.HAMZA_MADD_MARKS:
+    if i + 1 >= len(text) or text[i + 1] not in chars.HAMZAH_MADD_MARKS:
         return False
     for j, ch in enumerate(text[i + 2:], start=i + 2):
-        if ch in chars.HAMZA_ANY:
-            return False         # the madd has its hamza; the dagger is an ā
+        if ch in chars.HAMZAH_ANY:
+            return False         # the madd has its hamzah; the dagger is an ā
         if ch in chars.ALL_MARKS:
             continue
         # A plain letter — but a madd over a *doubled* one is madd lāzim, a
-        # genuine long ā before a shadda (``تَتَّبِعَٰٓنِّ``, ``فَذَٰٓنِّكَ``), not a
-        # hamza.  Only an undoubled letter leaves the madd with nothing to be
+        # genuine long ā before a shaddah (``تَتَّبِعَٰٓنِّ``, ``فَذَٰٓنِّكَ``), not a
+        # hamzah.  Only an undoubled letter leaves the madd with nothing to be
         # over, and that is the tashīl case.
-        return not _carries_shadda(text, j)
+        return not _carries_shaddah(text, j)
     return False                 # nothing follows; keep the ā (``عَلَىٰٓ``)
 
 
-def _carries_shadda(text: str, i: int) -> bool:
+def _carries_shaddah(text: str, i: int) -> bool:
     """True when the letter at ``text[i]`` is written doubled."""
     for ch in text[i + 1:]:
         if ch == "ّ":
@@ -120,7 +120,7 @@ def _carries_shadda(text: str, i: int) -> bool:
 
 
 def _letters(text: str, *, dagger_on_the_line: bool) -> str:
-    """The letters of ``text``, hamza dropped and every carrier reduced to its seat.
+    """The letters of ``text``, hamzah dropped and every carrier reduced to its seat.
 
     ``dagger_on_the_line`` decides the one question the two KFGQPC typesettings
     answer differently: whether a superscript alef counts as a letter.  It does
@@ -139,8 +139,8 @@ def _letters(text: str, *, dagger_on_the_line: bool) -> str:
         if ch == chars.SUPERSCRIPT_ALEF:
             if not dagger_on_the_line:
                 continue         # a dagger alif is by definition not on the line
-            if _is_suppressed_hamza(text, i):
-                continue         # the dagger *is* the hamza; hamza is not rasm
+            if _is_suppressed_hamzah(text, i):
+                continue         # the dagger *is* the hamzah; hamzah is not rasm
             # ``اٰ``: the alef on the line already carries this ā.
             if not out or out[-1] != "ا":
                 out.append("ا")
@@ -154,7 +154,7 @@ def _letters(text: str, *, dagger_on_the_line: bool) -> str:
             continue             # a mark does not interrupt the pair
         letter = chars.RASM_FOLD.get(ch, ch)
         if not letter:
-            continue             # hamza: dropped, and no letter intervenes
+            continue             # hamzah: dropped, and no letter intervenes
         if letter == "ا" and from_dagger:
             from_dagger = False  # ``ٰا``: the dagger already supplied this ā
             continue
@@ -177,30 +177,30 @@ def _undot(letters: str) -> str:
 def pointed(word: str) -> str:
     """Consonantal skeleton keeping the dots: the letters as the word is read.
 
-    Here the dagger alif *is* an alef, because this form spells the reading and
-    the reading has the ā however the typesetter chose to print it.  That is the
+    Here the dagger alif *is* an alef, because this form spells the qiraah and
+    the qiraah has the ā however the typesetter chose to print it.  That is the
     opposite of :func:`rasm`, and deliberately so: it is what lets ``مَٰلِكِ`` and
     ``مَلِكِ`` be one rasm read two ways rather than two rasms.
     """
-    return _letters(uthmani(word), dagger_on_the_line=True)
+    return _letters(rasm_uthmani(word), dagger_on_the_line=True)
 
 
 def rasm(word: str) -> str:
     """The bare ʿUthmānic skeleton — the cross-riwāyah alignment key.
 
-    Undotted, unvowelled, without hamza, and **without the dagger alif**,
+    Undotted, unvowelled, without hamzah, and **without the dagger alif**,
     because that is what the codices were: a superscript alef is by definition
     an alef the scribe did not write on the line, and everything added later to
-    disambiguate a reading is exactly what the riwāyāt are allowed to disagree
+    disambiguate a qiraah is exactly what the riwāyāt are allowed to disagree
     about.  Counting it as a letter is what used to report ``مَٰلِكِ``/``مَلِكِ``,
     ``دِفَٰعُ``/``دَفۡعُ`` and ``طَٰٓئِراً``/``طَيۡرًا`` as differences between the
     codices, when ملك, دفع and طير are precisely the skeletons that carry both
-    readings — the ḥadhf al-alif that makes one muṣḥaf serve seven riwāyāt.
+    qiraahs — the ḥadhf al-alif that makes one muṣḥaf serve seven riwāyāt.
 
     Two words with the same rasm are one word in the index, however differently
     they are read.
     """
-    return _undot(_letters(uthmani(word), dagger_on_the_line=False))
+    return _undot(_letters(rasm_uthmani(word), dagger_on_the_line=False))
 
 
 def rasm_plene(word: str) -> str:
@@ -231,41 +231,41 @@ def unpositioned(skeleton: str) -> str:
 
 
 #: Marks kept when producing the plain-spelling form.
-_SIMPLE_DROP = chars.ALL_MARKS - {"ّ"}
+_PLAIN_DROP = chars.ALL_MARKS - {"ّ"}
 
-_SIMPLE_FOLD = {
+_PLAIN_FOLD = {
     "ٱ": "ا",
     "ے": "ي",
     "ۑ": "ي",
     "ࢇ": "",
 }
-_SIMPLE_FOLD.update({c: "ا" for c in chars.ATTACHED_ALEF})
+_PLAIN_FOLD.update({c: "ا" for c in chars.ATTACHED_ALEF})
 
 
-def simple(word: str) -> str:
-    """Plain modern spelling: no diacritics, superscript alif made explicit."""
-    text = uthmani(word)
+def plain(word: str) -> str:
+    """Plain modern spelling: no harakah, superscript alif made explicit."""
+    text = rasm_uthmani(word)
     out = []
     for ch in text:
         if ch == "ٰ":         # superscript alif -> written alif
             out.append("ا")
             continue
-        if ch in _SIMPLE_DROP:
+        if ch in _PLAIN_DROP:
             continue
-        out.append(_SIMPLE_FOLD.get(ch, ch))
+        out.append(_PLAIN_FOLD.get(ch, ch))
     return "".join(out)
 
 
 def forms(word: str) -> dict[str, str]:
     """All derived forms of one word."""
-    u = uthmani(word)
+    u = rasm_uthmani(word)
     return {
-        "uthmani": u,
+        "rasm_uthmani": u,
         "folded": fold_notation(u),
         "pointed": pointed(u),
         "rasm": rasm(u),
         "rasm_plene": rasm_plene(u),
-        "simple": simple(u),
+        "plain": plain(u),
     }
 
 
@@ -290,7 +290,7 @@ def split_by_rasm(word: str, lengths: list[int]) -> list[str]:
 
     Piece boundaries are found by measuring the rasm of the prefix rather than
     by counting characters, because a rasm letter is not always one character:
-    hamza contributes nothing and a doubled alef collapses to one.
+    hamzah contributes nothing and a doubled alef collapses to one.
     """
     pieces: list[str] = []
     start = 0

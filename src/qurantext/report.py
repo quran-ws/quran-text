@@ -11,11 +11,11 @@ from itertools import combinations
 from .build import ORDER, OUT, Word, ayah_ends
 
 REPORTS = OUT / "reports"
-from .chars import HARAKAT, OPEN_TANWEEN
+from .chars import HARAKAHS, OPEN_TANWIN
 from .normalize import fold_notation, pointed, rasm, unpositioned
 from .word_index import boundary_events, rasm_of
-from .sources import Riwaya
-from .suras import names
+from .sources import Riwayah
+from .surahs import names
 from .validate import (check_alif_splits, check_ayah_numbers, check_index,
                        check_release_policy, cross_release)
 from .align import WRITTEN_JOINED
@@ -24,7 +24,7 @@ STATUS_ORDER = ["identical", "diacritic_variant", "dotting_variant",
                 "alif_variant", "rasm_variant", "word_boundary", "partial"]
 
 STATUS_BLURB = {
-    "identical": "one reading, one spelling, in all seven",
+    "identical": "one qiraah, one spelling, in all seven",
     "diacritic_variant": "same letters and same dots — the vowelling differs",
     "dotting_variant": "one rasm, pointed differently: تَعۡمَلُونَ against يَعۡمَلُونَ",
     "alif_variant": "one skeleton, one ā: on the line in one hand, above it in the other",
@@ -65,7 +65,7 @@ def _by_rasm(w: Word) -> dict[str, list[str]]:
 
 
 def _rasm_rows(ws: list[Word]) -> list[list]:
-    return [[w.id, f"{w.sura}:{w.aya.get('hafs', '—')}",
+    return [[w.id, f"{w.surah}:{w.ayah.get('hafs', '—')}",
              "  ·  ".join(f"`{r}` {','.join(ks)}"
                           for r, ks in _by_rasm(w).items()),
              _forms_cell(w)] for w in ws]
@@ -105,20 +105,20 @@ def _systematic(ws: list[Word], words: list[Word]) -> int:
 
     A word whose plene/defective split is the same everywhere it appears is a
     convention each muṣḥaf keeps, not a one-off setting; the count is what the
-    report cites for the ā section.  Occurrences are matched on the reading —
+    report cites for the ā section.  Occurrences are matched on the qiraah —
     the pointed letters and the vowels — so that عَلَىٰ and عَلِيࣰّا, which share a
     pointed skeleton, are not counted as one word.
     """
-    def reading(w: Word) -> str:
+    def qiraah_of(w: Word) -> str:
         form = w.forms.get("hafs") or next(iter(w.forms.values()))
         marks = "".join(c for c in fold_notation(form)
-                        if c in HARAKAT or c in OPEN_TANWEEN)
+                        if c in HARAKAHS or c in OPEN_TANWIN)
         return pointed(form) + "|" + marks
 
     same: dict[str, set] = defaultdict(set)
     for w in words:
-        same[reading(w)].add(_partition(w))
-    return sum(1 for w in ws if len(same[reading(w)]) == 1)
+        same[qiraah_of(w)].add(_partition(w))
+    return sum(1 for w in ws if len(same[qiraah_of(w)]) == 1)
 
 
 def _pairwise(words: list[Word], keys: list[str]) -> list[dict]:
@@ -135,19 +135,19 @@ def _pairwise(words: list[Word], keys: list[str]) -> list[dict]:
             same_point += pointed(fa) == pointed(fb)
             same_rasm += rasm(fa) == rasm(fb)
         stats.append({"a": a, "b": b, "shared": both, "same_form": same_form,
-                      "same_reading": same_fold, "same_pointed": same_point,
+                      "same_qiraah": same_fold, "same_pointed": same_point,
                       "same_rasm": same_rasm})
     return stats
 
 
-def write_report(words: list[Word], riwayat: list[Riwaya],
+def write_report(words: list[Word], riwayahs: list[Riwayah],
                  docs: dict[str, dict] | None = None) -> None:
     """``out/COMPARISON.md`` and companions.  ``docs`` are the muṣḥaf files
     from :func:`qurantext.mushaf.write_mushafs`, for their ``counting`` blocks."""
-    keys = [r.key for r in riwayat]
+    keys = [r.key for r in riwayahs]
     status = Counter(w.status for w in words)
     pairs = _pairwise(words, keys)
-    cross = cross_release(riwayat)
+    cross = cross_release(riwayahs)
     counting = {k: d["counting"] for k, d in (docs or {}).items()}
 
     L: list[str] = []
@@ -156,7 +156,7 @@ def write_report(words: list[Word], riwayat: list[Riwaya],
     add("# Cross-riwāyah comparison")
     add("")
     add(f"Generated {date.today().isoformat()} from the KFGQPC packages in `data/`. "
-        f"{len(words):,} canonical words across {len({w.sura for w in words})} sūrahs "
+        f"{len(words):,} canonical words across {len({w.surah for w in words})} sūrahs "
         f"and {len(keys)} riwāyāt.")
     add("")
     add("Every word carries one ID that means the same word in every riwāyah that "
@@ -173,23 +173,23 @@ def write_report(words: list[Word], riwayat: list[Riwaya],
         "their forms at that level are identical.")
     add("")
     add(_table([
-        ["`uthmani`", "how is it printed?", "`ٱلرَّحۡمَٰنِ`", "—"],
+        ["`rasm_uthmani`", "how is it printed?", "`ٱلرَّحۡمَٰنِ`", "—"],
         ["`folded`", "what does it say, ignoring which codepoints the release chose?",
          "`الرَّحْمَٰنِ`", "release notation, attached-alef letters, editorial marks"],
         ["`pointed`", "which letters, dots and all?", "`الرحمان`",
-         "vowels, hamza, madd, ṣilah"],
+         "vowels, hamzah, madd, ṣilah"],
         ["`rasm`", "what is on the line in the codex?", "`الرحماں`",
          "the dots"],
     ], ["form", "question it answers", "example", "and what it drops"]))
     add("")
     add("The two skeletons are separate on purpose. `تَعۡمَلُونَ` and `يَعۡمَلُونَ` have "
         "different `pointed` forms but one `rasm` — `ٮعملوں` — because the codices "
-        "were written undotted and carry both readings by design. Calling that a "
+        "were written undotted and carry both qiraahs by design. Calling that a "
         "rasm variant would be a category error; calling it vowelling would hide a "
-        "real reading. It is named **`dotting_variant`**.")
+        "real qiraah. It is named **`dotting_variant`**.")
     add("")
-    add("`rasm` drops hamza and every hamza carrier reduces to its seat, because "
-        "hamza is post-ʿUthmānic notation: `يَسۡتَهۡزِئُ` and `يَسْتَهْزِۓُ` are one "
+    add("`rasm` drops hamzah and every hamzah carrier reduces to its seat, because "
+        "hamzah is post-ʿUthmānic notation: `يَسۡتَهۡزِئُ` and `يَسْتَهْزِۓُ` are one "
         "word. It also drops the dagger alif, which is by definition an alef the "
         "scribe did *not* write on the line, so `هَٰرُوتَ` and `هَارُوتَ` do **not** "
         "share a rasm: `هروٮ` against `هاروٮ`. That difference is real inside any "
@@ -202,11 +202,11 @@ def write_report(words: list[Word], riwayat: list[Riwaya],
     add("## The riwāyāt")
     add("")
     add(_table([[
-        r.key, r.name_en, r.name_ar, r.qari_en,
+        r.key, r.name_en, r.name_ar, r.qiraah_en,
         f"`{counting[r.key]['system']}`" if r.key in counting else "—",
-        f"{sum(1 for a in r.ayat if a.aya > 0):,}",
+        f"{sum(1 for a in r.ayahs if a.ayah > 0):,}",
         f"{sum(1 for w in words if r.key in w.forms and r.key not in w.continuation):,}",
-    ] for r in riwayat],
+    ] for r in riwayahs],
         ["key", "riwāyah", "الرواية", "qāriʾ", "counting system", "āyāt", "words"]))
     add("")
     add("The āyah totals are not errors and not deducible from the qāriʾ. Many "
@@ -240,11 +240,11 @@ def write_report(words: list[Word], riwayat: list[Riwaya],
     add(_table([[
         f"{p['a']}–{p['b']}", f"{p['shared']:,}",
         f"{100 * p['same_form'] / p['shared']:.1f}%",
-        f"{100 * p['same_reading'] / p['shared']:.1f}%",
+        f"{100 * p['same_qiraah'] / p['shared']:.1f}%",
         f"{100 * p['same_pointed'] / p['shared']:.2f}%",
         f"{100 * p['same_rasm'] / p['shared']:.2f}%",
     ] for p in sorted(pairs, key=lambda p: -p["same_rasm"] / p["shared"])],
-        ["pair", "shared words", "same spelling", "same reading", "same letters",
+        ["pair", "shared words", "same spelling", "same qiraah", "same letters",
          "same rasm"]))
     add("")
     add("Rasm agreement never drops below 99.5%: the seven riwāyāt are one text. "
@@ -290,7 +290,7 @@ def write_report(words: list[Word], riwayat: list[Riwaya],
     add("### Letters — rasm disagreements")
     add("")
     add(f"{len(rasm_v):,} words where the riwāyāt disagree about the letters on "
-        f"the line, after dots, hamza, vowelling and the ā have all been set "
+        f"the line, after dots, hamzah, vowelling and the ā have all been set "
         f"aside. These are the differences the sources can be trusted on: they "
         f"split the seven riwāyāt {len(_partitions(rasm_v))} different ways — by "
         f"miṣr, not by publisher — and they are the khilāf the rasm literature "
@@ -366,10 +366,10 @@ def write_report(words: list[Word], riwayat: list[Riwaya],
 
     # --- dotting variants -------------------------------------------------
     dotting = [w for w in words if w.status == "dotting_variant"]
-    add("### Pointing — one rasm, two readings")
+    add("### Pointing — one rasm, two qiraahs")
     add("")
     add(f"{len(dotting):,} words share a rasm but are pointed differently. These "
-        f"are real differences in reading, not in the codex: an undotted skeleton "
+        f"are real differences in qiraah, not in the codex: an undotted skeleton "
         f"carries them all. A sample:")
     add("")
     rows = []
@@ -378,7 +378,7 @@ def write_report(words: list[Word], riwayat: list[Riwaya],
         for k in ORDER:
             if k in w.forms:
                 by_pt[pointed(w.forms[k])].append(k)
-        rows.append([w.id, f"{w.sura}:{w.aya.get('hafs', '—')}", f"`{w.rasm}`",
+        rows.append([w.id, f"{w.surah}:{w.ayah.get('hafs', '—')}", f"`{w.rasm}`",
                      "  ·  ".join(f"**{p}** {','.join(ks)}" for p, ks in by_pt.items())])
     add(_table(rows, ["word id", "sūrah:āyah", "shared rasm", "pointed as"]))
     add("")
@@ -395,8 +395,8 @@ def write_report(words: list[Word], riwayat: list[Riwaya],
     add("")
     for ev in events:
         ids = ", ".join(str(i) for i in ev["word_ids"])
-        add(f"**{ev['sura']}:{ev['aya']}** — word ids {ids} · "
-            f"joined in `{'`, `'.join(ev['riwayat'])}` · "
+        add(f"**{ev['surah']}:{ev['ayah']}** — word ids {ids} · "
+            f"joined in `{'`, `'.join(ev['riwayahs'])}` · "
             + ("**all riwāyāt agree** (a dropped space in the source)"
                if ev["agree"] else "**the riwāyāt differ** (a real difference)"))
         add("")
@@ -409,14 +409,14 @@ def write_report(words: list[Word], riwayat: list[Riwaya],
     # --- absent -----------------------------------------------------------
     add("### Absence — words not every riwāyah has")
     add("")
-    add("Each is well attested: Ibn Kathīr's `مِن` at 9:101; Nāfiʿ reading "
+    add("Each is well attested: Ibn Kathīr's `مِن` at 9:101; Nāfiʿ reciting "
         "`فإن الله الغني` at 57:24 where the others read `فإن الله هو الغني`; "
         "and `أَوۡ` at 40:26, where Ḥafṣ and Shuʿbah read *aw* and the other "
         "five read *wa* — a different word, so the number of `أَوۡ` is absent "
         "from them and their `وَأَنْ` takes the number of `أَن`.")
     add("")
     add(_table([[
-        w.id, f"{w.sura}:{w.aya.get('hafs') or max(w.aya.values())}", f"`{w.rasm}`",
+        w.id, f"{w.surah}:{w.ayah.get('hafs') or max(w.ayah.values())}", f"`{w.rasm}`",
         ", ".join(w.present), ", ".join(w.missing), _forms_cell(w),
     ] for w in absent],
         ["number", "sūrah:āyah", "rasm", "present in", "absent from", "as printed"]))
@@ -434,7 +434,7 @@ def write_report(words: list[Word], riwayat: list[Riwaya],
         "`data/alignment/written-joined.json`.")
     add("")
     add(_table([[
-        w.id, f"{w.sura}:{w.aya.get('hafs') or max(w.aya.values())}", f"`{w.rasm}`",
+        w.id, f"{w.surah}:{w.ayah.get('hafs') or max(w.ayah.values())}", f"`{w.rasm}`",
         ", ".join(k for k in ORDER if w.boundary.get(k) == WRITTEN_JOINED),
         _forms_cell(w),
     ] for w in joined],
@@ -448,8 +448,8 @@ def write_report(words: list[Word], riwayat: list[Riwaya],
         "of it, and **the count belongs to the printed edition, not to the "
         "riwāyah**. An edition follows one of the six classical counting "
         "systems, and at the points where the system's own authorities disagree "
-        "it follows one of them: al-Dānī records Al-Mulk 67:9 «قد جاءنا نذير» as "
-        "counted by Shayba and not by Abū Jaʿfar inside the First Madinan, and "
+        "it follows one of them: al-Dānī records Mulk 67:9 «قد جاءنا نذير» as "
+        "counted by Shayba and not by Abū Jaʿfar inside the First Madani, and "
         "KFGQPC's own Dūrī printings all state they follow المدني الأول and still "
         "total 6,218 (1429 AH), 6,217 (1436) and 6,214 (1443).")
     add("")
@@ -477,7 +477,7 @@ def write_report(words: list[Word], riwayat: list[Riwaya],
         "—" if a == b else f"{len(ends[a] ^ ends[b]):,}" for b in keys
     ] for a in keys], ["edition"] + [f"`{b}`" for b in keys]))
     add("")
-    add("Āyah ends where two editions differ. Dūrī and Sūsī, both First Madinan, "
+    add("Āyah ends where two editions differ. Dūrī and Sūsī, both First Madani, "
         "part company at exactly one place — 67:9 — which is the whole of the "
         "6,217/6,218 difference between them: Dūrī follows Abū Jaʿfar there and "
         "Sūsī follows Shayba. Bazzī counts 78:40, which no source yet gives to "
@@ -500,7 +500,7 @@ def write_report(words: list[Word], riwayat: list[Riwaya],
         "as boundary events instead.")
     add("")
     add(_table([[
-        k, f"{v['ayat_compared']:,}", f"{v['identical']:,}",
+        k, f"{v['ayahs_compared']:,}", f"{v['identical']:,}",
         f"{v['notation_only']:,}", f"{v['marks_only']:,}", v["rasm_differs"],
     ] for k, v in cross.items()],
         ["riwāyah", "āyāt compared", "byte-identical", "notation only",
@@ -512,12 +512,12 @@ def write_report(words: list[Word], riwayat: list[Riwaya],
         "marks. The `folded` form decomposes them again, so none of it reaches the "
         "word index.")
     add("")
-    problems = (check_index(words, riwayat) + check_ayah_numbers(riwayat)
-                + check_release_policy(riwayat) + check_alif_splits(words))
+    problems = (check_index(words, riwayahs) + check_ayah_numbers(riwayahs)
+                + check_release_policy(riwayahs) + check_alif_splits(words))
     add("### Checks")
     add("")
     if problems:
-        add(_table([[p["check"], p.get("riwaya", "—"), p["detail"]] for p in problems],
+        add(_table([[p["check"], p.get("riwayah", "—"), p["detail"]] for p in problems],
                    ["check", "riwāyah", "detail"]))
     else:
         add("All checks pass.")
@@ -528,8 +528,8 @@ def write_report(words: list[Word], riwayat: list[Riwaya],
     add("")
     per: dict[int, Counter] = defaultdict(Counter)
     for w in words:
-        per[w.sura][w.status] += 1
-        per[w.sura]["total"] += 1
+        per[w.surah][w.status] += 1
+        per[w.surah]["total"] += 1
     rows = []
     for s in range(1, 115):
         c = per[s]
@@ -549,7 +549,7 @@ def write_report(words: list[Word], riwayat: list[Riwaya],
     # --- full rasm variant listing ---------------------------------------
     V = ["# Rasm disagreements — full listing", "",
          f"Every word where the seven riwāyāt disagree about the letters on the "
-         f"line, in order. Dots, hamza and vowelling have all been set aside, "
+         f"line, in order. Dots, hamzah and vowelling have all been set aside, "
          f"and so has the dagger alif — a superscript alef is by definition an "
          f"alef the scribe did not write on the line.", "",
          f"The {len(rasm_v):,} `rasm_variant` words come first: a letter one "
@@ -562,7 +562,7 @@ def write_report(words: list[Word], riwayat: list[Riwaya],
          "Machine-readable: `../differences.csv`, `../differences.json`.", ""]
     for title, ws in (("Letters", rasm_v), ("The ā", alif_v)):
         V += [f"## {title} — {len(ws):,}", ""]
-        V.append(_table([[w.id, f"{w.sura}:{w.aya.get('hafs', '—')}", w.index,
+        V.append(_table([[w.id, f"{w.surah}:{w.ayah.get('hafs', '—')}", w.index,
                           "  ·  ".join(f"`{r}` {','.join(ks)}"
                                        for r, ks in _by_rasm(w).items()),
                           _forms_cell(w)] for w in ws],
@@ -574,34 +574,34 @@ def write_report(words: list[Word], riwayat: list[Riwaya],
     # --- matrix as csv ----------------------------------------------------
     with (REPORTS / "agreement-matrix.csv").open("w", encoding="utf-8", newline="") as fh:
         wr = csv.writer(fh)
-        wr.writerow(["riwaya_a", "riwaya_b", "shared_words", "same_spelling",
-                     "same_reading", "same_pointed", "same_rasm"])
+        wr.writerow(["riwayah_a", "riwayah_b", "shared_words", "same_spelling",
+                     "same_qiraah", "same_pointed", "same_rasm"])
         for p in pairs:
             wr.writerow([p["a"], p["b"], p["shared"], p["same_form"],
-                         p["same_reading"], p["same_pointed"], p["same_rasm"]])
+                         p["same_qiraah"], p["same_pointed"], p["same_rasm"]])
 
     # --- every form that departs from the canonical spelling --------------
     with (REPORTS / "variants.csv").open("w", encoding="utf-8", newline="") as fh:
         wr = csv.writer(fh)
-        wr.writerow(["number", "sura", "index", "riwaya", "ayah",
-                     "canonical_uthmani", "riwaya_uthmani", "same_rasm", "status"])
+        wr.writerow(["number", "surah", "index", "riwayah", "ayah",
+                     "canonical_rasm_rasm_uthmani", "riwayah_rasm_uthmani", "same_rasm", "status"])
         for w in words:
             for k in keys:
                 form = w.forms.get(k)
-                if form is None or form == w.uthmani:
+                if form is None or form == w.rasm_uthmani:
                     continue
-                wr.writerow([w.id, w.sura, w.index, k, w.aya.get(k, ""),
-                             w.uthmani, form, int(w.rasm == rasm_of(w, k)), w.status])
+                wr.writerow([w.id, w.surah, w.index, k, w.ayah.get(k, ""),
+                             w.rasm_uthmani, form, int(w.rasm == rasm_of(w, k)), w.status])
 
     # --- every place the build re-spaced a source ------------------------
     with (REPORTS / "resegmentation.csv").open("w", encoding="utf-8", newline="") as fh:
         wr = csv.writer(fh)
-        wr.writerow(["numbers", "sura", "ayah_hafs", "kind", "riwayat",
-                     "riwayat_agree", "forms"])
+        wr.writerow(["numbers", "surah", "ayah_hafs", "kind", "riwayahs",
+                     "riwayahs_agree", "forms"])
         for event in boundary_events(words):
             wr.writerow([
-                "|".join(str(i) for i in event["word_ids"]), event["sura"],
-                event["aya"], event["kind"], "|".join(event["riwayat"]),
+                "|".join(str(i) for i in event["word_ids"]), event["surah"],
+                event["ayah"], event["kind"], "|".join(event["riwayahs"]),
                 int(event["agree"]),
                 "  ||  ".join(f"{t} [{','.join(ks)}]"
                               for t, ks in event["texts"].items()),
