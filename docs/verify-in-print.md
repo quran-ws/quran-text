@@ -100,7 +100,7 @@ words away, which makes them neighbouring rubu_al_hizbs, not the division.
 *inside* the Makkī count, which is what the Bazzī edition follows.
 
 al-Dānī's *al-Bayān* gives the point to Baṣrī alone, which is why it looked
-unexplained; the two together settle it. Recorded in `data/counting/khilaf.json`
+unexplained; the two together settle it. Recorded in `sources/counting/khilaf.json`
 and emitted under `counting.khilaf` in `out/mushaf/bazzi.json`.
 `open-findings.json` is now empty.
 

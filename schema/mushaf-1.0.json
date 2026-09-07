@@ -152,7 +152,7 @@
         },
         "unexplained": {
           "type": "array",
-          "description": "Āyah ends where the edition differs from its system and no source records a khilāf. Must be empty, or listed in data/counting/open-findings.json.",
+          "description": "Āyah ends where the edition differs from its system and no source records a khilāf. Must be empty, or listed in sources/counting/open-findings.json.",
           "items": {
             "type": "object",
             "required": [

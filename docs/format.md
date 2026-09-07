@@ -150,7 +150,7 @@ some muṣḥafs and not others — `مِن` at 9:101 (Bazzī alone), `أَوۡ`
 (Ḥafṣ and Shuʿbah, where the other five read `وَ`), `هُوَ` at 57:24 (all but
 Warsh and Qālūn) — and two pairs of words are written joined: `وَأَلَّوِ` at
 72:16 by Ḥafṣ, Shuʿbah and Bazzī, and `أَلَّن` at 73:20 by Dūrī and Sūsī. Which
-places are joins is declared in `data/alignment/written-joined.json`, because the
+places are joins is declared in `sources/alignment/written-joined.json`, because the
 unwritten nūn changes the rasm and no rule can tell a join from a different
 qiraah; the build asserts the list is exactly these.
 
@@ -233,11 +233,11 @@ levels — counting system, transmission within it, edition — are explained in
 | field | meaning |
 |---|---|
 | `system` | the madhhab this edition follows. **Derived** by comparing the edition's `ayah_starts` to each system's boundaries and taking the one it matches once khilāf points are set aside; the distances are in `distance_to_systems` |
-| `declared_by` | what the edition states about itself, and where, or `null` if the source in `data/` states nothing — which is the case for every KFGQPC `.docx`, since they carry the text without the printed colophon. A declaration that disagreed with the derived system would be kept and flagged `declared_disagrees`, not overwritten |
+| `declared_by` | what the edition states about itself, and where, or `null` if the source in `sources/` states nothing — which is the case for every KFGQPC `.docx`, since they carry the text without the printed colophon. A declaration that disagreed with the derived system would be kept and flagged `declared_disagrees`, not overwritten |
 | `ayah_count` | what the edition prints: `ayah_starts.length` |
 | `basmalah_counted` | whether the basmalah of al-Fātiḥah is a numbered āyah |
 | `khilaf[]` | **every** point where the sources record a disagreement *inside* this system — not only the ones where this edition departs from the default — with what this edition does there (`counted`) and whose position that is (`follows`, `against`). `number` is the shared number the āyah ends after and `anchor` the word it follows; `surah`/`ayah` are this edition's own numbering; `kufi` is the Kūfī reference |
-| `unexplained[]` | āyah ends where the edition differs from the system and no source records a khilāf. The build fails on any that is not listed in `data/counting/open-findings.json`, and on any listed there that no longer occurs |
+| `unexplained[]` | āyah ends where the edition differs from the system and no source records a khilāf. The build fails on any that is not listed in `sources/counting/open-findings.json`, and on any listed there that no longer occurs |
 
 The seven editions today:
 
@@ -251,10 +251,10 @@ The seven editions today:
 
 The boundaries come from
 [qiraat-ayah-map](https://github.com/quranpedia/qiraat-ayah-map), vendored at
-a pinned commit under `data/counting/` with its SHA-256 in the manifest and in
+a pinned commit under `sources/counting/` with its SHA-256 in the manifest and in
 `counting.checked_against`. The disagreements *inside* a system, which that
 repository does not yet model, are this repository's overlay
-`data/counting/khilaf.json`, cited point by point from al-Dānī's *al-Bayān*.
+`sources/counting/khilaf.json`, cited point by point from al-Dānī's *al-Bayān*.
 Where an anchor word occurs twice in its Kūfī āyah (three of the 246 points),
 the occurrence the editions actually end at is taken and listed under
 `resolved_anchors` in `out/counting.json`.

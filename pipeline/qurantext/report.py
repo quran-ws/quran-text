@@ -155,7 +155,7 @@ def write_report(words: list[Word], riwayahs: list[Riwayah],
 
     add("# Cross-riwāyah comparison")
     add("")
-    add(f"Generated {date.today().isoformat()} from the KFGQPC packages in `data/`. "
+    add(f"Generated {date.today().isoformat()} from the KFGQPC packages in `sources/`. "
         f"{len(words):,} canonical words across {len({w.surah for w in words})} sūrahs "
         f"and {len(keys)} riwāyāt.")
     add("")
@@ -431,7 +431,7 @@ def write_report(words: list[Word], riwayahs: list[Riwayah],
         "as one. The numbering counts the finest division, so both words keep a "
         "number and the joined word *covers* both — recorded in each muṣḥaf's "
         "`numbering.written_joined`, never as a missing word. Declared in "
-        "`data/alignment/written-joined.json`.")
+        "`sources/alignment/written-joined.json`.")
     add("")
     add(_table([[
         w.id, f"{w.surah}:{w.ayah.get('hafs') or max(w.ayah.values())}", f"`{w.rasm}`",
@@ -456,7 +456,7 @@ def write_report(words: list[Word], riwayahs: list[Riwayah],
     add("Each edition's system is **derived** by comparing its own āyah ends to "
         "every system's boundaries (from "
         "[qiraat-ayah-map](https://github.com/quranpedia/qiraat-ayah-map), "
-        "vendored under `data/counting/`), then the points of khilāf inside the "
+        "vendored under `sources/counting/`), then the points of khilāf inside the "
         "system are named with the authority the edition follows. Whatever is "
         "left is `unexplained` and is an open finding. Machine-readable: "
         "[`counting.json`](../counting.json).")

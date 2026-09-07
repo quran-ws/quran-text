@@ -15,7 +15,7 @@ import zipfile
 from pathlib import Path
 
 from .build import OUT
-from .sources import DATA, SourceSpec
+from .sources import PACKAGES, SourceSpec
 
 FONT_DIR = OUT / "fonts"
 
@@ -42,7 +42,7 @@ def family(ttf: bytes) -> str:
 
 def describe(spec: SourceSpec) -> dict:
     """The ``font`` block of a muṣḥaf file, and the font written to ``out/fonts/``."""
-    with zipfile.ZipFile(DATA / f"{spec.primary_zip}.zip") as z:
+    with zipfile.ZipFile(PACKAGES / f"{spec.primary_zip}.zip") as z:
         data = z.read(spec.font_member)
     FONT_DIR.mkdir(parents=True, exist_ok=True)
     name = Path(spec.font_member).name.replace(" ", "-")

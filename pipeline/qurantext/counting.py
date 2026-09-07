@@ -24,9 +24,9 @@ khilāf — is ``unexplained``, and the build fails on any that is not already a
 acknowledged open finding.
 
 The boundaries come from `qiraat-ayah-map <https://github.com/quranpedia/qiraat-ayah-map>`_,
-vendored at a pinned commit under ``data/counting/``; the khilāf inside a
+vendored at a pinned commit under ``sources/counting/``; the khilāf inside a
 system, which that repository does not yet model, is this repository's overlay
-``data/counting/khilaf.json``, cited point by point.
+``sources/counting/khilaf.json``, cited point by point.
 """
 
 from __future__ import annotations
@@ -42,7 +42,7 @@ from pathlib import Path
 from . import paths
 from .build import ORDER, OUT, Word, ayah_ends
 
-COUNTING_DIR = paths.DATA / "counting"
+COUNTING_DIR = paths.SOURCES / "counting"
 PRIMITIVES = COUNTING_DIR / "book-boundary-primitives.json"
 SYSTEMS = COUNTING_DIR / "counting-systems.json"
 KHILAF = COUNTING_DIR / "khilaf.json"

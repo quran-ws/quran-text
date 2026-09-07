@@ -1,6 +1,6 @@
 # Cross-riwāyah comparison
 
-Generated 2026-09-08 from the KFGQPC packages in `data/`. 77,434 canonical words across 114 sūrahs and 7 riwāyāt.
+Generated 2026-09-08 from the KFGQPC packages in `sources/`. 77,434 canonical words across 114 sūrahs and 7 riwāyāt.
 
 Every word carries one ID that means the same word in every riwāyah that has it. Where the riwāyāt disagree, the disagreement is recorded against that ID rather than hidden by it.
 
@@ -277,7 +277,7 @@ Each is well attested: Ibn Kathīr's `مِن` at 9:101; Nāfiʿ reciting `فإن
 
 ### Written joined — two words some muṣḥafs print as one
 
-Nothing is added and nothing is dropped: the nūn assimilates into the letter after it and is not written, so the same two words are printed as one. The numbering counts the finest division, so both words keep a number and the joined word *covers* both — recorded in each muṣḥaf's `numbering.written_joined`, never as a missing word. Declared in `data/alignment/written-joined.json`.
+Nothing is added and nothing is dropped: the nūn assimilates into the letter after it and is not written, so the same two words are printed as one. The numbering counts the finest division, so both words keep a number and the joined word *covers* both — recorded in each muṣḥaf's `numbering.written_joined`, never as a missing word. Declared in `sources/alignment/written-joined.json`.
 
 | number | sūrah:āyah | rasm | written joined by | as printed |
 |---|---|---|---|---|
@@ -290,7 +290,7 @@ Nothing is added and nothing is dropped: the nūn assimilates into the letter af
 
 The āyah boundaries are a layer *over* the word index, not a property of it, and **the count belongs to the printed edition, not to the riwāyah**. An edition follows one of the six classical counting systems, and at the points where the system's own authorities disagree it follows one of them: al-Dānī records Mulk 67:9 «قد جاءنا نذير» as counted by Shayba and not by Abū Jaʿfar inside the First Madani, and KFGQPC's own Dūrī printings all state they follow المدني الأول and still total 6,218 (1429 AH), 6,217 (1436) and 6,214 (1443).
 
-Each edition's system is **derived** by comparing its own āyah ends to every system's boundaries (from [qiraat-ayah-map](https://github.com/quranpedia/qiraat-ayah-map), vendored under `data/counting/`), then the points of khilāf inside the system are named with the authority the edition follows. Whatever is left is `unexplained` and is an open finding. Machine-readable: [`counting.json`](../counting.json).
+Each edition's system is **derived** by comparing its own āyah ends to every system's boundaries (from [qiraat-ayah-map](https://github.com/quranpedia/qiraat-ayah-map), vendored under `sources/counting/`), then the points of khilāf inside the system are named with the authority the edition follows. Whatever is left is `unexplained` and is an open finding. Machine-readable: [`counting.json`](../counting.json).
 
 | muṣḥaf | system |  | āyāt | basmalah counted | khilāf inside the system | unexplained |
 |---|---|---|---|---|---|---|

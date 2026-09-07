@@ -207,7 +207,7 @@ apart in this order:
 1. **A declared written-joined word.** At 72:16 Ḥafṣ prints `وَأَلَّوِ` for
    `وَأَن لَّوِ`, and at 73:20 Dūrī prints `أَلَّن` for `أَن لَّن`: the nūn
    assimilates and is not written, so the rasm differs, but nothing is added
-   or dropped. These places are declared in `data/alignment/written-joined.json` — no
+   or dropped. These places are declared in `sources/alignment/written-joined.json` — no
    rule can tell an unwritten nūn from a different word — and the one token is
    placed in the first column and recorded as *covering* the second
    (`Column.covers`). Both words keep their numbers; the muṣḥaf's
@@ -242,9 +242,9 @@ The āyah boundaries are a layer *over* the word index: each muṣḥaf file's
 belongs to the edition, not the riwāyah.** Each edition's system is derived by
 comparing its own āyah ends to the six systems' boundaries, taken from
 [qiraat-ayah-map](https://github.com/quranpedia/qiraat-ayah-map) (vendored
-under `data/counting/`, anchors resolved to shared numbers); the points where a
+under `sources/counting/`, anchors resolved to shared numbers); the points where a
 system's own authorities disagree are this repository's overlay
-`data/counting/khilaf.json`, cited from al-Dānī. Dūrī and Sūsī are both First
+`sources/counting/khilaf.json`, cited from al-Dānī. Dūrī and Sūsī are both First
 Madani and part company at exactly one such point, 67:9, where Dūrī follows
 Abū Jaʿfar and Sūsī follows Shayba — the whole of the 6217/6218 difference.
 See `docs/format.md`, *Counting*.
@@ -268,7 +268,7 @@ See `docs/format.md`, *Counting*.
    `words`, `ayah_starts` has `counting.ayah_count` entries, and the sūrah
    header's `first_ayah` is the prefix sum of its `ayahs`.
 6. **Counting** — every `unexplained` point in a `counting` block is an
-   acknowledged entry in `data/counting/open-findings.json`, and every entry
+   acknowledged entry in `sources/counting/open-findings.json`, and every entry
    there still occurs.
 7. **Schema** — the field set of every file matches `schema/mushaf-1.0.json`.
 

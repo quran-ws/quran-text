@@ -1,4 +1,4 @@
-"""Loaders for the KFGQPC packages shipped in ``data/``.
+"""Loaders for the KFGQPC packages shipped in ``sources/``.
 
 None of the packages contain word-level data — every one of them is
 āyah-level.  These loaders bring each release into one shape,
@@ -22,7 +22,7 @@ from .normalize import strip_controls
 
 W = "{http://schemas.openxmlformats.org/wordprocessingml/2006/main}"
 
-DATA = paths.DATA / "kfgqpc"
+PACKAGES = paths.SOURCES / "kfgqpc"
 WORK = paths.WORK / "raw"
 
 
@@ -303,7 +303,7 @@ def _extract(zip_name: str, member: str) -> Path:
     if dest.exists():
         return dest
     dest.parent.mkdir(parents=True, exist_ok=True)
-    with zipfile.ZipFile(DATA / f"{zip_name}.zip") as z:
+    with zipfile.ZipFile(PACKAGES / f"{zip_name}.zip") as z:
         with z.open(member) as src, dest.open("wb") as out:
             out.write(src.read())
     return dest

@@ -1,7 +1,7 @@
 # Data sources
 
-`data/kfgqpc/` holds the King Fahd Glorious Qur'an Printing Complex (KFGQPC)
-distributions the build reads; `data/counting/` and `data/alignment/` hold the
+`sources/kfgqpc/` holds the King Fahd Glorious Qur'an Printing Complex (KFGQPC)
+distributions the build reads; `sources/counting/` and `sources/alignment/` hold the
 small data this repository adds. This is what each one contains and how it is
 used.
 
@@ -97,7 +97,7 @@ disagreement and `juz_starts` still follows the CSV.
 
 ## Counting-system boundaries
 
-`data/counting/` holds two files copied verbatim from
+`sources/counting/` holds two files copied verbatim from
 [quranpedia/qiraat-ayah-map](https://github.com/quranpedia/qiraat-ayah-map)
 (MIT) at a pinned commit — `book-boundary-primitives.json`, every disputed
 āyah boundary with the counting systems that count it, and
@@ -109,7 +109,7 @@ disagreements *inside* a system between its authorities, cited from al-Dānī's
 and `declared.json` what each edition states about its own count
 (nothing, for the `.docx` releases). See `docs/format.md`, *Counting*.
 
-`data/alignment/written-joined.json` declares the two places where a muṣḥaf prints two
+`sources/alignment/written-joined.json` declares the two places where a muṣḥaf prints two
 words as one; see *Numbering* in the same document.
 
 ## Deliberately unused
@@ -135,8 +135,8 @@ Two inputs exceed GitHub's hard 100 MB per-file limit and are excluded by
 
 | file | size |
 |---|---|
-| `data/kfgqpc/1441-AI-hafs.zip` | 466 MB |
-| `data/kfgqpc/mumtaz-1.pdf` | 360 MB |
+| `sources/kfgqpc/1441-AI-hafs.zip` | 466 MB |
+| `sources/kfgqpc/mumtaz-1.pdf` | 360 MB |
 
 Neither is used by the build, so the pipeline runs without them. Everything the
 build reads **is** committed, so `python3 pipeline/build.py` reproduces `out/`

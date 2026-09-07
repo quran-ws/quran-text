@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://raw.githubusercontent.com/quran-ws/quran-text/main/schema/counting-1.0.json",
   "title": "quran-counting 1.0",
-  "description": "The six counting systems' āyah boundaries as shared numbers, with the editions that follow each and their choices at points of khilāf. A view over the muṣḥaf files and data/counting/.",
+  "description": "The six counting systems' āyah boundaries as shared numbers, with the editions that follow each and their choices at points of khilāf. A view over the muṣḥaf files and sources/counting/.",
   "type": "object",
   "required": ["format", "format_version", "generated", "source", "disputed_points", "systems", "open_findings"],
   "properties": {
