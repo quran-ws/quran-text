@@ -75,7 +75,7 @@ Set<MarkKind> _markKinds(Object marks) {
 /// `TextStyle(fontFamily: m.font.family, package: 'quran_text')` just works.
 class Font {
   final String family;
-  /// Path under `data/fonts/` in the dataset.
+  /// The file name; the copy lives under `data/fonts/` in the dataset.
   final String file;
   final String sha256;
   final String publisher;

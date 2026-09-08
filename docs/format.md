@@ -372,7 +372,7 @@ is `null`. `layers.derived.rasm_imlai` reports the totals.
 Every muṣḥaf file names the font its text is set in:
 
 ```json
-"font": { "family": "KFGQPC Warsh Uthmanic Script", "file": "data/fonts/UthmanicWarsh-v-3.0.ttf",
+"font": { "family": "KFGQPC Warsh Uthmanic Script", "file": "UthmanicWarsh-v-3.0.ttf",
           "package": "UthmanicWarsh-v-3.0.zip", "member": "UthmanicWarsh-v-3.0.ttf",
           "sha256": "…", "publisher": "https://fonts.qurancomplex.gov.sa/" }
 ```

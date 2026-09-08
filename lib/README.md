@@ -66,7 +66,7 @@ guaranteed to draw every codepoint the words use. Each muṣḥaf tells you whic
 
 ```python
 m.font.family     # "KFGQPC HAFS Uthmanic Script"
-m.font.file       # "data/fonts/UthmanicHafs-v-3.0.ttf"
+m.font.file       # "UthmanicHafs-v-3.0.ttf"
 ```
 
 Every package bundles the Ḥafṣ font next to `hafs.json`: Flutter gets it as

@@ -494,7 +494,7 @@ m.ayah(<span class="s">2</span>, <span class="s">255</span>).to(warsh)          
   }
 
   function fontNotes(c) {
-    const f = files.find(x => "/files/" + x.path === c.font.url || x.path === c.font.file.replace(/^out\//, ""));
+    const f = files.find(x => "/files/" + x.path === c.font.url || x.path === "fonts/" + c.font.file);
     $$(".font-family").forEach(el => el.textContent = c.font.family);
     $$(".font-link").forEach(el => el.href = c.font.url);
     $$(".font-size").forEach(el => el.textContent = f ? size(f.bytes) : "");

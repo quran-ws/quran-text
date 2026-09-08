@@ -89,7 +89,7 @@ void main() {
     expect(m.key, 'hafs');
     expect(m.wordCount, hafs.wordCount);
     expect(m.font.family, 'KFGQPC HAFS Uthmanic Script');
-    expect(warsh.font.file, 'data/fonts/UthmanicWarsh-v-3.0.ttf');
+    expect(warsh.font.file, 'UthmanicWarsh-v-3.0.ttf');
   });
 
   test('to(): the same ayah and word in another riwayah', () {
