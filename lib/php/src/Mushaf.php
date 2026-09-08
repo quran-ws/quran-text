@@ -311,7 +311,13 @@ final class Mushaf
 
     // -- the shared numbering --
 
-    /** @internal position => [first, last] */
+    /**
+     * The run of shared numbers each position covers, as two parallel columns:
+     * [first[], last[]], both indexed by position.  Two flat int arrays rather
+     * than one array of pairs: at ~77k words a pair per position costs tens of
+     * megabytes, and several muṣḥafs are commonly open at once.
+     * @internal
+     */
     public function numbers(): array
     {
         if ($this->numbers === null) {
@@ -321,17 +327,19 @@ final class Mushaf
             foreach ($block['written_joined'] as $j) {
                 $joined[$j['position']] = $j['numbers'];
             }
-            $runs = [];
+            $firsts = [];
+            $lasts = [];
             $n = 1;
             for ($position = 0, $total = count($this->words); $position < $total; $position++) {
                 while (isset($missing[$n])) {
                     $n++;
                 }
                 [$first, $last] = $joined[$position] ?? [$n, $n];
-                $runs[] = [$first, $last];
+                $firsts[] = $first;
+                $lasts[] = $last;
                 $n = $last + 1;
             }
-            $this->numbers = $runs;
+            $this->numbers = [$firsts, $lasts];
         }
         return $this->numbers;
     }
@@ -345,25 +353,25 @@ final class Mushaf
     /** The shared number of the word at $position. */
     public function numberAt(int $position): int
     {
-        return $this->numbers()[$position][0];
+        return $this->numbers()[0][$position];
     }
 
     /** The printed word carrying a shared number; null where this muṣḥaf does not read it. */
     public function wordByNumber(int $number): ?Word
     {
-        $runs = $this->numbers();
+        [$firsts, $lasts] = $this->numbers();
         $lo = 0;
-        $hi = count($runs);
+        $hi = count($firsts);
         while ($lo < $hi) {
             $mid = ($lo + $hi) >> 1;
-            if ($runs[$mid][0] <= $number) {
+            if ($firsts[$mid] <= $number) {
                 $lo = $mid + 1;
             } else {
                 $hi = $mid;
             }
         }
         $i = $lo - 1;
-        return $i >= 0 && $runs[$i][0] <= $number && $number <= $runs[$i][1] ? new Word($this, $i) : null;
+        return $i >= 0 && $firsts[$i] <= $number && $number <= $lasts[$i] ? new Word($this, $i) : null;
     }
 
     // -- signs and search --

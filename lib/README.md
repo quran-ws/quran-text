@@ -19,7 +19,7 @@ The same six lines in every language:
 |---|---|---|---|
 | Python 3.9+ | [`python/`](python/), no dependencies | `Mushaf.hafs()` | `python3 -m unittest lib/python/test_quran_text.py` |
 | JavaScript / TypeScript | [`js/`](js/), ESM with `.d.ts`, no dependencies | `await Mushaf.hafs()` | `cd lib/js && node --test` |
-| PHP 8.1+ | [`php/`](php/), Composer, `QuranText\` | `Mushaf::hafs()` | `cd lib/php && php tests/run.php` |
+| PHP 8.1+ | [`php/`](php/), Composer, `QuranText\` | `Mushaf::hafs()` | `cd lib/php && php -d memory_limit=1G tests/run.php` |
 | Dart / Flutter | [`dart/`](dart/), pub package `quran_text` | `await Mushaf.hafs(read: rootBundle.loadString)` | `cd lib/dart && dart test` |
 | Swift (iOS, macOS) | [`swift/`](swift/), Swift Package `QuranText` | `try Mushaf.hafs()` | `cd lib/swift && swift test` |
 | Kotlin (Android, JVM) | [`kotlin/`](kotlin/), Gradle, `org.json` only | `Mushaf.hafs()` | `cd lib/kotlin && gradle test` |
