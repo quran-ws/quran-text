@@ -78,7 +78,7 @@ class Dataset:
             "surah_ayah_counts": [s.ayah_count for s in m.surahs],
             "source": entry["source"],
             "provenance": m.provenance,
-            "font": {**m._doc["font"], "url": "/files/" + m._doc["font"]["file"].removeprefix("data/")},
+            "font": {**m._doc["font"], "url": "/files/fonts/" + m._doc["font"]["file"]},
             "sample": self.sample(m),
         }
 

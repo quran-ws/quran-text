@@ -101,7 +101,7 @@ class QuranTextTest {
         assertEquals(hafs.wordCount, m.wordCount)
         assertEquals("KFGQPC HAFS Uthmanic Script", m.font.family)
         assertNotNull(m.font.open())
-        assertEquals("data/fonts/UthmanicWarsh-v-3.0.ttf", warsh.font.file)
+        assertEquals("UthmanicWarsh-v-3.0.ttf", warsh.font.file)
     }
 
     @Test fun toAnotherRiwayah() {

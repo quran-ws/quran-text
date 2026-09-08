@@ -49,7 +49,7 @@ def describe(spec: SourceSpec) -> dict:
     (FONT_DIR / name).write_bytes(data)
     return {
         "family": family(data),
-        "file": f"data/fonts/{name}",
+        "file": name,
         "package": f"{spec.primary_zip}.zip",
         "member": spec.font_member,
         "sha256": hashlib.sha256(data).hexdigest(),

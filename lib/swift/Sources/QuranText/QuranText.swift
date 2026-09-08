@@ -73,7 +73,7 @@ private func indexOf(_ starts: [Int], _ position: Int) -> Int {
 /// and use `family` as the font name.
 public struct Font: Sendable {
     public let family: String
-    /// Path under data/fonts/ in the dataset.
+    /// The file name; the copy lives under data/fonts/ in the dataset.
     public let file: String
     public let sha256: String
     public let publisher: String

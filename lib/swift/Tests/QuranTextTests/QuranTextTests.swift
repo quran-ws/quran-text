@@ -95,7 +95,7 @@ final class QuranTextTests: XCTestCase {
         XCTAssertEqual(m.wordCount, hafs.wordCount)
         XCTAssertEqual(m.font.family, "KFGQPC HAFS Uthmanic Script")
         XCTAssertNotNil(m.font.url)
-        XCTAssertEqual(Self.warsh.font.file, "data/fonts/UthmanicWarsh-v-3.0.ttf")
+        XCTAssertEqual(Self.warsh.font.file, "UthmanicWarsh-v-3.0.ttf")
     }
 
     func testToAnotherRiwayah() {

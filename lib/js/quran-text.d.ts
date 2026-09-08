@@ -147,7 +147,7 @@ export class Juz extends Span {
 export interface Font {
   /** e.g. "KFGQPC HAFS Uthmanic Script" — the name to use in CSS or a Typeface. */
   family: string;
-  /** Path under data/fonts/ in the dataset. */
+  /** The file name; the copy lives under data/fonts/ in the dataset. */
   file: string;
   sha256: string;
   publisher: string;

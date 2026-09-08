@@ -49,7 +49,7 @@ def sync_bundled_hafs(doc: dict) -> None:
     import json
     import shutil
     text = json.dumps(doc, ensure_ascii=False, separators=(",", ":"))
-    font = ROOT / doc["font"]["file"]
+    font = ROOT / "data" / "fonts" / doc["font"]["file"]
     for d in BUNDLES:
         dest = ROOT / d
         if dest.is_dir():

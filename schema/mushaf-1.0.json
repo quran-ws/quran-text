@@ -221,7 +221,7 @@
     },
     "font": {
       "type": "object",
-      "description": "The KFGQPC font this text is set in, shipped in the same package as the text. It is the only font guaranteed to draw every codepoint the words use; `file` is the copy under data/fonts/.",
+      "description": "The KFGQPC font this text is set in, shipped in the same package as the text. It is the only font guaranteed to draw every codepoint the words use; `file` names the copy under data/fonts/.",
       "required": [
         "family",
         "file",
@@ -238,7 +238,8 @@
         },
         "file": {
           "type": "string",
-          "pattern": "^data/fonts/.+\\.ttf$"
+          "pattern": "^[^/]+\\.ttf$",
+          "description": "The font's file name, e.g. \"UthmanicHafs-v-3.0.ttf\". A name, not a path: a muṣḥaf file is meant to be read on its own, and where a reader keeps the copy is their business."
         },
         "package": {
           "type": "string"
