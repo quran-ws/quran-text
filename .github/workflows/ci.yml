@@ -78,3 +78,82 @@ jobs:
         run: |
           python3 /tmp/guidelines/skills/quranic-terminology/scripts/audit_terminology.py \
             --strict pipeline sources schema lib service docs *.md
+
+  # The three fast suites share one runner: each takes seconds, and a single
+  # checkout of a repository carrying a 50 MB word index costs more than they do.
+  libraries:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Every suite reads data/ at the repository root, which is committed, so
+      # none of them needs the build first.
+
+      # package.json declares node >=18, so that is where it is tested.
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      - name: JavaScript
+        working-directory: lib/js
+        run: node --test
+
+      # composer.json declares php >=8.1, and mbstring because the library folds
+      # Arabic text. The suite autoloads its own sources, so nothing to install.
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+          extensions: mbstring
+          coverage: none
+      # The word index decodes to some 434 MB, which the 128 MB default cannot
+      # hold, so the flag is part of the command the library documents.
+      - name: PHP
+        working-directory: lib/php
+        run: php -d memory_limit=1G tests/run.php
+
+      # pubspec.yaml declares sdk ^3.0.0, so that is where it is tested.
+      # pubspec.lock is not committed, so this resolves from the manifest the
+      # way a user on the declared minimum would.
+      - uses: dart-lang/setup-dart@v1
+        with:
+          sdk: '3.0.0'
+      - name: Dart
+        working-directory: lib/dart
+        run: |
+          dart pub get
+          dart test
+
+  # Gradle is slow enough that it would hold the fast suites hostage, and its
+  # dependency cache only pays off on a job of its own.
+  kotlin:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # build.gradle.kts sets jvmToolchain(17); it pins Kotlin itself. Gradle is
+      # pinned here because the Kotlin plugin the build declares supports up to
+      # 8.11, while the Gradle on the runner image moves on without us.
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.11'
+      - name: Kotlin
+        working-directory: lib/kotlin
+        run: gradle test
+
+  # The only macOS job, and it is one because the package ships for Apple
+  # platforms and nothing else here needs the runner. Package.swift asks for
+  # tools 5.9, so the toolchain is pinned there rather than left at whatever
+  # Xcode the image happens to carry.
+  swift:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: swift-actions/setup-swift@v2
+        with:
+          swift-version: '5.9'
+      - name: Swift
+        working-directory: lib/swift
+        run: swift test
