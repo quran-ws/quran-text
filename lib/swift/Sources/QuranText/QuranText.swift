@@ -73,7 +73,7 @@ private func indexOf(_ starts: [Int], _ position: Int) -> Int {
 /// and use `family` as the font name.
 public struct Font: Sendable {
     public let family: String
-    /// Path under out/fonts/ in the dataset.
+    /// Path under data/fonts/ in the dataset.
     public let file: String
     public let sha256: String
     public let publisher: String
@@ -389,7 +389,7 @@ public final class Juz: Span, CustomStringConvertible {
 
 // MARK: - the muṣḥaf
 
-/// One muṣḥaf file, `out/mushaf/<key>.json`.
+/// One muṣḥaf file, `data/mushaf/<key>.json`.
 public final class Mushaf {
     public let words: [String]
     public let key: String
@@ -477,7 +477,7 @@ public final class Mushaf {
         try self.init(json: doc)
     }
 
-    /// Any of the seven riwāyāt: `out/mushaf/<key>.json`.
+    /// Any of the seven riwāyāt: `data/mushaf/<key>.json`.
     public static func load(_ url: URL) throws -> Mushaf { try Mushaf(data: Data(contentsOf: url)) }
 
     /// Ḥafṣ, the riwāyah nearly every app uses, bundled with the package together with its font.
@@ -622,7 +622,7 @@ public struct MappedAyah: Hashable, CustomStringConvertible, Sendable {
     public var description: String { key }
 }
 
-/// `out/ayah-map.json`: what a Ḥafṣ (Kūfī) reference is in every edition.
+/// `data/ayah-map.json`: what a Ḥafṣ (Kūfī) reference is in every edition.
 public final class AyahMap {
     public let editions: [String]
     private let rows: [String: [String: Any]]
@@ -661,7 +661,7 @@ public final class AyahMap {
 
 // MARK: - word index
 
-/// One record of `out/word-index.json`: a shared number and what it is.
+/// One record of `data/word-index.json`: a shared number and what it is.
 public struct IndexedWord: CustomStringConvertible {
     public let raw: [String: Any]
     public var number: Int { raw["number"] as! Int }
@@ -689,7 +689,7 @@ public struct IndexedWord: CustomStringConvertible {
     public var description: String { "\(number) \(rasm_uthmani)" }
 }
 
-/// `out/word-index.json`: the numbering shared by all seven muṣḥafs.
+/// `data/word-index.json`: the numbering shared by all seven muṣḥafs.
 public final class WordIndex: Sequence {
     public let mushafs: [String]
     public let total: Int

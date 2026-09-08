@@ -1,6 +1,6 @@
-"""The built dataset under ``out/``, loaded once and shared by every request.
+"""The built dataset under ``data/``, loaded once and shared by every request.
 
-    data = Dataset.load()          # QURAN_DATA, default ../out
+    data = Dataset.load()          # QURAN_DATA, default ../data
     data.mushaf("warsh")           # a quran_text.Mushaf
     data.ayah_map                  # a quran_text.AyahMap
     data.word_index                # a quran_text.WordIndex, loaded on first use
@@ -40,11 +40,11 @@ class Dataset:
 
     @classmethod
     def load(cls, root: str | os.PathLike | None = None) -> "Dataset":
-        root = Path(root or os.environ.get("QURAN_DATA") or HERE.parent / "out")
+        root = Path(root or os.environ.get("QURAN_DATA") or HERE.parent / "data")
         if not (root / "catalog.json").exists():
             raise FileNotFoundError(
                 f"{root} holds no built dataset (catalog.json missing); "
-                "run build.py or point QURAN_DATA at out/")
+                "run build.py or point QURAN_DATA at data/")
         return cls(root)
 
     # -- editions --
@@ -78,7 +78,7 @@ class Dataset:
             "surah_ayah_counts": [s.ayah_count for s in m.surahs],
             "source": entry["source"],
             "provenance": m.provenance,
-            "font": {**m._doc["font"], "url": "/files/" + m._doc["font"]["file"].removeprefix("out/")},
+            "font": {**m._doc["font"], "url": "/files/" + m._doc["font"]["file"].removeprefix("data/")},
             "sample": self.sample(m),
         }
 
@@ -118,7 +118,7 @@ class Dataset:
     # -- raw files --
 
     def files(self) -> list[dict]:
-        """Every file under ``out/`` with size, SHA-256 and the question it answers."""
+        """Every file under ``data/`` with size, SHA-256 and the question it answers."""
         answers = [(re.compile("^" + re.escape(f["path"]).replace(r"<key>", r"[a-z]+").replace(r"<file>", r"[A-Za-z0-9.\-]+")
                                + ("" if f["path"].endswith("/") else "$")), f)
                    for f in self.catalog["files"]]
@@ -131,7 +131,7 @@ class Dataset:
                 about = {"format": "csv", "answers": twin["answers"] + " — as a table"} if twin else None
             about = about or _UNLISTED.get(path, {})
             out.append({
-                "path": path.removeprefix("out/"),
+                "path": path.removeprefix("data/"),
                 "bytes": entry["bytes"], "sha256": entry["sha256"],
                 "format": about.get("format"), "normative": about.get("normative", False),
                 "answers": about.get("answers"),
@@ -146,7 +146,7 @@ class Dataset:
         the KFGQPC package a riwāyah was cut from plus the SHA-256 of the built
         file, because either one moving means the bytes a caller holds are stale.
         """
-        sha = {f["path"].removeprefix("out/"): f["sha256"] for f in self.manifest["files"]}
+        sha = {f["path"].removeprefix("data/"): f["sha256"] for f in self.manifest["files"]}
         editions = {}
         for r in self.catalog["riwayahs"]:
             key = r["key"]
@@ -174,7 +174,7 @@ class Dataset:
 
 
 _UNLISTED = {
-    "out/catalog.json": {"format": "quran-catalog",
+    "data/catalog.json": {"format": "quran-catalog",
                          "answers": "start here: the riwāyāt, the sūrahs and every file"},
 }
 

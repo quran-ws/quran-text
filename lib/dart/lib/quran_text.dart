@@ -75,7 +75,7 @@ Set<MarkKind> _markKinds(Object marks) {
 /// `TextStyle(fontFamily: m.font.family, package: 'quran_text')` just works.
 class Font {
   final String family;
-  /// Path under `out/fonts/` in the dataset.
+  /// Path under `data/fonts/` in the dataset.
   final String file;
   final String sha256;
   final String publisher;
@@ -460,7 +460,7 @@ class Juz extends Span {
   String toString() => 'juz $number';
 }
 
-/// One muṣḥaf file, `out/mushaf/<key>.json`.
+/// One muṣḥaf file, `data/mushaf/<key>.json`.
 class Mushaf {
   final Map<String, dynamic> _doc;
   final List<String> words;
@@ -721,7 +721,7 @@ class MappedAyah {
   String toString() => key;
 }
 
-/// `out/ayah-map.json`: what a Ḥafṣ (Kūfī) reference is in every edition.
+/// `data/ayah-map.json`: what a Ḥafṣ (Kūfī) reference is in every edition.
 class AyahMap {
   final List<String> editions;
   final Map<String, Map<String, dynamic>> _rows;
@@ -754,7 +754,7 @@ class AyahMap {
 
 // --- word index --------------------------------------------------------------
 
-/// One record of `out/word-index.json`: a shared number and what it is.
+/// One record of `data/word-index.json`: a shared number and what it is.
 class IndexedWord {
   final Map<String, dynamic> raw;
   const IndexedWord(this.raw);
@@ -788,7 +788,7 @@ class IndexedWord {
   String toString() => '$number $rasm_uthmani';
 }
 
-/// `out/word-index.json`: the numbering shared by all seven muṣḥafs.
+/// `data/word-index.json`: the numbering shared by all seven muṣḥafs.
 class WordIndex extends Iterable<IndexedWord> {
   final List<String> mushafs;
   final int total;

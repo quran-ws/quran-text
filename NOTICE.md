@@ -10,12 +10,12 @@ Everything in this repository that this project authored:
 
 | | |
 |---|---|
-| the word index and its numbering | `out/word-index.*`, `out/ayah-map.*` |
-| the seven muṣḥaf files and derived layers | `out/mushaf/`, `out/counting.json` |
+| the word index and its numbering | `data/word-index.*`, `data/ayah-map.*` |
+| the seven muṣḥaf files and derived layers | `data/mushaf/`, `data/counting.json` |
 | the counting analysis and its citations | `sources/counting/khilaf.json`, `declared.json`, `open-findings.json` |
 | the alignment data | `sources/alignment/` |
 | the pipeline and the service | `pipeline/`, `service/` |
-| the schemas, the reports, the documentation | `schema/`, `out/reports/`, `docs/` |
+| the schemas, the reports, the documentation | `schema/`, `data/reports/`, `docs/` |
 
 Word-level data is **derived** here — no source package contains it — and that
 derivation, together with the alignment, the numbering and the counting
@@ -47,7 +47,7 @@ was read from:
 | | |
 |---|---|
 | `sources/kfgqpc/*.zip` | KFGQPC distributions, redistributed unmodified |
-| `out/fonts/*.ttf` | KFGQPC fonts, copied unmodified from those packages |
+| `data/fonts/*.ttf` | KFGQPC fonts, copied unmodified from those packages |
 
 These are the work of the **King Fahd Glorious Qurʾān Printing Complex**, are
 included as received, and remain under KFGQPC's own terms. The packages state

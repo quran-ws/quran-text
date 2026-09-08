@@ -1,7 +1,7 @@
 """quran-text — read the muṣḥaf files of the quran-text dataset.
 
     from quran_text import Mushaf
-    m = Mushaf.hafs()                         # bundled; or Mushaf.load("out/mushaf/warsh.json")
+    m = Mushaf.hafs()                         # bundled; or Mushaf.load("data/mushaf/warsh.json")
     m.ayah(2, 255).text                       # plain words
     m.ayah(2, 255).render(marks=True, ayah_marks=True)
     m.page(3).lines                           # the printed lines
@@ -82,7 +82,7 @@ def _index_of(starts: list, position: int) -> int:
 class Font:
     """The KFGQPC font this muṣḥaf's text is set in — the only one guaranteed
     to draw every codepoint the words use.  ``path`` is the file when the
-    library has it (bundled for Ḥafṣ, or ``out/fonts/`` next to a loaded
+    library has it (bundled for Ḥafṣ, or ``data/fonts/`` next to a loaded
     file); ``None`` otherwise."""
     family: str
     file: str
@@ -584,7 +584,7 @@ class Juz(Span):
 # --- the muṣḥaf ---------------------------------------------------------------
 
 class Mushaf:
-    """One muṣḥaf file, ``out/mushaf/<key>.json``."""
+    """One muṣḥaf file, ``data/mushaf/<key>.json``."""
 
     def __init__(self, doc: dict):
         if doc.get("format") != "quran-mushaf":
@@ -622,7 +622,7 @@ class Mushaf:
 
     @classmethod
     def load(cls, path) -> "Mushaf":
-        """Any of the seven riwāyāt: ``out/mushaf/<key>.json``."""
+        """Any of the seven riwāyāt: ``data/mushaf/<key>.json``."""
         with open(path, encoding="utf-8") as f:
             m = cls(json.load(f))
         m._dir = Path(path).resolve().parent
@@ -855,7 +855,7 @@ class MappedAyah:
 
 
 class AyahMap:
-    """``out/ayah-map.json``: what a Ḥafṣ (Kūfī) reference is in every edition."""
+    """``data/ayah-map.json``: what a Ḥafṣ (Kūfī) reference is in every edition."""
 
     def __init__(self, doc: dict):
         if doc.get("format") != "quran-ayah-map":
@@ -892,7 +892,7 @@ class AyahMap:
 # --- word index --------------------------------------------------------------
 
 class IndexedWord:
-    """One record of ``out/word-index.json``: a shared number and what it is."""
+    """One record of ``data/word-index.json``: a shared number and what it is."""
 
     __slots__ = ("_r",)
 
@@ -928,7 +928,7 @@ class IndexedWord:
 
 
 class WordIndex:
-    """``out/word-index.json``: the numbering shared by all seven muṣḥafs."""
+    """``data/word-index.json``: the numbering shared by all seven muṣḥafs."""
 
     def __init__(self, doc: dict):
         if doc.get("format") != "quran-word-index":

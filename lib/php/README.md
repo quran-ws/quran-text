@@ -17,13 +17,13 @@ $m->word(1, 4, 1)->number();                                     // 11, the same
 $m->sajdat();                                                    // every āyah printed with ۩
 $m->search('مالك يوم الدين');                                    // [Span]
 
-$w = Mushaf::load('out/mushaf/warsh.json');                      // another riwāyah
-AyahMap::load('out/ayah-map.json')->convert(2, 255, 'warsh');    // MappedAyah(2, 253, 'split', 254)
+$w = Mushaf::load('data/mushaf/warsh.json');                      // another riwāyah
+AyahMap::load('data/ayah-map.json')->convert(2, 255, 'warsh');    // MappedAyah(2, 253, 'split', 254)
 ```
 
 The font the text needs is bundled too: `$m->font()->family` names it and
 `$m->font()->path` is the `.ttf` to serve. For another riwāyah `load()` finds
-its font beside `out/fonts/`.
+its font beside `data/fonts/`.
 
 Wrong numbers throw `OutOfRangeException`; a layer the file lacks (juz in
 Bazzī) throws `LogicException` with the reason from the file. One muṣḥaf takes

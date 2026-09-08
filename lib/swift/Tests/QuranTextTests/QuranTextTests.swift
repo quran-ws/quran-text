@@ -3,7 +3,7 @@ import XCTest
 
 // Run from lib/swift with the dataset built:  swift test
 private let out = URL(fileURLWithPath: #filePath).deletingLastPathComponent()
-    .appendingPathComponent("../../../../out").standardized
+    .appendingPathComponent("../../../../data").standardized
 private func mushaf(_ key: String) throws -> Mushaf {
     try Mushaf.load(out.appendingPathComponent("mushaf/\(key).json"))
 }
@@ -95,7 +95,7 @@ final class QuranTextTests: XCTestCase {
         XCTAssertEqual(m.wordCount, hafs.wordCount)
         XCTAssertEqual(m.font.family, "KFGQPC HAFS Uthmanic Script")
         XCTAssertNotNil(m.font.url)
-        XCTAssertEqual(Self.warsh.font.file, "out/fonts/UthmanicWarsh-v-3.0.ttf")
+        XCTAssertEqual(Self.warsh.font.file, "data/fonts/UthmanicWarsh-v-3.0.ttf")
     }
 
     func testToAnotherRiwayah() {

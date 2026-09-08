@@ -40,7 +40,7 @@ from functools import lru_cache
 from pathlib import Path
 
 from . import paths
-from .build import ORDER, OUT, Word, ayah_ends
+from .build import DATA, ORDER, Word, ayah_ends
 
 COUNTING_DIR = paths.SOURCES / "counting"
 PRIMITIVES = COUNTING_DIR / "book-boundary-primitives.json"
@@ -378,7 +378,7 @@ def reference_total(system: str) -> int:
 
 
 def write_counting(words: list[Word], docs: dict[str, dict]) -> dict:
-    """``out/counting.json``: every system's boundaries as numbers, and the
+    """``data/counting.json``: every system's boundaries as numbers, and the
     editions that follow each, with their khilāf resolutions alongside."""
     anchors, ambiguous = resolve_anchors(words)
     per_system = system_ends(words, anchors)
@@ -425,7 +425,7 @@ def write_counting(words: list[Word], docs: dict[str, dict]) -> dict:
         "open_findings": open_findings(),
         "resolved_anchors": ambiguous,
     }
-    (OUT / "counting.json").write_text(
+    (DATA / "counting.json").write_text(
         json.dumps(doc, ensure_ascii=False, indent=1), encoding="utf-8")
     return doc
 

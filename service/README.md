@@ -1,10 +1,10 @@
 # The download service
 
-An interactive download page and HTTP API over the built dataset in `out/`:
+An interactive download page and HTTP API over the built dataset in `data/`:
 pick a riwāyah, a text form, the signs you want, a scope, a granularity and a
 format, and the URL you get is the file. Built on `lib/python/quran_text.py`;
-it reads `out/mushaf/<key>.json`, `out/ayah-map.json` and (lazily, for
-`/compare`) `out/word-index.json` directly.
+it reads `data/mushaf/<key>.json`, `data/ayah-map.json` and (lazily, for
+`/compare`) `data/word-index.json` directly.
 
 ## Run
 
@@ -17,10 +17,10 @@ python3 -m venv .venv && .venv/bin/pip install -r requirements-dev.txt
 .venv/bin/pytest                            # the tests
 ```
 
-The data directory is `../out` by default; set `QURAN_DATA=/path/to/out` to
+The data directory is `../data` by default; set `QURAN_DATA=/path/to/data` to
 serve a build kept elsewhere.
 
-On the servers, Docker — build from the repository root so `lib/` and `out/`
+On the servers, Docker — build from the repository root so `lib/` and `data/`
 are in the context:
 
 ```sh
@@ -40,7 +40,7 @@ is a pure function of its URL, so `Cache-Control` at the proxy is safe.
 | `/editions` | the seven riwāyāt: names, counts, which layers each carries |
 | `/compare?ayah=2:255` | one Kūfī āyah in all seven, differing words flagged |
 | `/map?from=warsh&to=duri&ayah=2:253` | the mapping dataset: every āyah (`by=ayah`, its counterpart āyāt and relation) or every word (`by=word`) of one riwāyah in the others, with the same scope and format options as `/download`; omit `to` for all six, omit the scope for the whole Qurʾān |
-| `/files`, `/files/{path}` | every file under `out/` with size and SHA-256, and the file |
+| `/files`, `/files/{path}` | every file under `data/` with size and SHA-256, and the file |
 | `/docs` | the OpenAPI page with every parameter described |
 
 `/download` parameters — the common case is `/download?edition=hafs&format=txt`:

@@ -19,7 +19,7 @@ from collections import Counter
 from dataclasses import dataclass, field
 
 from .align import WRITTEN_JOINED, Column, align
-from .paths import OUT
+from .paths import DATA
 from .sources import Riwayah, load_all
 from .tokenize import Token, tokenize
 

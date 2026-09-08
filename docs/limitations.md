@@ -23,7 +23,7 @@ boxes or as nothing at all:
 **The text is not missing and not corrupt** — `len()` and a codepoint dump both
 show it. It is a font-coverage problem at the point of display. The fix is the
 font KFGQPC ships with each text: every muṣḥaf file names it in its `font`
-block and the build copies it to `out/fonts/`, so a viewer that loads that
+block and the build copies it to `data/fonts/`, so a viewer that loads that
 font draws every word. Failing that, read the `folded` comparison instead,
 which decomposes those letters back into an alef plus a combining vowel that
 any Arabic font can draw; among general faces, recent Scheherazade New and Noto
@@ -75,7 +75,7 @@ build takes the later one. The 2026 Ḥafṣ separates `مَا لِيَ` at 27:2
 spelling. Publishing the newer convention is defensible — it is the publisher's
 own latest word — but it is **not** a claim that the older spelling is wrong,
 and a reader who wants the traditional joined form will not find it here. Both
-spellings are visible in the *Source integrity* section of `out/reports/COMPARISON.md`.
+spellings are visible in the *Source integrity* section of `data/reports/COMPARISON.md`.
 
 The assumption is narrow on purpose: it applies only *within* one riwāyah, where
 a later file can reasonably be read as correcting an earlier one. Nothing is
@@ -92,7 +92,7 @@ own typesetting, which is a good authority but not a doctrinal one, and it is
 demonstrably inconsistent between releases of the same riwāyah (`مَالِيَ` joined
 in the 2022 Ḥafṣ CSV, separated in the 2026 Ḥafṣ document). Twelve words are
 re-segmented by this build. Any downstream use that depends on exact word
-boundaries should read `out/reports/COMPARISON.md` first.
+boundaries should read `data/reports/COMPARISON.md` first.
 
 ## Numbers are stable across rebuilds, not across releases
 
@@ -153,7 +153,7 @@ is set aside. They do **not** prove the packages are faithful to a printed
 muṣḥaf. **No edition has an unexplained āyah end**: the last one — the Bazzī
 edition counting 78:40 ﴿قريبًا﴾ — is cited to al-Qāḍī's *al-Farāʾid al-Ḥisān*,
 which records khilāf inside the Makkī count at that word, and
-`open-findings.json` is now empty. The 258 letter-level variants in `out/reports/rasm-variants.md` —
+`open-findings.json` is now empty. The 258 letter-level variants in `data/reports/rasm-variants.md` —
 62 `rasm_variant` and 198 `alif_variant` — have not been checked against the
 qirāʾāt literature one by one; spot checks against
 well-known variants (9:101 Ibn Kathīr's `مِن`, 57:24 the Madanī rasm omitting

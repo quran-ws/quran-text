@@ -1,12 +1,12 @@
-# What is in `out/`
+# What is in `data/`
 
 Everything is written by `python3 pipeline/build.py`. All text is UTF-8, NFC,
-with no BOM. Start with `out/catalog.json`: it lists the riwāyāt, the sūrahs, and every
+with no BOM. Start with `data/catalog.json`: it lists the riwāyāt, the sūrahs, and every
 file below with the question it answers.
 
 Two files are **normative**, specified in [`format.md`](format.md)
-and checkable against `schema/`: `out/mushaf/<key>.json` (one muṣḥaf) and
-`out/word-index.json` (the shared numbering). Everything else is generated
+and checkable against `schema/`: `data/mushaf/<key>.json` (one muṣḥaf) and
+`data/word-index.json` (the shared numbering). Everything else is generated
 from them.
 
 | you want to… | read |
@@ -20,21 +20,21 @@ from them.
 | verify what you downloaded | `manifest.json` |
 | read the findings and how this was built | `reports/` |
 
-## `out/catalog.json`
+## `data/catalog.json`
 
 ```json
 { "format": "quran-catalog", "word_count": 77434, "surah_count": 114,
   "riwayahs": [ { "key": "duri", "name_en": "Dūrī", "name_ar": "الدوري", "qiraah_en": "…", "qiraah_ar": "…",
                  "counting_system": "madani-first", "ayah_count": 6217, "word_count": 77431,
                  "source": "UthmanicDouri_V20.zip :: UthmanicDouri V20.docx", "crosscheck_source": "…",
-                 "file": "out/mushaf/duri.json" }, "…" ],
+                 "file": "data/mushaf/duri.json" }, "…" ],
   "surahs":   [ { "number": 1, "name_ar": "الفَاتِحة", "name_en": "Al-Fātiḥah", "revelation": "makki",
                  "word_count": 29, "first_number": 1, "last_number": 29,
                  "ayah_count": { "hafs": 7, "warsh": 7, "…": 7 } }, "…" ],
-  "files":   [ { "path": "out/mushaf/<key>.json", "format": "quran-mushaf", "normative": true, "answers": "…" }, "…" ] }
+  "files":   [ { "path": "data/mushaf/<key>.json", "format": "quran-mushaf", "normative": true, "answers": "…" }, "…" ] }
 ```
 
-## `out/mushaf/<key>.json` and its views
+## `data/mushaf/<key>.json` and its views
 
 One muṣḥaf: `words` by position, with `ayah_starts`, `page_starts`,
 `line_starts`, `juz_starts`, `marks`, and the `numbering` block that maps
@@ -48,14 +48,14 @@ positions onto the shared numbers. Specified in
 
 A sūrah, a page or a juz is one slice of `words`, so there is no per-sūrah file.
 
-## `out/fonts/`
+## `data/fonts/`
 
 The KFGQPC font each muṣḥaf's text is set in, one `.ttf` per riwāyah, copied
 from the same package as the text. Each muṣḥaf file's `font` block names its
 own (`family`, `file`, `sha256`); ship that font with that text, because the
 words use codepoints only it is guaranteed to draw. See `format.md`, *Font*.
 
-## `out/word-index.json` and `out/word-index.csv` — the numbering
+## `data/word-index.json` and `data/word-index.csv` — the numbering
 
 Every number of the shared numbering, `1 … 77434`, one record per line, with
 a text, its Ḥafṣ coordinates, and each riwāyah's form. Schema
@@ -112,7 +112,7 @@ ayah_hafs … ayah_susi, form_hafs … form_susi
 > **If Warsh, Qālūn or Sūsī look empty**, that is your font, not the data —
 > their v3.0 documents use Arabic Extended-B codepoints (`U+0870`–`U+0882`) that
 > few fonts can draw. Use the font named in each muṣḥaf's `font` block, under
-> `out/fonts/`. See `docs/limitations.md`.
+> `data/fonts/`. See `docs/limitations.md`.
 
 ### `status`
 
@@ -164,7 +164,7 @@ set either way; `reports/resegmentation.csv` says which is which, and the two
 really-joined words are listed apart in `reports/COMPARISON.md` under *Written
 joined*.
 
-## `out/differences.json` and `out/differences.csv`
+## `data/differences.json` and `data/differences.csv`
 
 The word-index records whose `status` is `rasm_variant`, `alif_variant`,
 `word_boundary` or `partial` — 277 words — with `count` and `by_status` at the
@@ -176,7 +176,7 @@ resegmented_in, distinct_forms, forms
 قُلۡ [hafs,shubah,warsh,qalun,duri,susi]  ||  قَالَ [bazzi]
 ```
 
-## `out/ayah-map.json` and `out/ayah-map.csv`
+## `data/ayah-map.json` and `data/ayah-map.csv`
 
 What a Kūfī āyah reference is in every edition. The table is derived from the
 shared word numbering — an āyah is a run of numbers, and the editions' āyāt
@@ -204,7 +204,7 @@ how the two relate. Schema `schema/ayah-map-1.0.json`.
 The CSV has one row per Kūfī āyah with a `2:253-254` style cell per edition
 and a `<key>_relation` column each.
 
-## `out/counting.json`
+## `data/counting.json`
 
 The six classical counting systems, each with its āyah boundaries as shared
 numbers, and the editions that follow each with their choices at the points of
@@ -232,7 +232,7 @@ system its riwāyah is conventionally associated with; Baṣrī and Dimashqī ha
 no edition here. `ayah_ends[i]` is the number after which an āyah ends.
 Rationale and the derivation are in `format.md`, *Counting*.
 
-## `out/quran.sqlite.gz`
+## `data/quran.sqlite.gz`
 
 All seven muṣḥafs and the word index in one file. Tables: `mushaf`, `surah`,
 `word` (one row per printed word, keyed `(mushaf, position)`, with `number` and
@@ -254,12 +254,12 @@ WHERE a.mushaf = 'hafs' AND (b.rasm_uthmani IS NULL OR b.rasm_uthmani <> a.rasm_
 does not recite `هُوَ` at 57:24, and a word-level dataset projected from Ḥafṣ
 has to see that rather than skip silently past it.
 
-## `out/manifest.json`
+## `data/manifest.json`
 
 The SHA-256 of every source package, of the vendored counting data, and of
-every file under `out/`, and the list of normative files.
+every file under `data/`, and the list of normative files.
 
-## `out/reports/`
+## `data/reports/`
 
 For people to read, not to load.
 

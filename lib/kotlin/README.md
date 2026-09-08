@@ -18,16 +18,16 @@ m.sajdat()                                                           // every ā
 m.search("مالك يوم الدين")                                           // List<Span>
 
 val w = Mushaf.fromJson(assets.open("warsh.json").bufferedReader().readText())   // another riwāyah, Android
-val w = Mushaf.load(File("out/mushaf/warsh.json"))                              // another riwāyah, JVM
-AyahMap.load(File("out/ayah-map.json")).convert(2, 255, "warsh")     // MappedAyah(2, 253, "split", 254)
+val w = Mushaf.load(File("data/mushaf/warsh.json"))                              // another riwāyah, JVM
+AyahMap.load(File("data/ayah-map.json")).convert(2, 255, "warsh")     // MappedAyah(2, 253, "split", 254)
 ```
 
 The font the text needs is bundled too: `m.font.family` names it and
 `m.font.open()` streams the `.ttf` (copy it to a file for `Typeface.createFromFile`).
-For another riwāyah put its `.ttf` from `out/fonts/` in `assets/`.
+For another riwāyah put its `.ttf` from `data/fonts/` in `assets/`.
 
 Wrong numbers throw `IllegalArgumentException`; a layer the file lacks (juz in
 Bazzī) throws `IllegalStateException` with the reason from the file. The full
 API is in [`../README.md`](../README.md).
 
-Test: `gradle test` in this directory (`-Dquran.out=…` to point at another `out/`).
+Test: `gradle test` in this directory (`-Dquran.data=…` to point at another `data/`).

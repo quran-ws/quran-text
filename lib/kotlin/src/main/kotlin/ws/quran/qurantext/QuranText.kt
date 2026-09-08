@@ -330,7 +330,7 @@ class Juz internal constructor(m: Mushaf, val number: Int, starts: IntArray) :
 
 // --- the muṣḥaf ---------------------------------------------------------------
 
-/** One muṣḥaf file, `out/mushaf/<key>.json`. */
+/** One muṣḥaf file, `data/mushaf/<key>.json`. */
 class Mushaf(private val doc: JSONObject) {
     init {
         require(doc.optString("format") == "quran-mushaf") { "not a quran-mushaf file" }
@@ -390,7 +390,7 @@ class Mushaf(private val doc: JSONObject) {
         fun hafs(): Mushaf = fromJson(
             Mushaf::class.java.getResourceAsStream("/hafs.json")!!.bufferedReader().readText()
         )
-        /** Any of the seven riwāyāt, from the text of `out/mushaf/<key>.json`. */
+        /** Any of the seven riwāyāt, from the text of `data/mushaf/<key>.json`. */
         fun fromJson(json: String) = Mushaf(JSONObject(json))
         fun load(file: File) = fromJson(file.readText())
     }
@@ -533,7 +533,7 @@ data class MappedAyah(val surah: Int, val ayah: Int, val relation: String, val a
     override fun toString() = key
 }
 
-/** `out/ayah-map.json`: what a Ḥafṣ (Kūfī) reference is in every edition. */
+/** `data/ayah-map.json`: what a Ḥafṣ (Kūfī) reference is in every edition. */
 class AyahMap(doc: JSONObject) {
     init {
         require(doc.optString("format") == "quran-ayah-map") { "not a quran-ayah-map file" }
@@ -562,7 +562,7 @@ class AyahMap(doc: JSONObject) {
 
 // --- word index --------------------------------------------------------------
 
-/** One record of `out/word-index.json`: a shared number and what it is. */
+/** One record of `data/word-index.json`: a shared number and what it is. */
 class IndexedWord(val raw: JSONObject) {
     val number: Int get() = raw.getInt("number")
     val surah: Int get() = raw.getInt("surah")
@@ -587,7 +587,7 @@ class IndexedWord(val raw: JSONObject) {
     override fun toString() = "$number $rasm_uthmani"
 }
 
-/** `out/word-index.json`: the numbering shared by all seven muṣḥafs. */
+/** `data/word-index.json`: the numbering shared by all seven muṣḥafs. */
 class WordIndex(doc: JSONObject) : Iterable<IndexedWord> {
     init {
         require(doc.optString("format") == "quran-word-index") { "not a quran-word-index file" }

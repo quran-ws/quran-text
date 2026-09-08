@@ -1,6 +1,6 @@
 {
   "_": "How this repository is read against the Quran.ws terminology standard. See https://github.com/quranws/guidelines.",
-  "_exclude": "work/ is the build's scratch copy of the KFGQPC packages; the two counting files are vendored verbatim from quranpedia/qiraat-ayah-map and are corrected upstream, not here — their English names are replaced on load, see pipeline/qurantext/counting.py. out/ is generated from pipeline/ and the audit already skips it.",
+  "_exclude": "work/ is the build's scratch copy of the KFGQPC packages; the two counting files are vendored verbatim from quranpedia/qiraat-ayah-map and are corrected upstream, not here — their English names are replaced on load, see pipeline/qurantext/counting.py. data/ is generated from pipeline/ and the audit already skips it.",
   "exclude": [
     "work/**",
     "sources/counting/counting-systems.json",

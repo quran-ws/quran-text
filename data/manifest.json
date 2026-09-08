@@ -1,0 +1,341 @@
+{
+ "format": "quran-mushaf",
+ "format_version": "1.0",
+ "generated": "2026-09-08",
+ "normative": [
+  "data/mushaf/hafs.json",
+  "data/mushaf/shubah.json",
+  "data/mushaf/warsh.json",
+  "data/mushaf/qalun.json",
+  "data/mushaf/duri.json",
+  "data/mushaf/susi.json",
+  "data/mushaf/bazzi.json",
+  "data/word-index.json",
+  "data/word-index.csv"
+ ],
+ "note": "Only the files listed under `normative` define the format. Everything else is a generated view of them.",
+ "sources": {
+  "hafs": {
+   "text": {
+    "package": "UthmanicHafs-v-3.0.zip",
+    "member": "UthmanicHafs-v-3.0.docx",
+    "release_year": 2026,
+    "sha256": "cdec7341b7c684e7b8dd469c4b68988914d2784e924c7e6cbb9cb4b57c24f013"
+   },
+   "layout": {
+    "package": "UthmanicHafs_v2-0.zip",
+    "member": "UthmanicHafs_v2-0 data/hafsData_v2-0.csv",
+    "release_year": 2022,
+    "sha256": "a7b0e5591945712ec5e4d6142938ae4d1e9b49bdc89dff06222789bfebdfd72c"
+   }
+  },
+  "shubah": {
+   "text": {
+    "package": "UthmanicShubah-v-3.0.zip",
+    "member": "UthmanicShubah-v-3.0.docx",
+    "release_year": 2026,
+    "sha256": "28be7e6ac5b3af9b5064c1cb6fc733e7c0d120d453a8894db0ddb01a7f110396"
+   },
+   "layout": {
+    "package": "UthmanicShuba_v2-0.zip",
+    "member": "UthmanicShuba_v2-0 data/shubaData_v2-0.csv",
+    "release_year": 2022,
+    "sha256": "977e64f3f889c084dc82aec4e97092836ca61777cdc93c3ee7da6f59592efbcf"
+   }
+  },
+  "warsh": {
+   "text": {
+    "package": "UthmanicWarsh-v-3.0.zip",
+    "member": "UthmanicWarsh-v-3.0.docx",
+    "release_year": 2026,
+    "sha256": "68e2f1c7a504a8dde797346fd63054c744e073917380f9c56360306b28907e37"
+   },
+   "layout": {
+    "package": "UthmanicWarsh_v2-1.zip",
+    "member": "UthmanicWarsh_v2-1 data/warshData_v2-1.csv",
+    "release_year": 2022,
+    "sha256": "d847a7e7002dfbed5d28db6684fd1d9c3d50b8bb63ad64cb38a46b9dad788b47"
+   }
+  },
+  "qalun": {
+   "text": {
+    "package": "UthmanicQaloun-v-3.0.zip",
+    "member": "UthmanicQaloun-v-3.0.docx",
+    "release_year": 2026,
+    "sha256": "d55082f903ec3975469da187c20f21f09bc9921530c17041a2638ab2ee23850a"
+   },
+   "layout": {
+    "package": "UthmanicQaloun_v2-1.zip",
+    "member": "UthmanicQaloun_v2-1 data/QalounData_v2-1.csv",
+    "release_year": 2022,
+    "sha256": "6988b782b4268c70a11bc807223fcf2b131a9879a48aad34eb65af523fcb144d"
+   }
+  },
+  "duri": {
+   "text": {
+    "package": "UthmanicDouri_V20.zip",
+    "member": "UthmanicDouri V20.docx",
+    "release_year": 2022,
+    "sha256": "89fe6773ada1a8c153d24005453fa8c183bc33919887664c102e5a9c9c2c5e67"
+   },
+   "layout": {
+    "package": "UthmanicDouri_v2-0.zip",
+    "member": "UthmanicDouri_v2-0 data/DouriData_v2-0.csv",
+    "release_year": 2022,
+    "sha256": "84e5569790f96b05896b8f44ebe8d82d98377a929ac0e87dd8af4dbec52cb0c1"
+   }
+  },
+  "susi": {
+   "text": {
+    "package": "UthmanicSousi-v-3.0.zip",
+    "member": "UthmanicSousi-v-3.0.docx",
+    "release_year": 2026,
+    "sha256": "1fe37644546506715cb81eb2e3154567c4df9f256a77e9d523bb12d836b06e0d"
+   },
+   "layout": {
+    "package": "UthmanicSousi_v2-0.zip",
+    "member": "UthmanicSousi_v2-0 data/SousiData_v2-0.csv",
+    "release_year": 2022,
+    "sha256": "e912273b3863bbf97ec4a7b1134967e3cdf21de7fcc06df9dee42bce655ce472"
+   }
+  },
+  "bazzi": {
+   "text": {
+    "package": "UthmanicBazzi-v-3.0.zip",
+    "member": "UthmanicBazzi-v-3.0.docx",
+    "release_year": 2026,
+    "sha256": "63083df98ed0015a6e44b3a5e8f67b1b3d84246ebc69d04c9eabe8982314030c"
+   }
+  },
+  "qiraat-ayah-map": {
+   "repository": "https://github.com/quranpedia/qiraat-ayah-map",
+   "commit": "076255281ec6f76241d7e901e27072733d02a18d",
+   "files": {
+    "book-boundary-primitives.json": "63f7bed237871b174a342d5a88688302c06929105af8dc3c3810b4e795a7e6f1",
+    "counting-systems.json": "a4dfad8c302f3a7bd2172a07ecbd70045b448815edd955df2f0bedcb972b8117"
+   },
+   "overlay": {
+    "khilaf.json": "ec884075b480c8d66c42de8a589f25bd34141d2fa2871e087f2add6c6c349046",
+    "open-findings.json": "2727a65263c329a5dd76b9199c4fe03e651a9655f1a28c49f38cd946f176740f",
+    "declared.json": "feba23ee612ddd2008797432cdaa3c73f3e5ddc2de4ca880c6b6f76c07b22980"
+   }
+  }
+ },
+ "files": [
+  {
+   "path": "data/ayah-map.csv",
+   "bytes": 516361,
+   "sha256": "1f7e544aa4b307f60e5a35bbb63c752895f9ea819fae8b550ff37327adaad362"
+  },
+  {
+   "path": "data/ayah-map.json",
+   "bytes": 2285199,
+   "sha256": "b4ea59b14c629ae5a95ca7e1cebca71227d25aa4d92ae4698a79db8caf21eea9"
+  },
+  {
+   "path": "data/catalog.json",
+   "bytes": 43337,
+   "sha256": "cfb09d969e237a4ef9b180abc44358c2e6ae18b626cbc7c16f52bbee5e9a682c"
+  },
+  {
+   "path": "data/counting.json",
+   "bytes": 463904,
+   "sha256": "fbc08fb122aa374abbb08e6ca7b241a757bdf4808f4efe732f74ab6f4f1f8106"
+  },
+  {
+   "path": "data/differences.csv",
+   "bytes": 45260,
+   "sha256": "0d0d86bc3c7df1ab5e80e9539315bc953dc5f293be4c72ac3933f0197548ed05"
+  },
+  {
+   "path": "data/differences.json",
+   "bytes": 209197,
+   "sha256": "ea8c2907702a655d4c8b12e0cc5149ce18051f101cb85318316ec7de1461e1d7"
+  },
+  {
+   "path": "data/fonts/UthmanicBazzi-v-3.0.ttf",
+   "bytes": 251580,
+   "sha256": "b5fc7fbe012f832be3212b398b523a2e1cb87faacf1e57a65e76522201af8f39"
+  },
+  {
+   "path": "data/fonts/UthmanicDouri-V20.ttf",
+   "bytes": 262344,
+   "sha256": "3a862f8e4ba9b7fd024e2b74981026eb5a901cb292e2b43766795112a35a6b45"
+  },
+  {
+   "path": "data/fonts/UthmanicHafs-v-3.0.ttf",
+   "bytes": 301396,
+   "sha256": "5c47602425fb4190327ab9e1a2e8ed2f53dceaf595d8ccc29ac32b8b209ad398"
+  },
+  {
+   "path": "data/fonts/UthmanicQaloun-v-3.0.ttf",
+   "bytes": 261520,
+   "sha256": "3bf3432429f3bbde673982af2aab9b7a1a7329e295dce250bd96842c2a368ba9"
+  },
+  {
+   "path": "data/fonts/UthmanicShubah-v-3.0.ttf",
+   "bytes": 247280,
+   "sha256": "634a7252b619b934f2e507480d517b8f339503bbf08dded35315a9c1f2be495d"
+  },
+  {
+   "path": "data/fonts/UthmanicSousi-v-3.0.ttf",
+   "bytes": 265472,
+   "sha256": "3b003447bcd36306d76997f07472efef582773f2de6f8615b81c2c46ea4d5d78"
+  },
+  {
+   "path": "data/fonts/UthmanicWarsh-v-3.0.ttf",
+   "bytes": 251428,
+   "sha256": "b644f1c6665baa95c9c0ab40b01a7f3e89edc42a0f50d3b244318a843bec81a9"
+  },
+  {
+   "path": "data/mushaf/bazzi.csv.gz",
+   "bytes": 1043515,
+   "sha256": "f75dd884be21dd1ee5d7472cd5a40b58649f276362261d32b4ec3d8d8a37af1e"
+  },
+  {
+   "path": "data/mushaf/bazzi.json",
+   "bytes": 1996207,
+   "sha256": "7af9af80f7f44b9a1598357741a30757bd66e12d546a3f216252c5b7d59ba1b0"
+  },
+  {
+   "path": "data/mushaf/bazzi.nested.json.gz",
+   "bytes": 1276977,
+   "sha256": "57a1fa7bda0d34ecfc6241439ff963a4472829b1cbd6e31d652fa4191dd69e6e"
+  },
+  {
+   "path": "data/mushaf/duri.csv.gz",
+   "bytes": 1061957,
+   "sha256": "0f4fb022e9f92cfa45b2b4dfc34d5af01da788c6c533bee7b4a456eb5622688d"
+  },
+  {
+   "path": "data/mushaf/duri.json",
+   "bytes": 2036595,
+   "sha256": "20fac610822b7287b03d5888e2665712075ead15561dccfb3e20ac7d58bdab22"
+  },
+  {
+   "path": "data/mushaf/duri.nested.json.gz",
+   "bytes": 1324708,
+   "sha256": "c1268b0cc7963938a7a3847d80973cf7ebf3b0a870a4836f33d8a9a461a300f9"
+  },
+  {
+   "path": "data/mushaf/hafs.csv.gz",
+   "bytes": 1298319,
+   "sha256": "9f52c1a4527dcfcf49ff779a62739c16babf3b0c8218dd92b17fde9df98ce6c0"
+  },
+  {
+   "path": "data/mushaf/hafs.json",
+   "bytes": 3109709,
+   "sha256": "558f5fd765827f8f589b0cb2f51926a1f29320f0e49b7eccd17e0ad6f059cee9"
+  },
+  {
+   "path": "data/mushaf/hafs.nested.json.gz",
+   "bytes": 1756497,
+   "sha256": "f6974a2ec6e976fe6e2620a6761a08c5d7192327b2648fbc7d8e832fddb3a31c"
+  },
+  {
+   "path": "data/mushaf/qalun.csv.gz",
+   "bytes": 1063020,
+   "sha256": "720133ad4c0d57609c16cc87a98febeeb676a8f8d2b46fb3c12b344e00c14321"
+  },
+  {
+   "path": "data/mushaf/qalun.json",
+   "bytes": 2149848,
+   "sha256": "12e2cbd64c0c65576b4d0b407721070247cbf21b0c00f65ca8ef89e8d72e2b21"
+  },
+  {
+   "path": "data/mushaf/qalun.nested.json.gz",
+   "bytes": 1328316,
+   "sha256": "1fd9bf1800eacbaff05bb485d3885f8430c841da74d7e8d53d89b6a33668b20b"
+  },
+  {
+   "path": "data/mushaf/shubah.csv.gz",
+   "bytes": 1050930,
+   "sha256": "4b158117053692ebecd42f74eb44d5871f964d2a4f499e41eb28d93d66e2eb93"
+  },
+  {
+   "path": "data/mushaf/shubah.json",
+   "bytes": 1984092,
+   "sha256": "50252899e3bc676a8f555673d7464cbc3ba8ac098dabe3ec00c0a719780f5150"
+  },
+  {
+   "path": "data/mushaf/shubah.nested.json.gz",
+   "bytes": 1309661,
+   "sha256": "0a0bdbbee07920fd09712742e356cdf8657f4c5be90866e0b0dd863e3a69ee6e"
+  },
+  {
+   "path": "data/mushaf/susi.csv.gz",
+   "bytes": 1059321,
+   "sha256": "03b661f4e61ff2f36b39ad1d0e6643618af98e661d2277b4aa4c73ad90bd7e07"
+  },
+  {
+   "path": "data/mushaf/susi.json",
+   "bytes": 2025245,
+   "sha256": "5b1f05d2442ea8d6bc37c9a9f1770cbd09469c66eb723e2b17a98818ab375daf"
+  },
+  {
+   "path": "data/mushaf/susi.nested.json.gz",
+   "bytes": 1322859,
+   "sha256": "e5636b630248a3028f7b4cab2af6fe128a0c29f514d982ad0a228d8fd9df0bcb"
+  },
+  {
+   "path": "data/mushaf/warsh.csv.gz",
+   "bytes": 1054288,
+   "sha256": "80e80c4a544360da34cd76d2e3276f47b29c91d5c0cf161fe7acd78991ebf366"
+  },
+  {
+   "path": "data/mushaf/warsh.json",
+   "bytes": 1912370,
+   "sha256": "3fd307905447e0dae72fc3a60fca464b1b1d55cedbffe7c83348df66ae0c2c16"
+  },
+  {
+   "path": "data/mushaf/warsh.nested.json.gz",
+   "bytes": 1319319,
+   "sha256": "8698e2bc8a3aa99aaec920ebbf26efe7e8e954f3fd634faeec2c5be69f8439bb"
+  },
+  {
+   "path": "data/quran.sqlite.gz",
+   "bytes": 20337217,
+   "sha256": "4371c797f35c938390459d095dd91aeccec21a7128646f6185599fb5c756390b"
+  },
+  {
+   "path": "data/reports/COMPARISON.md",
+   "bytes": 43442,
+   "sha256": "9f33b4b012f2da0b88ba9e539450f1ee594cfe71041e3335ed4e96c76e506a25"
+  },
+  {
+   "path": "data/reports/agreement-matrix.csv",
+   "bytes": 974,
+   "sha256": "8ac9661e5aee8f6b4b1cd97c68637671fc4ce5f8337564359a5c08524ec3ccf7"
+  },
+  {
+   "path": "data/reports/compare.html",
+   "bytes": 2077013,
+   "sha256": "7b416fb88e87b77e823672c9622ff0750f682061e0e64a908587bc2c5a8e5054"
+  },
+  {
+   "path": "data/reports/rasm-variants.md",
+   "bytes": 58486,
+   "sha256": "b9dd46c48bb052ed340a4fb84ab8bd885f1a46cd1b9a150ec61f402c6286f340"
+  },
+  {
+   "path": "data/reports/resegmentation.csv",
+   "bytes": 1025,
+   "sha256": "e97d49465b3c9b76ae5c9e49b0464174996d338ba3ac9ba54795f7c0269e014d"
+  },
+  {
+   "path": "data/reports/variants.csv",
+   "bytes": 11868595,
+   "sha256": "041b423abc7a7925387bc88d648d8d79e10e5026827497048fd8dcb6f7a391ce"
+  },
+  {
+   "path": "data/word-index.csv",
+   "bytes": 18672301,
+   "sha256": "64684284627cd4a3504cb9dfeb512d1ddf3d065cad97e20a2352ab9b50904041"
+  },
+  {
+   "path": "data/word-index.json",
+   "bytes": 50335703,
+   "sha256": "47ab6fda916feea75b300b535118aa2765207f1d7573bac28a7ef73cf8317059"
+  }
+ ]
+}

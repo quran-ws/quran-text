@@ -17,10 +17,10 @@ import kotlin.test.assertTrue
 // Run from lib/kotlin with the dataset built:  gradle test
 class QuranTextTest {
     companion object {
-        val out = File(System.getProperty("quran.out") ?: "../../out")
-        val hafs = Mushaf.load(File(out, "mushaf/hafs.json"))
-        val warsh = Mushaf.load(File(out, "mushaf/warsh.json"))
-        val bazzi = Mushaf.load(File(out, "mushaf/bazzi.json"))
+        val data = File(System.getProperty("quran.data") ?: "../../data")
+        val hafs = Mushaf.load(File(data, "mushaf/hafs.json"))
+        val warsh = Mushaf.load(File(data, "mushaf/warsh.json"))
+        val bazzi = Mushaf.load(File(data, "mushaf/bazzi.json"))
     }
 
     @Test fun ayahTextLayersAndRendering() {
@@ -101,7 +101,7 @@ class QuranTextTest {
         assertEquals(hafs.wordCount, m.wordCount)
         assertEquals("KFGQPC HAFS Uthmanic Script", m.font.family)
         assertNotNull(m.font.open())
-        assertEquals("out/fonts/UthmanicWarsh-v-3.0.ttf", warsh.font.file)
+        assertEquals("data/fonts/UthmanicWarsh-v-3.0.ttf", warsh.font.file)
     }
 
     @Test fun toAnotherRiwayah() {
@@ -117,7 +117,7 @@ class QuranTextTest {
     }
 
     @Test fun ayahMap() {
-        val map = AyahMap.load(File(out, "ayah-map.json"))
+        val map = AyahMap.load(File(data, "ayah-map.json"))
         assertEquals(MappedAyah(2, 253, "split", 254), map.convert(2, 255, "warsh"))
         assertEquals("2:253-254", map.convert(2, 255, "warsh").key)
         assertEquals("unnumbered", map.all(1, 1)["warsh"]!!.relation)
@@ -125,7 +125,7 @@ class QuranTextTest {
     }
 
     @Test fun wordIndex() {
-        val idx = WordIndex.load(File(out, "word-index.json"))
+        val idx = WordIndex.load(File(data, "word-index.json"))
         assertEquals("مَلِكِ", idx.word(11).form("warsh"))
         assertEquals("إِلَٰهَ", idx.find(2, 255, 3)!!.rasm_uthmani)
         assertTrue(idx.search("مالك").any { it.number == 11 })

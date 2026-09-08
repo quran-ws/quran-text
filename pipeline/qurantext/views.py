@@ -1,6 +1,6 @@
 """Generated views of the muṣḥaf files.
 
-None of these is normative.  ``out/mushaf/<key>.json`` is the format of record;
+None of these is normative.  ``data/mushaf/<key>.json`` is the format of record;
 everything here is written from the same build so it cannot drift from it, and
 exists only to meet consumers where they already are — a nested tree for people
 arriving from one-record-per-āyah XML, a flat table for pandas and R, and one SQLite
@@ -22,7 +22,7 @@ import sqlite3
 from bisect import bisect_right
 from pathlib import Path
 
-from .build import OUT
+from .build import DATA
 from .mushaf import FORMAT, FORMAT_VERSION, MUSHAF_DIR, numbers_of
 
 
@@ -166,7 +166,7 @@ def write_nested(docs: dict[str, dict]) -> None:
         _write_gz(MUSHAF_DIR / f"{key}.nested.json.gz", json.dumps({
             "format": FORMAT,
             "format_version": FORMAT_VERSION,
-            "view_of": f"out/mushaf/{key}.json",
+            "view_of": f"data/mushaf/{key}.json",
             "view": "nested",
             "note": "Generated view. The normative file is the flat one; an "
                     "āyah path is not stable across muṣḥafs, `number` is.",
@@ -244,7 +244,7 @@ CREATE INDEX mark_by_word ON mark (mushaf, position);
 
 
 def write_sqlite(docs: dict[str, dict], word_index: dict,
-                 path: Path = OUT / "quran.sqlite") -> None:
+                 path: Path = DATA / "quran.sqlite") -> None:
     """All seven muṣḥafs and the word index in one queryable file.
 
     ``word.number`` is the shared number, indexed on its own, so comparing two

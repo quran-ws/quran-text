@@ -1,6 +1,6 @@
 """Publish each muṣḥaf on its own, as words by position with layers over them.
 
-``out/`` already answers *how do the muṣḥafs differ?*  It does not answer *give
+``data/`` already answers *how do the muṣḥafs differ?*  It does not answer *give
 me Warsh*: a consumer who wants one muṣḥaf has to take the comparison and
 project it back out.  This module writes the other view — one self-contained
 file per muṣḥaf.
@@ -18,7 +18,7 @@ positions, as do ``marks[][0]`` and ``resegmentation[].positions``.  A
 the ``numbering`` block holds numbers.  A consumer who works in one muṣḥaf
 never reads it.
 
-Only ``out/mushaf/<key>.json`` and ``out/word-index.json`` are normative.  The
+Only ``data/mushaf/<key>.json`` and ``data/word-index.json`` are normative.  The
 nested, CSV and SQLite forms in :mod:`qurantext.views` are generated from the
 same build and are labelled views, so that whichever one turns out to
 be most convenient cannot quietly become the standard.
@@ -38,7 +38,8 @@ from datetime import date
 from pathlib import Path
 
 from . import counting, fonts, rasm_imlai
-from .build import OUT, Word
+from . import paths
+from .build import DATA, Word
 from .word_index import boundary_events
 from .sources import PACKAGES, RELEASE_POLICY, Riwayah
 from .surahs import names
@@ -46,7 +47,7 @@ from .surahs import names
 FORMAT = "quran-mushaf"
 FORMAT_VERSION = "1.0"
 
-MUSHAF_DIR = OUT / "mushaf"
+MUSHAF_DIR = DATA / "mushaf"
 
 #: Signs that can attach to a word, with the Unicode name of each.  Emitted in
 #: every file so a consumer never has to hard-code a codepoint table.
@@ -472,15 +473,15 @@ def write_manifest(docs: dict[str, dict]) -> dict:
     proof: the source hashes let anyone re-derive the build, and the output
     hashes let anyone check that the copy they hold is the one described here.
     """
-    files = sorted(p for p in OUT.rglob("*")
+    files = sorted(p for p in DATA.rglob("*")
                    if p.is_file() and p.name != "manifest.json")
 
     manifest = {
         "format": FORMAT,
         "format_version": FORMAT_VERSION,
         "generated": date.today().isoformat(),
-        "normative": [f"out/mushaf/{k}.json" for k in docs]
-                     + ["out/word-index.json", "out/word-index.csv"],
+        "normative": [f"data/mushaf/{k}.json" for k in docs]
+                     + ["data/word-index.json", "data/word-index.csv"],
         "note": "Only the files listed under `normative` define the format. "
                 "Everything else is a generated view of them.",
         "sources": {
@@ -491,11 +492,11 @@ def write_manifest(docs: dict[str, dict]) -> dict:
             "qiraat-ayah-map": counting.provenance(),
         },
         "files": [
-            {"path": str(p).replace("\\", "/"),
+            {"path": p.relative_to(paths.ROOT).as_posix(),
              "bytes": p.stat().st_size,
              "sha256": _sha256(p)}
             for p in files
         ],
     }
-    _dump(OUT / "manifest.json", manifest)
+    _dump(DATA / "manifest.json", manifest)
     return manifest

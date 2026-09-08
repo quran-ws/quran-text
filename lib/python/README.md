@@ -16,13 +16,13 @@ m.word(1, 4, 1).number                               # 11, the same word in ever
 m.sajdat()                                           # every āyah printed with ۩
 m.search("مالك يوم الدين")                           # [Span(10, 13)]
 
-w = Mushaf.load("out/mushaf/warsh.json")            # another riwāyah
-AyahMap.load("out/ayah-map.json").convert(2, 255, "warsh")   # MappedAyah(2, 253, 'split', 254)
+w = Mushaf.load("data/mushaf/warsh.json")            # another riwāyah
+AyahMap.load("data/ayah-map.json").convert(2, 255, "warsh")   # MappedAyah(2, 253, 'split', 254)
 ```
 
 The font the text needs is bundled too: `m.font.family` names it and `m.font.path`
 is the `.ttf`. For another riwāyah `Mushaf.load(path)` finds its font beside
-`out/fonts/`.
+`data/fonts/`.
 
 Wrong numbers raise `IndexError`; a layer the file lacks (juz in Bazzī) raises
 `KeyError` with the reason from the file. The full API is in

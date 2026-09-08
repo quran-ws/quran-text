@@ -14,7 +14,7 @@ And every word carries one number that means the same word in all seven.
 الروايات السبع جميعًا.
 
 ابدأ من `lib/` إن كنت تبني تطبيقًا، ومن `service/` إن أردت تنزيل النص بالصيغة
-التي تريد، ومن `out/` إن كنت تعمل على البيانات مباشرة.
+التي تريد، ومن `data/` إن كنت تعمل على البيانات مباشرة.
 
 ## Use it in your app
 
@@ -41,7 +41,7 @@ package each, no dependencies, tested against the same facts.
 **Ship the font.** Some words use codepoints Unicode only added in 2021, and
 almost no general font draws them — without the right font your users see empty
 boxes. Every muṣḥaf file names the font that ships with its source package, and
-the build copies it to [`out/fonts/`](out/fonts/); Warsh, Qālūn and Sūsī
+the build copies it to [`data/fonts/`](data/fonts/); Warsh, Qālūn and Sūsī
 need it most.
 
 **Join on `key`, not on the number.** The shared number is a position, so a
@@ -55,7 +55,7 @@ below. The Qurʾānic text itself stays its publisher's, under their terms.
 Āyah numbers are the edition's own, and the libraries convert:
 
 ```python
-warsh = Mushaf.load("out/mushaf/warsh.json")
+warsh = Mushaf.load("data/mushaf/warsh.json")
 
 m.ayah(2, 255).to(warsh)      # AyahMatch(2:253-254, split)
 m.word(2, 255, 3).to(warsh)   # Word(5176, 'إِلَٰهَ')
@@ -111,7 +111,7 @@ the build departed from it:
                     "sha256": "cdec7341b7c684e7b8dd469c4b68988914d2784e924c7e6cbb9cb4b57c24f013" } }
 ```
 
-`python3 pipeline/build.py` rebuilds every file in `out/` from those
+`python3 pipeline/build.py` rebuilds every file in `data/` from those
 committed packages, offline, with no dependencies. Nothing in the text is
 hand-edited, and the build fails if a letter moves.
 
@@ -142,7 +142,7 @@ recorded for all but Bazzī, whose source carries none.
 
 | you are… | go to |
 |---|---|
-| working with the data | [`out/`](out/) — start at [`catalog.json`](out/catalog.json); [`docs/files.md`](docs/files.md) maps every file |
+| working with the data | [`data/`](data/) — start at [`catalog.json`](data/catalog.json); [`docs/files.md`](docs/files.md) maps every file |
 | an agent | [`skills/quran-text/SKILL.md`](skills/quran-text/SKILL.md) |
 
 ## Build
@@ -150,7 +150,7 @@ recorded for all but Bazzī, whose source carries none.
 Python 3.11, no dependencies:
 
 ```sh
-python3 pipeline/build.py                          # ~3 min, writes out/
+python3 pipeline/build.py                          # ~3 min, writes data/
 python3 -m unittest discover -s pipeline/tests
 ```
 
@@ -164,14 +164,14 @@ condition: keep the link.
 That covers the work done here: the word index and its numbering, the
 alignment, the counting analysis, the code and the docs. It does **not** cover
 the Qurʾānic text or the KFGQPC packages and fonts in `sources/kfgqpc/` and
-`out/fonts/`, which remain KFGQPC's under KFGQPC's terms.
+`data/fonts/`, which remain KFGQPC's under KFGQPC's terms.
 [`NOTICE.md`](NOTICE.md) draws the line precisely.
 
 ## Documentation
 
 [`design.md`](docs/design.md) why the format is shaped this way ·
 [`format.md`](docs/format.md) the spec ·
-[`files.md`](docs/files.md) every file in `out/` ·
+[`files.md`](docs/files.md) every file in `data/` ·
 [`method.md`](docs/method.md) how it is built ·
 [`sources.md`](docs/sources.md) what it is built from ·
 [`known-issues.md`](docs/known-issues.md) and

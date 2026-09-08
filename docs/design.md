@@ -2,7 +2,7 @@
 
 The seven riwāyāt almost always print the same words in the same order, and
 disagree far more about where āyāt end than about words. That one fact decides
-the shape of everything under `out/`.
+the shape of everything under `data/`.
 
 ```
 sūrah  →  [ word, word, word, … ]
@@ -25,7 +25,7 @@ riwāyah — the two Abū ʿAmr editions are First Madani, not Baṣrī, and the
 differ from each other at exactly one documented point. Nesting words under
 āyāt would make a number mean a different word in each edition. Flattening to
 the sūrah makes one number stable across all of them, and the āyah boundaries
-become their own layer over the word index: [`out/counting.json`](../out/counting.json).
+become their own layer over the word index: [`data/counting.json`](../data/counting.json).
 
 The editions count 6,214 to 6,236 āyāt, so `2:255:3` names a different word
 in each of them. Nesting words under āyāt would put the unstable coordinate on
@@ -127,5 +127,5 @@ deliberately written to carry both qiraahs.
 ## Read next
 
 - [`format.md`](format.md) — the normative format: words by position, the numbering, the counting block
-- [`files.md`](files.md) — every file under `out/`, and every field
+- [`files.md`](files.md) — every file under `data/`, and every field
 - [`method.md`](method.md) — how words are derived and aligned

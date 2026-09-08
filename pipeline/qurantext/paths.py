@@ -18,7 +18,7 @@ ROOT = Path(__file__).resolve().parents[2]
 SOURCES = ROOT / "sources"
 
 #: The published dataset.  Committed, and rewritten in full by every build.
-OUT = ROOT / "out"
+DATA = ROOT / "data"
 
 #: The schemas the published files are checked against.
 SCHEMA = ROOT / "schema"

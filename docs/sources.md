@@ -86,7 +86,7 @@ cannot supply. See `docs/known-issues.md` §7.
 
 **It was verified against this repository before being trusted.** Its muṣḥaf
 page *n* is its PDF page *n+3*, and on page 151 its thirteen text lines match
-`out/mushaf/hafs.json` word for word, with the sūrah heading and the basmalah
+`data/mushaf/hafs.json` word for word, with the sūrah heading and the basmalah
 each taking a ruled line — the same layout the line reconstruction produces
 (§6). It has **no text layer**: every page is a 1344×1944 image, so nothing was
 extracted mechanically and each medallion was read.
@@ -123,7 +123,7 @@ words as one; see *Numbering* in the same document.
 | `HafsNastaleeq-Ver10.zip` | a font plus a specimen document |
 | `1441-AI-hafs.zip` | Adobe Illustrator page artwork, not text |
 | `mumtaz-1.pdf` | a scanned muṣḥaf image PDF, not text |
-| all `.ttf` files | fonts; the one beside each primary `.docx` is copied to `out/fonts/` and named in the muṣḥaf file's `font` block |
+| all `.ttf` files | fonts; the one beside each primary `.docx` is copied to `data/fonts/` and named in the muṣḥaf file's `font` block |
 
 The brief was to ignore translations, meanings and similar; that is applied
 here, plus the sources that are images or glyph codes rather than text.
@@ -139,5 +139,5 @@ Two inputs exceed GitHub's hard 100 MB per-file limit and are excluded by
 | `sources/kfgqpc/mumtaz-1.pdf` | 360 MB |
 
 Neither is used by the build, so the pipeline runs without them. Everything the
-build reads **is** committed, so `python3 pipeline/build.py` reproduces `out/`
+build reads **is** committed, so `python3 pipeline/build.py` reproduces `data/`
 from a fresh clone.

@@ -23,7 +23,7 @@ try AyahMap.load(url).convert(2, 255, to: "warsh")               // MappedAyah(s
 
 The font the text needs is bundled too: register `m.font.url` with
 `CTFontManagerRegisterFontsForURL` and use `Font.custom(m.font.family, size:)`.
-For another riwāyah add its `.ttf` from `out/fonts/` to your app.
+For another riwāyah add its `.ttf` from `data/fonts/` to your app.
 
 Lookups by number are checked with `precondition`, like array subscripts.
 Layers a file may lack come back as `nil`: `bazzi.juz(1)` is `nil` and

@@ -456,18 +456,18 @@ class TestNumbering(unittest.TestCase):
 
 
 class TestPublishedFiles(unittest.TestCase):
-    """The committed out/ must satisfy what the spec promises.
+    """The committed data/ must satisfy what the spec promises.
 
-    Skipped when out/ has not been built; run after ``python3 pipeline/build.py``.
+    Skipped when data/ has not been built; run after ``python3 pipeline/build.py``.
     """
 
     KEYS = ["hafs", "shubah", "warsh", "qalun", "duri", "susi", "bazzi"]
 
     @classmethod
     def setUpClass(cls):
-        paths = [ROOT / "out" / "mushaf" / f"{k}.json" for k in cls.KEYS]
+        paths = [ROOT / "data" / "mushaf" / f"{k}.json" for k in cls.KEYS]
         if not all(p.exists() for p in paths):
-            raise unittest.SkipTest("out/ not built")
+            raise unittest.SkipTest("data/ not built")
         cls.docs = {k: json.loads(p.read_text(encoding="utf-8"))
                     for k, p in zip(cls.KEYS, paths)}
 
@@ -543,7 +543,7 @@ class TestPublishedFiles(unittest.TestCase):
                          {(f["mushaf"], f["surah"], f["ayah"]) for f in open_findings()})
 
     def test_the_word_index_gives_every_number_a_text(self):
-        path = ROOT / "out" / "word-index.json"
+        path = ROOT / "data" / "word-index.json"
         if not path.exists():
             self.skipTest("word index not built")
         index = json.loads(path.read_text(encoding="utf-8"))
@@ -557,7 +557,7 @@ class TestPublishedFiles(unittest.TestCase):
                          ["hafs", "shubah", "warsh", "qalun", "duri", "susi"])
 
     def test_the_ayah_map_answers_what_an_ayah_is_elsewhere(self):
-        path = ROOT / "out" / "ayah-map.json"
+        path = ROOT / "data" / "ayah-map.json"
         if not path.exists():
             self.skipTest("ayah map not built")
         rows = json.loads(path.read_text(encoding="utf-8"))["ayahs"]

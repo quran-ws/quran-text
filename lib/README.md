@@ -24,7 +24,7 @@ The same six lines in every language:
 | Swift (iOS, macOS) | [`swift/`](swift/), Swift Package `QuranText` | `try Mushaf.hafs()` | `cd lib/swift && swift test` |
 | Kotlin (Android, JVM) | [`kotlin/`](kotlin/), Gradle, `org.json` only | `Mushaf.hafs()` | `cd lib/kotlin && gradle test` |
 
-Every test suite runs against the built `out/` and checks the same facts, so
+Every test suite runs against the built `data/` and checks the same facts, so
 the six behave identically. Names follow each language's convention
 (`ayah_marks` in Python, `ayahMarks` elsewhere); nothing else changes.
 
@@ -66,20 +66,20 @@ guaranteed to draw every codepoint the words use. Each muṣḥaf tells you whic
 
 ```python
 m.font.family     # "KFGQPC HAFS Uthmanic Script"
-m.font.file       # "out/fonts/UthmanicHafs-v-3.0.ttf"
+m.font.file       # "data/fonts/UthmanicHafs-v-3.0.ttf"
 ```
 
 Every package bundles the Ḥafṣ font next to `hafs.json`: Flutter gets it as
 `TextStyle(fontFamily: m.font.family, package: 'quran_text')`, the web as
 `m.fontFace()` for a `@font-face` rule, Swift and Kotlin as a file to register
-with the system. For another riwāyah take its font from `out/fonts/` (or the
+with the system. For another riwāyah take its font from `data/fonts/` (or the
 download service) and register it the same way.
 
 ## When you need another riwāyah
 
 Ḥafṣ is one of seven riwāyāt here: Ḥafṣ, Shuʿbah, Warsh, Qālūn, Dūrī, Sūsī
 and Bazzī, each a printed muṣḥaf of its own. Load one with `Mushaf.load(path)`
-from `out/mushaf/<key>.json` (or download it from the service), and know three
+from `data/mushaf/<key>.json` (or download it from the service), and know three
 things:
 
 1. **Āyah numbers are the edition's own.** `warsh.ayah(2, 253)` is āyat
@@ -93,7 +93,7 @@ things:
 
 Warsh, Qālūn and Sūsī use Arabic Extended-B codepoints that general fonts
 cannot draw; the text looks blank, but it is not missing. Ship the font named
-in that muṣḥaf's `font` block, from `out/fonts/`.
+in that muṣḥaf's `font` block, from `data/fonts/`.
 
 **Mapping between riwāyāt** is one call each way, for āyāt and for words,
 and it works between any two of the seven directly:
@@ -111,7 +111,7 @@ result is computed from the shared numbering, so the two always agree.
 six languages.)
 
 `Word.number` is the numbering shared by all seven. `WordIndex`
-(`out/word-index.json`, 50 MB, for servers and build steps rather than phones)
+(`data/word-index.json`, 50 MB, for servers and build steps rather than phones)
 says what a number is everywhere:
 
 ```python

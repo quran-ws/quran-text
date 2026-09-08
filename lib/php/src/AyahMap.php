@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace QuranText;
 
-/** out/ayah-map.json: what a Ḥafṣ (Kūfī) reference is in every edition. */
+/** data/ayah-map.json: what a Ḥafṣ (Kūfī) reference is in every edition. */
 final class AyahMap
 {
     /** @var string[] */

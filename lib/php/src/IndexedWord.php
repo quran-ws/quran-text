@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace QuranText;
 
-/** One record of out/word-index.json: a shared number and what it is. */
+/** One record of data/word-index.json: a shared number and what it is. */
 final class IndexedWord
 {
     public function __construct(public readonly array $raw)

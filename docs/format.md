@@ -1,13 +1,13 @@
 # The muṣḥaf format
 
-`out/mushaf/<key>.json` publishes one muṣḥaf on its own. `out/word-index.json`
+`data/mushaf/<key>.json` publishes one muṣḥaf on its own. `data/word-index.json`
 publishes the shared numbering that means the same word in all seven.
 
-This document is the specification. **Only `out/mushaf/<key>.json` and
-`out/word-index.json` (with `out/word-index.csv`) are normative.** The nested,
+This document is the specification. **Only `data/mushaf/<key>.json` and
+`data/word-index.json` (with `data/word-index.csv`) are normative.** The nested,
 CSV and SQLite forms are generated from them and are labelled views; a consumer
 may read them, but a claim about "the format" refers to the files above.
-[`files.md`](files.md) lists every file under `out/`, the views of these two
+[`files.md`](files.md) lists every file under `data/`, the views of these two
 included, and what each answers.
 
 ## The shape
@@ -172,8 +172,8 @@ a file may set. Numbers are stable across rebuilds of the same sources and are
 ## The word index
 
 Under this numbering the master is a division nobody prints, so it has a file
-of its own, normative alongside the seven: `out/word-index.json`, and
-`out/word-index.csv` with the same columns flattened. One record per number:
+of its own, normative alongside the seven: `data/word-index.json`, and
+`data/word-index.csv` with the same columns flattened. One record per number:
 
 ```json
 { "number": 73951, "surah": 72, "index": 153, "key": "72:لو#1",
@@ -205,8 +205,8 @@ of its own, normative alongside the seven: `out/word-index.json`, and
 
 The word index is where a number gets a text. The muṣḥaf files are where a
 text gets a position. Neither is derivable from the other alone, so both are
-normative. `out/differences.json` is the same records filtered to the words
-where the riwāyāt disagree, and `out/ayah-map.json` answers what a Kūfī āyah
+normative. `data/differences.json` is the same records filtered to the words
+where the riwāyāt disagree, and `data/ayah-map.json` answers what a Kūfī āyah
 reference is in each edition.
 
 ## Counting
@@ -257,9 +257,9 @@ repository does not yet model, are this repository's overlay
 `sources/counting/khilaf.json`, cited point by point from al-Dānī's *al-Bayān*.
 Where an anchor word occurs twice in its Kūfī āyah (three of the 246 points),
 the occurrence the editions actually end at is taken and listed under
-`resolved_anchors` in `out/counting.json`.
+`resolved_anchors` in `data/counting.json`.
 
-`out/counting.json` is the same information keyed by system: every system's
+`data/counting.json` is the same information keyed by system: every system's
 boundaries as numbers, the editions that follow each, and their `khilaf`
 resolutions alongside.
 
@@ -372,7 +372,7 @@ is `null`. `layers.derived.rasm_imlai` reports the totals.
 Every muṣḥaf file names the font its text is set in:
 
 ```json
-"font": { "family": "KFGQPC Warsh Uthmanic Script", "file": "out/fonts/UthmanicWarsh-v-3.0.ttf",
+"font": { "family": "KFGQPC Warsh Uthmanic Script", "file": "data/fonts/UthmanicWarsh-v-3.0.ttf",
           "package": "UthmanicWarsh-v-3.0.zip", "member": "UthmanicWarsh-v-3.0.ttf",
           "sha256": "…", "publisher": "https://fonts.qurancomplex.gov.sa/" }
 ```
@@ -383,7 +383,7 @@ alefs of Warsh, Qālūn and Sūsī, the open tanwīn marks, the waqf signs — t
 only this font is guaranteed to draw. A general Arabic font shows gaps where
 those letters should be. `family` is read from the font's own name table so
 a stylesheet or a `Typeface` can refer to it exactly; `file` is the copy under
-`out/fonts/`, hashed like every other emitted file in `manifest.json`.
+`data/fonts/`, hashed like every other emitted file in `manifest.json`.
 
 The `font` block also says which one to ship with which text, because each
 muṣḥaf has its own: seven files, one per riwāyah, not one font for all seven.
@@ -394,7 +394,7 @@ Every file names the KFGQPC release it came from, with a SHA-256 — in the file
 itself, not only in the manifest, because a muṣḥaf file will be copied and
 vendored on its own and a text whose edition cannot be named is not citable.
 
-`out/manifest.json` carries the same hashes for every source package,
+`data/manifest.json` carries the same hashes for every source package,
 for the vendored qiraat-ayah-map data, and for every emitted file, and lists
 the normative set.
 

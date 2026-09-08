@@ -1,4 +1,4 @@
-"""Build ``out/reports/compare.html`` — a self-contained word by word comparison.
+"""Build ``data/reports/compare.html`` — a self-contained word by word comparison.
 
 The whole corpus is 36 MB of JSON, which is too much to paste into a page, and
 a page that fetched the per-sūrah files would need a web server to escape the
@@ -17,7 +17,7 @@ import gzip
 import json
 from datetime import date
 
-from .build import ORDER, OUT, Word
+from .build import DATA, ORDER, Word
 from .sources import Riwayah
 from .surahs import names
 
@@ -75,8 +75,8 @@ def write_viewer(words: list[Word], riwayahs: list[Riwayah]) -> None:
     raw = json.dumps(payload, ensure_ascii=False, separators=(",", ":"))
     blob = base64.b64encode(
         gzip.compress(raw.encode("utf-8"), 9, mtime=0)).decode("ascii")
-    (OUT / "reports").mkdir(exist_ok=True)
-    (OUT / "reports" / "compare.html").write_text(
+    (DATA / "reports").mkdir(exist_ok=True)
+    (DATA / "reports" / "compare.html").write_text(
         _TEMPLATE.replace("__DATA__", blob).replace("__WORDS__", f"{len(words):,}"),
         encoding="utf-8")
 
