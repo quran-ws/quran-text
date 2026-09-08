@@ -15,8 +15,8 @@ from __future__ import annotations
 import base64
 import gzip
 import json
-from datetime import date
 
+from . import stamp
 from .build import DATA, ORDER, Word
 from .sources import Riwayah
 from .surahs import names
@@ -62,7 +62,7 @@ def _pack(words: list[Word]) -> dict:
 
 def write_viewer(words: list[Word], riwayahs: list[Riwayah]) -> None:
     payload = {
-        "generated": date.today().isoformat(),
+        "generated": stamp.generated(),
         "order": ORDER,
         "statuses": STATUSES,
         "riwayahs": {r.key: {"en": r.name_en, "ar": r.name_ar, "qiraah": r.qiraah_en}

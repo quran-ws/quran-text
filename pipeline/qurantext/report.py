@@ -4,10 +4,10 @@ from __future__ import annotations
 
 import csv
 from collections import Counter, defaultdict
-from datetime import date
 from difflib import SequenceMatcher
 from itertools import combinations
 
+from . import stamp
 from .build import DATA, ORDER, Word, ayah_ends
 
 REPORTS = DATA / "reports"
@@ -155,7 +155,7 @@ def write_report(words: list[Word], riwayahs: list[Riwayah],
 
     add("# Cross-riwāyah comparison")
     add("")
-    add(f"Generated {date.today().isoformat()} from the KFGQPC packages in `sources/`. "
+    add(f"Generated {stamp.generated()} from the KFGQPC packages in `sources/`. "
         f"{len(words):,} canonical words across {len({w.surah for w in words})} sūrahs "
         f"and {len(keys)} riwāyāt.")
     add("")

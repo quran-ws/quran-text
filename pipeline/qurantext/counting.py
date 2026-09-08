@@ -35,11 +35,10 @@ import hashlib
 import json
 import unicodedata
 from collections import defaultdict
-from datetime import date
 from functools import lru_cache
 from pathlib import Path
 
-from . import paths
+from . import paths, stamp
 from .build import DATA, ORDER, Word, ayah_ends
 
 COUNTING_DIR = paths.SOURCES / "counting"
@@ -410,7 +409,7 @@ def write_counting(words: list[Word], docs: dict[str, dict]) -> dict:
     doc = {
         "format": "quran-counting",
         "format_version": "1.0",
-        "generated": date.today().isoformat(),
+        "generated": stamp.generated(),
         "model": "Each system lists the shared number after which every one of "
                  "its āyāt ends. The count belongs to the edition, not the "
                  "riwāyah: an edition is listed under the system its own "

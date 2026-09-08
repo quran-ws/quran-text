@@ -9,8 +9,8 @@ from __future__ import annotations
 
 import json
 from collections import defaultdict
-from datetime import date
 
+from . import stamp
 from .build import DATA, Word
 from .sources import Riwayah
 from .surahs import names
@@ -56,7 +56,7 @@ def write_catalog(words: list[Word], riwayahs: list[Riwayah],
     doc = {
         "format": FORMAT,
         "format_version": FORMAT_VERSION,
-        "generated": date.today().isoformat(),
+        "generated": stamp.generated(),
         "word_count": words[-1].id,
         "surah_count": len(by_surah),
         "riwayahs": [{

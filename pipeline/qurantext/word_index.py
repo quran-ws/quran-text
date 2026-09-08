@@ -22,8 +22,8 @@ from __future__ import annotations
 import csv
 import json
 from collections import Counter, defaultdict
-from datetime import date
 
+from . import stamp
 from .align import WRITTEN_JOINED
 from .build import DATA, ORDER, Word
 
@@ -147,7 +147,7 @@ def write_word_index(words: list[Word]) -> dict:
     doc = {
         "format": FORMAT,
         "format_version": FORMAT_VERSION,
-        "generated": date.today().isoformat(),
+        "generated": stamp.generated(),
         "total": words[-1].id,
         "mushafs": ORDER,
         "note": "`number` is the shared number, dense 1 … total, the same "
@@ -178,7 +178,7 @@ def write_differences(words: list[Word]) -> dict:
     doc = {
         "format": "quran-differences",
         "format_version": FORMAT_VERSION,
-        "generated": date.today().isoformat(),
+        "generated": stamp.generated(),
         "count": len(flagged),
         "by_status": dict(Counter(w.status for w in flagged)),
         "note": "The word-index records whose status is one of "

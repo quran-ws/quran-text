@@ -257,7 +257,10 @@ has to see that rather than skip silently past it.
 ## `data/manifest.json`
 
 The SHA-256 of every source package, of the vendored counting data, and of
-every file under `data/`, and the list of normative files.
+every file under `data/`, and the list of normative files. Its `generated` date
+is the dataset's edition date, fixed in the commit rather than taken from the
+clock, so two builds of the same commit agree hash for hash — see
+[`format.md`](format.md#provenance).
 
 ## `data/reports/`
 

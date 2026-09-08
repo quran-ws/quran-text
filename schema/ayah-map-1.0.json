@@ -8,7 +8,7 @@
   "properties": {
     "format": { "const": "quran-ayah-map" },
     "format_version": { "type": "string", "pattern": "^\\d+\\.\\d+$" },
-    "generated": { "type": "string", "format": "date" },
+    "generated": { "type": "string", "format": "date", "description": "The dataset's edition date, declared in the build and committed with the data it describes, not the day the file was written: rebuilding an unchanged commit must reproduce these bytes." },
     "reference": { "const": "hafs" },
     "editions": { "type": "array", "items": { "type": "string" } },
     "note": { "type": "string" },
