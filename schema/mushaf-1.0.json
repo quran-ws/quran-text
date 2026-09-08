@@ -36,7 +36,8 @@
     },
     "generated": {
       "type": "string",
-      "format": "date"
+      "format": "date",
+      "description": "The dataset's edition date, declared in the build and committed with the data it describes, not the day the file was written: rebuilding an unchanged commit must reproduce these bytes."
     },
     "mushaf": {
       "type": "object",

@@ -17,7 +17,7 @@ that array, addressed by position.**
 
 ```json
 {
-  "format": "quran-mushaf", "format_version": "1.0", "generated": "2026-09-05",
+  "format": "quran-mushaf", "format_version": "1.0", "generated": "2026-09-08",
 
   "mushaf":   { "key": "warsh", "name_en": "Warsh", "name_ar": "ورش",
                 "qiraah_en": "Nāfiʿ al-Madanī", "qiraah_ar": "نافع المدني", "word_count": 77431 },
@@ -397,6 +397,16 @@ vendored on its own and a text whose edition cannot be named is not citable.
 `data/manifest.json` carries the same hashes for every source package,
 for the vendored qiraat-ayah-map data, and for every emitted file, and lists
 the normative set.
+
+`generated` is the **edition date of the dataset**, not the day the file
+happened to be written. It is declared once in the pipeline and committed
+alongside the data it describes, so that rebuilding an unchanged commit — today,
+or in ten years — produces the same bytes and therefore the same hashes in the
+manifest. A date read from the clock would move every checksum in the dataset on
+a build that had changed nothing, which is the opposite of what a manifest is
+for. A release pipeline that wants to stamp its own date can export
+`SOURCE_DATE_EPOCH`, the reproducible-builds convention; the date is read from
+it, in UTC, when it is set.
 
 ## What each file declares
 

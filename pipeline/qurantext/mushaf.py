@@ -34,11 +34,10 @@ from __future__ import annotations
 import hashlib
 import json
 from collections import defaultdict
-from datetime import date
 from pathlib import Path
 
 from . import counting, fonts, rasm_imlai
-from . import paths
+from . import paths, stamp
 from .build import DATA, Word
 from .word_index import boundary_events
 from .sources import PACKAGES, RELEASE_POLICY, Riwayah
@@ -401,7 +400,7 @@ def document(words: list[Word], r: Riwayah,
     doc = {
         "format": FORMAT,
         "format_version": FORMAT_VERSION,
-        "generated": date.today().isoformat(),
+        "generated": stamp.generated(),
         "mushaf": {
             "key": key,
             "name_en": r.name_en,
@@ -479,7 +478,7 @@ def write_manifest(docs: dict[str, dict]) -> dict:
     manifest = {
         "format": FORMAT,
         "format_version": FORMAT_VERSION,
-        "generated": date.today().isoformat(),
+        "generated": stamp.generated(),
         "normative": [f"data/mushaf/{k}.json" for k in docs]
                      + ["data/word-index.json", "data/word-index.csv"],
         "note": "Only the files listed under `normative` define the format. "

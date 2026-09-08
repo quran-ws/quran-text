@@ -4,6 +4,7 @@ Run with:  python3 -m unittest discover -s pipeline/tests
 """
 
 import json
+import os
 import sys
 import unittest
 from pathlib import Path
@@ -25,6 +26,7 @@ from qurantext.tokenize import Token, tokenize_ayah             # noqa: E402
 from qurantext.rasm_imlai import _pair                              # noqa: E402
 from qurantext.layout import Place                              # noqa: E402
 from qurantext.mushaf import _marks, _starts, numbering, printed_words  # noqa: E402
+from qurantext import stamp                                  # noqa: E402
 from qurantext.validate import check_numbering, check_positions  # noqa: E402
 
 
@@ -609,6 +611,48 @@ class TestTokenPlacement(unittest.TestCase):
     def test_no_places_means_no_placement_rather_than_a_wrong_one(self):
         toks = tokenize_ayah(1, 1, "بِسۡمِ ٱللَّهِ")
         self.assertEqual([(t.page, t.line) for t in toks], [(0, 0), (0, 0)])
+
+
+class TestGeneratedDate(unittest.TestCase):
+    """The ``generated`` stamp must not come from the clock.
+
+    Nine sites write it and ``manifest.json`` hashes everything under them, so a
+    date that moved with the calendar churned every checksum in the dataset on a
+    build that had changed nothing.  See :mod:`qurantext.stamp`.
+    """
+
+    def setUp(self):
+        self.saved = os.environ.pop("SOURCE_DATE_EPOCH", None)
+
+    def tearDown(self):
+        os.environ.pop("SOURCE_DATE_EPOCH", None)
+        if self.saved is not None:
+            os.environ["SOURCE_DATE_EPOCH"] = self.saved
+
+    def test_default_is_the_declared_edition(self):
+        self.assertEqual(stamp.generated(), stamp.EDITION)
+
+    def test_edition_is_a_schema_date(self):
+        # Every schema declares `generated` as {"type": "string", "format": "date"}.
+        self.assertRegex(stamp.EDITION, r"^\d{4}-\d{2}-\d{2}$")
+
+    def test_source_date_epoch_is_honoured_in_utc(self):
+        os.environ["SOURCE_DATE_EPOCH"] = "1757289600"
+        self.assertEqual(stamp.generated(), "2025-09-08")
+        os.environ["SOURCE_DATE_EPOCH"] = "0"
+        self.assertEqual(stamp.generated(), "1970-01-01")
+
+    def test_nonsense_epoch_stops_the_build(self):
+        os.environ["SOURCE_DATE_EPOCH"] = "yesterday"
+        with self.assertRaises(SystemExit):
+            stamp.generated()
+
+    def test_published_files_carry_the_same_date(self):
+        manifest = ROOT / "data" / "manifest.json"
+        if not manifest.exists():
+            raise unittest.SkipTest("data/ not built")
+        doc = json.loads(manifest.read_text(encoding="utf-8"))
+        self.assertEqual(doc["generated"], stamp.EDITION)
 
 
 if __name__ == "__main__":

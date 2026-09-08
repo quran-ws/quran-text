@@ -23,8 +23,8 @@ from __future__ import annotations
 import csv
 import json
 from collections import defaultdict
-from datetime import date
 
+from . import stamp
 from .build import DATA, ORDER, Word
 
 FORMAT = "quran-ayah-map"
@@ -92,7 +92,7 @@ def write_ayah_map(words: list[Word]) -> dict:
     doc = {
         "format": FORMAT,
         "format_version": FORMAT_VERSION,
-        "generated": date.today().isoformat(),
+        "generated": stamp.generated(),
         "reference": REFERENCE,
         "editions": ORDER,
         "note": "One entry per āyah of the Kūfī count as Ḥafṣ prints it. For "

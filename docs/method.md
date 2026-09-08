@@ -278,5 +278,22 @@ determine the count. What is checked instead is that each edition's division
 matches a counting system once the documented khilāf is set aside — see
 `docs/known-issues.md`.
 
-Plus 70 unit tests over the normalisation, splitting and alignment primitives,
-the numbering block, and the committed `data/` files.
+Plus 76 unit tests over the normalisation, splitting and alignment primitives,
+the numbering block, the generated stamp, and the committed `data/` files.
+
+## Reproducibility
+
+The build reads only what is committed, so a fresh clone must reproduce `data/`
+exactly. That is checkable: build, take `find data -type f | sort | xargs shasum
+-a 256`, build again, and the two lists must be identical.
+
+Holding it true means the build may take nothing from the machine it runs on.
+Two things used to. gzip wrote the current time into the header of each of the
+nine `.gz` files; the timestamp is now zeroed at every write site. And nine
+sites stamped `date.today()` into `generated`, so every checksum in
+`manifest.json` churned overnight even when not a byte of the data had moved;
+the date now comes from `pipeline/qurantext/stamp.py`, which declares it as a
+committed constant and honours `SOURCE_DATE_EPOCH` when a release pipeline sets
+one. Nothing else varies: the manifest walks `data/` in sorted order and records
+paths relative to the repository root, and no output depends on the working
+directory, the locale or the clock.
