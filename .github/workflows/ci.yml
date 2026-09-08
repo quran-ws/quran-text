@@ -144,16 +144,18 @@ jobs:
         run: gradle test
 
   # The only macOS job, and it is one because the package ships for Apple
-  # platforms and nothing else here needs the runner. Package.swift asks for
-  # tools 5.9, so the toolchain is pinned there rather than left at whatever
-  # Xcode the image happens to carry.
+  # platforms and nothing else here needs the runner.
+  #
+  # On the runner's own toolchain, deliberately. swift-tools-version:5.9 is the
+  # manifest format Package.swift is written in, not a compiler this must be
+  # built with, and installing that compiler is what broke: Swift 5.9 cannot
+  # parse the Foundation interface in the SDK the current Xcode ships, so the
+  # build died inside Apple's own module. Whoever depends on this package has
+  # the Xcode they have, which is what the runner gives us.
   swift:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: swift-actions/setup-swift@v2
-        with:
-          swift-version: '5.9'
       - name: Swift
         working-directory: lib/swift
         run: swift test
