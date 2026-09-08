@@ -118,7 +118,7 @@ $idx = WordIndex::load($out . 'word-index.json');
 check('form', $idx->word(11)->form('warsh'), 'مَلِكِ');
 check('find', $idx->find(2, 255, 3)->rasm_uthmani(), 'إِلَٰهَ');
 check('index search', in_array(11, array_map(fn ($x) => $x->number(), $idx->search('مالك')), true), true);
-check('differing', iterator_count($idx->differing()), 53134);
+check('differing', count($idx->differing()), 53134);
 
 echo $failures === 0 ? "OK\n" : "$failures failure(s)\n";
 exit($failures === 0 ? 0 : 1);
