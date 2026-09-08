@@ -101,7 +101,7 @@ words away, which makes them neighbouring rubu_al_hizbs, not the division.
 
 al-Dānī's *al-Bayān* gives the point to Baṣrī alone, which is why it looked
 unexplained; the two together settle it. Recorded in `sources/counting/khilaf.json`
-and emitted under `counting.khilaf` in `out/mushaf/bazzi.json`.
+and emitted under `counting.khilaf` in `data/mushaf/bazzi.json`.
 `open-findings.json` is now empty.
 
 *`docs/known-issues.md` §1b.*

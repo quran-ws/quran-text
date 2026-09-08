@@ -25,7 +25,7 @@ AyahMap.fromJson(json).convert(2, 255, 'warsh');                  // MappedAyah(
 
 The font the text needs is bundled and declared in the package's pubspec, so
 `TextStyle(fontFamily: m.font.family, package: 'quran_text')` renders every word.
-For another riwāyah add its `.ttf` from `out/fonts/` to your own `fonts:`.
+For another riwāyah add its `.ttf` from `data/fonts/` to your own `fonts:`.
 
 `marks` takes `true` or a set of `MarkKind` (`{MarkKind.waqf}`). Wrong numbers
 throw `RangeError`; a layer the file lacks (juz in Bazzī) throws `StateError`

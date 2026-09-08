@@ -17,13 +17,13 @@ m.word(1, 4, 1).number                                         // 11, the same w
 m.sajdat()                                                     // every āyah printed with ۩
 m.search("مالك يوم الدين")                                     // [Span]
 
-const w = await Mushaf.load("out/mushaf/warsh.json");          // another riwāyah, Node
+const w = await Mushaf.load("data/mushaf/warsh.json");          // another riwāyah, Node
 const w = Mushaf.fromJson(await (await fetch(url)).json());    // another riwāyah, browser / React Native
-(await AyahMap.load("out/ayah-map.json")).convert(2, 255, "warsh")   // { surah: 2, ayah: 253, ayahLast: 254, relation: "split" }
+(await AyahMap.load("data/ayah-map.json")).convert(2, 255, "warsh")   // { surah: 2, ayah: 253, ayahLast: 254, relation: "split" }
 ```
 
 The font the text needs is bundled too: add `m.fontFace()` to a stylesheet and
-use `m.font.family`. For another riwāyah pass its `out/fonts/` URL to `fontFace(url)`.
+use `m.font.family`. For another riwāyah pass its `data/fonts/` URL to `fontFace(url)`.
 
 Wrong numbers throw `RangeError`; a layer the file lacks (juz in Bazzī) throws
 with the reason from the file. The full API is in [`../README.md`](../README.md).

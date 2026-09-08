@@ -17,7 +17,7 @@ jobs:
           python-version: '3.11'
 
       # The build reads only what is committed, so a fresh clone must reproduce
-      # out/ exactly. It exits non-zero if any of its checks find something.
+      # data/ exactly. It exits non-zero if any of its checks find something.
       - name: Build
         run: python3 pipeline/build.py
 
@@ -40,7 +40,7 @@ jobs:
         with:
           python-version: '3.11'
 
-      # The service reads out/, which is committed, so it needs no build step.
+      # The service reads data/, which is committed, so it needs no build step.
       - name: Install
         working-directory: service
         run: pip install -r requirements-dev.txt

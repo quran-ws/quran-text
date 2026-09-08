@@ -16,10 +16,10 @@
    "word_count": 77432,
    "source": "UthmanicHafs-v-3.0.zip :: UthmanicHafs-v-3.0.docx",
    "crosscheck_source": "UthmanicHafs_v2-0.zip :: UthmanicHafs_v2-0 data/hafsData_v2-0.csv",
-   "file": "out/mushaf/hafs.json",
+   "file": "data/mushaf/hafs.json",
    "font": {
     "family": "KFGQPC HAFS Uthmanic Script",
-    "file": "out/fonts/UthmanicHafs-v-3.0.ttf"
+    "file": "data/fonts/UthmanicHafs-v-3.0.ttf"
    }
   },
   {
@@ -33,10 +33,10 @@
    "word_count": 77432,
    "source": "UthmanicShubah-v-3.0.zip :: UthmanicShubah-v-3.0.docx",
    "crosscheck_source": "UthmanicShuba_v2-0.zip :: UthmanicShuba_v2-0 data/shubaData_v2-0.csv",
-   "file": "out/mushaf/shubah.json",
+   "file": "data/mushaf/shubah.json",
    "font": {
     "family": "KFGQPC Shuba Uthmanic Script",
-    "file": "out/fonts/UthmanicShubah-v-3.0.ttf"
+    "file": "data/fonts/UthmanicShubah-v-3.0.ttf"
    }
   },
   {
@@ -50,10 +50,10 @@
    "word_count": 77431,
    "source": "UthmanicWarsh-v-3.0.zip :: UthmanicWarsh-v-3.0.docx",
    "crosscheck_source": "UthmanicWarsh_v2-1.zip :: UthmanicWarsh_v2-1 data/warshData_v2-1.csv",
-   "file": "out/mushaf/warsh.json",
+   "file": "data/mushaf/warsh.json",
    "font": {
     "family": "KFGQPC Warsh Uthmanic Script",
-    "file": "out/fonts/UthmanicWarsh-v-3.0.ttf"
+    "file": "data/fonts/UthmanicWarsh-v-3.0.ttf"
    }
   },
   {
@@ -67,10 +67,10 @@
    "word_count": 77431,
    "source": "UthmanicQaloun-v-3.0.zip :: UthmanicQaloun-v-3.0.docx",
    "crosscheck_source": "UthmanicQaloun_v2-1.zip :: UthmanicQaloun_v2-1 data/QalounData_v2-1.csv",
-   "file": "out/mushaf/qalun.json",
+   "file": "data/mushaf/qalun.json",
    "font": {
     "family": "KFGQPC Qaloun Uthmanic Script",
-    "file": "out/fonts/UthmanicQaloun-v-3.0.ttf"
+    "file": "data/fonts/UthmanicQaloun-v-3.0.ttf"
    }
   },
   {
@@ -84,10 +84,10 @@
    "word_count": 77431,
    "source": "UthmanicDouri_V20.zip :: UthmanicDouri V20.docx",
    "crosscheck_source": "UthmanicDouri_v2-0.zip :: UthmanicDouri_v2-0 data/DouriData_v2-0.csv",
-   "file": "out/mushaf/duri.json",
+   "file": "data/mushaf/duri.json",
    "font": {
     "family": "KFGQPC Douri Uthmanic Script",
-    "file": "out/fonts/UthmanicDouri-V20.ttf"
+    "file": "data/fonts/UthmanicDouri-V20.ttf"
    }
   },
   {
@@ -101,10 +101,10 @@
    "word_count": 77431,
    "source": "UthmanicSousi-v-3.0.zip :: UthmanicSousi-v-3.0.docx",
    "crosscheck_source": "UthmanicSousi_v2-0.zip :: UthmanicSousi_v2-0 data/SousiData_v2-0.csv",
-   "file": "out/mushaf/susi.json",
+   "file": "data/mushaf/susi.json",
    "font": {
     "family": "KFGQPC Sousi Uthmanic Script",
-    "file": "out/fonts/UthmanicSousi-v-3.0.ttf"
+    "file": "data/fonts/UthmanicSousi-v-3.0.ttf"
    }
   },
   {
@@ -118,10 +118,10 @@
    "word_count": 77432,
    "source": "UthmanicBazzi-v-3.0.zip :: UthmanicBazzi-v-3.0.docx",
    "crosscheck_source": "",
-   "file": "out/mushaf/bazzi.json",
+   "file": "data/mushaf/bazzi.json",
    "font": {
     "family": "KFGQPC Bazzi Uthmanic Script",
-    "file": "out/fonts/UthmanicBazzi-v-3.0.ttf"
+    "file": "data/fonts/UthmanicBazzi-v-3.0.ttf"
    }
   }
  ],
@@ -2181,66 +2181,66 @@
  ],
  "files": [
   {
-   "path": "out/mushaf/<key>.json",
+   "path": "data/mushaf/<key>.json",
    "format": "quran-mushaf",
    "normative": true,
    "answers": "give me one muṣḥaf: its words by position, with āyāt, pages, lines, juz, marks, and the numbering that maps positions onto the shared numbers"
   },
   {
-   "path": "out/mushaf/<key>.nested.json.gz",
+   "path": "data/mushaf/<key>.nested.json.gz",
    "format": "quran-mushaf",
    "view": "nested",
    "answers": "the same muṣḥaf as sūrah → āyah → words, for consumers coming from one-record-per-āyah formats"
   },
   {
-   "path": "out/mushaf/<key>.csv.gz",
+   "path": "data/mushaf/<key>.csv.gz",
    "format": "csv",
    "view": "flat",
    "answers": "the same muṣḥaf as one row per word, for pandas, R and spreadsheets"
   },
   {
-   "path": "out/fonts/<file>.ttf",
+   "path": "data/fonts/<file>.ttf",
    "format": "truetype",
    "answers": "the KFGQPC font each muṣḥaf's text is set in — the only one guaranteed to draw it; named in the file's `font` block"
   },
   {
-   "path": "out/word-index.json",
+   "path": "data/word-index.json",
    "format": "quran-word-index",
    "normative": true,
    "answers": "what word is number n, who reads it and how, and where it is in Ḥafṣ"
   },
   {
-   "path": "out/word-index.csv",
+   "path": "data/word-index.csv",
    "format": "csv",
    "answers": "the word index as a table"
   },
   {
-   "path": "out/differences.json",
+   "path": "data/differences.json",
    "format": "quran-differences",
    "answers": "only the words where the riwāyāt disagree about letters, the ā, presence or boundary"
   },
   {
-   "path": "out/ayah-map.json",
+   "path": "data/ayah-map.json",
    "format": "quran-ayah-map",
    "answers": "what a Kūfī āyah reference is in every edition"
   },
   {
-   "path": "out/counting.json",
+   "path": "data/counting.json",
    "format": "quran-counting",
    "answers": "the six counting systems, their boundaries as numbers, and which system each edition follows"
   },
   {
-   "path": "out/quran.sqlite.gz",
+   "path": "data/quran.sqlite.gz",
    "format": "sqlite",
    "answers": "all seven muṣḥafs and the word index, queryable in SQL"
   },
   {
-   "path": "out/manifest.json",
+   "path": "data/manifest.json",
    "format": "quran-manifest",
    "answers": "the SHA-256 of every source package and every file here"
   },
   {
-   "path": "out/reports/",
+   "path": "data/reports/",
    "format": "markdown, csv, html",
    "answers": "how the seven compare and how this was built, for people to read rather than to load"
   }

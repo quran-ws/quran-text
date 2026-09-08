@@ -4,7 +4,7 @@ Every v3.0 release ships one ``.ttf`` beside its ``.docx``, and the text uses
 codepoints — Arabic Extended-B alefs, open tanwīn, the waqf signs — that only
 that font is guaranteed to draw.  A muṣḥaf file therefore names its font, with
 the family name read from the font's own ``name`` table, and the build copies
-the file to ``out/fonts/`` so the link inside the JSON resolves.
+the file to ``data/fonts/`` so the link inside the JSON resolves.
 """
 
 from __future__ import annotations
@@ -14,10 +14,10 @@ import struct
 import zipfile
 from pathlib import Path
 
-from .build import OUT
+from .build import DATA
 from .sources import PACKAGES, SourceSpec
 
-FONT_DIR = OUT / "fonts"
+FONT_DIR = DATA / "fonts"
 
 #: Where KFGQPC publishes the fonts themselves.
 KFGQPC_FONTS = "https://fonts.qurancomplex.gov.sa/"
@@ -41,7 +41,7 @@ def family(ttf: bytes) -> str:
 
 
 def describe(spec: SourceSpec) -> dict:
-    """The ``font`` block of a muṣḥaf file, and the font written to ``out/fonts/``."""
+    """The ``font`` block of a muṣḥaf file, and the font written to ``data/fonts/``."""
     with zipfile.ZipFile(PACKAGES / f"{spec.primary_zip}.zip") as z:
         data = z.read(spec.font_member)
     FONT_DIR.mkdir(parents=True, exist_ok=True)
@@ -49,7 +49,7 @@ def describe(spec: SourceSpec) -> dict:
     (FONT_DIR / name).write_bytes(data)
     return {
         "family": family(data),
-        "file": f"out/fonts/{name}",
+        "file": f"data/fonts/{name}",
         "package": f"{spec.primary_zip}.zip",
         "member": spec.font_member,
         "sha256": hashlib.sha256(data).hexdigest(),

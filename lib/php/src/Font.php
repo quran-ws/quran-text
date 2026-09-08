@@ -7,7 +7,7 @@ namespace QuranText;
 /**
  * The KFGQPC font a muṣḥaf's text is set in — the only one guaranteed to draw
  * every codepoint the words use.  $path is the file when the package has it
- * (bundled for Ḥafṣ, or out/fonts/ beside a loaded file); null otherwise.
+ * (bundled for Ḥafṣ, or data/fonts/ beside a loaded file); null otherwise.
  */
 final class Font
 {

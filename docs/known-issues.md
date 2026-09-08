@@ -78,7 +78,7 @@ each edition's āyah ends against the six systems' boundaries from
 are set aside, differing from each other only at 67:9. So `mushaf.counting` is
 now a block that names the *derived* system and what the edition does at every
 point of khilāf inside it (`docs/format.md`, *Counting*), and
-`out/counting.json` is keyed by system with the editions under each.
+`data/counting.json` is keyed by system with the editions under each.
 
 **The 6,218 belongs to Sūsī, not to Dūrī.** This entry previously recorded a
 one-āyah gap it could not close: a forum write-up gives the digital Dūrī muṣḥaf
@@ -143,7 +143,7 @@ systems, Bazzī is **1** āyah end from Makkī and **106** from Baṣrī.
 
 **What changed here.** The point moved from `open-findings.json` to
 `khilaf.json`, which is what that file says should happen once a source is
-cited, and it now appears under `counting.khilaf` in `out/mushaf/bazzi.json`
+cited, and it now appears under `counting.khilaf` in `data/mushaf/bazzi.json`
 rather than `counting.unexplained`. **No edition has an unexplained āyah end
 any more.**
 
@@ -195,7 +195,7 @@ Three are cases where packages differ from each other:
   `مَا لِيَ`, where Ḥafṣ's own 2022 CSV joins it: a change of convention
   between releases.
 
-`out/reports/resegmentation.csv` carries a `riwayahs_agree` column saying whether the riwāyāt
+`data/reports/resegmentation.csv` carries a `riwayahs_agree` column saying whether the riwāyāt
 read the run identically once re-segmented. That is a statement about agreement,
 not about correctness.
 
@@ -346,7 +346,7 @@ holds 8 rubu_al_hizbs, so the grid is countable rather than estimated. For Ḥaf
 | medallions read from the printed muṣḥaf | 13 |
 | **total** | **240**, and every juz holds exactly 8 |
 
-**The assembled 240 are recorded** in `sources/divisions/hafs-rubu-al-hizb.json`, each with the source that fixes it — a printed ۞, a juz start, a count that leaves one candidate, or a margin medallion read from the print. It is evidence, not a published layer: `out/` still carries no `rubu_al_hizb_starts`.
+**The assembled 240 are recorded** in `sources/divisions/hafs-rubu-al-hizb.json`, each with the source that fixes it — a printed ۞, a juz start, a count that leaves one candidate, or a margin medallion read from the print. It is evidence, not a published layer: `data/` still carries no `rubu_al_hizb_starts`.
 
 The absences concentrate where sūrahs are short: juz 28 is missing 4 of 8, juz
 29 5, and juz 30 prints **one** mark for its eight divisions.

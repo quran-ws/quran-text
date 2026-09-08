@@ -19,7 +19,7 @@ here.
 
 The earlier release is never merged into the text. It is loaded only as a
 cross-check, and every difference between the two is counted and reported in
-`out/reports/COMPARISON.md` under *Source integrity*.
+`data/reports/COMPARISON.md` under *Source integrity*.
 
 The rule is asserted rather than assumed: `check_release_policy` fails the build
 if a riwāyah's text is ever loaded from the older of its two packages. Loading
@@ -238,7 +238,7 @@ each riwāyah. Its position is the word's number.
 ## 5. Fawāṣil
 
 The āyah boundaries are a layer *over* the word index: each muṣḥaf file's
-`ayah_starts`, and `out/counting.json` keyed by counting system. **The count
+`ayah_starts`, and `data/counting.json` keyed by counting system. **The count
 belongs to the edition, not the riwāyah.** Each edition's system is derived by
 comparing its own āyah ends to the six systems' boundaries, taken from
 [qiraat-ayah-map](https://github.com/quranpedia/qiraat-ayah-map) (vendored
@@ -279,4 +279,4 @@ matches a counting system once the documented khilāf is set aside — see
 `docs/known-issues.md`.
 
 Plus 70 unit tests over the normalisation, splitting and alignment primitives,
-the numbering block, and the committed `out/` files.
+the numbering block, and the committed `data/` files.

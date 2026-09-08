@@ -14,7 +14,7 @@ use QuranText\Mushaf;
 use QuranText\Text;
 use QuranText\WordIndex;
 
-$out = __DIR__ . '/../../../out/';
+$out = __DIR__ . '/../../../data/';
 $failures = 0;
 function check(string $what, mixed $actual, mixed $expected): void
 {

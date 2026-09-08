@@ -45,7 +45,7 @@ conversation, so the list survives.
       those, not before. `NOTICE.md` promises whoever receives
       this data second-hand that the link reaches "corrections and later
       releases". There is nothing at the other end of that promise yet.
-- [ ] **`out/word-index.json` is 48 MB**, against GitHub's 50 MB warning
+- [ ] **`data/word-index.json` is 48 MB**, against GitHub's 50 MB warning
       threshold, and it is rewritten on every build.
 - [ ] **The download page has never been redesigned.** `service/page.html` sets
       prose, headings, buttons, tables and code in one typeface at one size, so
@@ -69,5 +69,5 @@ conversation, so the list survives.
       are documented rather than hidden, which is what a known-issues file is for.
 - [ ] **Publish the divisions as a layer?** The 240 `rubu_al_hizb` positions are
       recorded with their provenance in `sources/divisions/hafs-rubu-al-hizb.json`,
-      but `out/` still carries no `rubu_al_hizb_starts` or `hizb_starts`. Adding
+      but `data/` still carries no `rubu_al_hizb_starts` or `hizb_starts`. Adding
       them would give Bazzī a juz layer without depending on a v2 CSV.

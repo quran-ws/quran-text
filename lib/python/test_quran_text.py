@@ -6,13 +6,13 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
-OUT = HERE.parents[1] / "out"
+DATA = HERE.parents[1] / "data"
 
 from quran_text import AyahMap, Mushaf, WordIndex, ayah_mark, fold  # noqa: E402
 
-hafs = Mushaf.load(OUT / "mushaf" / "hafs.json")
-warsh = Mushaf.load(OUT / "mushaf" / "warsh.json")
-bazzi = Mushaf.load(OUT / "mushaf" / "bazzi.json")
+hafs = Mushaf.load(DATA / "mushaf" / "hafs.json")
+warsh = Mushaf.load(DATA / "mushaf" / "warsh.json")
+bazzi = Mushaf.load(DATA / "mushaf" / "bazzi.json")
 
 
 class TestAyah(unittest.TestCase):
@@ -107,7 +107,7 @@ class TestToAnotherRiwayah(unittest.TestCase):
         self.assertEqual(warsh.word(2, 253, 3).to(hafs).text, "إِلَٰهَ")
 
     def test_agrees_with_ayah_map_for_surah_2(self):
-        rows = [r for r in AyahMap.load(OUT / "ayah-map.json")._rows.values() if r["surah"] == 2]
+        rows = [r for r in AyahMap.load(DATA / "ayah-map.json")._rows.values() if r["surah"] == 2]
         for r in rows:
             cell = r["warsh"]
             got = hafs.ayah(2, r["ayah"]).to(warsh)
@@ -118,7 +118,7 @@ class TestToAnotherRiwayah(unittest.TestCase):
 
 class TestAyahMap(unittest.TestCase):
     def test_convert(self):
-        m = AyahMap.load(OUT / "ayah-map.json")
+        m = AyahMap.load(DATA / "ayah-map.json")
         r = m.convert(2, 255, "warsh")
         self.assertEqual((r.surah, r.ayah, r.ayah_last, r.relation), (2, 253, 254, "split"))
         self.assertEqual(r.key, "2:253-254")
@@ -129,7 +129,7 @@ class TestAyahMap(unittest.TestCase):
 
 class TestWordIndex(unittest.TestCase):
     def test_lookups(self):
-        idx = WordIndex.load(OUT / "word-index.json")
+        idx = WordIndex.load(DATA / "word-index.json")
         self.assertEqual(idx.word(11).form("warsh"), "مَلِكِ")
         self.assertEqual(idx.find(2, 255, 3).rasm_uthmani, "إِلَٰهَ")
         self.assertIn(11, [w.number for w in idx.search("مالك")])

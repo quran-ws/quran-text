@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace QuranText;
 
-/** out/word-index.json: the numbering shared by all seven muṣḥafs. */
+/** data/word-index.json: the numbering shared by all seven muṣḥafs. */
 final class WordIndex implements \Countable, \IteratorAggregate
 {
     /** @var string[] */

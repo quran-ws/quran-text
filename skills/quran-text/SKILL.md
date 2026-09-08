@@ -5,7 +5,7 @@ description: Use the quran-text dataset — the Qurʾān as words in seven riwā
 
 # quran-text
 
-Plain JSON under `out/`: `json.load` a file. Read `out/catalog.json` first if
+Plain JSON under `data/`: `json.load` a file. Read `data/catalog.json` first if
 unsure; it lists every file and what it answers. When writing app code, prefer
 the libraries under `lib/` (Python, JS, PHP, Dart, Swift, Kotlin — same API in
 each, see `lib/README.md`): `Mushaf.hafs().ayah(2, 255).render(marks=True, ayah_marks=True)`
@@ -16,14 +16,14 @@ arrays by hand.
 
 | the task | file | notes |
 |---|---|---|
-| just the Qurʾān text for an app | `out/mushaf/hafs.json` | Ḥafṣ, the text nearly every app uses; `words` + `ayah_starts` is all you need |
-| one specific riwāyah, with pages, lines, juz, waqf marks | `out/mushaf/<key>.json` | keys: `hafs shubah warsh qalun duri susi bazzi` |
-| the same as sūrah → āyah → words | `out/mushaf/<key>.nested.json.gz` | a view; the JSON above is the file of record |
-| a word across riwāyāt; attach a Ḥafṣ-keyed dataset; search plain spelling | `out/word-index.json` | one record per shared number |
-| only where riwāyāt differ | `out/differences.json` | 277 words |
-| convert an āyah reference between riwāyāt | `out/ayah-map.json` | Kūfī (Ḥafṣ) reference → each edition |
-| which counting system an edition follows | `out/counting.json` | |
-| SQL | `out/quran.sqlite.gz` | tables `word`, `word_index`, `mushaf`, `surah`, `mark` |
+| just the Qurʾān text for an app | `data/mushaf/hafs.json` | Ḥafṣ, the text nearly every app uses; `words` + `ayah_starts` is all you need |
+| one specific riwāyah, with pages, lines, juz, waqf marks | `data/mushaf/<key>.json` | keys: `hafs shubah warsh qalun duri susi bazzi` |
+| the same as sūrah → āyah → words | `data/mushaf/<key>.nested.json.gz` | a view; the JSON above is the file of record |
+| a word across riwāyāt; attach a Ḥafṣ-keyed dataset; search plain spelling | `data/word-index.json` | one record per shared number |
+| only where riwāyāt differ | `data/differences.json` | 277 words |
+| convert an āyah reference between riwāyāt | `data/ayah-map.json` | Kūfī (Ḥafṣ) reference → each edition |
+| which counting system an edition follows | `data/counting.json` | |
+| SQL | `data/quran.sqlite.gz` | tables `word`, `word_index`, `mushaf`, `surah`, `mark` |
 
 ## The model, in four facts
 
@@ -34,14 +34,14 @@ arrays by hand.
 2. **Āyah *k* of sūrah *s*** is index `surahs[s-1].first_ayah + k - 1` into
    `ayah_starts`, in *that edition's own count*. The editions count differently
    (6,214 to 6,236 āyāt); never assume Ḥafṣ numbers in another muṣḥaf — use
-   `out/ayah-map.json`.
+   `data/ayah-map.json`.
 3. **The basmalah of al-Fātiḥah** is āyah 1 in Ḥafṣ, Shuʿbah and Bazzī, and
    printed but unnumbered in the other four, where it sits at positions 0–3
    *before* `ayah_starts[0]`. `counting.basmalah_counted` says which.
 4. **Numbers are the cross-riwāyah key**, positions are not. `numbering`
    in each file maps positions onto the shared numbers: walk `words`, count
    1 per word, skip `numbering.missing`, and at a `numbering.written_joined`
-   position cover the whole run. `out/word-index.json` says what each number
+   position cover the whole run. `data/word-index.json` says what each number
    is. Only five āyāt make this non-trivial (9:101, 40:26, 57:24, 72:16, 73:20).
 
 ## Recipes
@@ -51,7 +51,7 @@ import json
 def load(path): return json.load(open(path, encoding="utf-8"))
 
 # The text of sūrah 2, āyah 255 in Ḥafṣ
-m = load("out/mushaf/hafs.json")
+m = load("data/mushaf/hafs.json")
 a, k = m["ayah_starts"], m["surahs"][2 - 1]["first_ayah"] + 255 - 1
 print(" ".join(m["words"][a[k]:a[k + 1]]))
 
@@ -76,12 +76,12 @@ for position in range(len(m["words"])):
     numbers.append((first_n, last_n)); n = last_n + 1
 
 # The same word in every riwāyah, from a Ḥafṣ reference (2:255, word 3)
-idx = load("out/word-index.json")["words"]
+idx = load("data/word-index.json")["words"]
 w = next(x for x in idx if x["hafs"] == {"surah": 2, "ayah": 255, "position": 3})
 print(w["forms"])          # {'hafs': …, 'warsh': …, …}; a riwāyah absent here does not read the word
 
 # What 2:255 is in Warsh
-row = next(r for r in load("out/ayah-map.json")["ayahs"] if (r["surah"], r["ayah"]) == (2, 255))
+row = next(r for r in load("data/ayah-map.json")["ayahs"] if (r["surah"], r["ayah"]) == (2, 255))
 print(row["warsh"])        # {'surah': 2, 'ayah': 253, 'ayah_last': 254, 'relation': 'split'}
 ```
 

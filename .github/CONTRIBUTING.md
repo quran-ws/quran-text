@@ -37,7 +37,7 @@ python3 pipeline/build.py                     # ~3 min; exits non-zero on any fi
 python3 -m unittest discover -s pipeline/tests
 ```
 
-`out/` is generated and committed, so a change to `pipeline/` means rebuilding and
+`data/` is generated and committed, so a change to `pipeline/` means rebuilding and
 committing the result. CI runs both, plus the service suite and a terminology
 audit.
 

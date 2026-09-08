@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace QuranText;
 
 /**
- * One muṣḥaf file, out/mushaf/<key>.json.
+ * One muṣḥaf file, data/mushaf/<key>.json.
  *
- *   $m = Mushaf::hafs();                       // bundled; or Mushaf::load('out/mushaf/warsh.json')
+ *   $m = Mushaf::hafs();                       // bundled; or Mushaf::load('data/mushaf/warsh.json')
  *   $m->ayah(2, 255)->text();
  *   $m->ayah(2, 255)->render(marks: true, ayahMarks: true);
  *   $m->page(3)->lines();
@@ -87,7 +87,7 @@ final class Mushaf
         return self::load(__DIR__ . '/../data/hafs.json');
     }
 
-    /** Any of the seven riwāyāt: out/mushaf/<key>.json */
+    /** Any of the seven riwāyāt: data/mushaf/<key>.json */
     public static function load(string $path): self
     {
         $json = file_get_contents($path);

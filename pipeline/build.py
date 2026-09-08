@@ -43,8 +43,8 @@ BUNDLES = [
 
 
 def sync_bundled_hafs(doc: dict) -> None:
-    """The same document as out/mushaf/hafs.json, minified: nobody reads the
-    bundled copy, so the one-word-per-line layout that makes out/ reviewable
+    """The same document as data/mushaf/hafs.json, minified: nobody reads the
+    bundled copy, so the one-word-per-line layout that makes data/ reviewable
     would only cost the packages 1.5 MB."""
     import json
     import shutil
@@ -109,8 +109,8 @@ def main() -> int:
     print(f"checks: {len(problems)} finding(s)")
     for p in problems:
         print(f"  - [{p['check']}] {p.get('riwayah', '')} {p['detail']}")
-    print(f"done in {time.time() - t0:.0f}s -> out/")
-    # A finding means the build wrote out/ but could not vouch for it, so the
+    print(f"done in {time.time() - t0:.0f}s -> data/")
+    # A finding means the build wrote data/ but could not vouch for it, so the
     # exit status has to say so: CI and any caller chaining on `&&` are entitled
     # to treat a non-zero status as "do not publish this".
     return 1 if problems else 0

@@ -220,7 +220,7 @@
     },
     "font": {
       "type": "object",
-      "description": "The KFGQPC font this text is set in, shipped in the same package as the text. It is the only font guaranteed to draw every codepoint the words use; `file` is the copy under out/fonts/.",
+      "description": "The KFGQPC font this text is set in, shipped in the same package as the text. It is the only font guaranteed to draw every codepoint the words use; `file` is the copy under data/fonts/.",
       "required": [
         "family",
         "file",
@@ -237,7 +237,7 @@
         },
         "file": {
           "type": "string",
-          "pattern": "^out/fonts/.+\\.ttf$"
+          "pattern": "^data/fonts/.+\\.ttf$"
         },
         "package": {
           "type": "string"

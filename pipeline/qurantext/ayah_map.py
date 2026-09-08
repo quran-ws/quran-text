@@ -25,7 +25,7 @@ import json
 from collections import defaultdict
 from datetime import date
 
-from .build import ORDER, OUT, Word
+from .build import DATA, ORDER, Word
 
 FORMAT = "quran-ayah-map"
 FORMAT_VERSION = "1.0"
@@ -87,7 +87,7 @@ def _cell_text(cell: dict | None) -> str:
 
 
 def write_ayah_map(words: list[Word]) -> dict:
-    """Write ``out/ayah-map.json`` and ``out/ayah-map.csv``; return the document."""
+    """Write ``data/ayah-map.json`` and ``data/ayah-map.csv``; return the document."""
     rows = ayah_map(words)
     doc = {
         "format": FORMAT,
@@ -103,14 +103,14 @@ def write_ayah_map(words: list[Word]) -> dict:
                 "the āyah's words, which does not occur in the current sources.",
         "ayahs": rows,
     }
-    with (OUT / "ayah-map.json").open("w", encoding="utf-8") as fh:
+    with (DATA / "ayah-map.json").open("w", encoding="utf-8") as fh:
         head = {k: v for k, v in doc.items() if k != "ayahs"}
         text = json.dumps(head, ensure_ascii=False, indent=1)
         fh.write(text[:-2] + ',\n "ayahs": [\n')
         fh.write(",\n".join("  " + json.dumps(r, ensure_ascii=False, separators=(",", ":"))
                             for r in rows))
         fh.write("\n ]\n}\n")
-    with (OUT / "ayah-map.csv").open("w", encoding="utf-8", newline="") as fh:
+    with (DATA / "ayah-map.csv").open("w", encoding="utf-8", newline="") as fh:
         wr = csv.writer(fh)
         wr.writerow(["surah", "ayah"] + ORDER + [f"{k}_relation" for k in ORDER])
         for r in rows:

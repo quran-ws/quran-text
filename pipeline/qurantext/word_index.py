@@ -25,7 +25,7 @@ from collections import Counter, defaultdict
 from datetime import date
 
 from .align import WRITTEN_JOINED
-from .build import ORDER, OUT, Word
+from .build import DATA, ORDER, Word
 
 FORMAT = "quran-word-index"
 FORMAT_VERSION = "1.0"
@@ -142,7 +142,7 @@ def _csv_row(w: Word, hafs: dict[int, dict]) -> list:
 
 
 def write_word_index(words: list[Word]) -> dict:
-    """Write ``out/word-index.json`` and ``out/word-index.csv``; return the document."""
+    """Write ``data/word-index.json`` and ``data/word-index.csv``; return the document."""
     hafs = hafs_coordinates(words)
     doc = {
         "format": FORMAT,
@@ -159,9 +159,9 @@ def write_word_index(words: list[Word]) -> dict:
                 "position in the āyah in the Kūfī count, null where Ḥafṣ lacks it.",
         "words": [word_record(w, hafs) for w in words],
     }
-    _write_records(OUT / "word-index.json", {k: v for k, v in doc.items() if k != "words"},
+    _write_records(DATA / "word-index.json", {k: v for k, v in doc.items() if k != "words"},
                    doc["words"])
-    with (OUT / "word-index.csv").open("w", encoding="utf-8", newline="") as fh:
+    with (DATA / "word-index.csv").open("w", encoding="utf-8", newline="") as fh:
         wr = csv.writer(fh)
         wr.writerow(CSV_COLUMNS)
         for w in words:
@@ -170,7 +170,7 @@ def write_word_index(words: list[Word]) -> dict:
 
 
 def write_differences(words: list[Word]) -> dict:
-    """``out/differences.json`` and ``.csv``: only the numbers where the
+    """``data/differences.json`` and ``.csv``: only the numbers where the
     riwāyāt disagree about the letters, the ā, a word's presence, or its
     boundary — the same records as the word index, filtered."""
     hafs = hafs_coordinates(words)
@@ -187,9 +187,9 @@ def write_differences(words: list[Word]) -> dict:
                   "itself, under `groups`.",
         "words": [word_record(w, hafs) for w in flagged],
     }
-    _write_records(OUT / "differences.json", {k: v for k, v in doc.items() if k != "words"},
+    _write_records(DATA / "differences.json", {k: v for k, v in doc.items() if k != "words"},
                    doc["words"])
-    with (OUT / "differences.csv").open("w", encoding="utf-8", newline="") as fh:
+    with (DATA / "differences.csv").open("w", encoding="utf-8", newline="") as fh:
         wr = csv.writer(fh)
         wr.writerow(["number", "surah", "index", "ayah_hafs", "status", "rasm",
                      "missing_in", "written_joined_by", "resegmented_in",

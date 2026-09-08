@@ -3,15 +3,15 @@
  "format_version": "1.0",
  "generated": "2026-09-08",
  "normative": [
-  "out/mushaf/hafs.json",
-  "out/mushaf/shubah.json",
-  "out/mushaf/warsh.json",
-  "out/mushaf/qalun.json",
-  "out/mushaf/duri.json",
-  "out/mushaf/susi.json",
-  "out/mushaf/bazzi.json",
-  "out/word-index.json",
-  "out/word-index.csv"
+  "data/mushaf/hafs.json",
+  "data/mushaf/shubah.json",
+  "data/mushaf/warsh.json",
+  "data/mushaf/qalun.json",
+  "data/mushaf/duri.json",
+  "data/mushaf/susi.json",
+  "data/mushaf/bazzi.json",
+  "data/word-index.json",
+  "data/word-index.csv"
  ],
  "note": "Only the files listed under `normative` define the format. Everything else is a generated view of them.",
  "sources": {
@@ -123,217 +123,217 @@
  },
  "files": [
   {
-   "path": "/Users/abdullah/Documents/Github/quran-word-index/out/ayah-map.csv",
+   "path": "data/ayah-map.csv",
    "bytes": 516361,
    "sha256": "1f7e544aa4b307f60e5a35bbb63c752895f9ea819fae8b550ff37327adaad362"
   },
   {
-   "path": "/Users/abdullah/Documents/Github/quran-word-index/out/ayah-map.json",
+   "path": "data/ayah-map.json",
    "bytes": 2285199,
    "sha256": "b4ea59b14c629ae5a95ca7e1cebca71227d25aa4d92ae4698a79db8caf21eea9"
   },
   {
-   "path": "/Users/abdullah/Documents/Github/quran-word-index/out/catalog.json",
-   "bytes": 43311,
-   "sha256": "a202f8b983fd25794c6387cd559bf767247f2b52be5e023a652312d36ce42d3a"
+   "path": "data/catalog.json",
+   "bytes": 43337,
+   "sha256": "cfb09d969e237a4ef9b180abc44358c2e6ae18b626cbc7c16f52bbee5e9a682c"
   },
   {
-   "path": "/Users/abdullah/Documents/Github/quran-word-index/out/counting.json",
+   "path": "data/counting.json",
    "bytes": 463904,
    "sha256": "fbc08fb122aa374abbb08e6ca7b241a757bdf4808f4efe732f74ab6f4f1f8106"
   },
   {
-   "path": "/Users/abdullah/Documents/Github/quran-word-index/out/differences.csv",
+   "path": "data/differences.csv",
    "bytes": 45260,
    "sha256": "0d0d86bc3c7df1ab5e80e9539315bc953dc5f293be4c72ac3933f0197548ed05"
   },
   {
-   "path": "/Users/abdullah/Documents/Github/quran-word-index/out/differences.json",
+   "path": "data/differences.json",
    "bytes": 209197,
    "sha256": "ea8c2907702a655d4c8b12e0cc5149ce18051f101cb85318316ec7de1461e1d7"
   },
   {
-   "path": "/Users/abdullah/Documents/Github/quran-word-index/out/fonts/UthmanicBazzi-v-3.0.ttf",
+   "path": "data/fonts/UthmanicBazzi-v-3.0.ttf",
    "bytes": 251580,
    "sha256": "b5fc7fbe012f832be3212b398b523a2e1cb87faacf1e57a65e76522201af8f39"
   },
   {
-   "path": "/Users/abdullah/Documents/Github/quran-word-index/out/fonts/UthmanicDouri-V20.ttf",
+   "path": "data/fonts/UthmanicDouri-V20.ttf",
    "bytes": 262344,
    "sha256": "3a862f8e4ba9b7fd024e2b74981026eb5a901cb292e2b43766795112a35a6b45"
   },
   {
-   "path": "/Users/abdullah/Documents/Github/quran-word-index/out/fonts/UthmanicHafs-v-3.0.ttf",
+   "path": "data/fonts/UthmanicHafs-v-3.0.ttf",
    "bytes": 301396,
    "sha256": "5c47602425fb4190327ab9e1a2e8ed2f53dceaf595d8ccc29ac32b8b209ad398"
   },
   {
-   "path": "/Users/abdullah/Documents/Github/quran-word-index/out/fonts/UthmanicQaloun-v-3.0.ttf",
+   "path": "data/fonts/UthmanicQaloun-v-3.0.ttf",
    "bytes": 261520,
    "sha256": "3bf3432429f3bbde673982af2aab9b7a1a7329e295dce250bd96842c2a368ba9"
   },
   {
-   "path": "/Users/abdullah/Documents/Github/quran-word-index/out/fonts/UthmanicShubah-v-3.0.ttf",
+   "path": "data/fonts/UthmanicShubah-v-3.0.ttf",
    "bytes": 247280,
    "sha256": "634a7252b619b934f2e507480d517b8f339503bbf08dded35315a9c1f2be495d"
   },
   {
-   "path": "/Users/abdullah/Documents/Github/quran-word-index/out/fonts/UthmanicSousi-v-3.0.ttf",
+   "path": "data/fonts/UthmanicSousi-v-3.0.ttf",
    "bytes": 265472,
    "sha256": "3b003447bcd36306d76997f07472efef582773f2de6f8615b81c2c46ea4d5d78"
   },
   {
-   "path": "/Users/abdullah/Documents/Github/quran-word-index/out/fonts/UthmanicWarsh-v-3.0.ttf",
+   "path": "data/fonts/UthmanicWarsh-v-3.0.ttf",
    "bytes": 251428,
    "sha256": "b644f1c6665baa95c9c0ab40b01a7f3e89edc42a0f50d3b244318a843bec81a9"
   },
   {
-   "path": "/Users/abdullah/Documents/Github/quran-word-index/out/mushaf/bazzi.csv.gz",
+   "path": "data/mushaf/bazzi.csv.gz",
    "bytes": 1043515,
    "sha256": "f75dd884be21dd1ee5d7472cd5a40b58649f276362261d32b4ec3d8d8a37af1e"
   },
   {
-   "path": "/Users/abdullah/Documents/Github/quran-word-index/out/mushaf/bazzi.json",
-   "bytes": 1996206,
-   "sha256": "dd8daf2f6d77feceebaaaed1af132864d9e768cca3793bb2c0cb47e7d53c68c2"
+   "path": "data/mushaf/bazzi.json",
+   "bytes": 1996207,
+   "sha256": "7af9af80f7f44b9a1598357741a30757bd66e12d546a3f216252c5b7d59ba1b0"
   },
   {
-   "path": "/Users/abdullah/Documents/Github/quran-word-index/out/mushaf/bazzi.nested.json.gz",
-   "bytes": 1276976,
-   "sha256": "64800bbf7232093675dbdabf24b7f8b59ee17a4463907b6075d72c55ddfba744"
+   "path": "data/mushaf/bazzi.nested.json.gz",
+   "bytes": 1276977,
+   "sha256": "57a1fa7bda0d34ecfc6241439ff963a4472829b1cbd6e31d652fa4191dd69e6e"
   },
   {
-   "path": "/Users/abdullah/Documents/Github/quran-word-index/out/mushaf/duri.csv.gz",
+   "path": "data/mushaf/duri.csv.gz",
    "bytes": 1061957,
    "sha256": "0f4fb022e9f92cfa45b2b4dfc34d5af01da788c6c533bee7b4a456eb5622688d"
   },
   {
-   "path": "/Users/abdullah/Documents/Github/quran-word-index/out/mushaf/duri.json",
-   "bytes": 2036594,
-   "sha256": "f5c474c31660844d3cd0e51981d4c8e89ce081bbc5286b57b8721823bc1cb77d"
+   "path": "data/mushaf/duri.json",
+   "bytes": 2036595,
+   "sha256": "20fac610822b7287b03d5888e2665712075ead15561dccfb3e20ac7d58bdab22"
   },
   {
-   "path": "/Users/abdullah/Documents/Github/quran-word-index/out/mushaf/duri.nested.json.gz",
-   "bytes": 1324710,
-   "sha256": "0b0f47dcaa9e4a485105302db05b0385f03c5c51cb8ae86bacc652abd7df4040"
+   "path": "data/mushaf/duri.nested.json.gz",
+   "bytes": 1324708,
+   "sha256": "c1268b0cc7963938a7a3847d80973cf7ebf3b0a870a4836f33d8a9a461a300f9"
   },
   {
-   "path": "/Users/abdullah/Documents/Github/quran-word-index/out/mushaf/hafs.csv.gz",
+   "path": "data/mushaf/hafs.csv.gz",
    "bytes": 1298319,
    "sha256": "9f52c1a4527dcfcf49ff779a62739c16babf3b0c8218dd92b17fde9df98ce6c0"
   },
   {
-   "path": "/Users/abdullah/Documents/Github/quran-word-index/out/mushaf/hafs.json",
-   "bytes": 3109708,
-   "sha256": "8c2bf69b7c1a57cf0c8b3a0508767dd69d04946faa456f3b12794d539121cda9"
+   "path": "data/mushaf/hafs.json",
+   "bytes": 3109709,
+   "sha256": "558f5fd765827f8f589b0cb2f51926a1f29320f0e49b7eccd17e0ad6f059cee9"
   },
   {
-   "path": "/Users/abdullah/Documents/Github/quran-word-index/out/mushaf/hafs.nested.json.gz",
-   "bytes": 1756498,
-   "sha256": "fa211a43a6cef81f250cf59c73db5ce760122b5439ea7805442faf70564094ae"
+   "path": "data/mushaf/hafs.nested.json.gz",
+   "bytes": 1756497,
+   "sha256": "f6974a2ec6e976fe6e2620a6761a08c5d7192327b2648fbc7d8e832fddb3a31c"
   },
   {
-   "path": "/Users/abdullah/Documents/Github/quran-word-index/out/mushaf/qalun.csv.gz",
+   "path": "data/mushaf/qalun.csv.gz",
    "bytes": 1063020,
    "sha256": "720133ad4c0d57609c16cc87a98febeeb676a8f8d2b46fb3c12b344e00c14321"
   },
   {
-   "path": "/Users/abdullah/Documents/Github/quran-word-index/out/mushaf/qalun.json",
-   "bytes": 2149847,
-   "sha256": "8a703a3f87962b01679f396e4fe071c86a664fe4f634d2aac78a270718690f71"
+   "path": "data/mushaf/qalun.json",
+   "bytes": 2149848,
+   "sha256": "12e2cbd64c0c65576b4d0b407721070247cbf21b0c00f65ca8ef89e8d72e2b21"
   },
   {
-   "path": "/Users/abdullah/Documents/Github/quran-word-index/out/mushaf/qalun.nested.json.gz",
-   "bytes": 1328320,
-   "sha256": "e38a4d16b2dcd60d20577b8c7f67e3a7c3790b83467cdba01240f29331a77090"
+   "path": "data/mushaf/qalun.nested.json.gz",
+   "bytes": 1328316,
+   "sha256": "1fd9bf1800eacbaff05bb485d3885f8430c841da74d7e8d53d89b6a33668b20b"
   },
   {
-   "path": "/Users/abdullah/Documents/Github/quran-word-index/out/mushaf/shubah.csv.gz",
+   "path": "data/mushaf/shubah.csv.gz",
    "bytes": 1050930,
    "sha256": "4b158117053692ebecd42f74eb44d5871f964d2a4f499e41eb28d93d66e2eb93"
   },
   {
-   "path": "/Users/abdullah/Documents/Github/quran-word-index/out/mushaf/shubah.json",
-   "bytes": 1984091,
-   "sha256": "d3ce3e57bde42384afd0a0e7bb9a57e62af718b6fc55fec14965b5591d6fb874"
+   "path": "data/mushaf/shubah.json",
+   "bytes": 1984092,
+   "sha256": "50252899e3bc676a8f555673d7464cbc3ba8ac098dabe3ec00c0a719780f5150"
   },
   {
-   "path": "/Users/abdullah/Documents/Github/quran-word-index/out/mushaf/shubah.nested.json.gz",
-   "bytes": 1309663,
-   "sha256": "3559080bb91f8daafef2473fc374d0bc596d5bb460a0f1dc86276f9d8385c1b6"
+   "path": "data/mushaf/shubah.nested.json.gz",
+   "bytes": 1309661,
+   "sha256": "0a0bdbbee07920fd09712742e356cdf8657f4c5be90866e0b0dd863e3a69ee6e"
   },
   {
-   "path": "/Users/abdullah/Documents/Github/quran-word-index/out/mushaf/susi.csv.gz",
+   "path": "data/mushaf/susi.csv.gz",
    "bytes": 1059321,
    "sha256": "03b661f4e61ff2f36b39ad1d0e6643618af98e661d2277b4aa4c73ad90bd7e07"
   },
   {
-   "path": "/Users/abdullah/Documents/Github/quran-word-index/out/mushaf/susi.json",
-   "bytes": 2025244,
-   "sha256": "fed97819c1183311894487ecc94cdd25bcff6ac4a83144ae724ed6f587ea923c"
+   "path": "data/mushaf/susi.json",
+   "bytes": 2025245,
+   "sha256": "5b1f05d2442ea8d6bc37c9a9f1770cbd09469c66eb723e2b17a98818ab375daf"
   },
   {
-   "path": "/Users/abdullah/Documents/Github/quran-word-index/out/mushaf/susi.nested.json.gz",
-   "bytes": 1322861,
-   "sha256": "3d42abdf8bff0ce25e2d7d29af60c5343de0bd29be14f6e12844415104ff546e"
+   "path": "data/mushaf/susi.nested.json.gz",
+   "bytes": 1322859,
+   "sha256": "e5636b630248a3028f7b4cab2af6fe128a0c29f514d982ad0a228d8fd9df0bcb"
   },
   {
-   "path": "/Users/abdullah/Documents/Github/quran-word-index/out/mushaf/warsh.csv.gz",
+   "path": "data/mushaf/warsh.csv.gz",
    "bytes": 1054288,
    "sha256": "80e80c4a544360da34cd76d2e3276f47b29c91d5c0cf161fe7acd78991ebf366"
   },
   {
-   "path": "/Users/abdullah/Documents/Github/quran-word-index/out/mushaf/warsh.json",
-   "bytes": 1912369,
-   "sha256": "5d6c9527d6449224e2b7a40e3adc94bfef986faa9b84f2d567ec4d5b10138cde"
+   "path": "data/mushaf/warsh.json",
+   "bytes": 1912370,
+   "sha256": "3fd307905447e0dae72fc3a60fca464b1b1d55cedbffe7c83348df66ae0c2c16"
   },
   {
-   "path": "/Users/abdullah/Documents/Github/quran-word-index/out/mushaf/warsh.nested.json.gz",
-   "bytes": 1319321,
-   "sha256": "e37c279bc1afb6b26487d870f5acb4d0f1a31ec33a801105b543dbb9c371e522"
+   "path": "data/mushaf/warsh.nested.json.gz",
+   "bytes": 1319319,
+   "sha256": "8698e2bc8a3aa99aaec920ebbf26efe7e8e954f3fd634faeec2c5be69f8439bb"
   },
   {
-   "path": "/Users/abdullah/Documents/Github/quran-word-index/out/quran.sqlite.gz",
+   "path": "data/quran.sqlite.gz",
    "bytes": 20337217,
    "sha256": "4371c797f35c938390459d095dd91aeccec21a7128646f6185599fb5c756390b"
   },
   {
-   "path": "/Users/abdullah/Documents/Github/quran-word-index/out/reports/COMPARISON.md",
+   "path": "data/reports/COMPARISON.md",
    "bytes": 43442,
    "sha256": "9f33b4b012f2da0b88ba9e539450f1ee594cfe71041e3335ed4e96c76e506a25"
   },
   {
-   "path": "/Users/abdullah/Documents/Github/quran-word-index/out/reports/agreement-matrix.csv",
+   "path": "data/reports/agreement-matrix.csv",
    "bytes": 974,
    "sha256": "8ac9661e5aee8f6b4b1cd97c68637671fc4ce5f8337564359a5c08524ec3ccf7"
   },
   {
-   "path": "/Users/abdullah/Documents/Github/quran-word-index/out/reports/compare.html",
+   "path": "data/reports/compare.html",
    "bytes": 2077013,
    "sha256": "7b416fb88e87b77e823672c9622ff0750f682061e0e64a908587bc2c5a8e5054"
   },
   {
-   "path": "/Users/abdullah/Documents/Github/quran-word-index/out/reports/rasm-variants.md",
+   "path": "data/reports/rasm-variants.md",
    "bytes": 58486,
    "sha256": "b9dd46c48bb052ed340a4fb84ab8bd885f1a46cd1b9a150ec61f402c6286f340"
   },
   {
-   "path": "/Users/abdullah/Documents/Github/quran-word-index/out/reports/resegmentation.csv",
+   "path": "data/reports/resegmentation.csv",
    "bytes": 1025,
    "sha256": "e97d49465b3c9b76ae5c9e49b0464174996d338ba3ac9ba54795f7c0269e014d"
   },
   {
-   "path": "/Users/abdullah/Documents/Github/quran-word-index/out/reports/variants.csv",
+   "path": "data/reports/variants.csv",
    "bytes": 11868595,
    "sha256": "041b423abc7a7925387bc88d648d8d79e10e5026827497048fd8dcb6f7a391ce"
   },
   {
-   "path": "/Users/abdullah/Documents/Github/quran-word-index/out/word-index.csv",
+   "path": "data/word-index.csv",
    "bytes": 18672301,
    "sha256": "64684284627cd4a3504cb9dfeb512d1ddf3d065cad97e20a2352ab9b50904041"
   },
   {
-   "path": "/Users/abdullah/Documents/Github/quran-word-index/out/word-index.json",
+   "path": "data/word-index.json",
    "bytes": 50335703,
    "sha256": "47ab6fda916feea75b300b535118aa2765207f1d7573bac28a7ef73cf8317059"
   }

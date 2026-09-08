@@ -8,9 +8,9 @@ from datetime import date
 from difflib import SequenceMatcher
 from itertools import combinations
 
-from .build import ORDER, OUT, Word, ayah_ends
+from .build import DATA, ORDER, Word, ayah_ends
 
-REPORTS = OUT / "reports"
+REPORTS = DATA / "reports"
 from .chars import HARAKAHS, OPEN_TANWIN
 from .normalize import fold_notation, pointed, rasm, unpositioned
 from .word_index import boundary_events, rasm_of
@@ -142,7 +142,7 @@ def _pairwise(words: list[Word], keys: list[str]) -> list[dict]:
 
 def write_report(words: list[Word], riwayahs: list[Riwayah],
                  docs: dict[str, dict] | None = None) -> None:
-    """``out/COMPARISON.md`` and companions.  ``docs`` are the muṣḥaf files
+    """``data/COMPARISON.md`` and companions.  ``docs`` are the muṣḥaf files
     from :func:`qurantext.mushaf.write_mushafs`, for their ``counting`` blocks."""
     keys = [r.key for r in riwayahs]
     status = Counter(w.status for w in words)

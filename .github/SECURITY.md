@@ -11,11 +11,11 @@ for a vulnerability.
 The **download service** in `service/` is the only part that runs as a server:
 a FastAPI application that reads the committed dataset and returns files. Path
 traversal, resource exhaustion and anything that lets a caller read outside
-`out/` are in scope.
+`data/` are in scope.
 
 The **build pipeline** in `pipeline/` parses `.docx` and `.zip` files from `sources/`.
 It is meant to be run on the committed inputs, whose SHA-256 is recorded in
-`out/manifest.json`. Pointing it at a hostile archive is not a supported use,
+`data/manifest.json`. Pointing it at a hostile archive is not a supported use,
 but a crash or an escape from the working directory is still worth reporting.
 
 The **client libraries** in `lib/` parse JSON that ships inside them. A crafted
@@ -31,7 +31,7 @@ and hashed in every file; a disagreement about the text is not a vulnerability.
 
 ## Integrity
 
-Every published file carries a SHA-256 in `out/manifest.json`, and each muṣḥaf
+Every published file carries a SHA-256 in `data/manifest.json`, and each muṣḥaf
 names the KFGQPC package it was cut from with that package's hash. If you have a
 copy of this data and want to know whether it is intact, compare those. A
 mismatch between a file you hold and the hash published here is worth reporting

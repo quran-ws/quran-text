@@ -5,7 +5,7 @@ import 'package:quran_text/quran_text.dart';
 import 'package:test/test.dart';
 
 // Run from lib/dart with the dataset built:  dart test
-const out = '../../out/';
+const out = '../../data/';
 Mushaf load(String key) =>
     Mushaf.fromJson(jsonDecode(File('${out}mushaf/$key.json').readAsStringSync()));
 
@@ -89,7 +89,7 @@ void main() {
     expect(m.key, 'hafs');
     expect(m.wordCount, hafs.wordCount);
     expect(m.font.family, 'KFGQPC HAFS Uthmanic Script');
-    expect(warsh.font.file, 'out/fonts/UthmanicWarsh-v-3.0.ttf');
+    expect(warsh.font.file, 'data/fonts/UthmanicWarsh-v-3.0.ttf');
   });
 
   test('to(): the same ayah and word in another riwayah', () {
