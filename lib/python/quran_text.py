@@ -93,8 +93,8 @@ class Font:
 
 @dataclass(frozen=True)
 class Mark:
-    """A sign printed against a word: ``kind`` is waqf, division or sajdah;
-    ``side`` is where it is printed."""
+    """A sign printed against a word: ``kind`` is waqf, division, sajdah or
+    sajdah_line; ``side`` is where it is printed."""
     kind: str
     side: str
     sign: str
@@ -171,7 +171,8 @@ class Word:
         return other.word_by_number(self.number)
 
     def render(self, marks: Union[bool, Iterable[str]] = True) -> str:
-        """The word with its signs: ``۞`` before, waqf and ``۩`` after."""
+        """The word with its signs: ``۞`` before, waqf, the sajdah line and
+        ``۩`` after."""
         kinds = _mark_kinds(marks)
         before = "".join(mk.sign + " " for mk in self.marks
                          if mk.side == "before" and mk.kind in kinds)
@@ -186,7 +187,7 @@ class Word:
         return self.text
 
 
-_ALL_KINDS = frozenset({"waqf", "division", "sajdah"})
+_ALL_KINDS = frozenset({"waqf", "division", "sajdah", "sajdah_line"})
 
 
 def _mark_kinds(marks: Union[bool, Iterable[str]]) -> frozenset:
@@ -227,7 +228,8 @@ class Span:
         """The text as the muṣḥaf prints it, with what you ask for.
 
         ``marks``: ``True`` for every sign, or a set of kinds among
-        ``"waqf"``, ``"division"``, ``"sajdah"``.  ``ayah_marks`` appends
+        ``"waqf"``, ``"division"``, ``"sajdah"``, ``"sajdah_line"``.
+        ``ayah_marks`` appends
         ``۝`` with the āyah number after each āyah that ends inside the span.
         ``lines`` breaks the text where the printed lines break.
         """

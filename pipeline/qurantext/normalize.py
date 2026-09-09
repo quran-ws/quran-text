@@ -39,17 +39,29 @@ def strip_controls(text: str) -> str:
     return "".join(out)
 
 
-def split_trailing_waqf(token: str) -> tuple[str, str]:
-    """Peel waqf marks off the end of a token.
+def split_trailing_signs(token: str) -> tuple[str, str, bool]:
+    """Peel the signs that trail a word off the end of a token.
 
-    Returns ``(word, waqf)``.  Only *trailing* marks are peeled: U+06EC and
-    friends double as orthographic cues in the Warsh family when they sit on an
-    interior alif, and those must stay with the word.
+    Returns ``(word, waqf, sajdah_line)``.  Two kinds of sign trail a word with
+    no space before them and belong to it without being part of it: the waqf
+    marks, and the line drawn over the words that make the sajdah due
+    (:data:`chars.SAJDAH_LINE`).  Both are peeled in one pass because the
+    packages write them in either order — the line inside the sajdah sign in
+    ``yasjudun<line><sajdah>`` — and peeling one kind alone would strand the
+    other inside the word.
+
+    Only *trailing* signs are peeled: U+06EC and friends double as orthographic
+    cues in the Warsh family when they sit on an interior alif, and those must
+    stay with the word.
     """
     i = len(token)
-    while i > 0 and token[i - 1] in chars.WAQF_MARKS:
+    while i > 0 and (token[i - 1] in chars.WAQF_MARKS
+                     or token[i - 1] == chars.SAJDAH_LINE):
         i -= 1
-    return token[:i], token[i:]
+    trailing = token[i:]
+    return (token[:i],
+            trailing.replace(chars.SAJDAH_LINE, ""),
+            chars.SAJDAH_LINE in trailing)
 
 
 def rasm_uthmani(word: str) -> str:

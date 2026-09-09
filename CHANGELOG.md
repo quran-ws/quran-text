@@ -23,6 +23,18 @@ This project has not had a tagged release yet; everything below is unreleased.
   disagreement.
 - The schema `$id` values resolve. They pointed at a GitHub path that serves
   nothing.
+- **The sajdah line is a mark, not a letter.** The horizontal line drawn over
+  the words that make the sajdah due — خط السجدة — is encoded by the releases
+  as U+06E4 ARABIC SMALL HIGH MADDA at the end of each word it covers. It was
+  published inside `words[i]`, where it read as a maddah the word does not
+  have. It is now peeled off like a waqf mark and published in `marks` as the
+  kind `sajdah_line`, with U+06E4 added to `mark_signs`. **This changes 26
+  word strings** in each of Ḥafṣ, Shuʿbah, Bazzī, Dūrī and Sūsī (Warsh and
+  Qālūn draw no such line and had none), and the word index gains an optional
+  `sajdah_line` field beside `sajdah`. A consumer reading `words[i]` alone now
+  gets the word without the line; re-attaching a word's `after` marks in the
+  order `marks` lists them reproduces the printed token exactly. See
+  `docs/format.md`, *Marks*.
 
 ### Data
 

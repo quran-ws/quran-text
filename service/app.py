@@ -71,6 +71,8 @@ def download(
         "`latin` (255), or `none`"), enum=list(MARKER_STYLES))] = "none",
     waqf: Annotated[bool, Query(description="Keep the waqf marks ۖ ۗ ۚ … as printed")] = True,
     sajdah: Annotated[bool, Query(description="Keep the sajdah sign ۩")] = True,
+    sajdah_line: Annotated[bool, Query(description=(
+        "Keep the line drawn over the words that make the sajdah due"))] = True,
     division: Annotated[bool, Query(description="Keep the ۞ sign")] = True,
     lines: Annotated[bool, Query(description=(
         "Break the text where the printed lines break (lines are reconstructed, see docs/format.md)"))] = False,
@@ -87,9 +89,10 @@ def download(
     by: Annotated[str, Query(description="One record per `ayah` or per printed `word`",
                              enum=list(GRANULARITIES))] = "ayah",
     signs: Annotated[str, Query(description=(
-        "Per word: `columns` puts the waqf marks, ۩ and ۞ in their own `waqf`, `sajdah`, "
-        "`division` columns and leaves `text` bare; `attached` prints them on the word as the "
-        "muṣḥaf does. Which kinds appear follows the waqf/sajdah/division switches"),
+        "Per word: `columns` puts the waqf marks, ۩, the sajdah line and ۞ in their own "
+        "`waqf`, `sajdah`, `sajdah_line`, `division` columns and leaves `text` bare; `attached` "
+        "prints them on the word as the muṣḥaf does. Which kinds appear follows the "
+        "waqf/sajdah/sajdah_line/division switches"),
         enum=list(SIGN_LAYOUTS))] = "columns",
     format: Annotated[str, Query(description=(
         "`txt` one āyah per line · `json` array or nested · `csv` · `xml` Tanzil-compatible · "
@@ -101,7 +104,8 @@ def download(
     inline: Annotated[bool, Query(description="Show in the browser instead of downloading")] = False,
 ) -> Response:
     options = Options(
-        edition=edition, text=text, markers=markers, waqf=waqf, sajdah=sajdah, division=division,
+        edition=edition, text=text, markers=markers, waqf=waqf, sajdah=sajdah,
+        sajdah_line=sajdah_line, division=division,
         lines=lines, pages=pages,
         fields=tuple(f.strip() for f in fields.split(",") if f.strip()) if fields is not None else None,
         surah=surah, juz=juz, page=page, ayah=ayah, by=by, signs=signs, format=format,

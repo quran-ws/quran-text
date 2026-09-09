@@ -52,7 +52,7 @@ Mushaf
 
 | option | what it adds |
 |---|---|
-| `marks` | the signs the muṣḥaf prints: `waqf` (attached to the word), `division` (`۞` before the word), `sajdah` (`۩`). `true` / `.all` for every kind, or a set of kinds |
+| `marks` | the signs the muṣḥaf prints: `waqf` (attached to the word), `division` (`۞` before the word), `sajdah` (`۩`), `sajdah_line` (the line over the words that make the sajdah due). `true` / `.all` for every kind, or a set of kinds |
 | `ayahMarks` | `۝` with the āyah number in Arabic-Indic digits after each āyah that ends inside the span |
 | `lines` | a newline where the printed line breaks (lines are reconstructed; see `docs/format.md`) |
 

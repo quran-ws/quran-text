@@ -36,7 +36,7 @@ import json
 from collections import defaultdict
 from pathlib import Path
 
-from . import counting, fonts, rasm_imlai
+from . import chars, counting, fonts, rasm_imlai
 from . import paths, stamp
 from .build import DATA, Word
 from .word_index import boundary_events
@@ -60,6 +60,7 @@ MARK_NAMES = {
     "ۜ": "ARABIC SMALL HIGH SEEN",
     "۞": "ARABIC START OF RUB EL HIZB",
     "۩": "ARABIC PLACE OF SAJDAH",
+    "ۤ": "ARABIC SMALL HIGH MADDA",
 }
 
 
@@ -110,6 +111,12 @@ def _marks(w: Word, key: str) -> list[dict]:
         if sign == "۩":
             continue                       # emitted below, as its own kind
         out.append({"kind": "waqf", "side": "after", "sign": sign})
+    # Order matters: where a word carries both — ``يَسۡجُدُونَۤ۩`` at 7:206 and
+    # 84:21 — the release writes the line inside the sign, and re-attaching the
+    # marks in the order emitted has to reproduce the printed token.
+    if key in w.sajdah_line:
+        out.append({"kind": "sajdah_line", "side": "after",
+                    "sign": chars.SAJDAH_LINE})
     if key in w.sajdah:
         out.append({"kind": "sajdah", "side": "after", "sign": "۩"})
     return out

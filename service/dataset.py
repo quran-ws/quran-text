@@ -85,7 +85,8 @@ class Dataset:
     @staticmethod
     def sample(m: Mushaf) -> dict:
         """A stretch of about ten āyāt that carries every kind of sign the
-        release prints — waqf marks, ۩ and ۞ — so a preview shows them all."""
+        release prints — waqf marks, ۩, the sajdah line and ۞ — so a preview shows
+        them all."""
         printed = {mk.kind for _, mk in m.all.marks}
         starts = m._doc["ayah_starts"]
         for a in m.sajdat():

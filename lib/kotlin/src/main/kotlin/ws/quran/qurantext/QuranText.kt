@@ -64,8 +64,10 @@ data class Font(val family: String, val file: String, val sha256: String, val pu
     fun open(): java.io.InputStream? = Font::class.java.getResourceAsStream("/" + file.substringAfterLast('/'))
 }
 
+// The names are the strings the data uses, so `valueOf` reads them directly.
+@Suppress("EnumEntryName")
 enum class MarkKind {
-    waqf, division, sajdah;
+    waqf, division, sajdah, sajdah_line;
 
     companion object {
         /** Every kind of sign. */

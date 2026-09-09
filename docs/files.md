@@ -95,6 +95,7 @@ a text, its Ḥafṣ coordinates, and each riwāyah's form. Schema
 | `waqf` | — | waqf marks that trailed the word, per riwāyah |
 | `division` | — | riwāyāt printing `۞` before this word |
 | `sajdah` | — | riwāyāt marking a sajdah `۩` on this word |
+| `sajdah_line` | — | riwāyāt drawing the sajdah line over this word |
 
 Optional fields are omitted when empty, so their presence is itself the signal.
 `forms` and `groups` say the same thing two ways: `forms` answers "how does

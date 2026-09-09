@@ -201,7 +201,7 @@ of its own, normative alongside the seven: `data/word-index.json`, and
 - `ayah[key]` is absent in the same places; `0` is the unnumbered basmalah.
 - `status` keeps the vocabulary of `docs/files.md`, which also lists the
   optional fields: `groups` (the distinct spellings and who uses each),
-  `missing`, `resegmented`, `waqf`, `division`, `sajdah`.
+  `missing`, `resegmented`, `waqf`, `division`, `sajdah`, `sajdah_line`.
 
 The word index is where a number gets a text. The muṣḥaf files are where a
 text gets a position. Neither is derivable from the other alone, so both are
@@ -269,15 +269,32 @@ resolutions alongside.
 "marks":      [[33, 0], [51, 1]],
 "mark_types": [ { "kind": "waqf",   "side": "after",  "sign": "ۖ" },
                 { "kind": "division",   "side": "before", "sign": "۞" },
-                { "kind": "sajdah", "side": "after",  "sign": "۩" } ]
+                { "kind": "sajdah", "side": "after",  "sign": "۩" },
+                { "kind": "sajdah_line", "side": "after", "sign": "ۤ" } ]
 ```
 
 `marks[i]` is `[position, index into mark_types]`. `mark_types` is interned per
-file — the whole corpus has 4,491 marks of 8 kinds in Ḥafṣ, so restating
+file — the whole corpus has 4,517 marks of 9 types in Ḥafṣ, so restating
 `{kind, side, sign}` on each would be waste. `side` is which side of the word
 the sign is printed on. `mark_signs` at the top of every file
 maps each sign to its codepoint and Unicode name, so no consumer has to
 hard-code a table.
+
+**The sajdah has two marks, not one.** `sajdah` is the ۩ sign, printed once at
+the end of the passage; `sajdah_line` is the horizontal line — خط السجدة —
+drawn over the words that make the sajdah due, so it falls on one, two or
+three words a little earlier. The releases encode that line as
+`ARABIC SMALL HIGH MADDA` (U+06E4), written as the last character of each word
+it covers, which is not what the codepoint's name says: it is a line over a
+phrase, not a maddah over a letter. So it is peeled off the word like a waqf
+mark and published here as a mark of its own, and `words[i]` no longer carries
+it. The corpus is what settles the reading: U+06E4 occurs 26 times in Ḥafṣ and
+nowhere else in it, always word-final, and the 26 words are the sajdah phrases
+of all 15 sajdah places and nothing else. Shuʿbah, Bazzī, Dūrī and Sūsī carry the same 26; Warsh
+and Qālūn, whose typesetting draws no such line, carry none.
+
+Re-attaching a word's `after` marks in the order `marks` lists them reproduces
+the token the release prints, ۤ inside ۩ where a word carries both.
 
 **Waqf marks are not comparable across muṣḥafs.** Warsh and Qālūn print one
 general waqf sign where Ḥafṣ, Dūrī and Sūsī print seven distinct ones. This is
@@ -302,8 +319,8 @@ are this muṣḥaf's divisions". Only `juz_starts` is a division layer, and
 `docs/known-issues.md` §11 records two points where even it disagrees with the
 edition's own marks. See §7 for the full reconstruction.
 
-*The kind is named `hizb` for historical reasons; ۞ is the **rubu_al_hizb**
-sign, and the ḥizb proper is the marginal label these files do not carry.*
+*۞ is the **rubu_al_hizb** sign; the ḥizb proper is the marginal label these
+files do not carry.*
 
 ## Page is read; line is reconstructed
 

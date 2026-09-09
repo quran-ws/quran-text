@@ -107,6 +107,9 @@ def test_waqf_marks_present_and_absent():
 def test_sajdah_and_division_signs():
     assert ayah_text(edition="hafs", ayah="7:206").endswith("۩")
     assert not ayah_text(edition="hafs", ayah="7:206", sajdah=0).endswith("۩")
+    # 7:206 prints the sajdah line inside the ۩, on the same word.
+    assert ayah_text(edition="hafs", ayah="7:206").endswith("ۤ۩")
+    assert "ۤ" not in ayah_text(edition="hafs", ayah="7:206", sajdah_line=0)
     assert ayah_text(edition="hafs", ayah="2:26").startswith("۞ ")
     assert not ayah_text(edition="hafs", ayah="2:26", division=0).startswith("۞")
 
@@ -142,14 +145,15 @@ def test_per_word_records():
     words = doc["words"]
     assert words[0]["position"] == 1 and words[0]["number"] > 0
     assert words[-1]["sajdah"] == "۩" and words[-1]["waqf"] == "" and "division" in words[-1]
-    assert "۩" not in words[-1]["text"]
+    assert words[-1]["sajdah_line"] == "ۤ"
+    assert "۩" not in words[-1]["text"] and "ۤ" not in words[-1]["text"]
     assert len(words) == 11
 
 
 def test_per_word_signs_attached_or_in_columns():
     cols = get("/download?edition=hafs&format=csv&by=word&ayah=7:206&header=0").text.splitlines()[0]
-    assert cols == "surah,ayah,position,number,text,waqf,sajdah,division"
-    cols = get("/download?edition=hafs&format=csv&by=word&ayah=7:206&header=0&sajdah=0").text.splitlines()[0]
+    assert cols == "surah,ayah,position,number,text,waqf,sajdah,sajdah_line,division"
+    cols = get("/download?edition=hafs&format=csv&by=word&ayah=7:206&header=0&sajdah=0&sajdah_line=0").text.splitlines()[0]
     assert cols == "surah,ayah,position,number,text,waqf,division"
     doc = get("/download?edition=hafs&format=json&by=word&ayah=7:206&signs=attached").json()
     last = doc["words"][-1]

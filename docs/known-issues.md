@@ -218,6 +218,27 @@ now stripped with the structural symbols.
 
 ---
 
+### 5b. `U+06E4` is not a maddah — it is the sajdah line
+
+`ARABIC SMALL HIGH MADDA` is the codepoint the releases use for خط السجدة, the
+horizontal line drawn over the words that make the sajdah due. Nothing in the
+codepoint says so; the corpus does. In Ḥafṣ it occurs **26 times and nowhere
+else**, is the last character of its word in all 26, and the 26 words are the
+sajdah phrases of all 15 sajdah places — ﴾يَسۡجُدُونَ﴿, ﴾خَرُّواْ سُجَّدࣰا﴿,
+﴾وَلِلَّهِ يَسۡجُدُ﴿ — and nothing else. Shuʿbah, Bazzī, Dūrī and Sūsī carry the same
+26; Warsh and Qālūn, whose typesetting draws no such line, carry none. A maddah
+would not distribute that way, and would not sit after a final nūn that already
+carries its fatḥah.
+
+It was published inside the word until it was classified, where it read as a
+maddah those 26 words do not have. It is now peeled off like a waqf mark and
+published as the mark kind `sajdah_line` (`docs/format.md`, *Marks*). Where a
+word carries both it and ۩ — 7:206 and 84:21 — the release writes the line
+inside the sign, and the marks are emitted in that order so that re-attaching
+them reproduces the printed token.
+
+---
+
 ### 6. Printed lines are not encoded in any release, and were reconstructed wrong
 
 The `.docx` releases mark their **page** turns explicitly — 603
