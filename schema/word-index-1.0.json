@@ -64,7 +64,8 @@
           "resegmented": { "type": "object", "description": "The muṣḥafs whose source spacing this build changed here, and how.", "additionalProperties": { "type": "string" } },
           "waqf": { "type": "object", "description": "Waqf marks that trail the word, per muṣḥaf.", "additionalProperties": { "type": "string" } },
           "division": { "type": "array", "description": "The muṣḥafs printing ۞ before this word.", "items": { "type": "string" } },
-          "sajdah": { "type": "array", "description": "The muṣḥafs printing ۩ on this word.", "items": { "type": "string" } }
+          "sajdah": { "type": "array", "description": "The muṣḥafs printing ۩ on this word.", "items": { "type": "string" } },
+          "sajdah_line": { "type": "array", "description": "The muṣḥafs drawing the sajdah line over this word.", "items": { "type": "string" } }
         }
       }
     }

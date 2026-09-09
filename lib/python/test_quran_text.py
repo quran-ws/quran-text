@@ -133,7 +133,7 @@ class TestWordIndex(unittest.TestCase):
         self.assertEqual(idx.word(11).form("warsh"), "مَلِكِ")
         self.assertEqual(idx.find(2, 255, 3).rasm_uthmani, "إِلَٰهَ")
         self.assertIn(11, [w.number for w in idx.search("مالك")])
-        self.assertEqual(len(idx.differing()), 53134)
+        self.assertEqual(len(idx.differing()), 53128)
 
 
 if __name__ == "__main__":

@@ -3,7 +3,10 @@
 A *word* is a whitespace-delimited run of letters and their marks.  Everything
 that is not a word — āyah numbers, ۞ signs, waqf marks — is peeled
 off and kept as annotation on the neighbouring word, so that no information is
-lost and the word stream stays comparable across riwāyāt.
+lost and the word stream stays comparable across riwāyāt.  The line drawn over
+the words that make the sajdah due is peeled for the same reason: it spans a
+phrase rather than sitting on a letter, so it is a mark over the words and not
+a character of any one of them.
 """
 
 from __future__ import annotations
@@ -11,7 +14,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 
 from . import chars
-from .normalize import forms, split_trailing_waqf, strip_controls
+from .normalize import forms, split_trailing_signs, strip_controls
 
 
 @dataclass
@@ -30,6 +33,7 @@ class Token:
     waqf: str = ""           # waqf marks that trailed the word
     division: bool = False       # a ۞ sign precedes this word
     sajdah: bool = False     # a sajdah symbol trails this word
+    sajdah_line: bool = False  # the sajdah line is drawn over this word
     page: int = 0            # printed page, read from the source typesetting
     line: int = 0            # printed line, *reconstructed* — see layout.py
     notes: list[str] = field(default_factory=list)
@@ -63,11 +67,12 @@ def tokenize_ayah(surah: int, ayah: int, text: str,
                 continue
             raw = stripped
 
-        word, waqf = split_trailing_waqf(raw)
+        word, waqf, sajdah_line = split_trailing_signs(raw)
         if not word:
             # A waqf mark separated from its word by a space: attach it back.
             if tokens:
                 tokens[-1].waqf += waqf
+                tokens[-1].sajdah_line = tokens[-1].sajdah_line or sajdah_line
                 tokens[-1].notes.append("detached_waqf")
             continue
 
@@ -86,6 +91,7 @@ def tokenize_ayah(surah: int, ayah: int, text: str,
             waqf=waqf,
             division=pending_division,
             sajdah=chars.SAJDAH in waqf,
+            sajdah_line=sajdah_line,
             page=place.page if place else 0,
             line=place.line if place else 0,
         )

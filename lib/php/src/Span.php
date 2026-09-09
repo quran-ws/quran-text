@@ -55,7 +55,7 @@ class Span implements \Countable, \IteratorAggregate
      * The text as the muṣḥaf prints it, with what you ask for.
      *
      * $marks: true for every sign, or an array of kinds among "waqf", "division",
-     * "sajdah".  $ayahMarks appends ۝ with the āyah number after each āyah
+     * "sajdah", "sajdah_line".  $ayahMarks appends ۝ with the āyah number after each āyah
      * that ends inside the span.  $lines breaks the text where the printed
      * lines break.
      */

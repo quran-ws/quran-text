@@ -18,7 +18,7 @@ from qurantext.build import (STATUS_ALIF, STATUS_IDENTICAL,     # noqa: E402
                             STATUS_RASM, Word,
                             classify)
 from qurantext.normalize import (forms, pointed, rasm, rasm_plene,  # noqa: E402
-                                plain, split_by_rasm, split_trailing_waqf,
+                                plain, split_by_rasm, split_trailing_signs,
                                 unpositioned)
 from qurantext.report import _difference_is_length                 # noqa: E402
 from qurantext.validate import check_alif_splits                    # noqa: E402
@@ -154,9 +154,18 @@ class TestNormalize(unittest.TestCase):
         self.assertEqual(plain("مَٰلِكِ"), "مالك")
 
     def test_waqf_is_peeled_not_dropped(self):
-        word, waqf = split_trailing_waqf("رَيۡبَۛ")
+        word, waqf, sajdah_line = split_trailing_signs("رَيۡبَۛ")
         self.assertEqual(waqf, "ۛ")
+        self.assertFalse(sajdah_line)
         self.assertEqual(pointed(word), "ريب")
+
+    def test_the_sajdah_line_is_peeled_from_inside_the_sajdah_mark(self):
+        # 7:206 prints ``يَسۡجُدُونَۤ۩``: the line, then the sign.  Peeling the
+        # waqf marks alone would strand the line inside the word.
+        word, waqf, sajdah_line = split_trailing_signs("يَسۡجُدُونَۤ۩")
+        self.assertEqual(waqf, "۩")
+        self.assertTrue(sajdah_line)
+        self.assertEqual(pointed(word), "يسجدون")
 
     def test_notation_folding_unifies_releases(self):
         # The 2022 files write the KFGQPC sukūn head, the 2026 files a sukūn.
@@ -201,6 +210,15 @@ class TestTokenize(unittest.TestCase):
         self.assertEqual(len(toks), 1)
         self.assertTrue(toks[0].sajdah)
         self.assertEqual(toks[0].pointed, "يسجدون")
+
+    def test_the_sajdah_line_is_its_own_layer(self):
+        # ۤ is drawn over the words of the phrase; ۩ stands once at its end.
+        # 13:15 prints the line two words before the sign, so a word can carry
+        # the line and no sign.
+        toks = tokenize_ayah(13, 15, "وَلِلَّهِۤ يَسۡجُدُۤ")
+        self.assertEqual([t.sajdah_line for t in toks], [True, True])
+        self.assertEqual([t.sajdah for t in toks], [False, False])
+        self.assertEqual([t.rasm_uthmani for t in toks], ["وَلِلَّهِ", "يَسۡجُدُ"])
 
 
 class TestAlign(unittest.TestCase):
@@ -404,6 +422,7 @@ class TestMarks(unittest.TestCase):
                     present=["hafs"], missing=[], forms={"hafs": "u"},
                     ayah={"hafs": 1}, waqf=kw.get("waqf", {}), boundary={},
                     division=kw.get("division", []), sajdah=kw.get("sajdah", []),
+                    sajdah_line=kw.get("sajdah_line", []),
                     place={})
 
     def test_rubu_al_hizb_sits_before_the_word(self):
@@ -413,6 +432,14 @@ class TestMarks(unittest.TestCase):
     def test_a_waqf_mark_sits_after_it(self):
         self.assertEqual(_marks(self.word(waqf={"hafs": "ۖ"}), "hafs"),
                          [{"kind": "waqf", "side": "after", "sign": "ۖ"}])
+
+    def test_the_sajdah_line_is_emitted_inside_the_sajdah_mark(self):
+        # Re-attaching a word's `after` marks in the order emitted has to
+        # reproduce ``يَسۡجُدُونَۤ۩`` as the release prints it.
+        marks = _marks(self.word(waqf={"hafs": "۩"}, sajdah=["hafs"],
+                                 sajdah_line=["hafs"]), "hafs")
+        self.assertEqual([m["kind"] for m in marks], ["sajdah_line", "sajdah"])
+        self.assertEqual("".join(m["sign"] for m in marks), "ۤ۩")
 
     def test_sajdah_is_its_own_kind_not_a_waqf_mark(self):
         # ۩ arrives through the same channel as the waqf marks and must not

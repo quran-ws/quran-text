@@ -32,7 +32,7 @@ MARKER_STYLES = ("none", "sign", "brackets", "latin")
 FORMATS = ("txt", "json", "csv", "xml", "sql", "md")
 GRANULARITIES = ("ayah", "word")
 SIGN_LAYOUTS = ("columns", "attached")
-SIGN_KINDS = ("waqf", "sajdah", "division")
+SIGN_KINDS = ("waqf", "sajdah", "sajdah_line", "division")
 FIELDS = ("surah", "ayah", "position", "number", "page", "line", "juz", "hafs")
 DEFAULT_FIELDS = {"ayah": ("surah", "ayah"), "word": ("surah", "ayah", "position", "number")}
 
@@ -48,6 +48,7 @@ class Options:
     markers: str = "none"
     waqf: bool = True
     sajdah: bool = True
+    sajdah_line: bool = True
     division: bool = True
     lines: bool = False
     pages: bool = False
@@ -92,7 +93,7 @@ class Options:
 
     @property
     def mark_kinds(self) -> frozenset:
-        return frozenset(k for k in ("waqf", "sajdah", "division") if getattr(self, k))
+        return frozenset(k for k in SIGN_KINDS if getattr(self, k))
 
     @property
     def scope(self) -> str:
@@ -503,7 +504,8 @@ def as_xml(rows: list[dict], meta: dict, o: Options, m: Mushaf) -> str:
     return "\n".join(out) + "\n"
 
 
-_SQL_TYPES = {"text": "TEXT", "waqf": "TEXT", "sajdah": "TEXT", "division": "TEXT",
+_SQL_TYPES = {"text": "TEXT", "waqf": "TEXT", "sajdah": "TEXT", "sajdah_line": "TEXT",
+              "division": "TEXT",
               "hafs": "VARCHAR(16)", "hafs_relation": "VARCHAR(16)",
               **{form: "TEXT" for form in TEXT_FORMS}}
 

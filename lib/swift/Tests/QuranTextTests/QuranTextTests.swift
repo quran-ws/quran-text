@@ -125,6 +125,6 @@ final class QuranTextTests: XCTestCase {
         XCTAssertEqual(idx.word(11).form("warsh"), "مَلِكِ")
         XCTAssertEqual(idx.find(2, 255, 3)?.rasm_uthmani, "إِلَٰهَ")
         XCTAssertTrue(idx.search("مالك").contains { $0.number == 11 })
-        XCTAssertEqual(idx.differing().count, 53134)
+        XCTAssertEqual(idx.differing().count, 53128)
     }
 }

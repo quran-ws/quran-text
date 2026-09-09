@@ -129,6 +129,6 @@ class QuranTextTest {
         assertEquals("مَلِكِ", idx.word(11).form("warsh"))
         assertEquals("إِلَٰهَ", idx.find(2, 255, 3)!!.rasm_uthmani)
         assertTrue(idx.search("مالك").any { it.number == 11 })
-        assertEquals(53134, idx.differing().size)
+        assertEquals(53128, idx.differing().size)
     }
 }

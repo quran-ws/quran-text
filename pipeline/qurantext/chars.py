@@ -11,6 +11,21 @@ AYAH_MARK = "۝"          # ۝  ARABIC END OF AYAH (v3 docx)
 RUBU_AL_HIZB = "۞"          # ۞  ARABIC START OF RUB EL HIZB
 SAJDAH      = "۩"          # ۩  ARABIC PLACE OF SAJDAH
 
+#: The horizontal line drawn over the words that make the sajdah due — خط
+#: السجدة, the mark the terminology standard calls ``sajdah_line``.  The
+#: packages encode it as U+06E4 ARABIC SMALL HIGH MADDA, which is not what that
+#: codepoint names: it is a line over a phrase, not a maddah over a letter.
+#: The corpus says so outright.  U+06E4 occurs 26 times in the Hafs release and
+#: nowhere else in it; every occurrence is the last character of its word; the
+#: 26 words are the sajdah phrases of all 15 sajdah places and nothing else
+#: (``yasjudun``, ``kharru sujjadan``, ``wa-lillahi yasjudu`` ...), and five of
+#: the seven releases carry the same 26 while Warsh and Qalun, whose typesetting
+#: draws no such line, carry none.  A maddah would not distribute that way, and
+#: would not sit after a final ``nun`` with its fathah already written.
+#: So it is peeled off the word like the waqf marks and published as a mark of
+#: its own kind: see :func:`normalize.split_trailing_signs`.
+SAJDAH_LINE = "ۤ"          # ۤ  ARABIC SMALL HIGH MADDA (used as the sajdah line)
+
 ARABIC_DIGITS = {chr(0x0660 + i): str(i) for i in range(10)}
 
 #: Editorial annotation, not text.  U+08CC is the proofreader's *ṣaḥḥa* ("correct
@@ -94,7 +109,6 @@ ORTHOGRAPHIC_MARKS = {
     "۠",  # ۠ small high upright rectangular zero
     "ۢ",  # ۢ small high meem isolated (iqlāb)
     "ۣ",  # ۣ small low seen
-    "ۤ",  # ۤ small high maddah
     "ۥ",  # ۥ small waw   (ṣilah)
     "ۦ",  # ۦ small yeh   (ṣilah)
     "ۧ",  # ۧ small high yeh
@@ -105,7 +119,7 @@ ORTHOGRAPHIC_MARKS = {
 } | OPEN_TANWIN
 
 #: Everything that is a mark rather than a letter.
-ALL_MARKS = HARAKAHS | ORTHOGRAPHIC_MARKS | WAQF_MARKS
+ALL_MARKS = HARAKAHS | ORTHOGRAPHIC_MARKS | WAQF_MARKS | {SAJDAH_LINE}
 
 # --- notation folding -----------------------------------------------------
 # The 2022 (v2 / V20) and 2026 (v3.0) releases spell the *same* qiraah with

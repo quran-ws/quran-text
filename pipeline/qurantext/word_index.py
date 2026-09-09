@@ -111,6 +111,8 @@ def word_record(w: Word, hafs: dict[int, dict]) -> dict:
         rec["division"] = w.division
     if w.sajdah:
         rec["sajdah"] = w.sajdah
+    if w.sajdah_line:
+        rec["sajdah_line"] = w.sajdah_line
     return rec
 
 

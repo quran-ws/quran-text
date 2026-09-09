@@ -80,7 +80,10 @@ public struct Font: Sendable {
     public let url: URL?
 }
 
-public enum MarkKind: String, CaseIterable, Sendable { case waqf, division, sajdah }
+public enum MarkKind: String, CaseIterable, Sendable {
+    case waqf, division, sajdah
+    case sajdahLine = "sajdah_line"
+}
 
 public enum MarkSide: String, Sendable { case before, after }
 

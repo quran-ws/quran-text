@@ -94,7 +94,7 @@ Any riwāyah, any scope, six formats — the URL *is* the file:
 ```
 
 `txt` `json` `csv` `xml` `sql` `md` · rasm ʿUthmānī, imlāʾī or plain · waqf,
-sajdah and division marks on or off · by sūrah, juz, page or āyah range · by
+sajdah, sajdah-line and division marks on or off · by sūrah, juz, page or āyah range · by
 āyah or by word. Every response carries that provenance header and an
 `X-Checksum-SHA256` of the body. The work here is CC BY 4.0; the text stays the
 publisher's, under their terms. [`service/`](service/) runs it in two commands.

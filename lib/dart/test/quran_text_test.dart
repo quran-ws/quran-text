@@ -118,6 +118,6 @@ void main() {
     expect(idx.word(11).form('warsh'), 'مَلِكِ');
     expect(idx.find(2, 255, 3)!.rasm_uthmani, 'إِلَٰهَ');
     expect(idx.search('مالك').map((w) => w.number), contains(11));
-    expect(idx.differing().length, 53134);
+    expect(idx.differing().length, 53128);
   });
 }

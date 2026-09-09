@@ -58,6 +58,10 @@ class Word:
     boundary: dict[str, str]
     division: list[str]
     sajdah: list[str]
+    #: Riwāyāt drawing the sajdah line over this word.  A separate layer from
+    #: ``sajdah``: the ۩ sign stands once at the end of the phrase, the line runs
+    #: over the words of the phrase itself.
+    sajdah_line: list[str] = field(default_factory=list)
     #: riwāyah -> (page, line) in that muṣḥaf's own typesetting.  The page is
     #: read from the release; the line is reconstructed.  See ``layout.py``.
     place: dict[str, tuple[int, int]] = field(default_factory=dict)
@@ -208,6 +212,7 @@ def build_words(riwayahs: list[Riwayah]) -> list[Word]:
                 boundary=dict(col.boundary),
                 division=[k for k in present if tokens[k].division],
                 sajdah=[k for k in present if tokens[k].sajdah],
+                sajdah_line=[k for k in present if tokens[k].sajdah_line],
                 place={k: (tokens[k].page, tokens[k].line)
                        for k in present if tokens[k].page},
                 continuation=[k for k in keys if k in col.covers],

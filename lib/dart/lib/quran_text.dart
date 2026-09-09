@@ -59,7 +59,9 @@ int _indexOf(List<int> starts, int position) {
   return lo - 1;
 }
 
-enum MarkKind { waqf, division, sajdah }
+// The names are the strings the data uses, so `byName` reads them directly.
+// ignore: constant_identifier_names
+enum MarkKind { waqf, division, sajdah, sajdah_line }
 
 MarkKind _kindOf(String s) => MarkKind.values.byName(s);
 

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace QuranText;
 
-/** A sign printed against a word: kind is waqf, division or sajdah. */
+/** A sign printed against a word: kind is waqf, division, sajdah or sajdah_line. */
 final class Mark
 {
     public function __construct(
