@@ -1,6 +1,6 @@
 ---
 name: quran-text
-description: Use the quran-text dataset — the Qurʾān as words in seven riwāyāt (Ḥafṣ, Shuʿbah, Warsh, Qālūn, Dūrī, Sūsī, Bazzī) from KFGQPC releases, with one word numbering shared across all seven. Use when an app or script needs Qurʾānic text, a muṣḥaf's pages and āyāt, a word in another riwāyah, an āyah reference converted between counting systems, or word-level data attached across riwāyāt.
+description: Use the quran-text dataset — the Qurʾān as words in seven riwāyāt (Ḥafṣ, Shuʿbah, Warsh, Qālūn, Dūrī, Sūsī, Bazzī) from KFGQPC releases, with one word numbering shared across all seven; Ḥafṣ is the default when none is named. Use when an app or script needs Qurʾānic text, a muṣḥaf's pages and āyāt, a word in another riwāyah, an āyah reference converted between counting systems, or word-level data attached across riwāyāt.
 ---
 
 # quran-text
@@ -12,11 +12,32 @@ each, see `lib/README.md`): `Mushaf.hafs().ayah(2, 255).render(marks=True, ayah_
 (Ḥafṣ is bundled; `Mushaf.load(path)` for another riwāyah) instead of slicing
 arrays by hand.
 
+## Ḥafṣ is the default
+
+If the request does not name a riwāyah or a muṣḥaf, use Ḥafṣ — `Mushaf.hafs()`,
+or `data/mushaf/hafs.json`. It is the text nearly every app ships and the
+reference side of `data/word-index.json` and `data/ayah-map.json`. Do not ask
+which riwāyah, do not offer the seven, and do not mention the other six at all
+unless the request reaches for them ("Warsh", "another riwāyah", "compare
+riwāyāt", a `<key>` other than `hafs`). Most developers know nothing about
+riwāyāt; Ḥafṣ answers them without the word ever coming up.
+
+## Show a muṣḥaf only in its own form
+
+Every displayed word must come from the muṣḥaf it is labelled with — that
+muṣḥaf's own `words[]` in `data/mushaf/<key>.json`, or `forms["<key>"]` in
+`data/word-index.json`. Nothing else in the index is display text:
+`rasm_uthmani` is the canonical (Ḥafṣ-side) spelling, `pointed`, `plain` and
+`rasm` are search and matching keys with the ḍabṭ stripped. Rendering Warsh
+with Ḥafṣ's spelling, or a stripped key as if it were the muṣḥaf's text, is
+wrong text under a correct name. A riwāyah missing from `forms` does not read
+that word — show nothing there, never a substitute from another riwāyah.
+
 ## Which file
 
 | the task | file | notes |
 |---|---|---|
-| just the Qurʾān text for an app | `data/mushaf/hafs.json` | Ḥafṣ, the text nearly every app uses; `words` + `ayah_starts` is all you need |
+| just the Qurʾān text for an app, or no riwāyah named | `data/mushaf/hafs.json` | Ḥafṣ, the default; `words` + `ayah_starts` is all you need |
 | one specific riwāyah, with pages, lines, juz, waqf marks | `data/mushaf/<key>.json` | keys: `hafs shubah warsh qalun duri susi bazzi` |
 | the same as sūrah → āyah → words | `data/mushaf/<key>.nested.json.gz` | a view; the JSON above is the file of record |
 | a word across riwāyāt; attach a Ḥafṣ-keyed dataset; search plain spelling | `data/word-index.json` | one record per shared number |
@@ -78,7 +99,8 @@ for position in range(len(m["words"])):
 # The same word in every riwāyah, from a Ḥafṣ reference (2:255, word 3)
 idx = load("data/word-index.json")["words"]
 w = next(x for x in idx if x["hafs"] == {"surah": 2, "ayah": 255, "position": 3})
-print(w["forms"])          # {'hafs': …, 'warsh': …, …}; a riwāyah absent here does not read the word
+print(w["forms"]["warsh"])  # that riwāyah's own spelling, the only form to show as Warsh;
+                            # a riwāyah absent from forms does not read the word
 
 # What 2:255 is in Warsh
 row = next(r for r in load("data/ayah-map.json")["ayahs"] if (r["surah"], r["ayah"]) == (2, 255))
@@ -87,6 +109,11 @@ print(row["warsh"])        # {'surah': 2, 'ayah': 253, 'ayah_last': 254, 'relati
 
 ## Do not
 
+- Do not pick a riwāyah for the user, or ask them to, when none was named: it is
+  Ḥafṣ.
+- Do not display `rasm_uthmani`, `pointed`, `plain` or `rasm` as a muṣḥaf's
+  text, and do not show one riwāyah's spelling under another's name; the text of
+  `<key>` is `data/mushaf/<key>.json` `words[]` or `forms["<key>"]`.
 - Do not treat a position in one muṣḥaf as meaning anything in another; only
   numbers cross files.
 - Do not derive imlāʾī spelling from the ʿUthmānī text; `rasm_imlai` is published
