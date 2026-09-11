@@ -21,6 +21,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+import unicodedata
 from bisect import bisect_right
 from dataclasses import dataclass
 from typing import Iterable, Optional, Union
@@ -43,32 +44,89 @@ def ayah_mark(number: int) -> str:
     return AYAH_MARK + "".join(_ARABIC_INDIC[int(d)] for d in str(number))
 
 
-_FOLD_ALEF = "ٱأإآ" + "".join(chr(c) for c in range(0x0870, 0x0883))
-_FOLD_YEH = "ےۑى"
+# --- the search fold ---------------------------------------------------------
+# Implements docs/SEARCH-FOLD.md.  Three functions, and the order of operations
+# inside each is load-bearing.
+
+#: Marks, tatweel, Quranic annotation signs, joiners — everything that is not a
+#: letter.  A category test, not a codepoint list: nothing to keep in sync when
+#: Unicode adds a Quranic mark, and the letters are disjoint from these six.
+_DROP_CATEGORIES = frozenset(("Mn", "Me", "Lm", "Sk", "So", "Cf"))
+
+_FOLD_LETTERS = {
+    "\u0671": "\u0627", "\u0623": "\u0627", "\u0625": "\u0627", "\u0622": "\u0627",
+    "\u0649": "\u064A", "\u0626": "\u064A",
+    "\u0624": "\u0648",
+    "\u0629": "\u0647",
+}
+_FOLD_LETTERS.update({chr(0x0660 + d): str(d) for d in range(10)})
+_FOLD_LETTERS.update({chr(0x06F0 + d): str(d) for d in range(10)})
+
+
+def _strip(text: str) -> str:
+    return "".join(c for c in text
+                   if unicodedata.category(c) not in _DROP_CATEGORIES)
+
+
+def search_key(text: str) -> str:
+    """The stored key: letters only, nothing folded.
+
+    Feed it the imlāʾī spelling, never the ʿUthmānī — the ʿUthmānī writes long
+    vowels as combining marks, so stripping it deletes them outright
+    (``ٱلۡعَٰلَمِينَ`` -> ``العلمين``, which nobody types).
+    """
+    return " ".join(_strip(unicodedata.normalize("NFC", text)).split())
+
+
+def match_fold(text: str) -> str:
+    """Applied to BOTH the query and the stored key at match time.
+
+    Strips marks, then unifies the letter forms a user types inconsistently.
+    Stripping comes first: a mark between a bearer and its hamzah would
+    otherwise block the mapping.
+    """
+    stripped = _strip(unicodedata.normalize("NFKC", text))
+    return " ".join("".join(_FOLD_LETTERS.get(c, c) for c in stripped).split())
+
+
+def loose_key(text: str) -> str:
+    """Fallback only, and only when the strict pass found nothing.
+
+    Deliberately lossy — it merges كاتب, كتاب and كتب — so results matched this
+    way are flagged ``loose`` and a UI should say so.
+    """
+    return "".join(c for c in match_fold(text) if c not in "\u0627\u0621")
+
+
+def search_variants(text: str) -> list[str]:
+    """Every spelling a word might reasonably be typed as, for sources with no
+    imlāʾī column — the cross-riwāyah word index, and the six riwāyāt other than
+    Ḥafṣ.
+
+    The ʿUthmānī alone cannot say whether a dagger alif is written out in modern
+    spelling (``مَٰلِكِ`` -> ``مالك``) or not (``ٱلرَّحۡمَٰنِ`` -> ``الرحمن``), so index
+    both, and both hamzah conventions with them.  Measured against Ḥafṣ, where
+    the true imlāʾī spelling is known, this set contains it for 97.83% of the
+    77,356 words; the rest differ orthographically in ways no codepoint rule
+    reaches (``ٱلصَّلَوٰةَ`` -> ``الصلاة``).  See docs/SEARCH-FOLD.md §6.
+    """
+    out: list[str] = []
+    for dagger in (text, text.replace("\u0670", "\u0627")):
+        base = match_fold(dagger)
+        for cand in (base, base.replace("\u0621", ""), base.replace("\u0621", "\u064A")):
+            if cand and cand not in out:
+                out.append(cand)
+    return out
 
 
 def fold(text: str) -> str:
-    """Reduce a word to plain letters for matching: no harakah, no waqf marks,
-    one alif, one yāʾ.  For search only — it is not a spelling of anything."""
-    out = []
-    for ch in text:
-        cp = ord(ch)
-        if ch == "ٰ":                  # superscript alif -> alif
-            out.append("ا")
-        elif ch in _FOLD_ALEF:
-            out.append("ا")
-        elif ch in _FOLD_YEH:
-            out.append("ي")
-        elif ch == "ـ":                # tatweel
-            continue
-        elif (0x0610 <= cp <= 0x061A or 0x064B <= cp <= 0x065F
-              or 0x06D6 <= cp <= 0x06DC or 0x06DF <= cp <= 0x06E8
-              or 0x06EA <= cp <= 0x06ED or 0x08CA <= cp <= 0x08FF
-              or cp == 0x0888):
-            continue
-        else:
-            out.append(ch)
-    return "".join(out)
+    """Deprecated alias for :func:`match_fold`.
+
+    Kept so existing callers keep working.  It no longer expands the dagger alif
+    into a full alif, which is the bug this replaces: ``search("الرحمن")``
+    returned no results at all.
+    """
+    return match_fold(text)
 
 
 def _index_of(starts: list, position: int) -> int:
@@ -815,20 +873,47 @@ class Mushaf:
         return [Word(self, p) for p, ms in sorted(self._marks_at.items())
                 if any(mk.kind == "division" for mk in ms)]
 
-    def search(self, text: str) -> list[Span]:
-        """Every place the words of ``text`` occur in sequence, matched on
-        :func:`fold` — harakah and hamzah forms do not matter."""
-        query = [fold(t) for t in text.split()]
-        if not query or not all(query):
-            return []
-        if self._fold_cache is None:
-            self._fold_cache = [fold(w) for w in self.words]
-        folded = self._fold_cache
-        n, first = len(query), query[0]
-        return [Span(self, i, i + n) for i in range(len(folded) - n + 1)
-                if folded[i] == first and folded[i:i + n] == query]
+    def search(self, text: str, loose: bool = True) -> list[Span]:
+        """Every place the words of ``text`` occur in sequence.
 
-    _fold_cache: Optional[list[str]] = None
+        Matched on :func:`match_fold` against the imlāʾī spelling where the
+        muṣḥaf has one, so ``الرحمن`` — what a phone keyboard produces — finds
+        ``ٱلرَّحۡمَٰنِ``.  When the strict pass finds nothing and ``loose`` is set,
+        retries on :func:`loose_key` and marks every span it returns
+        ``loose = True``.
+        """
+        query = match_fold(text).split()
+        if not query:
+            return []
+        if self._key_cache is None:
+            imlai = self._doc.get("rasm_imlai")
+            # An absent imlāʾī spelling falls back to the ʿUthmānī, which is an
+            # approximation for that word — see docs/SEARCH-FOLD.md §6.
+            self._key_cache = [match_fold((imlai[i] if imlai and imlai[i] else w))
+                               for i, w in enumerate(self.words)]
+
+        def run(q: list, keys: list, is_loose: bool) -> list:
+            n = len(q)
+            out = []
+            for i in range(len(keys) - n + 1):
+                if keys[i:i + n] == q:
+                    span = Span(self, i, i + n)
+                    span.loose = is_loose
+                    out.append(span)
+            return out
+
+        hits = run(query, self._key_cache, False)
+        if hits or not loose:
+            return hits
+        lq = loose_key(text).split()
+        if not lq:
+            return hits
+        if self._loose_cache is None:
+            self._loose_cache = [loose_key(k) for k in self._key_cache]
+        return run(lq, self._loose_cache, True)
+
+    _key_cache: Optional[list[str]] = None
+    _loose_cache: Optional[list[str]] = None
 
     # -- internals --
 
@@ -974,12 +1059,17 @@ class WordIndex:
         return IndexedWord(r) if r else None
 
     def search(self, text: str) -> list[IndexedWord]:
-        """Every number whose folded spelling equals ``text``, folded."""
-        q = fold(text)
+        """Every number whose spelling matches ``text`` under the search fold."""
+        q = match_fold(text)
         if self._by_plain is None:
             self._by_plain = {}
             for r in self._words:
-                self._by_plain.setdefault(fold(r["rasm_uthmani"]), []).append(r)
+                # No imlāʾī here — this index is cross-riwāyah — so every
+                # plausible spelling of the word is a key.
+                for k in search_variants(r["rasm_uthmani"]):
+                    bucket = self._by_plain.setdefault(k, [])
+                    if not bucket or bucket[-1] is not r:
+                        bucket.append(r)
         return [IndexedWord(r) for r in self._by_plain.get(q, [])]
 
     def differing(self) -> list[IndexedWord]:

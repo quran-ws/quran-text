@@ -130,7 +130,12 @@ def test_text_forms():
     uth = ayah_text(edition="hafs", ayah="1:1")
     iml = ayah_text(edition="hafs", ayah="1:1", text="rasm_imlai")
     plain = ayah_text(edition="hafs", ayah="1:1", text="plain")
-    assert uth.startswith("بِسۡمِ ٱللَّهِ") and iml.startswith("بسم الله") and plain == "بسم الله الرحمان الرحيم"
+    # `plain` strips the harakat, and the dagger alif (U+0670) is one of them —
+    # a combining mark, not a letter. It is therefore removed rather than
+    # expanded into a full alif: the ʿUthmānī spelling is ٱلرَّحۡمَٰنِ and the
+    # imlāʾī one published by KFGQPC is الرحمن. The older output الرحمان was a
+    # folding artifact that no published text writes; see the search fold spec.
+    assert uth.startswith("بِسۡمِ ٱللَّهِ") and iml.startswith("بسم الله") and plain == "بسم الله الرحمن الرحيم"
 
 
 def test_fields_and_hafs_reference_for_warsh():
