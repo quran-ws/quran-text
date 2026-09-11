@@ -72,9 +72,12 @@ m.word(2, 255, 3).to(warsh)   # Word(5176, 'إِلَٰهَ')
 | Qālūn | فَأَحْيَاكُمْ |
 | Warsh | فَأَحْيٜاكُمْ |
 
-One number, four spellings. There are **77,434 numbers**; **277** read like
-this and the rest are the same word everywhere. Attach a translation, a grammar
-entry or an audio segment to a number once, and it is attached in all seven.
+One number, four spellings. The numbering is a shared index of **77,434
+positions**, and no riwāyah fills all of them — each leaves a few unused, which
+is why a riwāyah's own word count is 77,432 or 77,431. **277** numbers read like
+this one and the rest are the same word everywhere. Attach a translation, a
+grammar entry or an audio segment to a number once, and it is attached in all
+seven.
 
 None of the published Madinah packages contain word-level data — every one of
 them is āyah-level ([`docs/sources.md`](docs/sources.md)). The words, and the
