@@ -14,6 +14,10 @@
   "system": "makki",
   "system_name_ar": "المكي",
   "system_name_en": "Makki Numbering",
+  "system_associated_with_qari": "makki",
+  "system_associated_with_qari_name_ar": "المكي",
+  "system_associated_with_qari_name_en": "Makki Numbering",
+  "differs_from_association": false,
   "declared_by": null,
   "ayah_count": 6220,
   "basmalah_counted": true,
@@ -51,7 +55,8 @@
    "commit": "076255281ec6f76241d7e901e27072733d02a18d",
    "files": {
     "book-boundary-primitives.json": "63f7bed237871b174a342d5a88688302c06929105af8dc3c3810b4e795a7e6f1",
-    "counting-systems.json": "a4dfad8c302f3a7bd2172a07ecbd70045b448815edd955df2f0bedcb972b8117"
+    "counting-systems.json": "a4dfad8c302f3a7bd2172a07ecbd70045b448815edd955df2f0bedcb972b8117",
+    "qiraat.json": "fe5a6c7ff09315a506b54f98000309392c1a6d5de2cda107796a30995aee271f"
    },
    "overlay": {
     "khilaf.json": "ec884075b480c8d66c42de8a589f25bd34141d2fa2871e087f2add6c6c349046",

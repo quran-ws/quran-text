@@ -213,7 +213,9 @@ def write_csv(docs: dict[str, dict]) -> None:
 SCHEMA = """
 CREATE TABLE mushaf (
   key TEXT PRIMARY KEY, name_en TEXT, name_ar TEXT, qiraah_en TEXT, qiraah_ar TEXT,
-  counting_system TEXT, ayah_count INTEGER, basmalah_counted INTEGER,
+  counting_system TEXT, counting_system_associated_with_qari TEXT,
+  counting_differs_from_association INTEGER,
+  ayah_count INTEGER, basmalah_counted INTEGER,
   word_count INTEGER,
   text_package TEXT, text_sha256 TEXT, layout_package TEXT);
 CREATE TABLE surah (
@@ -274,9 +276,14 @@ def write_sqlite(docs: dict[str, dict], word_index: dict,
         for w in word_index["words"]])
     for key, doc in docs.items():
         m, prov, cnt = doc["mushaf"], doc["provenance"], doc["counting"]
-        db.execute("INSERT INTO mushaf VALUES (?,?,?,?,?,?,?,?,?,?,?,?)", (
+        db.execute("INSERT INTO mushaf VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)", (
             key, m["name_en"], m["name_ar"], m["qiraah_en"], m["qiraah_ar"],
-            cnt["system"], cnt["ayah_count"], int(cnt["basmalah_counted"]),
+            # The system this edition prints onto, then the one its qāriʾ is
+            # associated with: a join on counting_system alone would read Dūrī
+            # as disagreeing with any table built from the association.
+            cnt["system"], cnt["system_associated_with_qari"],
+            int(cnt["differs_from_association"]),
+            cnt["ayah_count"], int(cnt["basmalah_counted"]),
             m["word_count"],
             prov["text"]["package"], prov["text"]["sha256"],
             prov.get("layout", {}).get("package")))

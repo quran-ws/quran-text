@@ -27,6 +27,12 @@ final class Mushaf
     public readonly ?string $qiraahEn;
     public readonly ?string $qiraahAr;
     public readonly string $countingSystem;
+    /**
+     * The counting system this muṣḥaf's qāriʾ is associated with. Compare with
+     * $countingSystem, the system this edition measures onto: for Dūrī and
+     * Sūsī they differ.
+     */
+    public readonly string $countingSystemAssociatedWithQari;
     public readonly bool $basmalahCounted;
     /** @var Surah[] */
     public readonly array $surahs;
@@ -56,6 +62,7 @@ final class Mushaf
         $this->qiraahEn = $doc['mushaf']['qiraah_en'] ?? null;
         $this->qiraahAr = $doc['mushaf']['qiraah_ar'] ?? null;
         $this->countingSystem = $doc['counting']['system'];
+        $this->countingSystemAssociatedWithQari = $doc['counting']['system_associated_with_qari'];
         $this->basmalahCounted = $doc['counting']['basmalah_counted'];
         $surahs = [];
         for ($n = 1; $n <= 114; $n++) {

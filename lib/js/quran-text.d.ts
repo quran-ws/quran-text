@@ -174,6 +174,12 @@ export class Mushaf {
   readonly qiraahEn: string | null;
   readonly qiraahAr: string | null;
   readonly countingSystem: string;
+  /**
+   * The counting system this muṣḥaf's qāriʾ is associated with. Compare with
+   * {@link Mushaf.countingSystem}, the system this edition measures onto: for
+   * Dūrī and Sūsī they differ.
+   */
+  readonly countingSystemAssociatedWithQari: string;
   readonly basmalahCounted: boolean;
   readonly surahs: Surah[];
 

@@ -21,7 +21,8 @@ that array, addressed by position.**
 
   "mushaf":   { "key": "warsh", "name_en": "Warsh", "name_ar": "ورش",
                 "qiraah_en": "Nāfiʿ al-Madanī", "qiraah_ar": "نافع المدني", "word_count": 77431 },
-  "counting": { "system": "madani-last", "declared_by": null, "ayah_count": 6214,
+  "counting": { "system": "madani-last", "system_associated_with_qari": "madani-last",
+                "differs_from_association": false, "declared_by": null, "ayah_count": 6214,
                 "basmalah_counted": false, "khilaf": [], "unexplained": [] },
   "provenance": { "text": { "package": "UthmanicWarsh-v-3.0.zip", "…": "…" }, "layout": { "…": "…" } },
   "layers":   { "present": ["surahs", "ayahs", "pages", "lines", "marks", "juz"], "absent": { "…": "…" } },
@@ -217,7 +218,10 @@ levels — counting system, transmission within it, edition — are explained in
 
 ```json
 "counting": {
-  "system": "madani-first", "system_name_ar": "المدني الأول", "system_name_en": "First Madani",
+  "system": "madani-first", "system_name_ar": "المدني الأول", "system_name_en": "First Madani Numbering",
+  "system_associated_with_qari": "basri",
+  "system_associated_with_qari_name_ar": "البصري", "system_associated_with_qari_name_en": "Basri Numbering",
+  "differs_from_association": true,
   "declared_by": null,
   "ayah_count": 6217,
   "basmalah_counted": false,
@@ -233,6 +237,8 @@ levels — counting system, transmission within it, edition — are explained in
 | field | meaning |
 |---|---|
 | `system` | the madhhab this edition follows. **Derived** by comparing the edition's `ayah_starts` to each system's boundaries and taking the one it matches once khilāf points are set aside; the distances are in `distance_to_systems` |
+| `system_associated_with_qari` | the system this edition's **qāriʾ** is associated with, from `qiraat-ayah-map`'s `data/qiraat.json`, vendored beside the boundaries. A different question from `system`: that one is what this printing measures onto, this one is what «قراءة أبي عمرو البصري» leads a reader to expect. `_name_ar` / `_name_en` name it |
+| `differs_from_association` | whether the two disagree. True for **Dūrī and Sūsī** — Abū ʿAmr is associated with the Baṣrī count, and both of his printed muṣḥafs measure onto First Madani. Publishing both means a consumer joining this repository to one that carries the association alone reads a value rather than discovering a contradiction |
 | `declared_by` | what the edition states about itself, and where, or `null` if the source in `sources/` states nothing — which is the case for every KFGQPC `.docx`, since they carry the text without the printed colophon. A declaration that disagreed with the derived system would be kept and flagged `declared_disagrees`, not overwritten |
 | `ayah_count` | what the edition prints: `ayah_starts.length` |
 | `basmalah_counted` | whether the basmalah of al-Fātiḥah is a numbered āyah |
@@ -241,13 +247,13 @@ levels — counting system, transmission within it, edition — are explained in
 
 The seven editions today:
 
-| edition | system | āyāt | khilāf | unexplained |
-|---|---|---|---|---|
-| Ḥafṣ, Shuʿbah | Kūfī | 6,236 | — | — |
-| Warsh, Qālūn | Last Madani | 6,214 | — | — |
-| Dūrī | First Madani | 6,217 | six Abū Jaʿfar/Shayba points; 67:9 not counted, following Abū Jaʿfar | — |
-| Sūsī | First Madani | 6,218 | the same six; 67:9 counted, following Shayba | — |
-| Bazzī | Makkī | 6,220 | — | 78:40 ﴿قريبًا﴾ counted, until a source is cited |
+| edition | system printed | qāriʾ associated with | āyāt | khilāf | unexplained |
+|---|---|---|---|---|---|
+| Ḥafṣ, Shuʿbah | Kūfī | Kūfī | 6,236 | — | — |
+| Warsh, Qālūn | Last Madani | Last Madani | 6,214 | — | — |
+| Dūrī | First Madani | **Baṣrī** | 6,217 | six Abū Jaʿfar/Shayba points; 67:9 not counted, following Abū Jaʿfar | — |
+| Sūsī | First Madani | **Baṣrī** | 6,218 | the same six; 67:9 counted, following Shayba | — |
+| Bazzī | Makkī | Makkī | 6,220 | — | 78:40 ﴿قريبًا﴾ counted, until a source is cited |
 
 The boundaries come from
 [qiraat-ayah-map](https://github.com/quranpedia/qiraat-ayah-map), vendored at

@@ -472,6 +472,11 @@ class Mushaf {
   final String? qiraahEn;
   final String? qiraahAr;
   final String countingSystem;
+
+  /// The counting system this muṣḥaf's qāriʾ is associated with. Compare with
+  /// [countingSystem], the system this edition measures onto: for Dūrī and
+  /// Sūsī they differ.
+  final String countingSystemAssociatedWithQari;
   final bool basmalahCounted;
   late final List<Surah> surahs;
 
@@ -496,6 +501,8 @@ class Mushaf {
         qiraahEn = _doc['mushaf']['qiraah_en'] as String?,
         qiraahAr = _doc['mushaf']['qiraah_ar'] as String?,
         countingSystem = _doc['counting']['system'] as String,
+        countingSystemAssociatedWithQari =
+            _doc['counting']['system_associated_with_qari'] as String,
         basmalahCounted = _doc['counting']['basmalah_counted'] as bool,
         _rasm_imlai = _doc['rasm_imlai'] == null ? null : List<String?>.from(_doc['rasm_imlai'] as List),
         _surahStarts = List<int>.from(_doc['surah_starts'] as List),

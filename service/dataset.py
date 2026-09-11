@@ -69,6 +69,9 @@ class Dataset:
             "counting_system": m.counting_system,
             "counting_system_en": m.counting.get("system_name_en"),
             "counting_system_ar": m.counting.get("system_name_ar"),
+            # What this edition prints, then what its qāriʾ is associated with.
+            "counting_system_associated_with_qari": m.counting_system_associated_with_qari,
+            "counting_differs_from_association": m.counting.get("differs_from_association"),
             "ayah_count": m.ayah_count, "word_count": m.word_count,
             "page_count": m.page_count, "juz_count": m.juz_count,
             "basmalah_counted": m.basmalah_counted,

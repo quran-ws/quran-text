@@ -48,6 +48,10 @@ Mushaf
  └─ has("juz"), layers, counting, provenance, ayahCount, pageCount …
 ```
 
+`countingSystem` is the system the edition **prints**;
+`countingSystemAssociatedWithQari` is the one its **qāriʾ** is associated with.
+For Dūrī and Sūsī they differ, and the full `counting` block says where.
+
 `render(marks, ayahMarks, lines)`:
 
 | option | what it adds |

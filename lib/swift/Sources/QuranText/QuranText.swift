@@ -401,6 +401,10 @@ public final class Mushaf {
     public let qiraahEn: String?
     public let qiraahAr: String?
     public let countingSystem: String
+    /// The counting system this muṣḥaf's qāriʾ is associated with. Compare with
+    /// ``countingSystem``, the system this edition measures onto: for Dūrī and
+    /// Sūsī they differ.
+    public let countingSystemAssociatedWithQari: String
     public let basmalahCounted: Bool
     public private(set) var surahs: [Surah] = []
     /// The `counting` block of the file.
@@ -443,6 +447,7 @@ public final class Mushaf {
         qiraahAr = info["qiraah_ar"] as? String
         counting = try field("counting")
         countingSystem = counting["system"] as! String
+        countingSystemAssociatedWithQari = counting["system_associated_with_qari"] as! String
         basmalahCounted = counting["basmalah_counted"] as! Bool
         provenance = try field("provenance")
         let layersBlock: [String: Any] = try field("layers")

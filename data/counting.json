@@ -2,13 +2,62 @@
  "format": "quran-counting",
  "format_version": "1.0",
  "generated": "2026-09-08",
- "model": "Each system lists the shared number after which every one of its āyāt ends. The count belongs to the edition, not the riwāyah: an edition is listed under the system its own ayah_starts match, with what it does at every point where the system's own authorities disagree.",
+ "model": "Each system lists the shared number after which every one of its āyāt ends. The count belongs to the edition, not the riwāyah: an edition is listed under the system its own ayah_starts match, with what it does at every point where the system's own authorities disagree. system_associated_with_qari is the other question — the system the qāriʾ is associated with, from qiraat.json — and differs_from_association says when the two do not agree.",
+ "association": {
+  "description": "The counting system each qāriʾ is associated with. A fact about the qāriʾ, not about any printing: an edition may measure onto another system, and two of these seven do.",
+  "source": "qiraat-ayah-map data/qiraat.json, vendored at the commit above",
+  "by_mushaf": {
+   "hafs": {
+    "qari": "asim",
+    "system": "kufi",
+    "system_printed": "kufi",
+    "differs": false
+   },
+   "shubah": {
+    "qari": "asim",
+    "system": "kufi",
+    "system_printed": "kufi",
+    "differs": false
+   },
+   "warsh": {
+    "qari": "nafi",
+    "system": "madani-last",
+    "system_printed": "madani-last",
+    "differs": false
+   },
+   "qalun": {
+    "qari": "nafi",
+    "system": "madani-last",
+    "system_printed": "madani-last",
+    "differs": false
+   },
+   "duri": {
+    "qari": "abu-amr",
+    "system": "basri",
+    "system_printed": "madani-first",
+    "differs": true
+   },
+   "susi": {
+    "qari": "abu-amr",
+    "system": "basri",
+    "system_printed": "madani-first",
+    "differs": true
+   },
+   "bazzi": {
+    "qari": "ibn-kathir",
+    "system": "makki",
+    "system_printed": "makki",
+    "differs": false
+   }
+  }
+ },
  "source": {
   "repository": "https://github.com/quranpedia/qiraat-ayah-map",
   "commit": "076255281ec6f76241d7e901e27072733d02a18d",
   "files": {
    "book-boundary-primitives.json": "63f7bed237871b174a342d5a88688302c06929105af8dc3c3810b4e795a7e6f1",
-   "counting-systems.json": "a4dfad8c302f3a7bd2172a07ecbd70045b448815edd955df2f0bedcb972b8117"
+   "counting-systems.json": "a4dfad8c302f3a7bd2172a07ecbd70045b448815edd955df2f0bedcb972b8117",
+   "qiraat.json": "fe5a6c7ff09315a506b54f98000309392c1a6d5de2cda107796a30995aee271f"
   },
   "overlay": {
    "khilaf.json": "ec884075b480c8d66c42de8a589f25bd34141d2fa2871e087f2add6c6c349046",
@@ -2700,6 +2749,8 @@
      "mushaf": "duri",
      "ayah_count": 6217,
      "basmalah_counted": false,
+     "system_associated_with_qari": "basri",
+     "differs_from_association": true,
      "khilaf": [
       {
        "surah": 3,
@@ -2835,6 +2886,8 @@
      "mushaf": "susi",
      "ayah_count": 6218,
      "basmalah_counted": false,
+     "system_associated_with_qari": "basri",
+     "differs_from_association": true,
      "khilaf": [
       {
        "surah": 3,
@@ -9289,6 +9342,8 @@
      "mushaf": "warsh",
      "ayah_count": 6214,
      "basmalah_counted": false,
+     "system_associated_with_qari": "madani-last",
+     "differs_from_association": false,
      "khilaf": [],
      "unexplained": []
     },
@@ -9296,6 +9351,8 @@
      "mushaf": "qalun",
      "ayah_count": 6214,
      "basmalah_counted": false,
+     "system_associated_with_qari": "madani-last",
+     "differs_from_association": false,
      "khilaf": [],
      "unexplained": []
     }
@@ -15527,6 +15584,8 @@
      "mushaf": "bazzi",
      "ayah_count": 6220,
      "basmalah_counted": true,
+     "system_associated_with_qari": "makki",
+     "differs_from_association": false,
      "khilaf": [
       {
        "surah": 78,
@@ -34244,6 +34303,8 @@
      "mushaf": "hafs",
      "ayah_count": 6236,
      "basmalah_counted": true,
+     "system_associated_with_qari": "kufi",
+     "differs_from_association": false,
      "khilaf": [],
      "unexplained": []
     },
@@ -34251,6 +34312,8 @@
      "mushaf": "shubah",
      "ayah_count": 6236,
      "basmalah_counted": true,
+     "system_associated_with_qari": "kufi",
+     "differs_from_association": false,
      "khilaf": [],
      "unexplained": []
     }

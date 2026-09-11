@@ -351,6 +351,7 @@ def provenance(m: Mushaf, o: Options, url: str, count: int) -> dict:
         "edition": {"key": m.key, "name_en": m.name_en, "name_ar": m.name_ar,
                     "qiraah_en": m.qiraah_en, "counting_system": m.counting_system,
                     "counting_system_en": m.counting.get("system_name_en", m.counting_system),
+                    "counting_system_associated_with_qari": m.counting_system_associated_with_qari,
                     "ayah_count": m.ayah_count},
         "source": {"package": src["package"], "member": src["member"],
                    "release_year": src.get("release_year"), "sha256": src["sha256"]},

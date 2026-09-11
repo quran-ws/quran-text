@@ -92,6 +92,10 @@ print(row["warsh"])        # {'surah': 2, 'ayah': 253, 'ayah_last': 254, 'relati
 - Do not derive imlāʾī spelling from the ʿUthmānī text; `rasm_imlai` is published
   for Ḥafṣ only, from the release that supplies it, and is `null` elsewhere.
 - Do not renumber āyāt to Ḥafṣ inside another muṣḥaf's file; use the map.
+- Do not read `counting.system` as the count the qāriʾ is associated with: it is
+  the system the edition measures onto. For Dūrī and Sūsī they differ — Abū ʿAmr
+  is Baṣrī, both of his muṣḥafs are First Madani. `system_associated_with_qari`
+  and `differs_from_association` in the same block give the other answer.
 - Do not treat `line_starts` as a fact: pages are read from the release, lines
   are reconstructed (`layers.derived.line` gives the score); Bazzī's are
   unvalidated.

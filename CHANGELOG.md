@@ -9,6 +9,19 @@ This project has not had a tagged release yet; everything below is unreleased.
 
 ### Format
 
+- **`counting` names both counts.** `counting.system` is the system the edition
+  *measures onto*, derived from its own `ayah_starts`; it is not the system the
+  qāriʾ is *associated with*, and for Dūrī and Sūsī the two differ — Abū ʿAmr is
+  Baṣrī, both of his printed muṣḥafs are First Madani. The block now carries
+  `system_associated_with_qari` (with `_name_ar` / `_name_en`) and
+  `differs_from_association` beside the derived system, from
+  `qiraat-ayah-map`'s `data/qiraat.json`, newly vendored under
+  `sources/counting/`. `data/catalog.json` gains
+  `counting_system_associated_with_qari` and
+  `counting_differs_from_association`, `data/counting.json` an `association`
+  block, and the SQLite `mushaf` table the two matching columns. Anything
+  joining this repository to a dataset that publishes the association alone now
+  reads the difference instead of discovering it.
 - Every name now follows the [Quran.ws terminology standard](https://github.com/quran-ws/guidelines):
   `sura`/`suras`/`sura_starts` are `surah`/`surahs`/`surah_starts`, the āyah <!-- terminology: ignore -->
   map's `ayat` is `ayahs`, the muṣḥaf's `imlaei` is `rasm_imlai`, the word <!-- terminology: ignore -->

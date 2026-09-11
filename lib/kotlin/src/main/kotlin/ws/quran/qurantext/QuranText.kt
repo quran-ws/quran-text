@@ -349,6 +349,13 @@ class Mushaf(private val doc: JSONObject) {
     /** The `provenance` block of the file. */
     val provenance: JSONObject = doc.getJSONObject("provenance")
     val countingSystem: String = counting.getString("system")
+    /**
+     * The counting system this muṣḥaf's qāriʾ is associated with. Compare with
+     * [countingSystem], the system this edition measures onto: for Dūrī and
+     * Sūsī they differ.
+     */
+    val countingSystemAssociatedWithQari: String =
+        counting.getString("system_associated_with_qari")
     val basmalahCounted: Boolean = counting.getBoolean("basmalah_counted")
     /** The layers the file carries, e.g. `[surahs, ayahs, pages, lines, marks, juz, rasm_imlai]`. */
     val layers: List<String> = doc.getJSONObject("layers").getJSONArray("present").toStringList()

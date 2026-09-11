@@ -27,6 +27,14 @@ The boundaries come from `qiraat-ayah-map <https://github.com/quranpedia/qiraat-
 vendored at a pinned commit under ``sources/counting/``; the khilāf inside a
 system, which that repository does not yet model, is this repository's overlay
 ``sources/counting/khilaf.json``, cited point by point.
+
+The derived system answers "what does this edition print".  It is not the
+answer to "what count is this qāriʾ associated with" — Abū ʿAmr is Baṣrī, and
+his two printed muṣḥafs here measure onto First Madani.  Both answers are in
+the block, as ``system`` and ``system_associated_with_qari``, with
+``differs_from_association`` saying when they part company, so joining this
+repository to one that publishes the association alone cannot silently produce
+a contradiction.
 """
 
 from __future__ import annotations
@@ -45,6 +53,7 @@ COUNTING_DIR = paths.SOURCES / "counting"
 PRIMITIVES = COUNTING_DIR / "book-boundary-primitives.json"
 SYSTEMS = COUNTING_DIR / "counting-systems.json"
 KHILAF = COUNTING_DIR / "khilaf.json"
+QIRAAT = COUNTING_DIR / "qiraat.json"
 OPEN_FINDINGS = COUNTING_DIR / "open-findings.json"
 DECLARED = COUNTING_DIR / "declared.json"
 UPSTREAM = {
@@ -153,10 +162,46 @@ def declared() -> dict[str, dict | None]:
     return dict(_load(DECLARED)["declared"])
 
 
+#: This repository's muṣḥaf keys are the rāwī keys of the vendored
+#: ``qiraat.json``, but for one spelling.
+RAWI_KEYS = {"shubah": "shuba"}
+
+
+@lru_cache(maxsize=None)
+def association() -> dict[str, dict]:
+    """muṣḥaf key -> the qāriʾ, and the counting system he is *associated with*.
+
+    That association is a fact about the qāriʾ, not about any printing: it is
+    what «قراءة أبي عمرو البصري» leads a reader to expect, and it is the only
+    counting field `qiraat-ayah-map <https://github.com/quranpedia/qiraat-ayah-map>`_
+    exposes.  It is **not** what :func:`derive` measures, which is the system
+    the edition in ``sources/`` actually prints onto — the two answer different
+    questions and for Dūrī and Sūsī they give different answers.  Both are
+    published side by side so that difference is a value a consumer can read
+    rather than a discrepancy they have to discover (issue #15).
+    """
+    by_rawi: dict[str, dict] = {}
+    for qari, q in _load(QIRAAT).items():
+        for rawi in q["rawis"]:
+            by_rawi[rawi] = {"qari": qari, "system": q["counting_system"]}
+    return by_rawi | {key: by_rawi[rawi] for key, rawi in RAWI_KEYS.items()}
+
+
+def associated_system(key: str) -> dict:
+    """The associated system for one muṣḥaf key, with its names."""
+    assoc = association().get(key)
+    if assoc is None:
+        raise ValueError(f"{QIRAAT.name} names no rāwī for muṣḥaf key {key!r}")
+    system = assoc["system"]
+    return {"qari": assoc["qari"], "system": system,
+            "name_ar": systems()[system]["name_ar"],
+            "name_en": SYSTEM_NAMES_EN[system]}
+
+
 def provenance() -> dict:
     return {
         **UPSTREAM,
-        "files": {p.name: _sha256(p) for p in (PRIMITIVES, SYSTEMS)},
+        "files": {p.name: _sha256(p) for p in (PRIMITIVES, SYSTEMS, QIRAAT)},
         "overlay": {p.name: _sha256(p) for p in (KHILAF, OPEN_FINDINGS, DECLARED)},
     }
 
@@ -350,10 +395,18 @@ def derive(doc: dict, words: list[Word]) -> dict:
     basmalah_counted = not any(w.ayah.get(key) == 0 for w in words if w.surah == 1)
     info = systems()[system]
     stated = declared().get(key)
+    assoc = associated_system(key)
     block = {
         "system": system,
         "system_name_ar": info["name_ar"],
         "system_name_en": info["name_en"],
+        # What the qāriʾ is associated with, beside what this edition prints.
+        # A consumer joining on a counting field gets both answers here rather
+        # than one from each repository and no way to tell them apart.
+        "system_associated_with_qari": assoc["system"],
+        "system_associated_with_qari_name_ar": assoc["name_ar"],
+        "system_associated_with_qari_name_en": assoc["name_en"],
+        "differs_from_association": assoc["system"] != system,
         "declared_by": stated,
         "ayah_count": len(doc["ayah_starts"]),
         "basmalah_counted": basmalah_counted,
@@ -389,6 +442,8 @@ def write_counting(words: list[Word], docs: dict[str, dict]) -> dict:
         editions = [
             {"mushaf": k, "ayah_count": d["counting"]["ayah_count"],
              "basmalah_counted": d["counting"]["basmalah_counted"],
+             "system_associated_with_qari": d["counting"]["system_associated_with_qari"],
+             "differs_from_association": d["counting"]["differs_from_association"],
              "khilaf": d["counting"]["khilaf"],
              "unexplained": d["counting"]["unexplained"]}
             for k, d in docs.items() if d["counting"]["system"] == system]
@@ -414,7 +469,22 @@ def write_counting(words: list[Word], docs: dict[str, dict]) -> dict:
                  "its āyāt ends. The count belongs to the edition, not the "
                  "riwāyah: an edition is listed under the system its own "
                  "ayah_starts match, with what it does at every point where "
-                 "the system's own authorities disagree.",
+                 "the system's own authorities disagree. "
+                 "system_associated_with_qari is the other question — the "
+                 "system the qāriʾ is associated with, from qiraat.json — and "
+                 "differs_from_association says when the two do not agree.",
+        "association": {
+            "description": "The counting system each qāriʾ is associated with. "
+                           "A fact about the qāriʾ, not about any printing: an "
+                           "edition may measure onto another system, and two of "
+                           "these seven do.",
+            "source": "qiraat-ayah-map data/qiraat.json, vendored at the commit above",
+            "by_mushaf": {k: {"qari": association()[k]["qari"],
+                              "system": association()[k]["system"],
+                              "system_printed": d["counting"]["system"],
+                              "differs": d["counting"]["differs_from_association"]}
+                          for k, d in docs.items()},
+        },
         "source": provenance(),
         "disputed_points": [
             {"kufi": f"{a[0]}:{a[1]}", "kind": a[2], "anchor": a[3], "number": n,

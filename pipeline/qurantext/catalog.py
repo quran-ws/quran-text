@@ -66,6 +66,13 @@ def write_catalog(words: list[Word], riwayahs: list[Riwayah],
             "qiraah_en": r.qiraah_en,
             "qiraah_ar": r.qiraah_ar,
             "counting_system": docs[r.key]["counting"]["system"],
+            # The system this edition prints onto, and the one its qāriʾ is
+            # associated with — different questions, and for Dūrī and Sūsī
+            # different answers.  See counting in the muṣḥaf file.
+            "counting_system_associated_with_qari":
+                docs[r.key]["counting"]["system_associated_with_qari"],
+            "counting_differs_from_association":
+                docs[r.key]["counting"]["differs_from_association"],
             "ayah_count": docs[r.key]["counting"]["ayah_count"],
             "word_count": docs[r.key]["mushaf"]["word_count"],
             "source": r.source,

@@ -11,6 +11,28 @@
     "generated": { "type": "string", "format": "date", "description": "The dataset's edition date, declared in the build and committed with the data it describes, not the day the file was written: rebuilding an unchanged commit must reproduce these bytes." },
     "model": { "type": "string" },
     "source": { "type": "object", "description": "The qiraat-ayah-map commit and file hashes the systems were derived from." },
+    "association": {
+      "type": "object",
+      "description": "The counting system each qāriʾ is associated with, keyed by muṣḥaf, beside the system that muṣḥaf's edition actually prints onto. The two answer different questions and need not agree.",
+      "required": ["description", "source", "by_mushaf"],
+      "properties": {
+        "description": { "type": "string" },
+        "source": { "type": "string" },
+        "by_mushaf": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "required": ["qari", "system", "system_printed", "differs"],
+            "properties": {
+              "qari": { "type": "string", "description": "The qāriʾ's key in qiraat-ayah-map." },
+              "system": { "type": "string", "description": "The system the qāriʾ is associated with." },
+              "system_printed": { "type": "string", "description": "The system this edition measures onto, derived from its own ayah_starts." },
+              "differs": { "type": "boolean" }
+            }
+          }
+        }
+      }
+    },
     "disputed_points": {
       "type": "array",
       "items": {

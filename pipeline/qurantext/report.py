@@ -461,16 +461,25 @@ def write_report(words: list[Word], riwayahs: list[Riwayah],
         "left is `unexplained` and is an open finding. Machine-readable: "
         "[`counting.json`](../counting.json).")
     add("")
+    add("That derived system is what the edition **prints**. It is not the "
+        "count the **qāriʾ** is associated with — Abū ʿAmr is Baṣrī, and both "
+        "of his printed muṣḥafs measure onto First Madani — so both are "
+        "published, as `system` and `system_associated_with_qari`, with "
+        "`differs_from_association` where they part.")
+    add("")
     add(_table([[
-        k, f"`{c['system']}`", c["system_name_ar"], f"{c['ayah_count']:,}",
+        k, f"`{c['system']}`", c["system_name_ar"],
+        f"`{c['system_associated_with_qari']}`"
+        + (" **≠**" if c["differs_from_association"] else ""),
+        f"{c['ayah_count']:,}",
         "yes" if c["basmalah_counted"] else "no",
         "; ".join(f"{e['kufi']} {'counted' if e['counted'] else 'not counted'} "
                   f"({', '.join(e['follows'])})" for e in c["khilaf"]) or "—",
         "; ".join(f"{e['kufi']} {'counted' if e['counted'] else 'not counted'}"
                   for e in c["unexplained"]) or "—",
     ] for k, c in counting.items()],
-        ["muṣḥaf", "system", "", "āyāt", "basmalah counted",
-         "khilāf inside the system", "unexplained"]))
+        ["muṣḥaf", "system printed", "", "qāriʾ associated with", "āyāt",
+         "basmalah counted", "khilāf inside the system", "unexplained"]))
     add("")
     ends = {k: set(ayah_ends(words, k)) for k in keys}
     add(_table([[f"`{a}`"] + [

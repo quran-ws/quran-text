@@ -134,6 +134,12 @@ default in every library here. The other six are there for when you need them.
 | Sūsī | Abū ʿAmr al-Baṣrī | Madanī (first) | 6,218 | 77,431 |
 | Bazzī | Ibn Kathīr al-Makkī | Makkī | 6,220 | 77,432 |
 
+**`counting` is what the edition prints, not what the qāriʾ is associated
+with.** Abū ʿAmr is associated with the Baṣrī count; both of his printed
+muṣḥafs here measure onto First Madani. Each file carries both answers —
+`counting.system` and `counting.system_associated_with_qari`, with
+`differs_from_association` — so a join on either one is safe.
+
 Each is a printed muṣḥaf on its own terms: 604 pages, 8,820 lines, its own
 spelling, waqf marks and āyah count — not a font trick over Ḥafṣ. Juz is
 recorded for all but Bazzī, whose source carries none.

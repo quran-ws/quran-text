@@ -600,6 +600,11 @@ class Mushaf:
         self.qiraah_en: Optional[str] = info.get("qiraah_en")
         self.qiraah_ar: Optional[str] = info.get("qiraah_ar")
         self.counting_system: str = doc["counting"]["system"]
+        #: The counting system this muṣḥaf's qāriʾ is associated with. Compare
+        #: with :attr:`counting_system`, which is the system this edition
+        #: measures onto: for Dūrī and Sūsī the two differ.
+        self.counting_system_associated_with_qari: str = \
+            doc["counting"]["system_associated_with_qari"]
         self.basmalah_counted: bool = doc["counting"]["basmalah_counted"]
         self.surahs: list[Surah] = [Surah(self, n) for n in range(1, 115)]
         self._surah_first_ayah = [s._first_ayah for s in self.surahs]

@@ -292,15 +292,17 @@ The āyah boundaries are a layer *over* the word index, not a property of it, an
 
 Each edition's system is **derived** by comparing its own āyah ends to every system's boundaries (from [qiraat-ayah-map](https://github.com/quranpedia/qiraat-ayah-map), vendored under `sources/counting/`), then the points of khilāf inside the system are named with the authority the edition follows. Whatever is left is `unexplained` and is an open finding. Machine-readable: [`counting.json`](../counting.json).
 
-| muṣḥaf | system |  | āyāt | basmalah counted | khilāf inside the system | unexplained |
-|---|---|---|---|---|---|---|
-| hafs | `kufi` | الكوفي | 6,236 | yes | — | — |
-| shubah | `kufi` | الكوفي | 6,236 | yes | — | — |
-| warsh | `madani-last` | المدني الأخير | 6,214 | no | — | — |
-| qalun | `madani-last` | المدني الأخير | 6,214 | no | — | — |
-| duri | `madani-first` | المدني الأول | 6,217 | no | 3:92 counted (shayba); 3:97 not counted (shayba); 37:167 counted (shayba); 67:9 not counted (abu-jafar); 80:24 counted (shayba); 81:26 counted (shayba) | — |
-| susi | `madani-first` | المدني الأول | 6,218 | no | 3:92 counted (shayba); 3:97 not counted (shayba); 37:167 counted (shayba); 67:9 counted (shayba); 80:24 counted (shayba); 81:26 counted (shayba) | — |
-| bazzi | `makki` | المكي | 6,220 | yes | 78:40 counted () | — |
+That derived system is what the edition **prints**. It is not the count the **qāriʾ** is associated with — Abū ʿAmr is Baṣrī, and both of his printed muṣḥafs measure onto First Madani — so both are published, as `system` and `system_associated_with_qari`, with `differs_from_association` where they part.
+
+| muṣḥaf | system printed |  | qāriʾ associated with | āyāt | basmalah counted | khilāf inside the system | unexplained |
+|---|---|---|---|---|---|---|---|
+| hafs | `kufi` | الكوفي | `kufi` | 6,236 | yes | — | — |
+| shubah | `kufi` | الكوفي | `kufi` | 6,236 | yes | — | — |
+| warsh | `madani-last` | المدني الأخير | `madani-last` | 6,214 | no | — | — |
+| qalun | `madani-last` | المدني الأخير | `madani-last` | 6,214 | no | — | — |
+| duri | `madani-first` | المدني الأول | `basri` **≠** | 6,217 | no | 3:92 counted (shayba); 3:97 not counted (shayba); 37:167 counted (shayba); 67:9 not counted (abu-jafar); 80:24 counted (shayba); 81:26 counted (shayba) | — |
+| susi | `madani-first` | المدني الأول | `basri` **≠** | 6,218 | no | 3:92 counted (shayba); 3:97 not counted (shayba); 37:167 counted (shayba); 67:9 counted (shayba); 80:24 counted (shayba); 81:26 counted (shayba) | — |
+| bazzi | `makki` | المكي | `makki` | 6,220 | yes | 78:40 counted () | — |
 
 | edition | `hafs` | `shubah` | `warsh` | `qalun` | `duri` | `susi` | `bazzi` |
 |---|---|---|---|---|---|---|---|

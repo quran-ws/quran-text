@@ -77,6 +77,8 @@
       "description": "Which counting system this edition follows, derived from its own ayah_starts, and what it does at every point of khilāf inside that system.",
       "required": [
         "system",
+        "system_associated_with_qari",
+        "differs_from_association",
         "declared_by",
         "ayah_count",
         "basmalah_counted",
@@ -100,6 +102,27 @@
         },
         "system_name_en": {
           "type": "string"
+        },
+        "system_associated_with_qari": {
+          "description": "The counting system this edition's q\u0101ri\u02be is associated with, from qiraat-ayah-map's data/qiraat.json. A fact about the q\u0101ri\u02be, not about this printing: `system` above is what this edition measures onto, and the two need not agree.",
+          "enum": [
+            "madani-first",
+            "madani-last",
+            "makki",
+            "basri",
+            "dimashqi",
+            "kufi"
+          ]
+        },
+        "system_associated_with_qari_name_ar": {
+          "type": "string"
+        },
+        "system_associated_with_qari_name_en": {
+          "type": "string"
+        },
+        "differs_from_association": {
+          "type": "boolean",
+          "description": "Whether `system` and `system_associated_with_qari` differ. True for D\u016br\u012b and S\u016bs\u012b, whose q\u0101ri\u02be Ab\u016b \u02bfAmr is associated with the Ba\u1e63r\u012b count while both printed editions measure onto First Madani."
         },
         "declared_by": {
           "description": "What the edition states about its own count, or null if the source states nothing.",
