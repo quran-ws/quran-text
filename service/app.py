@@ -42,6 +42,24 @@ app = FastAPI(
 data = Dataset.load()
 
 
+# --- Pre-launch only: keep text.quran.ws out of search results. -------------
+# The landing site does this in nginx; a FastAPI service has no equivalent, so
+# it lives here. Both the header and /robots.txt are needed: the header covers
+# every endpoint including /download responses, robots.txt covers the crawl.
+# Delete this whole block, down to the matching marker, to go public.
+@app.middleware("http")
+async def _noindex(request: Request, call_next):
+    response = await call_next(request)
+    response.headers["X-Robots-Tag"] = "noindex, nofollow, noarchive"
+    return response
+
+
+@app.get("/robots.txt", include_in_schema=False)
+def _robots() -> Response:
+    return Response("User-agent: *\nDisallow: /\n", media_type="text/plain")
+# --- end pre-launch block ---------------------------------------------------
+
+
 @app.exception_handler(BadRequest)
 async def bad_request(_: Request, e: BadRequest):
     return JSONResponse(status_code=400, content={"error": str(e)})

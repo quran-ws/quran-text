@@ -309,3 +309,18 @@ def test_map_dataset_by_ayah_and_by_word():
     assert ET.fromstring(get("/map?from=hafs&to=warsh&surah=1&format=xml").text).tag == "map"
     assert "no riwāyah" in get("/map?from=hafs&to=nope&ayah=2:255", 400).json()["error"]
     assert "being mapped from" in get("/map?from=hafs&to=hafs&ayah=2:255", 400).json()["error"]
+
+
+# --- Pre-launch only: delete with the matching block in app.py. -------------
+def test_noindex_until_launch():
+    """Every response is unindexable while text.quran.ws is pre-launch.
+
+    The landing site does this in nginx; the service has to do it itself. The
+    header matters more than robots.txt here — /download answers are files, and
+    a crawler that already has the URL will not re-read robots.txt for them.
+    """
+    for path in ("/", "/version", "/files", "/download?edition=hafs&format=txt"):
+        assert client.get(path).headers["X-Robots-Tag"] == "noindex, nofollow, noarchive"
+    assert client.get("/robots.txt").text == "User-agent: *\nDisallow: /\n"
+# --- end pre-launch block --------------------------------------------------
+
