@@ -1,7 +1,9 @@
 # Licence and attribution
 
-`LICENSE` is the **Creative Commons Attribution 4.0 International** licence
-(CC BY 4.0). This file says what it covers, what it cannot cover, and the
+The **Creative Commons Attribution 4.0 International** licence (CC BY 4.0)
+applies to this repository; its verbatim text is in `LICENSES/CC-BY-4.0.txt`,
+and `LICENSE` carries it together with the directory table and the third-party
+notices. This file says what it covers, what it cannot cover, and the
 attribution it asks you to carry.
 
 ## What is licensed
