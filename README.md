@@ -1,180 +1,262 @@
-# quran-text
+# Quran Text
 
-**The Qurʾān exactly as the Madinah muṣḥaf prints it.** Seven riwāyāt,
-unedited — every file names the package it came from and its SHA-256.
+**The Qurʾān as text, exactly as the Madinah muṣḥaf prints it — in seven printed
+editions, with one word number that means the same word in all seven.**
 
-And every word carries one number that means the same word in all seven.
+A *muṣḥaf* is a printed copy of the Qurʾān; a *riwayah* is one transmitted
+reading of it, differing in spelling, vowelling, where āyāt end and how words are
+written ([glossary](https://quran.ws/docs/concepts/glossary/#riwayah)). This
+repository carries seven of them, taken unedited from the digital packages
+published by the King Fahd Glorious Qurʾān Printing Complex (KFGQPC), and adds
+the thing none of those packages contains: words, and a single numbering that
+ties a word in one edition to the same word in the other six.
 
-**Building an app** → [Use it in your app](#use-it-in-your-app) ·
-**Just need the files** → [Download the text](#download-the-text) ·
-**Checking the source** → [Where the text comes from](#where-the-text-comes-from)
+> نصُّ المصحف مطابق لطبعة مجمع الملك فهد بالمدينة، بسبع روايات، مرتبط بالإصدارات
+> الرسمية للمجمع؛ كلُّ ملف يذكر الإصدار المأخوذ منه وتوقيعه. مع ترقيم لكلماته،
+> يجعل لكل كلمة رقمٌ واحد يدلُّ عليها في الروايات السبع.
 
-نصُّ المصحف مطابق لطبعة مجمع الملك فهد بالمدينة، بسبع روايات، مرتبط بالإصدارات الرسمية للمجمع؛ كلُّ
-ملف يذكر الإصدار المأخوذ منه وتوقيعه. مع ترقيم لكلماته، يجعل لكل كلمة رقمٌ واحد يدلُّ عليها في
-الروايات السبع.
+| Package | Version | Riwayat | Shared word numbers |
+|---|---|---|---|
+| `quran-text` — not published yet | `0.1.0` | 7 printed editions | 77,434 |
 
-ابدأ من `lib/` إن كنت تبني تطبيقًا، ومن `service/` إن أردت تنزيل النص بالصيغة
-التي تريد، ومن `data/` إن كنت تعمل على البيانات مباشرة.
+---
 
-## Use it in your app
+## What it provides
 
-Ḥafṣ is bundled with every library; nothing to download, nothing to know about
-riwāyāt.
+- **Seven complete printed muṣḥafs**, each on its own terms: its own spelling,
+  its own waqf (pause) marks, its own āyah count, 604 pages and 8,820 lines.
+  Not a font trick over one base text.
+- **One shared word numbering.** Attach a translation, a grammar entry or an
+  audio segment to a number once, and it is attached in all seven.
+- **Surah, āyah, page, line and juz access** for each edition, plus waqf, sajdah
+  and division marks, and a folded plain form for searching.
+- **Provenance in every file**: the source package it was read from, the member
+  inside it, the release year and its SHA-256 — plus each place the build
+  departed from the package.
+- **Six client libraries** — JavaScript, Python, PHP, Dart, Swift, Kotlin — with
+  the same API and no dependencies. Ḥafṣ, the edition most of the world reads, is
+  bundled inside each one, with the font it needs.
 
-```python
-from quran_text import Mushaf
+**Word 425**, from `data/differences.json` — sūrah 2, sixth word of āyah 28 in
+Ḥafṣ, and of āyah 27 in five of the others:
 
-m = Mushaf.hafs()
-m.ayah(2, 255).render(marks=True, ayah_marks=True)  # ٱللَّهُ لَآ إِلَٰهَ إِلَّا هُوَ ٱلۡحَيُّ ٱلۡقَيُّومُۚ …
-m.page(3).lines                                     # a printed page, line by line
-m.juz(30).ayahs
-m.search("مالك يوم الدين")                          # → [Span(10, 13)]
+| spelling | editions |
+|---|---|
+| فَأَحۡيَٰكُمۡ | Ḥafṣ · Shuʿbah · al-Dūrī · al-Sūsī |
+| فَأَحۡيَٰكُمُۥ | al-Bazzī |
+| فَأَحْيَاكُمْ | Qālūn |
+| فَأَحْيٜاكُمْ | Warsh |
+
+One number, four spellings, two different āyah numbers. Of the 77,434 numbers,
+**277** are written differently somewhere — a different letter, a long ā written
+or left out, a word boundary drawn elsewhere. The rest are the same word in every
+edition that reads them. (Differences of vowelling and pointing alone are not in
+that 277; they are in `data/word-index.json`, under each word's `groups`.)
+
+## Use it when you need
+
+- A text-based reader, search, or anything that stores Qurʾānic text.
+- Access by surah, āyah, page, or juz.
+- Stable word-level references that other data can hang off — translations,
+  audio timings, annotations.
+- More than one riwayah, and a way to say "the same word" across them.
+
+## Not for
+
+| You want | Use |
+|---|---|
+| The muṣḥaf as it looks on the printed page — geometry, not characters | [Quran SVG](https://quran.ws/blocks/quran-svg/) |
+| Addressing a word or a mark *inside* the printed page | [Quran SVG Elements](https://quran.ws/blocks/quran-svg-elements/) |
+| Rendering printed pages fast on a phone | [Quran Engine](https://quran.ws/blocks/quran-engine/) |
+| Tajwīd colouring — the recitation rules, as spans over unchanged text | [Quran Tajweed](https://quran.ws/blocks/quran-tajweed/) |
+| Converting an āyah reference between the six counting traditions | [Qiraat Ayah Map](https://quran.ws/blocks/qiraat-ayah-map/) |
+
+This repository is the text: characters, not shapes. It never draws anything and
+never colours anything. Of the three page-side siblings, Quran SVG is the archive
+of vectorised muṣḥafs and addresses an āyah; Quran SVG Elements covers only the
+muṣḥafs that have been split apart, and addresses a word or a mark inside them;
+Quran Engine renders those same split muṣḥafs on a phone, where SVG does not
+perform.
+
+## See it work
+
+<https://quran.ws/blocks/quran-text/> runs four things against the data
+committed here:
+
+- **How it is built** — seven files, one numbering, and a flat array of words
+  with offsets instead of a tree.
+- **One number, seven riwayat** — all 277 words that are spelt differently
+  somewhere, each with its groups of editions.
+- **Āyah lookup** — pick a reference and a riwayah and see the text with its
+  shared word numbers, and the surah's āyah count change under you.
+- **Download builder** — the URL patterns the `service/` directory serves.
+
+## Supported riwayat
+
+If you do not know which you need, it is **Ḥafṣ**. It is the default in every
+library here, and it is what most of the world reads.
+
+| riwayah | qāriʾ | counting system | āyāt printed | words printed | source release |
+|---|---|---|---|---|---|
+| Ḥafṣ | ʿĀṣim al-Kūfī | Kūfī | 6,236 | 77,432 | v3.0, 2026 |
+| Shuʿbah | ʿĀṣim al-Kūfī | Kūfī | 6,236 | 77,432 | v3.0, 2026 |
+| Warsh | Nāfiʿ al-Madanī | Last Madinan | 6,214 | 77,431 | v3.0, 2026 |
+| Qālūn | Nāfiʿ al-Madanī | Last Madinan | 6,214 | 77,431 | v3.0, 2026 |
+| al-Dūrī | Abū ʿAmr al-Baṣrī | First Madinan | 6,217 | 77,431 | **V20, 2022** |
+| al-Sūsī | Abū ʿAmr al-Baṣrī | First Madinan | 6,218 | 77,431 | v3.0, 2026 |
+| al-Bazzī | Ibn Kathīr al-Makkī | Makkī | 6,220 | 77,432 | v3.0, 2026 |
+
+Six editions are built from KFGQPC's 2026 v3.0 packages; **al-Dūrī is built from
+the 2022 `UthmanicDouri_V20.zip`**, because no later release exists. It is also
+the one edition whose two source packages are both from 2022, so it cannot be
+cross-checked the way the others are.
+
+Juz is recorded for every edition except al-Bazzī, whose source carries none —
+the file says so itself, in `layers.absent`, rather than throwing at you later.
+
+### Why 77,434, 77,432 and 77,431 are all correct
+
+Three word counts appear in this repository, and they are not in conflict:
+
+- **77,432 / 77,431** — the words a given edition *prints*.
+- **77,434** — the shared numbers. The numbering counts the finest division any
+  of the seven makes, so it is a superset of every edition.
+
+An edition reaches the total two ways: some numbers it does not read at all
+(`numbering.missing`), and some words it prints joined where another prints two
+(`numbering.written_joined`), so one printed word covers two numbers.
+
+```sh
+$ cd data/mushaf && node -e '
+for (const k of ["hafs","warsh","susi"]) {
+  const d = require(`./${k}.json`), n = d.numbering;
+  const j = n.written_joined.reduce((a, r) => a + r.numbers.length - 1, 0);
+  console.log(k, d.words.length, "+", j, "+", n.missing.length,
+              "=", d.words.length + j + n.missing.length, "==", n.total);
+}'
+hafs 77432 + 1 + 1 = 77434 == 77434
+warsh 77431 + 0 + 3 = 77434 == 77434
+susi 77431 + 1 + 2 = 77434 == 77434
 ```
 
-The same six lines in Python, JavaScript, PHP, Dart, Swift and Kotlin — one
-package each, no dependencies, tested against the same facts.
-[`lib/`](lib/) has the full API.
+`words.length + Σ(joined run − 1) + missing.length == numbering.total` holds in
+all seven files. The build asserts it.
 
-**Nothing is on PyPI or npm yet.** Install from the directory
-(`pip install ./lib/python`) or copy the file in.
+### A muṣḥaf's āyah count is not its counting system's total
 
-**Ship the font.** Some words use codepoints Unicode only added in 2021, and
-almost no general font draws them — without the right font your users see empty
-boxes. Every muṣḥaf file names the font that ships with its source package, and
-the build copies it to [`data/fonts/`](data/fonts/); Warsh, Qālūn and Sūsī
-need it most.
+This is the trap. *Āyah-counting* is a scholarly tradition about where āyāt end
+([glossary](https://quran.ws/docs/concepts/glossary/#ayah-counting)), and there
+are six such systems. An edition follows one of them — and still does not print
+that system's published total, because there are recorded points of disagreement
+*inside* a system.
 
-**Join on `key`, not on the number.** The shared number is a position, so a
-future release that adds a word shifts it. `key` (`sūrah:pointed#occurrence`)
-and the Ḥafṣ `{surah, ayah, position}` coordinates come from the text itself
-and survive.
+al-Sūsī is the clearest case. Its file records the First Madinan system, and it
+prints **6,218** āyāt, while
+[qiraat-ayah-map](https://quran.ws/blocks/qiraat-ayah-map/) publishes First
+Madinan's total as **6,214**. Both numbers are right about different things.
+Never derive one from the other, and never hard-code either.
 
-**Ship it commercially**, no permission needed — keep the attribution line
-below. The Qurʾānic text itself stays its publisher's, under their terms.
+> **Unresolved, and stated here rather than decided.** `quran-text` measures
+> al-Dūrī and al-Sūsī against the six systems and puts both under First Madinan
+> (distance 0 and 1 āyah ends, against 97 and 98 to the Baṣran set).
+> `qiraat-ayah-map` assigns their qāriʾ, Abū ʿAmr al-Baṣrī, to the Baṣran
+> counting, total 6,204. Neither KFGQPC package declares a system, so nothing in
+> either repository settles it. This needs a ruling from someone qualified in
+> qirāʾāt; until then the two repositories disagree, and anyone joining them
+> should know it.
 
-Āyah numbers are the edition's own, and the libraries convert:
+## Provenance
 
-```python
-warsh = Mushaf.load("data/mushaf/warsh.json")
+The text is KFGQPC's own, unedited. Every muṣḥaf file names the package it came
+from and that package's SHA-256:
 
-m.ayah(2, 255).to(warsh)      # AyahMatch(2:253-254, split)
-m.word(2, 255, 3).to(warsh)   # Word(5176, 'إِلَٰهَ')
+```json
+"provenance": { "text": { "package": "UthmanicHafs-v-3.0.zip",
+                          "member":  "UthmanicHafs-v-3.0.docx",
+                          "release_year": 2026,
+                          "sha256": "cdec7341b7c684e7b8dd469c4b68988914d2784e924c7e6cbb9cb4b57c24f013" } }
 ```
 
-## One number, seven riwāyāt
+`python3 pipeline/build.py` rebuilds everything in `data/` from the committed
+packages, offline, with no dependencies. Nothing is hand-edited, and the build
+fails if a letter moves.
 
-**Word 425** — sūrah 2, āyah 28, sixth word:
+**What that proves, and what it does not.** The checks prove the data is faithful
+to the packages; they do not prove the packages are faithful to a printed
+muṣḥaf. Word boundaries are derived from KFGQPC's own typesetting, not from any
+doctrinal source. The rasm — the bare consonantal skeleton
+([glossary](https://quran.ws/docs/concepts/glossary/#rasm)) — is reconstructed by
+normalising the vowelled text, not transcribed from a manuscript. Seven riwayat
+is four of the seven canonical qāriʾs: Qunbul, Ibn ʿĀmir, Ḥamzah and al-Kisāʾī
+are absent, so this is not a complete qirāʾāt comparison.
+[`docs/limitations.md`](docs/limitations.md) states all of it, and says plainly
+that **before any use where correctness of the sacred text matters, this needs
+review by someone qualified in qirāʾāt against printed maṣāḥif.**
+
+Two more things worth knowing before you build on it:
+
+- **Join on `key`, not on the number.** The shared number is a position, so a
+  future release that adds a word shifts every number after it. `key`
+  (`sūrah:pointed#occurrence`, e.g. `2:فاحياكم#1`) and the Ḥafṣ `{surah, ayah,
+  position}` coordinates come from the text itself and survive.
+- **Ship the font.** Some words use codepoints Unicode only added in 2021, and
+  almost no general font draws them — 19,431 words in Warsh, 19,183 in al-Sūsī,
+  17,527 in Qālūn. Without the right font your users see empty boxes. Every file
+  names the font KFGQPC ships with its text, and the build copies it to
+  `data/fonts/`.
+
+## Quick start
+
+**There is nothing to install yet.** The repository is private, has no releases,
+and nothing is published on npm, PyPI, Packagist, pub.dev or Maven Central. The
+package manifests are complete and `v1.0.0` is being held deliberately until two
+format-visible questions are settled — see [`docs/launch.md`](docs/launch.md).
+
+Until then: clone the repository and point at `lib/<language>/` directly. Every
+library bundles Ḥafṣ, so only the Warsh line below reads a file from `data/`.
+
+```js
+import { Mushaf } from "./lib/js/quran-text.js";
+
+const m = await Mushaf.hafs();                            // bundled, no download
+const warsh = await Mushaf.load("data/mushaf/warsh.json"); // another riwayah, Node
+
+m.ayah(2, 255).render({ marks: true, ayahMarks: true });
+m.word(1, 4, 1).number;
+m.search("مالك يوم الدين")[0];
+m.word(2, 255, 3).to(warsh).number;
+m.ayah(2, 255).to(warsh).key;
+```
+
+Those five expressions, run against commit
+`fea25cd0f781ead81fc33ce91225f6ce17f8283f`, give:
+
+```
+ٱللَّهُ لَآ إِلَٰهَ إِلَّا هُوَ ٱلۡحَيُّ ٱلۡقَيُّومُۚ … وَهُوَ ٱلۡعَلِيُّ ٱلۡعَظِيمُ ۝٢٥٥
+11                       ← the shared number of مَٰلِكِ, sūrah 1 āyah 4
+start 10, end 13         ← the words مَٰلِكِ يَوۡمِ ٱلدِّينِ matched
+5177 إِلَٰهَ              ← the same word, in Warsh
+2:253-254  (split)       ← Ḥafṣ's 2:255 is two āyāt in Warsh
+```
+
+The same lines exist in Python, PHP, Dart, Swift and Kotlin
+(`pip install ./lib/python` and equivalents), tested against the same facts.
+[`lib/README.md`](lib/README.md) has the full API.
+
+**In a browser**, use `Mushaf.fromJson(await (await fetch(url)).json())`;
+`Mushaf.load` is Node only. Note the size before you decide: a muṣḥaf file is the
+smallest unit there is — 1.9–3.1 MB of JSON, about 550 KB gzipped for Ḥafṣ —
+and there is no per-surah file. The `service/` directory answers by scope on the
+server, but is not deployed anywhere public yet.
+
+## Works with
 
 | | |
 |---|---|
-| Ḥafṣ · Shuʿbah · Dūrī · Sūsī | فَأَحۡيَٰكُمۡ |
-| Bazzī | فَأَحۡيَٰكُمُۥ |
-| Qālūn | فَأَحْيَاكُمْ |
-| Warsh | فَأَحْيٜاكُمْ |
-
-One number, four spellings. The numbering is a shared index of **77,434
-positions**, and no riwāyah fills all of them — each leaves a few unused, which
-is why a riwāyah's own word count is 77,432 or 77,431. **277** numbers read like
-this one and the rest are the same word everywhere. Attach a translation, a
-grammar entry or an audio segment to a number once, and it is attached in all
-seven.
-
-None of the published Madinah packages contain word-level data — every one of
-them is āyah-level ([`docs/sources.md`](docs/sources.md)). The words, and the
-number that ties them together, are what this repository derives.
-
-## Download the text
-
-Any riwāyah, any scope, six formats — the URL *is* the file:
-
-```text
-/download?edition=hafs&surah=2&format=txt
-
-# quran-text — Ḥafṣ (حفص), ʿĀṣim al-Kūfī, Kufi Numbering count, 6236 āyāt
-# source: UthmanicHafs-v-3.0.zip :: UthmanicHafs-v-3.0.docx  sha256 cdec7341…
-2|1|الٓمٓ
-2|2|ذَٰلِكَ ٱلۡكِتَٰبُ لَا رَيۡبَۛ فِيهِۛ هُدࣰى لِّلۡمُتَّقِينَ
-```
-
-`txt` `json` `csv` `xml` `sql` `md` · rasm ʿUthmānī, imlāʾī or plain · waqf,
-sajdah, sajdah-line and division marks on or off · by sūrah, juz, page or āyah range · by
-āyah or by word. Every response carries that provenance header and an
-`X-Checksum-SHA256` of the body. The work here is CC BY 4.0; the text stays the
-publisher's, under their terms. [`service/`](service/) runs it in two commands.
-
-## Where the text comes from
-
-The text is the Madinah muṣḥaf's own: the digital packages published by the King
-Fahd Glorious Qurʾān Printing Complex (KFGQPC), unedited. Every file names the
-package it came from and its SHA-256, and lists in the file itself each place
-the build departed from it:
-
-```json
-"hafs": { "text": { "package": "UthmanicHafs-v-3.0.zip",
-                    "sha256": "cdec7341b7c684e7b8dd469c4b68988914d2784e924c7e6cbb9cb4b57c24f013" } }
-```
-
-`python3 pipeline/build.py` rebuilds every file in `data/` from those
-committed packages, offline, with no dependencies. Nothing in the text is
-hand-edited, and the build fails if a letter moves.
-
-The checks prove the data is faithful to the packages, not that the packages are
-faithful to a printed muṣḥaf. [`limitations.md`](docs/limitations.md) says
-exactly what is and is not verified.
-
-## Which riwāyah do you need?
-
-If you don't know, **Ḥafṣ** — it is what most of the world reads, and it is the
-default in every library here. The other six are there for when you need them.
-
-| riwāyah | qāriʾ | counting | āyāt | words |
-|---|---|---|---|---|
-| Ḥafṣ | ʿĀṣim al-Kūfī | Kūfī | 6,236 | 77,432 |
-| Shuʿbah | ʿĀṣim al-Kūfī | Kūfī | 6,236 | 77,432 |
-| Warsh | Nāfiʿ al-Madanī | Madanī (last) | 6,214 | 77,431 |
-| Qālūn | Nāfiʿ al-Madanī | Madanī (last) | 6,214 | 77,431 |
-| Dūrī | Abū ʿAmr al-Baṣrī | Madanī (first) | 6,217 | 77,431 |
-| Sūsī | Abū ʿAmr al-Baṣrī | Madanī (first) | 6,218 | 77,431 |
-| Bazzī | Ibn Kathīr al-Makkī | Makkī | 6,220 | 77,432 |
-
-**`counting` is what the edition prints, not what the qāriʾ is associated
-with.** Abū ʿAmr is associated with the Baṣrī count; both of his printed
-muṣḥafs here measure onto First Madani. Each file carries both answers —
-`counting.system` and `counting.system_associated_with_qari`, with
-`differs_from_association` — so a join on either one is safe.
-
-Each is a printed muṣḥaf on its own terms: 604 pages, 8,820 lines, its own
-spelling, waqf marks and āyah count — not a font trick over Ḥafṣ. Juz is
-recorded for all but Bazzī, whose source carries none.
-
-## Where to go
-
-| you are… | go to |
-|---|---|
-| working with the data | [`data/`](data/) — start at [`catalog.json`](data/catalog.json); [`docs/files.md`](docs/files.md) maps every file |
-| an agent | [`skills/quran-text/SKILL.md`](skills/quran-text/SKILL.md) |
-
-## Build
-
-Python 3.11, no dependencies:
-
-```sh
-python3 pipeline/build.py                          # ~3 min, writes data/
-python3 -m unittest discover -s pipeline/tests
-```
-
-## Licence
-
-**[CC BY 4.0](LICENSE)** — anywhere, commercially, no permission needed. One
-condition: keep the link.
-
-> quran-text by quran-ws — https://github.com/quran-ws/quran-text — CC BY 4.0
-
-That covers the work done here: the word index and its numbering, the
-alignment, the counting analysis, the code and the docs. It does **not** cover
-the Qurʾānic text or the KFGQPC packages and fonts in `sources/kfgqpc/` and
-`data/fonts/`, which remain KFGQPC's under KFGQPC's terms.
-[`NOTICE.md`](NOTICE.md) draws the line precisely.
+| [Quran Tajweed](https://quran.ws/blocks/quran-tajweed/) | Colours this text without changing a character — it ships positions, not text. |
+| [Qiraat Ayah Map](https://quran.ws/blocks/qiraat-ayah-map/) | Converts an āyah reference between counting systems. Its boundaries are vendored here at a pinned commit. |
+| [Quran SVG Elements](https://quran.ws/blocks/quran-svg-elements/) | Links a word number to the printed shape of that word on the page. |
+| [Quran Engine](https://quran.ws/blocks/quran-engine/) | Search and highlight by word number, rendered fast on a phone. |
 
 ## Documentation
 
@@ -187,4 +269,30 @@ the Qurʾānic text or the KFGQPC packages and fonts in `sources/kfgqpc/` and
 [`limitations.md`](docs/limitations.md) what to be careful with ·
 [`verify-in-print.md`](docs/verify-in-print.md) what is still unknown, and where
 in a printed muṣḥaf to look ·
-[`launch.md`](docs/launch.md) what stands between this and a public release
+[`launch.md`](docs/launch.md) what stands between this and a public release.
+
+Long-form, with no Qurʾānic background assumed:
+<https://quran.ws/docs/reference/quran-text/>.
+
+## Licence
+
+**One licence, CC BY 4.0, across the whole repository** — the dataset, the
+pipeline, the docs and all six client libraries.
+
+That is deliberate, and against the usual advice. MIT is what a developer
+pulling this from npm or PyPI would expect, but every client package *bundles
+the dataset*: `hafs.json` travels inside it. An MIT wrapper around CC BY 4.0
+data would put two licences in one package and, in practice, let the data reach
+people with the attribution stripped — the one thing this licence exists to
+prevent. If you need the library code under different terms, ask.
+
+Attribution is **waived for use inside a product**, and required on
+republication — if a third party can obtain the data *as data* from what you
+ship, that is republication:
+
+> quran-text by quran-ws — https://github.com/quran-ws/quran-text — CC BY 4.0
+
+**The Qurʾānic text itself is not this project's to license.** The KFGQPC source
+packages in `sources/kfgqpc/` and the fonts in `data/fonts/` are the King Fahd
+Glorious Qurʾān Printing Complex's, included as received, under their own terms.
+[`LICENSE`](LICENSE) and [`NOTICE.md`](NOTICE.md) draw the line precisely.
