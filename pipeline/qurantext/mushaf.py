@@ -36,7 +36,7 @@ import json
 from collections import defaultdict
 from pathlib import Path
 
-from . import chars, counting, fonts, rasm_imlai
+from . import chars, counting, fonts, rasm_imlai, sources
 from . import paths, stamp
 from .build import DATA, Word
 from .word_index import boundary_events
@@ -93,6 +93,8 @@ def _provenance(r: Riwayah) -> dict:
             "member": spec.primary_member,
             "release_year": spec.primary_year,
             "sha256": _sha256(text),
+            # Always empty for a primary .docx: the archive does not hold one.
+            "origin": sources.origin("", text.name),
         },
         "policy": RELEASE_POLICY,
     }
@@ -103,6 +105,7 @@ def _provenance(r: Riwayah) -> dict:
             "member": spec.csv_member,
             "release_year": spec.csv_year,
             "sha256": _sha256(layout),
+            "origin": sources.origin(spec.csv_slug, layout.name),
             "used_for": ["juz", "line_check"],
         }
     return out

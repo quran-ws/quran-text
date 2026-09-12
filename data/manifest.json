@@ -20,13 +20,25 @@
     "package": "UthmanicHafs-v-3.0.zip",
     "member": "UthmanicHafs-v-3.0.docx",
     "release_year": 2026,
-    "sha256": "cdec7341b7c684e7b8dd469c4b68988914d2784e924c7e6cbb9cb4b57c24f013"
+    "sha256": "cdec7341b7c684e7b8dd469c4b68988914d2784e924c7e6cbb9cb4b57c24f013",
+    "origin": {
+     "recorded": false,
+     "note": "No source URL is recorded for this package — not here, not in this repository's history, and not in the KFGQPC archive, which does not hold it. The file is verifiable against the SHA-256 above but cannot be obtained again or checked against the publisher. No URL is guessed: the archive's /quran-dev/ page does not serve this package. See docs/sources.md."
+    }
    },
    "layout": {
     "package": "UthmanicHafs_v2-0.zip",
     "member": "UthmanicHafs_v2-0 data/hafsData_v2-0.csv",
     "release_year": 2022,
-    "sha256": "a7b0e5591945712ec5e4d6142938ae4d1e9b49bdc89dff06222789bfebdfd72c"
+    "sha256": "a7b0e5591945712ec5e4d6142938ae4d1e9b49bdc89dff06222789bfebdfd72c",
+    "origin": {
+     "recorded": true,
+     "url": "https://download.qurancomplex.gov.sa/resources_dev/UthmanicHafs_v2-0.zip",
+     "mirror": "https://cdn.quran.ws/KFGQPC/resources/quran-dev/uthmanic-hafs/UthmanicHafs_v2-0.zip",
+     "geo_restricted": "The official host serves Saudi Arabia only; from elsewhere it times out. Use the mirror, which is the same bytes.",
+     "archive": "https://github.com/quran-ws/kfgqpc-resources",
+     "archive_commit": "925b94346c2bd6a82df92a5ba3cfbec0bc63c512"
+    }
    }
   },
   "shubah": {
@@ -34,13 +46,25 @@
     "package": "UthmanicShubah-v-3.0.zip",
     "member": "UthmanicShubah-v-3.0.docx",
     "release_year": 2026,
-    "sha256": "28be7e6ac5b3af9b5064c1cb6fc733e7c0d120d453a8894db0ddb01a7f110396"
+    "sha256": "28be7e6ac5b3af9b5064c1cb6fc733e7c0d120d453a8894db0ddb01a7f110396",
+    "origin": {
+     "recorded": false,
+     "note": "No source URL is recorded for this package — not here, not in this repository's history, and not in the KFGQPC archive, which does not hold it. The file is verifiable against the SHA-256 above but cannot be obtained again or checked against the publisher. No URL is guessed: the archive's /quran-dev/ page does not serve this package. See docs/sources.md."
+    }
    },
    "layout": {
     "package": "UthmanicShuba_v2-0.zip",
     "member": "UthmanicShuba_v2-0 data/shubaData_v2-0.csv",
     "release_year": 2022,
-    "sha256": "977e64f3f889c084dc82aec4e97092836ca61777cdc93c3ee7da6f59592efbcf"
+    "sha256": "977e64f3f889c084dc82aec4e97092836ca61777cdc93c3ee7da6f59592efbcf",
+    "origin": {
+     "recorded": true,
+     "url": "https://download.qurancomplex.gov.sa/resources_dev/UthmanicShuba_v2-0.zip",
+     "mirror": "https://cdn.quran.ws/KFGQPC/resources/quran-dev/uthmanic-shuba/UthmanicShuba_v2-0.zip",
+     "geo_restricted": "The official host serves Saudi Arabia only; from elsewhere it times out. Use the mirror, which is the same bytes.",
+     "archive": "https://github.com/quran-ws/kfgqpc-resources",
+     "archive_commit": "925b94346c2bd6a82df92a5ba3cfbec0bc63c512"
+    }
    }
   },
   "warsh": {
@@ -48,13 +72,25 @@
     "package": "UthmanicWarsh-v-3.0.zip",
     "member": "UthmanicWarsh-v-3.0.docx",
     "release_year": 2026,
-    "sha256": "68e2f1c7a504a8dde797346fd63054c744e073917380f9c56360306b28907e37"
+    "sha256": "68e2f1c7a504a8dde797346fd63054c744e073917380f9c56360306b28907e37",
+    "origin": {
+     "recorded": false,
+     "note": "No source URL is recorded for this package — not here, not in this repository's history, and not in the KFGQPC archive, which does not hold it. The file is verifiable against the SHA-256 above but cannot be obtained again or checked against the publisher. No URL is guessed: the archive's /quran-dev/ page does not serve this package. See docs/sources.md."
+    }
    },
    "layout": {
     "package": "UthmanicWarsh_v2-1.zip",
     "member": "UthmanicWarsh_v2-1 data/warshData_v2-1.csv",
     "release_year": 2022,
-    "sha256": "d847a7e7002dfbed5d28db6684fd1d9c3d50b8bb63ad64cb38a46b9dad788b47"
+    "sha256": "d847a7e7002dfbed5d28db6684fd1d9c3d50b8bb63ad64cb38a46b9dad788b47",
+    "origin": {
+     "recorded": true,
+     "url": "https://download.qurancomplex.gov.sa/resources_dev/UthmanicWarsh_v2-1.zip",
+     "mirror": "https://cdn.quran.ws/KFGQPC/resources/quran-dev/uthmanic-warsh/UthmanicWarsh_v2-1.zip",
+     "geo_restricted": "The official host serves Saudi Arabia only; from elsewhere it times out. Use the mirror, which is the same bytes.",
+     "archive": "https://github.com/quran-ws/kfgqpc-resources",
+     "archive_commit": "925b94346c2bd6a82df92a5ba3cfbec0bc63c512"
+    }
    }
   },
   "qalun": {
@@ -62,13 +98,25 @@
     "package": "UthmanicQaloun-v-3.0.zip",
     "member": "UthmanicQaloun-v-3.0.docx",
     "release_year": 2026,
-    "sha256": "d55082f903ec3975469da187c20f21f09bc9921530c17041a2638ab2ee23850a"
+    "sha256": "d55082f903ec3975469da187c20f21f09bc9921530c17041a2638ab2ee23850a",
+    "origin": {
+     "recorded": false,
+     "note": "No source URL is recorded for this package — not here, not in this repository's history, and not in the KFGQPC archive, which does not hold it. The file is verifiable against the SHA-256 above but cannot be obtained again or checked against the publisher. No URL is guessed: the archive's /quran-dev/ page does not serve this package. See docs/sources.md."
+    }
    },
    "layout": {
     "package": "UthmanicQaloun_v2-1.zip",
     "member": "UthmanicQaloun_v2-1 data/QalounData_v2-1.csv",
     "release_year": 2022,
-    "sha256": "6988b782b4268c70a11bc807223fcf2b131a9879a48aad34eb65af523fcb144d"
+    "sha256": "6988b782b4268c70a11bc807223fcf2b131a9879a48aad34eb65af523fcb144d",
+    "origin": {
+     "recorded": true,
+     "url": "https://download.qurancomplex.gov.sa/resources_dev/UthmanicQaloun_v2-1.zip",
+     "mirror": "https://cdn.quran.ws/KFGQPC/resources/quran-dev/uthmanic-qaloun/UthmanicQaloun_v2-1.zip",
+     "geo_restricted": "The official host serves Saudi Arabia only; from elsewhere it times out. Use the mirror, which is the same bytes.",
+     "archive": "https://github.com/quran-ws/kfgqpc-resources",
+     "archive_commit": "925b94346c2bd6a82df92a5ba3cfbec0bc63c512"
+    }
    }
   },
   "duri": {
@@ -76,13 +124,25 @@
     "package": "UthmanicDouri_V20.zip",
     "member": "UthmanicDouri V20.docx",
     "release_year": 2022,
-    "sha256": "89fe6773ada1a8c153d24005453fa8c183bc33919887664c102e5a9c9c2c5e67"
+    "sha256": "89fe6773ada1a8c153d24005453fa8c183bc33919887664c102e5a9c9c2c5e67",
+    "origin": {
+     "recorded": false,
+     "note": "No source URL is recorded for this package — not here, not in this repository's history, and not in the KFGQPC archive, which does not hold it. The file is verifiable against the SHA-256 above but cannot be obtained again or checked against the publisher. No URL is guessed: the archive's /quran-dev/ page does not serve this package. See docs/sources.md."
+    }
    },
    "layout": {
     "package": "UthmanicDouri_v2-0.zip",
     "member": "UthmanicDouri_v2-0 data/DouriData_v2-0.csv",
     "release_year": 2022,
-    "sha256": "84e5569790f96b05896b8f44ebe8d82d98377a929ac0e87dd8af4dbec52cb0c1"
+    "sha256": "84e5569790f96b05896b8f44ebe8d82d98377a929ac0e87dd8af4dbec52cb0c1",
+    "origin": {
+     "recorded": true,
+     "url": "https://download.qurancomplex.gov.sa/resources_dev/UthmanicDouri_v2-0.zip",
+     "mirror": "https://cdn.quran.ws/KFGQPC/resources/quran-dev/uthmanic-douri/UthmanicDouri_v2-0.zip",
+     "geo_restricted": "The official host serves Saudi Arabia only; from elsewhere it times out. Use the mirror, which is the same bytes.",
+     "archive": "https://github.com/quran-ws/kfgqpc-resources",
+     "archive_commit": "925b94346c2bd6a82df92a5ba3cfbec0bc63c512"
+    }
    }
   },
   "susi": {
@@ -90,13 +150,25 @@
     "package": "UthmanicSousi-v-3.0.zip",
     "member": "UthmanicSousi-v-3.0.docx",
     "release_year": 2026,
-    "sha256": "1fe37644546506715cb81eb2e3154567c4df9f256a77e9d523bb12d836b06e0d"
+    "sha256": "1fe37644546506715cb81eb2e3154567c4df9f256a77e9d523bb12d836b06e0d",
+    "origin": {
+     "recorded": false,
+     "note": "No source URL is recorded for this package — not here, not in this repository's history, and not in the KFGQPC archive, which does not hold it. The file is verifiable against the SHA-256 above but cannot be obtained again or checked against the publisher. No URL is guessed: the archive's /quran-dev/ page does not serve this package. See docs/sources.md."
+    }
    },
    "layout": {
     "package": "UthmanicSousi_v2-0.zip",
     "member": "UthmanicSousi_v2-0 data/SousiData_v2-0.csv",
     "release_year": 2022,
-    "sha256": "e912273b3863bbf97ec4a7b1134967e3cdf21de7fcc06df9dee42bce655ce472"
+    "sha256": "e912273b3863bbf97ec4a7b1134967e3cdf21de7fcc06df9dee42bce655ce472",
+    "origin": {
+     "recorded": true,
+     "url": "https://download.qurancomplex.gov.sa/resources_dev/UthmanicSousi_v2-0.zip",
+     "mirror": "https://cdn.quran.ws/KFGQPC/resources/quran-dev/uthmanic-sousi/UthmanicSousi_v2-0.zip",
+     "geo_restricted": "The official host serves Saudi Arabia only; from elsewhere it times out. Use the mirror, which is the same bytes.",
+     "archive": "https://github.com/quran-ws/kfgqpc-resources",
+     "archive_commit": "925b94346c2bd6a82df92a5ba3cfbec0bc63c512"
+    }
    }
   },
   "bazzi": {
@@ -104,7 +176,11 @@
     "package": "UthmanicBazzi-v-3.0.zip",
     "member": "UthmanicBazzi-v-3.0.docx",
     "release_year": 2026,
-    "sha256": "63083df98ed0015a6e44b3a5e8f67b1b3d84246ebc69d04c9eabe8982314030c"
+    "sha256": "63083df98ed0015a6e44b3a5e8f67b1b3d84246ebc69d04c9eabe8982314030c",
+    "origin": {
+     "recorded": false,
+     "note": "No source URL is recorded for this package — not here, not in this repository's history, and not in the KFGQPC archive, which does not hold it. The file is verifiable against the SHA-256 above but cannot be obtained again or checked against the publisher. No URL is guessed: the archive's /quran-dev/ page does not serve this package. See docs/sources.md."
+    }
    }
   },
   "qiraat-ayah-map": {
@@ -195,13 +271,13 @@
   },
   {
    "path": "data/mushaf/bazzi.json",
-   "bytes": 2003693,
-   "sha256": "ebce43cd4c0d90312df43176aa7a615316b5a95f807e43bf7651ecf280b332ed"
+   "bytes": 2004109,
+   "sha256": "139c3e8e57506763b620d024f9cc1af85a633b3221302c8214e1367407040972"
   },
   {
    "path": "data/mushaf/bazzi.nested.json.gz",
-   "bytes": 1273471,
-   "sha256": "c343df08351424cc162d57ddbc47d60fdc93ce92337df4441eca3d9274464887"
+   "bytes": 1273788,
+   "sha256": "9628d2fde158bc6c4afc46e32be4b30e71240d070c43a127359d55a5b8a4e223"
   },
   {
    "path": "data/mushaf/duri.csv.gz",
@@ -210,13 +286,13 @@
   },
   {
    "path": "data/mushaf/duri.json",
-   "bytes": 2046934,
-   "sha256": "7d0aa63151e2cd3c84bbbdfb6bc352d251bb1563ab3882c7e0b051cb71b887f8"
+   "bytes": 2047851,
+   "sha256": "759e0963c83792ff220fcec77947540e9141153f53feeeeaaac9b63109922cf2"
   },
   {
    "path": "data/mushaf/duri.nested.json.gz",
-   "bytes": 1321597,
-   "sha256": "e978aadff80bf1da933f9bbb2f8d917950d89b7558b0d32997ab4a42b722fd01"
+   "bytes": 1322157,
+   "sha256": "b5eca0498a04ef9cd6d453b2714c58b0f6fbdcf6c315e1dc888dfbdd3fbf8fa1"
   },
   {
    "path": "data/mushaf/hafs.csv.gz",
@@ -225,13 +301,13 @@
   },
   {
    "path": "data/mushaf/hafs.json",
-   "bytes": 3119981,
-   "sha256": "c1d59fd531bbab877c7baf47f87786233bf26583addae0ebb7649ceca5fbce0b"
+   "bytes": 3120895,
+   "sha256": "9b9eb07ff5cff144bf964400924e593d97115e4b937db3c61783f782a5168075"
   },
   {
    "path": "data/mushaf/hafs.nested.json.gz",
-   "bytes": 1752876,
-   "sha256": "27a198aae9778e98e5e622ef0d1b9ed424f570df693ceea485fa532b7eb5db77"
+   "bytes": 1753451,
+   "sha256": "ca62b26874a1917382ccc142caa7ced68de60f333990fa6e4941a02a1e3b5524"
   },
   {
    "path": "data/mushaf/qalun.csv.gz",
@@ -240,13 +316,13 @@
   },
   {
    "path": "data/mushaf/qalun.json",
-   "bytes": 2157261,
-   "sha256": "96c59e299d43c4fb608db1b56e810488492d08251efef563cbeb73b1fe6ee3c9"
+   "bytes": 2158181,
+   "sha256": "686f07a27c8a084af8c5334671b06d4f0c5aed074b1cc2afca28452ff238c51c"
   },
   {
    "path": "data/mushaf/qalun.nested.json.gz",
-   "bytes": 1325402,
-   "sha256": "3ee69708808283f9eb6d8230fd8ba48686847e89383a2820d4b39b3ced8bcee6"
+   "bytes": 1325973,
+   "sha256": "991be5dab273ef0558830a1b663291c2616575e764bc60a88792afd54fa44a05"
   },
   {
    "path": "data/mushaf/shubah.csv.gz",
@@ -255,13 +331,13 @@
   },
   {
    "path": "data/mushaf/shubah.json",
-   "bytes": 1994378,
-   "sha256": "086511a102d5da52fc23b479e888eb43438e90ea0e01608732f78b35024f5598"
+   "bytes": 1995295,
+   "sha256": "de53f0fe131e2bec933b007bec82e39a088f63ffbaf5ff57693050b8355b1599"
   },
   {
    "path": "data/mushaf/shubah.nested.json.gz",
-   "bytes": 1305778,
-   "sha256": "11f6b9cc6f1c91afc012b417b7f6a50206c94e1ca8dbc262717be73266a5cf7b"
+   "bytes": 1306374,
+   "sha256": "230cefa806558b457b7c814fb54e13066fe92866e679f869edc10361ef698df8"
   },
   {
    "path": "data/mushaf/susi.csv.gz",
@@ -270,13 +346,13 @@
   },
   {
    "path": "data/mushaf/susi.json",
-   "bytes": 2033420,
-   "sha256": "21208dad3024e562e032e38e4b49d1f2ae05ebe62e0f2b51a8094790e5581d33"
+   "bytes": 2034337,
+   "sha256": "2ba457e7709bb33e36dde1afe96d46b3059878b2c94c2b3b7c5d05f658d0ad22"
   },
   {
    "path": "data/mushaf/susi.nested.json.gz",
-   "bytes": 1319904,
-   "sha256": "d4193f35f4e1dd4be6fc1caaadb3aa8cd01569a41d42099d42ca6b873c2d5783"
+   "bytes": 1320496,
+   "sha256": "b36b42eb6e2cdac63d8b8a084b569e5b5a92e9d18b38d71a1f1ae79b495e3ea6"
   },
   {
    "path": "data/mushaf/warsh.csv.gz",
@@ -285,13 +361,13 @@
   },
   {
    "path": "data/mushaf/warsh.json",
-   "bytes": 2160203,
-   "sha256": "917472ce789b2df89654ec0094a3d4c070a9f3f9d3eae295e626b380f636df2e"
+   "bytes": 2161120,
+   "sha256": "7fc7720c88821284b85b599d60e7837846163704507caab45ebf2378c0dcbfb4"
   },
   {
    "path": "data/mushaf/warsh.nested.json.gz",
-   "bytes": 1337606,
-   "sha256": "5c65e375e0813e5b068c690d8a016417a28cee43aad1f0b916eae3a2c234ce81"
+   "bytes": 1338208,
+   "sha256": "1b5a5b7baa94892a204fd620797556744efebe4e56ed923d00872660bb488ca7"
   },
   {
    "path": "data/quran.sqlite.gz",

@@ -60,7 +60,11 @@
    "package": "UthmanicWarsh-v-3.0.zip",
    "member": "UthmanicWarsh-v-3.0.docx",
    "release_year": 2026,
-   "sha256": "68e2f1c7a504a8dde797346fd63054c744e073917380f9c56360306b28907e37"
+   "sha256": "68e2f1c7a504a8dde797346fd63054c744e073917380f9c56360306b28907e37",
+   "origin": {
+    "recorded": false,
+    "note": "No source URL is recorded for this package — not here, not in this repository's history, and not in the KFGQPC archive, which does not hold it. The file is verifiable against the SHA-256 above but cannot be obtained again or checked against the publisher. No URL is guessed: the archive's /quran-dev/ page does not serve this package. See docs/sources.md."
+   }
   },
   "policy": "within one riwāyah the later release is a correction; across riwāyāt nothing is assumed",
   "layout": {
@@ -68,6 +72,14 @@
    "member": "UthmanicWarsh_v2-1 data/warshData_v2-1.csv",
    "release_year": 2022,
    "sha256": "d847a7e7002dfbed5d28db6684fd1d9c3d50b8bb63ad64cb38a46b9dad788b47",
+   "origin": {
+    "recorded": true,
+    "url": "https://download.qurancomplex.gov.sa/resources_dev/UthmanicWarsh_v2-1.zip",
+    "mirror": "https://cdn.quran.ws/KFGQPC/resources/quran-dev/uthmanic-warsh/UthmanicWarsh_v2-1.zip",
+    "geo_restricted": "The official host serves Saudi Arabia only; from elsewhere it times out. Use the mirror, which is the same bytes.",
+    "archive": "https://github.com/quran-ws/kfgqpc-resources",
+    "archive_commit": "925b94346c2bd6a82df92a5ba3cfbec0bc63c512"
+   },
    "used_for": [
     "juz",
     "line_check"
