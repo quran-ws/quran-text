@@ -35,7 +35,7 @@ check('length', count($a), 50);
 check('page', $a->page()->number, 42);
 check('juz', $a->juz()->number, 3);
 check('line', $a->line()->number, 8);
-check('text', str_starts_with($a->text(), 'ٱللَّهُ لَآ إِلَٰهَ'), true);
+check('text', str_starts_with($a->text(), 'ٱللَّهُ لَآ إِلَٰهَ'), true);
 check('marker', str_ends_with($a->render(ayahMarks: true), ' ۝٢٥٥'), true);
 check('waqf on', str_contains($a->render(marks: true), 'ۚ'), true);
 check('waqf kinds', str_contains($a->render(marks: ['waqf']), 'ۚ'), true);
@@ -67,11 +67,11 @@ check('sajdat', array_map(fn ($x) => $x->key(), array_slice($hafs->sajdat(), 0, 
 check('sajdat count', count($hafs->sajdat()), 15);
 check('has sajdah', $hafs->ayah(7, 206)->hasSajdah(), true);
 check('division count', count($hafs->divisionMarks()), 199);
-check('division render', $hafs->divisionMarks()[0]->render(), '۞ إِنَّ');
+check('division render', $hafs->divisionMarks()[0]->render(), '۞ إِنَّ');
 check('numberAt', $hafs->numberAt(73948), 73950);
 check('numberLast', $hafs->wordAt(73948)->numberLast(), 73951);
 check('missing', $hafs->wordByNumber(25685), null);
-check('joined', $hafs->wordByNumber(73951)->text(), 'وَأَلَّوِ');
+check('joined', $hafs->wordByNumber(73951)->text(), 'وَأَلَّوِ');
 check('by number', $hafs->wordByNumber(11)->text(), 'مَٰلِكِ');
 
 check('warsh counted', $warsh->basmalahCounted, false);

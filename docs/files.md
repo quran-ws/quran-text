@@ -43,6 +43,10 @@ One muṣḥaf: `words` by position, with `ayah_starts`, `page_starts`,
 positions onto the shared numbers. Specified in
 [`format.md`](format.md), schema `schema/mushaf-1.0.json`.
 
+`words[i]` carries no mark, so joining `words` with a space is not the text the
+muṣḥaf prints and not what the download service returns; `layers.text` in every
+file says so and gives the two conventions that put the signs back.
+
 | view | shape |
 |---|---|
 | `mushaf/<key>.nested.json.gz` | `surahs → ayahs → words[]`, every layer's value repeated on the word; the unnumbered basmalah under `"basmalah"` |

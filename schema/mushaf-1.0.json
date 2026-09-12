@@ -10,6 +10,7 @@
     "generated",
     "mushaf",
     "counting",
+    "normalization",
     "provenance",
     "font",
     "layers",
@@ -224,6 +225,23 @@
         }
       }
     },
+    "normalization": {
+      "type": "object",
+      "description": "What was done to the release's codepoints before publishing them. `applied` is \"none\": words[i] is the package's own sequence, unnormalised. Compare text across datasets by normalising both sides to NFC.",
+      "required": [
+        "applied",
+        "note"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "applied": {
+          "const": "none"
+        },
+        "note": {
+          "type": "string"
+        }
+      }
+    },
     "provenance": {
       "type": "object",
       "required": [
@@ -287,7 +305,8 @@
       "type": "object",
       "required": [
         "present",
-        "absent"
+        "absent",
+        "text"
       ],
       "properties": {
         "present": {
@@ -300,6 +319,33 @@
           "type": "object",
           "additionalProperties": {
             "type": "string"
+          }
+        },
+        "text": {
+          "type": "object",
+          "description": "What `words` is, and what it is not: the text without the mark layer, which is neither what this mu\u1e63\u1e25af prints nor what the download service returns. `reattach` states the two spacing conventions that rebuild the printed text exactly.",
+          "required": [
+            "words_exclude",
+            "how",
+            "reattach"
+          ],
+          "properties": {
+            "words_exclude": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "The layers whose content is not inside words[i]."
+            },
+            "how": {
+              "type": "string"
+            },
+            "reattach": {
+              "type": "string"
+            },
+            "download_service": {
+              "type": "string"
+            }
           }
         },
         "derived": {
@@ -486,7 +532,9 @@
               "waqf",
               "division",
               "sajdah",
-              "sajdah_line"
+              "sajdah_line",
+              "sah",
+              "raised_dot"
             ]
           },
           "side": {

@@ -115,10 +115,11 @@ def _clean(paragraph: list[tuple[str, int, int]]) -> list[tuple[str, int, int]]:
     against the string built from the list, whose indices correspond to it
     one-for-one.
     """
-    # strip_controls: drop controls and kashida, fold NBSP to a plain space.
-    out = [(" " if c in (" ", "\u00a0") else c, p, l)
-           for c, p, l in paragraph
-           if c not in chars.CONTROLS and c != chars.TATWEEL]
+    # strip_controls: fold NBSP to a plain space, and remove nothing.  This has
+    # to be exactly what normalize.strip_controls does, or the two disagree on
+    # which character sits at which position — which is what
+    # validate.check_layout_alignment catches.
+    out = [(" " if c in (" ", "\u00a0") else c, p, l) for c, p, l in paragraph]
 
     # A sūrah heading stranded at the end of a paragraph belongs to no āyah.
     text = "".join(c for c, _, _ in out)

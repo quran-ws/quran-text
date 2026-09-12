@@ -61,7 +61,13 @@ MARK_NAMES = {
     "۞": "ARABIC START OF RUB EL HIZB",
     "۩": "ARABIC PLACE OF SAJDAH",
     "ۤ": "ARABIC SMALL HIGH MADDA",
+    "࣌": "ARABIC SMALL HIGH WORD SAH",
+    "࢈": "ARABIC RAISED ROUND DOT",
 }
+
+#: The editorial signs, each published as a kind of its own so a consumer can
+#: keep or drop them by name rather than by codepoint.
+EDITORIAL_KINDS = {"࣌": "sah", "࢈": "raised_dot"}
 
 
 def _sha256(path: Path) -> str:
@@ -119,6 +125,8 @@ def _marks(w: Word, key: str) -> list[dict]:
                     "sign": chars.SAJDAH_LINE})
     if key in w.sajdah:
         out.append({"kind": "sajdah", "side": "after", "sign": "۩"})
+    for sign in w.editorial.get(key, ""):
+        out.append({"kind": EDITORIAL_KINDS[sign], "side": "after", "sign": sign})
     return out
 
 
@@ -314,7 +322,38 @@ def _line_check(key: str, printed: list[Printed], r: Riwayah) -> dict:
     }
 
 
-def _layers(r: Riwayah, line_check: dict, has_juz: bool) -> dict:
+def _text_note(mark_count: int) -> dict:
+    """How to get this muṣḥaf's printed text out of ``words``.
+
+    ``words`` is the text *without* the mark layer, which is not the same
+    string as the text the muṣḥaf prints and not what the download service
+    returns.  A consumer who joins ``words`` with a space gets a plausible
+    muṣḥaf and no sign that it is missing anything — and every character
+    offset after the first sign is a different number.  Saying so here, beside
+    the layer list, costs one block and saves the measurement.
+    """
+    return {
+        "words_exclude": ["marks"],
+        "how": (
+            "words[i] carries no mark: the waqf signs, ۩, the sajdah line and "
+            "۞ are in `marks`, addressed by position, and not in the string. "
+            "Joining words with a single space therefore gives the text "
+            f"without this muṣḥaf's {mark_count:,} signs — a different string, "
+            "and a different offset for every character after the first one."),
+        "reattach": (
+            "To print what the release prints, re-attach each word's marks in "
+            "the order `marks` lists them: a mark whose `side` is \"after\" is "
+            "appended to the word with no space, and a mark whose `side` is "
+            "\"before\" — ۞ — is written before it, separated by a space."),
+        "download_service": (
+            "https://text.quran.ws/download returns the text with the marks "
+            "in place, so a digest taken over joined `words` will not match "
+            "it. The client libraries under lib/ do the re-attaching: "
+            "Word.render() and Span.render(marks=...)."),
+    }
+
+
+def _layers(r: Riwayah, line_check: dict, has_juz: bool, mark_count: int) -> dict:
     """What this file carries, and why it lacks whatever it lacks."""
     present = ["surahs", "ayahs", "pages", "lines", "marks"]
     absent: dict[str, str] = {}
@@ -327,6 +366,7 @@ def _layers(r: Riwayah, line_check: dict, has_juz: bool) -> dict:
     return {
         "present": present,
         "absent": absent,
+        "text": _text_note(mark_count),
         "derived": {
             "line": {
                 "how": "reconstructed from the document's line breaks, "
@@ -337,6 +377,14 @@ def _layers(r: Riwayah, line_check: dict, has_juz: bool) -> dict:
         },
         "notes": {
             "page": "read from explicit page breaks in the release, not inferred",
+            "kashida": "a kashida (U+0640) that carries a mark is a seat and is "
+                    "kept inside the word: where a hamzah, a small high yeh or "
+                    "a dagger alif has no letter of its own, the release writes "
+                    "it on a kashida. What precedes the seat belongs to the "
+                    "letter before it and what follows the seat belongs to the "
+                    "sign on it, which is the only place a stacked mark's owner "
+                    "is written down. A kashida carrying nothing is typography "
+                    "and is dropped",
             "waqf": "waqf-mark conventions differ by muṣḥaf and are not "
                     "comparable across them: Warsh and Qālūn print one general "
                     "sign where Ḥafṣ, Dūrī and Sūsī print seven distinct ones",
@@ -417,9 +465,10 @@ def document(words: list[Word], r: Riwayah,
             "word_count": len(printed),
         },
         "counting": None,
+        "normalization": {"applied": "none", "note": "words[i] and the word index's rasm_uthmani hold the release's own codepoints, unnormalised. NFC is canonically equivalent but is not what the package writes: it reorders the marks on a letter — the releases write a shaddah before its vowel, NFC after it, in 22,000 of Ḥafṣ's 84,000 tokens — and composes ا + ٓ into آ in 2,946 more. The derived forms (rasm, pointed, plain, and the search fold) are computed from the NFC form, so comparison is unaffected. For text comparison across datasets, normalize both strings to NFC before comparing."},
         "provenance": _provenance(r),
         "font": fonts.describe(r.spec),
-        "layers": _layers(r, line_check, juz is not None),
+        "layers": _layers(r, line_check, juz is not None, len(marks)),
         "words": [p.word.forms[key] for p in printed],
         "rasm_imlai": ([rasm_imlai.get(p.first, rasm_imlai.get(p.last)) for p in printed]
                    if rasm_imlai else None),

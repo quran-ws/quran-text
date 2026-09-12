@@ -199,24 +199,78 @@ Three are cases where packages differ from each other:
 read the run identically once re-segmented. That is a statement about agreement,
 not about correctness.
 
-### 4. Characters carrying no textual weight
+### 4. The kashida is not typography here, and nothing is stripped any more
 
-Stripped because they do not affect the letters or the qiraah: kashida
-`U+0640` (6,838 occurrences — KFGQPC's own changelogs record removing these),
-zero-width joiner, and right-to-left marks. One dotless beh `U+066E` in Bazzī
-and one small low seen `U+06E3` in Ḥafṣ v3.0 occur exactly once each; both are
-recorded and neither affects the rasm.
+The build used to delete three classes of character on the reading that none of
+them is text: the kashida `U+0640`, the invisible controls, and the editorial
+signs of §5. Two of those readings were wrong, and the third was not ours to
+make. **A character the release prints is now published**, either inside
+`words[i]` or in `marks`; the only edit left is that a no-break space is folded
+to a plain space, because a word-separated format cannot keep it.
 
-### 5. `U+08CC` — an editorial mark in the text
+The kashida is the instructive one. In the v3.0 documents it is almost always a
+**seat**: of Ḥafṣ's 536, 535 are followed by a combining mark — 495 by a hamzah
+`U+0654`, 38 by a small high yeh, one by a kasrah — and the same holds in the
+other six, where Warsh and Sūsī additionally seat 144 and 136 dagger alifs on
+one. Where a hamzah has no letter of its own, that is how KFGQPC writes it.
+
+Deleting the seat did three things, and all three were happening:
+
+1. **It made a stacked mark's owner unrecoverable.** `يَطَـُٔونَ` (9:120) is
+   ṭāʾ + fatḥah, then the seat carrying the hamzah, then the ḍammah that
+   belongs to the hamzah. Without the seat the sequence is ṭāʾ + fatḥah +
+   ḍammah + hamzah, and nothing says the fatḥah is the ṭāʾ's; the reverse
+   assignment is just as well-formed and is read differently. Six words in
+   Ḥafṣ turned on this — 9:120, 23:108, 30:10, 33:27, 48:25, 53:31 — and the
+   other 449 of the 455 unborne hamzahs resolve from the order alone, because
+   their two marks fall on opposite sides of the line.
+2. **It let NFC compose a letter the release never wrote.** With the seat gone,
+   the yāʾ of `سَيِّـَٔاتِ` and its now-adjacent hamzah normalised into `ئ`, and
+   the published word became `سَئَِّاتِ` — a spelling no muṣḥaf prints. 40 words
+   in the index had a plain form built from it.
+3. **It changed what the font draws**, since the hamzah then attaches to the
+   preceding letter rather than standing on its own stroke.
+
+The handful that carry nothing are printed inside a word too — `لِّـجِبۡرِيلَ`
+(2:97), `إِبۡرَٰهِـيمَ`, `يُّحۡـۑِيَ` — so they stay as well. The kashida is ink,
+not a letter: `rasm` and `pointed` are unchanged in all 77,434 words, the
+alignment and the 277 published differences are unchanged, and the search fold
+drops it, so a query typed without one still matches.
+
+The invisible controls — 14 right-to-left marks in Warsh, one each in Dūrī and
+Sūsī — are kept on the same principle. A consumer comparing strings should fold
+them out; `docs/SEARCH-FOLD.md` already does.
+
+One dotless beh `U+066E` in Bazzī and one small low seen `U+06E3` in Ḥafṣ v3.0
+occur exactly once each; both are published and neither affects the rasm.
+
+**What stops this recurring.** `validate.check_nothing_dropped` compares every
+codepoint in each release against the codepoints in that muṣḥaf's published
+`words` and `marks`. Anything present in the package and absent from both fails
+the build unless it is in `DECLARED_ABSENT` — the āyah mark, its digits, and
+the space. The old round-trip check could not see any of this, because both
+sides of its comparison had been through the same stripping.
+
+### 5. `U+08CC` — an editorial mark, published as a mark
 
 `ARABIC SMALL HIGH WORD SAH`, the proofreader's *ṣaḥḥa* ("correct as written"),
-occurs **8,128 times** in the v3.0 Warsh document and essentially nowhere else.
-It is not pronounced, not written by any other release, and not part of the
-word. Until it was classified it was the single largest source of spurious
-differences in the corpus — larger than every genuine variant combined. It is
-now stripped with the structural symbols.
+occurs **9,950 times** in the v3.0 Warsh document and essentially nowhere else;
+its raised-dot companion `U+0888` occurs 91 times there, 91 in Qālūn and 138 in
+Sūsī. It is not pronounced, not written by any other release, and not part of
+the word — and until it was classified it was the single largest source of
+spurious differences in the corpus, larger than every genuine variant combined.
 
----
+It was therefore stripped. That was the right answer to the wrong question: the
+problem was that it reached the **alignment key**, and the fix belongs there.
+The ṣaḥḥa is word-final in all but four places, so it is now peeled off like a
+waqf mark and published in `marks` as the kind **`sah`** — 9,946 of them in
+Warsh, the other four sitting on basmalah words no edition publishes. No
+comparison form sees it: `rasm`, `pointed`, `plain` and the folded form all
+drop it, which is what keeps the spurious differences away.
+
+`U+0888` is never word-final in these releases, so it stays inside `words[i]`
+where the release writes it. The kind `raised_dot` exists for the day a release
+prints one at the end of a word.
 
 ### 5b. `U+06E4` is not a maddah — it is the sajdah line
 

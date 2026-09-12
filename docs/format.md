@@ -25,7 +25,8 @@ that array, addressed by position.**
                 "differs_from_association": false, "declared_by": null, "ayah_count": 6214,
                 "basmalah_counted": false, "khilaf": [], "unexplained": [] },
   "provenance": { "text": { "package": "UthmanicWarsh-v-3.0.zip", "…": "…" }, "layout": { "…": "…" } },
-  "layers":   { "present": ["surahs", "ayahs", "pages", "lines", "marks", "juz"], "absent": { "…": "…" } },
+  "layers":   { "present": ["surahs", "ayahs", "pages", "lines", "marks", "juz"], "absent": { "…": "…" },
+                "text": { "words_exclude": ["marks"], "how": "…", "reattach": "…", "download_service": "…" } },
 
   "words":  ["بِسْمِ", "ࡴ۬للَّهِ", "ࡴ۬لرَّحْمَٰنِ", "ࡴ۬لرَّحِيمِ", "ࡴ۬لْحَمْدُ", "…"],
   "rasm_imlai": null,
@@ -67,8 +68,13 @@ No field holds both. A key that ends in `_starts` holds positions. Only the
 ## The rules
 
 - **`words[i]` is the *i*-th printed word of this muṣḥaf**, in ʿUthmānī
-  spelling exactly as the release prints it, without waqf marks. That is a
-  word's address inside its own file, and it does not depend on the numbering.
+  spelling exactly as the release prints it, **without the mark layer**. That
+  is a word's address inside its own file, and it does not depend on the
+  numbering. Joining `words` with a single space is therefore *not* the text
+  the muṣḥaf prints and not what the download service returns: the signs in
+  `marks` are missing, and every character offset after the first one is a
+  different number. `layers.text` says this in the file, and *Marks* below
+  gives the two conventions that put them back.
 - **Every `*_starts` array is a sorted list of positions**, one per unit, and
   unit *k* is `words.slice(starts[k], starts[k+1] ?? words.length)`. Slicing
   is correct in all seven files; there is nothing to filter.
@@ -299,8 +305,25 @@ nowhere else in it, always word-final, and the 26 words are the sajdah phrases
 of all 15 sajdah places and nothing else. Shuʿbah, Bazzī, Dūrī and Sūsī carry the same 26; Warsh
 and Qālūn, whose typesetting draws no such line, carry none.
 
-Re-attaching a word's `after` marks in the order `marks` lists them reproduces
-the token the release prints, ۤ inside ۩ where a word carries both.
+**`words` is the text without the marks; re-attaching them gives the printed
+text exactly.** Two conventions, and both are needed:
+
+- a mark whose `side` is `after` is **appended to its word with no space**, in
+  the order `marks` lists them — ۤ inside ۩ where a word carries both;
+- a mark whose `side` is `before` — in Ḥafṣ only ۞ — is written **before the
+  word, separated by a space**.
+
+With both, every rebuilt āyah is byte-identical to what the release prints and
+to what `/download` returns. With the second one wrong, 199 āyāt in Ḥafṣ differ
+and nothing complains, which is why the file states it beside the layer list
+under `layers.text` rather than here alone. The client libraries under `lib/`
+do the re-attaching: `Word.render()` and `Span.render(marks=…)`.
+
+**The editorial signs are marks too.** The Warsh release prints the
+proofreader's ṣaḥḥa `U+08CC` after a word 9,950 times, and it is published as
+the kind `sah` rather than deleted — annotation the release makes, kept out of
+`words[i]` and out of every comparison form. `raised_dot` (`U+0888`) is its
+companion. `docs/known-issues.md` §5.
 
 **Waqf marks are not comparable across muṣḥafs.** Warsh and Qālūn print one
 general waqf sign where Ḥafṣ, Dūrī and Sūsī print seven distinct ones. This is
@@ -327,6 +350,43 @@ edition's own marks. See §7 for the full reconstruction.
 
 *۞ is the **rubu_al_hizb** sign; the ḥizb proper is the marginal label these
 files do not carry.*
+
+## The text is the release's, codepoint for codepoint
+
+`words[i]` is what the package writes. Nothing is stripped and nothing is
+normalised; every file says so in its `normalization` block:
+
+```json
+"normalization": { "applied": "none", "note": "…" }
+```
+
+Two consequences a consumer needs.
+
+**The kashida is usually a seat.** Where a hamzah, a small high yeh or a dagger
+alif has no letter of its own to sit on, the releases write it on `U+0640`:
+`يَطَـُٔونَ` at 9:120 is ṭāʾ with its fatḥah, then the kashida carrying the
+hamzah, then the ḍammah that belongs to the hamzah. This is load-bearing,
+because **mark order alone does not say which letter a mark belongs to** — it
+is the order the release draws them in. Where the two marks fall on opposite
+sides of the line the owner is recoverable (`بِـَٔايَٰتِ`: the kasrah below is
+the bāʾ's, the fatḥah above the hamzah's); where both sit above it, only the
+seat separates them, and what precedes it belongs to the letter before it while
+what follows it belongs to the sign on it. Six words in Ḥafṣ turn on this —
+9:120, 23:108, 30:10, 33:27, 48:25, 53:31. See `docs/known-issues.md` §4.
+
+**The text is not NFC.** The releases write a shaddah before its vowel where
+NFC writes it after, in 22,000 of Ḥafṣ's 84,000 tokens, and write `ا` + `ٓ`
+where NFC composes `آ`, 2,946 times more. Both forms are canonically
+equivalent, and normalising would make the published text differ from the
+package it claims to be, so the package wins. **For text comparison across
+datasets, normalise both strings to NFC before comparing.** The derived forms —
+`rasm`, `pointed`, `plain` in the word index, and the search fold — are
+computed from the NFC form already, so alignment, search and the word index are
+unaffected either way.
+
+The kashida, the editorial signs and the invisible controls are ink, not
+letters: `rasm`, `pointed` and `plain` drop all three, the search fold drops
+them, and two words that differ only by one of them are one word.
 
 ## Page is read; line is reconstructed
 

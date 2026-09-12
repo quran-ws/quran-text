@@ -127,6 +127,8 @@ def test_pages_in_txt():
 
 
 def test_text_forms():
+    # The expected text is the release's own codepoint order, not NFC:
+    # see `normalization` in any muṣḥaf file.
     uth = ayah_text(edition="hafs", ayah="1:1")
     iml = ayah_text(edition="hafs", ayah="1:1", text="rasm_imlai")
     plain = ayah_text(edition="hafs", ayah="1:1", text="plain")
@@ -135,7 +137,7 @@ def test_text_forms():
     # expanded into a full alif: the ʿUthmānī spelling is ٱلرَّحۡمَٰنِ and the
     # imlāʾī one published by KFGQPC is الرحمن. The older output الرحمان was a
     # folding artifact that no published text writes; see the search fold spec.
-    assert uth.startswith("بِسۡمِ ٱللَّهِ") and iml.startswith("بسم الله") and plain == "بسم الله الرحمن الرحيم"
+    assert uth.startswith("بِسۡمِ ٱللَّهِ") and iml.startswith("بسم الله") and plain == "بسم الله الرحمن الرحيم"
 
 
 def test_fields_and_hafs_reference_for_warsh():
@@ -157,9 +159,11 @@ def test_per_word_records():
 
 def test_per_word_signs_attached_or_in_columns():
     cols = get("/download?edition=hafs&format=csv&by=word&ayah=7:206&header=0").text.splitlines()[0]
-    assert cols == "surah,ayah,position,number,text,waqf,sajdah,sajdah_line,division"
+    assert cols == ("surah,ayah,position,number,text,"
+                    "waqf,sajdah,sajdah_line,division,sah,raised_dot")
     cols = get("/download?edition=hafs&format=csv&by=word&ayah=7:206&header=0&sajdah=0&sajdah_line=0").text.splitlines()[0]
-    assert cols == "surah,ayah,position,number,text,waqf,division"
+    assert cols == ("surah,ayah,position,number,text,waqf,division,"
+                    "sah,raised_dot")
     doc = get("/download?edition=hafs&format=json&by=word&ayah=7:206&signs=attached").json()
     last = doc["words"][-1]
     assert last["text"].endswith("۩") and "sajdah" not in last and "waqf" not in last

@@ -27,7 +27,7 @@ from qurantext.report import write_report        # noqa: E402
 from qurantext.sources import load_all           # noqa: E402
 from qurantext.validate import (check_ayah_numbers, check_index,  # noqa: E402
                                check_layout_alignment,
-                               check_mushaf_roundtrip,
+                               check_mushaf_roundtrip, check_nothing_dropped,
                                check_numbering, check_positions,
                                check_release_policy, check_schema_fields)
 from qurantext.viewer import write_viewer        # noqa: E402
@@ -102,6 +102,7 @@ def main() -> int:
                 + check_release_policy(riwayahs)
                 + check_layout_alignment(riwayahs)
                 + check_mushaf_roundtrip(words, riwayahs)
+                + check_nothing_dropped(docs, riwayahs)
                 + check_numbering(docs)
                 + check_positions(docs)
                 + counting.check_unexplained(docs)

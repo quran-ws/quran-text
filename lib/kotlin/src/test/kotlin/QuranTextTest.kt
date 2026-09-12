@@ -28,7 +28,7 @@ class QuranTextTest {
         assertEquals("2:255", a.key)
         assertEquals(50, a.size)
         assertEquals(listOf(42, 3, 8), listOf(a.page.number, a.juz!!.number, a.line!!.number))
-        assertTrue(a.text.startsWith("ٱللَّهُ لَآ إِلَٰهَ"))
+        assertTrue(a.text.startsWith("ٱللَّهُ لَآ إِلَٰهَ"))
         assertTrue(a.render(ayahMarks = true).endsWith(" ۝٢٥٥"))
         assertTrue(a.render(marks = MarkKind.all).contains("ۚ"))
         assertTrue(a.render(marks = setOf(MarkKind.waqf)).contains("ۚ"))
@@ -63,11 +63,11 @@ class QuranTextTest {
         assertEquals(15, hafs.sajdat().size)
         assertTrue(hafs.ayah(7, 206).hasSajdah)
         assertEquals(199, hafs.divisionMarks().size)
-        assertEquals("۞ إِنَّ", hafs.divisionMarks()[0].render())
+        assertEquals("۞ إِنَّ", hafs.divisionMarks()[0].render())
         assertEquals(73950, hafs.numberAt(73948))
         assertEquals(73951, hafs.wordAt(73948).numberLast)
         assertNull(hafs.wordByNumber(25685))
-        assertEquals("وَأَلَّوِ", hafs.wordByNumber(73951)!!.text)
+        assertEquals("وَأَلَّوِ", hafs.wordByNumber(73951)!!.text)
         assertEquals("مَٰلِكِ", hafs.wordByNumber(11)!!.text)
     }
 

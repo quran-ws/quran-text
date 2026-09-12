@@ -151,7 +151,7 @@ class Font:
 
 @dataclass(frozen=True)
 class Mark:
-    """A sign printed against a word: ``kind`` is waqf, division, sajdah or
+    """A sign printed against a word: ``kind`` is waqf, division, sajdah,
     sajdah_line; ``side`` is where it is printed."""
     kind: str
     side: str
@@ -245,7 +245,8 @@ class Word:
         return self.text
 
 
-_ALL_KINDS = frozenset({"waqf", "division", "sajdah", "sajdah_line"})
+_ALL_KINDS = frozenset({"waqf", "division", "sajdah", "sajdah_line",
+                        "sah", "raised_dot"})
 
 
 def _mark_kinds(marks: Union[bool, Iterable[str]]) -> frozenset:

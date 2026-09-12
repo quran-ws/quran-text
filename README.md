@@ -199,6 +199,19 @@ Two more things worth knowing before you build on it:
   future release that adds a word shifts every number after it. `key`
   (`sūrah:pointed#occurrence`, e.g. `2:فاحياكم#1`) and the Ḥafṣ `{surah, ayah,
   position}` coordinates come from the text itself and survive.
+- **`words` is the text without the signs.** The waqf marks, ۩, the sajdah line
+  and ۞ live in `marks`, addressed by position, not inside `words[i]`. Joining
+  `words` with a space is not what the muṣḥaf prints and not what `/download`
+  returns — 4,517 signs are missing in Ḥafṣ, and every character offset after
+  the first one differs. `render()` in every client library puts them back; the
+  two spacing conventions are in `layers.text` in the file itself and in
+  [`docs/format.md`](docs/format.md). The Warsh release's ṣaḥḥa ࣌ is a mark of
+  its own, `sah`.
+- **The text is not normalised.** `words[i]` holds the release's own
+  codepoints — a shaddah before its vowel, `ا` + `ٓ` uncomposed — because that
+  is what KFGQPC writes and this repository publishes the package, not a tidied
+  copy of it. Every file says so in its `normalization` block. **Comparing our
+  text with another dataset's: normalise both sides to NFC first.**
 - **Ship the font.** Some words use codepoints Unicode only added in 2021, and
   almost no general font draws them — 19,431 words in Warsh, 19,183 in al-Sūsī,
   17,527 in Qālūn. Without the right font your users see empty boxes. Every file

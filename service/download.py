@@ -32,7 +32,7 @@ MARKER_STYLES = ("none", "sign", "brackets", "latin")
 FORMATS = ("txt", "json", "csv", "xml", "sql", "md")
 GRANULARITIES = ("ayah", "word")
 SIGN_LAYOUTS = ("columns", "attached")
-SIGN_KINDS = ("waqf", "sajdah", "sajdah_line", "division")
+SIGN_KINDS = ("waqf", "sajdah", "sajdah_line", "division", "sah", "raised_dot")
 FIELDS = ("surah", "ayah", "position", "number", "page", "line", "juz", "hafs")
 DEFAULT_FIELDS = {"ayah": ("surah", "ayah"), "word": ("surah", "ayah", "position", "number")}
 
@@ -50,6 +50,8 @@ class Options:
     sajdah: bool = True
     sajdah_line: bool = True
     division: bool = True
+    sah: bool = True
+    raised_dot: bool = True
     lines: bool = False
     pages: bool = False
     fields: tuple[str, ...] | None = None
@@ -506,7 +508,7 @@ def as_xml(rows: list[dict], meta: dict, o: Options, m: Mushaf) -> str:
 
 
 _SQL_TYPES = {"text": "TEXT", "waqf": "TEXT", "sajdah": "TEXT", "sajdah_line": "TEXT",
-              "division": "TEXT",
+              "division": "TEXT", "sah": "TEXT", "raised_dot": "TEXT",
               "hafs": "VARCHAR(16)", "hafs_relation": "VARCHAR(16)",
               **{form: "TEXT" for form in TEXT_FORMS}}
 

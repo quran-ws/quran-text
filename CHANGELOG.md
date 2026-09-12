@@ -9,19 +9,53 @@ This project has not had a tagged release yet; everything below is unreleased.
 
 ### Format
 
-- **`counting` names both counts.** `counting.system` is the system the edition
-  *measures onto*, derived from its own `ayah_starts`; it is not the system the
-  qāriʾ is *associated with*, and for Dūrī and Sūsī the two differ — Abū ʿAmr is
-  Baṣrī, both of his printed muṣḥafs are First Madani. The block now carries
-  `system_associated_with_qari` (with `_name_ar` / `_name_en`) and
-  `differs_from_association` beside the derived system, from
-  `qiraat-ayah-map`'s `data/qiraat.json`, newly vendored under
-  `sources/counting/`. `data/catalog.json` gains
-  `counting_system_associated_with_qari` and
-  `counting_differs_from_association`, `data/counting.json` an `association`
-  block, and the SQLite `mushaf` table the two matching columns. Anything
-  joining this repository to a dataset that publishes the association alone now
-  reads the difference instead of discovering it.
+- **A muṣḥaf file says what `words` is not.** `layers` gains a `text` block
+  stating that `words[i]` carries no mark, that joining `words` with a space is
+  neither the text the muṣḥaf prints nor what `/download` returns, and the two
+  conventions that rebuild the printed text exactly: a mark whose `side` is
+  `after` is appended to its word with no space, one whose `side` is `before` —
+  ۞ — is written before it separated by a space. Both were true before and
+  neither was written down where a consumer reading `words` would meet it;
+  getting the second one wrong changes 199 āyāt in Ḥafṣ silently (#21).
+- **The text is the release's, codepoint for codepoint.** The build no longer
+  strips anything and no longer normalises. Three classes had been deleted on
+  the reading that they are not text, and the reading did not survive the
+  corpus:
+  - **the kashida** `U+0640` is usually a *seat* — 535 of Ḥafṣ's 536 carry a
+    hamzah, a small high yeh or a dagger alif that has no letter of its own.
+    Deleting it left two marks in one run with nothing to say which belonged to
+    the letter and which to the hamzah (9:120, 23:108, 30:10, 33:27, 48:25,
+    53:31), let NFC compose `سَيِّـَٔاتِ` into `سَئَِّاتِ`, a spelling no muṣḥaf
+    prints, and changed what the font draws;
+  - **the invisible controls** — 14 in Warsh, one each in Dūrī and Sūsī — are
+    kept for the same reason: they are in the package;
+  - **NFC** is no longer applied. The releases write a shaddah before its
+    vowel where NFC writes it after (22,000 of Ḥafṣ's 84,000 tokens) and write
+    `ا` + `ٓ` where NFC composes `آ` (2,946 more). Every file now carries a
+    `normalization` block saying `"applied": "none"` — **compare text across
+    datasets by normalising both sides to NFC first**. The derived forms
+    (`rasm`, `pointed`, `plain`, the search fold) are computed from the NFC
+    form, so alignment, search and the word index are unchanged.
+
+  **This changes 22,000–24,600 word strings per muṣḥaf**, every one of them
+  back towards the package. `rasm` and `pointed` are unchanged in all 77,434
+  words, the 277 published differences are unchanged, and 40 `plain` forms are
+  corrected.
+- **The ṣaḥḥa is a mark, not a deletion.** `U+08CC`, printed 9,950 times in the
+  v3.0 Warsh document, was stripped because it reached the alignment key. It is
+  now peeled like a waqf mark and published in `marks` as the kind **`sah`**
+  (9,946 of them; the other four sit on basmalah words no edition publishes),
+  with `raised_dot` for its `U+0888` companion. Both are dropped by every
+  comparison form, which is where the problem actually was. The word index
+  gains an optional `editorial` field, the six client libraries and the
+  download service gain the two kinds, and `mark_signs` names both codepoints.
+- **`build.py` now checks that nothing is dropped.** `check_nothing_dropped`
+  compares every codepoint in each release against the codepoints in that
+  muṣḥaf's published `words` and `marks`; anything in the package and in
+  neither field fails the build unless it is declared — the āyah mark, its
+  digits, and the space. Both deletions above were invisible to every existing
+  check, because both sides of each comparison had been through the same
+  stripping.
 - Every name now follows the [Quran.ws terminology standard](https://github.com/quran-ws/guidelines):
   `sura`/`suras`/`sura_starts` are `surah`/`surahs`/`surah_starts`, the āyah <!-- terminology: ignore -->
   map's `ayat` is `ayahs`, the muṣḥaf's `imlaei` is `rasm_imlai`, the word <!-- terminology: ignore -->

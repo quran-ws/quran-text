@@ -107,6 +107,8 @@ def word_record(w: Word, hafs: dict[int, dict]) -> dict:
         rec["resegmented"] = resegmented
     if w.waqf:
         rec["waqf"] = w.waqf
+    if w.editorial:
+        rec["editorial"] = w.editorial
     if w.division:
         rec["division"] = w.division
     if w.sajdah:
@@ -152,6 +154,7 @@ def write_word_index(words: list[Word]) -> dict:
         "generated": stamp.generated(),
         "total": words[-1].id,
         "mushafs": ORDER,
+        "normalization": {"applied": "none", "note": "words[i] and the word index's rasm_uthmani hold the release's own codepoints, unnormalised. NFC is canonically equivalent but is not what the package writes: it reorders the marks on a letter — the releases write a shaddah before its vowel, NFC after it, in 22,000 of Ḥafṣ's 84,000 tokens — and composes ا + ٓ into آ in 2,946 more. The derived forms (rasm, pointed, plain, and the search fold) are computed from the NFC form, so comparison is unaffected. For text comparison across datasets, normalize both strings to NFC before comparing."},
         "note": "`number` is the shared number, dense 1 … total, the same "
                 "integer every muṣḥaf file maps its positions onto. `forms[key]` "
                 "is absent where that muṣḥaf does not read the word; where a "
