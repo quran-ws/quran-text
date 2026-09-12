@@ -1,5 +1,5 @@
 {
-  "name": "quran-text",
+  "name": "@quran.ws/text",
   "version": "0.1.0",
   "description": "Read the quran-text dataset: the Qurʾān in seven riwāyāt with pages, lines, āyāt, waqf marks and one shared word numbering.",
   "type": "module",
@@ -22,6 +22,9 @@
     "test": "node --test"
   },
   "license": "CC-BY-4.0",
+  "publishConfig": {
+    "access": "public"
+  },
   "repository": "github:quran-ws/quran-text",
   "keywords": [
     "quran",

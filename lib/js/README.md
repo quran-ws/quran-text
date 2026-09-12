@@ -4,7 +4,7 @@ ESM, no dependencies, TypeScript declarations included, Ḥafṣ bundled. Works
 in Node, the browser and React Native.
 
 ```js
-import { Mushaf, AyahMap } from "quran-text";
+import { Mushaf, AyahMap } from "@quran.ws/text";
 
 const m = await Mushaf.hafs();                                 // bundled Ḥafṣ
 
