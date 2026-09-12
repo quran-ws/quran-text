@@ -24,7 +24,9 @@ Use it when your application needs Quran text, supports multiple riwayat, or nee
 | **Licence** | CC BY 4.0 (the work), attribution waived for use inside a product · KFGQPC terms (the text) |
 
 ```sh
-pip install ./lib/python
+npm i @quran.ws/text
+pip install quran-text
+composer require quran-ws/quran-text
 ```
 
 ## Where the documentation is
