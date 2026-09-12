@@ -244,6 +244,11 @@ class SourceSpec:
     #: The ``.ttf`` shipped beside the primary text, which is the only font
     #: guaranteed to draw it.  See :mod:`qurantext.fonts`.
     font_member: str = ""
+    #: This package's slug in the KFGQPC archive, which is what makes its
+    #: download URLs derivable.  Empty where the archive does not hold the
+    #: package — which is the case for every primary ``.docx``.  See
+    #: :data:`ARCHIVE` and ``docs/sources.md``.
+    csv_slug: str = ""
 
 
 #: **The one place this pipeline assumes anything about the sources.**
@@ -266,30 +271,85 @@ RELEASE_POLICY = ("within one riwāyah the later release is a correction; "
                   "across riwāyāt nothing is assumed")
 
 
+#: Where the packages come from, and why that needs saying.
+#:
+#: ``qurancomplex.gov.sa`` answers requests from inside Saudi Arabia only: from
+#: anywhere else DNS resolves and the connection then times out or is refused.
+#: So the publisher's own URL, which is the citable one, is not the fetchable
+#: one, and both are recorded rather than choosing between them.
+#:
+#: The archive keeps each published file byte-for-byte and records its official
+#: URL and checksums; ``ARCHIVE_COMMIT`` is the revision these URLs were read
+#: at, so the provenance is pinned rather than merely plausible.
+ARCHIVE = "https://github.com/quran-ws/kfgqpc-resources"
+ARCHIVE_COMMIT = "925b94346c2bd6a82df92a5ba3cfbec0bc63c512"
+OFFICIAL_URL = "https://download.qurancomplex.gov.sa/resources_dev/{file}"
+MIRROR_URL = "https://cdn.quran.ws/KFGQPC/resources/quran-dev/{slug}/{file}"
+GEO_NOTE = ("The official host serves Saudi Arabia only; from elsewhere it "
+            "times out. Use the mirror, which is the same bytes.")
+
+#: Why six packages have an origin and seven do not.  Stated in the data, not
+#: only in the prose, because a consumer reading the manifest is exactly the
+#: person who needs to know a package cannot be re-fetched.
+NO_ORIGIN_NOTE = (
+    "No source URL is recorded for this package — not here, not in this "
+    "repository's history, and not in the KFGQPC archive, which does not hold "
+    "it. The file is verifiable against the SHA-256 above but cannot be "
+    "obtained again or checked against the publisher. No URL is guessed: the "
+    "archive's /quran-dev/ page does not serve this package. See "
+    "docs/sources.md."
+)
+
+
+def origin(slug: str, package: str) -> dict:
+    """The download record for one package, or an honest blank.
+
+    A package the archive does not hold gets ``recorded: false`` and the reason,
+    never an inferred URL — a plausible-but-wrong source is worse than an
+    admitted gap, because it looks checked.
+    """
+    if not slug:
+        return {"recorded": False, "note": NO_ORIGIN_NOTE}
+    return {
+        "recorded": True,
+        "url": OFFICIAL_URL.format(file=package),
+        "mirror": MIRROR_URL.format(slug=slug, file=package),
+        "geo_restricted": GEO_NOTE,
+        "archive": ARCHIVE,
+        "archive_commit": ARCHIVE_COMMIT,
+    }
+
+
 REGISTRY: list[SourceSpec] = [
     SourceSpec("hafs", "Ḥafṣ", "حفص", "ʿĀṣim al-Kūfī", "عاصم الكوفي",
                "UthmanicHafs-v-3.0", "UthmanicHafs-v-3.0.docx", "docx",
                "UthmanicHafs_v2-0", "UthmanicHafs_v2-0 data/hafsData_v2-0.csv",
+               csv_slug="uthmanic-hafs",
                font_member="UthmanicHafs-v-3.0.ttf"),
     SourceSpec("shubah", "Shuʿbah", "شعبة", "ʿĀṣim al-Kūfī", "عاصم الكوفي",
                "UthmanicShubah-v-3.0", "UthmanicShubah-v-3.0.docx", "docx",
                "UthmanicShuba_v2-0", "UthmanicShuba_v2-0 data/shubaData_v2-0.csv",
+               csv_slug="uthmanic-shuba",
                font_member="UthmanicShubah-v-3.0.ttf"),
     SourceSpec("warsh", "Warsh", "ورش", "Nāfiʿ al-Madanī", "نافع المدني",
                "UthmanicWarsh-v-3.0", "UthmanicWarsh-v-3.0.docx", "docx",
                "UthmanicWarsh_v2-1", "UthmanicWarsh_v2-1 data/warshData_v2-1.csv",
+               csv_slug="uthmanic-warsh",
                font_member="UthmanicWarsh-v-3.0.ttf"),
     SourceSpec("qalun", "Qālūn", "قالون", "Nāfiʿ al-Madanī", "نافع المدني",
                "UthmanicQaloun-v-3.0", "UthmanicQaloun-v-3.0.docx", "docx",
                "UthmanicQaloun_v2-1", "UthmanicQaloun_v2-1 data/QalounData_v2-1.csv",
+               csv_slug="uthmanic-qaloun",
                font_member="UthmanicQaloun-v-3.0.ttf"),
     SourceSpec("duri", "Dūrī", "الدوري", "Abū ʿAmr al-Baṣrī", "أبو عمرو البصري",
                "UthmanicDouri_V20", "UthmanicDouri V20.docx", "docx",
                "UthmanicDouri_v2-0", "UthmanicDouri_v2-0 data/DouriData_v2-0.csv",
+               csv_slug="uthmanic-douri",
                primary_year=2022, csv_year=2022, font_member="UthmanicDouri V20.ttf"),
     SourceSpec("susi", "Sūsī", "السوسي", "Abū ʿAmr al-Baṣrī", "أبو عمرو البصري",
                "UthmanicSousi-v-3.0", "UthmanicSousi-v-3.0.docx", "docx",
                "UthmanicSousi_v2-0", "UthmanicSousi_v2-0 data/SousiData_v2-0.csv",
+               csv_slug="uthmanic-sousi",
                font_member="UthmanicSousi-v-3.0.ttf"),
     SourceSpec("bazzi", "Bazzī", "البزي", "Ibn Kathīr al-Makkī", "ابن كثير المكي",
                "UthmanicBazzi-v-3.0", "UthmanicBazzi-v-3.0.docx", "docx",

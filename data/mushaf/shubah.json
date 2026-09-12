@@ -60,7 +60,11 @@
    "package": "UthmanicShubah-v-3.0.zip",
    "member": "UthmanicShubah-v-3.0.docx",
    "release_year": 2026,
-   "sha256": "28be7e6ac5b3af9b5064c1cb6fc733e7c0d120d453a8894db0ddb01a7f110396"
+   "sha256": "28be7e6ac5b3af9b5064c1cb6fc733e7c0d120d453a8894db0ddb01a7f110396",
+   "origin": {
+    "recorded": false,
+    "note": "No source URL is recorded for this package — not here, not in this repository's history, and not in the KFGQPC archive, which does not hold it. The file is verifiable against the SHA-256 above but cannot be obtained again or checked against the publisher. No URL is guessed: the archive's /quran-dev/ page does not serve this package. See docs/sources.md."
+   }
   },
   "policy": "within one riwāyah the later release is a correction; across riwāyāt nothing is assumed",
   "layout": {
@@ -68,6 +72,14 @@
    "member": "UthmanicShuba_v2-0 data/shubaData_v2-0.csv",
    "release_year": 2022,
    "sha256": "977e64f3f889c084dc82aec4e97092836ca61777cdc93c3ee7da6f59592efbcf",
+   "origin": {
+    "recorded": true,
+    "url": "https://download.qurancomplex.gov.sa/resources_dev/UthmanicShuba_v2-0.zip",
+    "mirror": "https://cdn.quran.ws/KFGQPC/resources/quran-dev/uthmanic-shuba/UthmanicShuba_v2-0.zip",
+    "geo_restricted": "The official host serves Saudi Arabia only; from elsewhere it times out. Use the mirror, which is the same bytes.",
+    "archive": "https://github.com/quran-ws/kfgqpc-resources",
+    "archive_commit": "925b94346c2bd6a82df92a5ba3cfbec0bc63c512"
+   },
    "used_for": [
     "juz",
     "line_check"

@@ -59,6 +59,71 @@ rather than as defects — see the standing rule at the top of that file.
 | Dūrī | `UthmanicDouri_v2-0.zip :: …/DouriData_v2-0.csv` |
 | Sūsī | `UthmanicSousi_v2-0.zip :: …/SousiData_v2-0.csv` |
 
+
+## Where these packages come from
+
+**The publisher's site is geo-restricted.** Every KFGQPC package here was
+published at `qurancomplex.gov.sa`, and that host does not answer requests from
+outside Saudi Arabia: DNS resolves, and the connection then times out or is
+refused. It is not a misconfiguration, it is not an outage, and retrying does
+not help. If you are outside the Kingdom and a fetch hangs, this is why — stop
+there rather than looking for a mirror that merely resembles the file.
+
+The route that works is
+[quran-ws/kfgqpc-resources](https://github.com/quran-ws/kfgqpc-resources), an
+archive that keeps each published file byte-for-byte and records its official
+URL, its dates and its checksums. Everything below was read from that archive at
+commit `925b9434`. The official URL is the publisher's own; the reachable copy
+is the same bytes, served from where they can be got.
+
+Both URLs are formulaic, and every package below was checked to follow them:
+
+```
+official   https://download.qurancomplex.gov.sa/resources_dev/<file>
+reachable  https://cdn.quran.ws/KFGQPC/resources/quran-dev/<slug>/<file>
+```
+
+| package | slug | sha256 |
+|---|---|---|
+| `UthmanicHafs_v2-0.zip` | `uthmanic-hafs` | `a7b0e559…fd72c` |
+| `UthmanicShuba_v2-0.zip` | `uthmanic-shuba` | `977e64f3…2efcf` |
+| `UthmanicWarsh_v2-1.zip` | `uthmanic-warsh` | `d847a7e7…88b47` |
+| `UthmanicQaloun_v2-1.zip` | `uthmanic-qaloun` | `6988b782…b144d` |
+| `UthmanicDouri_v2-0.zip` | `uthmanic-douri` | `84e55697…2cb0c1` |
+| `UthmanicSousi_v2-0.zip` | `uthmanic-sousi` | `e912273b…5ce472` |
+
+The full digests are in `data/manifest.json`. Each was verified twice: the
+archive's recorded checksum matches the file committed here, and re-downloading
+`UthmanicDouri_v2-0.zip` from the reachable copy reproduced
+`84e5569790f96b05896b8f44ebe8d82d98377a929ac0e87dd8af4dbec52cb0c1` exactly.
+
+### The primary text packages have no recorded origin
+
+**This is a real gap, and it is stated rather than papered over.** The seven
+`.docx` packages under *Used as primary sources* — the six `-v-3.0` releases and
+`UthmanicDouri_V20.zip` — are pinned here by name and SHA-256 and **by nothing
+else**. No URL for any of them is recorded in this repository, in its history, or
+in `quran-ws/kfgqpc-resources`, which does not hold them: searching that archive
+for `-v-3.0`, for `UthmanicDouri_V20`, and for Bazzī in any form returns nothing,
+and none of the seven digests appear in it.
+
+They are therefore **verifiable but not re-fetchable**: we can prove the file we
+have is the file we built from, and we cannot obtain it again, nor check it
+against the publisher, nor tell when it is superseded.
+
+No URL is guessed here to fill the gap. The `-v-3.0` family is not served from
+the `/quran-dev/` page that supplies the cross-checks above — that page still
+offered the v2 packages for all seven riwāyāt when the archive last captured it
+on 2026-09-07 — so a plausible-looking `resources_dev/` URL would be wrong.
+Where the file came from is an open question, tracked upstream.
+
+**One consequence, recorded because it already cost someone a day.** KFGQPC's
+own `release_info.version` field is a page-level counter, not the version in the
+filename: the archive lists `UthmanicHafs_v2-0.zip` as "version 13.0" and both
+`UthmanicDouri_v2-0.zip` and `UthmanicSousi_v2-0.zip` as "version 3.0". Read
+carelessly, that field makes it look as though Dūrī has a 3.0 release. It does
+not, and the sentence above about Dūrī still stands.
+
 ## A printed muṣḥaf, read for what the packages omit
 
 **This is the only source here that is not a KFGQPC package**, and it is used

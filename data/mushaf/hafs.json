@@ -60,7 +60,11 @@
    "package": "UthmanicHafs-v-3.0.zip",
    "member": "UthmanicHafs-v-3.0.docx",
    "release_year": 2026,
-   "sha256": "cdec7341b7c684e7b8dd469c4b68988914d2784e924c7e6cbb9cb4b57c24f013"
+   "sha256": "cdec7341b7c684e7b8dd469c4b68988914d2784e924c7e6cbb9cb4b57c24f013",
+   "origin": {
+    "recorded": false,
+    "note": "No source URL is recorded for this package — not here, not in this repository's history, and not in the KFGQPC archive, which does not hold it. The file is verifiable against the SHA-256 above but cannot be obtained again or checked against the publisher. No URL is guessed: the archive's /quran-dev/ page does not serve this package. See docs/sources.md."
+   }
   },
   "policy": "within one riwāyah the later release is a correction; across riwāyāt nothing is assumed",
   "layout": {
@@ -68,6 +72,14 @@
    "member": "UthmanicHafs_v2-0 data/hafsData_v2-0.csv",
    "release_year": 2022,
    "sha256": "a7b0e5591945712ec5e4d6142938ae4d1e9b49bdc89dff06222789bfebdfd72c",
+   "origin": {
+    "recorded": true,
+    "url": "https://download.qurancomplex.gov.sa/resources_dev/UthmanicHafs_v2-0.zip",
+    "mirror": "https://cdn.quran.ws/KFGQPC/resources/quran-dev/uthmanic-hafs/UthmanicHafs_v2-0.zip",
+    "geo_restricted": "The official host serves Saudi Arabia only; from elsewhere it times out. Use the mirror, which is the same bytes.",
+    "archive": "https://github.com/quran-ws/kfgqpc-resources",
+    "archive_commit": "925b94346c2bd6a82df92a5ba3cfbec0bc63c512"
+   },
    "used_for": [
     "juz",
     "line_check"
