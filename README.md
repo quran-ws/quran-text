@@ -17,7 +17,7 @@
 | **Package** | `@quran-ws/text` · `0.1.0` |
 | **Riwayat** | 7 printed |
 | **Words** | 77,434 numbered |
-| **Licence** | CC BY 4.0 (the work) · KFGQPC terms (the text) |
+| **Licence** | CC BY 4.0 (the work), attribution waived for use inside a product · KFGQPC terms (the text) |
 
 ```sh
 pip install ./lib/python
