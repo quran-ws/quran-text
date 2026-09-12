@@ -101,6 +101,12 @@ This project has not had a tagged release yet; everything below is unreleased.
 
 ### Documentation
 
+- `docs/known-issues.md` §5c records that the releases do not agree with
+  themselves about composing `ئ`: Ḥafṣ writes it as `ي` + `U+0654` once in
+  909 (35:43, composed in the 2022 release and decomposed in the 2026 one),
+  Shuʿbah once, Dūrī and Sūsī 22 times each, and the other three never. The
+  two spellings are canonically equivalent and no comparison form sees the
+  difference; it surfaced only once the text stopped being NFC-normalised.
 - `docs/known-issues.md` §7 explains the ۞ counts rather than leaving them
   unreconciled: two conventions (240 rubu_al_hizbs and 480 thumns), 1:1 never
   markable, and every other absence at a sūrah opening, where the printed muṣḥaf
