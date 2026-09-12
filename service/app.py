@@ -247,14 +247,22 @@ def file(path: str) -> FileResponse:
 # told `application/json`, the opposite of what the GET returns. A wrong answer
 # is worse than a missing one, because nothing looks broken.
 #
+# Every GET route is listed, /map and /compare included: /map answers in XML and
+# CSV as well as JSON, so it told the same lie in more formats, and / is what an
+# uptime check probes. HEAD runs the handler and the body is dropped at the ASGI
+# layer, so content-length is the real one — which is the whole point of asking.
+#
 # Registered separately rather than as `methods=["GET", "HEAD"]` on the route
 # itself. FastAPI's default operation-id ignores the method, so a two-method
 # route emits the same operationId twice and the OpenAPI schema comes out with
 # duplicates — which is what generated clients collide on. /files/{path} was
 # already declared that way and already warned; this fixes that one too.
 for _route, _handler in (
+    ("/", page),
     ("/download", download),
+    ("/map", map_dataset),
     ("/editions", editions),
+    ("/compare", compare),
     ("/version", version),
     ("/files", files),
     ("/files/{path:path}", file),

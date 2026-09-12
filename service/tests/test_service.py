@@ -322,11 +322,22 @@ def test_head_is_accepted_on_the_read_endpoints():
     with HEAD was told `application/json` — the opposite of what the GET returns.
     A wrong answer is worse than a missing one, because nothing looks broken.
     """
-    for path in ("/download?edition=hafs&surah=1&format=txt", "/editions", "/version", "/files"):
-        response = client.head(path)
-        assert response.status_code == 200, f"HEAD {path} -> {response.status_code}"
-        assert response.content == b"", f"HEAD {path} returned a body"
-
-    head = client.head("/download?edition=hafs&surah=1&format=txt")
-    get = client.get("/download?edition=hafs&surah=1&format=txt")
-    assert head.headers["content-type"] == get.headers["content-type"]
+    paths = (
+        "/",
+        "/download?edition=hafs&surah=1&format=txt",
+        "/map?from=hafs&to=warsh&surah=1&format=xml",
+        "/map?from=hafs&to=warsh&surah=1&format=csv",
+        "/editions",
+        "/compare?ayah=2:255",
+        "/version",
+        "/files",
+        "/files/ayah-map.csv",
+    )
+    for path in paths:
+        head, get = client.head(path), client.get(path)
+        assert head.status_code == 200, f"HEAD {path} -> {head.status_code}"
+        assert head.content == b"", f"HEAD {path} returned a body"
+        # The defect was not the 405 but what it said: the error body's JSON type
+        # stood in for the endpoint's own, so HEAD contradicted GET.
+        assert head.headers["content-type"] == get.headers["content-type"], path
+        assert head.headers["content-length"] == get.headers["content-length"], path
