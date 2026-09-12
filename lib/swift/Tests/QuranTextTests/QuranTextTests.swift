@@ -19,7 +19,7 @@ final class QuranTextTests: XCTestCase {
         XCTAssertEqual(a.key, "2:255")
         XCTAssertEqual(a.count, 50)
         XCTAssertEqual([a.page.number, a.juz!.number, a.line!.number], [42, 3, 8])
-        XCTAssertTrue(a.text.hasPrefix("ٱللَّهُ لَآ إِلَٰهَ"))
+        XCTAssertTrue(a.text.hasPrefix("ٱللَّهُ لَآ إِلَٰهَ"))
         XCTAssertTrue(a.render(ayahMarks: true).hasSuffix(" ۝٢٥٥"))
         // Waqf signs are combining marks: look at unicodeScalars, not Characters.
         XCTAssertTrue(a.render(marks: .all).unicodeScalars.contains("\u{06DA}"))
@@ -57,11 +57,11 @@ final class QuranTextTests: XCTestCase {
         XCTAssertEqual(hafs.sajdat().count, 15)
         XCTAssertTrue(hafs.ayah(7, 206).hasSajdah)
         XCTAssertEqual(hafs.divisionMarks().count, 199)
-        XCTAssertEqual(hafs.divisionMarks()[0].render(), "۞ إِنَّ")
+        XCTAssertEqual(hafs.divisionMarks()[0].render(), "۞ إِنَّ")
         XCTAssertEqual(hafs.numberAt(73948), 73950)
         XCTAssertEqual(hafs.wordAt(73948).numberLast, 73951)
         XCTAssertNil(hafs.wordByNumber(25685))
-        XCTAssertEqual(hafs.wordByNumber(73951)?.text, "وَأَلَّوِ")
+        XCTAssertEqual(hafs.wordByNumber(73951)?.text, "وَأَلَّوِ")
         XCTAssertEqual(hafs.wordByNumber(11)?.text, "مَٰلِكِ")
     }
 

@@ -67,7 +67,7 @@ data class Font(val family: String, val file: String, val sha256: String, val pu
 // The names are the strings the data uses, so `valueOf` reads them directly.
 @Suppress("EnumEntryName")
 enum class MarkKind {
-    waqf, division, sajdah, sajdah_line;
+    waqf, division, sajdah, sajdah_line, sah, raised_dot;
 
     companion object {
         /** Every kind of sign. */

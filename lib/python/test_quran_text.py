@@ -1,6 +1,7 @@
 """Run with:  python3 -m unittest lib/python/test_quran_text.py  (from the repo root)"""
 
 import sys
+import unicodedata
 import unittest
 from pathlib import Path
 
@@ -15,13 +16,20 @@ warsh = Mushaf.load(DATA / "mushaf" / "warsh.json")
 bazzi = Mushaf.load(DATA / "mushaf" / "bazzi.json")
 
 
+def nfc(text: str) -> str:
+    return unicodedata.normalize("NFC", text)
+
+
 class TestAyah(unittest.TestCase):
     def test_text_layers_and_rendering(self):
         a = hafs.ayah(2, 255)
         self.assertEqual(a.key, "2:255")
         self.assertEqual(len(a), 50)
         self.assertEqual((a.page.number, a.juz.number, a.line.number), (42, 3, 8))
-        self.assertTrue(a.text.startswith("ٱللَّهُ لَآ إِلَٰهَ"))
+        # The text holds the release's own codepoints, which order a shaddah
+        # and its vowel the other way round from NFC — normalise both sides,
+        # as every muṣḥaf file's `normalization` block says to.
+        self.assertTrue(nfc(a.text).startswith(nfc("ٱللَّهُ لَآ إِلَٰهَ")))
         self.assertTrue(a.render(ayah_marks=True).endswith(" ۝٢٥٥"))
         self.assertIn("ۚ", a.render(marks=True))
         self.assertIn("ۚ", a.render(marks={"waqf"}))
@@ -55,11 +63,11 @@ class TestAyah(unittest.TestCase):
         self.assertEqual(len(hafs.sajdat()), 15)
         self.assertTrue(hafs.ayah(7, 206).has_sajdah)
         self.assertEqual(len(hafs.division_marks()), 199)
-        self.assertEqual(hafs.division_marks()[0].render(), "۞ إِنَّ")
+        self.assertEqual(nfc(hafs.division_marks()[0].render()), nfc("۞ إِنَّ"))
         self.assertEqual(hafs.number_at(73948), 73950)
         self.assertEqual(hafs.word_at(73948).number_last, 73951)
         self.assertIsNone(hafs.word_by_number(25685))
-        self.assertEqual(hafs.word_by_number(73951).text, "وَأَلَّوِ")
+        self.assertEqual(nfc(hafs.word_by_number(73951).text), nfc("وَأَلَّوِ"))
         self.assertEqual(hafs.word_by_number(11).text, "مَٰلِكِ")
 
     def test_unnumbered_basmalah_and_absent_layers(self):

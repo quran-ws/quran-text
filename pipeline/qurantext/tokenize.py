@@ -34,6 +34,7 @@ class Token:
     division: bool = False       # a ۞ sign precedes this word
     sajdah: bool = False     # a sajdah symbol trails this word
     sajdah_line: bool = False  # the sajdah line is drawn over this word
+    editorial: str = ""      # ṣaḥḥa / raised dot that trailed the word
     page: int = 0            # printed page, read from the source typesetting
     line: int = 0            # printed line, *reconstructed* — see layout.py
     notes: list[str] = field(default_factory=list)
@@ -67,12 +68,13 @@ def tokenize_ayah(surah: int, ayah: int, text: str,
                 continue
             raw = stripped
 
-        word, waqf, sajdah_line = split_trailing_signs(raw)
+        word, waqf, sajdah_line, editorial = split_trailing_signs(raw)
         if not word:
             # A waqf mark separated from its word by a space: attach it back.
             if tokens:
                 tokens[-1].waqf += waqf
                 tokens[-1].sajdah_line = tokens[-1].sajdah_line or sajdah_line
+                tokens[-1].editorial += editorial
                 tokens[-1].notes.append("detached_waqf")
             continue
 
@@ -92,6 +94,7 @@ def tokenize_ayah(surah: int, ayah: int, text: str,
             division=pending_division,
             sajdah=chars.SAJDAH in waqf,
             sajdah_line=sajdah_line,
+            editorial=editorial,
             page=place.page if place else 0,
             line=place.line if place else 0,
         )

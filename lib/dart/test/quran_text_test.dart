@@ -19,7 +19,7 @@ void main() {
     expect(a.key, '2:255');
     expect(a.length, 50);
     expect([a.page.number, a.juz!.number, a.line!.number], [42, 3, 8]);
-    expect(a.text, startsWith('ٱللَّهُ لَآ إِلَٰهَ'));
+    expect(a.text, startsWith('ٱللَّهُ لَآ إِلَٰهَ'));
     expect(a.render(ayahMarks: true), endsWith(' ۝٢٥٥'));
     expect(a.render(marks: true), contains('ۚ'));
     expect(a.render(marks: {MarkKind.waqf}), contains('ۚ'));
@@ -54,11 +54,11 @@ void main() {
     expect(hafs.sajdat().length, 15);
     expect(hafs.ayah(7, 206).hasSajdah, isTrue);
     expect(hafs.divisionMarks().length, 199);
-    expect(hafs.divisionMarks().first.render(), '۞ إِنَّ');
+    expect(hafs.divisionMarks().first.render(), '۞ إِنَّ');
     expect(hafs.numberAt(73948), 73950);
     expect(hafs.wordAt(73948).numberLast, 73951);
     expect(hafs.wordByNumber(25685), isNull);
-    expect(hafs.wordByNumber(73951)!.text, 'وَأَلَّوِ');
+    expect(hafs.wordByNumber(73951)!.text, 'وَأَلَّوِ');
     expect(hafs.wordByNumber(11)!.text, 'مَٰلِكِ');
   });
 

@@ -224,6 +224,52 @@ def check_layout_alignment(riwayahs) -> list[dict]:
     return out
 
 
+#: What a published file is allowed *not* to contain, and why.  Everything
+#: else the release writes has to survive into ``words`` or into ``marks``.
+DECLARED_ABSENT = {
+    "\u06dd": "āyah mark; the āyah layer says the same thing",
+    "\u06de": "۞; published in marks",
+    "\u06e9": "۩; published in marks",
+    "\u00a0": "no-break space; folded to a plain space",
+    " ": "word separator",
+    **{chr(0x0660 + i): "āyah number digit; the āyah layer says the same thing"
+       for i in range(10)},
+}
+
+
+def check_nothing_dropped(docs: dict[str, dict], riwayahs) -> list[dict]:
+    """No codepoint of a release may vanish without being declared.
+
+    Twice now a whole class of character has been deleted on the reading that
+    it was not text — the kashida, which is usually a seat for a hamzah, and
+    the ṣaḥḥa, which is 9,950 signs the Warsh release prints — and neither
+    deletion was visible to any check, because both sides of every comparison
+    had been through the same stripping.  This one compares against the
+    *package*: every codepoint in the source has to appear in the published
+    words, in the published marks, or in :data:`DECLARED_ABSENT`.
+
+    Codepoints, not occurrences.  A sign that moved from the word to a mark is
+    still present; a sign that is gone from both is the failure this catches,
+    and it is always a whole class at once.
+    """
+    out = []
+    by_key = {r.key: r for r in riwayahs}
+    for key, doc in sorted(docs.items()):
+        r = by_key.get(key)
+        if r is None:
+            continue
+        source = {ch for a in r.ayahs for ch in a.text}
+        published = {ch for w in doc["words"] for ch in w}
+        published |= {t["sign"] for t in doc["mark_types"]}
+        gone = source - published - set(DECLARED_ABSENT)
+        if gone:
+            named = ", ".join(f"U+{ord(c):04X}" for c in sorted(gone))
+            out.append({"check": "nothing_dropped", "riwayah": key,
+                        "detail": f"codepoint(s) in the release and in no "
+                                  f"published field: {named}"})
+    return out
+
+
 def check_mushaf_roundtrip(words, riwayahs) -> list[dict]:
     """Each muṣḥaf's published words must be that muṣḥaf's words.
 

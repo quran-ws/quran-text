@@ -154,7 +154,7 @@ class TestNormalize(unittest.TestCase):
         self.assertEqual(plain("مَٰلِكِ"), "مالك")
 
     def test_waqf_is_peeled_not_dropped(self):
-        word, waqf, sajdah_line = split_trailing_signs("رَيۡبَۛ")
+        word, waqf, sajdah_line, _ = split_trailing_signs("رَيۡبَۛ")
         self.assertEqual(waqf, "ۛ")
         self.assertFalse(sajdah_line)
         self.assertEqual(pointed(word), "ريب")
@@ -162,7 +162,7 @@ class TestNormalize(unittest.TestCase):
     def test_the_sajdah_line_is_peeled_from_inside_the_sajdah_mark(self):
         # 7:206 prints ``يَسۡجُدُونَۤ۩``: the line, then the sign.  Peeling the
         # waqf marks alone would strand the line inside the word.
-        word, waqf, sajdah_line = split_trailing_signs("يَسۡجُدُونَۤ۩")
+        word, waqf, sajdah_line, _ = split_trailing_signs("يَسۡجُدُونَۤ۩")
         self.assertEqual(waqf, "۩")
         self.assertTrue(sajdah_line)
         self.assertEqual(pointed(word), "يسجدون")
@@ -175,13 +175,60 @@ class TestNormalize(unittest.TestCase):
         # ࡰ is one codepoint for what other releases write as alef + fathah.
         self.assertEqual(forms("ࡰلۡحَمۡدُ")["folded"], forms("اَلۡحَمۡدُ")["folded"])
 
-    def test_notation_folding_ignores_the_editorial_sah(self):
-        # U+08CC is a proofreader's mark, and the largest single source of
-        # spurious differences in the corpus.
-        self.assertEqual(forms("وَمَارُوتَ࣌")["rasm_uthmani"], forms("وَمَارُوتَ")["rasm_uthmani"])
+    def test_the_editorial_sah_is_kept_but_never_compared(self):
+        # U+08CC is a proofreader's mark, and was the largest single source of
+        # spurious differences in the corpus.  It stays in the text the release
+        # prints and out of every form a comparison uses.
+        self.assertIn("࣌", forms("وَمَارُوتَ࣌")["rasm_uthmani"])
+        for form in ("folded", "pointed", "rasm", "rasm_plene", "plain"):
+            self.assertEqual(forms("وَمَارُوتَ࣌")[form], forms("وَمَارُوتَ")[form], form)
 
     def test_notation_folding_ignores_tanwin_order(self):
         self.assertEqual(forms("حَطَبࣰا")["folded"], forms("حَطَباࣰ")["folded"])
+
+
+class TestKashida(unittest.TestCase):
+    """A kashida carrying a mark is a seat; one carrying nothing is decoration."""
+
+    #: 9:120 ``يَطَـُٔونَ`` as the release writes it: ṭāʾ, its fatḥah, the seat,
+    #: the hamzah, and the ḍammah that belongs to the hamzah.
+    YATAUNA = "\u064a\u064e\u0637\u064e\u0640\u0654\u064f\u0648\u0646\u064e"
+
+    def test_a_seat_is_kept_so_the_marks_stay_apart(self):
+        kept = forms(self.YATAUNA)["rasm_uthmani"]
+        self.assertIn("\u0640", kept)
+        before, after = kept.split("\u0640")
+        self.assertIn("\u064e", before)          # the fatḥah is the ṭāʾ's
+        self.assertIn("\u064f", after)           # the ḍammah is the hamzah's
+        self.assertIn("\u0654", after)
+
+    def test_a_kashida_inside_a_word_is_kept_too(self):
+        # ``لِّـجِبۡرِيلَ`` (2:97) prints one between the lām and the jīm.  It
+        # carries no mark, and it is still the release's ink.
+        self.assertIn("\u0640", forms("لِّـجِبۡرِيلَ")["rasm_uthmani"])
+        self.assertEqual(rasm("مَالِـكِ"), rasm("مَالِكِ"))
+        self.assertEqual(plain("مَالِـكِ"), plain("مَالِكِ"))
+
+    def test_the_seat_is_not_a_letter(self):
+        # It is ink, not rasm: the skeleton and the spelling are the same with
+        # it and without it, so nothing downstream sees a new word.
+        bare = self.YATAUNA.replace("\u0640", "")
+        self.assertEqual(rasm(self.YATAUNA), rasm(bare))
+        self.assertEqual(pointed(self.YATAUNA), pointed(bare))
+        self.assertEqual(plain(self.YATAUNA), plain(bare))
+
+    def test_deleting_the_seat_would_compose_a_letter_the_release_never_wrote(self):
+        # ``سَيِّـَٔاتِ``: with the seat gone the yāʾ and the hamzah normalise
+        # into ``ئ``, which no muṣḥaf prints.
+        word = "\u0633\u064e\u064a\u0650\u0651\u0640\u064e\u0654\u0627\u062a\u0650"
+        self.assertIn("\u064a", forms(word)["rasm_uthmani"])
+        self.assertNotIn("\u0626", forms(word)["rasm_uthmani"])
+
+    def test_a_seated_madd_is_still_a_long_a(self):
+        # ``أَسَٰٓـُٔواْ`` (30:10): the dagger has its hamzah, on a seat, so it
+        # is a written ā and not a suppressed hamzah.
+        word = "\u0623\u064e\u0633\u064e\u0670\u0653\u0640\u064f\u0654\u0648\u0627\u0652"
+        self.assertEqual(pointed(word), "اساوا")
 
 
 class TestSplitByRasm(unittest.TestCase):
@@ -342,7 +389,7 @@ class TestAlifSplitsOneWay(unittest.TestCase):
         return Word(id=id_, surah=1, index=id_, key=f"k{id_}", rasm="", pointed="",
                     rasm_uthmani="", plain="", status="alif_variant",
                     present=list(forms_), missing=[], forms=forms_, ayah={},
-                    waqf={}, boundary={}, division=[], sajdah=[])
+                    waqf={}, editorial={}, boundary={}, division=[], sajdah=[])
 
     def test_one_partition_passes(self):
         # Both directions are fine — what matters is who is on each side.
@@ -372,7 +419,7 @@ class TestShapeOfDifference(unittest.TestCase):
         return Word(id=1, surah=1, index=1, key="k",
                     rasm=rasm(next(iter(forms_.values()))), pointed="", rasm_uthmani="",
                     plain="", status=STATUS_RASM, present=list(forms_),
-                    missing=[], forms=forms_, ayah={}, waqf={}, boundary={},
+                    missing=[], forms=forms_, ayah={}, waqf={}, editorial={}, boundary={},
                     division=[], sajdah=[])
 
     def test_final_shapes_fold_to_their_class(self):
@@ -420,7 +467,8 @@ class TestMarks(unittest.TestCase):
         return Word(id=1, surah=1, index=1, key="k", rasm="r", pointed="p",
                     rasm_uthmani="u", plain="s", status=STATUS_IDENTICAL,
                     present=["hafs"], missing=[], forms={"hafs": "u"},
-                    ayah={"hafs": 1}, waqf=kw.get("waqf", {}), boundary={},
+                    ayah={"hafs": 1}, waqf=kw.get("waqf", {}),
+                    editorial=kw.get("editorial", {}), boundary={},
                     division=kw.get("division", []), sajdah=kw.get("sajdah", []),
                     sajdah_line=kw.get("sajdah_line", []),
                     place={})
@@ -441,6 +489,13 @@ class TestMarks(unittest.TestCase):
         self.assertEqual([m["kind"] for m in marks], ["sajdah_line", "sajdah"])
         self.assertEqual("".join(m["sign"] for m in marks), "ۤ۩")
 
+    def test_the_sah_is_published_not_deleted(self):
+        # U+08CC is printed 9,950 times in the v3.0 Warsh document.  It is not
+        # a letter, so it is peeled like a waqf mark — and not dropped, because
+        # the release prints it.
+        self.assertEqual(_marks(self.word(editorial={"hafs": "࣌"}), "hafs"),
+                         [{"kind": "sah", "side": "after", "sign": "࣌"}])
+
     def test_sajdah_is_its_own_kind_not_a_waqf_mark(self):
         # ۩ arrives through the same channel as the waqf marks and must not
         # also be reported as one.
@@ -458,7 +513,7 @@ class TestNumbering(unittest.TestCase):
         return Word(id=n, surah=1, index=n, key="k", rasm="r", pointed="p",
                     rasm_uthmani="u", plain="s", status=STATUS_IDENTICAL,
                     present=list(kw.get("forms", {"a": "u"})), missing=[],
-                    forms=kw.get("forms", {"a": "u"}), ayah={"a": 1}, waqf={},
+                    forms=kw.get("forms", {"a": "u"}), ayah={"a": 1}, waqf={}, editorial={},
                     boundary={}, division=[], sajdah=[], place={},
                     continuation=kw.get("continuation", []))
 
@@ -540,6 +595,50 @@ class TestPublishedFiles(unittest.TestCase):
             # where sūrah 2 starts.
             self.assertEqual(a[d["surahs"][1]["first_ayah"]], d["surah_starts"][1], k)
 
+    def test_every_file_says_what_words_is_not(self):
+        # The mark layer is not inside words[i], and a consumer reading words
+        # has no way to know that from the array itself.  Every file says so
+        # beside its layer list, with the two conventions that put the signs
+        # back (quran-ws/quran-text#21).
+        for k, d in self.docs.items():
+            text = d["layers"]["text"]
+            self.assertEqual(text["words_exclude"], ["marks"], k)
+            self.assertIn("marks", text["how"], k)
+            for convention in ('"after"', '"before"'):
+                self.assertIn(convention, text["reattach"], k)
+
+    def test_reattaching_the_marks_gives_the_printed_ayah(self):
+        # The conventions the file states, applied: `after` with no space,
+        # `before` with one.  Ḥafṣ 2:1-2 carries a waqf mark; 2:142 carries ۞.
+        d = self.docs["hafs"]
+        at = {}
+        for position, kind in d["marks"]:
+            at.setdefault(position, []).append(d["mark_types"][kind])
+        def token(i):
+            marks = at.get(i, [])
+            return ("".join(m["sign"] + " " for m in marks if m["side"] == "before")
+                    + d["words"][i]
+                    + "".join(m["sign"] for m in marks if m["side"] == "after"))
+        signed = [i for i in range(200) if at.get(i)]
+        self.assertTrue(signed)
+        first = signed[0]
+        self.assertNotEqual(token(first), d["words"][first])
+        divisions = [i for i, marks in at.items()
+                     if any(m["side"] == "before" for m in marks)]
+        self.assertEqual(len(divisions), 199)
+        self.assertTrue(token(divisions[0]).startswith("۞ "))
+
+    def test_an_unborne_hamzah_keeps_its_seat(self):
+        # 9:120 ``يَطَـُٔونَ``: without the kashida the fatḥah and the ḍammah
+        # stand in one run and nothing says which is the ṭāʾ's.
+        d = self.docs["hafs"]
+        word = d["words"][26107]
+        self.assertIn("\u0640", word)
+        before, after = word.split("\u0640")
+        self.assertIn("\u064e", before)
+        self.assertIn("\u0654", after)
+        self.assertIn("\u064f", after)
+
     def test_counting_systems_are_as_expected(self):
         systems = {k: d["counting"]["system"] for k, d in self.docs.items()}
         self.assertEqual(systems, {
@@ -578,8 +677,13 @@ class TestPublishedFiles(unittest.TestCase):
         index = json.loads(path.read_text(encoding="utf-8"))
         self.assertEqual([w["number"] for w in index["words"]], list(range(1, 77435)))
         law = index["words"][73950]
-        self.assertEqual(law["rasm_uthmani"], "لَّوِ")          # not Ḥafṣ's joined form
-        self.assertEqual(law["forms"]["hafs"], "وَأَلَّوِ")
+        # The text is the release's own codepoints, which order a shaddah and
+        # its vowel the other way round from NFC: compare the way the file
+        # tells a consumer to compare.
+        import unicodedata
+        nfc = lambda t: unicodedata.normalize("NFC", t)
+        self.assertEqual(nfc(law["rasm_uthmani"]), nfc("لَّوِ"))  # not Ḥafṣ's joined form
+        self.assertEqual(nfc(law["forms"]["hafs"]), nfc("وَأَلَّوِ"))
         self.assertEqual(law["hafs"], index["words"][73949]["hafs"])
         self.assertIsNone(index["words"][25684]["hafs"])   # Ḥafṣ lacks مِن
         self.assertEqual(index["words"][25684]["missing"],

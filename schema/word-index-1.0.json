@@ -65,7 +65,8 @@
           "waqf": { "type": "object", "description": "Waqf marks that trail the word, per muṣḥaf.", "additionalProperties": { "type": "string" } },
           "division": { "type": "array", "description": "The muṣḥafs printing ۞ before this word.", "items": { "type": "string" } },
           "sajdah": { "type": "array", "description": "The muṣḥafs printing ۩ on this word.", "items": { "type": "string" } },
-          "sajdah_line": { "type": "array", "description": "The muṣḥafs drawing the sajdah line over this word.", "items": { "type": "string" } }
+          "sajdah_line": { "type": "array", "description": "The muṣḥafs drawing the sajdah line over this word.", "items": { "type": "string" } },
+          "editorial": { "type": "object", "description": "Editorial signs printed after the word — the ṣaḥḥa ࣌ and the raised dot ࢈ — per muṣḥaf. Published, not deleted; they are annotation, so no comparison form sees them.", "additionalProperties": { "type": "string" } }
         }
       }
     }

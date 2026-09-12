@@ -245,3 +245,32 @@ The first round-trip check compared word counts per riwāyah and reported three
 "failures" that were the re-segmentation working correctly. Comparing the
 concatenated **rasm** instead is indifferent to word boundaries while still
 catching a genuinely lost or duplicated letter. It passes clean for all seven.
+
+### A blanket "this codepoint is typography" rule
+
+The kashida was stripped everywhere, on the reading that a kashida stretches a
+join and never carries meaning. In the v3.0 documents it almost always does
+carry meaning: 535 of Ḥafṣ's 536 sit under a hamzah, a small high yeh or a
+dagger alif that has no letter of its own. Deleting them left two vowels in one
+run with nothing to say which belonged to the letter and which to the hamzah,
+and let NFC compose `سَيِّـَٔاتِ` into a `ئ` no muṣḥaf prints. The same reasoning
+had deleted 9,950 ṣaḥḥa signs from the Warsh release, where the real problem
+was that they reached the alignment key.
+
+The round-trip check saw none of it, because both sides of the comparison had
+been through the same stripping. **A character class is a claim about the
+corpus, and the corpus can be asked**: counting what follows each occurrence
+answers it in one line. The build now asks the package directly
+(`check_nothing_dropped`), and the rule is simply that nothing the release
+prints is deleted — normalisation belongs to the derived forms, not to the
+published text (`quran-ws/quran-text#21`).
+
+### Documenting a convention where the writer stands, not where the reader does
+
+`words` never carried the mark layer, and *Marks* in `format.md` said how to
+re-attach a word's `after` signs. What it did not say is that joining `words`
+is therefore not the muṣḥaf's text and not what `/download` returns, and it
+said nothing at all about the space before ۞. A consumer reading `words` got a
+plausible muṣḥaf and no signal, and found the second convention by measuring
+199 differing āyāt. The file now says it under `layers.text`, beside the layer
+list the consumer is already reading.

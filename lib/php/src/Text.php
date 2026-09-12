@@ -51,7 +51,8 @@ final class Text
     public static function markKinds(bool|array $marks): array
     {
         if ($marks === true) {
-            return ['waqf' => true, 'division' => true, 'sajdah' => true, 'sajdah_line' => true];
+            return ['waqf' => true, 'division' => true, 'sajdah' => true,
+                    'sajdah_line' => true, 'sah' => true, 'raised_dot' => true];
         }
         if ($marks === false) {
             return [];

@@ -30,47 +30,72 @@ from . import chars
 
 
 def strip_controls(text: str) -> str:
-    """Drop invisible controls and kashida, and normalise NBSP to a space."""
-    out = []
-    for ch in text:
-        if ch in chars.CONTROLS or ch == chars.TATWEEL:
-            continue
-        out.append(" " if ch in (" ", " ") else ch)
-    return "".join(out)
+    """Fold NBSP to a plain space. Nothing else is removed.
+
+    This function used to delete the invisible controls and the kashida, on the
+    reading that neither is text.  Both readings were wrong in this corpus: the
+    kashida is usually a *seat* (:data:`chars.TATWEEL`), and a control the
+    release wrote is still something the release wrote.  The only edit left is
+    the one a word-separated format cannot avoid — a no-break space is a space.
+
+    The name is kept because every caller means "the source, made safe to split
+    on whitespace".
+    """
+    return "".join(" " if ch in (" ", "\u00a0") else ch for ch in text)
 
 
-def split_trailing_signs(token: str) -> tuple[str, str, bool]:
+def split_trailing_signs(token: str) -> tuple[str, str, bool, str]:
     """Peel the signs that trail a word off the end of a token.
 
-    Returns ``(word, waqf, sajdah_line)``.  Two kinds of sign trail a word with
-    no space before them and belong to it without being part of it: the waqf
-    marks, and the line drawn over the words that make the sajdah due
-    (:data:`chars.SAJDAH_LINE`).  Both are peeled in one pass because the
-    packages write them in either order — the line inside the sajdah sign in
-    ``yasjudun<line><sajdah>`` — and peeling one kind alone would strand the
-    other inside the word.
+    Returns ``(word, waqf, sajdah_line, editorial)``.  Three kinds of sign
+    trail a word with no space before them and belong to it without being part
+    of it: the waqf marks; the line drawn over the words that make the sajdah
+    due (:data:`chars.SAJDAH_LINE`); and the editorial ṣaḥḥa and raised dot
+    (:data:`chars.EDITORIAL`).  They are peeled in one pass because the
+    packages write them in more than one order — the line inside the sajdah
+    sign in ``yasjudun<line><sajdah>``, the ṣaḥḥa outside a waqf mark — and
+    peeling one kind alone would strand another inside the word.
 
     Only *trailing* signs are peeled: U+06EC and friends double as orthographic
-    cues in the Warsh family when they sit on an interior alif, and those must
-    stay with the word.
+    cues in the Warsh family when they sit on an interior alif, and the four
+    places where a ṣaḥḥa is written mid-word are left where the release put it.
     """
     i = len(token)
     while i > 0 and (token[i - 1] in chars.WAQF_MARKS
-                     or token[i - 1] == chars.SAJDAH_LINE):
+                     or token[i - 1] == chars.SAJDAH_LINE
+                     or token[i - 1] in chars.EDITORIAL):
         i -= 1
     trailing = token[i:]
     return (token[:i],
-            trailing.replace(chars.SAJDAH_LINE, ""),
-            chars.SAJDAH_LINE in trailing)
+            "".join(c for c in trailing
+                    if c != chars.SAJDAH_LINE and c not in chars.EDITORIAL),
+            chars.SAJDAH_LINE in trailing,
+            "".join(c for c in trailing if c in chars.EDITORIAL))
 
 
 def rasm_uthmani(word: str) -> str:
-    """Canonical display form: NFC, no controls, no structural symbols."""
-    cleaned = "".join(
+    """The word as the release writes it, minus the symbols that are not words.
+
+    **Not normalised.**  NFC would reorder the marks on a letter — the releases
+    write shaddah before its vowel, NFC after it, 22,000 times in Ḥafṣ — and
+    compose ``ا`` + ``ٓ`` into ``آ`` 2,946 times more.  Both are canonically
+    equivalent and both make the published text differ from the package it
+    claims to be, so the text keeps the release's own codepoints and every file
+    says so in its ``normalization`` field.  The derived forms below normalise
+    internally, which is where comparison actually needs it.
+
+    What is removed is only what is not part of a word: the āyah mark and its
+    number, and the structural symbols published in ``marks`` instead.
+    """
+    return "".join(
         ch for ch in strip_controls(word)
         if ch not in chars.STRUCTURAL and ch not in chars.ARABIC_DIGITS
-    )
-    return unicodedata.normalize("NFC", cleaned).strip()
+    ).strip()
+
+
+def canonical(word: str) -> str:
+    """``word`` in NFC — the form every derived form is computed from."""
+    return unicodedata.normalize("NFC", word)
 
 
 #: A tanwīn written before the alif it sits on, rather than after it.  The two
@@ -87,7 +112,8 @@ def fold_notation(word: str) -> str:
     Arabic Extended-B attached-alef letters); and the order in which a tanwīn
     and its alef seat are stored.
     """
-    folded = "".join(chars.NOTATION_FOLD.get(ch, ch) for ch in word)
+    folded = "".join(chars.NOTATION_FOLD.get(ch, ch) for ch in word
+                     if ch != chars.TATWEEL and ch not in chars.EDITORIAL)
     folded = _TANWIN_BEFORE_ALEF.sub(r"\2\1", folded)
     return unicodedata.normalize("NFC", folded)
 
@@ -111,8 +137,8 @@ def _is_suppressed_hamzah(text: str, i: int) -> bool:
     for j, ch in enumerate(text[i + 2:], start=i + 2):
         if ch in chars.HAMZAH_ANY:
             return False         # the madd has its hamzah; the dagger is an ā
-        if ch in chars.ALL_MARKS:
-            continue
+        if ch in chars.ALL_MARKS or ch == chars.TATWEEL or ch in chars.EDITORIAL:
+            continue             # a mark, a seat, or an editorial sign
         # A plain letter — but a madd over a *doubled* one is madd lāzim, a
         # genuine long ā before a shaddah (``تَتَّبِعَٰٓنِّ``, ``فَذَٰٓنِّكَ``), not a
         # hamzah.  Only an undoubled letter leaves the madd with nothing to be
@@ -162,8 +188,8 @@ def _letters(text: str, *, dagger_on_the_line: bool) -> str:
             out.append(chars.RASM_KEEP_MARKS_FOLD[ch])
             from_dagger = False
             continue
-        if ch in chars.ALL_MARKS:
-            continue             # a mark does not interrupt the pair
+        if ch in chars.ALL_MARKS or ch == chars.TATWEEL or ch in chars.EDITORIAL:
+            continue             # a mark, the seat one sits on, or annotation
         letter = chars.RASM_FOLD.get(ch, ch)
         if not letter:
             continue             # hamzah: dropped, and no letter intervenes
@@ -194,7 +220,7 @@ def pointed(word: str) -> str:
     opposite of :func:`rasm`, and deliberately so: it is what lets ``مَٰلِكِ`` and
     ``مَلِكِ`` be one rasm read two ways rather than two rasms.
     """
-    return _letters(rasm_uthmani(word), dagger_on_the_line=True)
+    return _letters(canonical(rasm_uthmani(word)), dagger_on_the_line=True)
 
 
 def rasm(word: str) -> str:
@@ -212,7 +238,7 @@ def rasm(word: str) -> str:
     Two words with the same rasm are one word in the index, however differently
     they are read.
     """
-    return _undot(_letters(rasm_uthmani(word), dagger_on_the_line=False))
+    return _undot(_letters(canonical(rasm_uthmani(word)), dagger_on_the_line=False))
 
 
 def rasm_plene(word: str) -> str:
@@ -256,13 +282,13 @@ _PLAIN_FOLD.update({c: "ا" for c in chars.ATTACHED_ALEF})
 
 def plain(word: str) -> str:
     """Plain modern spelling: no harakah, superscript alif made explicit."""
-    text = rasm_uthmani(word)
+    text = canonical(rasm_uthmani(word))
     out = []
     for ch in text:
         if ch == "ٰ":         # superscript alif -> written alif
             out.append("ا")
             continue
-        if ch in _PLAIN_DROP:
+        if ch in _PLAIN_DROP or ch == chars.TATWEEL or ch in chars.EDITORIAL:
             continue
         out.append(_PLAIN_FOLD.get(ch, ch))
     return "".join(out)

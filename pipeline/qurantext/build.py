@@ -55,6 +55,10 @@ class Word:
     forms: dict[str, str]
     ayah: dict[str, int]
     waqf: dict[str, str]
+    #: riwāyah -> the editorial signs (ṣaḥḥa, raised dot) that trail this word
+    #: in that release.  Printed, not pronounced, and not part of the letters:
+    #: see ``chars.EDITORIAL``.
+    editorial: dict[str, str]
     boundary: dict[str, str]
     division: list[str]
     sajdah: list[str]
@@ -209,6 +213,8 @@ def build_words(riwayahs: list[Riwayah]) -> list[Word]:
                 forms=forms,
                 ayah={k: tokens[k].ayah for k in present},
                 waqf={k: tokens[k].waqf for k in present if tokens[k].waqf},
+                editorial={k: tokens[k].editorial for k in present
+                           if tokens[k].editorial},
                 boundary=dict(col.boundary),
                 division=[k for k in present if tokens[k].division],
                 sajdah=[k for k in present if tokens[k].sajdah],

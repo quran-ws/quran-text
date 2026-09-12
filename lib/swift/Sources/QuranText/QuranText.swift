@@ -81,8 +81,9 @@ public struct Font: Sendable {
 }
 
 public enum MarkKind: String, CaseIterable, Sendable {
-    case waqf, division, sajdah
+    case waqf, division, sajdah, sah
     case sajdahLine = "sajdah_line"
+    case raisedDot = "raised_dot"
 }
 
 public enum MarkSide: String, Sendable { case before, after }

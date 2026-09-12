@@ -1,7 +1,7 @@
 /** quran-text — read the muṣḥaf files of the quran-text dataset. */
 
 export type Layer = "surahs" | "ayahs" | "pages" | "lines" | "juz" | "marks" | "rasm_imlai";
-export type MarkKind = "waqf" | "division" | "sajdah" | "sajdah_line";
+export type MarkKind = "waqf" | "division" | "sajdah" | "sajdah_line" | "sah" | "raised_dot";
 export type Relation = "same" | "merged" | "split" | "shifted" | "unnumbered";
 
 export interface RenderOptions {

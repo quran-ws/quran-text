@@ -28,15 +28,19 @@ SAJDAH_LINE = "ۤ"          # ۤ  ARABIC SMALL HIGH MADDA (used as the sajdah li
 
 ARABIC_DIGITS = {chr(0x0660 + i): str(i) for i in range(10)}
 
-#: Editorial annotation, not text.  U+08CC is the proofreader's *ṣaḥḥa* ("correct
-#: as written"); it occurs 8,128 times in the v3.0 Warsh document alone and is
-#: the single largest source of spurious differences in the corpus.  U+0888 is
-#: its raised-dot companion.  Neither is pronounced or written by any other
-#: release, so both are dropped rather than folded.
+#: The ṣaḥḥa U+08CC ("correct as written") and its raised-dot companion U+0888.
+#: They are annotation rather than letters — not pronounced, and written by one
+#: release where the others write nothing — but they *are* printed, 9,950 and
+#: 91 times in the v3.0 Warsh document, word-final in all but four places.  So
+#: they are peeled off the word like a waqf mark and published in ``marks`` as
+#: the kinds ``sah`` and ``raised_dot``, rather than deleted: a sign the release
+#: prints is not this repository's to remove.  They stay out of the alignment
+#: key, which is what kept them from being the largest single source of
+#: spurious differences in the corpus.
 EDITORIAL = {"࣌", "࢈"}
 
 #: Standalone symbols that mark structure, never part of a word.
-STRUCTURAL = {AYAH_MARK, RUBU_AL_HIZB, SAJDAH} | EDITORIAL
+STRUCTURAL = {AYAH_MARK, RUBU_AL_HIZB, SAJDAH}
 
 #: Invisible controls that carry no textual meaning here.  Their presence in a
 #: source is itself reportable (see ``issues.STRAY_CONTROL``).
@@ -49,7 +53,22 @@ CONTROLS = {
     "﻿",  # ZERO WIDTH NO-BREAK SPACE / BOM
 }
 
-TATWEEL = "ـ"  # ـ  kashida: pure typography, never semantic
+#: Kashida.  **Not stripped.**  It was, on the reading that a kashida only
+#: stretches a join, and that reading does not survive the corpus: in the v3.0
+#: documents almost every one is a *seat*.  535 of Ḥafṣ's 536 carry a hamzah, a
+#: small high yeh or a dagger alif that has no letter of its own — ``يَطَـُٔونَ``
+#: is ``ط`` with its fatḥah, then the kashida carrying ``ٔ``, then the ḍammah
+#: that belongs to the hamzah — and deleting it leaves two marks in one run
+#: with nothing to say which is whose, lets NFC compose ``سَيِّـَٔاتِ`` into a
+#: ``ئ`` no muṣḥaf prints, and changes what the font draws.  The rest are
+#: printed inside a word too (``لِّـجِبۡرِيلَ``, ``إِبۡرَٰهِـيمَ``).  The text
+#: published here is the release's, so the kashida stays where the release put
+#: it (``docs/known-issues.md`` §4).
+#:
+#: It is ink, not a letter: :func:`is_letter` excludes it, and the rasm,
+#: pointed, plain and folded forms drop it, so nothing downstream sees a new
+#: word.
+TATWEEL = "ـ"
 
 # --- waqf marks ---------------------------------------------------
 # These sit after the last letter of a word with no intervening space.  They
@@ -301,4 +320,5 @@ def ayah_number_from_ligature(ch: str) -> int | None:
 
 def is_letter(ch: str) -> bool:
     return ch not in ALL_MARKS and ch not in STRUCTURAL and ch not in CONTROLS \
-        and ch != TATWEEL and not ch.isspace() and ch not in ARABIC_DIGITS
+        and ch not in EDITORIAL and ch != TATWEEL and not ch.isspace() \
+        and ch not in ARABIC_DIGITS
