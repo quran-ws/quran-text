@@ -2,7 +2,7 @@
 
 <img src=".github/banner.svg" alt="Quran Text — Data, Beta" width="820">
 
-**Source-verified Quran text in seven printed riwayat, with shared word identity and explicit provenance.**
+**Source-verified Quran text in seven printed riwayat, with a shared word identity that connects corresponding words across them.**
 
 <a href="https://quran.ws/blocks/quran-text"><img alt="See it work" src="https://img.shields.io/badge/See_it_work-15705D?style=for-the-badge&labelColor=102F29"></a>
 <a href="https://quran.ws/docs/reference/quran-text"><img alt="Documentation" src="https://img.shields.io/badge/Documentation-102F29?style=for-the-badge&labelColor=102F29"></a>
@@ -10,7 +10,11 @@
 
 </div>
 
-> نصُّ المصحف بسبع روايات، مرتبط بالإصدارات الرسمية لمجمع الملك فهد، مع ترقيمٍ واحد لكلماته يدلُّ على الكلمة نفسها في الروايات السبع.
+Use it when your application needs Quran text, supports multiple riwayat, or needs to match words and positions across different riwayat.
+
+> نصوص القرآن في سبع روايات مطبوعة، موثّقة المصدر، مع معرّف موحّد للكلمات يربط نظائرها بين الروايات.
+>
+> استخدمه عندما تحتاج نصّ القرآن في تطبيقك، أو تريد دعم أكثر من رواية، أو مطابقة الكلمات والمواضع بينها.
 
 | | |
 |---|---|
