@@ -1,5 +1,15 @@
 # quran-text for PHP
 
+```sh
+composer require quran-ws/quran-text
+```
+
+> Composer reads this directory through
+> [quran-ws/quran-text-php](https://github.com/quran-ws/quran-text-php), because
+> Packagist only looks for a `composer.json` at a repository root. That mirror is
+> generated from this directory and is read-only — issues and pull requests belong
+> here.
+
 PHP 8.1+, Composer, no dependencies beyond `ext-json` and `ext-mbstring`. Ḥafṣ
 is bundled.
 
@@ -29,6 +39,6 @@ Wrong numbers throw `OutOfRangeException`; a layer the file lacks (juz in
 Bazzī) throws `LogicException` with the reason from the file. One muṣḥaf takes
 about 20 MB; the word index (`WordIndex`) needs a few hundred MB, so load it in
 a CLI or a queue worker, not a web request. The full API is in
-[`../README.md`](../README.md).
+[the repository README](https://github.com/quran-ws/quran-text/blob/main/README.md).
 
 Test: `php -d memory_limit=1G tests/run.php` in this directory.
