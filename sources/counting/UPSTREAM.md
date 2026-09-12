@@ -22,9 +22,20 @@ which upstream does not yet model (qiraat-ayah-map#11).
 qāriʾ is **associated with**. That is a fact about the qāriʾ and not about any
 printing: Abū ʿAmr is `basri` there, while both of his muṣḥafs here measure onto
 First Madani. The build carries it through as `system_associated_with_qari`
-beside the derived `system` so the two questions are answerable separately
-(issue #15). The rāwī keys are this repository's muṣḥaf keys, but for `shuba`,
-which is `shubah` here.
+beside the derived `system` — published also as `system_printed`, the name that
+says which of the two questions it answers — so the two are answerable
+separately (issue #15). The rāwī keys are this repository's muṣḥaf keys, but for
+`shuba`, which is `shubah` here.
+
+**The field is being renamed upstream.** `counting_system` becomes
+`counting_system_associated_with_qari` there, for the same reason it is split
+here: the old name could be read as the count a muṣḥaf prints, which it never
+was. `attributed_system_id` in `pipeline/qurantext/counting.py` accepts either
+name and fails loudly on neither, so refreshing the copy across that rename
+changes nothing published here. Upstream is also adding
+`data/printed-editions.json`, its own measured printed counts; nothing here
+reads it, since this repository measures its own editions from
+`sources/kfgqpc/`.
 
 `counting-systems.json` on this commit still gives First Madani a total of
 6214; al-Dānī's 6217 (qiraat-ayah-map#7) is applied by `khilaf.json`'s

@@ -122,7 +122,13 @@ print(row["warsh"])        # {'surah': 2, 'ayah': 253, 'ayah_last': 254, 'relati
 - Do not read `counting.system` as the count the qāriʾ is associated with: it is
   the system the edition measures onto. For Dūrī and Sūsī they differ — Abū ʿAmr
   is Baṣrī, both of his muṣḥafs are First Madani. `system_associated_with_qari`
-  and `differs_from_association` in the same block give the other answer.
+  and `differs_from_association` in the same block give the other answer, and
+  `system_printed` is `system` under the name that says so. qiraat-ayah-map
+  publishes the pair under the same two words.
+- Do not read a printed count as a fact about a muṣḥaf in general: it is a
+  measurement of one release, and `counting.measured_from` names it. Dūrī here
+  is measured from a 2022 package while the other six are on 2026 v3.0, and
+  KFGQPC printings of one muṣḥaf disagree with each other about 67:9.
 - Do not treat `line_starts` as a fact: pages are read from the release, lines
   are reconstructed (`layers.derived.line` gives the score); Bazzī's are
   unvalidated.

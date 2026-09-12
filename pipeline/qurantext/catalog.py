@@ -69,10 +69,17 @@ def write_catalog(words: list[Word], riwayahs: list[Riwayah],
             # The system this edition prints onto, and the one its qāriʾ is
             # associated with — different questions, and for Dūrī and Sūsī
             # different answers.  See counting in the muṣḥaf file.
+            # ``counting_system`` under the name that says which question it
+            # answers; qiraat-ayah-map publishes the pair under the same two
+            # words, so a join can be written against either side.
+            "counting_system_printed": docs[r.key]["counting"]["system_printed"],
             "counting_system_associated_with_qari":
                 docs[r.key]["counting"]["system_associated_with_qari"],
             "counting_differs_from_association":
                 docs[r.key]["counting"]["differs_from_association"],
+            # A printed count is a statement about one package.  Dūrī is
+            # measured from a 2022 release while the rest are on 2026 v3.0.
+            "counting_measured_from": docs[r.key]["counting"]["measured_from"],
             "ayah_count": docs[r.key]["counting"]["ayah_count"],
             "word_count": docs[r.key]["mushaf"]["word_count"],
             "source": r.source,

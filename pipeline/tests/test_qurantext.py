@@ -27,6 +27,7 @@ from qurantext.rasm_imlai import _pair                              # noqa: E402
 from qurantext.layout import Place                              # noqa: E402
 from qurantext.mushaf import _marks, _starts, numbering, printed_words  # noqa: E402
 from qurantext import stamp                                  # noqa: E402
+from qurantext.counting import attributed_system_id               # noqa: E402
 from qurantext.validate import check_numbering, check_positions  # noqa: E402
 
 
@@ -650,6 +651,61 @@ class TestPublishedFiles(unittest.TestCase):
         self.assertEqual(counts, {"hafs": 6236, "shubah": 6236, "warsh": 6214,
                                   "qalun": 6214, "duri": 6217, "susi": 6218,
                                   "bazzi": 6220})
+
+    def test_printed_and_attributed_counts_are_separate_fields(self):
+        # The attribution is a fact about the qāriʾ; the printed count is a
+        # measurement of one printing.  Abū ʿAmr is Baṣrī and both of his
+        # printed muṣḥafs carry First Madani, so one field could never hold
+        # both.  ``system_printed`` restates ``system`` under the name that
+        # says which of the two questions it answers, matching the words
+        # qiraat-ayah-map publishes on its side.
+        for key, d in self.docs.items():
+            c = d["counting"]
+            self.assertEqual(c["system_printed"], c["system"], key)
+            self.assertEqual(c["differs_from_association"],
+                             c["system_printed"] != c["system_associated_with_qari"], key)
+        printed = {k: d["counting"]["system_printed"] for k, d in self.docs.items()}
+        attributed = {k: d["counting"]["system_associated_with_qari"]
+                      for k, d in self.docs.items()}
+        self.assertEqual(printed["duri"], "madani-first")
+        self.assertEqual(printed["susi"], "madani-first")
+        self.assertEqual(attributed["duri"], "basri")
+        self.assertEqual(attributed["susi"], "basri")
+        self.assertEqual({k for k, d in self.docs.items()
+                          if d["counting"]["differs_from_association"]},
+                         {"duri", "susi"})
+
+    def test_a_printed_count_names_the_release_it_was_measured_from(self):
+        # Printings of one muṣḥaf disagree with each other, so a printed count
+        # is only ever a statement about the package named here.  Dūrī is on a
+        # 2022 package while the other six are on 2026 v3.0 releases; a later
+        # KFGQPC release of it has to be measured again, not assumed.
+        years = {k: d["counting"]["measured_from"]["release_year"]
+                 for k, d in self.docs.items()}
+        self.assertEqual(years["duri"], 2022)
+        self.assertEqual({k for k, y in years.items() if y != 2026}, {"duri"})
+        self.assertEqual(self.docs["duri"]["counting"]["measured_from"]["package"],
+                         "UthmanicDouri_V20.zip")
+        for key, d in self.docs.items():
+            self.assertEqual(d["counting"]["measured_from"]["package"],
+                             d["provenance"]["text"]["package"], key)
+
+    def test_the_attribution_is_read_under_either_upstream_name(self):
+        # Upstream is renaming ``counting_system`` to
+        # ``counting_system_associated_with_qari`` for the same reason this
+        # split exists.  Re-vendoring across that rename must not change what
+        # is published here, and a record carrying neither name must fail
+        # loudly rather than lose an attribution.
+        self.assertEqual(attributed_system_id("abu-amr", {"counting_system": "basri"}), "basri")
+        self.assertEqual(
+            attributed_system_id("abu-amr", {"counting_system_associated_with_qari": "basri"}),
+            "basri")
+        self.assertEqual(
+            attributed_system_id("abu-amr", {"counting_system": "basri",
+                                             "counting_system_associated_with_qari": "basri"}),
+            "basri")
+        with self.assertRaises(ValueError):
+            attributed_system_id("abu-amr", {"name_en": "Abu Amr"})
 
     def test_duri_and_susi_part_company_at_67_9_only(self):
         d, s = self.docs["duri"]["counting"], self.docs["susi"]["counting"]
