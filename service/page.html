@@ -4,444 +4,683 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>quran-text · the Qurʾān, as a file your app can read</title>
+<meta name="description" content="Download the Qurʾān as text in seven riwāyāt, letter for letter as the King Fahd Complex prints it. No key, no sign-up.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Amiri+Quran&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Sans+Arabic:wght@400;500;600&family=Amiri+Quran&display=swap" rel="stylesheet">
 <style>
+  /* ============================================================
+     Quran.ws design system — "Modular Reverence".
+     Tokens are the ones in quran-ws/landing: forest ink on ivory,
+     borders are forest at low opacity and never new greys, gold is a
+     highlight and never a surface.
+     ============================================================ */
   :root {
-    --bg: #14140f; --panel: #1c1b15; --panel-2: #23221b; --line: #2e2c24; --line-2: #3a3830; --dot: #23221b; --ring: #1a1a14;
-    --fg: #e2ddcc; --w: #fffdf8; --dim: #aaa290; --faint: #7a7566; --arabic: #ece7d9;
-    --k: #9ed8bd; --k-bg: #1f2b25; --g: #1f8a5e; --g-2: #23996a; --s: #f0cf87; --gold: #b8892b; --gold-2: #c9973a; --err: #f0a08a;
-    --tip-bg: #ece7d9; --tip-fg: #14140f; --hl-letters: #55461f; --hl-vowels: #3b3320; --shadow: rgba(0, 0, 0, .8);
-    --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    --forest: #102F29;
+    --ivory:  #F8F5ED;
+    --teal:   #15705D;
+    --gold:   #D6AD64;
+    --mint:   #E3F0EA;
+    --slate:  #5A6963;
+    --white:  #FFFFFF;
+    --deep:   #0A1F1B;
+
+    --tint-06: rgba(16, 47, 41, .06);
+    --tint-08: rgba(16, 47, 41, .08);
+    --tint-12: rgba(16, 47, 41, .12);
+    --tint-20: rgba(16, 47, 41, .2);
+    --tint-25: rgba(16, 47, 41, .25);
+    --tint-30: rgba(16, 47, 41, .3);
+
+    --on-forest-85: rgba(248, 245, 237, .85);
+    --on-forest-75: rgba(248, 245, 237, .75);
+    --on-forest-50: rgba(248, 245, 237, .5);
+    --on-forest-25: rgba(248, 245, 237, .25);
+    --on-forest-08: rgba(248, 245, 237, .08);
+
+    --sans: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+    --arabic: "Noto Sans Arabic", Tahoma, Arial, sans-serif;
     --quran: "Amiri Quran", "Scheherazade New", "Noto Naskh Arabic", serif;
-    color-scheme: dark;
-  }
-  :root[data-theme=light], :root:not([data-theme=dark]).light-by-browser {
-    --bg: #f7f4ec; --panel: #fffdf8; --panel-2: #f0ece1; --line: #e2dccd; --line-2: #cfc7b3; --dot: #e9e4d6; --ring: #efeadf;
-    --fg: #2a2822; --w: #14140f; --dim: #6f6a5e; --faint: #9a9384; --arabic: #14140f;
-    --k: #0f6b4f; --k-bg: #e6f1ec; --g: #1f8a5e; --g-2: #187a52; --s: #8a6516; --gold: #b8892b; --gold-2: #a67a22; --err: #a02f1a;
-    --tip-bg: #1b1a16; --tip-fg: #fffdf8; --hl-letters: #fbe3a6; --hl-vowels: #f6ecd4; --shadow: rgba(27, 26, 22, .35);
+    --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+    --page: 1200px;
+    --gutter: 32px;
+    --radius: 6px;
+    --radius-sm: 4px;
     color-scheme: light;
   }
-  * { box-sizing: border-box; }
+
+  *, *::before, *::after { box-sizing: border-box; }
   [hidden] { display: none !important; }
-  html { scroll-behavior: smooth; }
-  body { margin: 0; background: var(--bg) radial-gradient(var(--dot) 1px, transparent 1px); background-size: 24px 24px; color: var(--fg); font: 16px/1.55 var(--mono); -webkit-font-smoothing: antialiased; }
-  a { color: var(--k); text-decoration: none; } a:hover { text-decoration: underline; }
-  .ar { font-family: var(--quran); direction: rtl; unicode-bidi: isolate; }
-  .dim { color: var(--dim); } .k { color: var(--k); } .s { color: var(--s); } .w { color: var(--w); } .err { color: var(--err); }
-  .wrap { padding: 0 56px; min-width: 0; max-width: 1600px; margin: 0 auto; }
-  main { display: block; overflow-x: clip; } @media (max-width: 900px) { .wrap { padding: 0 20px; } }
-  button, select, input { font: inherit; color: inherit; }
-  button { cursor: pointer; }
-  .ico { width: 18px; height: 18px; flex: 0 0 18px; }
+  html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+  /* the nav is sticky, so an anchor must not land under it */
+  :target, section[id], main[id], div[id] { scroll-margin-top: 84px; }
+  body {
+    margin: 0; padding-bottom: 84px; background: var(--ivory); color: var(--forest);
+    font-family: var(--sans); font-size: 16px; line-height: 1.6;
+    -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+  }
+  a { color: var(--teal); text-decoration: none; }
+  a:hover { color: var(--forest); }
+  h1, h2, h3 { margin: 0; font-weight: 600; letter-spacing: -.02em; text-wrap: pretty; }
+  p { margin: 0; }
+  button, input, select { font-family: inherit; }
+  :focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; border-radius: 2px; }
+  .ar { font-family: var(--arabic); line-height: 1.9; letter-spacing: 0; }
 
-  /* top bar */
-  .top { display: flex; align-items: center; justify-content: space-between; height: 64px; border-bottom: 1px solid var(--line); background: var(--bg); }
-  .top nav { display: flex; gap: 24px; font-size: 15px; align-items: center; } .top nav a { color: var(--dim); } .top nav a.w { color: var(--w); }
-  @media (max-width: 900px) { .top nav a:not(.w) { display: none; } .top nav { gap: 14px; } }
+  /* ---------- layout ---------- */
+  .wrap { max-width: var(--page); margin: 0 auto; padding-left: var(--gutter); padding-right: var(--gutter); }
+  .on-white { background: var(--white); }
+  .on-forest { background: var(--forest); color: var(--ivory); }
+  .rule-top { border-top: 1px solid var(--tint-12); }
+  .section { padding-top: 88px; padding-bottom: 88px; }
+  .stack { display: flex; flex-direction: column; }
+  .row { display: flex; align-items: center; }
+  .wrapflex { display: flex; flex-wrap: wrap; }
 
-  /* hero */
-  .hero { padding: 56px 0 24px; display: flex; flex-direction: column; gap: 22px; }
-  .eyebrow { font-size: 14px; letter-spacing: .1em; text-transform: uppercase; color: var(--dim); }
-  h1 { margin: 0; font-size: 52px; line-height: 1.1; font-weight: 500; color: var(--w); letter-spacing: -.015em; max-width: 900px; }
-  .lede { margin: 0; font-size: 20px; line-height: 1.6; max-width: 760px; color: var(--w); }
-  @media (max-width: 900px) { .hero { padding-top: 24px; } h1 { font-size: 34px; } .lede { font-size: 16px; } }
-  .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; }
-  .urlbox { padding: 20px 24px; display: flex; flex-direction: column; gap: 18px; border-color: var(--line-2); box-shadow: 0 0 0 6px var(--ring); }
-  .urlbox .url { min-width: 0; font-size: 22px; line-height: 1.4; word-break: break-all; }
-  .urlbox .url .cur { display: inline-block; width: 10px; height: 22px; background: var(--g-2); vertical-align: -4px; margin-left: 2px; animation: blink 1.1s steps(2) infinite; }
-  @keyframes blink { to { opacity: 0; } }
-  @media (max-width: 900px) { .urlbox { padding: 16px; } .urlbox .url { font-size: 16px; } }
-  .actions { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
-  .fontnote { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; padding: 12px 16px; border-radius: 8px; background: var(--k-bg); color: var(--fg); font-size: 15px; }
-  .fontnote .btn { height: 40px; padding: 0 14px; font-size: 14px; }
-  .fontnote b { color: var(--w); font-weight: 500; }
-  .actions .name { font-size: 15px; color: var(--dim); margin-left: auto; }
-  @media (max-width: 900px) { .actions .name { display: none; } .actions .btn { flex: 1 1 auto; } }
-  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; height: 48px; padding: 0 22px; border-radius: 8px; border: 1px solid var(--g); background: var(--g); color: #fffdf8; font-weight: 600; font-size: 16px; white-space: nowrap; }
-  .btn.xl { height: 60px; padding: 0 30px; font-size: 19px; border-radius: 10px; box-shadow: 0 8px 24px -10px rgba(31, 138, 94, .6); }
-  .btn.quiet { background: transparent; color: var(--fg); border-color: var(--line-2); }
-  .btn.gold { background: var(--gold); border-color: var(--gold); color: #fffdf8; } .btn.gold:hover { background: var(--gold-2); border-color: var(--gold-2); }
-  .btn.gold.quiet { background: transparent; color: var(--s); }
-  .btn:hover { background: var(--g-2); border-color: var(--g-2); } .btn.quiet:hover { background: var(--panel-2); border-color: var(--faint); }
-  .steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
-  .step { padding: 16px 18px; display: flex; gap: 14px; align-items: flex-start; }
-  .step { cursor: pointer; } .step:hover { border-color: var(--line-2); }
-  .step .n { color: var(--gold); font-size: 26px; line-height: 1; } .step .w { font-size: 17px; } .step small { display: block; color: var(--dim); font-size: 14px; margin-top: 2px; }
-  @media (max-width: 900px) { .steps { grid-template-columns: 1fr; } }
-  .raw { padding: 14px 18px; display: flex; align-items: center; gap: 16px; border-color: var(--line-2); flex-wrap: wrap; }
-  .raw .txt { flex: 1 1 320px; display: flex; flex-direction: column; gap: 2px; } .raw .w { font-size: 17px; } .raw small { color: var(--dim); font-size: 14px; }
-  .split { display: flex; align-items: stretch; }
-  .split select { appearance: none; -webkit-appearance: none; height: 48px; font-size: 16px; padding: 0 36px 0 14px; border: 1px solid var(--gold); border-radius: 8px 0 0 8px; background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23b8892b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") no-repeat right 12px center / 14px; color: var(--s); font-weight: 500; }
-  .split .btn { border-radius: 0 8px 8px 0; margin-left: -1px; }
+  /* ---------- type ---------- */
+  .display { font-size: clamp(38px, 5.4vw, 64px); line-height: 1.03; font-weight: 600; letter-spacing: -.03em; }
+  .section-title { font-size: clamp(28px, 3.4vw, 40px); line-height: 1.1; font-weight: 600; letter-spacing: -.025em; }
+  .h3 { font-size: 20px; line-height: 1.4; font-weight: 600; letter-spacing: -.015em; }
+  .lead { font-size: clamp(17px, 2vw, 21px); line-height: 1.55; color: var(--slate); max-width: 34em; }
+  .muted { color: var(--slate); }
+  .small { font-size: 14px; line-height: 1.55; color: var(--slate); }
+  .label { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; font-weight: 600; color: var(--slate); }
+  .label-teal { color: var(--teal); }
+  .mono { font-family: var(--mono); font-size: 13px; }
+  .eyebrow { display: flex; align-items: center; gap: 12px; font-size: 12px; letter-spacing: .14em;
+             text-transform: uppercase; font-weight: 600; color: var(--teal); }
+  .eyebrow::before { content: ""; width: 8px; height: 8px; flex: none; background: var(--gold); border-radius: 2px; }
 
-  /* options */
-  .build { display: grid; grid-template-columns: minmax(0, 1fr) 500px; gap: 40px; padding: 24px 0 64px; align-items: start; }
-  @media (max-width: 1100px) { .build { grid-template-columns: minmax(0, 1fr); } }
-  .rows, .row, .out { min-width: 0; }
-  .rows { display: flex; flex-direction: column; gap: 24px; }
-  .row { display: flex; gap: 16px; align-items: flex-start; }
-  .row[hidden] { display: none; }
-  .key { width: 190px; flex: 0 0 190px; padding-top: 10px; display: flex; align-items: center; gap: 8px; color: var(--w); font-size: 16px; font-weight: 500; }
-  .key small { font-weight: 400; color: var(--faint); font-size: 13px; }
-  @media (max-width: 900px) { .row { flex-direction: column; align-items: stretch; gap: 8px; } .key { width: auto; padding-top: 0; } }
-  .help { width: 16px; height: 16px; flex: 0 0 16px; color: var(--faint); position: relative; cursor: help; outline: none; }
-  .help svg { width: 16px; height: 16px; display: block; }
-  .help:hover, .help:focus { color: var(--k); }
-  .help::after { content: attr(data-tip); position: absolute; left: 0; top: 24px; width: 340px; background: var(--tip-bg); color: var(--tip-fg); border-radius: 8px; padding: 12px 14px; font-size: 14.5px; font-weight: 400; line-height: 1.5; z-index: 5; box-shadow: 0 12px 24px -12px var(--shadow); display: none; }
-  .help:hover::after, .help:focus::after { display: block; }
-  .pills { display: flex; flex-wrap: wrap; gap: 8px; flex: 1; min-width: 0; }
-  @media (max-width: 900px) { .pills { flex-wrap: nowrap; overflow-x: auto; margin: 0 -20px; padding: 2px 20px 4px; } }
-  .pill { display: inline-flex; align-items: center; gap: 8px; height: 46px; padding: 0 16px; font-size: 16px; border: 1px solid var(--line-2); border-radius: 6px; color: var(--fg); background: var(--panel); white-space: nowrap; cursor: pointer; user-select: none; }
-  .pill input { position: absolute; opacity: 0; width: 0; height: 0; }
-  .pill .ar { font-size: 20px; line-height: 1; } .pill .ar.s { color: var(--s); }
-  .pill .dim { font-size: 13px; }
-  .pill:has(input[type=radio]:checked) { background: var(--g); color: #fffdf8; border-color: var(--g); font-weight: 500; }
-  .pill:has(input[type=radio]:checked) .dim, .pill:has(input[type=radio]:checked) .ar.s { color: #fffdf8; opacity: .8; }
-  .pill:has(input[type=checkbox]:checked) { background: var(--k-bg); color: var(--k); border-color: var(--k); }
-  .pill:has(input:disabled) { opacity: .4; cursor: not-allowed; border-style: dashed; }
-  .pill.in { padding: 0; }
-  .pill.in input[type=text], .pill.in input[type=number] { position: static; opacity: 1; width: 200px; height: 44px; font-size: 16px; padding: 0 12px; border: 0; background: transparent; outline: none; }
-  .pill.in input::placeholder { color: var(--faint); }
-  @media (max-width: 900px) { .pill { height: 44px; } }
+  /* ---------- buttons ---------- */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    font-size: 15px; font-weight: 500; line-height: 1; padding: 14px 24px;
+    border-radius: var(--radius-sm); border: 1px solid transparent; cursor: pointer;
+    transition: background-color 120ms ease, border-color 120ms ease, color 120ms ease;
+  }
+  .btn-primary { background: var(--forest); border-color: var(--forest); color: var(--ivory); }
+  .btn-primary:hover { background: var(--teal); border-color: var(--teal); color: var(--ivory); }
+  .btn-secondary { background: transparent; border-color: var(--tint-25); color: var(--forest); }
+  .btn-secondary:hover { border-color: var(--forest); color: var(--forest); }
+  .btn-lg { padding: 17px 28px; font-size: 16px; }
+  .on-forest .btn-secondary { border-color: var(--on-forest-25); color: var(--ivory); }
+  .on-forest .btn-secondary:hover { border-color: var(--ivory); }
+  .ico { width: 18px; height: 18px; flex: none; }
 
-  /* output */
-  .out { position: sticky; top: 20px; display: flex; flex-direction: column; overflow: hidden; }
-  @media (max-width: 1100px) { .out { position: static; } }
-  .bar { display: flex; align-items: center; gap: 8px; height: 40px; padding: 0 16px; border-bottom: 1px solid var(--line); font-size: 13.5px; color: var(--dim); }
-  .out-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 18px; border-bottom: 1px solid var(--line); flex-wrap: wrap; }
-  .out-head .fn { font-size: 18px; color: var(--w); font-weight: 500; word-break: break-all; }
-  .theme { width: 40px; height: 40px; border-radius: 8px; border: 1px solid var(--line); background: transparent; display: inline-flex; align-items: center; justify-content: center; color: var(--dim); }
-  .theme:hover { color: var(--w); border-color: var(--line-2); }
-  .theme .sun { display: none; } :root[data-theme=light] .theme .sun, :root:not([data-theme=dark]).light-by-browser .theme .sun { display: block; }
-  :root[data-theme=light] .theme .moon, :root:not([data-theme=dark]).light-by-browser .theme .moon { display: none; }
-  .out-head small { display: block; color: var(--dim); font-size: 13.5px; }
-  .dot { width: 10px; height: 10px; border-radius: 999px; background: var(--line-2); }
-  .hdrs { padding: 14px 18px; font-size: 14px; line-height: 1.8; color: var(--dim); word-break: break-all; }
-  .tabs { display: flex; padding: 0 8px; border-bottom: 1px solid var(--line); overflow-x: auto; }
-  .tabs button { height: 44px; padding: 0 14px; background: none; border: 0; border-bottom: 2px solid transparent; color: var(--dim); font-size: 15px; white-space: nowrap; cursor: pointer; }
-  .tabs button[aria-selected=true] { color: var(--w); border-bottom-color: var(--g-2); }
-  .body { padding: 14px 18px; min-height: 200px; max-height: 520px; overflow: auto; }
-  .preview { font-family: var(--edition-font, var(--quran)), var(--quran); font-size: 21px; line-height: 2; unicode-bidi: plaintext; white-space: pre-wrap; }
-  .preview.code, .snippet { font-family: var(--mono); font-size: 14px; line-height: 1.65; white-space: pre; }
-  .preview .hdr { font-family: var(--mono); font-size: 13px; line-height: 1.5; color: var(--dim); direction: ltr; unicode-bidi: isolate; border-bottom: 1px dashed var(--line-2); margin-bottom: 8px; padding-bottom: 6px; white-space: pre-wrap; }
-  .preview .line { display: flex; gap: 14px; align-items: baseline; direction: ltr; }
-  .preview .line .n { font-family: var(--mono); font-size: 14px; color: var(--dim); flex: 0 0 auto; }
-  .preview .line .t { flex: 1; text-align: right; direction: rtl; color: var(--arabic); }
-  .tbl { font-family: var(--mono); font-size: 14px; direction: ltr; unicode-bidi: isolate; white-space: normal; border-collapse: collapse; width: 100%; line-height: 1.4; }
-  .tbl th { text-align: left; font-weight: 400; color: var(--dim); padding: 6px 8px; border-bottom: 1px solid var(--line); position: sticky; top: 0; background: var(--panel); }
-  .tbl td { padding: 6px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
-  .tbl td.ar { font-family: var(--edition-font, var(--quran)), var(--quran); font-size: 19px; line-height: 1.8; direction: rtl; text-align: right; min-width: 240px; color: var(--arabic); }
-  .tbl td.num { color: var(--dim); white-space: nowrap; }
-  .foot { padding: 12px 18px; border-top: 1px solid var(--line); font-size: 13.5px; color: var(--dim); }
+  /* ---------- nav ---------- */
+  .nav {
+    position: sticky; top: 0; z-index: 20; background: rgba(248, 245, 237, .9);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--tint-12);
+  }
+  .nav-inner { padding: 16px 0; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+  .nav-links { display: flex; align-items: center; gap: 26px; font-size: 15px; flex-wrap: wrap; }
+  .nav-links a { color: var(--slate); }
+  .nav-links a:hover { color: var(--forest); }
+  .nav-gh { padding: 9px 16px; border: 1px solid var(--tint-20); border-radius: var(--radius-sm); color: var(--forest) !important; font-weight: 500; }
+  .nav-gh:hover { border-color: var(--forest); background: var(--tint-06); }
 
-  /* sections */
-  section { padding: 56px 0; border-top: 1px solid var(--line); }
-  .h { font-size: 15px; letter-spacing: .1em; text-transform: uppercase; color: var(--dim); margin: 0; }
-  .h::before { content: "# "; color: var(--faint); }
-  .two { display: grid; grid-template-columns: 360px minmax(0, 1fr); gap: 48px; align-items: start; }
-  @media (max-width: 1100px) { .two { grid-template-columns: minmax(0, 1fr); gap: 24px; } }
-  .big { font-size: 32px; line-height: 1.25; font-weight: 500; color: var(--w); }
-  @media (max-width: 900px) { .big { font-size: 22px; } }
-  .code { padding: 18px 22px; white-space: pre; font-size: 14px; line-height: 1.7; overflow-x: auto; }
-  .code .ar { font-size: 16px; color: var(--arabic); }
-  .grid2 { display: grid; grid-template-columns: minmax(0, 1fr) 380px; gap: 16px; align-items: start; }
-  @media (max-width: 1100px) { .grid2 { grid-template-columns: minmax(0, 1fr); } }
-  table.list { width: 100%; border-collapse: collapse; font-size: 15px; }
-  table.list th { text-align: left; font-weight: 400; color: var(--dim); font-size: 12px; padding: 8px 12px; border-bottom: 1px solid var(--line); white-space: nowrap; }
-  table.list td { padding: 10px 12px; border-bottom: 1px solid var(--panel-2); vertical-align: middle; }
-  table.list td .ar { font-size: 20px; color: var(--arabic); }
+  /* ---------- cards ---------- */
+  .card { background: var(--white); border: 1px solid var(--tint-12); border-radius: var(--radius); }
+  .callout { background: var(--mint); border-radius: var(--radius); padding: 16px 20px; font-size: 15px; line-height: 1.6; }
+
+  /* ---------- the download card ---------- */
+  .builder { margin-top: 44px; }
+  .pick { padding: 26px 28px; border-bottom: 1px solid var(--tint-08); display: grid; grid-template-columns: 132px minmax(0, 1fr); gap: 20px; align-items: start; }
+  .pick:last-of-type { border-bottom: 0; }
+  .pick-key { padding-top: 7px; }
+  .pick-key b { display: block; font-size: 15px; font-weight: 600; }
+  .pick-key small { display: block; font-family: var(--mono); font-size: 12px; color: var(--slate); margin-top: 2px; }
+  .opts { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .opt {
+    display: inline-flex; align-items: center; gap: 7px; cursor: pointer; user-select: none;
+    font-size: 14.5px; padding: 9px 14px; border: 1px solid var(--tint-20);
+    border-radius: var(--radius-sm); background: var(--white); color: var(--forest);
+    transition: border-color 120ms ease, background-color 120ms ease, color 120ms ease;
+  }
+  .opt:hover { border-color: var(--tint-30); }
+  .opt:has(input:focus-visible) { outline: 2px solid var(--teal); outline-offset: 2px; }
+  .opt input { position: absolute; opacity: 0; pointer-events: none; }
+  .opt:has(input:checked) { background: var(--forest); border-color: var(--forest); color: var(--ivory); }
+  .opt:has(input:checked) .dim { color: var(--on-forest-50); }
+  .opt:has(input:disabled) { opacity: .4; cursor: not-allowed; }
+  .opt .dim { color: var(--slate); font-size: 13px; }
+  .opt .ar { font-size: 17px; }
+  .opt-in { padding: 0; border-color: var(--tint-30); }
+  .opt-in input[type=text], .opt-in input[type=number] {
+    position: static; opacity: 1; pointer-events: auto; width: 190px;
+    border: 0; background: transparent; color: var(--forest);
+    font-size: 14.5px; padding: 9px 14px; border-radius: var(--radius-sm);
+  }
+  .opt-in input:focus { outline: none; }
+  .opt-in:focus-within { border-color: var(--teal); box-shadow: 0 0 0 3px rgba(21, 112, 93, .15); }
+  .hint { font-size: 13.5px; line-height: 1.5; color: var(--slate); margin-top: 8px; }
+
+  /* the URL strip and its actions */
+  .go { background: var(--ivory); border-top: 1px solid var(--tint-12); padding: 22px 28px; display: flex; flex-direction: column; gap: 16px; }
+  .urlbar {
+    display: block; background: var(--forest); color: var(--on-forest-85);
+    border-radius: var(--radius-sm); padding: 13px 15px; font-family: var(--mono); font-size: 12.5px;
+    overflow-x: auto; white-space: nowrap;
+  }
+  .urlbar .k { color: var(--gold); }
+  .urlbar .v { color: var(--white); }
+  .urlbar .p { color: var(--on-forest-50); }
+  .go-actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+  .go-note { font-size: 13.5px; color: var(--slate); }
+  .fontnote { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; font-size: 14px; line-height: 1.55; }
+  .fontnote b { font-weight: 600; }
+
+  /* the customize drawer */
+  .more { border-top: 1px solid var(--tint-12); }
+  .more-toggle {
+    width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    padding: 18px 28px; background: transparent; border: 0; cursor: pointer;
+    font-size: 15px; font-weight: 500; color: var(--forest); text-align: left;
+  }
+  .more-toggle:hover { background: var(--tint-06); }
+  .more-toggle .chev { transition: transform 150ms ease; }
+  .more-toggle[aria-expanded=true] .chev { transform: rotate(180deg); }
+  .more-body { border-top: 1px solid var(--tint-08); background: var(--ivory); }
+  .more-body .pick { border-bottom: 1px solid var(--tint-08); grid-template-columns: 176px minmax(0, 1fr); }
+  .more-body .opt { background: var(--white); }
+  .more-body .opt:has(input:checked) { background: var(--forest); }
+  .more-foot { padding: 16px 28px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; align-items: center; }
+
+  /* ---------- preview ---------- */
+  .out { margin-top: 24px; overflow: hidden; }
+  .out-head { padding: 16px 22px; border-bottom: 1px solid var(--tint-12); display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap; }
+  .out-name { font-family: var(--mono); font-size: 13.5px; font-weight: 500; }
+  .tabs { display: flex; gap: 4px; padding: 12px 22px 0; flex-wrap: wrap; align-items: center; }
+  .tabs button {
+    font-size: 13.5px; font-weight: 500; padding: 8px 12px; border: 0; border-radius: var(--radius-sm);
+    background: transparent; color: var(--slate); cursor: pointer;
+  }
+  .tabs button:hover { background: var(--tint-06); color: var(--forest); }
+  .tabs button[aria-selected=true] { background: var(--mint); color: var(--teal); }
+  .tabs select { font-size: 13.5px; padding: 7px 10px; border: 1px solid var(--tint-20); border-radius: var(--radius-sm); background: var(--white); color: var(--forest); }
+  .out-body { padding: 18px 22px 22px; max-height: 460px; overflow: auto; }
+  .preview { font-size: 15px; line-height: 1.85; }
+  .preview.code, .snippet { font-family: var(--mono); font-size: 12.5px; line-height: 1.8; white-space: pre; }
+  .preview .hdr {
+    font-family: var(--mono); font-size: 12px; line-height: 1.7; color: var(--slate);
+    background: var(--ivory); border-radius: var(--radius-sm); padding: 12px 14px; margin-bottom: 14px; white-space: pre-wrap;
+  }
+  .line { display: flex; gap: 14px; align-items: baseline; padding: 3px 0; border-bottom: 1px solid var(--tint-06); }
+  .line .n { font-family: var(--mono); font-size: 12px; color: var(--slate); flex: none; min-width: 68px; }
+  .line .t { flex: 1; text-align: right; direction: rtl; font-family: var(--edition-font, var(--quran)), var(--quran); font-size: 21px; line-height: 2.1; }
+  .tbl { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+  .tbl th { text-align: left; font-weight: 600; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--slate); padding: 8px 10px; border-bottom: 1px solid var(--tint-12); white-space: nowrap; }
+  .tbl td { padding: 7px 10px; border-bottom: 1px solid var(--tint-06); vertical-align: middle; }
+  .tbl td.ar { font-family: var(--edition-font, var(--quran)), var(--quran); font-size: 19px; direction: rtl; text-align: right; }
+  .tbl td.num { font-family: var(--mono); font-size: 12px; color: var(--slate); }
+  .err { color: #A02F1A; }
+  .out-foot { padding: 14px 22px; border-top: 1px solid var(--tint-08); font-size: 13.5px; color: var(--slate); display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+
+  /* ---------- tables ---------- */
   .scroll { overflow-x: auto; }
-  .cmp { display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 0 20px; align-items: baseline; padding: 8px 22px; }
-  .cmp > div { padding: 10px 0; border-bottom: 1px solid var(--panel-2); }
-  .cmp .txt { font-size: 24px; line-height: 2; direction: rtl; text-align: right; color: var(--arabic); }
-  .cmp .letters { background: var(--hl-letters); border-radius: 3px; padding: 0 3px; }
-  .cmp .vowels { background: var(--hl-vowels); border-radius: 3px; padding: 0 3px; }
-  .cmp .notation { border-bottom: 1px dotted var(--dim); }
-  .sw { display: inline-block; width: 12px; height: 12px; border-radius: 3px; vertical-align: -1px; margin-right: 5px; }
-  @media (max-width: 900px) { .cmp { grid-template-columns: 1fr; padding: 8px 16px; } .cmp .txt { font-size: 21px; } }
-  .field { display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 12px; border: 1px solid var(--line-2); border-radius: 6px; background: var(--panel); }
-  .field select, .field input { background: transparent; border: 0; outline: none; height: 38px; }
-  .field select { appearance: none; -webkit-appearance: none; padding-right: 18px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238d8674' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") no-repeat right center / 14px; }
-  .field select option { background: var(--panel); }
-  .ls { padding: 14px 22px; font-size: 14.5px; line-height: 2.1; white-space: nowrap; overflow-x: auto; }
-  .ls a { display: inline-block; min-width: 26ch; }
-  .ls .sz { display: inline-block; width: 9ch; text-align: right; margin-right: 2ch; color: var(--dim); }
-  .ls .hash { color: var(--faint); margin-right: 2ch; }
-  footer { padding: 24px 0 40px; border-top: 1px solid var(--line); font-size: 14px; line-height: 1.7; color: var(--dim); display: flex; justify-content: space-between; gap: 48px; flex-wrap: wrap; }
+  .list { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+  .list th { text-align: left; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; font-weight: 600; color: var(--slate); padding: 14px 16px; border-bottom: 1px solid var(--tint-12); white-space: nowrap; }
+  .list td { padding: 13px 16px; border-bottom: 1px solid var(--tint-06); white-space: nowrap; }
+  .list tr:last-child td { border-bottom: 0; }
+  .list .keycell { font-family: var(--mono); font-size: 12.5px; color: var(--teal); }
+  .list .ar { font-size: 19px; }
 
-  /* phone bottom bar */
-  .dock { display: none; }
-  @media (max-width: 1100px) {
-    body { padding-bottom: 92px; }
-    .dock { display: flex; position: fixed; left: 0; right: 0; bottom: 0; padding: 12px 16px calc(12px + env(safe-area-inset-bottom)); background: var(--panel); border-top: 1px solid var(--line); align-items: center; gap: 10px; z-index: 10; }
-    .dock .info { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
-    .dock .info span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .dock .btn { height: 48px; }
+  /* ---------- code blocks ---------- */
+  .code {
+    font-family: var(--mono); font-size: 12.5px; line-height: 1.9; border-radius: var(--radius);
+    padding: 20px 22px; overflow-x: auto; white-space: pre; background: var(--forest); color: var(--ivory);
+  }
+  .code .k { color: var(--gold); }
+  .code .s { color: #9ED8BD; }
+  .code .cm { color: var(--on-forest-50); }
+  .code .ar { font-size: 15px; }
+  .codehead { padding: 12px 22px; border-bottom: 1px solid var(--on-forest-08); font-family: var(--mono); font-size: 12px; color: var(--on-forest-50); display: flex; justify-content: space-between; gap: 12px; }
+
+  /* ---------- compare ---------- */
+  .cmp { display: grid; grid-template-columns: 190px minmax(0, 1fr); }
+  .cmp > div { padding: 16px 20px; border-bottom: 1px solid var(--on-forest-08); }
+  .cmp > div:nth-last-child(-n+2) { border-bottom: 0; }
+  .cmp .txt { direction: rtl; text-align: right; font-size: 26px; line-height: 2.3; font-family: var(--quran); }
+  .cmp .letters { background: rgba(214, 173, 100, .28); border-radius: 3px; box-shadow: 0 0 0 2px rgba(214, 173, 100, .28); }
+  .cmp .vowels { background: rgba(248, 245, 237, .07); border-radius: 3px; }
+  .cmp .notation { border-bottom: 1px dotted var(--on-forest-50); }
+  .sw { display: inline-block; width: 14px; height: 12px; border-radius: 2px; vertical-align: -1px; margin-right: 5px; }
+
+  /* ---------- files ---------- */
+  .ls { display: grid; grid-template-columns: 90px minmax(220px, auto) 120px minmax(0, 1fr); gap: 0 16px; font-size: 13.5px; }
+  .ls > * { padding: 9px 0; border-bottom: 1px solid var(--tint-06); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .ls .sz { font-family: var(--mono); font-size: 12px; color: var(--slate); text-align: right; }
+  .ls a { font-family: var(--mono); font-size: 12.5px; }
+  .ls .hash { font-family: var(--mono); font-size: 12px; color: var(--slate); }
+  .ls .what { color: var(--slate); }
+
+  details.plain > summary { cursor: pointer; font-size: 15px; font-weight: 500; list-style: none; display: flex; align-items: center; gap: 8px; }
+  details.plain > summary::-webkit-details-marker { display: none; }
+  details.plain > summary .chev { transition: transform 150ms ease; }
+  details.plain[open] > summary .chev { transform: rotate(180deg); }
+
+  .field { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; color: var(--slate); }
+  .field select, .field input {
+    font-size: 14px; padding: 8px 10px; border: 1px solid var(--tint-20);
+    border-radius: var(--radius-sm); background: var(--white); color: var(--forest);
+  }
+  .field select:focus, .field input:focus { outline: none; border-color: var(--teal); box-shadow: 0 0 0 3px rgba(21, 112, 93, .15); }
+
+  .grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; align-items: start; }
+
+  footer.page { border-top: 1px solid var(--tint-12); background: var(--white); }
+  footer.page .inner { padding: 40px 0; display: flex; flex-wrap: wrap; gap: 20px 40px; justify-content: space-between; font-size: 13.5px; color: var(--slate); }
+
+  @media (max-width: 760px) {
+    :root { --gutter: 20px; }
+    .section { padding-top: 60px; padding-bottom: 60px; }
+    .pick, .more-body .pick { grid-template-columns: 1fr; gap: 12px; padding: 20px; }
+    .pick-key { padding-top: 0; }
+    .go, .more-toggle, .more-foot, .out-head, .out-body, .tabs { padding-left: 20px; padding-right: 20px; }
+    .cmp { grid-template-columns: 1fr; }
+    .cmp > div { border-bottom: 1px solid var(--on-forest-08); }
+    .ls { grid-template-columns: 80px minmax(0, 1fr); }
+    .ls .hash, .ls .what { display: none; }
+    .opt-in input[type=text], .opt-in input[type=number] { width: 150px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
   }
 </style>
 </head>
 <body>
-<script>
-(function () {
-  const root = document.documentElement, mq = matchMedia("(prefers-color-scheme: light)");
-  const apply = () => { let t = null; try { t = localStorage.getItem("theme"); } catch (e) {}
-    if (t === "light" || t === "dark") root.dataset.theme = t; else delete root.dataset.theme;
-    root.classList.toggle("light-by-browser", mq.matches); };
-  apply(); mq.addEventListener("change", apply);
-  addEventListener("DOMContentLoaded", () => document.getElementById("theme").addEventListener("click", () => {
-    const light = root.dataset.theme === "light" || (!root.dataset.theme && mq.matches);
-    try { localStorage.setItem("theme", light ? "dark" : "light"); } catch (e) {}
-    apply();
-  }));
-})();
-</script>
-<header class="top wrap">
-  <div style="display:flex;align-items:center;gap:12px"><span class="w" style="font-weight:600;font-size:16px">quran-text</span><span class="dim">7 riwāyāt · KFGQPC</span></div>
-  <nav><a href="#raw">raw json</a><a href="/docs">API reference</a><a href="#editions-section">the seven</a><a href="#fonts">fonts</a><a href="#files">files</a><a href="https://github.com/quran-ws/quran-text/tree/main/lib">lib/</a><a class="w" href="https://github.com/quran-ws/quran-text">github</a><button class="theme" id="theme" type="button" title="light / dark" aria-label="switch light and dark mode"><svg class="moon ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path></svg><svg class="sun ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4m11.4-11.4 1.4-1.4"></path></svg></button></nav>
+
+<nav class="nav">
+  <div class="wrap nav-inner">
+    <a class="row" style="gap:10px;color:var(--forest)" href="https://quran.ws" aria-label="Quran.ws home">
+      <svg width="26" height="26" viewBox="0 0 200 200" fill="currentColor" stroke="currentColor" stroke-width="8" stroke-linejoin="round" aria-hidden="true">
+        <g><polygon points="107,50 152,33.1 152,57.1 108.5,74"></polygon><polygon points="109.4,88 172,64.6 172,92.6 111.1,116"></polygon><polygon points="112,130 192,100.1 192,132.1 114,162"></polygon></g>
+        <g transform="translate(200 0) scale(-1 1)"><polygon points="107,50 152,33.1 152,57.1 108.5,74"></polygon><polygon points="109.4,88 172,64.6 172,92.6 111.1,116"></polygon><polygon points="112,130 192,100.1 192,132.1 114,162"></polygon></g>
+      </svg>
+      <span style="font-size:19px;font-weight:600;letter-spacing:-.03em">Quran.ws</span>
+      <span style="color:var(--tint-30)">/</span>
+      <span style="font-size:16px;font-weight:500;color:var(--slate)">Quran Text</span>
+    </a>
+    <div class="nav-links">
+      <a href="#editions-section">The seven</a>
+      <a href="#compare">Compare</a>
+      <a href="#bigger">Whole file</a>
+      <a href="/docs">API reference</a>
+      <a class="nav-gh" href="https://github.com/quran-ws/quran-text">GitHub</a>
+    </div>
+  </div>
+</nav>
+
+<header class="wrap" style="padding-top:80px;padding-bottom:24px">
+  <div class="eyebrow"><span>Open source · no key, no sign-up</span></div>
+  <h1 class="display" style="margin-top:24px;max-width:15em">The Qurʾān, as a file your app can read.</h1>
+  <p class="lead" style="margin-top:24px">
+    Seven riwāyāt, letter for letter as the King Fahd Complex prints them.
+    Pick a riwāyah and a format, and the URL you get is the file — the same bytes, forever.
+  </p>
 </header>
 
-<main class="wrap">
-  <div class="hero">
-    <div class="eyebrow">Qurʾān text for developers</div>
-    <h1>The Qurʾān, as a file your app can read.</h1>
-    <p class="lede">Seven riwāyāt, letter for letter as the King Fahd Complex prints them. Choose the shape, copy the URL, done.</p>
-    <p class="dim" style="margin:-10px 0 0;font-size:15px;max-width:760px">A riwāyah is one canonical qiraah of the Qurʾān; Ḥafṣ is the one in most printed copies. The King Fahd Complex (KFGQPC) is the reference printer, and its text is used here unchanged.</p>
+<main class="wrap" style="padding-bottom:88px">
 
-    <div class="panel urlbox">
-      <div class="url" id="url-view"></div>
-      <div class="actions">
-        <a class="btn xl" id="download" href="/download?edition=hafs&amp;format=txt"><svg class="ico" style="width:22px;height:22px;flex:0 0 22px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 5-5m-5 5-5-5M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"></path></svg>Download <span id="download-name">quran-hafs-rasm_uthmani.txt</span></a>
-        <button class="btn quiet" id="copy-url" type="button" style="height:60px"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg>Copy URL</button>
-        <button class="btn quiet" id="copy-curl" type="button" style="height:60px" title="copy a curl command for this file">Copy curl</button>
-        <span class="name">Same URL, same bytes, forever. No key, no sign-up.</span>
+  <form id="form" class="card builder" onsubmit="return false">
+    <div class="pick">
+      <div class="pick-key"><b>Riwāyah</b><small>edition</small></div>
+      <div>
+        <div class="opts" id="editions" style="min-height:40px"></div>
+        <div class="hint" id="edition-note">Not sure which? Ḥafṣ — it is what most of the world reads.</div>
       </div>
-      <div class="fontnote"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16M6 16 12 4l6 12M8.5 11h7"></path></svg><span>Needs the font <b class="font-family">KFGQPC HAFS Uthmanic Script</b>. Other Arabic fonts show gaps for some letters. Ship it with the text.</span><a class="btn quiet font-link" href="/files/fonts/UthmanicHafs-v-3.0.ttf" download><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 5-5m-5 5-5-5M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"></path></svg>Font .ttf <span class="font-size dim"></span></a></div>
     </div>
 
-    <div class="steps">
-      <div class="panel step"><span class="n">1</span><div><span class="w">Pick a riwāyah</span><small>Not sure? Ḥafṣ. It is what most of the world reads.</small></div></div>
-      <div class="panel step"><span class="n">2</span><div><span class="w">Shape the file</span><small>Scope, rows, marks, format. Each option rewrites the URL.</small></div></div>
-      <div class="panel step"><span class="n">3</span><div><span class="w">Copy the URL</span><small>It is the file, forever. No key, no sign-up.</small></div></div>
+    <div class="pick">
+      <div class="pick-key"><b>Format</b><small>format</small></div>
+      <div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="format" value="txt" checked>txt</label>
+          <label class="opt"><input type="radio" name="format" value="json">json</label>
+          <label class="opt"><input type="radio" name="format" value="csv">csv</label>
+          <label class="opt"><input type="radio" name="format" value="xml">xml</label>
+          <label class="opt"><input type="radio" name="format" value="sql">sql</label>
+          <label class="opt"><input type="radio" name="format" value="md">md</label>
+        </div>
+        <div class="hint">One āyah per line (txt), a flat array (json), a table (csv), Tanzil-compatible (xml), CREATE TABLE and INSERTs (sql), or readable Markdown.</div>
+      </div>
     </div>
 
+    <div class="pick">
+      <div class="pick-key"><b>How much</b><small>scope</small></div>
+      <div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="scope" value="all" checked>whole Qurʾān</label>
+          <label class="opt"><input type="radio" name="scope" value="surah">sūrah</label>
+          <label class="opt" id="lbl-juz-scope"><input type="radio" name="scope" value="juz">juz</label>
+          <label class="opt"><input type="radio" name="scope" value="page">page</label>
+          <label class="opt"><input type="radio" name="scope" value="ayah">āyah</label>
+          <label class="opt opt-in" data-scope="surah" hidden><input type="text" name="surah" placeholder="2 or 2-3" inputmode="numeric" aria-label="sūrah"></label>
+          <label class="opt opt-in" data-scope="juz" hidden><input type="number" name="juz" min="1" max="30" placeholder="1-30" aria-label="juz"></label>
+          <label class="opt opt-in" data-scope="page" hidden><input type="text" name="page" placeholder="3 or 1-10" inputmode="numeric" aria-label="page"></label>
+          <label class="opt opt-in" data-scope="ayah" hidden><input type="text" name="ayah" placeholder="2:255 or 2:255-2:286" aria-label="āyah"></label>
+        </div>
+        <div class="hint">In this riwāyah's own count: 2:255 in Ḥafṣ is 2:253-254 in Warsh.</div>
+      </div>
+    </div>
+
+    <div class="more">
+      <button class="more-toggle" type="button" id="more-toggle" aria-expanded="false" aria-controls="more-body">
+        <span class="row" style="gap:10px">
+          <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"></path><circle cx="16" cy="7" r="2"></circle><circle cx="10" cy="17" r="2"></circle></svg>
+          Customize your download
+          <span class="small" id="more-count"></span>
+        </span>
+        <svg class="ico chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"></path></svg>
+      </button>
+
+      <div class="more-body" id="more-body" hidden>
+        <div class="pick">
+          <div class="pick-key"><b>One row per</b><small>by</small></div>
+          <div>
+            <div class="opts">
+              <label class="opt"><input type="radio" name="by" value="ayah" checked>āyah</label>
+              <label class="opt"><input type="radio" name="by" value="word">printed word</label>
+            </div>
+            <div class="hint">Per word adds the position and the word number shared by all seven riwāyāt — attach translations, grammar or audio to it once and it is attached in all seven.</div>
+          </div>
+        </div>
+
+        <div class="pick" id="signs-row" hidden>
+          <div class="pick-key"><b>Signs per word</b><small>signs</small></div>
+          <div>
+            <div class="opts">
+              <label class="opt"><input type="radio" name="signs" value="columns" checked>in their own columns</label>
+              <label class="opt"><input type="radio" name="signs" value="attached">attached to the word</label>
+            </div>
+            <div class="hint">The waqf marks, ۩ and ۞ in their own columns with the word bare, or printed on the word as the muṣḥaf does.</div>
+          </div>
+        </div>
+
+        <div class="pick">
+          <div class="pick-key"><b>Spelling</b><small>text</small></div>
+          <div>
+            <div class="opts">
+              <label class="opt"><input type="checkbox" name="text" value="rasm_uthmani" checked>as printed <span class="dim">rasm_uthmani</span></label>
+              <label class="opt" id="lbl-rasm_imlai"><input type="checkbox" name="text" value="rasm_imlai">modern spelling <span class="dim">rasm_imlai · Ḥafṣ only</span></label>
+              <label class="opt"><input type="checkbox" name="text" value="plain">no harakah <span class="dim">plain · for search</span></label>
+            </div>
+            <div class="hint">Pick more than one and each becomes its own column.</div>
+          </div>
+        </div>
+
+        <div class="pick">
+          <div class="pick-key"><b>Marks</b><small>waqf · sajdah · division</small></div>
+          <div>
+            <div class="opts">
+              <label class="opt" id="lbl-waqf"><input type="checkbox" name="waqf" checked>waqf marks <span class="ar">ۖ ۗ ۚ</span></label>
+              <label class="opt"><input type="checkbox" name="sajdah" checked>sajdah <span class="ar">۩</span></label>
+              <label class="opt"><input type="checkbox" name="division" checked>quarter-ḥizb <span class="ar">۞</span></label>
+            </div>
+            <div class="hint">Kept as the release prints them unless you drop them here.</div>
+          </div>
+        </div>
+
+        <div class="pick">
+          <div class="pick-key"><b>Āyah marker</b><small>markers</small></div>
+          <div>
+            <div class="opts">
+              <label class="opt"><input type="radio" name="markers" value="none" checked>none <span class="dim">number in its own column</span></label>
+              <label class="opt"><input type="radio" name="markers" value="sign">sign <span class="ar">۝٢٥٥</span></label>
+              <label class="opt"><input type="radio" name="markers" value="brackets">brackets <span class="ar">﴿٢٥٥﴾</span></label>
+              <label class="opt"><input type="radio" name="markers" value="latin">latin (255)</label>
+            </div>
+            <div class="hint">What ends each āyah inside the text itself.</div>
+          </div>
+        </div>
+
+        <div class="pick">
+          <div class="pick-key"><b>Extra columns</b><small>fields</small></div>
+          <div>
+            <div class="opts">
+              <label class="opt"><input type="checkbox" name="f" value="page">page</label>
+              <label class="opt"><input type="checkbox" name="f" value="line">line</label>
+              <label class="opt" id="lbl-juz"><input type="checkbox" name="f" value="juz">juz</label>
+              <label class="opt" id="lbl-hafs"><input type="checkbox" name="f" value="hafs">Ḥafṣ āyah <span class="dim">and how the two relate</span></label>
+            </div>
+            <div class="hint">For csv, json, xml and sql. Every file already carries sūrah and āyah.</div>
+          </div>
+        </div>
+
+        <div class="pick">
+          <div class="pick-key"><b>Layout</b><small>lines · pages</small></div>
+          <div>
+            <div class="opts">
+              <label class="opt"><input type="checkbox" name="lines">break lines as printed</label>
+              <label class="opt"><input type="checkbox" name="pages">heading at each page</label>
+              <label class="opt" data-for="txt"><input type="checkbox" name="prefix" checked><span class="dim">surah|ayah|</span> before each line</label>
+              <label class="opt" data-for="json"><input type="checkbox" name="nested">nest sūrah → āyāt</label>
+              <label class="opt"><input type="checkbox" name="header" checked>provenance header</label>
+            </div>
+            <div class="hint">The header names the KFGQPC package the text was read from and its SHA-256.</div>
+          </div>
+        </div>
+
+        <div class="more-foot">
+          <span class="small">Every option is a query parameter — the URL above is the whole record of what you chose.</span>
+          <button class="btn btn-secondary" type="button" id="reset" style="padding:10px 16px;font-size:14px">Reset to defaults</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="go">
+      <div class="urlbar" id="url-view"></div>
+      <div class="go-actions">
+        <a class="btn btn-primary btn-lg" id="download" href="/download?edition=hafs&amp;format=txt">
+          <svg class="ico" style="width:20px;height:20px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 5-5m-5 5-5-5M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"></path></svg>
+          Download <span id="download-name">quran-hafs-rasm_uthmani.txt</span>
+        </a>
+        <button class="btn btn-secondary btn-lg" id="copy-url" type="button">
+          <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg>
+          Copy URL
+        </button>
+        <button class="btn btn-secondary btn-lg" id="copy-curl" type="button" title="copy a curl command for this file and its font">Copy curl</button>
+      </div>
+      <div class="fontnote">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16M6 16 12 4l6 12M8.5 11h7"></path></svg>
+        <span>Set it in <b class="font-family">KFGQPC HAFS Uthmanic Script</b> — other Arabic fonts show gaps for some letters. Ship the font with the text.</span>
+        <a class="btn btn-secondary font-link" href="/files/fonts/UthmanicHafs-v-3.0.ttf" download style="padding:9px 14px;font-size:14px">Font .ttf <span class="font-size muted"></span></a>
+      </div>
+    </div>
+  </form>
+
+  <div class="card out" id="out">
+    <div class="out-head">
+      <div>
+        <div class="out-name" id="out-name">quran-hafs-rasm_uthmani.txt</div>
+        <div class="small" id="out-title">the first rows, exactly as the file has them</div>
+      </div>
+      <span class="small mono" id="out-status" role="status" aria-live="polite">loading…</span>
+    </div>
+    <div class="tabs" id="tabs"></div>
+    <div class="out-body">
+      <div class="preview" id="preview"><span class="small">reading the dataset…</span></div>
+      <div class="snippet" id="hdrs" hidden></div>
+      <div class="snippet" id="snippet" hidden></div>
+    </div>
+    <div class="out-foot">
+      <span>Needs the font <b class="font-family" style="color:var(--forest);font-weight:600">KFGQPC HAFS Uthmanic Script</b>.</span>
+      <a class="font-link" href="/files/fonts/UthmanicHafs-v-3.0.ttf" download>download .ttf</a>
+    </div>
   </div>
+</main>
 
-  <div class="build">
-    <form id="form" class="rows" onsubmit="return false">
-      <div class="row">
-        <div class="key">Riwāyah<small>edition</small><span class="help" tabindex="0" data-tip="Which riwāyah. Each is its own printed muṣḥaf: its own words, spelling, āyah count and pages."><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1 .8-1 1.5"></path><circle cx="12" cy="17" r=".6" fill="currentColor"></circle></svg></span></div>
-        <div class="pills" id="editions"></div>
+<section class="on-white rule-top" id="editions-section">
+  <div class="wrap section">
+    <div class="grid2" style="gap:40px;align-items:end;margin-bottom:36px">
+      <div>
+        <div class="label label-teal">GET /editions</div>
+        <h2 class="section-title" style="margin-top:14px">The seven riwāyāt.</h2>
       </div>
-      <div class="row" id="edition-note-row"><div class="key" style="visibility:hidden">·</div><div class="dim" style="font-size:14px" id="edition-note"></div></div>
-      <div class="row">
-        <div class="key">Scope<small>scope</small><span class="help" tabindex="0" data-tip="How much of the Qurʾān. A single value or a range, in this riwāyah's own count: 2:255 in Ḥafṣ is 2:253-254 in Warsh."><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1 .8-1 1.5"></path><circle cx="12" cy="17" r=".6" fill="currentColor"></circle></svg></span></div>
-        <div class="pills">
-          <label class="pill"><input type="radio" name="scope" value="all" checked>whole Qurʾān</label>
-          <label class="pill"><input type="radio" name="scope" value="surah">sūrah</label>
-          <label class="pill" id="lbl-juz-scope"><input type="radio" name="scope" value="juz">juz <span class="dim">1/30th</span></label>
-          <label class="pill"><input type="radio" name="scope" value="page">page</label>
-          <label class="pill"><input type="radio" name="scope" value="ayah">āyah</label>
-          <label class="pill in" data-scope="surah" hidden><input type="text" name="surah" placeholder="2 or 2-3" inputmode="numeric"></label>
-          <label class="pill in" data-scope="juz" hidden><input type="number" name="juz" min="1" max="30" placeholder="1-30"></label>
-          <label class="pill in" data-scope="page" hidden><input type="text" name="page" placeholder="3 or 1-10" inputmode="numeric"></label>
-          <label class="pill in" data-scope="ayah" hidden><input type="text" name="ayah" placeholder="2:255 or 2:255-2:286"></label>
-        </div>
-      </div>
-      <div class="row">
-        <div class="key">Rows<small>by</small><span class="help" tabindex="0" data-tip="One record per āyah, or one per printed word. Per word adds the position and the word number shared by all seven riwāyāt: attach translations, grammar or recitation audio to it."><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1 .8-1 1.5"></path><circle cx="12" cy="17" r=".6" fill="currentColor"></circle></svg></span></div>
-        <div class="pills">
-          <label class="pill"><input type="radio" name="by" value="ayah" checked>one per āyah</label>
-          <label class="pill"><input type="radio" name="by" value="word">one per word <span class="dim">+ position, shared word number</span></label>
-        </div>
-      </div>
-      <div class="row" id="signs-row" hidden>
-        <div class="key">Signs per word<small>signs</small><span class="help" tabindex="0" data-tip="Per word: the waqf marks, ۩ and ۞ in their own columns with the word bare, or attached to the word as the muṣḥaf prints them."><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1 .8-1 1.5"></path><circle cx="12" cy="17" r=".6" fill="currentColor"></circle></svg></span></div>
-        <div class="pills">
-          <label class="pill"><input type="radio" name="signs" value="columns" checked>in their own columns</label>
-          <label class="pill"><input type="radio" name="signs" value="attached">attached to the word</label>
-        </div>
-      </div>
-      <div class="row">
-        <div class="key">Spelling<small>text</small><span class="help" tabindex="0" data-tip="The spelling. ʿUthmānī as the muṣḥaf prints it; Imlāʾī in modern spelling, published for Ḥafṣ only; plain with the harakah stripped, a matching form for search. Pick more than one and each becomes a column."><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1 .8-1 1.5"></path><circle cx="12" cy="17" r=".6" fill="currentColor"></circle></svg></span></div>
-        <div class="pills">
-          <label class="pill"><input type="checkbox" name="text" value="rasm_uthmani" checked>as printed <span class="dim">rasm_uthmani</span></label>
-          <label class="pill" id="lbl-rasm_imlai"><input type="checkbox" name="text" value="rasm_imlai">modern spelling <span class="dim">rasm_imlai · Ḥafṣ only</span></label>
-          <label class="pill"><input type="checkbox" name="text" value="plain">no harakah <span class="dim">plain · for search</span></label>
-        </div>
-      </div>
-      <div class="row">
-        <div class="key">Marks<small>marks</small><span class="help" tabindex="0" data-tip="Keep or drop the waqf marks, the sajdah sign and the ۞ sign."><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1 .8-1 1.5"></path><circle cx="12" cy="17" r=".6" fill="currentColor"></circle></svg></span></div>
-        <div class="pills">
-          <label class="pill" id="lbl-waqf"><input type="checkbox" name="waqf" checked>waqf marks <span class="ar s">ۖ ۗ ۚ</span></label>
-          <label class="pill"><input type="checkbox" name="sajdah" checked>sajdah <span class="ar s">۩</span></label>
-          <label class="pill"><input type="checkbox" name="division" checked>quarter-ḥizb <span class="ar s">۞</span></label>
-        </div>
-      </div>
-      <div class="row">
-        <div class="key">Āyah marker<small>markers</small><span class="help" tabindex="0" data-tip="What ends each āyah in the text: nothing, the ۝ sign with the number, brackets, or a Latin number."><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1 .8-1 1.5"></path><circle cx="12" cy="17" r=".6" fill="currentColor"></circle></svg></span></div>
-        <div class="pills">
-          <label class="pill"><input type="radio" name="markers" value="none" checked>none <span class="dim">number in its own column</span></label>
-          <label class="pill"><input type="radio" name="markers" value="sign">sign <span class="ar">۝٢٥٥</span></label>
-          <label class="pill"><input type="radio" name="markers" value="brackets">brackets <span class="ar">﴿٢٥٥﴾</span></label>
-          <label class="pill"><input type="radio" name="markers" value="latin">latin (255)</label>
-        </div>
-      </div>
-      <div class="row">
-        <div class="key">Extra columns<small>fields</small><span class="help" tabindex="0" data-tip="Extra columns for csv, json, xml and sql. hafs adds the matching Kūfī āyah and its relation (same, merged, split, shifted), for the other six riwāyāt."><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1 .8-1 1.5"></path><circle cx="12" cy="17" r=".6" fill="currentColor"></circle></svg></span></div>
-        <div class="pills">
-          <label class="pill"><input type="checkbox" name="f" value="page">page</label>
-          <label class="pill"><input type="checkbox" name="f" value="line">line</label>
-          <label class="pill" id="lbl-juz"><input type="checkbox" name="f" value="juz">juz</label>
-          <label class="pill" id="lbl-hafs"><input type="checkbox" name="f" value="hafs">Ḥafṣ āyah <span class="dim">what this āyah is in Ḥafṣ</span></label>
-        </div>
-      </div>
-      <div class="row">
-        <div class="key">Layout<small>layout</small><span class="help" tabindex="0" data-tip="lines=1 breaks the text where the printed lines break. pages=1 puts a heading at every page turn (txt and md)."><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1 .8-1 1.5"></path><circle cx="12" cy="17" r=".6" fill="currentColor"></circle></svg></span></div>
-        <div class="pills">
-          <label class="pill"><input type="checkbox" name="lines">break lines as printed</label>
-          <label class="pill"><input type="checkbox" name="pages">heading at each page</label>
-        </div>
-      </div>
-      <div class="row">
-        <div class="key">Format<small>format</small><span class="help" tabindex="0" data-tip="txt: one āyah per line. json: a flat array, or nested sūrah to āyāt. csv: spreadsheets and pandas. xml: Tanzil-compatible. sql: CREATE TABLE and INSERTs. md: readable, with page headings. Every file opens with a provenance header."><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1 .8-1 1.5"></path><circle cx="12" cy="17" r=".6" fill="currentColor"></circle></svg></span></div>
-        <div class="pills">
-          <label class="pill"><input type="radio" name="format" value="txt" checked>txt</label>
-          <label class="pill"><input type="radio" name="format" value="json">json</label>
-          <label class="pill"><input type="radio" name="format" value="csv">csv</label>
-          <label class="pill"><input type="radio" name="format" value="xml">xml</label>
-          <label class="pill"><input type="radio" name="format" value="sql">sql</label>
-          <label class="pill"><input type="radio" name="format" value="md">md</label>
-          <label class="pill" data-for="txt" style="margin-left:12px"><input type="checkbox" name="prefix" checked><span class="dim">surah|ayah|</span> before each line</label>
-          <label class="pill" data-for="json" style="margin-left:12px"><input type="checkbox" name="nested">nest sūrah → āyāt</label>
-          <label class="pill"><input type="checkbox" name="header" checked>provenance header</label>
-        </div>
-      </div>
-    </form>
-
-    <div class="panel out" id="out">
-      <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span style="margin-left:8px">What you get</span><span style="margin-left:auto" id="out-status"></span></div>
-      <div class="out-head"><div><div class="fn" id="out-name">quran-hafs-rasm_uthmani.txt</div><small id="out-title">the first rows</small></div><a class="btn" id="out-download" href="/download?edition=hafs&amp;format=txt"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 5-5m-5 5-5-5M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"></path></svg>Download</a></div>
-      <div class="tabs" id="tabs"></div>
-      <div class="body"><div class="preview" id="preview"></div><div class="hdrs" id="hdrs" hidden></div><div class="snippet" id="snippet" hidden></div></div>
-      <div class="foot" id="out-foot" style="display:flex;align-items:center;gap:10px;flex-wrap:wrap"><span>Needs the font <b class="font-family" style="color:var(--w);font-weight:500">KFGQPC HAFS Uthmanic Script</b>.</span><a class="font-link" href="/files/fonts/UthmanicHafs-v-3.0.ttf" download>download .ttf</a></div>
+      <p class="small" style="font-size:16px">
+        Āyah numbers differ between them; word numbers do not. Word 5,177 is
+        <span class="ar" style="font-size:20px;color:var(--forest)">إِلَٰهَ</span> in all seven.
+        <b style="color:var(--forest)">Join your data on the word number, never on sūrah:āyah.</b>
+      </p>
     </div>
-  </div>
+    <div class="card scroll">
+      <table class="list" id="editions-table">
+        <thead><tr><th>key</th><th>riwāyah</th><th>qārī</th><th>āyah numbering</th><th>āyāt</th><th>words</th><th>Ḥafṣ 2:255 is here</th><th>font</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
 
-  <section id="raw">
-    <div class="two">
-      <div style="display:flex;flex-direction:column;gap:14px">
-        <h2 class="h">building something bigger?</h2>
-        <div class="big">Take the muṣḥaf's own file.</div>
-        <div style="font-size:16px;line-height:1.7">Every word of one riwāyah with its āyah, page, line, juz and marks, in one flat JSON. Every format above is cut from it. An āyah is a slice, a page is a slice; no nesting, no ids to join.</div>
-        <div class="split" style="padding-top:4px"><select id="raw-edition-2" aria-label="riwāyah of the raw file"></select><a class="btn gold" id="raw-download-2" href="/files/mushaf/hafs.json"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 5-5m-5 5-5-5M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"></path></svg><span id="raw-size-2">json</span></a></div>
-        <div class="fontnote"><span>Needs the font <b class="font-family">KFGQPC HAFS Uthmanic Script</b>.</span><a class="btn quiet font-link" href="/files/fonts/UthmanicHafs-v-3.0.ttf" download>Font .ttf <span class="font-size dim"></span></a></div>
-        <div style="font-size:15px">format <span class="w">quran-mushaf 1.0</span> · <a href="https://github.com/quran-ws/quran-text/blob/main/docs/format.md" style="display:inline-flex;align-items:center;gap:4px">format spec<svg class="ico" style="width:14px;height:14px;flex:0 0 14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"></path></svg></a><span class="dim"> · gzipped, CSV and SQLite views are cut from this file</span></div>
+    <details class="plain" style="margin-top:28px">
+      <summary>
+        <svg class="ico chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"></path></svg>
+        Need the āyah correspondence as a file? <span class="small mono">GET /map</span>
+      </summary>
+      <div class="wrapflex" style="gap:10px;align-items:center;margin-top:18px">
+        <label class="field">from<select id="map-from"></select></label>
+        <label class="field">to<select id="map-to"><option value="">all six</option></select></label>
+        <label class="field">āyah<input type="text" id="map-ref" value="2:253" size="14" placeholder="empty = whole Qurʾān"></label>
+        <label class="opt"><input type="radio" name="map-by" value="ayah" checked>by āyah</label>
+        <label class="opt"><input type="radio" name="map-by" value="word">by word</label>
+        <label class="field">format<select id="map-format"><option>json</option><option>csv</option><option>txt</option><option>xml</option><option>sql</option><option>md</option></select></label>
+        <a class="btn btn-secondary" id="map-download" href="/map?from=warsh" style="padding:9px 16px;font-size:14px">Download the mapping</a>
       </div>
-      <div class="grid2">
-        <div class="panel" style="overflow:hidden">
-          <div class="bar"><span id="raw-name">mushaf/hafs.json</span><span style="margin-left:auto">abridged</span></div>
+      <div class="small mono" style="margin-top:10px;word-break:break-all" id="map-url"></div>
+    </details>
+  </div>
+</section>
+
+<section class="on-forest" id="compare">
+  <div class="wrap section">
+    <div class="grid2" style="gap:40px;align-items:end;margin-bottom:32px">
+      <div>
+        <div class="label" style="color:var(--gold)">GET /compare</div>
+        <h2 class="section-title" style="margin-top:14px;color:var(--ivory)">One āyah, in all seven.</h2>
+        <div class="wrapflex" style="gap:10px;align-items:center;margin-top:22px">
+          <label class="field" style="color:var(--on-forest-75)">Kūfī āyah<input type="text" id="cmp-ref" value="2:255" size="9"></label>
+          <button class="btn btn-secondary" id="cmp-go" type="button" style="padding:9px 16px;font-size:14px">Compare</button>
+          <label class="opt" style="background:transparent;border-color:var(--on-forest-25);color:var(--ivory)"><input type="checkbox" id="cmp-waqf">show waqf marks</label>
+        </div>
+      </div>
+      <p style="font-size:14px;line-height:1.9;color:var(--on-forest-75)">
+        <i class="sw" style="background:rgba(214,173,100,.45)"></i>letters differ<br>
+        <i class="sw" style="background:rgba(248,245,237,.12);border:1px solid var(--on-forest-25)"></i>vowelling differs<br>
+        <i class="sw" style="border-bottom:1px dotted var(--on-forest-50);height:7px"></i>same qiraah, written with other codepoints
+      </p>
+    </div>
+    <div class="cmp" id="cmp" style="border:1px solid var(--on-forest-08);border-radius:var(--radius)"></div>
+  </div>
+</section>
+
+<section class="on-white rule-top" id="bigger">
+  <div class="wrap section">
+    <div class="grid2">
+      <div class="stack" style="gap:16px;position:sticky;top:100px">
+        <div class="label label-teal">Building something bigger?</div>
+        <h2 class="section-title">Take the muṣḥaf's own file.</h2>
+        <p style="font-size:16px;line-height:1.7;color:var(--slate)">
+          Every word of one riwāyah with its āyah, page, line, juz and marks, in one flat JSON.
+          Every format above is cut from it. An āyah is a slice, a page is a slice; no nesting, no ids to join.
+        </p>
+        <div class="wrapflex" style="gap:10px;align-items:center;margin-top:6px">
+          <label class="field"><select id="raw-edition" aria-label="riwāyah of the raw file"></select></label>
+          <a class="btn btn-primary" id="raw-download" href="/files/mushaf/hafs.json">
+            <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 5-5m-5 5-5-5M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"></path></svg>
+            <span id="raw-size">json</span>
+          </a>
+        </div>
+        <p class="small" style="margin-top:4px">
+          format <b style="color:var(--forest)">quran-mushaf 1.0</b> ·
+          <a href="https://github.com/quran-ws/quran-text/blob/main/docs/format.md">format spec →</a>
+        </p>
+        <div class="callout" style="margin-top:12px">
+          <b>Or skip the file.</b> A small library per platform with Ḥafṣ and its font inside, no dependencies:
+          <a href="https://github.com/quran-ws/quran-text/tree/main/lib/python">python</a> ·
+          <a href="https://github.com/quran-ws/quran-text/tree/main/lib/js">js</a> ·
+          <a href="https://github.com/quran-ws/quran-text/tree/main/lib/php">php</a> ·
+          <a href="https://github.com/quran-ws/quran-text/tree/main/lib/dart">dart</a> ·
+          <a href="https://github.com/quran-ws/quran-text/tree/main/lib/swift">swift</a> ·
+          <a href="https://github.com/quran-ws/quran-text/tree/main/lib/kotlin">kotlin</a>.
+        </div>
+      </div>
+      <div class="stack" style="gap:24px">
+        <div style="background:var(--forest);border-radius:var(--radius);overflow:hidden">
+          <div class="codehead"><span id="raw-name">mushaf/hafs.json</span><span>abridged</span></div>
           <div class="code" id="raw-shape"></div>
         </div>
-        <div class="panel" style="overflow:hidden">
-          <div class="bar"><span>one minute, no library</span></div>
+        <div style="background:var(--forest);border-radius:var(--radius);overflow:hidden">
+          <div class="codehead"><span>one minute, no library</span><span>python</span></div>
           <div class="code"><span class="k">import</span> json
 m = json.load(<span class="k">open</span>(<span class="s">"hafs.json"</span>))
 
-<span class="dim"># sūrah 2, āyah 255 is a slice</span>
+<span class="cm"># sūrah 2, āyah 255 is a slice</span>
 a = m[<span class="s">"ayah_starts"</span>]
 k = m[<span class="s">"surahs"</span>][<span class="s">1</span>][<span class="s">"first_ayah"</span>] + <span class="s">254</span>
 <span class="k">print</span>(<span class="s">" "</span>.join(m[<span class="s">"words"</span>][a[k]:a[k+<span class="s">1</span>]]))
 
-<span class="dim"># page 3 is a slice too</span>
+<span class="cm"># page 3 is a slice too</span>
 p = m[<span class="s">"page_starts"</span>]
 page3 = m[<span class="s">"words"</span>][p[<span class="s">2</span>]:p[<span class="s">3</span>]]</div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section id="code">
-    <div class="two">
-      <div style="display:flex;flex-direction:column;gap:14px">
-        <h2 class="h">or skip the file: the libraries</h2>
-        <div class="big">One call.<br>Six languages.<br>Ḥafṣ bundled.</div>
-        <div style="font-size:16px;line-height:1.7">A small library per platform with Ḥafṣ and its font inside. Load the raw file above for any other riwāyah.</div>
-        <div style="font-size:16px;line-height:1.8"><a href="https://github.com/quran-ws/quran-text/tree/main/lib/python">python</a> · <a href="https://github.com/quran-ws/quran-text/tree/main/lib/js">js</a> · <a href="https://github.com/quran-ws/quran-text/tree/main/lib/php">php</a> · <a href="https://github.com/quran-ws/quran-text/tree/main/lib/dart">dart</a> · <a href="https://github.com/quran-ws/quran-text/tree/main/lib/swift">swift</a> · <a href="https://github.com/quran-ws/quran-text/tree/main/lib/kotlin">kotlin</a></div>
-      </div>
-      <div class="panel" style="overflow:hidden">
-        <div class="bar"><span>quran_text.py</span><span style="margin-left:auto">no dependencies</span></div>
-        <div class="code"><span class="k">from</span> quran_text <span class="k">import</span> Mushaf
+<section class="rule-top" id="files">
+  <div class="wrap" style="padding-top:56px;padding-bottom:56px">
+    <details class="plain">
+      <summary>
+        <svg class="ico chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"></path></svg>
+        Every file the build writes, with its SHA-256 <span class="small mono">GET /files</span>
+      </summary>
+      <div class="ls" id="ls" style="margin-top:20px"></div>
+    </details>
+  </div>
+</section>
 
-m = Mushaf.hafs()
-m.ayah(<span class="s">2</span>, <span class="s">255</span>).render(marks=<span class="s">True</span>, ayah_marks=<span class="s">True</span>)
-m.page(<span class="s">3</span>).lines
-
-warsh = Mushaf.load(<span class="s">"warsh.json"</span>)     <span class="dim"># the raw file above</span>
-m.ayah(<span class="s">2</span>, <span class="s">255</span>).to(warsh)                          <span class="dim"># 2:253-254, split</span></div>
-      </div>
-    </div>
-  </section>
-
-  <section id="editions-section">
-    <div style="display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:18px">
-      <h2 class="h">the seven riwāyāt · GET /editions</h2>
-      <span style="font-size:15px">Āyah numbers differ between them; word numbers do not. Word 5,177 is <span class="ar" style="font-size:18px;color:var(--arabic)">إِلَٰهَ</span> in all seven. <span class="w">Join on the word number.</span></span>
-    </div>
-    <div class="panel scroll"><table class="list" id="editions-table"><thead><tr><th>key</th><th>riwāyah</th><th>qārī</th><th>āyah numbering</th><th>āyāt</th><th>words</th><th>Ḥafṣ 2:255 is here</th><th>font</th></tr></thead><tbody></tbody></table></div>
-    <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:18px">
-      <span style="margin-right:8px">Need the āyah correspondence as a file? <span class="dim">GET /map</span></span>
-      <label class="field">from<select id="map-from"></select></label>
-      <label class="field">to<select id="map-to"><option value="">all six</option></select></label>
-      <label class="field">ayah<input type="text" id="map-ref" value="2:253" size="14" placeholder="empty = whole Qurʾān"></label>
-      <label class="pill"><input type="radio" name="map-by" value="ayah" checked>by ayah</label>
-      <label class="pill"><input type="radio" name="map-by" value="word">by word</label>
-      <label class="field">format<select id="map-format"><option>json</option><option>csv</option><option>txt</option><option>xml</option><option>sql</option><option>md</option></select></label>
-      <a class="btn quiet" id="map-download" href="/map?from=warsh" style="height:40px"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 5-5m-5 5-5-5M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"></path></svg>the mapping</a>
-    </div>
-    <div class="dim" style="font-size:14px;margin-top:8px;word-break:break-all" id="map-url"></div>
-  </section>
-
-  <section id="fonts">
-    <div class="two">
-      <div style="display:flex;flex-direction:column;gap:14px">
-        <h2 class="h">the fonts</h2>
-        <div class="big">One font per riwāyah.<br>Ship it with the text.</div>
-        <div style="font-size:16px;line-height:1.7">Each text uses letters and signs that only its own KFGQPC font draws: the open tanwīn, the small alifs, the waqf marks. In any other Arabic font some of them show as gaps or boxes. The fonts are KFGQPC's own, redistributed with the text.</div>
-      </div>
-      <div class="panel scroll"><table class="list" id="fonts-table"><thead><tr><th>riwāyah</th><th>font family</th><th>file</th><th>size</th><th></th></tr></thead><tbody></tbody></table></div>
-    </div>
-  </section>
-
-  <section id="compare">
-    <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:18px">
-      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap"><h2 class="h">one āyah in all seven · GET /compare?ayah=</h2><label class="field" style="height:40px"><input type="text" id="cmp-ref" value="2:255" size="8" aria-label="Kūfī āyah reference"></label><button class="btn quiet" id="cmp-go" type="button" style="height:40px">compare</button><label class="pill"><input type="checkbox" id="cmp-waqf">show waqf marks</label></div>
-      <span class="dim" style="font-size:14px"><i class="sw" style="background:var(--hl-letters)"></i>letters differ &nbsp; <i class="sw" style="background:var(--hl-vowels)"></i>vowelling differs &nbsp; <i class="sw" style="border-bottom:1px dotted var(--dim);height:6px"></i>same qiraah, other codepoints</span>
-    </div>
-    <div class="panel cmp" id="cmp"></div>
-  </section>
-
-  <section id="files">
-    <h2 class="h" style="margin-bottom:18px">every file the build writes · GET /files</h2>
-    <div class="panel ls" id="ls"></div>
-  </section>
-</main>
-
-<footer class="wrap">
-  <span style="flex:1 1 480px">Text from King Fahd Glorious Qur'an Printing Complex releases, hashed in every file. Nothing authored here. <span class="w">Redistribution is subject to KFGQPC's terms.</span> Counting boundaries from <a href="https://github.com/quranpedia/qiraat-ayah-map">quranpedia/qiraat-ayah-map</a> (MIT).</span>
-  <span>ship the font · warsh, qalun, susi use codepoints few fonts draw</span>
+<footer class="page">
+  <div class="wrap inner">
+    <span style="flex:1 1 520px;max-width:62em">
+      Text from King Fahd Glorious Qurʾān Printing Complex releases, hashed in every file. Nothing authored here.
+      <b style="color:var(--forest)">Redistribution is subject to KFGQPC's terms.</b>
+      Counting boundaries from <a href="https://github.com/quranpedia/qiraat-ayah-map">quranpedia/qiraat-ayah-map</a> (MIT).
+    </span>
+    <span><a href="https://quran.ws">Quran.ws</a> · <a href="https://github.com/quran-ws/quran-text">GitHub</a> · <a href="/docs">API reference</a> · <a href="#files">All files</a></span>
+  </div>
 </footer>
 
-<div class="dock">
-  <div class="info"><span class="w" id="dock-name">quran-hafs-rasm_uthmani.txt</span><span class="dim" style="font-size:11.5px"><a href="#out">preview</a> · <a href="#raw">raw json</a></span></div>
-  <button class="btn quiet" type="button" id="dock-copy" style="width:48px;padding:0" title="copy URL"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg></button>
-  <a class="btn" id="dock-download" href="/download?edition=hafs&amp;format=txt"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 5-5m-5 5-5-5M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"></path></svg>Download</a>
+<!-- A slim bar that follows you down the page once the download card scrolls away. -->
+<div class="dock" id="dock" hidden>
+  <div class="wrap dock-inner">
+    <div class="dock-info">
+      <span class="dock-name" id="dock-name">quran-hafs-rasm_uthmani.txt</span>
+      <span class="small" id="dock-what">Ḥafṣ · whole Qurʾān</span>
+    </div>
+    <button class="btn btn-secondary" type="button" id="dock-copy" style="padding:11px 16px;font-size:14px">Copy URL</button>
+    <a class="btn btn-primary" id="dock-download" href="/download?edition=hafs&amp;format=txt" style="padding:13px 20px">
+      <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 5-5m-5 5-5-5M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"></path></svg>
+      Download
+    </a>
+  </div>
 </div>
+
+<style>
+  .dock {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 30;
+    background: rgba(248, 245, 237, .94); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    border-top: 1px solid var(--tint-12);
+  }
+  .dock-inner { display: flex; align-items: center; gap: 14px; padding: 12px 0; }
+  .dock-info { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+  .dock-name { font-family: var(--mono); font-size: 13px; font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  @media (max-width: 560px) { .dock-info .small { display: none; } .dock #dock-copy { display: none; } }
+</style>
 
 <script>
 (function () {
+  "use strict";
   const $ = (s, el = document) => el.querySelector(s);
   const $$ = (s, el = document) => [...el.querySelectorAll(s)];
   const escape = s => String(s).replace(/[&<>]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]));
@@ -449,7 +688,7 @@ m.ayah(<span class="s">2</span>, <span class="s">255</span>).to(warsh)          
   const form = $("#form");
   let editions = {}, order = [], current = null, files = [], timer = null, controller = null, url = "";
 
-  // -- editions ---------------------------------------------------------------
+  /* -- the seven riwāyāt, and the fonts they are set in ---------------------- */
   const editionsReady = fetch("/editions").then(r => r.json()).then(list => {
     const faces = document.createElement("style");
     faces.textContent = list.map(e => `@font-face { font-family: "${e.font.family}"; src: url("${e.font.url}") format("truetype"); font-display: swap; }`).join("\n");
@@ -458,30 +697,35 @@ m.ayah(<span class="s">2</span>, <span class="s">255</span>).to(warsh)          
     for (const e of list) {
       editions[e.key] = e; order.push(e.key);
       const label = document.createElement("label");
-      label.className = "pill";
-      label.innerHTML = `<input type="radio" name="edition" value="${e.key}"${e.key === "hafs" ? " checked" : ""}><span class="ar" style="font-family:'${e.font.family}',var(--quran)">${e.name_ar}</span>${e.key}`;
+      label.className = "opt";
+      label.innerHTML = `<input type="radio" name="edition" value="${e.key}"${e.key === "hafs" ? " checked" : ""}>` +
+        `<span class="ar" style="font-family:'${e.font.family}',var(--quran)">${e.name_ar}</span>` +
+        `<span>${escape(e.name_en.replace(/ .*/, ""))}</span>`;
       box.appendChild(label);
     }
-    for (const sel of ["#raw-edition-2", "#map-from", "#map-to"]) for (const e of list) {
+    for (const sel of ["#raw-edition", "#map-from", "#map-to"]) for (const e of list) {
       const o = document.createElement("option"); o.value = e.key;
-      o.textContent = sel.startsWith("#raw") ? `${e.key}.json` : `${e.name_en} (${e.name_ar})`;
+      o.textContent = sel === "#raw-edition" ? `mushaf/${e.key}.json` : `${e.name_en} (${e.name_ar})`;
       if (sel === "#map-from" && e.key === "warsh") o.selected = true;
       $(sel).appendChild(o);
     }
     onEdition();
     editionsTable(list);
-    fontsTable();
     mapUpdate();
+  }).catch(() => {
+    $("#editions").innerHTML = '<span class="small err">Could not reach /editions. Reload the page.</span>';
   });
 
   function onEdition() {
     current = editions[value("edition")];
     if (!current) return;
     const c = current;
-    $("#edition-note").innerHTML = `${escape(c.name_en)}, the qiraah of ${escape(c.qiraah_en)} · āyah numbering: ${escape(c.counting_system_en || c.counting_system)}, ${c.ayah_count.toLocaleString()} āyāt · ${c.word_count.toLocaleString()} words · ${c.page_count} pages` +
-      (c.has.juz ? ` · ${c.juz_count} ajzāʾ` : ` · <span class="s">no juz layer</span>`) +
-      (c.basmalah_counted ? "" : " · basmalah of al-Fātiḥah unnumbered, comes out as āyah 0") +
-      ``;
+    $("#edition-note").innerHTML =
+      `<b style="color:var(--forest)">${escape(c.name_en)}</b>, the qiraah of ${escape(c.qiraah_en)} · ` +
+      `${escape((c.counting_system_en || c.counting_system).toLowerCase())} · ` +
+      `${c.ayah_count.toLocaleString()} āyāt · ${c.word_count.toLocaleString()} words · ${c.page_count} pages` +
+      (c.has.juz ? ` · ${c.juz_count} ajzāʾ` : ` · <b style="color:var(--forest)">no juz layer</b>`) +
+      (c.basmalah_counted ? "" : " · the basmalah of al-Fātiḥah is unnumbered here, and comes out as āyah 0");
     document.documentElement.style.setProperty("--edition-font", `"${c.font.family}"`);
     fontNotes(c);
     setEnabled("#lbl-rasm_imlai", c.has.rasm_imlai);
@@ -494,63 +738,58 @@ m.ayah(<span class="s">2</span>, <span class="s">255</span>).to(warsh)          
   }
 
   function fontNotes(c) {
-    const f = files.find(x => "/files/" + x.path === c.font.url || x.path === "fonts/" + c.font.file);
+    const f = files.find(x => "/files/" + x.path === c.font.url);
     $$(".font-family").forEach(el => el.textContent = c.font.family);
     $$(".font-link").forEach(el => el.href = c.font.url);
-    $$(".font-size").forEach(el => el.textContent = f ? size(f.bytes) : "");
+    $$(".font-size").forEach(el => el.textContent = f ? "· " + size(f.bytes) : "");
   }
-  function fontsTable() {
-    if (!order.length) return;
-    $("#fonts-table tbody").innerHTML = order.map(k => { const e = editions[k]; const f = files.find(x => "/files/" + x.path === e.font.url);
-      return `<tr><td><span class="ar" style="font-family:'${e.font.family}',var(--quran)">${e.name_ar}</span> ${escape(e.name_en)}</td><td>${escape(e.font.family)}</td><td class="dim">${escape(e.font.url.replace("/files/fonts/", ""))}</td><td>${f ? size(f.bytes) : ""}</td><td><a href="${e.font.url}" download>download .ttf</a></td></tr>`; }).join("");
-  }
+
+  /* A disabled option says why by title, and never stays silently checked. */
   function setEnabled(sel, ok) {
     const label = $(sel), input = $("input", label);
     input.disabled = !ok;
+    label.title = ok ? "" : `Not in ${current ? current.name_en : "this riwāyah"}`;
     if (!ok && input.checked) {
       input.checked = false;
       if (input.type === "radio") $(`input[name=${input.name}]`, form).checked = true;
     }
   }
 
-  // -- the raw file -----------------------------------------------------------
+  /* -- the raw muṣḥaf file --------------------------------------------------- */
   function rawSelect(key) {
-    $("#raw-edition-2").value = key;
+    $("#raw-edition").value = key;
     const f = files.find(x => x.path === `mushaf/${key}.json`);
-    const href = f ? f.url : `/files/mushaf/${key}.json`;
-    $("#raw-download-2").href = href;
-    $("#raw-size-2").textContent = f ? size(f.bytes) : "json";
+    $("#raw-download").href = f ? f.url : `/files/mushaf/${key}.json`;
+    $("#raw-size").textContent = f ? `${key}.json · ${size(f.bytes)}` : `${key}.json`;
     $("#raw-name").textContent = `mushaf/${key}.json`;
     rawShape(editions[key]);
   }
   function rawShape(e) {
     if (!e) return;
-    const p = e.provenance && e.provenance.text || {};
+    const p = (e.provenance && e.provenance.text) || {};
     const sha = p.sha256 ? p.sha256.slice(0, 4) + "…" + p.sha256.slice(-4) : "…";
-    const k = s => `<span class="k">"${s}"</span>`, v = s => `<span class="s">${escape(s)}</span>`, d = s => `<span class="dim">${s}</span>`;
+    const k = s => `<span class="k">"${s}"</span>`, v = s => `<span class="s">${escape(s)}</span>`, d = s => `<span class="cm">${s}</span>`;
     $("#raw-shape").innerHTML = `{
   ${k("format")}: ${v('"quran-mushaf"')}, ${k("format_version")}: ${v('"1.0"')},
-  ${k("mushaf")}:   { ${k("key")}: ${v(`"${e.key}"`)}, ${k("name_en")}: ${v(`"${e.name_en}"`)}, ${k("word_count")}: ${v(e.word_count)} },
+  ${k("mushaf")}:   { ${k("key")}: ${v(`"${e.key}"`)}, ${k("word_count")}: ${v(e.word_count)} },
   ${k("counting")}: { ${k("system")}: ${v(`"${e.counting_system}"`)}, ${k("ayah_count")}: ${v(e.ayah_count)} },
   ${k("provenance")}: { ${k("text")}: { ${k("package")}: ${v(`"${p.package || ""}"`)}, ${k("sha256")}: ${v(`"${sha}"`)} } },
 
-  ${k("words")}:  [<span class="ar" style="font-family:'${e.font.family}',var(--quran)">"بِسۡمِ", "ٱللَّهِ", "ٱلرَّحۡمَٰنِ"</span>, ${d("… " + e.word_count.toLocaleString())}],
-  ${k("rasm_imlai")}: ${e.has.rasm_imlai ? `[<span class="ar">"بسم", "الله", "الرحمن"</span>, ${d("…")}]` : v("null")},
+  ${k("words")}: [<span class="ar s" style="font-family:'${e.font.family}',var(--quran)">"بِسۡمِ", "ٱللَّهِ"</span>, ${d("… " + e.word_count.toLocaleString())}],
+  ${k("rasm_imlai")}: ${e.has.rasm_imlai ? `[<span class="ar s">"بسم", "الله"</span>, ${d("…")}]` : v("null")},
 
-  ${k("surah_starts")}: [${v("0, 29, 6146")}, ${d("… 114")}],     ${d("// index into words")}
-  ${k("ayah_starts")}: [${v("0, 4, 8")}, ${d("… " + e.ayah_count.toLocaleString())}],
-  ${k("page_starts")}: [${v("0, 29, 65")}, ${d("… " + e.page_count)}],
-  ${k("line_starts")}: [${v("0, 4, 8")}, ${d("…")}],
-  ${k("juz_starts")}:  ${e.has.juz ? `[${v("0, 2522, 5101")}, ${d("… 30")}]` : v("null")},
+  ${k("surah_starts")}: [${v("0, 29, 6146")}, ${d("… 114")}],   ${d("// index into words")}
+  ${k("ayah_starts")}:  [${v("0, 4, 8")}, ${d("… " + e.ayah_count.toLocaleString())}],
+  ${k("page_starts")}:  [${v("0, 29, 65")}, ${d("… " + e.page_count)}],
+  ${k("juz_starts")}:   ${e.has.juz ? `[${v("0, 2522, 5101")}, ${d("… 30")}]` : v("null")},
 
-  ${k("surahs")}: [{ ${k("number")}: ${v(1)}, ${k("name_en")}: ${v('"Al-Fātiḥah"')}, ${k("first_ayah")}: ${v(0)} }, ${d("…")}],
   ${k("marks")}: [[${v("33, 0")}], [${v("34, 0")}], ${d("…")}],        ${d("// [position, mark_type]")}
   ${k("mark_types")}: [{ ${k("kind")}: ${v('"waqf"')}, ${k("sign")}: ${v('"ۖ"')} }, ${d("…")}]
 }`;
   }
-  $("#raw-edition-2").addEventListener("change", e => rawSelect(e.target.value));
+  $("#raw-edition").addEventListener("change", e => rawSelect(e.target.value));
 
-  // -- the URL ----------------------------------------------------------------
+  /* -- the URL is the file --------------------------------------------------- */
   const value = name => { const el = $(`[name=${name}]:checked`, form) || $(`[name=${name}]`, form); return el ? el.value : ""; };
   const checked = name => $(`[name=${name}]`, form).checked;
 
@@ -580,45 +819,132 @@ m.ayah(<span class="s">2</span>, <span class="s">255</span>).to(warsh)          
     return p;
   }
 
-  function renderUrl(p) {
-    const parts = [];
-    for (const [k, v] of p) parts.push(`<span class="k">${escape(k)}</span><span class="dim">=</span><span class="s">${escape(v)}</span>`);
-    $("#url-view").innerHTML = `<span class="dim">GET </span><span class="w">/download</span><span class="dim">?</span>` + parts.join(`<span class="dim">&amp;</span>`) + `<span class="cur"></span>`;
+  /* Everything the drawer holds that is no longer at its default, so the button
+     says what is hidden behind it rather than hiding it. */
+  function customCount(p) {
+    let n = 0;
+    for (const k of ["text", "markers", "waqf", "sajdah", "division", "lines", "pages", "fields", "by", "signs", "prefix", "nested", "header"]) {
+      if (p.has(k)) n++;
+    }
+    return n;
   }
 
+  function renderUrl(p) {
+    const parts = [];
+    for (const [k, v] of p) parts.push(`<span class="k">${escape(k)}</span><span class="p">=</span><span class="v">${escape(v)}</span>`);
+    $("#url-view").innerHTML = `<span class="p">GET </span><span class="v">/download</span><span class="p">?</span>` +
+      parts.join('<span class="p">&amp;</span>');
+  }
+
+  function scopeWords() {
+    const scope = value("scope");
+    if (scope === "all") return "whole Qurʾān";
+    const v = $(`[name=${scope}]`, form).value.trim();
+    return v ? `${scope} ${v}` : `whole Qurʾān`;
+  }
+
+  /* Runs before /editions has answered too: the URL, the filename and the
+     buttons are all knowable from the form alone, so nothing on the page is
+     blank while the dataset is still loading. */
   function update() {
-    if (!current) return;
     const format = value("format");
     $$("[data-for]", form).forEach(l => l.hidden = l.dataset.for !== format);
     const p = params();
     url = location.origin + "/download?" + p.toString().replace(/%3A/g, ":").replace(/%2C/g, ",").replace(/%7C/g, "|");
     renderUrl(p);
-    for (const id of ["#download", "#dock-download", "#out-download"]) $(id).href = url;
+    for (const id of ["#download", "#dock-download"]) $(id).href = url;
+    const n = customCount(p);
+    $("#more-count").textContent = n ? `· ${n} option${n > 1 ? "s" : ""} changed` : "· marks, spelling, columns, layout";
+    $("#dock-what").textContent = `${current ? current.name_en.replace(/ .*/, "") : value("edition")} · ${scopeWords()} · ${format}`;
+    if (!current) return;
     snippet();
     clearTimeout(timer);
-    timer = setTimeout(() => preview(), 180);
+    $("#out-status").textContent = "loading…";
+    $("#out-status").style.color = "var(--slate)";
+    timer = setTimeout(preview, 180);
   }
+  update();   // paint the URL and the buttons on the first frame
 
+  /* -- the drawer ------------------------------------------------------------ */
+  const toggle = $("#more-toggle"), body = $("#more-body");
+  toggle.addEventListener("click", () => {
+    const open = toggle.getAttribute("aria-expanded") === "true";
+    toggle.setAttribute("aria-expanded", String(!open));
+    body.hidden = open;
+  });
+  $("#reset").addEventListener("click", () => {
+    form.reset();
+    onEdition();
+    toggle.focus();
+  });
+
+  /* -- copy buttons say so --------------------------------------------------- */
   const curl = () => `curl -fSL -O -J '${url}'\ncurl -fSL -O '${location.origin}${current.font.url}'   # the font this text is set in`;
-  $("#copy-curl").addEventListener("click", () => navigator.clipboard.writeText(curl()));
-  $("#dock-copy").addEventListener("click", () => navigator.clipboard.writeText(url));
-  $("#copy-url").addEventListener("click", () => navigator.clipboard.writeText(url));
-  // the three steps jump to their rows
-  $$(".step").forEach((el, i) => el.addEventListener("click", () => (i < 2 ? $$(".row")[[0, 2][i]] : $(".urlbox")).scrollIntoView({ block: "center", behavior: "smooth" })));
-  form.addEventListener("input", update);
-  form.addEventListener("change", e => { if (e.target.name === "edition") onEdition(); else update(); });
-  $$("input[type=text],input[type=number]", form).forEach(i => i.addEventListener("focus", () => { $(`[name=scope][value=${i.name}]`, form).checked = true; update(); }));
+  function copies(btn, text) {
+    btn.addEventListener("click", async () => {
+      const was = btn.textContent;
+      try { await navigator.clipboard.writeText(text()); btn.textContent = "Copied ✓"; }
+      catch (e) { btn.textContent = "Press ⌘C"; }
+      setTimeout(() => { btn.textContent = was; }, 1400);
+    });
+  }
+  copies($("#copy-url"), () => url);
+  copies($("#copy-curl"), curl);
+  copies($("#dock-copy"), () => url);
 
-  // -- output pane ------------------------------------------------------------
-  const tabs = ["preview", "headers", "python", "js", "php", "dart", "swift", "kotlin", "shell"];
+  form.addEventListener("input", update);
+  form.addEventListener("change", e => {
+    if (e.target.name === "edition") onEdition();
+    else {
+      update();
+      /* Picking a scope that takes a value puts the cursor straight in it. */
+      if (e.target.name === "scope" && e.target.value !== "all") {
+        const box = $(`[name=${e.target.value}]`, form);
+        if (box && !box.value) box.focus();
+      }
+    }
+  });
+  /* Typing in a scope box selects that scope, so the value you type is the one used. */
+  $$("input[type=text],input[type=number]", form).forEach(i => i.addEventListener("focus", () => {
+    const radio = $(`[name=scope][value=${i.name}]`, form);
+    if (radio && !radio.checked) { radio.checked = true; update(); }
+  }));
+
+  /* The dock appears only once the download button has scrolled out of view. */
+  const go = $(".go"), dock = $("#dock");
+  /* Only once the real download button has scrolled off the top — never while
+     it is on screen, where it would just say the same thing twice. */
+  const dockCheck = () => { dock.hidden = go.getBoundingClientRect().bottom > 64; };
+  addEventListener("scroll", dockCheck, { passive: true });
+  addEventListener("resize", dockCheck);
+  dockCheck();
+
+  /* -- preview --------------------------------------------------------------- */
+  const LANGS = ["python", "js", "php", "dart", "swift", "kotlin", "shell"];
   let tab = "preview";
   const tabBox = $("#tabs");
-  for (const t of tabs) { const b = document.createElement("button"); b.type = "button"; b.textContent = t; b.onclick = () => { tab = t; showTab(); }; tabBox.appendChild(b); }
+  for (const t of [["preview", "Preview"], ["headers", "Response headers"]]) {
+    const b = document.createElement("button");
+    b.type = "button"; b.dataset.tab = t[0]; b.textContent = t[1];
+    b.onclick = () => { tab = t[0]; showTab(); };
+    tabBox.appendChild(b);
+  }
+  const codeBtn = document.createElement("button");
+  codeBtn.type = "button"; codeBtn.dataset.tab = "code"; codeBtn.textContent = "Code";
+  codeBtn.onclick = () => { tab = "code"; showTab(); };
+  tabBox.appendChild(codeBtn);
+  const langSel = document.createElement("select");
+  langSel.setAttribute("aria-label", "language of the code sample");
+  langSel.innerHTML = LANGS.map(l => `<option>${l}</option>`).join("");
+  langSel.onchange = () => { tab = "code"; showTab(); };
+  tabBox.appendChild(langSel);
+
   function showTab() {
-    $$("button", tabBox).forEach(b => b.setAttribute("aria-selected", String(b.textContent === tab)));
+    $$("button", tabBox).forEach(b => b.setAttribute("aria-selected", String(b.dataset.tab === tab)));
+    langSel.hidden = tab !== "code";
     $("#preview").hidden = tab !== "preview";
     $("#hdrs").hidden = tab !== "headers";
-    $("#snippet").hidden = tab === "preview" || tab === "headers";
+    $("#snippet").hidden = tab !== "code";
     snippet();
   }
   showTab();
@@ -626,46 +952,66 @@ m.ayah(<span class="s">2</span>, <span class="s">255</span>).to(warsh)          
   async function preview() {
     if (controller) controller.abort();
     controller = new AbortController();
-    const box = $("#preview"), hdrs = $("#hdrs");
+    const box = $("#preview"), hdrs = $("#hdrs"), status = $("#out-status");
     const format = value("format");
     box.classList.toggle("code", !["txt", "md"].includes(format));
+    box.classList.remove("code");
     try {
-      // whole-Qurʾān scope previews a stretch that carries every sign this release prints
+      /* Whole-Qurʾān previews show a stretch that carries every sign this release
+         prints, so nothing a reader might look for is missing by accident. */
       let previewUrl = url + (value("by") === "word" ? "&limit=80" : "&limit=10");
       const whole = value("scope") === "all";
       if (whole && current.sample) previewUrl = url + "&ayah=" + current.sample.ayah + (value("by") === "word" ? "&limit=200" : "");
-      $("#out-title").textContent = whole && current.sample ? `preview of āyāt ${current.sample.ayah.replace("-", " to ")}, a stretch with every sign this release prints` : "the first rows, exactly as the file has them";
+      $("#out-title").textContent = whole && current.sample
+        ? `āyāt ${current.sample.ayah.replace("-", " to ")} — a stretch that carries every sign this release prints`
+        : "the first rows, exactly as the file has them";
       const tabular = ["csv", "sql", "json", "xml"].includes(format);
       const u = new URL(previewUrl);
       if (tabular) { u.searchParams.set("format", "json"); u.searchParams.set("nested", "0"); u.searchParams.set("header", "0"); }
       const r = await fetch(u, { signal: controller.signal });
-      const body = await r.text();
-      $("#out-status").textContent = `${r.status} ${r.ok ? "OK" : ""}`;
-      $("#out-status").className = r.ok ? "k" : "err";
+      const text = await r.text();
+      status.textContent = r.ok ? `${r.status} OK` : `${r.status}`;
+      status.style.color = r.ok ? "var(--teal)" : "#A02F1A";
       const name = whole ? filename(r).replace(/-ayah[\d_-]+/, "") : filename(r);
-      hdrs.innerHTML = `HTTP ${r.status}<br>content-type: <span class="w">${escape(r.headers.get("content-type") || "")}</span><br>content-disposition: <span class="w">attachment; filename="${escape(name)}"</span><br>x-checksum-sha256: <span class="w">the SHA-256 of the full file</span><br>access-control-allow-origin: <span class="w">*</span>`;
+      hdrs.innerHTML = `HTTP ${r.status}
+content-type: ${escape(r.headers.get("content-type") || "")}
+content-disposition: attachment; filename="${escape(name)}"
+x-checksum-sha256: the SHA-256 of the full file
+access-control-allow-origin: *`;
       for (const id of ["#dock-name", "#out-name", "#download-name"]) $(id).textContent = name;
-      if (!r.ok) { box.innerHTML = `<span class="err">${escape(JSON.parse(body).error || body)}</span>`; return; }
-      if (tabular) {
-        const d = JSON.parse(body), rows = d.ayahs || d.words || [];
-        const cols = rows.length ? Object.keys(rows[0]) : [];
-        const arabic = c => ["text", "rasm_uthmani", "rasm_imlai", "plain", "waqf", "sajdah", "division"].includes(c);
-        box.classList.remove("code");
-        box.innerHTML = `<div class="hdr">shown as a table; the file is ${format.toUpperCase()} with these ${cols.length} columns: ${cols.join(", ")}</div>` +
-          `<table class="tbl"><thead><tr>${cols.map(c => `<th>${escape(c)}</th>`).join("")}</tr></thead><tbody>` +
-          rows.map(r => `<tr>${cols.map(c => `<td class="${arabic(c) ? "ar" : "num"}">${r[c] === null || r[c] === undefined ? "" : escape(String(r[c]))}</td>`).join("")}</tr>`).join("") +
-          `</tbody></table>`;
+      if (!r.ok) {
+        let msg = text; try { msg = JSON.parse(text).error || text; } catch (e) {}
+        box.innerHTML = `<div class="err">${escape(msg)}</div>`;
         return;
       }
-      const lines = body.split("\n"), hdr = [];
+      if (tabular) {
+        const d = JSON.parse(text), rows = d.ayahs || d.words || [];
+        const cols = rows.length ? Object.keys(rows[0]) : [];
+        const arabic = c => ["text", "rasm_uthmani", "rasm_imlai", "plain", "waqf", "sajdah", "division"].includes(c);
+        box.innerHTML =
+          `<div class="hdr">shown as a table; the file is ${format.toUpperCase()} with these ${cols.length} columns: ${cols.join(", ")}</div>` +
+          `<div style="overflow-x:auto"><table class="tbl"><thead><tr>${cols.map(c => `<th>${escape(c)}</th>`).join("")}</tr></thead><tbody>` +
+          rows.map(row => `<tr>${cols.map(c => `<td class="${arabic(c) ? "ar" : "num"}">${row[c] == null ? "" : escape(String(row[c]))}</td>`).join("")}</tr>`).join("") +
+          `</tbody></table></div>`;
+        return;
+      }
+      const lines = text.split("\n"), hdr = [];
       const isHeader = l => /^(# |-- |> |<\?xml|<!--|  |-->)/.test(l) || l === "";
       while (lines.length && isHeader(lines[0])) hdr.push(lines.shift());
       const head = hdr.length ? `<div class="hdr">${escape(hdr.join("\n").trim())}</div>` : "";
       if (format === "txt" && checked("prefix") && !checked("lines")) {
-        // surah|ayah| prefixes in a column, the text right-aligned
-        box.innerHTML = head + lines.filter(l => l !== "").map(l => { const m = /^(\d+\|\d+\|)(.*)$/.exec(l); return m ? `<div class="line"><span class="n">${m[1]}</span><span class="t">${escape(m[2])}</span></div>` : `<div class="line"><span class="t">${escape(l)}</span></div>`; }).join("");
-      } else box.innerHTML = head + escape(lines.join("\n"));
-    } catch (e) { if (e.name !== "AbortError") box.innerHTML = `<span class="err">${escape(String(e))}</span>`; }
+        box.innerHTML = head + lines.filter(l => l !== "").map(l => {
+          const m = /^(\d+\|\d+\|)(.*)$/.exec(l);
+          return m ? `<div class="line"><span class="n">${m[1]}</span><span class="t">${escape(m[2])}</span></div>`
+                   : `<div class="line"><span class="t">${escape(l)}</span></div>`;
+        }).join("");
+      } else {
+        box.classList.add("code");
+        box.innerHTML = head + `<div style="white-space:pre-wrap">${escape(lines.join("\n"))}</div>`;
+      }
+    } catch (e) {
+      if (e.name !== "AbortError") box.innerHTML = `<div class="err">${escape(String(e))}</div>`;
+    }
   }
   function filename(r) {
     const cd = r.headers.get("content-disposition") || "";
@@ -673,9 +1019,9 @@ m.ayah(<span class="s">2</span>, <span class="s">255</span>).to(warsh)          
     return m ? decodeURIComponent(m[1]) : `quran-${value("edition")}.${value("format")}`;
   }
 
-  // -- snippets ---------------------------------------------------------------
+  /* -- code samples ---------------------------------------------------------- */
   function snippet() {
-    if (tab === "preview" || tab === "headers" || !current) return;
+    if (tab !== "code" || !current) return;
     const e = value("edition") || "hafs", scope = value("scope");
     const marks = ["waqf", "sajdah", "division"].filter(checked);
     const markArg = marks.length === 3 ? "True" : marks.length ? `{${marks.map(m => `"${m}"`).join(", ")}}` : "False";
@@ -691,7 +1037,7 @@ m.ayah(<span class="s">2</span>, <span class="s">255</span>).to(warsh)          
       python: `# lib/python/quran_text.py has no dependencies
 from quran_text import Mushaf
 
-m = ${e === "hafs" ? "Mushaf.hafs()                      # bundled" : `Mushaf.load("${e}.json")           # the raw file above, mushaf/${e}.json`}
+m = ${e === "hafs" ? "Mushaf.hafs()                      # bundled" : `Mushaf.load("${e}.json")           # the raw file, mushaf/${e}.json`}
 print(${sel}${render})
 ${value("by") === "word" ? `for w in ${sel}:\n    print(w.number, w.text, w.marks)   # shared number, printed word, its signs\n` : ""}${e !== "hafs" ? `\nhafs = Mushaf.hafs()\nprint(${sel.startsWith("m.ayah") ? sel : "m.ayah(2, 253)"}.to(hafs))          # the same āyah in Ḥafṣ, by the shared numbering` : `\nwarsh = Mushaf.load("data/mushaf/warsh.json")\nprint(m.ayah(2, 255).to(warsh))       # AyahMatch(2:253-254, split)`}
 
@@ -705,20 +1051,37 @@ text = urllib.request.urlopen("${url}").read().decode("utf-8")`,
       kotlin: `import ws.quran.qurantext.*                  // lib/kotlin, gradle\nval m = ${e === "hafs" ? "Mushaf.hafs()" : `Mushaf.load(File("data/mushaf/${e}.json"))`}\nprintln(${sel}.render(marks = ${marks.length === 3 ? "MarkKind.all" : `setOf(${marks.map(x => `MarkKind.${x}`).join(", ")})`}, ayahMarks = ${am}))\n\n// or fetch exactly this file:\nval text = URL("${url}").readText()`,
       shell: curl() + `\n# verify: the X-Checksum-SHA256 header equals sha256sum of the file`,
     };
-    $("#snippet").textContent = code[tab];
+    $("#snippet").textContent = code[langSel.value];
   }
 
-  // -- the seven --------------------------------------------------------------
+  /* -- the seven, as a table ------------------------------------------------- */
+  let editionList = [], mapRow = {};
   async function editionsTable(list) {
-    let map = {};
-    try { const d = await (await fetch("/map?from=hafs&ayah=2:255&format=json&header=0")).json(); map = d.rows[0] || {}; } catch (e) {}
-    $("#editions-table tbody").innerHTML = list.map(e => {
-      const ref = e.key === "hafs" ? "2:255 · same" : map[`${e.key}_ayah`] ? `${map[`${e.key}_ayah`]} · ${map[`${e.key}_relation`]}` : "";
-      return `<tr><td class="s">${e.key}</td><td><span class="ar" style="font-family:'${e.font.family}',var(--quran)">${e.name_ar}</span> ${escape(e.name_en)}</td><td class="dim">${escape(e.qiraah_en)}</td><td>${escape((e.counting_system_en || e.counting_system).toLowerCase())}</td><td>${e.ayah_count.toLocaleString()}</td><td>${e.word_count.toLocaleString()}</td><td class="dim">${ref}</td><td><a href="${e.font.url}" download>.ttf</a></td></tr>`;
+    editionList = list;
+    try {
+      const d = await (await fetch("/map?from=hafs&ayah=2:255&format=json&header=0")).json();
+      mapRow = d.rows[0] || {};
+    } catch (e) {}
+    renderEditions();
+  }
+  /* Re-rendered when /files answers, because the font sizes come from there. */
+  function renderEditions() {
+    if (!editionList.length) return;
+    $("#editions-table tbody").innerHTML = editionList.map(e => {
+      const ref = e.key === "hafs" ? "2:255 · same"
+        : mapRow[`${e.key}_ayah`] ? `${mapRow[`${e.key}_ayah`]} · ${mapRow[`${e.key}_relation`]}` : "";
+      const f = files.find(x => "/files/" + x.path === e.font.url);
+      return `<tr><td class="keycell">${e.key}</td>` +
+        `<td><span class="ar" style="font-family:'${e.font.family}',var(--quran)">${e.name_ar}</span> ${escape(e.name_en)}</td>` +
+        `<td class="muted">${escape(e.qiraah_en)}</td>` +
+        `<td>${escape((e.counting_system_en || e.counting_system).toLowerCase())}</td>` +
+        `<td>${e.ayah_count.toLocaleString()}</td><td>${e.word_count.toLocaleString()}</td>` +
+        `<td class="muted">${ref}</td>` +
+        `<td><a href="${e.font.url}" download title="${escape(e.font.family)}">.ttf${f ? " · " + size(f.bytes) : ""}</a></td></tr>`;
     }).join("");
   }
 
-  // -- mapping ----------------------------------------------------------------
+  /* -- the mapping ----------------------------------------------------------- */
   function mapUrl() {
     const p = new URLSearchParams();
     p.set("from", $("#map-from").value || "hafs");
@@ -729,30 +1092,53 @@ text = urllib.request.urlopen("${url}").read().decode("utf-8")`,
     return location.origin + "/map?" + p.toString().replace(/%3A/g, ":").replace(/%2C/g, ",");
   }
   function mapUpdate() { const u = mapUrl(); $("#map-url").textContent = u; $("#map-download").href = u; }
-  ["#map-from", "#map-to", "#map-format", "#map-ref"].forEach(sel => { $(sel).addEventListener("change", mapUpdate); $(sel).addEventListener("input", mapUpdate); });
+  ["#map-from", "#map-to", "#map-format", "#map-ref"].forEach(sel => {
+    $(sel).addEventListener("change", mapUpdate); $(sel).addEventListener("input", mapUpdate);
+  });
   $$("[name=map-by]").forEach(i => i.addEventListener("change", mapUpdate));
 
-  // -- compare ----------------------------------------------------------------
+  /* -- one āyah in all seven -------------------------------------------------- */
   async function compare() {
     const box = $("#cmp");
-    box.innerHTML = '<div class="dim" style="grid-column:1/-1;border:0">loading the word index (the first call takes a few seconds)…</div>';
-    const r = await fetch(`/compare?ayah=${encodeURIComponent($("#cmp-ref").value.trim())}&waqf=${$("#cmp-waqf").checked ? 1 : 0}`);
-    const d = await r.json();
-    if (!r.ok) { box.innerHTML = `<div class="err" style="grid-column:1/-1;border:0">${escape(d.error || JSON.stringify(d))}</div>`; return; }
-    box.innerHTML = d.editions.map(e => `<div><span class="s">${e.key}</span><div class="dim" style="font-size:13.5px">${escape(e.ref)} · ${escape(e.relation)}</div></div>
-      <div class="txt" style="font-family:'${editions[e.key] ? editions[e.key].font.family : ""}',var(--quran)">${e.words.map(w => `<span class="${w.kind || ""}" title="#${w.number} ${w.status}">${escape(w.text)}</span>`).join(" ")}</div>`).join("");
+    box.innerHTML = '<div style="grid-column:1/-1;border:0;color:var(--on-forest-50)">reading the word index — the first call takes a few seconds…</div>';
+    try {
+      const r = await fetch(`/compare?ayah=${encodeURIComponent($("#cmp-ref").value.trim())}&waqf=${$("#cmp-waqf").checked ? 1 : 0}`);
+      const d = await r.json();
+      if (!r.ok) { box.innerHTML = `<div style="grid-column:1/-1;border:0;color:var(--gold)">${escape(d.error || JSON.stringify(d))}</div>`; return; }
+      box.innerHTML = d.editions.map(e => `<div>
+          <div style="font-weight:600">${escape(e.name_en)}</div>
+          <div class="mono" style="color:var(--on-forest-50);margin-top:3px">${escape(e.ref)} · ${escape(e.relation)}</div>
+        </div>
+        <div class="txt" style="font-family:'${editions[e.key] ? editions[e.key].font.family : ""}',var(--quran)">${
+          e.words.map(w => `<span class="${w.kind || ""}" title="word #${w.number} · ${w.status}">${escape(w.text)}</span>`).join(" ")
+        }</div>`).join("");
+    } catch (err) {
+      box.innerHTML = `<div style="grid-column:1/-1;border:0;color:var(--gold)">${escape(String(err))}</div>`;
+    }
   }
   $("#cmp-go").addEventListener("click", compare);
   $("#cmp-ref").addEventListener("keydown", e => { if (e.key === "Enter") compare(); });
   $("#cmp-waqf").addEventListener("change", compare);
-  editionsReady.then(compare);
+  /* The first /compare loads the 50 MB word index, which would otherwise hold
+     the server while the preview at the top of the page is still waiting, so it
+     runs only once this section is actually in view. */
+  if ("IntersectionObserver" in window) {
+    const once = new IntersectionObserver(es => {
+      if (es.some(e => e.isIntersecting)) { once.disconnect(); editionsReady.then(compare); }
+    }, { rootMargin: "200px" });
+    once.observe($("#compare"));
+  } else editionsReady.then(compare);
 
-  // -- files ------------------------------------------------------------------
+  /* -- every file the build writes -------------------------------------------- */
   fetch("/files").then(r => r.json()).then(list => {
     files = list;
-    $("#ls").innerHTML = list.map(f => `<span class="sz">${size(f.bytes)}</span><a href="${f.url}">${escape(f.path)}</a><span class="hash">${f.sha256.slice(0, 4)}…${f.sha256.slice(-4)}</span>${f.normative ? '<span class="s">the raw file · </span>' : ""}<span class="dim">${escape(f.answers || "")}</span>`).join("\n");
+    $("#ls").innerHTML = list.map(f =>
+      `<span class="sz">${size(f.bytes)}</span>` +
+      `<a href="${f.url}">${escape(f.path)}</a>` +
+      `<span class="hash">${f.sha256.slice(0, 4)}…${f.sha256.slice(-4)}</span>` +
+      `<span class="what">${f.normative ? "the raw file · " : ""}${escape(f.answers || "")}</span>`).join("");
     if (current) { rawSelect(current.key); fontNotes(current); }
-    fontsTable();
+    renderEditions();
   });
 })();
 </script>
