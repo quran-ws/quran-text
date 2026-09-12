@@ -11,43 +11,71 @@
     "qari": "asim",
     "system": "kufi",
     "system_printed": "kufi",
-    "differs": false
+    "differs": false,
+    "measured_from": {
+     "package": "UthmanicHafs-v-3.0.zip",
+     "release_year": 2026
+    }
    },
    "shubah": {
     "qari": "asim",
     "system": "kufi",
     "system_printed": "kufi",
-    "differs": false
+    "differs": false,
+    "measured_from": {
+     "package": "UthmanicShubah-v-3.0.zip",
+     "release_year": 2026
+    }
    },
    "warsh": {
     "qari": "nafi",
     "system": "madani-last",
     "system_printed": "madani-last",
-    "differs": false
+    "differs": false,
+    "measured_from": {
+     "package": "UthmanicWarsh-v-3.0.zip",
+     "release_year": 2026
+    }
    },
    "qalun": {
     "qari": "nafi",
     "system": "madani-last",
     "system_printed": "madani-last",
-    "differs": false
+    "differs": false,
+    "measured_from": {
+     "package": "UthmanicQaloun-v-3.0.zip",
+     "release_year": 2026
+    }
    },
    "duri": {
     "qari": "abu-amr",
     "system": "basri",
     "system_printed": "madani-first",
-    "differs": true
+    "differs": true,
+    "measured_from": {
+     "package": "UthmanicDouri_V20.zip",
+     "release_year": 2022
+    }
    },
    "susi": {
     "qari": "abu-amr",
     "system": "basri",
     "system_printed": "madani-first",
-    "differs": true
+    "differs": true,
+    "measured_from": {
+     "package": "UthmanicSousi-v-3.0.zip",
+     "release_year": 2026
+    }
    },
    "bazzi": {
     "qari": "ibn-kathir",
     "system": "makki",
     "system_printed": "makki",
-    "differs": false
+    "differs": false,
+    "measured_from": {
+     "package": "UthmanicBazzi-v-3.0.zip",
+     "release_year": 2026
+    }
    }
   }
  },
@@ -2749,8 +2777,13 @@
      "mushaf": "duri",
      "ayah_count": 6217,
      "basmalah_counted": false,
+     "system_printed": "madani-first",
      "system_associated_with_qari": "basri",
      "differs_from_association": true,
+     "measured_from": {
+      "package": "UthmanicDouri_V20.zip",
+      "release_year": 2022
+     },
      "khilaf": [
       {
        "surah": 3,
@@ -2886,8 +2919,13 @@
      "mushaf": "susi",
      "ayah_count": 6218,
      "basmalah_counted": false,
+     "system_printed": "madani-first",
      "system_associated_with_qari": "basri",
      "differs_from_association": true,
+     "measured_from": {
+      "package": "UthmanicSousi-v-3.0.zip",
+      "release_year": 2026
+     },
      "khilaf": [
       {
        "surah": 3,
@@ -9342,8 +9380,13 @@
      "mushaf": "warsh",
      "ayah_count": 6214,
      "basmalah_counted": false,
+     "system_printed": "madani-last",
      "system_associated_with_qari": "madani-last",
      "differs_from_association": false,
+     "measured_from": {
+      "package": "UthmanicWarsh-v-3.0.zip",
+      "release_year": 2026
+     },
      "khilaf": [],
      "unexplained": []
     },
@@ -9351,8 +9394,13 @@
      "mushaf": "qalun",
      "ayah_count": 6214,
      "basmalah_counted": false,
+     "system_printed": "madani-last",
      "system_associated_with_qari": "madani-last",
      "differs_from_association": false,
+     "measured_from": {
+      "package": "UthmanicQaloun-v-3.0.zip",
+      "release_year": 2026
+     },
      "khilaf": [],
      "unexplained": []
     }
@@ -15584,8 +15632,13 @@
      "mushaf": "bazzi",
      "ayah_count": 6220,
      "basmalah_counted": true,
+     "system_printed": "makki",
      "system_associated_with_qari": "makki",
      "differs_from_association": false,
+     "measured_from": {
+      "package": "UthmanicBazzi-v-3.0.zip",
+      "release_year": 2026
+     },
      "khilaf": [
       {
        "surah": 78,
@@ -34303,8 +34356,13 @@
      "mushaf": "hafs",
      "ayah_count": 6236,
      "basmalah_counted": true,
+     "system_printed": "kufi",
      "system_associated_with_qari": "kufi",
      "differs_from_association": false,
+     "measured_from": {
+      "package": "UthmanicHafs-v-3.0.zip",
+      "release_year": 2026
+     },
      "khilaf": [],
      "unexplained": []
     },
@@ -34312,8 +34370,13 @@
      "mushaf": "shubah",
      "ayah_count": 6236,
      "basmalah_counted": true,
+     "system_printed": "kufi",
      "system_associated_with_qari": "kufi",
      "differs_from_association": false,
+     "measured_from": {
+      "package": "UthmanicShubah-v-3.0.zip",
+      "release_year": 2026
+     },
      "khilaf": [],
      "unexplained": []
     }

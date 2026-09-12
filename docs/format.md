@@ -21,7 +21,7 @@ that array, addressed by position.**
 
   "mushaf":   { "key": "warsh", "name_en": "Warsh", "name_ar": "ورش",
                 "qiraah_en": "Nāfiʿ al-Madanī", "qiraah_ar": "نافع المدني", "word_count": 77431 },
-  "counting": { "system": "madani-last", "system_associated_with_qari": "madani-last",
+  "counting": { "system": "madani-last", "system_printed": "madani-last", "system_associated_with_qari": "madani-last",
                 "differs_from_association": false, "declared_by": null, "ayah_count": 6214,
                 "basmalah_counted": false, "khilaf": [], "unexplained": [] },
   "provenance": { "text": { "package": "UthmanicWarsh-v-3.0.zip", "…": "…" }, "layout": { "…": "…" } },
@@ -225,6 +225,8 @@ levels — counting system, transmission within it, edition — are explained in
 ```json
 "counting": {
   "system": "madani-first", "system_name_ar": "المدني الأول", "system_name_en": "First Madani Numbering",
+  "system_printed": "madani-first",
+  "measured_from": { "package": "UthmanicDouri_V20.zip", "release_year": 2022 },
   "system_associated_with_qari": "basri",
   "system_associated_with_qari_name_ar": "البصري", "system_associated_with_qari_name_en": "Basri Numbering",
   "differs_from_association": true,
@@ -243,6 +245,8 @@ levels — counting system, transmission within it, edition — are explained in
 | field | meaning |
 |---|---|
 | `system` | the madhhab this edition follows. **Derived** by comparing the edition's `ayah_starts` to each system's boundaries and taking the one it matches once khilāf points are set aside; the distances are in `distance_to_systems` |
+| `system_printed` | `system` again, under the name that says which of the two questions it answers. Same value always. [`qiraat-ayah-map`](https://github.com/quran-ws/qiraat-ayah-map) publishes the pair as `counting_system_printed` and `counting_system_associated_with_qari`, so a join can be written against either side without translating names |
+| `measured_from` | the publisher package the printed count was measured from, and its year. A printed count is a statement about one release and never about a muṣḥaf in general: three KFGQPC Dūrī printings carry two different āyah divisions and three different colophons. **Dūrī here is measured from the 2022 `UthmanicDouri_V20.zip`** while the other six are on 2026 v3.0 releases, so a later release of it has to be measured again rather than assumed to carry the same count |
 | `system_associated_with_qari` | the system this edition's **qāriʾ** is associated with, from `qiraat-ayah-map`'s `data/qiraat.json`, vendored beside the boundaries. A different question from `system`: that one is what this printing measures onto, this one is what «قراءة أبي عمرو البصري» leads a reader to expect. `_name_ar` / `_name_en` name it |
 | `differs_from_association` | whether the two disagree. True for **Dūrī and Sūsī** — Abū ʿAmr is associated with the Baṣrī count, and both of his printed muṣḥafs measure onto First Madani. Publishing both means a consumer joining this repository to one that carries the association alone reads a value rather than discovering a contradiction |
 | `declared_by` | what the edition states about itself, and where, or `null` if the source in `sources/` states nothing — which is the case for every KFGQPC `.docx`, since they carry the text without the printed colophon. A declaration that disagreed with the derived system would be kept and flagged `declared_disagrees`, not overwritten |

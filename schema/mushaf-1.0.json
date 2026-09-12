@@ -78,8 +78,10 @@
       "description": "Which counting system this edition follows, derived from its own ayah_starts, and what it does at every point of khilāf inside that system.",
       "required": [
         "system",
+        "system_printed",
         "system_associated_with_qari",
         "differs_from_association",
+        "measured_from",
         "declared_by",
         "ayah_count",
         "basmalah_counted",
@@ -103,6 +105,27 @@
         },
         "system_name_en": {
           "type": "string"
+        },
+        "system_printed": {
+          "description": "`system` under the name that says which question it answers: the count this printing carries, measured from its own ayah_starts. Always equal to `system`; qiraat-ayah-map publishes `counting_system_printed` and `counting_system_associated_with_qari` under the same two words, so a join can be written against either side.",
+          "enum": [
+            "madani-first",
+            "madani-last",
+            "makki",
+            "basri",
+            "dimashqi",
+            "kufi"
+          ]
+        },
+        "measured_from": {
+          "type": "object",
+          "description": "The publisher package the printed count was measured from. A printed count is a statement about one release, never about a mu\u1e63\u1e25af in general: printings of one mu\u1e63\u1e25af disagree with each other, so a newer release must be measured again rather than assumed to carry the same count.",
+          "required": ["package", "release_year"],
+          "additionalProperties": false,
+          "properties": {
+            "package": { "type": "string" },
+            "release_year": { "type": "integer" }
+          }
         },
         "system_associated_with_qari": {
           "description": "The counting system this edition's q\u0101ri\u02be is associated with, from qiraat-ayah-map's data/qiraat.json. A fact about the q\u0101ri\u02be, not about this printing: `system` above is what this edition measures onto, and the two need not agree.",

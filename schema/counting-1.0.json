@@ -22,12 +22,13 @@
           "type": "object",
           "additionalProperties": {
             "type": "object",
-            "required": ["qari", "system", "system_printed", "differs"],
+            "required": ["qari", "system", "system_printed", "differs", "measured_from"],
             "properties": {
               "qari": { "type": "string", "description": "The qāriʾ's key in qiraat-ayah-map." },
               "system": { "type": "string", "description": "The system the qāriʾ is associated with." },
               "system_printed": { "type": "string", "description": "The system this edition measures onto, derived from its own ayah_starts." },
-              "differs": { "type": "boolean" }
+              "differs": { "type": "boolean" },
+              "measured_from": { "type": "object", "description": "The publisher package the printed system was measured from. A newer release must be measured again rather than assumed to carry the same count." }
             }
           }
         }

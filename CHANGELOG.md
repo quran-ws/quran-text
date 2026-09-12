@@ -9,6 +9,31 @@ This project has not had a tagged release yet; everything below is unreleased.
 
 ### Format
 
+- **The two counting questions are spelled the same way in both repositories,
+  and a printed count names the release it was measured from.** The `counting`
+  block gains `system_printed` — `system` again, under the name that says which
+  of the two questions it answers — so that it sits opposite
+  `system_associated_with_qari` as an obvious pair rather than one named field
+  and one unnamed default. `qiraat-ayah-map` now publishes the same two words,
+  as `counting_system_printed` in its new `data/printed-editions.json` and
+  `counting_system_associated_with_qari` in `data/qiraat.json`, so a join can be
+  written against either side without translating names.
+  `counting.measured_from` names the publisher package and year the printed
+  count was measured from: printings of one muṣḥaf disagree with each other, so
+  a printed count is a statement about one release and never about a muṣḥaf in
+  general. **Dūrī is measured from the 2022 `UthmanicDouri_V20.zip`** while the
+  other six are on 2026 v3.0 releases, and that is now visible in the counting
+  block instead of only in `provenance`. `data/catalog.json` gains
+  `counting_system_printed` and `counting_measured_from`, and `data/counting.json`
+  carries both on every edition row and in the `association` block. Additive
+  throughout: `counting.system` and `catalog.counting_system` keep their names,
+  their values and their meaning.
+- **The upstream attribution is read under either of its names.** `qiraat.json`
+  is being renamed upstream from `counting_system` to
+  `counting_system_associated_with_qari`, for the same reason the field was
+  split here. `attributed_system_id` accepts either and fails loudly on
+  neither, so refreshing the vendored copy across that rename changes nothing
+  published (qiraat-ayah-map#12).
 - **A muṣḥaf file says what `words` is not.** `layers` gains a `text` block
   stating that `words[i]` carries no mark, that joining `words` with a space is
   neither the text the muṣḥaf prints nor what `/download` returns, and the two

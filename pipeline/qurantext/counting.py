@@ -34,7 +34,15 @@ his two printed muṣḥafs here measure onto First Madani.  Both answers are in
 the block, as ``system`` and ``system_associated_with_qari``, with
 ``differs_from_association`` saying when they part company, so joining this
 repository to one that publishes the association alone cannot silently produce
-a contradiction.
+a contradiction.  ``system_printed`` is the derived system again under the name
+that says what it measures; qiraat-ayah-map publishes the same two questions
+under the same two words, so a join can be written against either side.
+
+A printed count is a statement about one package, never about a muṣḥaf in
+general, so the block names the package and release year it was measured from in
+``measured_from``.  Dūrī is measured from the 2022 ``UthmanicDouri_V20.zip``
+while the other six are on 2026 v3.0 releases, and a later KFGQPC release of it
+has to be measured again rather than assumed to print the same count.
 """
 
 from __future__ import annotations
@@ -167,6 +175,24 @@ def declared() -> dict[str, dict | None]:
 RAWI_KEYS = {"shubah": "shuba"}
 
 
+def attributed_system_id(qari: str, record: dict) -> str:
+    """The counting system ``qiraat.json`` attributes to one qāriʾ.
+
+    Upstream renamed ``counting_system`` to
+    ``counting_system_associated_with_qari`` for exactly the reason this module
+    exists: the old name could be read as the count a muṣḥaf prints, which it
+    never was.  Either name is accepted so that re-vendoring across that rename
+    changes nothing published here, and a record carrying neither fails loudly
+    rather than silently losing an attribution.
+    """
+    for field in ("counting_system_associated_with_qari", "counting_system"):
+        if field in record:
+            return record[field]
+    raise ValueError(
+        f"{QIRAAT.name} gives {qari!r} no counting system under either "
+        f"counting_system_associated_with_qari or counting_system")
+
+
 @lru_cache(maxsize=None)
 def association() -> dict[str, dict]:
     """muṣḥaf key -> the qāriʾ, and the counting system he is *associated with*.
@@ -182,8 +208,9 @@ def association() -> dict[str, dict]:
     """
     by_rawi: dict[str, dict] = {}
     for qari, q in _load(QIRAAT).items():
+        system = attributed_system_id(qari, q)
         for rawi in q["rawis"]:
-            by_rawi[rawi] = {"qari": qari, "system": q["counting_system"]}
+            by_rawi[rawi] = {"qari": qari, "system": system}
     return by_rawi | {key: by_rawi[rawi] for key, rawi in RAWI_KEYS.items()}
 
 
@@ -396,10 +423,23 @@ def derive(doc: dict, words: list[Word]) -> dict:
     info = systems()[system]
     stated = declared().get(key)
     assoc = associated_system(key)
+    text = doc["provenance"]["text"]
     block = {
         "system": system,
         "system_name_ar": info["name_ar"],
         "system_name_en": info["name_en"],
+        # ``system`` under the name that says what it measures, so this
+        # repository and qiraat-ayah-map spell the same two questions the same
+        # way: system_printed against system_associated_with_qari.  Same value,
+        # and ``system`` is kept because consumers already read it.
+        "system_printed": system,
+        # Which printing this was measured from.  Printings of one muṣḥaf
+        # disagree with each other — three KFGQPC Dūrī printings carry two
+        # different āyah divisions — so a printed count is only ever a statement
+        # about the package named here, and a newer release has to be measured
+        # again rather than assumed.
+        "measured_from": {"package": text["package"],
+                          "release_year": text["release_year"]},
         # What the qāriʾ is associated with, beside what this edition prints.
         # A consumer joining on a counting field gets both answers here rather
         # than one from each repository and no way to tell them apart.
@@ -442,8 +482,10 @@ def write_counting(words: list[Word], docs: dict[str, dict]) -> dict:
         editions = [
             {"mushaf": k, "ayah_count": d["counting"]["ayah_count"],
              "basmalah_counted": d["counting"]["basmalah_counted"],
+             "system_printed": d["counting"]["system_printed"],
              "system_associated_with_qari": d["counting"]["system_associated_with_qari"],
              "differs_from_association": d["counting"]["differs_from_association"],
+             "measured_from": d["counting"]["measured_from"],
              "khilaf": d["counting"]["khilaf"],
              "unexplained": d["counting"]["unexplained"]}
             for k, d in docs.items() if d["counting"]["system"] == system]
@@ -482,7 +524,8 @@ def write_counting(words: list[Word], docs: dict[str, dict]) -> dict:
             "by_mushaf": {k: {"qari": association()[k]["qari"],
                               "system": association()[k]["system"],
                               "system_printed": d["counting"]["system"],
-                              "differs": d["counting"]["differs_from_association"]}
+                              "differs": d["counting"]["differs_from_association"],
+                              "measured_from": d["counting"]["measured_from"]}
                           for k, d in docs.items()},
         },
         "source": provenance(),

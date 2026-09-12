@@ -25,8 +25,10 @@ from them.
 ```json
 { "format": "quran-catalog", "word_count": 77434, "surah_count": 114,
   "riwayahs": [ { "key": "duri", "name_en": "Dūrī", "name_ar": "الدوري", "qiraah_en": "…", "qiraah_ar": "…",
-                 "counting_system": "madani-first", "counting_system_associated_with_qari": "basri",
+                 "counting_system": "madani-first", "counting_system_printed": "madani-first",
+                 "counting_system_associated_with_qari": "basri",
                  "counting_differs_from_association": true,
+                 "counting_measured_from": { "package": "UthmanicDouri_V20.zip", "release_year": 2022 },
                  "ayah_count": 6217, "word_count": 77431,
                  "source": "UthmanicDouri_V20.zip :: UthmanicDouri V20.docx", "crosscheck_source": "…",
                  "file": "data/mushaf/duri.json" }, "…" ],
