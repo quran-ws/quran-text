@@ -293,6 +293,41 @@ them reproduces the printed token.
 
 ---
 
+### 5c. The releases do not agree with themselves about composing ئ
+
+`ئ` has two spellings in Unicode — the single codepoint `U+0626`, and `U+064A`
+followed by `U+0654` — and they are canonically equivalent. The v3.0 packages
+use both:
+
+| release | composed `U+0626` | decomposed `ي` + `U+0654` |
+|---|---|---|
+| Ḥafṣ | 908 | **1** — 35:43 ﴾ٱلسَّيِّئُ﴿ |
+| Shuʿbah | 911 | **1** — 33:51 ﴾تُرۡجِئُ﴿ |
+| Dūrī | 873 | **22** |
+| Sūsī | 760 | **22** |
+| Warsh, Qālūn, Bazzī | 835 / 901 / 902 | none |
+
+The Ḥafṣ case is a change between releases, not a constant of the text: the
+2022 v2 CSV writes 35:43 composed, and the 2026 v3.0 document writes it
+decomposed. Dūrī and Sūsī decompose 22 words each, which is a convention rather
+than a slip.
+
+Recorded, not corrected. This is what `normalization: {"applied": "none"}` means
+in practice — the file holds what the package holds, including where the package
+is inconsistent with itself. It was invisible while the build applied NFC, which
+composed all 909 of Ḥafṣ's into one spelling and made the published text differ
+from the release without saying so.
+
+**Nothing downstream should read the difference as textual.** The two spellings
+are one word: `fold_notation` normalises before comparing, so the cross-release
+report does not see it; `rasm`, `pointed` and `plain` are identical either way;
+and the search fold strips the hamzah. A consumer analysing letters — a tajwīd
+annotator deciding whether a yāʾ before a hamzah is a madd letter, say — should
+**normalise to NFC first**, exactly as every muṣḥaf file's `normalization` block
+says, or 35:43 will read as a yāʾ standing before a hamzah when it is a seat.
+
+---
+
 ### 6. Printed lines are not encoded in any release, and were reconstructed wrong
 
 The `.docx` releases mark their **page** turns explicitly — 603
