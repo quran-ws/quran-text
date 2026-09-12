@@ -313,3 +313,20 @@ def test_map_dataset_by_ayah_and_by_word():
     assert ET.fromstring(get("/map?from=hafs&to=warsh&surah=1&format=xml").text).tag == "map"
     assert "no riwāyah" in get("/map?from=hafs&to=nope&ayah=2:255", 400).json()["error"]
     assert "being mapped from" in get("/map?from=hafs&to=hafs&ayah=2:255", 400).json()["error"]
+
+
+def test_head_is_accepted_on_the_read_endpoints():
+    """HEAD used to return 405 everywhere but /files/{path}.
+
+    The 405 carried a JSON error body, so a client probing `/download?format=txt`
+    with HEAD was told `application/json` — the opposite of what the GET returns.
+    A wrong answer is worse than a missing one, because nothing looks broken.
+    """
+    for path in ("/download?edition=hafs&surah=1&format=txt", "/editions", "/version", "/files"):
+        response = client.head(path)
+        assert response.status_code == 200, f"HEAD {path} -> {response.status_code}"
+        assert response.content == b"", f"HEAD {path} returned a body"
+
+    head = client.head("/download?edition=hafs&surah=1&format=txt")
+    get = client.get("/download?edition=hafs&surah=1&format=txt")
+    assert head.headers["content-type"] == get.headers["content-type"]

@@ -231,9 +231,32 @@ def files(request: Request) -> list[dict]:
     return [dict(f, url=base + f["path"]) for f in data.files()]
 
 
-@app.api_route("/files/{path:path}", methods=["GET", "HEAD"], summary="One dataset file, as built")
+@app.get("/files/{path:path}", summary="One dataset file, as built")
 def file(path: str) -> FileResponse:
     target = data.file_path(path)
     if target is None or not target.is_file():
         raise HTTPException(404, f"no such file: {path}; see /files")
     return FileResponse(target, filename=target.name)
+
+
+# HEAD on every read endpoint.
+#
+# It answers "is it there, and how big" without pulling the file. Only
+# /files/{path} accepted it; everywhere else returned 405 — and the 405 carries
+# a JSON error body, so a client probing `/download?format=txt` with HEAD was
+# told `application/json`, the opposite of what the GET returns. A wrong answer
+# is worse than a missing one, because nothing looks broken.
+#
+# Registered separately rather than as `methods=["GET", "HEAD"]` on the route
+# itself. FastAPI's default operation-id ignores the method, so a two-method
+# route emits the same operationId twice and the OpenAPI schema comes out with
+# duplicates — which is what generated clients collide on. /files/{path} was
+# already declared that way and already warned; this fixes that one too.
+for _route, _handler in (
+    ("/download", download),
+    ("/editions", editions),
+    ("/version", version),
+    ("/files", files),
+    ("/files/{path:path}", file),
+):
+    app.add_api_route(_route, _handler, methods=["HEAD"], include_in_schema=False)
