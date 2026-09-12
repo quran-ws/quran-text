@@ -1,8 +1,9 @@
 # Licence and attribution
 
-`LICENSE` is the **Creative Commons Attribution 4.0 International** licence
-(CC BY 4.0), verbatim and unmodified. This file says what it covers, what it cannot cover, and the
-attribution it asks you to carry.
+`LICENSE` is the standard Quran.ws notice: **CC BY 4.0** across this repository,
+with a standing waiver of attribution for use inside a product. The full legal
+text is in `LICENSES/CC-BY-4.0.txt`. This file says what the licence covers,
+what it cannot cover, and the attribution to carry when it is asked for.
 
 ## What is licensed
 
@@ -50,27 +51,38 @@ was read from:
 | `data/fonts/*.ttf` | KFGQPC fonts, copied unmodified from those packages |
 
 These are the work of the **King Fahd Glorious Qurʾān Printing Complex**, are
-included as received, and remain under KFGQPC's own terms. The packages state
-none in their `read.me` files. Nothing in `LICENSE` grants any right in them,
-and this project makes no claim about what KFGQPC permits — satisfy yourself
-before redistributing them.
+included as received, and remain under KFGQPC's own terms. Those terms are the
+Complex's published usage rights, reproduced in full in Arabic and English in
+`LICENSE`. Nothing in `LICENSE` grants any right in them beyond what the
+Complex itself grants there.
 
 `sources/counting/book-boundary-primitives.json` and `counting-systems.json` are
 copied verbatim from
 [quranpedia/qiraat-ayah-map](https://github.com/quranpedia/qiraat-ayah-map)
 (MIT) at a pinned commit; see `sources/counting/UPSTREAM.md`.
 
-## Attribution
+## Attribution: waived in products, asked for on republication
 
-CC BY 4.0 asks you to credit the source and, under §3(a)(1)(A)(v), to carry a
-link to it. **The link is the point** — it is how anyone who receives this data
-from you can reach corrections and later releases. Please keep it:
+**Building this data into an application, website, service, API, bot, tool,
+research work or product needs no credit at all.** As rights holder we grant a
+permanent, worldwide, royalty-free, irrevocable waiver of CC BY 4.0's
+attribution requirement (§3(a)) for that use, free or commercial, including
+when the dataset is bundled inside the application for offline operation. That
+covers the client libraries too. Credit is always appreciated and never
+required.
+
+Attribution is asked for when the data **itself** is republished as a resource
+in its own right — a mirror, a bulk dump, a downloadable export, an endpoint
+that serves the corpus, or a repository that vendors these files. The test: if
+a third party can obtain the data *as data* from what you distribute, that is
+republication.
+
+When it applies, this is the form:
 
 > quran-text by quran-ws — https://github.com/quran-ws/quran-text — CC BY 4.0
 
-That is the attribution requested under §3(a)(1)(A)(i). In a UI, an about
-screen or a data-source note is enough; in a package, the repository field and
-this file travelling with the data are enough. If you changed the data, say so:
+**The link is the point** — it is how anyone who receives this data from you can
+reach corrections and later releases. If you changed the data, say so:
 §3(a)(1)(B) asks you to mark modifications, and it matters here more than in
 most datasets.
 
