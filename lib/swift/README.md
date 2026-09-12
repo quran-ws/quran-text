@@ -1,5 +1,15 @@
 # QuranText for Swift
 
+```swift
+.package(url: "https://github.com/quran-ws/quran-text-swift.git", from: "0.1.0")
+```
+
+> SwiftPM resolves this directory through
+> [quran-ws/quran-text-swift](https://github.com/quran-ws/quran-text-swift), because
+> it looks for a `Package.swift` at the root of whatever it clones. That mirror is
+> generated from this directory and is read-only — issues and pull requests belong
+> here.
+
 Swift Package, Foundation only, Ḥafṣ bundled. iOS 13+, macOS 10.15+.
 
 ```swift
