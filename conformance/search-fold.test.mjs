@@ -17,7 +17,7 @@ test("conformance vector", () => {
   }
 });
 
-test("the bug this replaces: both spellings reach the same ayat", async () => {
+test("the bug this replaces: both spellings reach the same ayahs", async () => {
   const m = await Mushaf.hafs();
   const strict = m.search("الرحمن");
   assert.equal(strict.length, 45);
@@ -28,13 +28,13 @@ test("the bug this replaces: both spellings reach the same ayat", async () => {
   assert.ok(fallback.every((s) => s.loose), "the second spelling is a loose match");
 });
 
-test("hamza forms fold both ways", async () => {
+test("hamzah forms fold both ways", async () => {
   const m = await Mushaf.hafs();
   assert.equal(m.search("انعمت").length, 7);
   assert.equal(m.search("أنعمت").length, 7);
 });
 
-test("the dagger alif is never expanded", async () => {
+test("the omitted alif is never expanded", async () => {
   assert.equal(matchFold("ٱلۡعَٰلَمِينَ"), "العلمين");
   assert.equal(matchFold("العالمين"), "العالمين");
   assert.ok((await Mushaf.hafs()).search("العالمين").length);
