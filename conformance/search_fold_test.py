@@ -22,9 +22,9 @@ def test_vector(case):
 
 
 def test_the_bug_this_replaces():
-    """Both spellings of the query reach the same ayat.
+    """Both spellings of the query reach the same ayahs.
 
-    `fold()` used to expand the dagger alif into a full alif, so the spelling a
+    `fold()` used to expand the omitted alif into a full alif, so the spelling a
     phone keyboard produces returned nothing at all.
     """
     m = qt.Mushaf.hafs()
@@ -37,14 +37,14 @@ def test_the_bug_this_replaces():
     assert all(s.loose for s in fallback), "the second spelling is a loose match"
 
 
-def test_hamza_forms_are_folded_both_ways():
+def test_hamzah_forms_are_folded_both_ways():
     m = qt.Mushaf.hafs()
     assert len(m.search("انعمت")) == len(m.search("أنعمت")) == 7
 
 
-def test_dagger_alif_is_never_expanded():
-    # The uthmani writes this with a dagger alif; modern spelling writes a full
-    # alif, and the imlai column is what knows that.
+def test_omitted_alif_is_never_expanded():
+    # The rasm_uthmani writes this with an omitted alif; modern spelling writes
+    # a full alif, and the rasm_imlai column records that.
     assert qt.match_fold("ٱلۡعَٰلَمِينَ") == "العلمين"
     assert qt.match_fold("العالمين") == "العالمين"
     assert qt.Mushaf.hafs().search("العالمين")

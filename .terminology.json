@@ -11,7 +11,7 @@
     "part",
     "parts"
   ],
-  "_external_names": "Names this repository does not own: the KFGQPC package, member and font names; the columns of their CSVs; Unicode character names; and the upstream repository. They are quoted, not chosen, so they are read as locators rather than as names.",
+  "_external_names": "Names this repository does not own: the KFGQPC package, member and font names; the columns of their CSVs; Unicode character names; and the upstream repository. They are quoted, not chosen, so they are read as locators rather than as names. The last four belong to the shared search fold specification in docs/SEARCH-FOLD.md and conformance/search-fold.json: uthmani-hafs.json is a file in the quran-tajweed repository, quran-tajweed is that repository's name on GitHub, Imlaei is Tanzil's own name for the script it publishes, and Tarteel is the organisation named beside QUL in the section 9 survey.",
   "external_names": [
     "Uthmanic[A-Za-z]*",
     "(hafs|shuba|warsh|Qaloun|Douri|Sousi)Data_v[0-9-]*",
@@ -21,6 +21,10 @@
     "KFGQPC[A-Za-z ]*",
     "(sura|aya)_(no|text|name_ar|name_en)",
     "aya_text_emlaey",
-    "qiraat-ayah-map"
+    "qiraat-ayah-map",
+    "uthmani-hafs\\.json",
+    "quran-tajweed",
+    "Imlaei",
+    "Tarteel"
   ]
 }
