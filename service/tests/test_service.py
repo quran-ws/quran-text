@@ -260,6 +260,8 @@ def test_files():
     assert hafs["normative"] is True and len(hafs["sha256"]) == 64
     r = get("/files/catalog.json")
     assert json.loads(r.content)["format"] == "quran-catalog"
+    assert r.headers["access-control-allow-origin"] == "*"
+    assert get("/files").headers["access-control-allow-origin"] == "*"
     get("/files/../app.py", 404)
     get("/files/nothing.json", 404)
 

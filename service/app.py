@@ -226,7 +226,8 @@ def version(response: Response) -> dict:
 
 
 @app.get("/files", summary="Every dataset file with size, SHA-256 and what it answers")
-def files(request: Request) -> list[dict]:
+def files(request: Request, response: Response) -> list[dict]:
+    response.headers["Access-Control-Allow-Origin"] = "*"
     base = str(request.url.replace(query=None, path="/files/"))
     return [dict(f, url=base + f["path"]) for f in data.files()]
 
@@ -236,7 +237,10 @@ def file(path: str) -> FileResponse:
     target = data.file_path(path)
     if target is None or not target.is_file():
         raise HTTPException(404, f"no such file: {path}; see /files")
-    return FileResponse(target, filename=target.name)
+    # A browser reads these directly: a player fetches mushaf/hafs.json to show
+    # the words it highlights.
+    return FileResponse(target, filename=target.name,
+                        headers={"Access-Control-Allow-Origin": "*"})
 
 
 # HEAD on every read endpoint.
