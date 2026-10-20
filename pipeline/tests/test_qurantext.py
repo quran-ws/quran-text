@@ -28,7 +28,10 @@ from qurantext.layout import Place                              # noqa: E402
 from qurantext.mushaf import _marks, _starts, numbering, printed_words  # noqa: E402
 from qurantext import stamp                                  # noqa: E402
 from qurantext.counting import attributed_system_id               # noqa: E402
-from qurantext.validate import check_numbering, check_positions  # noqa: E402
+from qurantext.validate import (check_numbering, check_positions,  # noqa: E402
+                                check_printed_text, printed_text, release_text)
+from qurantext.sources import Ayah                                # noqa: E402
+from qurantext.normalize import contributes_to_rasm              # noqa: E402
 
 
 def tok(rasm_: str, surah: int = 1) -> Token:
@@ -241,6 +244,13 @@ class TestSplitByRasm(unittest.TestCase):
         pieces = split_by_rasm("قَتَرٞوَلَا", [3, 3])
         self.assertEqual(pieces[0], "قَتَرٞ")      # the tanwīn belongs to قتر
         self.assertEqual(pieces[1], "وَلَا")
+
+    def test_a_kashida_is_not_a_letter(self):
+        # It stays in the text, but a cut that treated it as one would end the
+        # piece before it and hand the hamzah it seats to the next word.
+        self.assertFalse(contributes_to_rasm("\u0640"))
+        pieces = split_by_rasm("بـٔكَانُواْ", [1, 5])
+        self.assertEqual(pieces, ["بـٔ", "كَانُواْ"])
 
     def test_round_trips(self):
         word = "وَمَالِيَ"
@@ -505,6 +515,22 @@ class TestMarks(unittest.TestCase):
 
     def test_a_word_of_another_riwayah_carries_none_of_them(self):
         self.assertEqual(_marks(self.word(division=["hafs"]), "warsh"), [])
+
+    def test_the_marks_keep_the_order_the_release_wrote(self):
+        # Warsh writes the ṣaḥḥa before ۩ at all 13 sajdah words; collected by
+        # kind, ۩ came out first and re-attached as a token never printed.
+        word = self.word(waqf={"hafs": "۩"}, sajdah=["hafs"],
+                         editorial={"hafs": "࣌"}, division=["hafs"])
+        word.trailing = {"hafs": "࣌۩"}
+        marks = _marks(word, "hafs")
+        self.assertEqual([m["kind"] for m in marks], ["division", "sah", "sajdah"])
+
+    def test_a_sign_written_twice_keeps_both_places(self):
+        word = self.word(waqf={"hafs": "ۖ۩"}, sajdah=["hafs"],
+                         editorial={"hafs": "࣌࣌"})
+        word.trailing = {"hafs": "࣌ۖ࣌۩"}
+        signs = "".join(m["sign"] for m in _marks(word, "hafs"))
+        self.assertEqual(signs, "࣌ۖ࣌۩")
 
 
 class TestNumbering(unittest.TestCase):
@@ -840,6 +866,71 @@ class TestGeneratedDate(unittest.TestCase):
             raise unittest.SkipTest("data/ not built")
         doc = json.loads(manifest.read_text(encoding="utf-8"))
         self.assertEqual(doc["generated"], stamp.EDITION)
+
+
+class TestPrintedText(unittest.TestCase):
+    """A file, its marks re-attached, has to spell its release exactly."""
+
+    # Escaped, because these are the release's codepoints in the release's
+    # order, and an editor or a paste can silently normalise literal Arabic.
+    YAUDUHU = "\u064a\u064e\u0640\u0654\u064f\u0648\u062f\u064f\u0647\u064f\u06e5"
+    BIMA = "\u0628\u0650\u0645\u064e\u0627\u0653"         # alif + maddah, not U+0622
+    YASJUDUN = "\u064a\u064e\u0633\u0652\u062c\u064f\u062f\u064f\u0648\u0646\u064e"
+    RELEASE = f"\u06de {YAUDUHU} {BIMA} {YASJUDUN}\u08cc\u06e9"  # ۞ … ṣaḥḥa, then ۩
+    MARK_TYPES = [{"kind": "sah", "side": "after", "sign": "\u08cc"},
+                  {"kind": "sajdah", "side": "after", "sign": "\u06e9"},
+                  {"kind": "division", "side": "before", "sign": "\u06de"}]
+
+    def doc(self, words, marks=((0, 2), (2, 0), (2, 1))):
+        return {"words": list(words), "marks": [list(m) for m in marks],
+                "mark_types": self.MARK_TYPES}
+
+    def check(self, doc):
+        class R:
+            key = "hafs"
+        return check_printed_text({"hafs": doc}, [R()],
+                                  release=lambda r: "".join(self.RELEASE.split()))
+
+    def test_the_release_as_published_passes(self):
+        doc = self.doc([self.YAUDUHU, self.BIMA, self.YASJUDUN])
+        self.assertEqual(printed_text(doc), "".join(self.RELEASE.split()))
+        self.assertEqual(self.check(doc), [])
+
+    def test_nfc_is_caught(self):
+        # NFC keeps every kind of codepoint somewhere, so a check by kind passes.
+        import unicodedata
+        words = [unicodedata.normalize("NFC", w)
+                 for w in (self.YAUDUHU, self.BIMA, self.YASJUDUN)]
+        self.assertNotEqual(words[1], self.BIMA)
+        self.assertEqual(len(self.check(self.doc(words))), 1)
+
+    def test_a_kashida_dropped_from_one_word_is_caught(self):
+        seatless = self.YAUDUHU.replace("\u0640", "")
+        self.assertEqual(len(self.check(self.doc([seatless, self.BIMA, self.YASJUDUN]))), 1)
+
+    def test_marks_in_the_wrong_order_are_caught(self):
+        doc = self.doc([self.YAUDUHU, self.BIMA, self.YASJUDUN],
+                       marks=((0, 2), (2, 1), (2, 0)))
+        self.assertEqual(len(self.check(doc)), 1)
+
+    def test_a_before_mark_on_the_wrong_word_is_caught(self):
+        doc = self.doc([self.YAUDUHU, self.BIMA, self.YASJUDUN],
+                       marks=((1, 2), (2, 0), (2, 1)))
+        self.assertEqual(len(self.check(doc)), 1)
+
+    def test_the_reference_is_read_past_the_loader(self):
+        # The loader is where the kashida used to be deleted.  A reference taken
+        # from its output would agree with the deletion; this one must not.
+        from unittest import mock
+        from qurantext import sources
+        class R:
+            key = "hafs"
+            spec = next(s for s in sources.REGISTRY if s.key == "hafs")
+        lossy = lambda text: text.replace("\u0640", "")
+        with mock.patch.object(sources, "strip_controls", lossy):
+            text = release_text(R())
+        # 536 in the document; one is in the heading of al-Māʾidah, not the text.
+        self.assertEqual(text.count("\u0640"), 535)
 
 
 if __name__ == "__main__":

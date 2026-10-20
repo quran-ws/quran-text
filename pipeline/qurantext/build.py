@@ -73,6 +73,10 @@ class Word:
     #: previous number — they write the two as one.  Present, not missing,
     #: but not a word of their own at this position.
     continuation: list[str] = field(default_factory=list)
+    #: riwāyah -> every sign that trails this word, in the release's order.
+    #: ``waqf``, ``sajdah``, ``sajdah_line`` and ``editorial`` say what the
+    #: signs are; only this says in which order they were printed.
+    trailing: dict[str, str] = field(default_factory=dict)
 
 
 def streams_for(riwayahs: list[Riwayah]) -> dict[str, list[Token]]:
@@ -222,6 +226,8 @@ def build_words(riwayahs: list[Riwayah]) -> list[Word]:
                 place={k: (tokens[k].page, tokens[k].line)
                        for k in present if tokens[k].page},
                 continuation=[k for k in keys if k in col.covers],
+                trailing={k: tokens[k].trailing for k in present
+                          if tokens[k].trailing},
             ))
             next_id += 1
     return words

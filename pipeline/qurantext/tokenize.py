@@ -35,6 +35,10 @@ class Token:
     sajdah: bool = False     # a sajdah symbol trails this word
     sajdah_line: bool = False  # the sajdah line is drawn over this word
     editorial: str = ""      # ṣaḥḥa / raised dot that trailed the word
+    #: Every sign that trailed the word, in the order the release wrote them.
+    #: The fields above sort them by kind and so lose that order, which
+    #: ``mushaf._marks`` needs to put them back as printed.
+    trailing: str = ""
     page: int = 0            # printed page, read from the source typesetting
     line: int = 0            # printed line, *reconstructed* — see layout.py
     notes: list[str] = field(default_factory=list)
@@ -75,6 +79,7 @@ def tokenize_ayah(surah: int, ayah: int, text: str,
                 tokens[-1].waqf += waqf
                 tokens[-1].sajdah_line = tokens[-1].sajdah_line or sajdah_line
                 tokens[-1].editorial += editorial
+                tokens[-1].trailing += raw
                 tokens[-1].notes.append("detached_waqf")
             continue
 
@@ -95,6 +100,7 @@ def tokenize_ayah(surah: int, ayah: int, text: str,
             sajdah=chars.SAJDAH in waqf,
             sajdah_line=sajdah_line,
             editorial=editorial,
+            trailing=raw[len(word):],
             page=place.page if place else 0,
             line=place.line if place else 0,
         )

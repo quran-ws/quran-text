@@ -29,7 +29,8 @@ from qurantext.validate import (check_ayah_numbers, check_index,  # noqa: E402
                                check_layout_alignment,
                                check_mushaf_roundtrip, check_nothing_dropped,
                                check_numbering, check_positions,
-                               check_release_policy, check_schema_fields)
+                               check_printed_text, check_release_policy,
+                               check_schema_fields)
 from qurantext.viewer import write_viewer        # noqa: E402
 from qurantext.views import write_csv, write_nested, write_sqlite  # noqa: E402
 from qurantext.word_index import write_differences, write_word_index  # noqa: E402
@@ -103,6 +104,7 @@ def main() -> int:
                 + check_layout_alignment(riwayahs)
                 + check_mushaf_roundtrip(words, riwayahs)
                 + check_nothing_dropped(docs, riwayahs)
+                + check_printed_text(docs, riwayahs)
                 + check_numbering(docs)
                 + check_positions(docs)
                 + counting.check_unexplained(docs)

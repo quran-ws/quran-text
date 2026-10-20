@@ -272,6 +272,17 @@ drop it, which is what keeps the spurious differences away.
 where the release writes it. The kind `raised_dot` exists for the day a release
 prints one at the end of a word.
 
+Peeling the ṣaḥḥa put it in the wrong place at first. Warsh writes it *before*
+۩ at all 13 of its sajdah words — `يَسْجُدُونَ࣌۩` — but `marks` was collected
+one kind at a time, ۩ before the editorial signs, so re-attaching the marks as
+every file says to gave `يَسْجُدُونَ۩࣌`: a token the release never prints. No
+check saw it, because every sign was still present and the rasm was untouched.
+The tokeniser now records the signs that trail a word in the order the release
+wrote them, and `marks` follows that order. `check_printed_text` re-attaches
+every file's marks by its own stated rule and compares the result with the
+package — reread from the package, not from the loader — character by
+character, which is what would have caught this.
+
 ### 5b. `U+06E4` is not a maddah — it is the sajdah line
 
 `ARABIC SMALL HIGH MADDA` is the codepoint the releases use for خط السجدة, the
