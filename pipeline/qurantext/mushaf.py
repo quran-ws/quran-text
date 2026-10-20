@@ -130,6 +130,15 @@ def _marks(w: Word, key: str) -> list[dict]:
         out.append({"kind": "sajdah", "side": "after", "sign": "۩"})
     for sign in w.editorial.get(key, ""):
         out.append({"kind": EDITORIAL_KINDS[sign], "side": "after", "sign": sign})
+    # The kinds above are collected one at a time, which loses the order the
+    # release wrote them in.  Where the release kept it, it wins: Warsh writes
+    # the ṣaḥḥa *before* ۩ at all 13 of its sajdah words (``يَسْجُدُونَ࣌۩``), and
+    # emitting ۩ first re-attaches into a token the release never printed.
+    # ``sorted`` is stable, so a word without ``trailing`` keeps the order above.
+    printed = w.trailing.get(key, "")
+    if printed:
+        out.sort(key=lambda m: (m["side"] == "after",
+                                printed.find(m["sign"]) if m["side"] == "after" else 0))
     return out
 
 

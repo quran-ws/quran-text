@@ -388,6 +388,14 @@ datasets, normalise both strings to NFC before comparing.** The derived forms �
 computed from the NFC form already, so alignment, search and the word index are
 unaffected either way.
 
+**Normalise a copy to compare; display `words[i]` as it is.** The KFGQPC fonts
+are built for the releases' encoding, not for NFC's. The Ḥafṣ font has no glyph
+for `U+0622` `آ` at all, because the release never writes one, so a
+normalised `بِمَآ` asks it for a letter it lacks. Chromium decomposes the letter
+again and draws it from the font; Safari on iOS draws it from a fallback font
+instead, and the alif no longer joins the letter before it. The same happens to `U+06D3` `ۓ` with the Warsh font. Text shown to a
+reader should be the published string, untouched.
+
 The kashida, the editorial signs and the invisible controls are ink, not
 letters: `rasm`, `pointed` and `plain` drop all three, the search fold drops
 them, and two words that differ only by one of them are one word.

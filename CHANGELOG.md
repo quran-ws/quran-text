@@ -110,6 +110,12 @@ This project has not had a tagged release yet; everything below is unreleased.
 
 ### Data
 
+- **Warsh's 13 sajdah words re-attach to what the release prints.** The release
+  writes the ṣaḥḥa before ۩ (`يَسْجُدُونَ࣌۩`); `marks` listed ۩ first, so
+  following the file's own re-attaching rule gave a token the release never
+  prints. `marks` now keeps the order the release wrote the trailing signs in.
+  Only the order of those 13 pairs changes; no word, sign or position does
+  (`docs/known-issues.md` §5).
 - **Printed lines are exact for Ḥafṣ and Shuʿbah** — 6,236 of 6,236, up from
   6,131. A sūrah heading was being charged two lines rather than one; the error
   cancelled against the page-break reset for a page's first heading, so only
@@ -150,3 +156,12 @@ This project has not had a tagged release yet; everything below is unreleased.
 - CI runs the build, the tests, the service suite, the client library on the
   Python version it claims, and the terminology audit.
 - `build.py` exits non-zero when its checks find anything.
+- **`check_printed_text`** re-attaches every published file's marks by the
+  file's own rule and requires the release's exact text, character by character
+  and in order. The existing checks compare kinds of codepoint and skeletons,
+  so none of them fails on NFC re-applied, on a kashida dropped from some words
+  but not all, on the `يَـُٔودُهُۥ` → `ئَُودُهُۥ` composition, or on the Warsh
+  mark order above. This one fails on all four.
+- A kashida, an editorial sign or a control no longer counts as a letter when
+  the build splits two words a release printed joined, so a kashida's hamzah
+  stays with the word it belongs to. No current word is affected.

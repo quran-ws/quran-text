@@ -19,7 +19,7 @@ from pathlib import Path
 
 from . import paths
 from .build import Word
-from .normalize import fold_notation, rasm, rasm_uthmani
+from .normalize import fold_notation, rasm, rasm_uthmani, strip_controls
 from .sources import Riwayah
 from .tokenize import tokenize
 
@@ -267,6 +267,59 @@ def check_nothing_dropped(docs: dict[str, dict], riwayahs) -> list[dict]:
             out.append({"check": "nothing_dropped", "riwayah": key,
                         "detail": f"codepoint(s) in the release and in no "
                                   f"published field: {named}"})
+    return out
+
+
+def printed_text(doc: dict) -> str:
+    """One muṣḥaf file's text with its marks re-attached, spaces dropped.
+
+    Applies the rule every file states in ``layers.text.reattach``: an ``after``
+    mark is appended to its word, a ``before`` mark is written ahead of it, in
+    the order ``marks`` lists them.  Spaces are dropped because the release's
+    spacing is not what is being checked — the resegmentations are listed
+    separately, and :func:`check_mushaf_roundtrip` holds them to account.
+    """
+    types = doc["mark_types"]
+    before: dict[int, list[str]] = defaultdict(list)
+    after: dict[int, list[str]] = defaultdict(list)
+    for position, kind in doc["marks"]:
+        sign = types[kind]["sign"]
+        (before if types[kind]["side"] == "before" else after)[position].append(sign)
+    return "".join("".join(before.get(i, ())) + word + "".join(after.get(i, ()))
+                   for i, word in enumerate(doc["words"]))
+
+
+def check_printed_text(docs: dict[str, dict], riwayahs) -> list[dict]:
+    """Each muṣḥaf file, marks re-attached, must spell its release exactly.
+
+    :func:`check_nothing_dropped` asks whether a *kind* of codepoint survived,
+    and :func:`check_mushaf_roundtrip` compares skeletons.  Neither sees a
+    change that keeps every kind somewhere and leaves the rasm alone, and those
+    are the changes this text has actually suffered: NFC re-applied, which only
+    reorders and composes; a kashida dropped from some words but not all; the
+    yāʾ of ``يَـُٔودُهُۥ`` composed with its hamzah into ``ئ`` once the seat was
+    gone; and two signs re-attached in the wrong order.  All of them make the
+    published text differ from the package, so compare the two character by
+    character, in order — the published file, not the build's own tokens,
+    because the file is what a consumer reads.
+    """
+    out = []
+    by_key = {r.key: r for r in riwayahs}
+    for key, doc in sorted(docs.items()):
+        r = by_key.get(key)
+        if r is None:
+            continue
+        printed = printed_text(doc)
+        release = "".join("".join(strip_controls(a.text).split())
+                          for a in r.ayahs if a.ayah > 0 or a.surah == 1)
+        if printed != release:
+            at = next((i for i, (x, y) in enumerate(zip(printed, release))
+                       if x != y), min(len(printed), len(release)))
+            show = lambda s: " ".join(f"U+{ord(c):04X}" for c in s[max(0, at - 2):at + 4])
+            out.append({"check": "printed_text", "riwayah": key,
+                        "detail": f"published text, marks re-attached, leaves the "
+                                  f"release at character {at:,}: "
+                                  f"{show(printed)} vs {show(release)}"})
     return out
 
 

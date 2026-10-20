@@ -316,6 +316,11 @@ def contributes_to_rasm(ch: str) -> bool:
     """
     if ch in chars.ALL_MARKS and ch not in chars.RASM_KEEP_MARKS:
         return False
+    # Kept in the display form since the release prints them, and never a
+    # letter: a kashida counted as one would end a piece before the hamzah it
+    # seats, and send the seat to the next word.
+    if ch == chars.TATWEEL or ch in chars.EDITORIAL or ch in chars.CONTROLS:
+        return False
     return bool(chars.RASM_FOLD.get(ch, ch))
 
 
