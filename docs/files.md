@@ -248,7 +248,9 @@ All seven muṣḥafs and the word index in one file. Tables: `mushaf`, `surah`,
 `number_last`), `word_index` (one row per number), `mark`, `resegmentation`,
 `line_disagreement`. `ayah` is `0` for the unnumbered basmalah. Where a word
 covers a run of numbers, `number` is the first and `number_last` the last;
-elsewhere they are equal, so the table stays one row per word.
+elsewhere they are equal, so the table stays one row per word. A word's marks
+are re-attached in `seq` order — `ORDER BY mushaf, position, seq` — which is the
+order the release prints them in.
 
 Comparing two muṣḥafs:
 

@@ -389,12 +389,14 @@ computed from the NFC form already, so alignment, search and the word index are
 unaffected either way.
 
 **Normalise a copy to compare; display `words[i]` as it is.** The KFGQPC fonts
-are built for the releases' encoding, not for NFC's. The Ḥafṣ font has no glyph
-for `U+0622` `آ` at all, because the release never writes one, so a
-normalised `بِمَآ` asks it for a letter it lacks. Chromium decomposes the letter
-again and draws it from the font; Safari on iOS draws it from a fallback font
-instead, and the alif no longer joins the letter before it. The same happens to `U+06D3` `ۓ` with the Warsh font. Text shown to a
-reader should be the published string, untouched.
+are built for the releases' encoding, not for NFC's. The Ḥafṣ and Shuʿbah fonts
+have no glyph for `U+0622` `آ`, because their releases never write one, and NFC
+composes 2,945 and 2,949 of them; the Warsh and Qālūn fonts have none for
+`U+06D3` `ۓ`, which NFC composes 20 times in each. Chromium decomposes such a
+letter again and draws it from the font. Safari on iOS draws it from a fallback
+font instead, and the letter no longer joins the one before it. The Dūrī, Sūsī
+and Bazzī fonts have every letter NFC produces. Text shown to a reader should be
+the published string, untouched.
 
 The kashida, the editorial signs and the invisible controls are ink, not
 letters: `rasm`, `pointed` and `plain` drop all three, the search fold drops

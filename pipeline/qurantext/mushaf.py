@@ -134,11 +134,25 @@ def _marks(w: Word, key: str) -> list[dict]:
     # release wrote them in.  Where the release kept it, it wins: Warsh writes
     # the ṣaḥḥa *before* ۩ at all 13 of its sajdah words (``يَسْجُدُونَ࣌۩``), and
     # emitting ۩ first re-attaches into a token the release never printed.
-    # ``sorted`` is stable, so a word without ``trailing`` keeps the order above.
+    # Each sign takes the first place in ``trailing`` not already taken, so a
+    # sign written twice keeps both places; one the string lacks goes last.
+    # ``sort`` is stable, so a word without ``trailing`` keeps the order above.
     printed = w.trailing.get(key, "")
     if printed:
-        out.sort(key=lambda m: (m["side"] == "after",
-                                printed.find(m["sign"]) if m["side"] == "after" else 0))
+        taken: set[int] = set()
+
+        def place(m: dict) -> tuple[bool, int]:
+            if m["side"] != "after":
+                return (False, 0)
+            at = printed.find(m["sign"])
+            while at in taken:
+                at = printed.find(m["sign"], at + 1)
+            if at < 0:
+                return (True, len(printed))
+            taken.add(at)
+            return (True, at)
+
+        out.sort(key=place)
     return out
 
 

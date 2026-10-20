@@ -116,6 +116,9 @@ This project has not had a tagged release yet; everything below is unreleased.
   prints. `marks` now keeps the order the release wrote the trailing signs in.
   Only the order of those 13 pairs changes; no word, sign or position does
   (`docs/known-issues.md` §5).
+- **`quran.sqlite.gz` gains `mark.seq`**, a mark's place among its word's
+  marks, so the order the release prints them in is a column rather than an
+  accident of row order. Additive: no existing column moves.
 - **Printed lines are exact for Ḥafṣ and Shuʿbah** — 6,236 of 6,236, up from
   6,131. A sūrah heading was being charged two lines rather than one; the error
   cancelled against the page-break reset for a page's first heading, so only
@@ -157,11 +160,13 @@ This project has not had a tagged release yet; everything below is unreleased.
   Python version it claims, and the terminology audit.
 - `build.py` exits non-zero when its checks find anything.
 - **`check_printed_text`** re-attaches every published file's marks by the
-  file's own rule and requires the release's exact text, character by character
-  and in order. The existing checks compare kinds of codepoint and skeletons,
-  so none of them fails on NFC re-applied, on a kashida dropped from some words
-  but not all, on the `يَـُٔودُهُۥ` → `ئَُودُهُۥ` composition, or on the Warsh
-  mark order above. This one fails on all four.
+  file's own rule and requires the package's exact text, character by character
+  and in order. The reference is reread from the package, not taken from the
+  loader, so a deletion in the loader — where the kashida and the controls used
+  to go — fails it too. The existing checks compare kinds of codepoint and
+  skeletons, so none of them fails on NFC re-applied, on a kashida dropped from
+  some words but not all, on the `يَـُٔودُهُۥ` → `ئَُودُهُۥ` composition, or on
+  the Warsh mark order above. This one fails on all of them.
 - A kashida, an editorial sign or a control no longer counts as a letter when
   the build splits two words a release printed joined, so a kashida's hamzah
   stays with the word it belongs to. No current word is affected.

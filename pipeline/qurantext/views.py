@@ -233,7 +233,7 @@ CREATE TABLE word_index (
   rasm_uthmani TEXT, plain TEXT, status TEXT,
   hafs_surah INTEGER, hafs_ayah INTEGER, hafs_position INTEGER);
 CREATE TABLE mark (
-  mushaf TEXT, position INTEGER, kind TEXT, side TEXT, sign TEXT);
+  mushaf TEXT, position INTEGER, kind TEXT, side TEXT, sign TEXT, seq INTEGER);
 CREATE TABLE resegmentation (
   mushaf TEXT, positions TEXT, surah INTEGER, ayah INTEGER, kind TEXT,
   source_text TEXT, emitted TEXT, riwayahs_agree INTEGER);
@@ -303,9 +303,16 @@ def write_sqlite(docs: dict[str, dict], word_index: dict,
                          doc["words"][position], c.rasm_imlai(position), c.page(position),
                          c.line(position), c.juz(position), int(position in resegmented)))
         db.executemany("INSERT INTO word VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)", rows)
-        db.executemany("INSERT INTO mark VALUES (?,?,?,?,?)", [
-            (key, position, mk["kind"], mk["side"], mk["sign"])
-            for position, t in doc["marks"] for mk in [doc["mark_types"][t]]])
+        # ``seq`` is the mark's place among its word's marks: the order they
+        # are re-attached in, which is the order the release prints them.
+        seq: dict[int, int] = {}
+        mark_rows = []
+        for position, t in doc["marks"]:
+            mk = doc["mark_types"][t]
+            seq[position] = seq.get(position, -1) + 1
+            mark_rows.append((key, position, mk["kind"], mk["side"], mk["sign"],
+                              seq[position]))
+        db.executemany("INSERT INTO mark VALUES (?,?,?,?,?,?)", mark_rows)
         db.executemany("INSERT INTO resegmentation VALUES (?,?,?,?,?,?,?,?)", [
             (key, "|".join(str(i) for i in e["positions"]), e["surah"], e["ayah"],
              e["kind"], e["source_text"], " ".join(e["emitted"]),

@@ -280,7 +280,8 @@ check saw it, because every sign was still present and the rasm was untouched.
 The tokeniser now records the signs that trail a word in the order the release
 wrote them, and `marks` follows that order. `check_printed_text` re-attaches
 every file's marks by its own stated rule and compares the result with the
-release character by character, which is what would have caught this.
+package — reread from the package, not from the loader — character by
+character, which is what would have caught this.
 
 ### 5b. `U+06E4` is not a maddah — it is the sajdah line
 

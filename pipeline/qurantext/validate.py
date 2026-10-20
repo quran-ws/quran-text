@@ -17,9 +17,9 @@ import json
 from collections import Counter, defaultdict
 from pathlib import Path
 
-from . import paths
+from . import chars, paths
 from .build import Word
-from .normalize import fold_notation, rasm, rasm_uthmani, strip_controls
+from .normalize import fold_notation, rasm, rasm_uthmani
 from .sources import Riwayah
 from .tokenize import tokenize
 
@@ -289,7 +289,47 @@ def printed_text(doc: dict) -> str:
                    for i, word in enumerate(doc["words"]))
 
 
-def check_printed_text(docs: dict[str, dict], riwayahs) -> list[dict]:
+def release_text(r: Riwayah) -> str:
+    """The text the package itself carries, spaces dropped, read past the loader.
+
+    Not ``r.ayahs``: the loader is where the kashida and the controls used to be
+    deleted, and a reference taken after it would agree with that deletion.
+    This rereads the package and repeats only the loader's *structural*
+    decisions — which paragraph is a sūrah heading, which unnumbered basmalah
+    opens Al-Fātiḥah, where an āyah mark stands — and none of its character
+    handling.  Whitespace, NBSP included, is dropped because spacing is not
+    what is compared; nothing else is touched.
+    """
+    from .sources import (_AYAH_MARK, _extract, _is_bare_basmalah, _is_heading,
+                          _strip_trailing_heading, docx_paragraphs)
+
+    spec = r.spec
+    path = _extract(spec.primary_zip, spec.primary_member)
+    if spec.primary_kind == "csv":
+        import csv
+        with path.open(encoding="utf-8-sig", newline="") as fh:
+            text = " ".join("".join(ch for ch in row["aya_text"]
+                                    if chars.ayah_number_from_ligature(ch) is None)
+                            for row in csv.DictReader(fh))
+        return "".join(text.split())
+
+    kept, opened = [], False
+    for paragraph in docx_paragraphs(path):
+        if _is_heading(paragraph):
+            continue
+        if _is_bare_basmalah(paragraph):
+            # Al-Fātiḥah's opening is in every muṣḥaf's words, numbered or not;
+            # the 112 that head the other sūrahs are sūrah metadata.
+            if not opened:
+                kept.append(paragraph)
+            continue
+        opened = True
+        kept.append(_strip_trailing_heading(paragraph))
+    return "".join(_AYAH_MARK.sub(" ", " ".join(kept)).split())
+
+
+def check_printed_text(docs: dict[str, dict], riwayahs,
+                       release=release_text) -> list[dict]:
     """Each muṣḥaf file, marks re-attached, must spell its release exactly.
 
     :func:`check_nothing_dropped` asks whether a *kind* of codepoint survived,
@@ -301,7 +341,8 @@ def check_printed_text(docs: dict[str, dict], riwayahs) -> list[dict]:
     gone; and two signs re-attached in the wrong order.  All of them make the
     published text differ from the package, so compare the two character by
     character, in order — the published file, not the build's own tokens,
-    because the file is what a consumer reads.
+    because the file is what a consumer reads, against :func:`release_text`,
+    not the loader's output, because the loader can be wrong too.
     """
     out = []
     by_key = {r.key: r for r in riwayahs}
@@ -310,16 +351,15 @@ def check_printed_text(docs: dict[str, dict], riwayahs) -> list[dict]:
         if r is None:
             continue
         printed = printed_text(doc)
-        release = "".join("".join(strip_controls(a.text).split())
-                          for a in r.ayahs if a.ayah > 0 or a.surah == 1)
-        if printed != release:
-            at = next((i for i, (x, y) in enumerate(zip(printed, release))
-                       if x != y), min(len(printed), len(release)))
+        expected = release(r)
+        if printed != expected:
+            at = next((i for i, (x, y) in enumerate(zip(printed, expected))
+                       if x != y), min(len(printed), len(expected)))
             show = lambda s: " ".join(f"U+{ord(c):04X}" for c in s[max(0, at - 2):at + 4])
             out.append({"check": "printed_text", "riwayah": key,
                         "detail": f"published text, marks re-attached, leaves the "
                                   f"release at character {at:,}: "
-                                  f"{show(printed)} vs {show(release)}"})
+                                  f"{show(printed)} vs {show(expected)}"})
     return out
 
 
