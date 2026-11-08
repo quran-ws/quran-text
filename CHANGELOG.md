@@ -70,7 +70,7 @@ This project has not had a tagged release yet; everything below is unreleased.
   v3.0 Warsh document, was stripped because it reached the alignment key. It is
   now peeled like a waqf mark and published in `marks` as the kind **`sah`**
   (9,946 of them; the other four sit on basmalah words no edition publishes),
-  with `raised_dot` for its `U+0888` companion. Both are dropped by every
+  with `raised_dot` for `U+0888`. Both are dropped by every
   comparison form, which is where the problem actually was. The word index
   gains an optional `editorial` field, the six client libraries and the
   download service gain the two kinds, and `mark_signs` names both codepoints.

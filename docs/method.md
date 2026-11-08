@@ -88,9 +88,11 @@ neutralises three things:
   not guessed: each codepoint was aligned against the other riwāyāt's spelling of
   the same word across the whole corpus, and every entry is the majority
   correspondence with ≥5,800 confirmations;
-- **editorial marks** — `U+08CC`, the proofreader's *ṣaḥḥa*, occurs 8,128 times in
-  the v3.0 Warsh document and nowhere else. It was the single largest source of
-  spurious differences in the corpus, and it is not text.
+- **the editorial signs** — `U+08CC`, the *ṣaḥḥa*, occurs 9,950 times in the
+  v3.0 Warsh document and in no other package. It was the single largest source
+  of spurious differences in the corpus. It is published as a mark and kept out
+  of every comparison form; the packages do not say what it means
+  (`docs/known-issues.md` §5).
 
 **`rasm` is the alignment key and the identity of a word.** It is the bare
 ʿUthmānic skeleton: undotted, unvowelled, and without hamzah.

@@ -323,11 +323,13 @@ and nothing complains, which is why the file states it beside the layer list
 under `layers.text` rather than here alone. The client libraries under `lib/`
 do the re-attaching: `Word.render()` and `Span.render(marks=…)`.
 
-**The editorial signs are marks too.** The Warsh release prints the
-proofreader's ṣaḥḥa `U+08CC` after a word 9,950 times, and it is published as
-the kind `sah` rather than deleted — annotation the release makes, kept out of
-`words[i]` and out of every comparison form. `raised_dot` (`U+0888`) is its
-companion. `docs/known-issues.md` §5.
+**The ṣaḥḥa is a mark too.** The Warsh release prints `U+08CC` (`ARABIC SMALL
+HIGH WORD SAH`) after a word 9,950 times, and it is published as the kind `sah`
+rather than deleted — kept out of `words[i]` and out of every comparison form.
+`U+0888` (`ARABIC RAISED ROUND DOT`) is never word-final in these releases, so
+it stays inside `words[i]`; the kind `raised_dot` is reserved for the day one
+is. The packages do not say what either sign means, and neither does this
+format. `docs/known-issues.md` §5.
 
 **Waqf marks are not comparable across muṣḥafs.** Warsh and Qālūn print one
 general waqf sign where Ḥafṣ, Dūrī and Sūsī print seven distinct ones. This is
