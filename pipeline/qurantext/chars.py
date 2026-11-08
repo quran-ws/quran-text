@@ -29,12 +29,13 @@ SAJDAH_LINE = "ۤ"          # ۤ  ARABIC SMALL HIGH MADDA (used as the sajdah li
 ARABIC_DIGITS = {chr(0x0660 + i): str(i) for i in range(10)}
 
 #: The ṣaḥḥa U+08CC (SMALL HIGH WORD SAH) and the raised round dot U+0888.
-#: The packages do not say what either means.  The ṣaḥḥa is written by one
-#: release where the others write nothing, and both *are* printed, 9,950 and
-#: 91 times in the v3.0 Warsh document, word-final in all but four places.  So
-#: they are peeled off the word like a waqf mark and published in ``marks`` as
-#: the kinds ``sah`` and ``raised_dot``, rather than deleted: a sign the release
-#: prints is not this repository's to remove.  They stay out of the alignment
+#: The packages do not say what either means.  The ṣaḥḥa is printed 9,950
+#: times in the v3.0 Warsh document, word-final in all but four places, so it is
+#: peeled off the word like a waqf mark and published in ``marks`` as the kind
+#: ``sah`` rather than deleted: a sign the release prints is not this
+#: repository's to remove.  The raised dot is never word-final in these
+#: releases and stays in the word; ``raised_dot`` is the kind it would be
+#: published as if one were.  Both stay out of the alignment
 #: key, which is what kept them from being the largest single source of
 #: spurious differences in the corpus.
 EDITORIAL = {"࣌", "࢈"}

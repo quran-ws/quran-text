@@ -239,11 +239,9 @@ drops it, so a query typed without one still matches.
 
 The invisible controls are kept on the same principle: 14 right-to-left marks
 `U+200F` in Warsh, and one zero-width joiner `U+200D` each in Dūrī and Sūsī.
-The joiner is the kashida's counterpart, not a stray control: both releases
-write 17:7 as `لِيَسُ‍ُٔواْ`, with the joiner exactly where Ḥafṣ, Warsh, Qālūn
-and Bazzī put the kashida that seats the hamzah, so deleting it would have
-broken the word the same way. A consumer comparing strings should fold the
-controls out; `docs/SEARCH-FOLD.md` already does.
+Both joiners are in the same word, 17:7 `لِيَسُ‍ُٔواْ`, at the place where Ḥafṣ,
+Warsh, Qālūn and Bazzī write a kashida. A consumer comparing strings should
+fold the controls out; `docs/SEARCH-FOLD.md` already does.
 
 One dotless beh `U+066E` in Bazzī and one small low seen `U+06E3` in Ḥafṣ v3.0
 occur exactly once each; both are published and neither affects the rasm.
@@ -257,17 +255,11 @@ sides of its comparison had been through the same stripping.
 
 ### 5. `U+08CC` — a sign only Warsh prints, published as a mark
 
-`ARABIC SMALL HIGH WORD SAH` — called the *ṣaḥḥa* here, after its Unicode name —
+`ARABIC SMALL HIGH WORD SAH` — the *ṣaḥḥa* in this repository's names —
 occurs **9,950 times** in the v3.0 Warsh document and in no other package;
 `ARABIC RAISED ROUND DOT` `U+0888` occurs 91 times there, 91 in Qālūn and 138
-in Sūsī. No other release writes anything in the ṣaḥḥa's place, and until it was
-classified it was the single largest source of spurious differences in the
-corpus, larger than every genuine variant combined.
-
-Nothing in the packages says what either sign means, so this project does not
-say either. "Editorial", in the field `editorial` and the constant
-`chars.EDITORIAL`, is a label for the class, not a claim about its function.
-
+in Sūsī. Until the ṣaḥḥa was classified it was the single largest source of
+spurious differences in the corpus, larger than every genuine variant combined.
 It was therefore stripped. That was the right answer to the wrong question: the
 problem was that it reached the **alignment key**, and the fix belongs there.
 The ṣaḥḥa is word-final in all but four places, so it is now peeled off like a
@@ -279,6 +271,11 @@ drop it, which is what keeps the spurious differences away.
 `U+0888` is never word-final in these releases, so it stays inside `words[i]`
 where the release writes it. The kind `raised_dot` exists for the day a release
 prints one at the end of a word.
+
+Nothing in the packages says what either sign means, so this project does not
+say either. "ṣaḥḥa", "editorial" (the field `editorial`, the constant
+`chars.EDITORIAL`) and "raised dot" are names for the codepoints, not claims
+about their function.
 
 Peeling the ṣaḥḥa put it in the wrong place at first. Warsh writes it *before*
 ۩ at all 13 of its sajdah words — `يَسْجُدُونَ࣌۩` — but `marks` was collected
