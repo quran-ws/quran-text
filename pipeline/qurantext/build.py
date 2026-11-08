@@ -55,7 +55,7 @@ class Word:
     forms: dict[str, str]
     ayah: dict[str, int]
     waqf: dict[str, str]
-    #: riwāyah -> the editorial signs (ṣaḥḥa, raised dot) that trail this word
+    #: riwāyah -> the editorial sign (the ṣaḥḥa) that trails this word
     #: in that release.  Printed, and not part of the letters: see
     #: ``chars.EDITORIAL``.
     editorial: dict[str, str]

@@ -35,9 +35,9 @@ ARABIC_DIGITS = {chr(0x0660 + i): str(i) for i in range(10)}
 #: ``sah`` rather than deleted: a sign the release prints is not this
 #: repository's to remove.  The raised dot is never word-final in these
 #: releases and stays in the word; ``raised_dot`` is the kind it would be
-#: published as if one were.  Both stay out of the alignment
-#: key, which is what kept them from being the largest single source of
-#: spurious differences in the corpus.
+#: published as if one were.  Both stay out of the alignment key, which is
+#: what keeps the ṣaḥḥa from being the largest single source of spurious
+#: differences in the corpus.
 EDITORIAL = {"࣌", "࢈"}
 
 #: Standalone symbols that mark structure, never part of a word.
