@@ -56,6 +56,7 @@ from pathlib import Path
 
 from . import paths, stamp
 from .build import DATA, ORDER, Word, ayah_ends
+from .sources import TIER1
 
 COUNTING_DIR = paths.SOURCES / "counting"
 PRIMITIVES = COUNTING_DIR / "book-boundary-primitives.json"
@@ -291,7 +292,9 @@ def _resolve(words: list[Word]) -> tuple[dict, list]:
     for w in words:
         if "hafs" in w.forms and "hafs" not in w.continuation:
             by_ayah[(w.surah, w.ayah["hafs"])].append(w)
-    edition_ends = [set(ayah_ends(words, k)) for k in ORDER]
+    # Only the publisher's own editions vote: a decoded tier-2 text never moves
+    # the resolution of an anchor.
+    edition_ends = [set(ayah_ends(words, k)) for k in TIER1]
 
     resolved: dict[tuple, int] = {}
     ambiguous: list[dict] = []
@@ -518,8 +521,8 @@ def write_counting(words: list[Word], docs: dict[str, dict]) -> dict:
         "association": {
             "description": "The counting system each qāriʾ is associated with. "
                            "A fact about the qāriʾ, not about any printing: an "
-                           "edition may measure onto another system, and two of "
-                           "these seven do.",
+                           "edition may measure onto another system, and some "
+                           "of these do.",
             "source": "qiraat-ayah-map data/qiraat.json, vendored at the commit above",
             "by_mushaf": {k: {"qari": association()[k]["qari"],
                               "system": association()[k]["system"],
@@ -544,11 +547,18 @@ def write_counting(words: list[Word], docs: dict[str, dict]) -> dict:
 
 def check_unexplained(docs: dict[str, dict]) -> list[dict]:
     """Every ``unexplained`` point must be an acknowledged open finding, and
-    every acknowledged finding must still occur — a stale allowlist fails too."""
+    every acknowledged finding must still occur — a stale allowlist fails too.
+
+    Tier-2 files are exempt from failing the build: their āyah divisions are a
+    typist's, not a publisher's, and their unexplained points stay listed in the
+    file's ``counting.unexplained`` for a reader to weigh (``docs/sources.md``).
+    """
     problems = []
     allowed = {(f["mushaf"], f["surah"], f["ayah"]) for f in open_findings()}
     seen = set()
     for key, doc in docs.items():
+        if doc["provenance"].get("tier", 1) != 1:
+            continue
         for u in doc["counting"]["unexplained"]:
             k = (key, u["surah"], u["ayah"])
             seen.add(k)

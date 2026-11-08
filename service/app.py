@@ -52,7 +52,7 @@ def page() -> HTMLResponse:
     return HTMLResponse((HERE / "page.html").read_text(encoding="utf-8"))
 
 
-Edition = Annotated[str, Query(description="Riwāyah: " + ", ".join(EDITIONS), pattern="^[a-z]+$")]
+Edition = Annotated[str, Query(description="Riwāyah: " + ", ".join(EDITIONS), pattern="^[a-z]+(-[a-z]+)*$")]
 Flag = Annotated[bool, Query()]
 
 

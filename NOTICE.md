@@ -12,7 +12,8 @@ Everything in this repository that this project authored:
 | | |
 |---|---|
 | the word index and its numbering | `data/word-index.*`, `data/ayah-map.*` |
-| the seven muṣḥaf files and derived layers | `data/mushaf/`, `data/counting.json` |
+| the muṣḥaf files and derived layers | `data/mushaf/`, `data/counting.json` |
+| the tier-2 glyph streams, decoder table and calibration | `sources/islamweb/` |
 | the counting analysis and its citations | `sources/counting/khilaf.json`, `declared.json`, `open-findings.json` |
 | the alignment data | `sources/alignment/` |
 | the pipeline and the service | `pipeline/`, `service/` |
@@ -55,6 +56,15 @@ included as received, and remain under KFGQPC's own terms. Those terms are the
 Complex's published usage rights, reproduced in full in Arabic and English in
 `LICENSE`. Nothing in `LICENSE` grants any right in them beyond what the
 Complex itself grants there.
+
+**The islamweb documents** behind the tier-2 muṣḥafs (`docs/sources.md`,
+*Tier 2*) are hosted by islamweb.net without stated terms and do not name
+their author. The PDFs are not redistributed here; `sources/islamweb/*/SOURCE.json`
+records them. What is committed — the glyph streams extracted from them and
+the texts decoded from those — is this project's derivation, licensed as above,
+of a Qurʾānic text that is nobody's to license. If the documents' author or
+host asks for an attribution or an alteration, it will be made; the contact is
+in `.github/SECURITY.md`.
 
 `sources/counting/book-boundary-primitives.json` and `counting-systems.json` are
 copied verbatim from

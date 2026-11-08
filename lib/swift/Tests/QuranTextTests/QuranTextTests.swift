@@ -58,10 +58,10 @@ final class QuranTextTests: XCTestCase {
         XCTAssertTrue(hafs.ayah(7, 206).hasSajdah)
         XCTAssertEqual(hafs.divisionMarks().count, 199)
         XCTAssertEqual(hafs.divisionMarks()[0].render(), "۞ إِنَّ")
-        XCTAssertEqual(hafs.numberAt(73948), 73950)
-        XCTAssertEqual(hafs.wordAt(73948).numberLast, 73951)
-        XCTAssertNil(hafs.wordByNumber(25685))
-        XCTAssertEqual(hafs.wordByNumber(73951)?.text, "وَأَلَّوِ")
+        XCTAssertEqual(hafs.numberAt(73948), 73958)
+        XCTAssertEqual(hafs.wordAt(73948).numberLast, 73959)
+        XCTAssertNil(hafs.wordByNumber(25687))
+        XCTAssertEqual(hafs.wordByNumber(73959)?.text, "وَأَلَّوِ")
         XCTAssertEqual(hafs.wordByNumber(11)?.text, "مَٰلِكِ")
     }
 
@@ -125,6 +125,6 @@ final class QuranTextTests: XCTestCase {
         XCTAssertEqual(idx.word(11).form("warsh"), "مَلِكِ")
         XCTAssertEqual(idx.find(2, 255, 3)?.rasm_uthmani, "إِلَٰهَ")
         XCTAssertTrue(idx.search("مالك").contains { $0.number == 11 })
-        XCTAssertEqual(idx.differing().count, 53128)
+        XCTAssertEqual(idx.differing().count, 62676)
     }
 }

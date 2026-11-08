@@ -596,3 +596,157 @@ reading `marks` will not.
 disagreements about **āyah** counting. This is a disagreement about division.*
 
 ---
+
+---
+
+## What the islamweb documents contain (tier 2)
+
+The standing rule applies here too, with one difference of weight: these
+documents are not a publisher's releases, so a difference between them and a
+KFGQPC package is recorded as the document's reading, and the KFGQPC package is
+never adjusted to it. See `docs/sources.md`, *Tier 2*.
+
+### 12. The text layer of the PDFs is not text
+
+The documents are set in KFGQPC's 2005 HQPB symbol fonts. Their ToUnicode map
+is missing in whole sections (the Warsh file from page 585) and maps two
+different glyphs — final nūn and the small yāʾ of ṣilah — to one character.
+`pdftotext` and `pdftohtml` therefore cannot be used; the extractor keys every
+glyph on *font family + glyph id* through PyMuPDF, and the decoder table is
+keyed the same way. The same map turns some letter glyphs into blanks — the
+sīn of إِسۡرَٰٓءِيلَ maps to a non-breaking space — so a blank is a word
+separator only when it comes from a text font, never from the HQPB fonts. Glyph ids are identical across all fourteen files, including
+the two produced by Ghostscript rather than Distiller — which, however, spell
+the sign font «MshQuraan1», a name the extractor folds to the others' spelling
+so that the imālah dots of the Isḥāq file are not dropped with it. Four files
+(Abū Jaʿfar's two, Yaʿqūb's two) reach for a second sign family, Hamdy2/4/5,
+for about a hundred glyphs in all — a dagger alef, a hamzah seat, a sign after
+ٱئۡتِنَا; its ids are not Hamd2's, so it is kept under its own name and read
+through the inspected table.
+
+Lines are what the typist made them. The last line of page 566 of the Isḥāq
+file is set one point smaller to fit the page, and page 483 of the Khalaf
+file squeezes one word the same way; a sign set a little above its line (the
+HQPB7 signs sit nine pixels up) must not open a line of its own, or it takes
+the word spaces with it and leaves the line unsplit. Both happened to an
+earlier extractor and were caught only by the published text: a word longer
+than any tier-1 word is now a build failure (`decoder_unsplit_words`).
+
+### 13. Sūrah headers, basmalah and medallions are set three different ways
+
+The 2005–2007 and 2018 files print a header of two or three lines («﴿ سورة
+… ﴾», sometimes with the ornaments on a line of their own, then «مكية/مدنية
+وآياتها (n)» with the count in Latin digits, sometimes on a line of its own) and
+the basmalah as a three-glyph ligature in HQPB3; the Khalaf and Khallād files
+frame the name with an HQPB2 bracket pair and set the basmalah ligature in
+Hamd2; the 2017 files (Abū Jaʿfar, Yaʿqūb, Khalaf al-ʿĀshir) print no header
+at all. The extractor marks only the ornament line; the name and count lines
+under it are dropped by what they decode to (a line of up to four words that
+begins «سورة» or says «مكية/مدنية وآياتها»), never by their length — an earlier
+length rule swallowed the spelled-out basmalah of Al-Fātiḥah in the Hishām
+file. Sūrah starts are taken from whichever signal is present, with a
+numbering restart to 1, 2, 3 as the signal for al-Tawbah. The Hishām file doubles the halves of 63 āyah medallions
+(«∪∪٦∩∩»); a repeated half is absorbed into the medallion it repeats. The
+Khalaf, Khallād and Abū al-Ḥārith files overprint a coloured sign up to six
+times on one spot to make it bold — six imālah dots on one letter — and some
+files repeat a vowel or a stroke the same way; a glyph printed again on the
+same spot is read once. Signs set apart from their word by a space (۩, a waqf
+sign) are attached to the word before them, as the KFGQPC releases write them;
+a hamza typed apart from its word joins the word before it when it carries a
+tanwīn (دِفۡ ءٌ) and the word after it otherwise (ءَ مَنتُم); and a word ending in
+a connecting stroke continues into the next (the Hishām file types قِيلَ as «ق»,
+a space, the ishmām sign and «ـيلَ»).
+
+### 14. Printed āyah numbers carry slips
+
+The medallions' printed numbers are not always the āyah's position: the Qālūn
+file prints ٢٠ for 5:30, a stray ١ in Maryam, and so on. Āyāt are numbered by
+position within the sūrah, and every disagreement is listed in the file's
+`layers.derived.text.printed_ayah_number_slips`. The Hishām file's count,
+6,226, is the Shāmī count; the Qālūn file ends al-Muzzammil at 20 where the
+KFGQPC Qālūn release ends it at 18, and the two Yaʿqūb files differ from each
+other by two āyāt (6,204 and 6,206). None of this is corrected.
+
+### 15. The KFGQPC 2026 hand and the 2005 documents disagree on marks
+
+Compared word for word on the three riwāyāt both carry, the documents and the
+2026 KFGQPC releases agree on the rasm almost everywhere and disagree
+systematically on three kinds of mark: the KFGQPC Qālūn and Warsh releases
+write ۖ on every āyah-final word and the documents write nothing there; those
+two releases omit the shaddah of the lām shamsiyyah after ٱل and the documents
+print it; and the documents place the open tanwīn on the letter while the
+releases place it after the silent alef or alef maqṣūrah. The decoded text
+keeps the documents' marks. The exact-agreement figure in
+`sources/islamweb/decoder/calibration.json` is low for this reason, and the
+rasm-agreement figure is the one that measures the decoding.
+
+### 16. Colours are an annotation of the riwāyah's uṣūl, not a diff
+
+The documents colour the letter that differs from Ḥafṣ (magenta in every
+file) and the uṣūl of the riwāyah — idghām, imālah or taqlīl, madd al-badal,
+tarqīq al-rāʾ, taghlīẓ al-lām, ṣilat mīm al-jamʿ, madd al-līn — in further
+colours; the Warsh and Hishām files print a legend, the others use the same
+palette without one. Colour is per glyph: a single hamza can be coloured. The
+layer is published as the document's annotation (`colors`, `color_types`), and
+one claim is tested — a word coloured as differing from Ḥafṣ must differ from
+Ḥafṣ. The blue of the Warsh legend (taghlīẓ al-lām) is the blue of idghām in
+the Qālūn and Hishām files, so a colour's meaning is read per file.
+
+### 17. The Isḥāq and Idrīs files are one document
+
+The two documents for Khalaf al-ʿĀshir's readers differ as PDF files but their
+glyph streams are identical token for token — 84,059 tokens, colours included.
+Isḥāq and Idrīs do differ in a handful of words, so one of the two files is
+mislabelled, and nothing in either says which. The text is published once, as
+`ishaq`, from the file whose running header names Isḥāq; **Idrīs is not
+published**, and the `edris` stream is kept under `sources/islamweb/` only as
+the record of what was checked.
+
+### 18. Glyphs read by sight, and the signs left unread
+
+Some hundred and ten glyphs occur only in the tier-2 documents and in too few
+distinct words for alignment to settle them. They were read by the model from
+rendered crops with the glyph boxed, and where a crop left doubt from the
+glyph's outline drawn out of the embedded font — Qunbul's small sīn over ṣād
+(U+06DC), the small high nūn of فَنُـۨجِي (U+06E8), the coloured fatḥa variants
+of the HQPB7 font, the iqlāb tanwīn forms, the rounded zero of أَنَا۠, the
+coloured ṣilah wāws — and each is recorded in
+`sources/islamweb/decoder/inspected.json` with the slug, page and word it was
+read from. One of them follows a KFGQPC convention rather than the glyph's own
+shape: the small ẓāʾ above ض in 81:24 is written as an inline ظ, because that
+is how the KFGQPC Bazzī, Dūrī and Sūsī releases write the same reading.
+
+The Abū Jaʿfar files have a notation of their own for his ibdāl of a sākin
+hamzah (ٱئۡتِنَا, ٱئۡذَن, ٱؤۡتُمِنَ, تُـٔوِيٓ): Ḥafṣ's seat is kept, a green dot gives
+the vowel of the alef waṣl at a start, and the letter the hamzah becomes in
+waṣl — wāw after a ḍammah, alef after a fatḥah, yāʾ after a kasrah or a yāʾ —
+is set above the seat as a small coloured letter. The decoding writes the seat
+as the yāʾ the Warsh release writes there, the small letters as U+06E5, U+0670
+and U+06E6, and drops the green dots as it drops the Warsh release's own waṣl
+cues; no KFGQPC release prints an Abū Jaʿfar text to compare with. The same
+files set the ṣilah of mīm al-jamʿ as one glyph carrying the ḍammah and the
+small wāw, read as U+064F U+06E5 after the Warsh release's spelling; and the
+Ruways file marks his imālah of كَٰفِرِينَ with a red dot under the kāf, read as
+U+06EA after the Dūrī release.
+
+Sixteen signs are entered as emitting nothing. Two are understood but have no
+codepoint: the **ishmām sign** (and its outline twins) that the Hishām and Abū
+al-Ḥārith files set over قِيلَ, غِيضَ, سِيءَ and the like, and the dot the
+Ruways file sets over the qāf of قِيلَ at 75:27 (p. 578) — no KFGQPC release
+prints one, Unicode has none, and the word is coloured, so the colour layer
+carries the reading. Two are ornaments: an eight-pointed star between words
+(Abū al-Ḥārith, p. 553) and strokes drawn over وَلَأَدۡرَىٰكُم (Qunbul's file,
+p. 210). The rest could not be read from the crops: signs after the final
+letter of وَلِتَصۡغَىٰ (Ibn Jammāz, p. 142), يَٰبُنَيِّ ×3 (Abū al-Ḥārith, p. 412),
+نَّقۡضِىَ (Rawḥ, p. 320), عِظَٰمࣰا (Khallād, p. 583), طَآئِفَةࣱ (Rawḥ and Khallād, p. 197),
+ٱللَّهُ (Hishām, p. 450) and ٱلۡمُخۡلَصِينَ (Hishām, pp. 447, 452); signs before نِعۡمَةࣰ (Rawḥ, p. 413) and
+مَلَكُ (Khalaf, p. 222); a sign over the dhāl of وَأَذِّن (Khallād, p. 335); and a
+connecting stroke (Khalaf, p. 156). The words are published without them. A
+reader who can name those signs should correct `inspected.json`; the table is
+rebuilt from it.
+
+Two conventions of the decoded text follow from the same reading: the dotless
+final yāʾ glyph is ى under a dagger alef and ي otherwise, and every imālah or
+taqlīl dot of Ḥamzah's and al-Kisāʾī's readers — filled or hollow, under alef,
+yāʾ or rāʾ — is written U+06EA, the sign the KFGQPC Dūrī release uses for Abū
+ʿAmr's imālah.

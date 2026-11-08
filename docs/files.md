@@ -43,7 +43,7 @@ from them.
 One muṣḥaf: `words` by position, with `ayah_starts`, `page_starts`,
 `line_starts`, `juz_starts`, `marks`, and the `numbering` block that maps
 positions onto the shared numbers. Specified in
-[`format.md`](format.md), schema `schema/mushaf-1.0.json`.
+[`format.md`](format.md), schema `schema/mushaf-1.1.json`.
 
 `words[i]` carries no mark, so joining `words` with a space is not the text the
 muṣḥaf prints and not what the download service returns; `layers.text` in every

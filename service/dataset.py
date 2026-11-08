@@ -21,7 +21,18 @@ sys.path.insert(0, str(HERE.parent / "lib" / "python"))
 
 from quran_text import AyahMap, Mushaf, WordIndex  # noqa: E402
 
-EDITIONS = ["hafs", "shubah", "warsh", "qalun", "duri", "susi", "bazzi"]
+
+
+def _editions() -> list[str]:
+    """The muṣḥaf keys, read from the catalog so the service follows the data."""
+    root = Path(os.environ.get("QURAN_DATA", HERE.parent / "data"))
+    try:
+        return [r["key"] for r in json.loads((root / "catalog.json").read_text(encoding="utf-8"))["riwayahs"]]
+    except (OSError, KeyError, ValueError):
+        return ["hafs", "shubah", "warsh", "qalun", "duri", "susi", "bazzi"]
+
+
+EDITIONS = _editions()
 
 
 class Dataset:
@@ -92,14 +103,17 @@ class Dataset:
         them all."""
         printed = {mk.kind for _, mk in m.all.marks}
         starts = m._doc["ayah_starts"]
-        for a in m.sajdat():
-            for first in range(max(0, a.index - 9), a.index + 1):
-                last = min(first + 9, m.ayah_count - 1)
-                span = m.span(starts[first], m.ayahs[last].end)
-                kinds = {mk.kind for _, mk in span.marks}
-                lo, hi = m.ayahs[first], m.ayahs[last]
-                if printed <= kinds and lo.surah.number == hi.surah.number:
-                    return {"ayah": f"{lo.key}-{hi.key}", "signs": sorted(kinds)}
+        # a window inside one sūrah first; the tier-2 files print so few signs
+        # that for some of them only a window across a sūrah boundary has them all
+        for within_surah in (True, False):
+            for a in m.sajdat():
+                for first in range(max(0, a.index - 9), a.index + 1):
+                    last = min(first + 9, m.ayah_count - 1)
+                    span = m.span(starts[first], m.ayahs[last].end)
+                    kinds = {mk.kind for _, mk in span.marks}
+                    lo, hi = m.ayahs[first], m.ayahs[last]
+                    if printed <= kinds and (lo.surah.number == hi.surah.number or not within_surah):
+                        return {"ayah": f"{lo.key}-{hi.key}", "signs": sorted(kinds)}
         return {"ayah": "1:1-1:7", "signs": sorted(printed)}
 
     # -- the word index, 50 MB, only when asked for --
@@ -162,6 +176,9 @@ class Dataset:
                 "file_sha256": sha.get(f"mushaf/{key}.json"),
                 "ayah_count": r.get("ayah_count"),
                 "word_count": r.get("word_count"),
+                # 1: a KFGQPC data release; 2: decoded from an islamweb document
+                "tier": r.get("tier", 1),
+                "authority": r.get("authority", "KFGQPC"),
             }
         return {
             "format": "quran-version",

@@ -40,11 +40,11 @@ from . import chars, counting, fonts, rasm_imlai, sources
 from . import paths, stamp
 from .build import DATA, Word
 from .word_index import boundary_events
-from .sources import PACKAGES, RELEASE_POLICY, Riwayah
+from .sources import ISLAMWEB, ISLAMWEB_URL, PACKAGES, RELEASE_POLICY, TIER_POLICY, Riwayah
 from .surahs import names
 
 FORMAT = "quran-mushaf"
-FORMAT_VERSION = "1.0"
+FORMAT_VERSION = "1.1"
 
 MUSHAF_DIR = DATA / "mushaf"
 
@@ -86,8 +86,12 @@ def _provenance(r: Riwayah) -> dict:
     edition cannot be named is not a citable one.
     """
     spec = r.spec
+    if spec.primary_kind == "hqpb":
+        return _provenance_tier2(r)
     text = PACKAGES / f"{spec.primary_zip}.zip"
     out = {
+        "tier": 1,
+        "authority": spec.authority,
         "text": {
             "package": text.name,
             "member": spec.primary_member,
@@ -348,6 +352,63 @@ def _line_check(key: str, printed: list[Printed], r: Riwayah) -> dict:
     }
 
 
+#: What the colours in the islamweb documents mean, from the legends the Warsh
+#: and Hishām files print.  The other files use the same palette unlabelled.
+COLOR_LEGEND = {
+    "#ff00ff": "الحرف المخالف لحفص — the letter that differs from Ḥafṣ",
+    "#ff0000": "الإدغام — idghām",
+    "#00ccff": "التقليل — taqlīl",
+    "#3365ff": "مد البدل — madd al-badal",
+    "#00ff00": "الراءات المرققة — tarqīq al-rāʾ",
+    "#0000ff": "اللامات المغلظة / الإدغام — taghlīẓ al-lām (Warsh legend) or idghām (Qālūn, Hishām)",
+    "#ff6500": "صلة ميم الجمع — ṣilat mīm al-jamʿ",
+    "#9acc00": "مد اللين — madd al-līn",
+    "#33cccc": "الإمالة — imālah (Hishām legend)",
+}
+
+
+def _colors(key: str, printed, r: Riwayah) -> tuple[list | None, list | None]:
+    """``[[position, type]]`` for every coloured word of a tier-2 file, and the types.
+
+    Colour is per glyph in the document; a word's type is the set of colours on
+    it.  The decoded words are aligned to the printed words sūrah by sūrah, so
+    a word the build re-segmented still carries its colour.  The legend text is
+    quoted from the two files that print one.
+    """
+    import difflib
+    if not r.decoded:
+        return None, None
+    printed_by_surah: dict[int, list] = defaultdict(list)
+    for p in printed:
+        printed_by_surah[p.word.surah].append(p)
+    colored = defaultdict(dict)                      # surah -> word index -> colours
+    for surah, n, cols in r.decoded["colors"]:
+        colored[surah][n - 1] = cols
+    types: list[dict] = []
+    index: dict[tuple, int] = {}
+    out: list[list[int]] = []
+    for surah, decoded in r.decoded["words"].items():
+        if not colored.get(surah):
+            continue
+        plist = printed_by_surah.get(surah, [])
+        pw = [p.word.forms[key] for p in plist]
+        sm = difflib.SequenceMatcher(None, decoded, pw, autojunk=False)
+        for tag, i1, i2, j1, j2 in sm.get_opcodes():
+            pairs = zip(range(i1, i2), range(j1, j2)) if tag == "equal" or (tag == "replace" and i2 - i1 == j2 - j1) else ()
+            for di, pi in pairs:
+                cols = colored[surah].get(di)
+                if not cols:
+                    continue
+                sig = tuple(sorted(cols))
+                if sig not in index:
+                    index[sig] = len(types)
+                    types.append({"colors": list(sig),
+                                  "meaning": [COLOR_LEGEND.get(c, "not in any printed legend") for c in sig]})
+                out.append([plist[pi].position, index[sig]])
+    out.sort()
+    return out, types
+
+
 def _text_note(mark_count: int) -> dict:
     """How to get this muṣḥaf's printed text out of ``words``.
 
@@ -379,6 +440,54 @@ def _text_note(mark_count: int) -> dict:
     }
 
 
+def _provenance_tier2(r: Riwayah) -> dict:
+    """Which document a decoded text came from, and what decoded it.
+
+    The document is not a publisher's data release: it is a PDF of unnamed
+    authorship hosted by islamweb, so the record says who hosts it, what it is,
+    its checksum, and which table — with what measured accuracy — turned its
+    glyphs into text.  Weaker provenance, stated rather than glossed.
+    """
+    spec = r.spec
+    src = r.decoded["source"]
+    table_path = ISLAMWEB / "decoder" / r.decoded["table"]["file"]
+    calibration = json.loads((ISLAMWEB / "decoder" / "calibration.json").read_text(encoding="utf-8"))
+    return {
+        "tier": 2,
+        "authority": spec.authority,
+        "text": {
+            "package": "quran.pdf",
+            "member": f"islamweb/{spec.slug}/glyphs.json.gz",
+            "release_year": r.release_year,
+            "sha256": src["sha256"],
+            "origin": {
+                "recorded": True,
+                "url": ISLAMWEB_URL.format(slug=spec.slug),
+                "fetched": src["fetched"],
+                "bytes": src["bytes"],
+                "publisher": "islamweb.net",
+                "author": "not stated in the document",
+                "document": src.get("pdf", {}),
+                "note": "A Word document set in KFGQPC's 2005 HQPB fonts and distilled to PDF, "
+                        "hosted by islamweb; not a data release by the muṣḥaf's publisher. The PDF "
+                        "is not committed (sources/islamweb/<slug>/SOURCE.json records it); the glyph "
+                        "stream extracted from it is.",
+            },
+        },
+        "decoder": {
+            "table": table_path.name,
+            "version": r.decoded["table"]["version"],
+            "sha256": _sha256(table_path),
+            "learned_from": sorted(calibration["calibration"]),
+            "calibration": {k: {"rasm_agreement": v["rasm_agreement"],
+                                "exact_agreement": v["exact_light_agreement"]}
+                            for k, v in calibration["calibration"].items()},
+            "unknown_glyphs": sum(r.decoded["unknown"].values()),
+        },
+        "policy": TIER_POLICY,
+    }
+
+
 def _layers(r: Riwayah, line_check: dict, has_juz: bool, mark_count: int) -> dict:
     """What this file carries, and why it lacks whatever it lacks."""
     present = ["surahs", "ayahs", "pages", "lines", "marks"]
@@ -389,20 +498,40 @@ def _layers(r: Riwayah, line_check: dict, has_juz: bool, mark_count: int) -> dic
         absent["juz"] = "no v2 package released for this riwāyah"
     absent["rasm_imlai"] = "column not present in this riwāyah's release"
 
+    derived = {
+        "line": {
+            "how": "reconstructed from the document's line breaks, "
+                   "paragraph boundaries and sūrah headings; printed lines "
+                   "are not encoded in the release",
+            **{k: v for k, v in line_check.items() if k != "disagreements"},
+        },
+    }
+    if r.decoded:
+        present.append("colors")
+        derived["line"] = {"how": "read from the glyph positions of the PDF page; every "
+                                  "line is one typeset line of the document",
+                           "validated": False,
+                           "reason": "no second source states this document's lines"}
+        derived["text"] = {
+            "how": "decoded glyph by glyph from the document with the shared table; "
+                   "every codepoint is a table lookup, none is inferred",
+            "table": r.decoded["table"]["file"],
+            "unknown_glyph_occurrences": sum(r.decoded["unknown"].values()),
+            "unknown_glyphs": [{"font": f, "gid": g, "occurrences": n}
+                               for (f, g), n in r.decoded["unknown"].most_common()],
+            "printed_ayah_number_slips": r.decoded["printed_number_slips"],
+            "notation": "the 2022 KFGQPC notation: U+0671 alef wasla, U+0652 sukun, "
+                        "U+08F0–U+08F2 open tanwīn, U+064A for the dotless final yāʾ; "
+                        "waṣl vowel cues are not carried",
+        }
     return {
         "present": present,
         "absent": absent,
         "text": _text_note(mark_count),
-        "derived": {
-            "line": {
-                "how": "reconstructed from the document's line breaks, "
-                       "paragraph boundaries and sūrah headings; printed lines "
-                       "are not encoded in the release",
-                **{k: v for k, v in line_check.items() if k != "disagreements"},
-            },
-        },
+        "derived": derived,
         "notes": {
-            "page": "read from explicit page breaks in the release, not inferred",
+            "page": ("read from the PDF page each glyph is drawn on" if r.decoded else
+                     "read from explicit page breaks in the release, not inferred"),
             "kashida": "a kashida (U+0640) that carries a mark is a seat and is "
                     "kept inside the word: where a hamzah, a small high yeh or "
                     "a dagger alif has no letter of its own, the release writes "
@@ -494,6 +623,8 @@ def document(words: list[Word], r: Riwayah,
         "normalization": {"applied": "none", "note": "words[i] and the word index's rasm_uthmani hold the release's own codepoints, unnormalised. NFC is canonically equivalent but is not what the package writes: it reorders the marks on a letter — the releases write a shaddah before its vowel, NFC after it, in 22,000 of Ḥafṣ's 84,000 tokens — and composes ا + ٓ into آ in 2,946 more. The derived forms (rasm, pointed, plain, and the search fold) are computed from the NFC form, so comparison is unaffected. For text comparison across datasets, normalize both strings to NFC before comparing."},
         "provenance": _provenance(r),
         "font": fonts.describe(r.spec),
+        "colors": _colors(key, printed, r)[0],
+        "color_types": _colors(key, printed, r)[1],
         "layers": _layers(r, line_check, juz is not None, len(marks)),
         "words": [p.word.forms[key] for p in printed],
         "rasm_imlai": ([rasm_imlai.get(p.first, rasm_imlai.get(p.last)) for p in printed]
@@ -512,7 +643,15 @@ def document(words: list[Word], r: Riwayah,
         "resegmentation": _resegmentation(key, words, at),
         "line_disagreements": line_check.get("disagreements", []),
     }
-    for layer in ("page_starts", "line_starts", "juz_starts"):
+    if r.decoded:
+        doc["normalization"] = {
+            "applied": "decoded",
+            "note": "words[i] is decoded from the document's glyphs with the table named in "
+                    "provenance.decoder and is NFC. The notation is the 2022 KFGQPC one (see "
+                    "layers.derived.text.notation). Compare across datasets by normalising both "
+                    "sides to NFC.",
+        }
+    for layer in ("page_starts", "line_starts", "juz_starts", "colors", "color_types"):
         if doc[layer] is None:
             del doc[layer]
     return doc

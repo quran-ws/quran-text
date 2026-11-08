@@ -14,6 +14,7 @@ from fastapi.testclient import TestClient
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from app import app  # noqa: E402
+from dataset import EDITIONS  # noqa: E402
 
 client = TestClient(app)
 
@@ -297,7 +298,8 @@ def test_map_dataset_by_ayah_and_by_word():
     assert row["warsh_ayah"] == "2:253-254" and row["warsh_relation"] == "split"
     assert d["meta"]["columns"] == ["surah", "ayah", "first_number", "last_number", "warsh_ayah", "warsh_relation"]
     d = get("/map?from=warsh&ayah=2:253").json()
-    assert d["meta"]["to"] == ["hafs", "shubah", "qalun", "duri", "susi", "bazzi"]
+    assert d["meta"]["to"][:6] == ["hafs", "shubah", "qalun", "duri", "susi", "bazzi"]
+    assert set(d["meta"]["to"]) == set(EDITIONS) - {"warsh"}
     assert d["rows"][0]["hafs_ayah"] == "2:255" and d["rows"][0]["duri_relation"] == "merged"
     assert get("/map?from=hafs&to=warsh&ayah=1:1").json()["rows"][0]["warsh_relation"] == "unnumbered"
     w = get("/map?from=hafs&to=warsh&ayah=57:24&by=word").json()["rows"]

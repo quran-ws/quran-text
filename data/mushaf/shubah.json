@@ -1,6 +1,6 @@
 {
  "format": "quran-mushaf",
- "format_version": "1.0",
+ "format_version": "1.1",
  "generated": "2026-09-08",
  "mushaf": {
   "key": "shubah",
@@ -56,6 +56,8 @@
   "note": "words[i] and the word index's rasm_uthmani hold the release's own codepoints, unnormalised. NFC is canonically equivalent but is not what the package writes: it reorders the marks on a letter — the releases write a shaddah before its vowel, NFC after it, in 22,000 of Ḥafṣ's 84,000 tokens — and composes ا + ٓ into آ in 2,946 more. The derived forms (rasm, pointed, plain, and the search fold) are computed from the NFC form, so comparison is unaffected. For text comparison across datasets, normalize both strings to NFC before comparing."
  },
  "provenance": {
+  "tier": 1,
+  "authority": "KFGQPC",
   "text": {
    "package": "UthmanicShubah-v-3.0.zip",
    "member": "UthmanicShubah-v-3.0.docx",
@@ -93,6 +95,7 @@
   "member": "UthmanicShubah-v-3.0.ttf",
   "sha256": "634a7252b619b934f2e507480d517b8f339503bbf08dded35315a9c1f2be495d",
   "publisher": "https://fonts.qurancomplex.gov.sa/",
+  "guaranteed": true,
   "note": "The text uses codepoints only this font is guaranteed to draw (Arabic Extended-B alefs, open tanwīn, the waqf signs). Ship it with the text; a general Arabic font will show gaps."
  },
  "layers": {
@@ -77567,16 +77570,24 @@
  ],
  "rasm_imlai": null,
  "numbering": {
-  "total": 77434,
+  "total": 77442,
   "missing": [
-   25685
+   4319,
+   20821,
+   25687,
+   28039,
+   33540,
+   40887,
+   44296,
+   57494,
+   69063
   ],
   "written_joined": [
    {
     "position": 73948,
     "numbers": [
-     73950,
-     73951
+     73958,
+     73959
     ]
    }
   ]

@@ -24,7 +24,7 @@ STATUS_ORDER = ["identical", "diacritic_variant", "dotting_variant",
                 "alif_variant", "rasm_variant", "word_boundary", "partial"]
 
 STATUS_BLURB = {
-    "identical": "one qiraah, one spelling, in all seven",
+    "identical": "one qiraah, one spelling, in every riwāyah",
     "diacritic_variant": "same letters and same dots — the vowelling differs",
     "dotting_variant": "one rasm, pointed differently: تَعۡمَلُونَ against يَعۡمَلُونَ",
     "alif_variant": "one skeleton, one ā: on the line in one hand, above it in the other",
@@ -226,7 +226,7 @@ def write_report(words: list[Word], riwayahs: list[Riwayah],
     add("")
     add("Each word gets the *strongest* label that applies, tested in this order: "
         "rasm, ā, absence, boundary, dotting, vowelling. So a `dotting_variant` "
-        "is guaranteed to share one rasm across all seven, an `alif_variant` to "
+        "is guaranteed to share one rasm across all riwāyāt, an `alif_variant` to "
         "share one skeleton once every ā is spelled out, and an `identical` word "
         "is identical after notation folding — the raw spelling of every riwāyah "
         "is always kept in `forms`, whatever the label.")
@@ -247,7 +247,7 @@ def write_report(words: list[Word], riwayahs: list[Riwayah],
         ["pair", "shared words", "same spelling", "same qiraah", "same letters",
          "same rasm"]))
     add("")
-    add("Rasm agreement never drops below 99.5%: the seven riwāyāt are one text. "
+    add("Rasm agreement never drops below 99.5%: the riwāyāt are one text. "
         "Spelling agreement is far lower because the packages were typeset in "
         "different years with different conventions — which is what the `folded` "
         "and `pointed` columns strip away.")
@@ -292,7 +292,7 @@ def write_report(words: list[Word], riwayahs: list[Riwayah],
     add(f"{len(rasm_v):,} words where the riwāyāt disagree about the letters on "
         f"the line, after dots, hamzah, vowelling and the ā have all been set "
         f"aside. These are the differences the sources can be trusted on: they "
-        f"split the seven riwāyāt {len(_partitions(rasm_v))} different ways — by "
+        f"split the riwāyāt {len(_partitions(rasm_v))} different ways — by "
         f"miṣr, not by publisher — and they are the khilāf the rasm literature "
         f"names. All {len(rasm_v):,} are listed "
         f"below, grouped by what the difference *is*. Machine-readable: "
@@ -343,7 +343,7 @@ def write_report(words: list[Word], riwayahs: list[Riwayah],
         one_line = f"{len(parts)} different ways"
     add(f"They are not counted as the codices disagreeing, and the reason is in "
         f"the data rather than in a judgement about it. **All "
-        f"{len(alif_v):,} split the seven riwāyāt {one_line}.** The "
+        f"{len(alif_v):,} split the riwāyāt {one_line}.** The "
         f"{len(rasm_v):,} real letter differences split "
         f"them {len(_partitions(rasm_v))} different ways. Ḥadhf and ithbāt "
         f"al-alif do vary between the codices of the amṣār, but they do not put "
@@ -557,16 +557,16 @@ def write_report(words: list[Word], riwayahs: list[Riwayah],
 
     # --- full rasm variant listing ---------------------------------------
     V = ["# Rasm disagreements — full listing", "",
-         f"Every word where the seven riwāyāt disagree about the letters on the "
+         f"Every word where the riwāyāt disagree about the letters on the "
          f"line, in order. Dots, hamzah and vowelling have all been set aside, "
          f"and so has the dagger alif — a superscript alef is by definition an "
          f"alef the scribe did not write on the line.", "",
          f"The {len(rasm_v):,} `rasm_variant` words come first: a letter one "
-         f"riwāyah has and another does not, splitting the seven "
+         f"riwāyah has and another does not, splitting the riwāyāt "
          f"{len(_partitions(rasm_v))} different ways. The {len(alif_v):,} "
          f"`alif_variant` words follow: one skeleton once every ā is spelled "
          f"out, differing only in where the ā was written, and splitting the "
-         f"seven exactly one way. See *The ā on the line or above it* in "
+         f"KFGQPC riwāyāt exactly one way. See *The ā on the line or above it* in "
          f"`COMPARISON.md` for why that difference is reported apart.", "",
          "Machine-readable: `../differences.csv`, `../differences.json`.", ""]
     for title, ws in (("Letters", rasm_v), ("The ā", alif_v)):

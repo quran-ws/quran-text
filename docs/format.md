@@ -489,9 +489,36 @@ muṣḥaf has its own: seven files, one per riwāyah, not one font for all seve
 
 ## Provenance
 
-Every file names the KFGQPC release it came from, with a SHA-256 — in the file
-itself, not only in the manifest, because a muṣḥaf file will be copied and
-vendored on its own and a text whose edition cannot be named is not citable.
+Every file names the source it came from, with a SHA-256 — in the file itself,
+not only in the manifest, because a muṣḥaf file will be copied and vendored on
+its own and a text whose edition cannot be named is not citable.
+
+`provenance.tier` says what kind of source that is, and `provenance.authority`
+who published it. **Tier 1** is a data release by the muṣḥaf's publisher, read
+as published: the seven KFGQPC riwāyāt. **Tier 2** is a document by someone
+else, decoded here: the ten riwāyāt KFGQPC does not publish, read from the
+islamweb PDFs (`docs/sources.md`, *Tier 2*). A tier-2 file carries, besides
+`text` (the document, its URL, size, checksum and metadata under `text.origin`),
+a `decoder` block naming the glyph table that read it, the table's checksum,
+the riwāyāt it was learned from and the accuracy measured on each. Its
+`normalization.applied` is `"decoded"` rather than `"none"`, its `font` block
+names a stand-in with `guaranteed: false`, and `layers.derived.text` states the
+notation, the unknown-glyph count (always zero in a published file) and every
+place the document's printed āyah number disagrees with the āyah's position.
+Format 1.1 adds these fields; a 1.0 reader that ignores unknown fields reads a
+tier-1 file unchanged.
+
+### Colours (tier 2)
+
+The islamweb documents print the letter that differs from Ḥafṣ, and the uṣūl of
+the riwāyah, in colour. A tier-2 file carries them as `colors`, a list of
+`[position, type]` pairs, and `color_types`, each distinct set of colours with
+the meaning the documents' printed legends give it (the Warsh and Hishām files
+print one; the others use the same palette unlabelled). Colour is a property of
+the glyph in the document, so a word whose hamza alone is coloured is listed
+with that one colour. The layer is the document's annotation, published as
+such, and checked once: a word coloured as differing from Ḥafṣ must differ
+from Ḥafṣ (`check_colors`).
 
 `data/manifest.json` carries the same hashes for every source package,
 for the vendored qiraat-ayah-map data, and for every emitted file, and lists

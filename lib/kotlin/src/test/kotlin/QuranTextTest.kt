@@ -64,10 +64,10 @@ class QuranTextTest {
         assertTrue(hafs.ayah(7, 206).hasSajdah)
         assertEquals(199, hafs.divisionMarks().size)
         assertEquals("۞ إِنَّ", hafs.divisionMarks()[0].render())
-        assertEquals(73950, hafs.numberAt(73948))
-        assertEquals(73951, hafs.wordAt(73948).numberLast)
-        assertNull(hafs.wordByNumber(25685))
-        assertEquals("وَأَلَّوِ", hafs.wordByNumber(73951)!!.text)
+        assertEquals(73958, hafs.numberAt(73948))
+        assertEquals(73959, hafs.wordAt(73948).numberLast)
+        assertNull(hafs.wordByNumber(25687))
+        assertEquals("وَأَلَّوِ", hafs.wordByNumber(73959)!!.text)
         assertEquals("مَٰلِكِ", hafs.wordByNumber(11)!!.text)
     }
 
@@ -129,6 +129,6 @@ class QuranTextTest {
         assertEquals("مَلِكِ", idx.word(11).form("warsh"))
         assertEquals("إِلَٰهَ", idx.find(2, 255, 3)!!.rasm_uthmani)
         assertTrue(idx.search("مالك").any { it.number == 11 })
-        assertEquals(53128, idx.differing().size)
+        assertEquals(62676, idx.differing().size)
     }
 }
