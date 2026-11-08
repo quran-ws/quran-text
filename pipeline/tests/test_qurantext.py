@@ -180,7 +180,7 @@ class TestNormalize(unittest.TestCase):
         self.assertEqual(forms("ࡰلۡحَمۡدُ")["folded"], forms("اَلۡحَمۡدُ")["folded"])
 
     def test_the_editorial_sah_is_kept_but_never_compared(self):
-        # U+08CC is a proofreader's mark, and was the largest single source of
+        # U+08CC is printed by Warsh alone, and was the largest single source of
         # spurious differences in the corpus.  It stays in the text the release
         # prints and out of every form a comparison uses.
         self.assertIn("࣌", forms("وَمَارُوتَ࣌")["rasm_uthmani"])

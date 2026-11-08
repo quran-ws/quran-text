@@ -28,9 +28,9 @@ SAJDAH_LINE = "ۤ"          # ۤ  ARABIC SMALL HIGH MADDA (used as the sajdah li
 
 ARABIC_DIGITS = {chr(0x0660 + i): str(i) for i in range(10)}
 
-#: The ṣaḥḥa U+08CC ("correct as written") and its raised-dot companion U+0888.
-#: They are annotation rather than letters — not pronounced, and written by one
-#: release where the others write nothing — but they *are* printed, 9,950 and
+#: The ṣaḥḥa U+08CC (SMALL HIGH WORD SAH) and the raised round dot U+0888.
+#: The packages do not say what either means.  The ṣaḥḥa is written by one
+#: release where the others write nothing, and both *are* printed, 9,950 and
 #: 91 times in the v3.0 Warsh document, word-final in all but four places.  So
 #: they are peeled off the word like a waqf mark and published in ``marks`` as
 #: the kinds ``sah`` and ``raised_dot``, rather than deleted: a sign the release

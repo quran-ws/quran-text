@@ -237,9 +237,13 @@ not a letter: `rasm` and `pointed` are unchanged in all 77,434 words, the
 alignment and the 277 published differences are unchanged, and the search fold
 drops it, so a query typed without one still matches.
 
-The invisible controls — 14 right-to-left marks in Warsh, one each in Dūrī and
-Sūsī — are kept on the same principle. A consumer comparing strings should fold
-them out; `docs/SEARCH-FOLD.md` already does.
+The invisible controls are kept on the same principle: 14 right-to-left marks
+`U+200F` in Warsh, and one zero-width joiner `U+200D` each in Dūrī and Sūsī.
+The joiner is the kashida's counterpart, not a stray control: both releases
+write 17:7 as `لِيَسُ‍ُٔواْ`, with the joiner exactly where Ḥafṣ, Warsh, Qālūn
+and Bazzī put the kashida that seats the hamzah, so deleting it would have
+broken the word the same way. A consumer comparing strings should fold the
+controls out; `docs/SEARCH-FOLD.md` already does.
 
 One dotless beh `U+066E` in Bazzī and one small low seen `U+06E3` in Ḥafṣ v3.0
 occur exactly once each; both are published and neither affects the rasm.
@@ -251,14 +255,18 @@ the build unless it is in `DECLARED_ABSENT` — the āyah mark, its digits, and
 the space. The old round-trip check could not see any of this, because both
 sides of its comparison had been through the same stripping.
 
-### 5. `U+08CC` — an editorial mark, published as a mark
+### 5. `U+08CC` — a sign only Warsh prints, published as a mark
 
-`ARABIC SMALL HIGH WORD SAH`, the proofreader's *ṣaḥḥa* ("correct as written"),
-occurs **9,950 times** in the v3.0 Warsh document and essentially nowhere else;
-its raised-dot companion `U+0888` occurs 91 times there, 91 in Qālūn and 138 in
-Sūsī. It is not pronounced, not written by any other release, and not part of
-the word — and until it was classified it was the single largest source of
-spurious differences in the corpus, larger than every genuine variant combined.
+`ARABIC SMALL HIGH WORD SAH` — called the *ṣaḥḥa* here, after its Unicode name —
+occurs **9,950 times** in the v3.0 Warsh document and in no other package;
+`ARABIC RAISED ROUND DOT` `U+0888` occurs 91 times there, 91 in Qālūn and 138
+in Sūsī. No other release writes anything in the ṣaḥḥa's place, and until it was
+classified it was the single largest source of spurious differences in the
+corpus, larger than every genuine variant combined.
+
+Nothing in the packages says what either sign means, so this project does not
+say either. "Editorial", in the field `editorial` and the constant
+`chars.EDITORIAL`, is a label for the class, not a claim about its function.
 
 It was therefore stripped. That was the right answer to the wrong question: the
 problem was that it reached the **alignment key**, and the fix belongs there.
