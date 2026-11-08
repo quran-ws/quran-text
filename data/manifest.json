@@ -1,6 +1,6 @@
 {
  "format": "quran-mushaf",
- "format_version": "1.0",
+ "format_version": "1.1",
  "generated": "2026-09-08",
  "normative": [
   "data/mushaf/hafs.json",
@@ -10,6 +10,15 @@
   "data/mushaf/duri.json",
   "data/mushaf/susi.json",
   "data/mushaf/bazzi.json",
+  "data/mushaf/hisham.json",
+  "data/mushaf/khalaf.json",
+  "data/mushaf/khallad.json",
+  "data/mushaf/abu-al-harith.json",
+  "data/mushaf/ibn-wardan.json",
+  "data/mushaf/ibn-jammaz.json",
+  "data/mushaf/ruways.json",
+  "data/mushaf/rawh.json",
+  "data/mushaf/ishaq.json",
   "data/word-index.json",
   "data/word-index.csv"
  ],
@@ -183,6 +192,460 @@
     }
    }
   },
+  "hisham": {
+   "text": {
+    "package": "quran.pdf",
+    "member": "islamweb/hesham/glyphs.json.gz",
+    "release_year": 2005,
+    "sha256": "f6983b390a3ebdfaeb78c8bd4e9f215fdd6010a712a5aaaf03c32d32513cada9",
+    "origin": {
+     "recorded": true,
+     "url": "https://dl2.islamweb.net/Audio_Path/quran_list/hesham/quran.pdf",
+     "fetched": "2026-11-08",
+     "bytes": 10792674,
+     "publisher": "islamweb.net",
+     "author": "not stated in the document",
+     "document": {
+      "format": "PDF 1.4",
+      "title": "Microsoft Word - QURAN.doc",
+      "author": "res_hezzat",
+      "creator": "PScript5.dll Version 5.2",
+      "producer": "Acrobat Distiller 6.0 (Windows)",
+      "creationDate": "D:20050427082837+03'00'",
+      "modDate": "D:20050427082837+03'00'"
+     },
+     "note": "A Word document set in KFGQPC's 2005 HQPB fonts and distilled to PDF, hosted by islamweb; not a data release by the muṣḥaf's publisher. The PDF is not committed (sources/islamweb/<slug>/SOURCE.json records it); the glyph stream extracted from it is."
+    }
+   },
+   "decoder": {
+    "table": "table-v1.json",
+    "version": 1,
+    "sha256": "f7dd532962c470ea89ff614b1f5cdb53f8e28849b61823d2cd50bf6d73de19ee",
+    "learned_from": [
+     "qaloon",
+     "shuaba",
+     "warsh"
+    ],
+    "calibration": {
+     "qaloon": {
+      "rasm_agreement": 0.9872,
+      "exact_agreement": 0.7104
+     },
+     "shuaba": {
+      "rasm_agreement": 0.9948,
+      "exact_agreement": 0.7877
+     },
+     "warsh": {
+      "rasm_agreement": 0.9796,
+      "exact_agreement": 0.7765
+     }
+    },
+    "unknown_glyphs": 0
+   }
+  },
+  "khalaf": {
+   "text": {
+    "package": "quran.pdf",
+    "member": "islamweb/khalaf/glyphs.json.gz",
+    "release_year": 2007,
+    "sha256": "f94beb6a6730cebd40ce72a5c326d2a837f9c9f2f9482825e3ff385496da98b8",
+    "origin": {
+     "recorded": true,
+     "url": "https://dl2.islamweb.net/Audio_Path/quran_list/khalaf/quran.pdf",
+     "fetched": "2026-11-08",
+     "bytes": 10893074,
+     "publisher": "islamweb.net",
+     "author": "not stated in the document",
+     "document": {
+      "format": "PDF 1.7",
+      "title": "<4D6963726F736F667420576F7264202D20C7E1DED1C2E420C7E1DFD1EDE320C8D1E6C7EDC920CEE1DD20DAE420CDE3D2C92E646F63>",
+      "author": "res_hezzat",
+      "creator": "PScript5.dll Version 5.2",
+      "producer": "Acrobat Distiller 6.0 (Windows)",
+      "creationDate": "D:20070723102428+03'00'",
+      "modDate": "D:20230719123149+03'00'"
+     },
+     "note": "A Word document set in KFGQPC's 2005 HQPB fonts and distilled to PDF, hosted by islamweb; not a data release by the muṣḥaf's publisher. The PDF is not committed (sources/islamweb/<slug>/SOURCE.json records it); the glyph stream extracted from it is."
+    }
+   },
+   "decoder": {
+    "table": "table-v1.json",
+    "version": 1,
+    "sha256": "f7dd532962c470ea89ff614b1f5cdb53f8e28849b61823d2cd50bf6d73de19ee",
+    "learned_from": [
+     "qaloon",
+     "shuaba",
+     "warsh"
+    ],
+    "calibration": {
+     "qaloon": {
+      "rasm_agreement": 0.9872,
+      "exact_agreement": 0.7104
+     },
+     "shuaba": {
+      "rasm_agreement": 0.9948,
+      "exact_agreement": 0.7877
+     },
+     "warsh": {
+      "rasm_agreement": 0.9796,
+      "exact_agreement": 0.7765
+     }
+    },
+    "unknown_glyphs": 0
+   }
+  },
+  "khallad": {
+   "text": {
+    "package": "quran.pdf",
+    "member": "islamweb/khallad/glyphs.json.gz",
+    "release_year": 2007,
+    "sha256": "319b80043dac9bcfa5dbb1786a28102996f6c3c78e166c4cfbaca75d44bb5ac5",
+    "origin": {
+     "recorded": true,
+     "url": "https://dl2.islamweb.net/Audio_Path/quran_list/khallad/quran.pdf",
+     "fetched": "2026-11-08",
+     "bytes": 10812397,
+     "publisher": "islamweb.net",
+     "author": "not stated in the document",
+     "document": {
+      "format": "PDF 1.6",
+      "title": "Microsoft Word - قرآن كريم.doc",
+      "author": "res_hezzat",
+      "creator": "PScript5.dll Version 5.2",
+      "producer": "Acrobat Distiller 6.0 (Windows)",
+      "creationDate": "D:20070409101425+03'00'",
+      "modDate": "D:20190108091449+03'00'"
+     },
+     "note": "A Word document set in KFGQPC's 2005 HQPB fonts and distilled to PDF, hosted by islamweb; not a data release by the muṣḥaf's publisher. The PDF is not committed (sources/islamweb/<slug>/SOURCE.json records it); the glyph stream extracted from it is."
+    }
+   },
+   "decoder": {
+    "table": "table-v1.json",
+    "version": 1,
+    "sha256": "f7dd532962c470ea89ff614b1f5cdb53f8e28849b61823d2cd50bf6d73de19ee",
+    "learned_from": [
+     "qaloon",
+     "shuaba",
+     "warsh"
+    ],
+    "calibration": {
+     "qaloon": {
+      "rasm_agreement": 0.9872,
+      "exact_agreement": 0.7104
+     },
+     "shuaba": {
+      "rasm_agreement": 0.9948,
+      "exact_agreement": 0.7877
+     },
+     "warsh": {
+      "rasm_agreement": 0.9796,
+      "exact_agreement": 0.7765
+     }
+    },
+    "unknown_glyphs": 0
+   }
+  },
+  "abu-al-harith": {
+   "text": {
+    "package": "quran.pdf",
+    "member": "islamweb/alhareth/glyphs.json.gz",
+    "release_year": 2007,
+    "sha256": "41247e45b79f15a6de5c29335a84617a5f1ee272073b854eeeb642b21d8701ac",
+    "origin": {
+     "recorded": true,
+     "url": "https://dl2.islamweb.net/Audio_Path/quran_list/alhareth/quran.pdf",
+     "fetched": "2026-11-08",
+     "bytes": 10895140,
+     "publisher": "islamweb.net",
+     "author": "not stated in the document",
+     "document": {
+      "format": "PDF 1.6",
+      "title": "<4D6963726F736F667420576F7264202D20C7E1DED1C2E420C7E1DFD1EDE32020C8D1E6C7EDC920C3C8ED20C7E1CDC7D1CB20DAE420C7E1DFD3C7C6ED312D382D323030372E646F63>",
+      "author": "res_hezzat",
+      "creator": "PScript5.dll Version 5.2",
+      "producer": "Acrobat Distiller 6.0 (Windows)",
+      "creationDate": "D:20070801114756+03'00'",
+      "modDate": "D:20190611085150+03'00'"
+     },
+     "note": "A Word document set in KFGQPC's 2005 HQPB fonts and distilled to PDF, hosted by islamweb; not a data release by the muṣḥaf's publisher. The PDF is not committed (sources/islamweb/<slug>/SOURCE.json records it); the glyph stream extracted from it is."
+    }
+   },
+   "decoder": {
+    "table": "table-v1.json",
+    "version": 1,
+    "sha256": "f7dd532962c470ea89ff614b1f5cdb53f8e28849b61823d2cd50bf6d73de19ee",
+    "learned_from": [
+     "qaloon",
+     "shuaba",
+     "warsh"
+    ],
+    "calibration": {
+     "qaloon": {
+      "rasm_agreement": 0.9872,
+      "exact_agreement": 0.7104
+     },
+     "shuaba": {
+      "rasm_agreement": 0.9948,
+      "exact_agreement": 0.7877
+     },
+     "warsh": {
+      "rasm_agreement": 0.9796,
+      "exact_agreement": 0.7765
+     }
+    },
+    "unknown_glyphs": 0
+   }
+  },
+  "ibn-wardan": {
+   "text": {
+    "package": "quran.pdf",
+    "member": "islamweb/wardan/glyphs.json.gz",
+    "release_year": 2017,
+    "sha256": "42d54814b5faeba1621d98b93cd11c38c7612d0ae69a7a05ce743cb3a7a5834d",
+    "origin": {
+     "recorded": true,
+     "url": "https://dl2.islamweb.net/Audio_Path/quran_list/wardan/quran.pdf",
+     "fetched": "2026-11-08",
+     "bytes": 4460329,
+     "publisher": "islamweb.net",
+     "author": "not stated in the document",
+     "document": {
+      "format": "PDF 1.6",
+      "author": "res_hezzat",
+      "creator": "PScript5.dll Version 5.2.2",
+      "producer": "Acrobat Distiller 11.0 (Windows)",
+      "creationDate": "D:20170112102840+03'00'",
+      "modDate": "D:20180425111550+03'00'"
+     },
+     "note": "A Word document set in KFGQPC's 2005 HQPB fonts and distilled to PDF, hosted by islamweb; not a data release by the muṣḥaf's publisher. The PDF is not committed (sources/islamweb/<slug>/SOURCE.json records it); the glyph stream extracted from it is."
+    }
+   },
+   "decoder": {
+    "table": "table-v1.json",
+    "version": 1,
+    "sha256": "f7dd532962c470ea89ff614b1f5cdb53f8e28849b61823d2cd50bf6d73de19ee",
+    "learned_from": [
+     "qaloon",
+     "shuaba",
+     "warsh"
+    ],
+    "calibration": {
+     "qaloon": {
+      "rasm_agreement": 0.9872,
+      "exact_agreement": 0.7104
+     },
+     "shuaba": {
+      "rasm_agreement": 0.9948,
+      "exact_agreement": 0.7877
+     },
+     "warsh": {
+      "rasm_agreement": 0.9796,
+      "exact_agreement": 0.7765
+     }
+    },
+    "unknown_glyphs": 0
+   }
+  },
+  "ibn-jammaz": {
+   "text": {
+    "package": "quran.pdf",
+    "member": "islamweb/jammaz/glyphs.json.gz",
+    "release_year": 2017,
+    "sha256": "c6a9c79b5676f4f61632fa698d30a1ddfdd52902eb719b6731fb24928b5c422a",
+    "origin": {
+     "recorded": true,
+     "url": "https://dl2.islamweb.net/Audio_Path/quran_list/jammaz/quran.pdf",
+     "fetched": "2026-11-08",
+     "bytes": 4532816,
+     "publisher": "islamweb.net",
+     "author": "not stated in the document",
+     "document": {
+      "format": "PDF 1.6",
+      "author": "res_hezzat",
+      "creator": "PScript5.dll Version 5.2.2",
+      "producer": "Acrobat Distiller 11.0 (Windows)",
+      "creationDate": "D:20170130084810+03'00'",
+      "modDate": "D:20180425112031+03'00'"
+     },
+     "note": "A Word document set in KFGQPC's 2005 HQPB fonts and distilled to PDF, hosted by islamweb; not a data release by the muṣḥaf's publisher. The PDF is not committed (sources/islamweb/<slug>/SOURCE.json records it); the glyph stream extracted from it is."
+    }
+   },
+   "decoder": {
+    "table": "table-v1.json",
+    "version": 1,
+    "sha256": "f7dd532962c470ea89ff614b1f5cdb53f8e28849b61823d2cd50bf6d73de19ee",
+    "learned_from": [
+     "qaloon",
+     "shuaba",
+     "warsh"
+    ],
+    "calibration": {
+     "qaloon": {
+      "rasm_agreement": 0.9872,
+      "exact_agreement": 0.7104
+     },
+     "shuaba": {
+      "rasm_agreement": 0.9948,
+      "exact_agreement": 0.7877
+     },
+     "warsh": {
+      "rasm_agreement": 0.9796,
+      "exact_agreement": 0.7765
+     }
+    },
+    "unknown_glyphs": 0
+   }
+  },
+  "ruways": {
+   "text": {
+    "package": "quran.pdf",
+    "member": "islamweb/ruwis/glyphs.json.gz",
+    "release_year": 2017,
+    "sha256": "8a087bc1da272d4d02b25baebf3c73c2933f07bfddd9e91dbf417a25e22ff461",
+    "origin": {
+     "recorded": true,
+     "url": "https://dl2.islamweb.net/Audio_Path/quran_list/ruwis/quran.pdf",
+     "fetched": "2026-11-08",
+     "bytes": 4446809,
+     "publisher": "islamweb.net",
+     "author": "not stated in the document",
+     "document": {
+      "format": "PDF 1.7",
+      "author": "res_hezzat",
+      "creator": "PScript5.dll Version 5.2.2",
+      "producer": "Acrobat Distiller 11.0 (Windows)",
+      "creationDate": "D:20170220095901+03'00'",
+      "modDate": "D:20230328095556+03'00'"
+     },
+     "note": "A Word document set in KFGQPC's 2005 HQPB fonts and distilled to PDF, hosted by islamweb; not a data release by the muṣḥaf's publisher. The PDF is not committed (sources/islamweb/<slug>/SOURCE.json records it); the glyph stream extracted from it is."
+    }
+   },
+   "decoder": {
+    "table": "table-v1.json",
+    "version": 1,
+    "sha256": "f7dd532962c470ea89ff614b1f5cdb53f8e28849b61823d2cd50bf6d73de19ee",
+    "learned_from": [
+     "qaloon",
+     "shuaba",
+     "warsh"
+    ],
+    "calibration": {
+     "qaloon": {
+      "rasm_agreement": 0.9872,
+      "exact_agreement": 0.7104
+     },
+     "shuaba": {
+      "rasm_agreement": 0.9948,
+      "exact_agreement": 0.7877
+     },
+     "warsh": {
+      "rasm_agreement": 0.9796,
+      "exact_agreement": 0.7765
+     }
+    },
+    "unknown_glyphs": 0
+   }
+  },
+  "rawh": {
+   "text": {
+    "package": "quran.pdf",
+    "member": "islamweb/rawh/glyphs.json.gz",
+    "release_year": 2017,
+    "sha256": "17df3d5de45317a176424b9446267f4434a37c92ff1b59d26a23ca85c19e51ad",
+    "origin": {
+     "recorded": true,
+     "url": "https://dl2.islamweb.net/Audio_Path/quran_list/rawh/quran.pdf",
+     "fetched": "2026-11-08",
+     "bytes": 4387586,
+     "publisher": "islamweb.net",
+     "author": "not stated in the document",
+     "document": {
+      "format": "PDF 1.7",
+      "author": "res_hezzat",
+      "creator": "PScript5.dll Version 5.2.2",
+      "producer": "Acrobat Distiller 11.0 (Windows)",
+      "creationDate": "D:20170202124019+03'00'",
+      "modDate": "D:20210912104456+03'00'"
+     },
+     "note": "A Word document set in KFGQPC's 2005 HQPB fonts and distilled to PDF, hosted by islamweb; not a data release by the muṣḥaf's publisher. The PDF is not committed (sources/islamweb/<slug>/SOURCE.json records it); the glyph stream extracted from it is."
+    }
+   },
+   "decoder": {
+    "table": "table-v1.json",
+    "version": 1,
+    "sha256": "f7dd532962c470ea89ff614b1f5cdb53f8e28849b61823d2cd50bf6d73de19ee",
+    "learned_from": [
+     "qaloon",
+     "shuaba",
+     "warsh"
+    ],
+    "calibration": {
+     "qaloon": {
+      "rasm_agreement": 0.9872,
+      "exact_agreement": 0.7104
+     },
+     "shuaba": {
+      "rasm_agreement": 0.9948,
+      "exact_agreement": 0.7877
+     },
+     "warsh": {
+      "rasm_agreement": 0.9796,
+      "exact_agreement": 0.7765
+     }
+    },
+    "unknown_glyphs": 0
+   }
+  },
+  "ishaq": {
+   "text": {
+    "package": "quran.pdf",
+    "member": "islamweb/eshaq/glyphs.json.gz",
+    "release_year": 2017,
+    "sha256": "8a45c3af1b6c62ace429f05562b6f6baabb9e481d82344fea19ba9e13e9e9618",
+    "origin": {
+     "recorded": true,
+     "url": "https://dl2.islamweb.net/Audio_Path/quran_list/eshaq/quran.pdf",
+     "fetched": "2026-11-08",
+     "bytes": 8117607,
+     "publisher": "islamweb.net",
+     "author": "not stated in the document",
+     "document": {
+      "format": "PDF 1.6",
+      "author": "res_hezzat",
+      "creator": "PScript5.dll Version 5.2.2",
+      "producer": "GPL Ghostscript 9.06",
+      "creationDate": "D:20170410094517+03'00'",
+      "modDate": "D:20200809131235+03'00'"
+     },
+     "note": "A Word document set in KFGQPC's 2005 HQPB fonts and distilled to PDF, hosted by islamweb; not a data release by the muṣḥaf's publisher. The PDF is not committed (sources/islamweb/<slug>/SOURCE.json records it); the glyph stream extracted from it is."
+    }
+   },
+   "decoder": {
+    "table": "table-v1.json",
+    "version": 1,
+    "sha256": "f7dd532962c470ea89ff614b1f5cdb53f8e28849b61823d2cd50bf6d73de19ee",
+    "learned_from": [
+     "qaloon",
+     "shuaba",
+     "warsh"
+    ],
+    "calibration": {
+     "qaloon": {
+      "rasm_agreement": 0.9872,
+      "exact_agreement": 0.7104
+     },
+     "shuaba": {
+      "rasm_agreement": 0.9948,
+      "exact_agreement": 0.7877
+     },
+     "warsh": {
+      "rasm_agreement": 0.9796,
+      "exact_agreement": 0.7765
+     }
+    },
+    "unknown_glyphs": 0
+   }
+  },
   "qiraat-ayah-map": {
    "repository": "https://github.com/quranpedia/qiraat-ayah-map",
    "commit": "076255281ec6f76241d7e901e27072733d02a18d",
@@ -201,33 +664,33 @@
  "files": [
   {
    "path": "data/ayah-map.csv",
-   "bytes": 516361,
-   "sha256": "1f7e544aa4b307f60e5a35bbb63c752895f9ea819fae8b550ff37327adaad362"
+   "bytes": 1125257,
+   "sha256": "fd4c490ed4c7ed9ba364c7b1d1335b1ef0c624bdcdd40d47082f009704f30dcd"
   },
   {
    "path": "data/ayah-map.json",
-   "bytes": 2285199,
-   "sha256": "b4ea59b14c629ae5a95ca7e1cebca71227d25aa4d92ae4698a79db8caf21eea9"
+   "bytes": 5167163,
+   "sha256": "71efbf7c10db05256e847e1d77bbe80aa56719b89a0d48379d5c57dd4f250e8b"
   },
   {
    "path": "data/catalog.json",
-   "bytes": 44985,
-   "sha256": "5a5d0176df73068530ef7d76a0a095cd54b3a563c1adbb27695ecaf9c0ed9164"
+   "bytes": 72004,
+   "sha256": "aceae77053de188a1098335833467955b8c25e60029d337f262568161391d8e5"
   },
   {
    "path": "data/counting.json",
-   "bytes": 467593,
-   "sha256": "36a76d8817e70eea76512798d43a576301496578cb6b3a825d4d74cfddecd85a"
+   "bytes": 482534,
+   "sha256": "7e5b461b52cf819450779c7eaa52ecdcc0963b9465b117f776cacc2781f30fcd"
   },
   {
    "path": "data/differences.csv",
-   "bytes": 47992,
-   "sha256": "080afdb5db6949e8733e041fcf6d0f90128932944e2bd5971bfbecbfd8ff405f"
+   "bytes": 365095,
+   "sha256": "e6c5d3fdf5f36f8d902b99582ab7fba5f7c9827a9aa67008b240259bf7907fd8"
   },
   {
    "path": "data/differences.json",
-   "bytes": 222540,
-   "sha256": "73839595547f4ba705a207880a7e2f6864892d8c396b8578a0a6c3d4eae5066c"
+   "bytes": 1672797,
+   "sha256": "0de411140575518eb6cb4dbfd070da24451c9f9bf1021c3b85184b3df7e8d89b"
   },
   {
    "path": "data/fonts/UthmanicBazzi-v-3.0.ttf",
@@ -265,154 +728,289 @@
    "sha256": "b644f1c6665baa95c9c0ab40b01a7f3e89edc42a0f50d3b244318a843bec81a9"
   },
   {
+   "path": "data/mushaf/abu-al-harith.csv.gz",
+   "bytes": 1043577,
+   "sha256": "696a7e7be5e93fe907a6d4a7627d808a0bd495e30e91435c693ec60e5d09b793"
+  },
+  {
+   "path": "data/mushaf/abu-al-harith.json",
+   "bytes": 1947971,
+   "sha256": "b66dad14d4af4532c73a688ae2a1d297d869bbe8664226e6567c58ffeff670e8"
+  },
+  {
+   "path": "data/mushaf/abu-al-harith.nested.json.gz",
+   "bytes": 1268986,
+   "sha256": "614ac8ab2dce03de119a2726645ee70c6ad6e5e276a60192baa311f5b900ba33"
+  },
+  {
    "path": "data/mushaf/bazzi.csv.gz",
-   "bytes": 1041471,
-   "sha256": "618955844932b0a5dfd403d890a0f4ff83043434058b1de16fc1db6c62198596"
+   "bytes": 1042913,
+   "sha256": "dc3092425c09d7cc15642822f447f861789beafb46bac7fbbded3d4d0949f1a6"
   },
   {
    "path": "data/mushaf/bazzi.json",
-   "bytes": 2004109,
-   "sha256": "139c3e8e57506763b620d024f9cc1af85a633b3221302c8214e1367407040972"
+   "bytes": 2004248,
+   "sha256": "7839b2f51bd92fad0177f204ca52de573305c39d93b97d2dc5e40570dcb3c196"
   },
   {
    "path": "data/mushaf/bazzi.nested.json.gz",
-   "bytes": 1273788,
-   "sha256": "9628d2fde158bc6c4afc46e32be4b30e71240d070c43a127359d55a5b8a4e223"
+   "bytes": 1273173,
+   "sha256": "7d96ce2fbbd8ce62dac74a446fea637a5c86451cc419cd46390f59534a52edd0"
   },
   {
    "path": "data/mushaf/duri.csv.gz",
-   "bytes": 1060167,
-   "sha256": "402da809e6103b09b7b9100d5be84842a585421c3cfe6c8cc9f2c79239d0f8c8"
+   "bytes": 1061469,
+   "sha256": "0830d2302da0d338c02f7bbb2aea6fe5bde70f46eee7150f6d77bcb7d5900a90"
   },
   {
    "path": "data/mushaf/duri.json",
-   "bytes": 2047851,
-   "sha256": "759e0963c83792ff220fcec77947540e9141153f53feeeeaaac9b63109922cf2"
+   "bytes": 2047990,
+   "sha256": "1d3229ea89f6a65c708c41f2b7c58f7b77e6466109bf57c1a9ac2ecb5d98384d"
   },
   {
    "path": "data/mushaf/duri.nested.json.gz",
-   "bytes": 1322157,
-   "sha256": "b5eca0498a04ef9cd6d453b2714c58b0f6fbdcf6c315e1dc888dfbdd3fbf8fa1"
+   "bytes": 1321659,
+   "sha256": "74d94236a7b71afe3086d9a47c3d3cb99eec533437d1233380c8939b45f4220b"
   },
   {
    "path": "data/mushaf/hafs.csv.gz",
-   "bytes": 1296459,
-   "sha256": "e1364d0869c146ac73d96fc00f552770e4907577dda514caa266d5587ba03b9d"
+   "bytes": 1297744,
+   "sha256": "6cae2862505af2af285bb08f73ef8830d2f09d8d289f14e5f629a3c59ed2561d"
   },
   {
    "path": "data/mushaf/hafs.json",
-   "bytes": 3120895,
-   "sha256": "9b9eb07ff5cff144bf964400924e593d97115e4b937db3c61783f782a5168075"
+   "bytes": 3121034,
+   "sha256": "ecff4f87e5f9d1f5815e5f2165434d26ddbd73065c56d5f53a52d37d02c90872"
   },
   {
    "path": "data/mushaf/hafs.nested.json.gz",
-   "bytes": 1753451,
-   "sha256": "ca62b26874a1917382ccc142caa7ced68de60f333990fa6e4941a02a1e3b5524"
+   "bytes": 1753164,
+   "sha256": "3dee58185ff79a8ddc1a8676853535ac6e58cb3a49b16810a53982022b350fad"
+  },
+  {
+   "path": "data/mushaf/hisham.csv.gz",
+   "bytes": 1042366,
+   "sha256": "7bf8b786028618233fdb18da33842ae5f163687f2139d8c54943a21f92d0d970"
+  },
+  {
+   "path": "data/mushaf/hisham.json",
+   "bytes": 1908976,
+   "sha256": "38f52f8663512b67af20814321d31c2e5a265ee9ac8b79d14dd54f0b13b66887"
+  },
+  {
+   "path": "data/mushaf/hisham.nested.json.gz",
+   "bytes": 1265545,
+   "sha256": "ce1e0bb9042e3254b4792d514a5d79019031d50088711d96902e80ac995bd21c"
+  },
+  {
+   "path": "data/mushaf/ibn-jammaz.csv.gz",
+   "bytes": 1037582,
+   "sha256": "59db626c82a1596acb24bf20fce3d538f0a427015d9bf9752fe5f0bfcb77107c"
+  },
+  {
+   "path": "data/mushaf/ibn-jammaz.json",
+   "bytes": 2127022,
+   "sha256": "3086d16453095b89f12193f980999141a94db193891c2cd8b33ef7ee72c181b9"
+  },
+  {
+   "path": "data/mushaf/ibn-jammaz.nested.json.gz",
+   "bytes": 1263119,
+   "sha256": "008f9be501836bbd4ce8b8d1062b39f225f82c97c9180d3bf2b9ea217f52398b"
+  },
+  {
+   "path": "data/mushaf/ibn-wardan.csv.gz",
+   "bytes": 1037550,
+   "sha256": "b01f9aa3adf221f11f7c5094fd2f621c6c3035ce71a0115aaa9372b3e2c91cb7"
+  },
+  {
+   "path": "data/mushaf/ibn-wardan.json",
+   "bytes": 2127514,
+   "sha256": "4989644a0060b99ccfe1741cbc379f60d5b94e3c9cadf6adb5b6995cb9412686"
+  },
+  {
+   "path": "data/mushaf/ibn-wardan.nested.json.gz",
+   "bytes": 1263123,
+   "sha256": "6b19460422e461f22312ac3d403cfae36e1e904248a65eb0df3eede505b4ac26"
+  },
+  {
+   "path": "data/mushaf/ishaq.csv.gz",
+   "bytes": 1041217,
+   "sha256": "168afd5da352784dfe051049e096cf44b28908f790d92507cedbb0605f0bf836"
+  },
+  {
+   "path": "data/mushaf/ishaq.json",
+   "bytes": 1958885,
+   "sha256": "f0c8bf0a10284b86d1fd978aca49ada3d5f9a272e292f69c383c13a5d6f4c527"
+  },
+  {
+   "path": "data/mushaf/ishaq.nested.json.gz",
+   "bytes": 1271944,
+   "sha256": "1be42bfcc308248aeab8e8f61e46a477ecdb3d53a2a7a990a5dd8c80ca051967"
+  },
+  {
+   "path": "data/mushaf/khalaf.csv.gz",
+   "bytes": 1047004,
+   "sha256": "b80e10225d4ce2139caaf2dbfb17393b9456ba0a665b1c4baa423f898745459a"
+  },
+  {
+   "path": "data/mushaf/khalaf.json",
+   "bytes": 2209419,
+   "sha256": "56e1d74596304d68ad2064d83598e4752a9413da58e34cb8b78bb28c69801646"
+  },
+  {
+   "path": "data/mushaf/khalaf.nested.json.gz",
+   "bytes": 1273268,
+   "sha256": "4560c7d5bfa46ed99d6cede35875fd31a386bf782dfddad3d72d6b1a702073cc"
+  },
+  {
+   "path": "data/mushaf/khallad.csv.gz",
+   "bytes": 1044325,
+   "sha256": "2488f0db45255c5543fe5cc5dc221863f3c1340ef86ba23481491fe67ce8d7e9"
+  },
+  {
+   "path": "data/mushaf/khallad.json",
+   "bytes": 1985308,
+   "sha256": "fb9e75da75caf7435195a617e36f508fe412dffb50380f2498338736050f93de"
+  },
+  {
+   "path": "data/mushaf/khallad.nested.json.gz",
+   "bytes": 1270600,
+   "sha256": "f12dd0e53a16e31484de6e174ccbef51a1cc00cf97501779d04644d779595e09"
   },
   {
    "path": "data/mushaf/qalun.csv.gz",
-   "bytes": 1061430,
-   "sha256": "a3214664e3264d90515ea68abf5ade444942ba953928caf8d33ba0c420c7441c"
+   "bytes": 1062548,
+   "sha256": "bd849f52a39a213110ec5458ab2510db35ffa23791b679beab6dc9adab8c3908"
   },
   {
    "path": "data/mushaf/qalun.json",
-   "bytes": 2158181,
-   "sha256": "686f07a27c8a084af8c5334671b06d4f0c5aed074b1cc2afca28452ff238c51c"
+   "bytes": 2158320,
+   "sha256": "1bcf62befb6b6f12f0c09d0cae624dad7fdc244b433fef347c627c400ae693f9"
   },
   {
    "path": "data/mushaf/qalun.nested.json.gz",
-   "bytes": 1325973,
-   "sha256": "991be5dab273ef0558830a1b663291c2616575e764bc60a88792afd54fa44a05"
+   "bytes": 1325381,
+   "sha256": "a8c7e1f18cb3c2d8536ebfd9d371161f2d254e72fe426dec1544e6b99a0e0a78"
+  },
+  {
+   "path": "data/mushaf/rawh.csv.gz",
+   "bytes": 1037912,
+   "sha256": "beb24328056b2b3bdcaeb6aa649dd03064aa5eef05a3be4771c80d9f10e09a32"
+  },
+  {
+   "path": "data/mushaf/rawh.json",
+   "bytes": 1935996,
+   "sha256": "c08aa3b4fd2d8c87a080e5911076250633feb5813b646e70019a84c8c14cb18b"
+  },
+  {
+   "path": "data/mushaf/rawh.nested.json.gz",
+   "bytes": 1266572,
+   "sha256": "59d300b521e3527f4ec7581c26072d94946c76af9c14d820583c5ce632654077"
+  },
+  {
+   "path": "data/mushaf/ruways.csv.gz",
+   "bytes": 1039772,
+   "sha256": "5e9f065d3b0949c1976590d2d539a829f07d5d75d8b1b4f0d2c3be7717515cca"
+  },
+  {
+   "path": "data/mushaf/ruways.json",
+   "bytes": 1945413,
+   "sha256": "ead657e2df9d5287a9dcaf7aff9d80c33ffc60b30036d3730a6c297b173fe5ec"
+  },
+  {
+   "path": "data/mushaf/ruways.nested.json.gz",
+   "bytes": 1266066,
+   "sha256": "60849c199731b458e7341a34056a205affdb3ef422b5aeed771c914c3418d372"
   },
   {
    "path": "data/mushaf/shubah.csv.gz",
-   "bytes": 1048716,
-   "sha256": "332153f73aec99fe191face034a653ce067a2313cc038d8c31867500d95e0731"
+   "bytes": 1050694,
+   "sha256": "0c41db5d40aa6a242cc4645c99215741b087b38ebf024fb25dc5a4b847ed53b6"
   },
   {
    "path": "data/mushaf/shubah.json",
-   "bytes": 1995295,
-   "sha256": "de53f0fe131e2bec933b007bec82e39a088f63ffbaf5ff57693050b8355b1599"
+   "bytes": 1995434,
+   "sha256": "f61a10253175d6db5a9095a2c88ab4e78495495bf3e73a1085fda15725eb7ff2"
   },
   {
    "path": "data/mushaf/shubah.nested.json.gz",
-   "bytes": 1306374,
-   "sha256": "230cefa806558b457b7c814fb54e13066fe92866e679f869edc10361ef698df8"
+   "bytes": 1305836,
+   "sha256": "3cde1f786a13043183bb33d9e6793a8666fae337389e48b1612f21fdcc107bd1"
   },
   {
    "path": "data/mushaf/susi.csv.gz",
-   "bytes": 1057543,
-   "sha256": "986ba0e40ebc964a5ae529e1140913fd1ad42bc4af183d83c17ae04d220095e6"
+   "bytes": 1058870,
+   "sha256": "0041eb10b37b6e472c769d61cbc4900cc56c05a3e63089fcf7cdae94501928c7"
   },
   {
    "path": "data/mushaf/susi.json",
-   "bytes": 2034337,
-   "sha256": "2ba457e7709bb33e36dde1afe96d46b3059878b2c94c2b3b7c5d05f658d0ad22"
+   "bytes": 2034476,
+   "sha256": "55c4be3d62156907c7eac951c638398ba880187b198395e117f8982017f74af0"
   },
   {
    "path": "data/mushaf/susi.nested.json.gz",
-   "bytes": 1320496,
-   "sha256": "b36b42eb6e2cdac63d8b8a084b569e5b5a92e9d18b38d71a1f1ae79b495e3ea6"
+   "bytes": 1320086,
+   "sha256": "2401a3bee4c36cb6eec464a019e056cb01b6a916a391b30ee2ccbe28fb25345e"
   },
   {
    "path": "data/mushaf/warsh.csv.gz",
-   "bytes": 1070110,
-   "sha256": "027182645ef472de22d341e43c4e33f6e0542bf860eec4c73b0096255d6f3b61"
+   "bytes": 1071222,
+   "sha256": "4ae949c47b14ecfda0aafc6f9c951f0e7d51bbce10b3d5427f5bcecad80958fa"
   },
   {
    "path": "data/mushaf/warsh.json",
-   "bytes": 2161120,
-   "sha256": "2ad99415cf4ba9e06b5fba670244d98c3a66e9ba182f14d9e5c189d53175b6ed"
+   "bytes": 2161259,
+   "sha256": "f74388efad35562352cbcd21ffabe336e3dca70dc537d8d615a862c37a03051f"
   },
   {
    "path": "data/mushaf/warsh.nested.json.gz",
-   "bytes": 1338210,
-   "sha256": "4a557f9b60b95f123755de29196e89428ac1af00d9eab048b32d74635b8a2618"
+   "bytes": 1337568,
+   "sha256": "aaa643ec0f28e2d2be9f2ed8741053f01c7bd1d381a6c3273783dc7fadaac6c8"
   },
   {
    "path": "data/quran.sqlite.gz",
-   "bytes": 20423461,
-   "sha256": "9b8c60d05e64c9bcb52a3a88fdaff19c1e10b34a289b4b834d0b5841852643a1"
+   "bytes": 44049628,
+   "sha256": "f0f5f94771919bb1fbe2bf4101f4586ac3bdf7fdb284f990de2610d6e75a6f3e"
   },
   {
    "path": "data/reports/COMPARISON.md",
-   "bytes": 47324,
-   "sha256": "0f925f1ee0aee9678636ad70235cf182eca3171e29fbb2ea0aa12b50c87e96b9"
+   "bytes": 472451,
+   "sha256": "18220f2a4adcb957b22f8d240af3d600c3d5774b7e358b62ad1d93fa2cb5cf66"
   },
   {
    "path": "data/reports/agreement-matrix.csv",
-   "bytes": 974,
-   "sha256": "d62dca9b18a6a9a7c8e770a6c46ea6b057ca68918afd9a5cfe3ab0925443b0d8"
+   "bytes": 5543,
+   "sha256": "449b3b21701ca68a5e5bd70326748daa9b383cdff1f183fec4d7d89e9f70b1c2"
   },
   {
    "path": "data/reports/compare.html",
-   "bytes": 2070929,
-   "sha256": "e83f52f168bd834013e6cd1039549fcde047640a96131810aeb022aeabe9ce98"
+   "bytes": 2552717,
+   "sha256": "b661b04b73bb70c2364ab1ac2311bfc34d41057065594f77bc6fdfca803ccbf3"
   },
   {
    "path": "data/reports/rasm-variants.md",
-   "bytes": 62106,
-   "sha256": "fa2a1a6b17585299e1026a6b4e38d491a0bf5712b305047b5d1ae73c4b02b881"
+   "bytes": 453924,
+   "sha256": "248d7b39e2adcac7fab60ad9118281bbbf4d6c362da5e153d631176155e1f520"
   },
   {
    "path": "data/reports/resegmentation.csv",
-   "bytes": 1029,
-   "sha256": "a40e93c21296f383886ee3dfadd9ab2a0cc524c062fe95b14d2b08e907010b61"
+   "bytes": 29351,
+   "sha256": "c12b1c310e10dae94efab328924154dfceeec4004b926b49113e1b88ea06673d"
   },
   {
    "path": "data/reports/variants.csv",
-   "bytes": 11898593,
-   "sha256": "9d2c2cf82526742ffc66db42bd3fdc2740b2d56ad3eb5f3741781b2d2a8a9174"
+   "bytes": 50230617,
+   "sha256": "60c484ba8bb174a790d94f25bedb85908f75ef2df677db1347da103318bab007"
   },
   {
    "path": "data/word-index.csv",
-   "bytes": 18721500,
-   "sha256": "c6fbb72d68ca9a82129590f99370bee4823ca3663987ccca29ed1046054707cb"
+   "bytes": 32848442,
+   "sha256": "216cd575abf661565e524ceefc518802d142e927aed6e4ffe94e57427450427e"
   },
   {
    "path": "data/word-index.json",
-   "bytes": 50679820,
-   "sha256": "65af49234f279d5303eb0e6a64b4527314dc2b7e250a7715d20bd5534e4c737a"
+   "bytes": 90083553,
+   "sha256": "02bf13f44a299c08cc265eac52f4d4046277e5524a094a2ff8de15175805167d"
   }
  ]
 }

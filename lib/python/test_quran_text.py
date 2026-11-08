@@ -64,10 +64,10 @@ class TestAyah(unittest.TestCase):
         self.assertTrue(hafs.ayah(7, 206).has_sajdah)
         self.assertEqual(len(hafs.division_marks()), 199)
         self.assertEqual(nfc(hafs.division_marks()[0].render()), nfc("۞ إِنَّ"))
-        self.assertEqual(hafs.number_at(73948), 73950)
-        self.assertEqual(hafs.word_at(73948).number_last, 73951)
-        self.assertIsNone(hafs.word_by_number(25685))
-        self.assertEqual(nfc(hafs.word_by_number(73951).text), nfc("وَأَلَّوِ"))
+        self.assertEqual(hafs.number_at(73948), 73958)
+        self.assertEqual(hafs.word_at(73948).number_last, 73959)
+        self.assertIsNone(hafs.word_by_number(25687))
+        self.assertEqual(nfc(hafs.word_by_number(73959).text), nfc("وَأَلَّوِ"))
         self.assertEqual(hafs.word_by_number(11).text, "مَٰلِكِ")
 
     def test_unnumbered_basmalah_and_absent_layers(self):
@@ -141,7 +141,7 @@ class TestWordIndex(unittest.TestCase):
         self.assertEqual(idx.word(11).form("warsh"), "مَلِكِ")
         self.assertEqual(idx.find(2, 255, 3).rasm_uthmani, "إِلَٰهَ")
         self.assertIn(11, [w.number for w in idx.search("مالك")])
-        self.assertEqual(len(idx.differing()), 53128)
+        self.assertEqual(len(idx.differing()), 62676)
 
 
 if __name__ == "__main__":

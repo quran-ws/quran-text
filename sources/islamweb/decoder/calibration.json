@@ -1,0 +1,247 @@
+{
+ "table": "table-v1.json",
+ "calibration": {
+  "qaloon": {
+   "slug": "qaloon",
+   "against": "qalun",
+   "words": 77863,
+   "rasm_agreement": 0.9872,
+   "exact_light_agreement": 0.7104,
+   "words_with_unknown_glyph": 4,
+   "unknown_glyphs": [
+    {
+     "font": "HQPB7",
+     "gid": 138,
+     "n": 1
+    },
+    {
+     "font": "HQPB7",
+     "gid": 140,
+     "n": 1
+    },
+    {
+     "font": "HQPB4",
+     "gid": 64,
+     "n": 1
+    },
+    {
+     "font": "Hamd2",
+     "gid": 22,
+     "n": 1
+    }
+   ]
+  },
+  "shuaba": {
+   "slug": "shuaba",
+   "against": "shubah",
+   "words": 77631,
+   "rasm_agreement": 0.9948,
+   "exact_light_agreement": 0.7877,
+   "words_with_unknown_glyph": 1,
+   "unknown_glyphs": [
+    {
+     "font": "HQPB1",
+     "gid": 74,
+     "n": 1
+    },
+    {
+     "font": "HQPB2",
+     "gid": 118,
+     "n": 1
+    }
+   ]
+  },
+  "warsh": {
+   "slug": "warsh",
+   "against": "warsh",
+   "words": 77862,
+   "rasm_agreement": 0.9796,
+   "exact_light_agreement": 0.7765,
+   "words_with_unknown_glyph": 4,
+   "unknown_glyphs": [
+    {
+     "font": "Hamd2",
+     "gid": 129,
+     "n": 2
+    },
+    {
+     "font": "HQPB7",
+     "gid": 96,
+     "n": 2
+    },
+    {
+     "font": "Hamd2",
+     "gid": 130,
+     "n": 1
+    },
+    {
+     "font": "Hamd2",
+     "gid": 107,
+     "n": 1
+    }
+   ]
+  }
+ },
+ "targets": {
+  "qunbol": {
+   "slug": "qunbol",
+   "surahs": 114,
+   "ayahs": 6222,
+   "words": 77570,
+   "words_with_unknown_glyph": 0,
+   "unknown_glyphs": [],
+   "printed_number_slips": 7
+  },
+  "hesham": {
+   "slug": "hesham",
+   "surahs": 114,
+   "ayahs": 6226,
+   "words": 77627,
+   "words_with_unknown_glyph": 0,
+   "unknown_glyphs": [],
+   "printed_number_slips": 64
+  },
+  "khalaf": {
+   "slug": "khalaf",
+   "surahs": 114,
+   "ayahs": 6236,
+   "words": 77656,
+   "words_with_unknown_glyph": 0,
+   "unknown_glyphs": [],
+   "printed_number_slips": 0
+  },
+  "khallad": {
+   "slug": "khallad",
+   "surahs": 114,
+   "ayahs": 6236,
+   "words": 77641,
+   "words_with_unknown_glyph": 0,
+   "unknown_glyphs": [],
+   "printed_number_slips": 0
+  },
+  "alhareth": {
+   "slug": "alhareth",
+   "surahs": 114,
+   "ayahs": 6236,
+   "words": 77644,
+   "words_with_unknown_glyph": 0,
+   "unknown_glyphs": [],
+   "printed_number_slips": 0
+  },
+  "wardan": {
+   "slug": "wardan",
+   "surahs": 114,
+   "ayahs": 6214,
+   "words": 77609,
+   "words_with_unknown_glyph": 0,
+   "unknown_glyphs": [],
+   "printed_number_slips": 28
+  },
+  "jammaz": {
+   "slug": "jammaz",
+   "surahs": 114,
+   "ayahs": 6214,
+   "words": 77609,
+   "words_with_unknown_glyph": 0,
+   "unknown_glyphs": [],
+   "printed_number_slips": 28
+  },
+  "ruwis": {
+   "slug": "ruwis",
+   "surahs": 114,
+   "ayahs": 6204,
+   "words": 77514,
+   "words_with_unknown_glyph": 0,
+   "unknown_glyphs": [],
+   "printed_number_slips": 9
+  },
+  "rawh": {
+   "slug": "rawh",
+   "surahs": 114,
+   "ayahs": 6206,
+   "words": 77553,
+   "words_with_unknown_glyph": 0,
+   "unknown_glyphs": [],
+   "printed_number_slips": 7
+  },
+  "eshaq": {
+   "slug": "eshaq",
+   "surahs": 114,
+   "ayahs": 6236,
+   "words": 77632,
+   "words_with_unknown_glyph": 0,
+   "unknown_glyphs": [],
+   "printed_number_slips": 0
+  },
+  "edris": {
+   "slug": "edris",
+   "surahs": 114,
+   "ayahs": 6236,
+   "words": 77632,
+   "words_with_unknown_glyph": 0,
+   "unknown_glyphs": [],
+   "printed_number_slips": 0
+  }
+ },
+ "contested": [
+  {
+   "font": "MSH-Quraan1",
+   "gid": 55,
+   "kind": "mark",
+   "types": 27,
+   "share": 0.37,
+   "readings": [
+    [
+     "",
+     10
+    ],
+    [
+     "ٔ",
+     6
+    ],
+    [
+     "ٕ",
+     5
+    ],
+    [
+     "ٰ",
+     3
+    ]
+   ]
+  },
+  {
+   "font": "MSH-Quraan1",
+   "gid": 47,
+   "kind": "base",
+   "types": 14,
+   "share": 0.5,
+   "readings": [
+    [
+     "ي",
+     7
+    ],
+    [
+     "",
+     7
+    ]
+   ]
+  },
+  {
+   "font": "HQPB7",
+   "gid": 89,
+   "kind": "base",
+   "types": 9,
+   "share": 0.556,
+   "readings": [
+    [
+     "",
+     5
+    ],
+    [
+     "ي",
+     4
+    ]
+   ]
+  }
+ ]
+}

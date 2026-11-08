@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the word index, the seven muṣḥaf files and every derived artefact.
+"""Build the word index, every muṣḥaf file and every derived artefact.
 
     python3 pipeline/build.py
 """
@@ -25,12 +25,13 @@ from qurantext.catalog import write_catalog      # noqa: E402
 from qurantext.mushaf import write_manifest, write_mushafs  # noqa: E402
 from qurantext.report import write_report        # noqa: E402
 from qurantext.sources import load_all           # noqa: E402
-from qurantext.validate import (check_ayah_numbers, check_index,  # noqa: E402
+from qurantext.validate import (check_ayah_numbers, check_colors,  # noqa: E402
+                               check_decoder, check_index,
                                check_layout_alignment,
                                check_mushaf_roundtrip, check_nothing_dropped,
                                check_numbering, check_positions,
                                check_printed_text, check_release_policy,
-                               check_schema_fields)
+                               check_schema_fields, check_tier_precedence)
 from qurantext.viewer import write_viewer        # noqa: E402
 from qurantext.views import write_csv, write_nested, write_sqlite  # noqa: E402
 from qurantext.word_index import write_differences, write_word_index  # noqa: E402
@@ -108,7 +109,10 @@ def main() -> int:
                 + check_numbering(docs)
                 + check_positions(docs)
                 + counting.check_unexplained(docs)
-                + check_schema_fields(docs))
+                + check_schema_fields(docs)
+                + check_tier_precedence(riwayahs)
+                + check_decoder(riwayahs)
+                + check_colors(docs, words))
     print(f"checks: {len(problems)} finding(s)")
     for p in problems:
         print(f"  - [{p['check']}] {p.get('riwayah', '')} {p['detail']}")

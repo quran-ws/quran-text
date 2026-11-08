@@ -1,6 +1,6 @@
 """The word index: every number of the shared numbering, with a text and who reads it.
 
-The numbering counts the finest division of the text any of the seven muṣḥafs
+The numbering counts the finest division of the text any of the muṣḥafs
 prints, so it is a division nobody prints and no muṣḥaf file can stand in for
 it.  This file is where a number gets a text.  The muṣḥaf files are where a
 text gets a position.  Neither is derivable from the other alone, so both are
@@ -25,6 +25,7 @@ from collections import Counter, defaultdict
 
 from . import stamp
 from .align import WRITTEN_JOINED
+from .sources import TIER1
 from .build import DATA, ORDER, Word
 
 FORMAT = "quran-word-index"
@@ -154,6 +155,7 @@ def write_word_index(words: list[Word]) -> dict:
         "generated": stamp.generated(),
         "total": words[-1].id,
         "mushafs": ORDER,
+        "tiers": {k: 1 if k in TIER1 else 2 for k in ORDER},
         "normalization": {"applied": "none", "note": "words[i] and the word index's rasm_uthmani hold the release's own codepoints, unnormalised. NFC is canonically equivalent but is not what the package writes: it reorders the marks on a letter — the releases write a shaddah before its vowel, NFC after it, in 22,000 of Ḥafṣ's 84,000 tokens — and composes ا + ٓ into آ in 2,946 more. The derived forms (rasm, pointed, plain, and the search fold) are computed from the NFC form, so comparison is unaffected. For text comparison across datasets, normalize both strings to NFC before comparing."},
         "note": "`number` is the shared number, dense 1 … total, the same "
                 "integer every muṣḥaf file maps its positions onto. `forms[key]` "

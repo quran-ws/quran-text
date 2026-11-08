@@ -58,6 +58,9 @@ class Riwayah:
     places: list = field(default_factory=list)
     #: The registry entry this riwāyah was built from, for the provenance block.
     spec: object = None
+    #: Tier 2 only: what the decoding found — the document record, the decoder
+    #: table, unknown glyphs, printed-number slips and the colour of every word.
+    decoded: dict = field(default_factory=dict)
 
 
 # --------------------------------------------------------------------------
@@ -128,7 +131,12 @@ def _basmalah_needle() -> str:
 
 
 def load_docx(path: Path) -> list[Ayah]:
-    """Split a KFGQPC Word mushaf into āyāt.
+    """Split a KFGQPC Word mushaf into āyāt; see :func:`paragraphs_to_ayahs`."""
+    return paragraphs_to_ayahs(docx_paragraphs(path), path.name)
+
+
+def paragraphs_to_ayahs(paragraphs: list[str], name: str) -> list[Ayah]:
+    """Split a muṣḥaf given as paragraphs into āyāt.
 
     Sūrah boundaries come from resets in the āyah numbering, not from the
     headings: the v3.0 Qālūn document is missing the heading for Baqarah, so
@@ -141,13 +149,16 @@ def load_docx(path: Path) -> list[Ayah]:
     counting tradition, not of the text: Ḥafṣ, Shuʿbah and Bazzī number the
     basmalah of Al-Fātiḥah as 1:1, the others print the same words unnumbered.
     Keeping it as āyah 0 lets the builder decide, rather than losing the words.
+
+    The same walk serves the KFGQPC Word documents and the islamweb glyph
+    streams, which :mod:`qurantext.hqpb` renders into this paragraph shape.
     """
     # A sentinel that cannot occur in Arabic text, used to remember where an
     # unnumbered basmalah sat once the paragraphs are joined into one stream.
     MARK = "\x00"
 
     parts = []
-    for paragraph in docx_paragraphs(path):
+    for paragraph in paragraphs:
         if _is_heading(paragraph):
             continue
         if _is_bare_basmalah(paragraph):
@@ -171,7 +182,7 @@ def load_docx(path: Path) -> list[Ayah]:
         chunks.append((_arabic_int(m.group(1)), raw.strip(), opening.strip()))
     tail = body[position:].strip().strip(MARK)
     if tail:
-        raise ValueError(f"{path.name}: {len(tail)} chars trail the last āyah mark: {tail[:80]!r}")
+        raise ValueError(f"{name}: {len(tail)} chars trail the last āyah mark: {tail[:80]!r}")
 
     ayahs: list[Ayah] = []
     surah, prev = 0, 1 << 30      # force the first āyah to open sūrah 1
@@ -180,13 +191,13 @@ def load_docx(path: Path) -> list[Ayah]:
             surah += 1
             prev = 0
         if n != prev + 1:
-            raise ValueError(f"{path.name}: sūrah {surah} jumps from āyah {prev} to {n}")
+            raise ValueError(f"{name}: sūrah {surah} jumps from āyah {prev} to {n}")
         if opening:
             ayahs.append(Ayah(surah, 0, opening))
         ayahs.append(Ayah(surah, n, text))
         prev = n
     if surah != 114:
-        raise ValueError(f"{path.name}: found {surah} sūrahs, expected 114")
+        raise ValueError(f"{name}: found {surah} sūrahs, expected 114")
     return ayahs
 
 
@@ -234,7 +245,7 @@ class SourceSpec:
     qiraah_ar: str
     primary_zip: str
     primary_member: str
-    primary_kind: str          # "docx" | "csv"
+    primary_kind: str          # "docx" | "csv" | "hqpb"
     csv_zip: str | None = None
     csv_member: str | None = None
     #: Release years, used to decide which spelling wins when the two releases
@@ -249,6 +260,14 @@ class SourceSpec:
     #: package — which is the case for every primary ``.docx``.  See
     #: :data:`ARCHIVE` and ``docs/sources.md``.
     csv_slug: str = ""
+    #: Provenance tier.  1: a data release by the muṣḥaf's publisher (KFGQPC),
+    #: read as published.  2: a document by someone else, decoded here — the
+    #: islamweb PDFs of the riwāyāt KFGQPC does not publish.  See ``TIER_POLICY``.
+    tier: int = 1
+    #: Who published the file the text was read from.
+    authority: str = "KFGQPC"
+    #: Tier 2 only: the islamweb slug under ``sources/islamweb/``.
+    slug: str = ""
 
 
 #: **The one place this pipeline assumes anything about the sources.**
@@ -269,6 +288,25 @@ class SourceSpec:
 #: There the differing word boundaries are recorded and left alone.
 RELEASE_POLICY = ("within one riwāyah the later release is a correction; "
                   "across riwāyāt nothing is assumed")
+
+
+#: What tier 2 is allowed to mean.
+#:
+#: A tier-2 text is read from a document the muṣḥaf's publisher did not issue —
+#: here, PDFs of unnamed authorship hosted by islamweb, set in KFGQPC's 2005
+#: fonts — and decoded with a table learned from the three riwāyāt both sources
+#: carry.  Nothing in such a text is ever preferred over a tier-1 text for the
+#: same riwāyah, no tier-2 riwāyah duplicates a tier-1 one, and every tier-2
+#: file names its document, its checksum, the decoder table and the table's
+#: measured accuracy, so a reader can weigh it.  See ``docs/sources.md``.
+TIER_POLICY = ("a tier-2 text is never preferred over a tier-1 text for the same "
+               "riwāyah; its differences from Ḥafṣ are reported with the decoder's "
+               "score beside them")
+
+#: islamweb hosts one PDF per riwāyah at this URL.  Recorded because, unlike the
+#: KFGQPC host, it is fetchable from anywhere.
+ISLAMWEB_URL = "https://dl2.islamweb.net/Audio_Path/quran_list/{slug}/quran.pdf"
+ISLAMWEB = paths.SOURCES / "islamweb"
 
 
 #: Where the packages come from, and why that needs saying.
@@ -357,6 +395,36 @@ REGISTRY: list[SourceSpec] = [
 ]
 
 
+def _tier2(key, name_en, name_ar, qiraah_en, qiraah_ar, slug):
+    return SourceSpec(key, name_en, name_ar, qiraah_en, qiraah_ar,
+                      "", f"islamweb/{slug}/glyphs.json.gz", "hqpb",
+                      primary_year=0, tier=2, authority="islamweb.net", slug=slug)
+
+
+#: The riwāyāt KFGQPC does not publish, decoded from the islamweb documents.
+#: Keys are the rāwī ids of ``sources/counting/qiraat.json``.  Ibn Dhakwān and
+#: al-Dūrī ʿan al-Kisāʾī are absent: islamweb has them only as page scans.
+#: Qunbul, Qālūn, Shuʿbah and Warsh exist on islamweb too; KFGQPC publishes
+#: them, so their documents are used for calibration only (``TIER_POLICY``).
+REGISTRY += [
+    _tier2("hisham", "Hishām", "هشام", "Ibn ʿĀmir al-Shāmī", "ابن عامر الشامي", "hesham"),
+    _tier2("khalaf", "Khalaf", "خلف", "Ḥamzah al-Kūfī", "حمزة الكوفي", "khalaf"),
+    _tier2("khallad", "Khallād", "خلاد", "Ḥamzah al-Kūfī", "حمزة الكوفي", "khallad"),
+    _tier2("abu-al-harith", "Abū al-Ḥārith", "أبو الحارث", "al-Kisāʾī al-Kūfī", "الكسائي الكوفي", "alhareth"),
+    _tier2("ibn-wardan", "Ibn Wardān", "ابن وردان", "Abū Jaʿfar al-Madanī", "أبو جعفر المدني", "wardan"),
+    _tier2("ibn-jammaz", "Ibn Jammāz", "ابن جماز", "Abū Jaʿfar al-Madanī", "أبو جعفر المدني", "jammaz"),
+    _tier2("ruways", "Ruways", "رويس", "Yaʿqūb al-Ḥaḍramī", "يعقوب الحضرمي", "ruwis"),
+    _tier2("rawh", "Rawḥ", "روح", "Yaʿqūb al-Ḥaḍramī", "يعقوب الحضرمي", "rawh"),
+    _tier2("ishaq", "Isḥāq", "إسحاق", "Khalaf al-ʿĀshir", "خلف العاشر", "eshaq"),
+    # islamweb's ``edris`` document is glyph-for-glyph identical to ``eshaq`` —
+    # 84,059 tokens, colours included — so it is not a witness to Idrīs and is
+    # not published.  See docs/known-issues.md §17.
+]
+
+TIER1 = [spec.key for spec in REGISTRY if spec.tier == 1]
+TIER2 = [spec.key for spec in REGISTRY if spec.tier == 2]
+
+
 def _extract(zip_name: str, member: str) -> Path:
     """Pull one member out of a data zip into ``work/raw`` and return its path."""
     dest = WORK / zip_name / member
@@ -369,9 +437,53 @@ def _extract(zip_name: str, member: str) -> Path:
     return dest
 
 
+def load_hqpb(spec: SourceSpec) -> Riwayah:
+    """A tier-2 riwāyah: decode its glyph stream with the shared table."""
+    import json
+    from . import hqpb
+    from .layout import Place
+
+    d = ISLAMWEB / spec.slug
+    stream = hqpb.load_stream(d / "glyphs.json.gz")
+    table_path = ISLAMWEB / "decoder" / "table-v1.json"
+    table = hqpb.load_table(table_path)
+    surahs = hqpb.decode_stream(stream, table)
+    if len(surahs) != 114:
+        raise ValueError(f"{spec.slug}: the stream decodes into {len(surahs)} sūrahs, expected 114")
+    source_record = json.loads((d / "SOURCE.json").read_text(encoding="utf-8"))
+    ayahs = paragraphs_to_ayahs(hqpb.paragraphs(surahs), spec.slug)
+    r = Riwayah(spec.key, spec.name_en, spec.name_ar, spec.qiraah_en, spec.qiraah_ar,
+                f"islamweb/{spec.slug}/quran.pdf :: glyphs.json.gz", ayahs)
+    r.spec = spec
+    r.release_year = int(source_record["pdf"].get("creationDate", "D:0000")[2:6] or 0)
+    # one Place per word the paragraphs carry, in order: the bare basmalah's four
+    # words take the page of the sūrah's first word
+    places = []
+    for s in surahs:
+        first = next(((p, l) for w, p, l in zip(s.words, s.pages, s.lines) if w != hqpb.AYAH_SIGN), (0, 0))
+        if s.basmalah:
+            places.extend(Place(*first) for _ in range(4))
+        # the spelled-out basmalah of Al-Fātiḥah keeps its own four places either way
+        places.extend(Place(p, l) for w, p, l in zip(s.words, s.pages, s.lines) if w != hqpb.AYAH_SIGN)
+    r.places = places
+    r.decoded = {
+        "source": source_record,
+        "table": {"file": table_path.name, "version": table.version},
+        "unknown": sum((s.unknown for s in surahs), start=__import__("collections").Counter()),
+        "printed_number_slips": hqpb.printed_number_slips(surahs),
+        "colors": hqpb.word_colors(surahs),
+        "words": {s.index: [w for w in s.words if w != hqpb.AYAH_SIGN] for s in surahs},
+        "surahs_without_basmalah": [s.index for s in surahs if not s.basmalah],
+    }
+    return r
+
+
 def load_all() -> list[Riwayah]:
     riwayahs = []
     for spec in REGISTRY:
+        if spec.primary_kind == "hqpb":
+            riwayahs.append(load_hqpb(spec))
+            continue
         path = _extract(spec.primary_zip, spec.primary_member)
         if spec.primary_kind == "docx":
             ayahs = load_docx(path)

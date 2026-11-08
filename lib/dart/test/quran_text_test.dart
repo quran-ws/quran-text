@@ -55,10 +55,10 @@ void main() {
     expect(hafs.ayah(7, 206).hasSajdah, isTrue);
     expect(hafs.divisionMarks().length, 199);
     expect(hafs.divisionMarks().first.render(), '۞ إِنَّ');
-    expect(hafs.numberAt(73948), 73950);
-    expect(hafs.wordAt(73948).numberLast, 73951);
-    expect(hafs.wordByNumber(25685), isNull);
-    expect(hafs.wordByNumber(73951)!.text, 'وَأَلَّوِ');
+    expect(hafs.numberAt(73948), 73958);
+    expect(hafs.wordAt(73948).numberLast, 73959);
+    expect(hafs.wordByNumber(25687), isNull);
+    expect(hafs.wordByNumber(73959)!.text, 'وَأَلَّوِ');
     expect(hafs.wordByNumber(11)!.text, 'مَٰلِكِ');
   });
 
@@ -118,6 +118,6 @@ void main() {
     expect(idx.word(11).form('warsh'), 'مَلِكِ');
     expect(idx.find(2, 255, 3)!.rasm_uthmani, 'إِلَٰهَ');
     expect(idx.search('مالك').map((w) => w.number), contains(11));
-    expect(idx.differing().length, 53128);
+    expect(idx.differing().length, 62676);
   });
 }

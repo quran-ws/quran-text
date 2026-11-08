@@ -41,7 +41,23 @@ def family(ttf: bytes) -> str:
 
 
 def describe(spec: SourceSpec) -> dict:
-    """The ``font`` block of a muṣḥaf file, and the font written to ``data/fonts/``."""
+    """The ``font`` block of a muṣḥaf file, and the font written to ``data/fonts/``.
+
+    A tier-2 text was set in KFGQPC's 2005 symbol fonts, which are embedded in
+    the islamweb PDFs as subsets and are not redistributable as fonts.  Its
+    block names the Ḥafṣ v3.0 font instead — the decoded notation uses nothing
+    that font lacks — and says so with ``guaranteed: false``.
+    """
+    if spec.primary_kind == "hqpb":
+        from .sources import REGISTRY
+        hafs = next(s for s in REGISTRY if s.key == "hafs")
+        block = describe(hafs)
+        block["guaranteed"] = False
+        block["note"] = ("Not the font the document was set in: the islamweb PDFs embed subsets of "
+                         "KFGQPC's 2005 HQPB symbol fonts, which cannot be shipped. The decoded text is "
+                         "in the notation of the 2022 KFGQPC releases (U+0671 alef wasla, U+0652 sukun, "
+                         "the Unicode 9 open tanwīn), all of which this font draws.")
+        return block
     with zipfile.ZipFile(PACKAGES / f"{spec.primary_zip}.zip") as z:
         data = z.read(spec.font_member)
     FONT_DIR.mkdir(parents=True, exist_ok=True)
@@ -54,6 +70,7 @@ def describe(spec: SourceSpec) -> dict:
         "member": spec.font_member,
         "sha256": hashlib.sha256(data).hexdigest(),
         "publisher": KFGQPC_FONTS,
+        "guaranteed": True,
         "note": "The text uses codepoints only this font is guaranteed to draw "
                 "(Arabic Extended-B alefs, open tanwīn, the waqf signs). Ship it "
                 "with the text; a general Arabic font will show gaps.",

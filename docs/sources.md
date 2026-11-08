@@ -160,6 +160,75 @@ extracted mechanically and each medallion was read.
 juz 11 its printed marks disagree with `hafsData_v2-0.csv`; §11 records the
 disagreement and `juz_starts` still follows the CSV.
 
+## Tier 2: riwāyāt decoded from the islamweb documents
+
+**Everything above this heading is tier 1**: a data release by the muṣḥaf's
+publisher, read as published. The ten riwāyāt KFGQPC does not publish —
+Hishām; Khalaf and Khallād ʿan Ḥamzah; Abū al-Ḥārith ʿan al-Kisāʾī; Ibn
+Wardān and Ibn Jammāz ʿan Abī Jaʿfar; Ruways and Rawḥ ʿan Yaʿqūb; Isḥāq ʿan
+Khalaf al-ʿĀshir — come from somewhere else, and that somewhere is
+weaker. (The ten riwāyāt KFGQPC lacks are these nine plus Idrīs, whose
+islamweb file is the Isḥāq file under another name; see `docs/known-issues.md`
+§17.) Every file derived from it says so: `provenance.tier` is `2`,
+`provenance.authority` is `islamweb.net`, and the file carries what follows.
+
+**What the documents are.** islamweb hosts one PDF per riwāyah at
+`https://dl2.islamweb.net/Audio_Path/quran_list/<slug>/quran.pdf`. Each is a
+Word document, 604 pages in the Madinah pagination, set in the King Fahd
+Complex's 2005 "HQPB" symbol fonts and distilled to PDF between 2005 and 2018.
+The author is not named in the document; the running header names only the
+riwāyah. Words differing from Ḥafṣ are printed in colour, and the uṣūl of the
+riwāyah (idghām, imālah, ṣilah, …) in further colours; the Warsh and Hishām
+files print a legend for them, the others use the same palette unlabelled.
+`sources/islamweb/<slug>/SOURCE.json` records each document's URL, SHA-256,
+size, the PDF's own metadata and the date it was fetched. The PDFs themselves
+are not committed; see `sources/islamweb/README.md`.
+
+**Why the documents are decoded and not read.** Their text layer is not text.
+The HQPB fonts are symbol fonts: a glyph is a letter form, a mark or a sign,
+addressed by a glyph id, and the PDF's ToUnicode map is unusable — missing in
+whole sections, and mapping two different glyphs to one character. So
+`pipeline/tools/hqpb_extract.py` recovers from each PDF a *glyph stream*
+(`glyphs.json.gz`: pages, lines, words, each glyph as *font, glyph id, colour*,
+with āyah medallions, the basmalah ligature and ۞ recognised by glyph id), and
+`pipeline/tools/hqpb_calibrate.py` learns a glyph → Unicode table from the
+three riwāyāt both sources carry — Qālūn, Shuʿbah and Warsh — by aligning
+their streams against the KFGQPC texts word by word. Signs those three never
+print (Abū Jaʿfar's ṣilah wāw, the imālah dot of Ḥamzah's readers) are
+identified the same way against the KFGQPC riwāyāt that do print them; what
+alignment cannot settle is settled by outline identity with a known glyph, and
+the last few dozen by the model reading boxed crops of the documents, each
+recorded in `decoder/inspected.json` with the page and the word. Every table
+entry records how it was identified and on how many distinct words.
+`sources/islamweb/decoder/calibration.json` holds the measured accuracy of the
+table on each calibration riwāyah, and `provenance.decoder` in every tier-2
+file repeats it. The method is in `docs/method.md`, *Decoding*.
+
+**What is and is not asserted.** A tier-2 word is a table lookup, glyph by
+glyph; nothing is inferred from Ḥafṣ or from another riwāyah into the text. A
+glyph the table does not know is emitted as U+FFFD and the build refuses to
+publish the file (`check_decoder`). The āyah divisions are the document's own
+medallions, numbered by position because the printed numbers carry typists'
+slips, which `layers.derived.text.printed_ayah_number_slips` lists. The colours
+are published as a layer (`colors`, `color_types`) with the legends' wording,
+and `check_colors` tests the one claim they make that the data can test: a word
+coloured as differing from Ḥafṣ must differ from Ḥafṣ.
+
+**Where this stands below tier 1.** *Where a tier-2 text contradicts a tier-1
+text it is not preferred* (`TIER_POLICY`): no tier-2 riwāyah duplicates a
+tier-1 one, only the tier-1 editions vote when a counting anchor is ambiguous,
+the plene/defective ā warrant is tested on tier 1 alone, and a tier-2 file's
+unexplained āyah ends are listed but do not fail the build. The notation is the
+2022 KFGQPC one, documented in the table file and in `layers.derived.text`.
+The islamweb copies of Qālūn, Shuʿbah, Warsh and Qunbul are calibration
+material only and are never published from here.
+
+**What this route cannot reach.** islamweb's Ḥafṣ, Dūrī, Sūsī, Ibn Dhakwān and
+al-Dūrī ʿan al-Kisāʾī files are page scans with no text layer, there is no
+file for al-Bazzī, and the Idrīs file is the Isḥāq file. **Ibn Dhakwān,
+al-Dūrī ʿan al-Kisāʾī and Idrīs are therefore absent**, Qunbul awaits its
+KFGQPC package, and the dataset covers sixteen of the twenty riwāyāt.
+
 ## Counting-system boundaries
 
 `sources/counting/` holds two files copied verbatim from

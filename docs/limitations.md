@@ -59,13 +59,31 @@ reasonably make differently:
 
 ## Coverage
 
-**Seven riwāyāt, not ten qirāʾāt.** `sources/` provides Ḥafṣ and Shuʿbah (ʿĀṣim),
-Warsh and Qālūn (Nāfiʿ), Dūrī and Sūsī (Abū ʿAmr), and Bazzī (Ibn Kathīr). That
-is four of the seven canonical qāriʾs, and Ibn Kathīr is represented by only one
-of his two riwāyāt — **Qunbul is absent**. Ibn ʿĀmir, Ḥamzah and al-Kisāʾī are
-absent entirely, as are the three completing the ten. Nothing here can be
-described as a complete qirāʾāt comparison; it is a complete comparison *of the
-provided material*.
+**Sixteen riwāyāt in two tiers, not twenty in one.** KFGQPC's data releases
+provide Ḥafṣ and Shuʿbah (ʿĀṣim), Warsh and Qālūn (Nāfiʿ), Dūrī and Sūsī (Abū
+ʿAmr), and Bazzī (Ibn Kathīr): tier 1, read as published. Nine more — Hishām
+(Ibn ʿĀmir), Khalaf and Khallād (Ḥamzah), Abū al-Ḥārith (al-Kisāʾī), Ibn Wardān
+and Ibn Jammāz (Abū Jaʿfar), Ruways and Rawḥ (Yaʿqūb), Isḥāq (Khalaf
+al-ʿĀshir) — are tier 2: decoded from documents of unnamed authorship hosted by
+islamweb, with the weaker provenance that implies stated in every file
+(`docs/sources.md`, *Tier 2*). **Four riwāyāt are absent**: Qunbul, which
+KFGQPC released in 2021 and which will be added from that package once it is
+archived with a recorded origin; Ibn Dhakwān and al-Dūrī ʿan al-Kisāʾī, which
+islamweb has only as page scans; and Idrīs, whose islamweb file is the Isḥāq
+file under another name (`docs/known-issues.md` §17). Nothing here is a qirāʾāt comparison on
+one footing: the tier-2 texts are decoded, not read, and a difference between a
+tier-2 word and Ḥafṣ should be weighed against the decoder's measured accuracy
+in `provenance.decoder` before it is cited.
+
+**Tier-2 texts are decoded, not read.** Their words are table lookups from
+glyph ids (`docs/method.md`, *Decoding*). The table was learned on the three
+riwāyāt both sources carry and scored there; it was never scored on the nine
+riwāyāt it is applied to, because nothing exists to score them against. What
+can be said is that every glyph in them is one the table knows, and that the
+documents' colouring of the letters that differ from Ḥafṣ agrees with the
+decoded differences (`check_colors`). The notation is the 2022 KFGQPC one and
+differs from the 2026 releases of tier 1 in the ways `docs/method.md` lists;
+compare across tiers through `fold_notation`, as the word index does.
 
 ## Word boundaries follow the latest release, and that is a choice
 

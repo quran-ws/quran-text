@@ -68,10 +68,10 @@ check('sajdat count', count($hafs->sajdat()), 15);
 check('has sajdah', $hafs->ayah(7, 206)->hasSajdah(), true);
 check('division count', count($hafs->divisionMarks()), 199);
 check('division render', $hafs->divisionMarks()[0]->render(), '۞ إِنَّ');
-check('numberAt', $hafs->numberAt(73948), 73950);
-check('numberLast', $hafs->wordAt(73948)->numberLast(), 73951);
-check('missing', $hafs->wordByNumber(25685), null);
-check('joined', $hafs->wordByNumber(73951)->text(), 'وَأَلَّوِ');
+check('numberAt', $hafs->numberAt(73948), 73958);
+check('numberLast', $hafs->wordAt(73948)->numberLast(), 73959);
+check('missing', $hafs->wordByNumber(25687), null);
+check('joined', $hafs->wordByNumber(73959)->text(), 'وَأَلَّوِ');
 check('by number', $hafs->wordByNumber(11)->text(), 'مَٰلِكِ');
 
 check('warsh counted', $warsh->basmalahCounted, false);
@@ -118,7 +118,7 @@ $idx = WordIndex::load($out . 'word-index.json');
 check('form', $idx->word(11)->form('warsh'), 'مَلِكِ');
 check('find', $idx->find(2, 255, 3)->rasm_uthmani(), 'إِلَٰهَ');
 check('index search', in_array(11, array_map(fn ($x) => $x->number(), $idx->search('مالك')), true), true);
-check('differing', count($idx->differing()), 53128);
+check('differing', count($idx->differing()), 62676);
 
 echo $failures === 0 ? "OK\n" : "$failures failure(s)\n";
 exit($failures === 0 ? 0 : 1);

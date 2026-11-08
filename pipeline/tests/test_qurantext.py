@@ -30,7 +30,7 @@ from qurantext import stamp                                  # noqa: E402
 from qurantext.counting import attributed_system_id               # noqa: E402
 from qurantext.validate import (check_numbering, check_positions,  # noqa: E402
                                 check_printed_text, printed_text, release_text)
-from qurantext.sources import Ayah                                # noqa: E402
+from qurantext.sources import Ayah, TIER2                                # noqa: E402
 from qurantext.normalize import contributes_to_rasm              # noqa: E402
 
 
@@ -581,11 +581,21 @@ class TestPublishedFiles(unittest.TestCase):
             raise unittest.SkipTest("data/ not built")
         cls.docs = {k: json.loads(p.read_text(encoding="utf-8"))
                     for k, p in zip(cls.KEYS, paths)}
+        # the numbering is shared with the tier-2 files, so its invariants are
+        # checked over every published file, not the KFGQPC seven alone
+        catalog = json.loads((ROOT / "data" / "catalog.json").read_text(encoding="utf-8"))
+        cls.all_docs = dict(cls.docs)
+        for r in catalog["riwayahs"]:
+            if r["key"] not in cls.all_docs:
+                cls.all_docs[r["key"]] = json.loads(
+                    (ROOT / "data" / "mushaf" / f"{r['key']}.json").read_text(encoding="utf-8"))
 
     def test_numbering_tiles_the_master(self):
-        self.assertEqual(check_numbering(self.docs), [])
+        self.assertEqual(check_numbering(self.all_docs), [])
+        # 77,434 numbers from the seven KFGQPC muṣḥafs, plus the eight words only
+        # tier-2 riwāyāt read (e.g. Abū Jaʿfar's أَمِنَ, Ḥamzah's تُصْلِحُواْ).
         self.assertEqual({d["numbering"]["total"] for d in self.docs.values()},
-                         {77434})
+                         {77442})
 
     def test_positions_are_well_formed(self):
         self.assertEqual(check_positions(self.docs), [])
@@ -597,15 +607,19 @@ class TestPublishedFiles(unittest.TestCase):
                 for k, d in self.docs.items()
                 for j in d["numbering"]["written_joined"]}
         self.assertEqual(seen, {
-            ("hafs", (73950, 73951)), ("shubah", (73950, 73951)),
-            ("bazzi", (73950, 73951)),
-            ("duri", (74226, 74227)), ("susi", (74226, 74227))})
+            ("hafs", (73958, 73959)), ("shubah", (73958, 73959)),
+            ("bazzi", (73958, 73959)),
+            ("duri", (74234, 74235)), ("susi", (74234, 74235))})
 
-    def test_missing_is_exactly_the_three_words(self):
+    def test_missing_is_the_tier1_three_plus_the_tier2_eight(self):
+        # Among the seven KFGQPC muṣḥafs the gaps are Bazzī's مِن (9:101) and
+        # Warsh's أَوۡ and هُوَ; the eight numbers every tier-1 file lacks are words
+        # only tier-2 riwāyāt read, and they are the same eight in each.
         missing = {k: d["numbering"]["missing"] for k, d in self.docs.items()}
-        self.assertEqual(missing["hafs"], [25685])           # Bazzī's مِن
-        self.assertEqual(missing["warsh"], [25685, 60522, 69720])  # + أَوۡ, هُوَ
-        self.assertEqual(missing["bazzi"], [60522])
+        tier2_only = [4319, 20821, 28039, 33540, 40887, 44296, 57494, 69063]
+        self.assertEqual(missing["hafs"], sorted(tier2_only + [25687]))          # Bazzī's مِن
+        self.assertEqual(missing["warsh"], sorted(tier2_only + [25687, 60529, 69728]))  # + أَوۡ, هُوَ
+        self.assertEqual(missing["bazzi"], sorted(tier2_only + [60529]))
 
     def test_ayah_slices_are_correct_in_all_seven(self):
         for k, d in self.docs.items():
@@ -757,8 +771,8 @@ class TestPublishedFiles(unittest.TestCase):
         if not path.exists():
             self.skipTest("word index not built")
         index = json.loads(path.read_text(encoding="utf-8"))
-        self.assertEqual([w["number"] for w in index["words"]], list(range(1, 77435)))
-        law = index["words"][73950]
+        self.assertEqual([w["number"] for w in index["words"]], list(range(1, 77443)))
+        law = index["words"][73958]
         # The text is the release's own codepoints, which order a shaddah and
         # its vowel the other way round from NFC: compare the way the file
         # tells a consumer to compare.
@@ -766,10 +780,10 @@ class TestPublishedFiles(unittest.TestCase):
         nfc = lambda t: unicodedata.normalize("NFC", t)
         self.assertEqual(nfc(law["rasm_uthmani"]), nfc("لَّوِ"))  # not Ḥafṣ's joined form
         self.assertEqual(nfc(law["forms"]["hafs"]), nfc("وَأَلَّوِ"))
-        self.assertEqual(law["hafs"], index["words"][73949]["hafs"])
-        self.assertIsNone(index["words"][25684]["hafs"])   # Ḥafṣ lacks مِن
-        self.assertEqual(index["words"][25684]["missing"],
-                         ["hafs", "shubah", "warsh", "qalun", "duri", "susi"])
+        self.assertEqual(law["hafs"], index["words"][73957]["hafs"])
+        self.assertIsNone(index["words"][25686]["hafs"])   # Ḥafṣ lacks مِن
+        self.assertEqual(index["words"][25686]["missing"],
+                         ["hafs", "shubah", "warsh", "qalun", "duri", "susi"] + TIER2)
 
     def test_the_ayah_map_answers_what_an_ayah_is_elsewhere(self):
         path = ROOT / "data" / "ayah-map.json"
@@ -935,3 +949,221 @@ class TestPrintedText(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+# --------------------------------------------------------------------------
+# tier 2: glyph streams
+# --------------------------------------------------------------------------
+
+from qurantext import hqpb                                        # noqa: E402
+from qurantext.validate import check_decoder, check_tier_precedence  # noqa: E402
+
+
+class TestHqpbDecoding(unittest.TestCase):
+    """A glyph stream decodes by table lookup only, into the loader's paragraph shape."""
+
+    FONTS = ["HQPB1", "HQPB2", "HQPB4", "HQPB3", "MSH-Quraan1"]
+
+    def table(self):
+        return hqpb.Table({
+            "format": "hqpb-decoder", "version": 1,
+            "entries": [
+                {"font": "HQPB1", "gid": 1, "kind": "base", "text": "ب"},
+                {"font": "HQPB2", "gid": 2, "kind": "base", "text": "س"},
+                {"font": "HQPB2", "gid": 3, "kind": "base", "text": "م"},
+                {"font": "HQPB4", "gid": 10, "kind": "mark", "text": "ِ"},   # kasra
+                {"font": "HQPB4", "gid": 11, "kind": "mark", "text": "ْ"},   # sukun
+                {"font": "HQPB4", "gid": 12, "kind": "mark", "text": "ّ"},   # shadda
+                {"font": "HQPB2", "gid": 40, "kind": "marklike", "text": ""},
+                {"font": "HQPB4", "gid": 41, "kind": "mark", "text": "ٰ"},   # dagger alif
+            ],
+            "context": [{"prev": None, "font": "HQPB2", "gid": 3, "marks": [["HQPB4", 41]], "text": "ن"}],
+            "ligatures": [{"font": "HQPB3", "gid": 7, "marks": [["HQPB4", 10]], "text": "لِلهِ"}],
+            "mark_order": {"ِ": 0, "ّ": 1},
+        })
+
+    def g(self, font, gid, color=0, mark=0):
+        return [self.FONTS.index(font), gid, color, mark]
+
+    def test_a_word_is_letters_and_their_marks_in_order(self):
+        glyphs = [(("HQPB1", 1), False), (("HQPB4", 10), True), (("HQPB2", 2), False),
+                  (("HQPB4", 11), True), (("HQPB2", 3), False), (("HQPB4", 10), True)]
+        d = hqpb.decode_word(glyphs, self.table())
+        self.assertEqual(d.text, "بِسْمِ")
+        self.assertEqual(d.unknown, [])
+
+    def test_marks_on_one_letter_follow_the_learned_order_then_nfc(self):
+        glyphs = [(("HQPB1", 1), False), (("HQPB4", 12), True), (("HQPB4", 10), True)]
+        self.assertEqual(hqpb.decode_word(glyphs, self.table()).text, "بِّ")
+
+    def test_an_unknown_glyph_is_u_fffd_and_counted(self):
+        glyphs = [(("HQPB1", 1), False), (("HQPB2", 99), False)]
+        d = hqpb.decode_word(glyphs, self.table())
+        self.assertEqual(d.text, "ب�")
+        self.assertEqual(d.unknown, [("HQPB2", 99)])
+
+    def test_a_marklike_base_attaches_to_the_letter_before_it(self):
+        # dagger alif drawn as a sized glyph between two letters belongs to the first
+        glyphs = [(("HQPB1", 1), False), (("HQPB2", 40), False), (("HQPB4", 41), True), (("HQPB2", 2), False)]
+        self.assertEqual(hqpb.decode_word(glyphs, self.table()).text, "بٰس")
+
+    def test_context_and_ligature_rules_override_the_plain_entry(self):
+        glyphs = [(("HQPB2", 3), False), (("HQPB4", 41), True)]
+        self.assertEqual(hqpb.decode_word(glyphs, self.table()).text, "نٰ")
+        glyphs = [(("HQPB3", 7), False), (("HQPB4", 10), True)]
+        self.assertEqual(hqpb.decode_word(glyphs, self.table()).text, "لِلهِ")
+
+    def stream(self, lines):
+        return {"fonts": self.FONTS, "colors": ["#000000", "#ff00ff"],
+                "pages": [{"n": 1, "lines": lines}]}
+
+    def test_surahs_open_at_headers_and_ayahs_are_numbered_by_position(self):
+        w = {"k": "w", "g": [self.g("HQPB1", 1), self.g("HQPB4", 10, 0, 1)]}
+        m = lambda n: {"k": "m", "g": [], "n": n}
+        st = self.stream([[{"k": "s", "g": []}], [{"k": "b", "g": []}, w, m(1), w, w, m(5)],
+                          [{"k": "s", "g": []}], [w, m(1)]])
+        su = hqpb.decode_stream(st, self.table())
+        self.assertEqual(len(su), 2)
+        self.assertTrue(su[0].basmalah)
+        self.assertEqual(hqpb.paragraphs(su)[:2], [hqpb.BASMALAH, "بِ ۝١ بِ بِ ۝٢"])
+        self.assertEqual(hqpb.printed_number_slips(su), [{"surah": 1, "ayah": 2, "printed": 5}])
+
+    def test_without_headers_a_basmalah_or_a_numbering_restart_opens_a_surah(self):
+        w = {"k": "w", "g": [self.g("HQPB1", 1)]}
+        m = lambda n: {"k": "m", "g": [], "n": n}
+        st = self.stream([[{"k": "b", "g": []}, w, m(1), w, m(2), w, m(3),
+                           w, m(1), w, m(2), w, m(3)]])       # al-Tawbah-like restart
+        su = hqpb.decode_stream(st, self.table())
+        self.assertEqual([len([x for x in s.words if x != hqpb.AYAH_SIGN]) for s in su], [3, 3])
+        self.assertEqual([s.basmalah for s in su], [True, False])
+
+    def test_colours_are_kept_per_word(self):
+        w = {"k": "w", "g": [self.g("HQPB1", 1, 1), self.g("HQPB4", 10, 0, 1)]}
+        st = self.stream([[{"k": "s", "g": []}], [w, {"k": "m", "g": [], "n": 1}]])
+        su = hqpb.decode_stream(st, self.table())
+        self.assertEqual(hqpb.word_colors(su), [(1, 1, frozenset({"#ff00ff"}))])
+
+    def test_header_name_and_count_lines_are_dropped_by_what_they_say(self):
+        t = hqpb.Table({"format": "hqpb-decoder", "version": 1, "entries": [
+            {"font": "HQPB1", "gid": 1, "kind": "base", "text": "سُورَةُ"},
+            {"font": "HQPB1", "gid": 2, "kind": "base", "text": "ٱلْبَقَرَةِ"},
+            {"font": "HQPB1", "gid": 3, "kind": "base", "text": "مَدَنِيَّةٌ"},
+            {"font": "HQPB1", "gid": 4, "kind": "base", "text": "وَءَايَاتُهَا"},
+            {"font": "HQPB1", "gid": 5, "kind": "base", "text": "الٓمٓ"},
+            {"font": "HQPB1", "gid": 6, "kind": "base", "text": "أَنزَلْنَٰهَا"}], "mark_order": {}})
+        W = lambda gid: {"k": "w", "g": [[0, gid, 0, 0]]}
+        st = self.stream([[{"k": "s", "g": []}, W(1), W(2)], [W(3), W(4)], [{"k": "b", "g": []}],
+                          [W(5), {"k": "m", "g": [], "n": 1}],
+                          [{"k": "s", "g": []}], [W(1), W(6), {"k": "m", "g": [], "n": 1}]])
+        su = hqpb.decode_stream(st, t)
+        self.assertEqual([w for w in su[0].words if w != hqpb.AYAH_SIGN], ["الٓمٓ"])
+        # «سُورَةٌ أَنزَلۡنَٰهَا» opens 24:1: a line that is scripture keeps its words
+        self.assertEqual([w for w in su[1].words if w != hqpb.AYAH_SIGN], ["سُورَةُ", "أَنزَلْنَٰهَا"])
+
+    def test_the_loader_walk_accepts_the_decoded_paragraphs(self):
+        from qurantext.sources import paragraphs_to_ayahs
+        w = {"k": "w", "g": [self.g("HQPB1", 1), self.g("HQPB4", 10, 0, 1)]}
+        m = lambda n: {"k": "m", "g": [], "n": n}
+        lines = [line for _ in range(114) for line in ([{"k": "s", "g": []}], [w, m(1)])]
+        su = hqpb.decode_stream(self.stream(lines), self.table())
+        ayahs = paragraphs_to_ayahs(hqpb.paragraphs(su), "synthetic")
+        self.assertEqual(len(ayahs), 114)
+        self.assertEqual((ayahs[-1].surah, ayahs[-1].ayah, ayahs[-1].text), (114, 1, "بِ"))
+
+
+class TestTierChecks(unittest.TestCase):
+    class R:
+        def __init__(self, key, tier, unknown=None):
+            self.key = key
+            self.spec = type("S", (), {"tier": tier})()
+            self.decoded = {"unknown": unknown} if unknown is not None else {}
+
+    def test_a_tier2_text_may_not_duplicate_a_tier1_riwayah(self):
+        from collections import Counter
+        rs = [self.R("warsh", 1), self.R("warsh", 2, Counter()), self.R("hisham", 2, Counter())]
+        self.assertEqual([p["riwayah"] for p in check_tier_precedence(rs)], ["warsh"])
+
+    def test_unknown_glyphs_block_publication(self):
+        from collections import Counter
+        ok = self.R("hisham", 2, Counter())
+        bad = self.R("khalaf", 2, Counter({("Hamd2", 54): 3}))
+        self.assertEqual(check_decoder([ok]), [])
+        self.assertEqual([p["riwayah"] for p in check_decoder([bad])], ["khalaf"])
+
+    def test_an_unsplit_line_blocks_publication(self):
+        from collections import Counter
+        ref = self.R("hafs", 1)
+        ref.ayahs = [Ayah(1, 1, "فَأَسۡقَيۡنَٰكُمُوهُ وَمَآ")]
+        ok = self.R("hisham", 2, Counter())
+        ok.ayahs = [Ayah(1, 1, "فَأَسۡقَيۡنَٰكُمُوهُ")]
+        bad = self.R("ishaq", 2, Counter())
+        bad.ayahs = [Ayah(7, 25, "تحيونوفيهاتموتونومنهاتخرجون")]
+        self.assertEqual(check_decoder([ref, ok]), [])
+        self.assertEqual([p["check"] for p in check_decoder([ref, bad])], ["decoder_unsplit_words"])
+
+
+class TestPublishedTier2(unittest.TestCase):
+    """The committed tier-2 files must say what they are and carry what the spec promises."""
+
+    @classmethod
+    def setUpClass(cls):
+        catalog = ROOT / "data" / "catalog.json"
+        if not catalog.exists():
+            raise unittest.SkipTest("data/ not built")
+        cat = json.loads(catalog.read_text(encoding="utf-8"))
+        cls.keys = [r["key"] for r in cat["riwayahs"] if r["tier"] == 2]
+        cls.tier1 = [r["key"] for r in cat["riwayahs"] if r["tier"] == 1]
+        cls.docs = {k: json.loads((ROOT / "data" / "mushaf" / f"{k}.json").read_text(encoding="utf-8"))
+                    for k in cls.keys}
+        cls.catalog = cat
+
+    def test_the_nine_tier2_riwayahs_are_there_and_no_tier2_duplicates_a_tier1(self):
+        self.assertEqual(set(self.keys), {"hisham", "khalaf", "khallad", "abu-al-harith", "ibn-wardan",
+                                          "ibn-jammaz", "ruways", "rawh", "ishaq"})
+        self.assertFalse(set(self.keys) & set(self.tier1))
+
+    def test_every_tier2_file_states_its_provenance(self):
+        for key, d in self.docs.items():
+            p = d["provenance"]
+            self.assertEqual(p["tier"], 2, key)
+            self.assertEqual(p["authority"], "islamweb.net", key)
+            self.assertTrue(p["text"]["origin"]["recorded"], key)
+            self.assertIn("islamweb.net", p["text"]["origin"]["url"], key)
+            self.assertEqual(p["decoder"]["unknown_glyphs"], 0, key)
+            self.assertEqual(sorted(p["decoder"]["learned_from"]), ["qaloon", "shuaba", "warsh"], key)
+            self.assertEqual(d["normalization"]["applied"], "decoded", key)
+            self.assertFalse(d["font"]["guaranteed"], key)
+            self.assertIn("colors", d["layers"]["present"], key)
+            self.assertEqual(d["layers"]["derived"]["text"]["unknown_glyph_occurrences"], 0, key)
+
+    def test_tier1_files_say_so_too(self):
+        for key in self.tier1:
+            d = json.loads((ROOT / "data" / "mushaf" / f"{key}.json").read_text(encoding="utf-8"))
+            self.assertEqual(d["provenance"]["tier"], 1, key)
+            self.assertEqual(d["provenance"]["authority"], "KFGQPC", key)
+            self.assertTrue(d["font"]["guaranteed"], key)
+            self.assertNotIn("colors", d, key)
+
+    def test_keys_match_the_schema_pattern_and_the_rawi_ids(self):
+        import re
+        from qurantext.counting import association
+        for key in self.keys:
+            self.assertRegex(key, r"^[a-z]+(-[a-z]+)*$")
+            self.assertIn(key, association(), key)
+
+    def test_colours_point_at_real_positions_with_declared_types(self):
+        for key, d in self.docs.items():
+            n = len(d["words"])
+            self.assertTrue(d["colors"], key)
+            for position, t in d["colors"]:
+                self.assertTrue(0 <= position < n, (key, position))
+                self.assertTrue(0 <= t < len(d["color_types"]), (key, t))
+            self.assertTrue(any("#ff00ff" in t["colors"] for t in d["color_types"]), key)
+
+    def test_a_tier2_file_decodes_to_the_same_shape_as_tier1(self):
+        hafs = json.loads((ROOT / "data" / "mushaf" / "hafs.json").read_text(encoding="utf-8"))
+        for key, d in self.docs.items():
+            self.assertEqual(d["format_version"], hafs["format_version"], key)
+            self.assertEqual(d["numbering"]["total"], hafs["numbering"]["total"], key)
+            self.assertEqual(len(d["surah_starts"]), 114, key)
+            self.assertEqual(len(d["page_starts"]), 604, key)

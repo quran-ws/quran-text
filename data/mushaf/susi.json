@@ -1,6 +1,6 @@
 {
  "format": "quran-mushaf",
- "format_version": "1.0",
+ "format_version": "1.1",
  "generated": "2026-09-08",
  "mushaf": {
   "key": "susi",
@@ -31,7 +31,7 @@
     "surah": 3,
     "ayah": 91,
     "kufi": "3:92",
-    "number": 7715,
+    "number": 7716,
     "anchor": "تحبون",
     "counted": true,
     "authorities_named": true,
@@ -52,7 +52,7 @@
     "surah": 3,
     "ayah": 97,
     "kufi": "3:97",
-    "number": 7784,
+    "number": 7785,
     "anchor": "إبراهيم",
     "counted": false,
     "authorities_named": true,
@@ -73,7 +73,7 @@
     "surah": 37,
     "ayah": 167,
     "kufi": "37:167",
-    "number": 58203,
+    "number": 58210,
     "anchor": "ليقولون",
     "counted": true,
     "authorities_named": true,
@@ -94,7 +94,7 @@
     "surah": 67,
     "ayah": 9,
     "kufi": "67:9",
-    "number": 72557,
+    "number": 72565,
     "anchor": "نذير",
     "counted": true,
     "authorities_named": true,
@@ -116,7 +116,7 @@
     "surah": 80,
     "ayah": 24,
     "kufi": "80:24",
-    "number": 75556,
+    "number": 75564,
     "anchor": "طعامه",
     "counted": true,
     "authorities_named": true,
@@ -137,7 +137,7 @@
     "surah": 81,
     "ayah": 26,
     "kufi": "81:26",
-    "number": 75697,
+    "number": 75705,
     "anchor": "تذهبون",
     "counted": true,
     "authorities_named": true,
@@ -184,6 +184,8 @@
   "note": "words[i] and the word index's rasm_uthmani hold the release's own codepoints, unnormalised. NFC is canonically equivalent but is not what the package writes: it reorders the marks on a letter — the releases write a shaddah before its vowel, NFC after it, in 22,000 of Ḥafṣ's 84,000 tokens — and composes ا + ٓ into آ in 2,946 more. The derived forms (rasm, pointed, plain, and the search fold) are computed from the NFC form, so comparison is unaffected. For text comparison across datasets, normalize both strings to NFC before comparing."
  },
  "provenance": {
+  "tier": 1,
+  "authority": "KFGQPC",
   "text": {
    "package": "UthmanicSousi-v-3.0.zip",
    "member": "UthmanicSousi-v-3.0.docx",
@@ -221,6 +223,7 @@
   "member": "UthmanicSousi-v-3.0.ttf",
   "sha256": "3b003447bcd36306d76997f07472efef582773f2de6f8615b81c2c46ea4d5d78",
   "publisher": "https://fonts.qurancomplex.gov.sa/",
+  "guaranteed": true,
   "note": "The text uses codepoints only this font is guaranteed to draw (Arabic Extended-B alefs, open tanwīn, the waqf signs). Ship it with the text; a general Arabic font will show gaps."
  },
  "layers": {
@@ -77694,17 +77697,25 @@
  ],
  "rasm_imlai": null,
  "numbering": {
-  "total": 77434,
+  "total": 77442,
   "missing": [
-   25685,
-   60522
+   4319,
+   20821,
+   25687,
+   28039,
+   33540,
+   40887,
+   44296,
+   57494,
+   60529,
+   69063
   ],
   "written_joined": [
    {
     "position": 74223,
     "numbers": [
-     74226,
-     74227
+     74234,
+     74235
     ]
    }
   ]

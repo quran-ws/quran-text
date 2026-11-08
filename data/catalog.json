@@ -2,7 +2,7 @@
  "format": "quran-catalog",
  "format_version": "1.0",
  "generated": "2026-09-08",
- "word_count": 77434,
+ "word_count": 77442,
  "surah_count": 114,
  "riwayahs": [
   {
@@ -11,6 +11,8 @@
    "name_ar": "حفص",
    "qiraah_en": "ʿĀṣim al-Kūfī",
    "qiraah_ar": "عاصم الكوفي",
+   "tier": 1,
+   "authority": "KFGQPC",
    "counting_system": "kufi",
    "counting_system_printed": "kufi",
    "counting_system_associated_with_qari": "kufi",
@@ -35,6 +37,8 @@
    "name_ar": "شعبة",
    "qiraah_en": "ʿĀṣim al-Kūfī",
    "qiraah_ar": "عاصم الكوفي",
+   "tier": 1,
+   "authority": "KFGQPC",
    "counting_system": "kufi",
    "counting_system_printed": "kufi",
    "counting_system_associated_with_qari": "kufi",
@@ -59,6 +63,8 @@
    "name_ar": "ورش",
    "qiraah_en": "Nāfiʿ al-Madanī",
    "qiraah_ar": "نافع المدني",
+   "tier": 1,
+   "authority": "KFGQPC",
    "counting_system": "madani-last",
    "counting_system_printed": "madani-last",
    "counting_system_associated_with_qari": "madani-last",
@@ -83,6 +89,8 @@
    "name_ar": "قالون",
    "qiraah_en": "Nāfiʿ al-Madanī",
    "qiraah_ar": "نافع المدني",
+   "tier": 1,
+   "authority": "KFGQPC",
    "counting_system": "madani-last",
    "counting_system_printed": "madani-last",
    "counting_system_associated_with_qari": "madani-last",
@@ -107,6 +115,8 @@
    "name_ar": "الدوري",
    "qiraah_en": "Abū ʿAmr al-Baṣrī",
    "qiraah_ar": "أبو عمرو البصري",
+   "tier": 1,
+   "authority": "KFGQPC",
    "counting_system": "madani-first",
    "counting_system_printed": "madani-first",
    "counting_system_associated_with_qari": "basri",
@@ -131,6 +141,8 @@
    "name_ar": "السوسي",
    "qiraah_en": "Abū ʿAmr al-Baṣrī",
    "qiraah_ar": "أبو عمرو البصري",
+   "tier": 1,
+   "authority": "KFGQPC",
    "counting_system": "madani-first",
    "counting_system_printed": "madani-first",
    "counting_system_associated_with_qari": "basri",
@@ -155,6 +167,8 @@
    "name_ar": "البزي",
    "qiraah_en": "Ibn Kathīr al-Makkī",
    "qiraah_ar": "ابن كثير المكي",
+   "tier": 1,
+   "authority": "KFGQPC",
    "counting_system": "makki",
    "counting_system_printed": "makki",
    "counting_system_associated_with_qari": "makki",
@@ -171,6 +185,240 @@
    "font": {
     "family": "KFGQPC Bazzi Uthmanic Script",
     "file": "UthmanicBazzi-v-3.0.ttf"
+   }
+  },
+  {
+   "key": "hisham",
+   "name_en": "Hishām",
+   "name_ar": "هشام",
+   "qiraah_en": "Ibn ʿĀmir al-Shāmī",
+   "qiraah_ar": "ابن عامر الشامي",
+   "tier": 2,
+   "authority": "islamweb.net",
+   "counting_system": "dimashqi",
+   "counting_system_printed": "dimashqi",
+   "counting_system_associated_with_qari": "dimashqi",
+   "counting_differs_from_association": false,
+   "counting_measured_from": {
+    "package": "quran.pdf",
+    "release_year": 2005
+   },
+   "ayah_count": 6226,
+   "word_count": 77433,
+   "source": "islamweb/hesham/quran.pdf :: glyphs.json.gz",
+   "crosscheck_source": "",
+   "file": "data/mushaf/hisham.json",
+   "font": {
+    "family": "KFGQPC HAFS Uthmanic Script",
+    "file": "UthmanicHafs-v-3.0.ttf"
+   }
+  },
+  {
+   "key": "khalaf",
+   "name_en": "Khalaf",
+   "name_ar": "خلف",
+   "qiraah_en": "Ḥamzah al-Kūfī",
+   "qiraah_ar": "حمزة الكوفي",
+   "tier": 2,
+   "authority": "islamweb.net",
+   "counting_system": "kufi",
+   "counting_system_printed": "kufi",
+   "counting_system_associated_with_qari": "kufi",
+   "counting_differs_from_association": false,
+   "counting_measured_from": {
+    "package": "quran.pdf",
+    "release_year": 2007
+   },
+   "ayah_count": 6236,
+   "word_count": 77434,
+   "source": "islamweb/khalaf/quran.pdf :: glyphs.json.gz",
+   "crosscheck_source": "",
+   "file": "data/mushaf/khalaf.json",
+   "font": {
+    "family": "KFGQPC HAFS Uthmanic Script",
+    "file": "UthmanicHafs-v-3.0.ttf"
+   }
+  },
+  {
+   "key": "khallad",
+   "name_en": "Khallād",
+   "name_ar": "خلاد",
+   "qiraah_en": "Ḥamzah al-Kūfī",
+   "qiraah_ar": "حمزة الكوفي",
+   "tier": 2,
+   "authority": "islamweb.net",
+   "counting_system": "kufi",
+   "counting_system_printed": "kufi",
+   "counting_system_associated_with_qari": "kufi",
+   "counting_differs_from_association": false,
+   "counting_measured_from": {
+    "package": "quran.pdf",
+    "release_year": 2007
+   },
+   "ayah_count": 6236,
+   "word_count": 77433,
+   "source": "islamweb/khallad/quran.pdf :: glyphs.json.gz",
+   "crosscheck_source": "",
+   "file": "data/mushaf/khallad.json",
+   "font": {
+    "family": "KFGQPC HAFS Uthmanic Script",
+    "file": "UthmanicHafs-v-3.0.ttf"
+   }
+  },
+  {
+   "key": "abu-al-harith",
+   "name_en": "Abū al-Ḥārith",
+   "name_ar": "أبو الحارث",
+   "qiraah_en": "al-Kisāʾī al-Kūfī",
+   "qiraah_ar": "الكسائي الكوفي",
+   "tier": 2,
+   "authority": "islamweb.net",
+   "counting_system": "kufi",
+   "counting_system_printed": "kufi",
+   "counting_system_associated_with_qari": "kufi",
+   "counting_differs_from_association": false,
+   "counting_measured_from": {
+    "package": "quran.pdf",
+    "release_year": 2007
+   },
+   "ayah_count": 6236,
+   "word_count": 77435,
+   "source": "islamweb/alhareth/quran.pdf :: glyphs.json.gz",
+   "crosscheck_source": "",
+   "file": "data/mushaf/abu-al-harith.json",
+   "font": {
+    "family": "KFGQPC HAFS Uthmanic Script",
+    "file": "UthmanicHafs-v-3.0.ttf"
+   }
+  },
+  {
+   "key": "ibn-wardan",
+   "name_en": "Ibn Wardān",
+   "name_ar": "ابن وردان",
+   "qiraah_en": "Abū Jaʿfar al-Madanī",
+   "qiraah_ar": "أبو جعفر المدني",
+   "tier": 2,
+   "authority": "islamweb.net",
+   "counting_system": "madani-first",
+   "counting_system_printed": "madani-first",
+   "counting_system_associated_with_qari": "madani-first",
+   "counting_differs_from_association": false,
+   "counting_measured_from": {
+    "package": "quran.pdf",
+    "release_year": 2017
+   },
+   "ayah_count": 6214,
+   "word_count": 77410,
+   "source": "islamweb/wardan/quran.pdf :: glyphs.json.gz",
+   "crosscheck_source": "",
+   "file": "data/mushaf/ibn-wardan.json",
+   "font": {
+    "family": "KFGQPC HAFS Uthmanic Script",
+    "file": "UthmanicHafs-v-3.0.ttf"
+   }
+  },
+  {
+   "key": "ibn-jammaz",
+   "name_en": "Ibn Jammāz",
+   "name_ar": "ابن جماز",
+   "qiraah_en": "Abū Jaʿfar al-Madanī",
+   "qiraah_ar": "أبو جعفر المدني",
+   "tier": 2,
+   "authority": "islamweb.net",
+   "counting_system": "madani-first",
+   "counting_system_printed": "madani-first",
+   "counting_system_associated_with_qari": "madani-first",
+   "counting_differs_from_association": false,
+   "counting_measured_from": {
+    "package": "quran.pdf",
+    "release_year": 2017
+   },
+   "ayah_count": 6214,
+   "word_count": 77410,
+   "source": "islamweb/jammaz/quran.pdf :: glyphs.json.gz",
+   "crosscheck_source": "",
+   "file": "data/mushaf/ibn-jammaz.json",
+   "font": {
+    "family": "KFGQPC HAFS Uthmanic Script",
+    "file": "UthmanicHafs-v-3.0.ttf"
+   }
+  },
+  {
+   "key": "ruways",
+   "name_en": "Ruways",
+   "name_ar": "رويس",
+   "qiraah_en": "Yaʿqūb al-Ḥaḍramī",
+   "qiraah_ar": "يعقوب الحضرمي",
+   "tier": 2,
+   "authority": "islamweb.net",
+   "counting_system": "basri",
+   "counting_system_printed": "basri",
+   "counting_system_associated_with_qari": "basri",
+   "counting_differs_from_association": false,
+   "counting_measured_from": {
+    "package": "quran.pdf",
+    "release_year": 2017
+   },
+   "ayah_count": 6204,
+   "word_count": 77384,
+   "source": "islamweb/ruwis/quran.pdf :: glyphs.json.gz",
+   "crosscheck_source": "",
+   "file": "data/mushaf/ruways.json",
+   "font": {
+    "family": "KFGQPC HAFS Uthmanic Script",
+    "file": "UthmanicHafs-v-3.0.ttf"
+   }
+  },
+  {
+   "key": "rawh",
+   "name_en": "Rawḥ",
+   "name_ar": "روح",
+   "qiraah_en": "Yaʿqūb al-Ḥaḍramī",
+   "qiraah_ar": "يعقوب الحضرمي",
+   "tier": 2,
+   "authority": "islamweb.net",
+   "counting_system": "basri",
+   "counting_system_printed": "basri",
+   "counting_system_associated_with_qari": "basri",
+   "counting_differs_from_association": false,
+   "counting_measured_from": {
+    "package": "quran.pdf",
+    "release_year": 2017
+   },
+   "ayah_count": 6206,
+   "word_count": 77422,
+   "source": "islamweb/rawh/quran.pdf :: glyphs.json.gz",
+   "crosscheck_source": "",
+   "file": "data/mushaf/rawh.json",
+   "font": {
+    "family": "KFGQPC HAFS Uthmanic Script",
+    "file": "UthmanicHafs-v-3.0.ttf"
+   }
+  },
+  {
+   "key": "ishaq",
+   "name_en": "Isḥāq",
+   "name_ar": "إسحاق",
+   "qiraah_en": "Khalaf al-ʿĀshir",
+   "qiraah_ar": "خلف العاشر",
+   "tier": 2,
+   "authority": "islamweb.net",
+   "counting_system": "kufi",
+   "counting_system_printed": "kufi",
+   "counting_system_associated_with_qari": "kufi",
+   "counting_differs_from_association": false,
+   "counting_measured_from": {
+    "package": "quran.pdf",
+    "release_year": 2017
+   },
+   "ayah_count": 6236,
+   "word_count": 77434,
+   "source": "islamweb/eshaq/quran.pdf :: glyphs.json.gz",
+   "crosscheck_source": "",
+   "file": "data/mushaf/ishaq.json",
+   "font": {
+    "family": "KFGQPC HAFS Uthmanic Script",
+    "file": "UthmanicHafs-v-3.0.ttf"
    }
   }
  ],
@@ -190,7 +438,16 @@
     "qalun": 7,
     "duri": 7,
     "susi": 7,
-    "bazzi": 7
+    "bazzi": 7,
+    "hisham": 7,
+    "khalaf": 7,
+    "khallad": 7,
+    "abu-al-harith": 7,
+    "ibn-wardan": 7,
+    "ibn-jammaz": 7,
+    "ruways": 7,
+    "rawh": 7,
+    "ishaq": 7
    }
   },
   {
@@ -198,9 +455,9 @@
    "name_ar": "البَقَرَة",
    "name_en": "Al-Baqarah",
    "revelation": "madani",
-   "word_count": 6117,
+   "word_count": 6118,
    "first_number": 30,
-   "last_number": 6146,
+   "last_number": 6147,
    "ayah_count": {
     "hafs": 286,
     "shubah": 286,
@@ -208,7 +465,16 @@
     "qalun": 285,
     "duri": 285,
     "susi": 285,
-    "bazzi": 285
+    "bazzi": 285,
+    "hisham": 285,
+    "khalaf": 286,
+    "khallad": 286,
+    "abu-al-harith": 286,
+    "ibn-wardan": 285,
+    "ibn-jammaz": 285,
+    "ruways": 287,
+    "rawh": 287,
+    "ishaq": 286
    }
   },
   {
@@ -217,8 +483,8 @@
    "name_en": "Āl-‘Imrān",
    "revelation": "madani",
    "word_count": 3481,
-   "first_number": 6147,
-   "last_number": 9627,
+   "first_number": 6148,
+   "last_number": 9628,
    "ayah_count": {
     "hafs": 200,
     "shubah": 200,
@@ -226,7 +492,16 @@
     "qalun": 200,
     "duri": 200,
     "susi": 200,
-    "bazzi": 200
+    "bazzi": 200,
+    "hisham": 200,
+    "khalaf": 200,
+    "khallad": 200,
+    "abu-al-harith": 200,
+    "ibn-wardan": 200,
+    "ibn-jammaz": 200,
+    "ruways": 200,
+    "rawh": 200,
+    "ishaq": 200
    }
   },
   {
@@ -235,8 +510,8 @@
    "name_en": "An-Nisā’",
    "revelation": "madani",
    "word_count": 3747,
-   "first_number": 9628,
-   "last_number": 13374,
+   "first_number": 9629,
+   "last_number": 13375,
    "ayah_count": {
     "hafs": 176,
     "shubah": 176,
@@ -244,7 +519,16 @@
     "qalun": 175,
     "duri": 175,
     "susi": 175,
-    "bazzi": 175
+    "bazzi": 175,
+    "hisham": 177,
+    "khalaf": 176,
+    "khallad": 176,
+    "abu-al-harith": 176,
+    "ibn-wardan": 175,
+    "ibn-jammaz": 175,
+    "ruways": 175,
+    "rawh": 175,
+    "ishaq": 176
    }
   },
   {
@@ -253,8 +537,8 @@
    "name_en": "Al-Mā’idah",
    "revelation": "madani",
    "word_count": 2804,
-   "first_number": 13375,
-   "last_number": 16178,
+   "first_number": 13376,
+   "last_number": 16179,
    "ayah_count": {
     "hafs": 120,
     "shubah": 120,
@@ -262,7 +546,16 @@
     "qalun": 122,
     "duri": 122,
     "susi": 122,
-    "bazzi": 122
+    "bazzi": 122,
+    "hisham": 122,
+    "khalaf": 120,
+    "khallad": 120,
+    "abu-al-harith": 120,
+    "ibn-wardan": 122,
+    "ibn-jammaz": 122,
+    "ruways": 123,
+    "rawh": 123,
+    "ishaq": 120
    }
   },
   {
@@ -271,8 +564,8 @@
    "name_en": "Al-An‘ām",
    "revelation": "makki",
    "word_count": 3050,
-   "first_number": 16179,
-   "last_number": 19228,
+   "first_number": 16180,
+   "last_number": 19229,
    "ayah_count": {
     "hafs": 165,
     "shubah": 165,
@@ -280,7 +573,16 @@
     "qalun": 167,
     "duri": 167,
     "susi": 167,
-    "bazzi": 167
+    "bazzi": 167,
+    "hisham": 166,
+    "khalaf": 165,
+    "khallad": 165,
+    "abu-al-harith": 165,
+    "ibn-wardan": 167,
+    "ibn-jammaz": 167,
+    "ruways": 166,
+    "rawh": 166,
+    "ishaq": 165
    }
   },
   {
@@ -288,9 +590,9 @@
    "name_ar": "الأعرَاف",
    "name_en": "Al-A‘rāf",
    "revelation": "makki",
-   "word_count": 3320,
-   "first_number": 19229,
-   "last_number": 22548,
+   "word_count": 3321,
+   "first_number": 19230,
+   "last_number": 22550,
    "ayah_count": {
     "hafs": 206,
     "shubah": 206,
@@ -298,7 +600,16 @@
     "qalun": 206,
     "duri": 206,
     "susi": 206,
-    "bazzi": 206
+    "bazzi": 206,
+    "hisham": 205,
+    "khalaf": 206,
+    "khallad": 206,
+    "abu-al-harith": 206,
+    "ibn-wardan": 206,
+    "ibn-jammaz": 206,
+    "ruways": 205,
+    "rawh": 205,
+    "ishaq": 206
    }
   },
   {
@@ -307,8 +618,8 @@
    "name_en": "Al-Anfāl",
    "revelation": "madani",
    "word_count": 1234,
-   "first_number": 22549,
-   "last_number": 23782,
+   "first_number": 22551,
+   "last_number": 23784,
    "ayah_count": {
     "hafs": 75,
     "shubah": 75,
@@ -316,7 +627,16 @@
     "qalun": 76,
     "duri": 76,
     "susi": 76,
-    "bazzi": 76
+    "bazzi": 76,
+    "hisham": 77,
+    "khalaf": 75,
+    "khallad": 75,
+    "abu-al-harith": 75,
+    "ibn-wardan": 76,
+    "ibn-jammaz": 76,
+    "ruways": 76,
+    "rawh": 76,
+    "ishaq": 75
    }
   },
   {
@@ -325,8 +645,8 @@
    "name_en": "At-Taubah",
    "revelation": "madani",
    "word_count": 2499,
-   "first_number": 23783,
-   "last_number": 26281,
+   "first_number": 23785,
+   "last_number": 26283,
    "ayah_count": {
     "hafs": 129,
     "shubah": 129,
@@ -334,7 +654,16 @@
     "qalun": 130,
     "duri": 130,
     "susi": 130,
-    "bazzi": 130
+    "bazzi": 130,
+    "hisham": 130,
+    "khalaf": 129,
+    "khallad": 129,
+    "abu-al-harith": 129,
+    "ibn-wardan": 130,
+    "ibn-jammaz": 130,
+    "ruways": 130,
+    "rawh": 130,
+    "ishaq": 129
    }
   },
   {
@@ -342,9 +671,9 @@
    "name_ar": "يُونس",
    "name_en": "Yūnus",
    "revelation": "makki",
-   "word_count": 1833,
-   "first_number": 26282,
-   "last_number": 28114,
+   "word_count": 1834,
+   "first_number": 26284,
+   "last_number": 28117,
    "ayah_count": {
     "hafs": 109,
     "shubah": 109,
@@ -352,7 +681,16 @@
     "qalun": 109,
     "duri": 109,
     "susi": 109,
-    "bazzi": 109
+    "bazzi": 109,
+    "hisham": 110,
+    "khalaf": 109,
+    "khallad": 109,
+    "abu-al-harith": 109,
+    "ibn-wardan": 109,
+    "ibn-jammaz": 109,
+    "ruways": 109,
+    "rawh": 109,
+    "ishaq": 109
    }
   },
   {
@@ -361,8 +699,8 @@
    "name_en": "Hūd",
    "revelation": "makki",
    "word_count": 1917,
-   "first_number": 28115,
-   "last_number": 30031,
+   "first_number": 28118,
+   "last_number": 30034,
    "ayah_count": {
     "hafs": 123,
     "shubah": 123,
@@ -370,7 +708,16 @@
     "qalun": 121,
     "duri": 122,
     "susi": 122,
-    "bazzi": 121
+    "bazzi": 121,
+    "hisham": 122,
+    "khalaf": 123,
+    "khallad": 123,
+    "abu-al-harith": 123,
+    "ibn-wardan": 122,
+    "ibn-jammaz": 122,
+    "ruways": 121,
+    "rawh": 121,
+    "ishaq": 123
    }
   },
   {
@@ -379,8 +726,8 @@
    "name_en": "Yūsuf",
    "revelation": "makki",
    "word_count": 1777,
-   "first_number": 30032,
-   "last_number": 31808,
+   "first_number": 30035,
+   "last_number": 31811,
    "ayah_count": {
     "hafs": 111,
     "shubah": 111,
@@ -388,7 +735,16 @@
     "qalun": 111,
     "duri": 111,
     "susi": 111,
-    "bazzi": 111
+    "bazzi": 111,
+    "hisham": 111,
+    "khalaf": 111,
+    "khallad": 111,
+    "abu-al-harith": 111,
+    "ibn-wardan": 111,
+    "ibn-jammaz": 111,
+    "ruways": 111,
+    "rawh": 111,
+    "ishaq": 111
    }
   },
   {
@@ -397,8 +753,8 @@
    "name_en": "Ar-Ra‘d",
    "revelation": "madani",
    "word_count": 854,
-   "first_number": 31809,
-   "last_number": 32662,
+   "first_number": 31812,
+   "last_number": 32665,
    "ayah_count": {
     "hafs": 43,
     "shubah": 43,
@@ -406,7 +762,16 @@
     "qalun": 44,
     "duri": 44,
     "susi": 44,
-    "bazzi": 44
+    "bazzi": 44,
+    "hisham": 47,
+    "khalaf": 43,
+    "khallad": 43,
+    "abu-al-harith": 43,
+    "ibn-wardan": 44,
+    "ibn-jammaz": 44,
+    "ruways": 45,
+    "rawh": 45,
+    "ishaq": 43
    }
   },
   {
@@ -415,8 +780,8 @@
    "name_en": "Ibrāhīm",
    "revelation": "makki",
    "word_count": 830,
-   "first_number": 32663,
-   "last_number": 33492,
+   "first_number": 32666,
+   "last_number": 33495,
    "ayah_count": {
     "hafs": 52,
     "shubah": 52,
@@ -424,7 +789,16 @@
     "qalun": 54,
     "duri": 54,
     "susi": 54,
-    "bazzi": 54
+    "bazzi": 54,
+    "hisham": 55,
+    "khalaf": 52,
+    "khallad": 52,
+    "abu-al-harith": 52,
+    "ibn-wardan": 54,
+    "ibn-jammaz": 54,
+    "ruways": 51,
+    "rawh": 51,
+    "ishaq": 52
    }
   },
   {
@@ -432,9 +806,9 @@
    "name_ar": "الحِجر",
    "name_en": "Al-Ḥijr",
    "revelation": "makki",
-   "word_count": 654,
-   "first_number": 33493,
-   "last_number": 34146,
+   "word_count": 655,
+   "first_number": 33496,
+   "last_number": 34150,
    "ayah_count": {
     "hafs": 99,
     "shubah": 99,
@@ -442,7 +816,16 @@
     "qalun": 99,
     "duri": 99,
     "susi": 99,
-    "bazzi": 99
+    "bazzi": 99,
+    "hisham": 99,
+    "khalaf": 99,
+    "khallad": 99,
+    "abu-al-harith": 99,
+    "ibn-wardan": 99,
+    "ibn-jammaz": 99,
+    "ruways": 99,
+    "rawh": 99,
+    "ishaq": 99
    }
   },
   {
@@ -451,8 +834,8 @@
    "name_en": "An-Naḥl",
    "revelation": "makki",
    "word_count": 1844,
-   "first_number": 34147,
-   "last_number": 35990,
+   "first_number": 34151,
+   "last_number": 35994,
    "ayah_count": {
     "hafs": 128,
     "shubah": 128,
@@ -460,7 +843,16 @@
     "qalun": 128,
     "duri": 128,
     "susi": 128,
-    "bazzi": 128
+    "bazzi": 128,
+    "hisham": 128,
+    "khalaf": 128,
+    "khallad": 128,
+    "abu-al-harith": 128,
+    "ibn-wardan": 128,
+    "ibn-jammaz": 128,
+    "ruways": 128,
+    "rawh": 128,
+    "ishaq": 128
    }
   },
   {
@@ -469,8 +861,8 @@
    "name_en": "Al-Isrā’",
    "revelation": "makki",
    "word_count": 1556,
-   "first_number": 35991,
-   "last_number": 37546,
+   "first_number": 35995,
+   "last_number": 37550,
    "ayah_count": {
     "hafs": 111,
     "shubah": 111,
@@ -478,7 +870,16 @@
     "qalun": 110,
     "duri": 110,
     "susi": 110,
-    "bazzi": 110
+    "bazzi": 110,
+    "hisham": 110,
+    "khalaf": 111,
+    "khallad": 111,
+    "abu-al-harith": 111,
+    "ibn-wardan": 110,
+    "ibn-jammaz": 110,
+    "ruways": 110,
+    "rawh": 110,
+    "ishaq": 111
    }
   },
   {
@@ -487,8 +888,8 @@
    "name_en": "Al-Kahf",
    "revelation": "makki",
    "word_count": 1579,
-   "first_number": 37547,
-   "last_number": 39125,
+   "first_number": 37551,
+   "last_number": 39129,
    "ayah_count": {
     "hafs": 110,
     "shubah": 110,
@@ -496,7 +897,16 @@
     "qalun": 105,
     "duri": 105,
     "susi": 105,
-    "bazzi": 105
+    "bazzi": 105,
+    "hisham": 106,
+    "khalaf": 110,
+    "khallad": 110,
+    "abu-al-harith": 110,
+    "ibn-wardan": 105,
+    "ibn-jammaz": 105,
+    "ruways": 111,
+    "rawh": 111,
+    "ishaq": 110
    }
   },
   {
@@ -505,8 +915,8 @@
    "name_en": "Maryam",
    "revelation": "makki",
    "word_count": 961,
-   "first_number": 39126,
-   "last_number": 40086,
+   "first_number": 39130,
+   "last_number": 40090,
    "ayah_count": {
     "hafs": 98,
     "shubah": 98,
@@ -514,7 +924,16 @@
     "qalun": 99,
     "duri": 98,
     "susi": 98,
-    "bazzi": 99
+    "bazzi": 99,
+    "hisham": 98,
+    "khalaf": 98,
+    "khallad": 98,
+    "abu-al-harith": 98,
+    "ibn-wardan": 98,
+    "ibn-jammaz": 98,
+    "ruways": 98,
+    "rawh": 98,
+    "ishaq": 98
    }
   },
   {
@@ -522,9 +941,9 @@
    "name_ar": "طه",
    "name_en": "Ṭā-Hā",
    "revelation": "makki",
-   "word_count": 1335,
-   "first_number": 40087,
-   "last_number": 41421,
+   "word_count": 1336,
+   "first_number": 40091,
+   "last_number": 41426,
    "ayah_count": {
     "hafs": 135,
     "shubah": 135,
@@ -532,7 +951,16 @@
     "qalun": 134,
     "duri": 134,
     "susi": 134,
-    "bazzi": 134
+    "bazzi": 134,
+    "hisham": 140,
+    "khalaf": 135,
+    "khallad": 135,
+    "abu-al-harith": 135,
+    "ibn-wardan": 134,
+    "ibn-jammaz": 134,
+    "ruways": 132,
+    "rawh": 132,
+    "ishaq": 135
    }
   },
   {
@@ -541,8 +969,8 @@
    "name_en": "Al-Anbiyā’",
    "revelation": "makki",
    "word_count": 1169,
-   "first_number": 41422,
-   "last_number": 42590,
+   "first_number": 41427,
+   "last_number": 42595,
    "ayah_count": {
     "hafs": 112,
     "shubah": 112,
@@ -550,7 +978,16 @@
     "qalun": 111,
     "duri": 111,
     "susi": 111,
-    "bazzi": 111
+    "bazzi": 111,
+    "hisham": 111,
+    "khalaf": 112,
+    "khallad": 112,
+    "abu-al-harith": 112,
+    "ibn-wardan": 111,
+    "ibn-jammaz": 111,
+    "ruways": 111,
+    "rawh": 111,
+    "ishaq": 112
    }
   },
   {
@@ -559,8 +996,8 @@
    "name_en": "Al-Ḥajj",
    "revelation": "makki",
    "word_count": 1274,
-   "first_number": 42591,
-   "last_number": 43864,
+   "first_number": 42596,
+   "last_number": 43869,
    "ayah_count": {
     "hafs": 78,
     "shubah": 78,
@@ -568,7 +1005,16 @@
     "qalun": 76,
     "duri": 76,
     "susi": 76,
-    "bazzi": 77
+    "bazzi": 77,
+    "hisham": 74,
+    "khalaf": 78,
+    "khallad": 78,
+    "abu-al-harith": 78,
+    "ibn-wardan": 76,
+    "ibn-jammaz": 76,
+    "ruways": 75,
+    "rawh": 75,
+    "ishaq": 78
    }
   },
   {
@@ -576,9 +1022,9 @@
    "name_ar": "المؤمنُون",
    "name_en": "Al-Mu’minūn",
    "revelation": "makki",
-   "word_count": 1050,
-   "first_number": 43865,
-   "last_number": 44914,
+   "word_count": 1051,
+   "first_number": 43870,
+   "last_number": 44920,
    "ayah_count": {
     "hafs": 118,
     "shubah": 118,
@@ -586,7 +1032,16 @@
     "qalun": 119,
     "duri": 119,
     "susi": 119,
-    "bazzi": 119
+    "bazzi": 119,
+    "hisham": 119,
+    "khalaf": 118,
+    "khallad": 118,
+    "abu-al-harith": 118,
+    "ibn-wardan": 119,
+    "ibn-jammaz": 119,
+    "ruways": 119,
+    "rawh": 119,
+    "ishaq": 118
    }
   },
   {
@@ -595,8 +1050,8 @@
    "name_en": "An-Nūr",
    "revelation": "madani",
    "word_count": 1316,
-   "first_number": 44915,
-   "last_number": 46230,
+   "first_number": 44921,
+   "last_number": 46236,
    "ayah_count": {
     "hafs": 64,
     "shubah": 64,
@@ -604,7 +1059,16 @@
     "qalun": 62,
     "duri": 62,
     "susi": 62,
-    "bazzi": 62
+    "bazzi": 62,
+    "hisham": 64,
+    "khalaf": 64,
+    "khallad": 64,
+    "abu-al-harith": 64,
+    "ibn-wardan": 62,
+    "ibn-jammaz": 62,
+    "ruways": 64,
+    "rawh": 64,
+    "ishaq": 64
    }
   },
   {
@@ -613,8 +1077,8 @@
    "name_en": "Al-Furqān",
    "revelation": "makki",
    "word_count": 893,
-   "first_number": 46231,
-   "last_number": 47123,
+   "first_number": 46237,
+   "last_number": 47129,
    "ayah_count": {
     "hafs": 77,
     "shubah": 77,
@@ -622,7 +1086,16 @@
     "qalun": 77,
     "duri": 77,
     "susi": 77,
-    "bazzi": 77
+    "bazzi": 77,
+    "hisham": 77,
+    "khalaf": 77,
+    "khallad": 77,
+    "abu-al-harith": 77,
+    "ibn-wardan": 77,
+    "ibn-jammaz": 77,
+    "ruways": 77,
+    "rawh": 77,
+    "ishaq": 77
    }
   },
   {
@@ -631,8 +1104,8 @@
    "name_en": "Ash-Shu‘arā’",
    "revelation": "makki",
    "word_count": 1318,
-   "first_number": 47124,
-   "last_number": 48441,
+   "first_number": 47130,
+   "last_number": 48447,
    "ayah_count": {
     "hafs": 227,
     "shubah": 227,
@@ -640,7 +1113,16 @@
     "qalun": 226,
     "duri": 227,
     "susi": 227,
-    "bazzi": 226
+    "bazzi": 226,
+    "hisham": 227,
+    "khalaf": 227,
+    "khallad": 227,
+    "abu-al-harith": 227,
+    "ibn-wardan": 227,
+    "ibn-jammaz": 227,
+    "ruways": 226,
+    "rawh": 226,
+    "ishaq": 227
    }
   },
   {
@@ -649,8 +1131,8 @@
    "name_en": "An-Naml",
    "revelation": "makki",
    "word_count": 1151,
-   "first_number": 48442,
-   "last_number": 49592,
+   "first_number": 48448,
+   "last_number": 49598,
    "ayah_count": {
     "hafs": 93,
     "shubah": 93,
@@ -658,7 +1140,16 @@
     "qalun": 95,
     "duri": 95,
     "susi": 95,
-    "bazzi": 95
+    "bazzi": 95,
+    "hisham": 94,
+    "khalaf": 93,
+    "khallad": 93,
+    "abu-al-harith": 93,
+    "ibn-wardan": 95,
+    "ibn-jammaz": 95,
+    "ruways": 94,
+    "rawh": 94,
+    "ishaq": 93
    }
   },
   {
@@ -667,8 +1158,8 @@
    "name_en": "Al-Qaṣaṣ",
    "revelation": "makki",
    "word_count": 1430,
-   "first_number": 49593,
-   "last_number": 51022,
+   "first_number": 49599,
+   "last_number": 51028,
    "ayah_count": {
     "hafs": 88,
     "shubah": 88,
@@ -676,7 +1167,16 @@
     "qalun": 88,
     "duri": 88,
     "susi": 88,
-    "bazzi": 88
+    "bazzi": 88,
+    "hisham": 88,
+    "khalaf": 88,
+    "khallad": 88,
+    "abu-al-harith": 88,
+    "ibn-wardan": 88,
+    "ibn-jammaz": 88,
+    "ruways": 88,
+    "rawh": 88,
+    "ishaq": 88
    }
   },
   {
@@ -685,8 +1185,8 @@
    "name_en": "Al-‘Ankabūt",
    "revelation": "makki",
    "word_count": 976,
-   "first_number": 51023,
-   "last_number": 51998,
+   "first_number": 51029,
+   "last_number": 52004,
    "ayah_count": {
     "hafs": 69,
     "shubah": 69,
@@ -694,7 +1194,16 @@
     "qalun": 69,
     "duri": 69,
     "susi": 69,
-    "bazzi": 69
+    "bazzi": 69,
+    "hisham": 69,
+    "khalaf": 69,
+    "khallad": 69,
+    "abu-al-harith": 69,
+    "ibn-wardan": 69,
+    "ibn-jammaz": 69,
+    "ruways": 69,
+    "rawh": 69,
+    "ishaq": 69
    }
   },
   {
@@ -703,8 +1212,8 @@
    "name_en": "Ar-Rūm",
    "revelation": "makki",
    "word_count": 817,
-   "first_number": 51999,
-   "last_number": 52815,
+   "first_number": 52005,
+   "last_number": 52821,
    "ayah_count": {
     "hafs": 60,
     "shubah": 60,
@@ -712,7 +1221,16 @@
     "qalun": 59,
     "duri": 60,
     "susi": 60,
-    "bazzi": 59
+    "bazzi": 59,
+    "hisham": 60,
+    "khalaf": 60,
+    "khallad": 60,
+    "abu-al-harith": 60,
+    "ibn-wardan": 60,
+    "ibn-jammaz": 60,
+    "ruways": 60,
+    "rawh": 60,
+    "ishaq": 60
    }
   },
   {
@@ -721,8 +1239,8 @@
    "name_en": "Luqmān",
    "revelation": "makki",
    "word_count": 546,
-   "first_number": 52816,
-   "last_number": 53361,
+   "first_number": 52822,
+   "last_number": 53367,
    "ayah_count": {
     "hafs": 34,
     "shubah": 34,
@@ -730,7 +1248,16 @@
     "qalun": 33,
     "duri": 33,
     "susi": 33,
-    "bazzi": 33
+    "bazzi": 33,
+    "hisham": 34,
+    "khalaf": 34,
+    "khallad": 34,
+    "abu-al-harith": 34,
+    "ibn-wardan": 33,
+    "ibn-jammaz": 33,
+    "ruways": 34,
+    "rawh": 34,
+    "ishaq": 34
    }
   },
   {
@@ -739,8 +1266,8 @@
    "name_en": "As-Sajdah",
    "revelation": "makki",
    "word_count": 372,
-   "first_number": 53362,
-   "last_number": 53733,
+   "first_number": 53368,
+   "last_number": 53739,
    "ayah_count": {
     "hafs": 30,
     "shubah": 30,
@@ -748,7 +1275,16 @@
     "qalun": 30,
     "duri": 30,
     "susi": 30,
-    "bazzi": 30
+    "bazzi": 30,
+    "hisham": 30,
+    "khalaf": 30,
+    "khallad": 30,
+    "abu-al-harith": 30,
+    "ibn-wardan": 30,
+    "ibn-jammaz": 30,
+    "ruways": 29,
+    "rawh": 29,
+    "ishaq": 30
    }
   },
   {
@@ -757,8 +1293,8 @@
    "name_en": "Al-Aḥzāb",
    "revelation": "madani",
    "word_count": 1287,
-   "first_number": 53734,
-   "last_number": 55020,
+   "first_number": 53740,
+   "last_number": 55026,
    "ayah_count": {
     "hafs": 73,
     "shubah": 73,
@@ -766,7 +1302,16 @@
     "qalun": 73,
     "duri": 73,
     "susi": 73,
-    "bazzi": 73
+    "bazzi": 73,
+    "hisham": 73,
+    "khalaf": 73,
+    "khallad": 73,
+    "abu-al-harith": 73,
+    "ibn-wardan": 73,
+    "ibn-jammaz": 73,
+    "ruways": 73,
+    "rawh": 73,
+    "ishaq": 73
    }
   },
   {
@@ -775,8 +1320,8 @@
    "name_en": "Saba’",
    "revelation": "makki",
    "word_count": 883,
-   "first_number": 55021,
-   "last_number": 55903,
+   "first_number": 55027,
+   "last_number": 55909,
    "ayah_count": {
     "hafs": 54,
     "shubah": 54,
@@ -784,7 +1329,16 @@
     "qalun": 54,
     "duri": 54,
     "susi": 54,
-    "bazzi": 54
+    "bazzi": 54,
+    "hisham": 55,
+    "khalaf": 54,
+    "khallad": 54,
+    "abu-al-harith": 54,
+    "ibn-wardan": 54,
+    "ibn-jammaz": 54,
+    "ruways": 54,
+    "rawh": 54,
+    "ishaq": 54
    }
   },
   {
@@ -793,8 +1347,8 @@
    "name_en": "Fāṭir",
    "revelation": "makki",
    "word_count": 775,
-   "first_number": 55904,
-   "last_number": 56678,
+   "first_number": 55910,
+   "last_number": 56684,
    "ayah_count": {
     "hafs": 45,
     "shubah": 45,
@@ -802,7 +1356,16 @@
     "qalun": 46,
     "duri": 45,
     "susi": 45,
-    "bazzi": 45
+    "bazzi": 45,
+    "hisham": 46,
+    "khalaf": 45,
+    "khallad": 45,
+    "abu-al-harith": 45,
+    "ibn-wardan": 45,
+    "ibn-jammaz": 45,
+    "ruways": 45,
+    "rawh": 45,
+    "ishaq": 45
    }
   },
   {
@@ -811,8 +1374,8 @@
    "name_en": "Yā-Sīn",
    "revelation": "makki",
    "word_count": 725,
-   "first_number": 56679,
-   "last_number": 57403,
+   "first_number": 56685,
+   "last_number": 57409,
    "ayah_count": {
     "hafs": 83,
     "shubah": 83,
@@ -820,7 +1383,16 @@
     "qalun": 82,
     "duri": 82,
     "susi": 82,
-    "bazzi": 82
+    "bazzi": 82,
+    "hisham": 82,
+    "khalaf": 83,
+    "khallad": 83,
+    "abu-al-harith": 83,
+    "ibn-wardan": 82,
+    "ibn-jammaz": 82,
+    "ruways": 82,
+    "rawh": 82,
+    "ishaq": 83
    }
   },
   {
@@ -828,9 +1400,9 @@
    "name_ar": "الصَّافَات",
    "name_en": "Aṣ-Ṣāffāt",
    "revelation": "makki",
-   "word_count": 861,
-   "first_number": 57404,
-   "last_number": 58264,
+   "word_count": 862,
+   "first_number": 57410,
+   "last_number": 58271,
    "ayah_count": {
     "hafs": 182,
     "shubah": 182,
@@ -838,7 +1410,16 @@
     "qalun": 182,
     "duri": 182,
     "susi": 182,
-    "bazzi": 182
+    "bazzi": 182,
+    "hisham": 182,
+    "khalaf": 182,
+    "khallad": 182,
+    "abu-al-harith": 182,
+    "ibn-wardan": 181,
+    "ibn-jammaz": 181,
+    "ruways": 181,
+    "rawh": 181,
+    "ishaq": 182
    }
   },
   {
@@ -847,8 +1428,8 @@
    "name_en": "Ṣād",
    "revelation": "makki",
    "word_count": 733,
-   "first_number": 58265,
-   "last_number": 58997,
+   "first_number": 58272,
+   "last_number": 59004,
    "ayah_count": {
     "hafs": 88,
     "shubah": 88,
@@ -856,7 +1437,16 @@
     "qalun": 86,
     "duri": 86,
     "susi": 86,
-    "bazzi": 86
+    "bazzi": 86,
+    "hisham": 86,
+    "khalaf": 88,
+    "khallad": 88,
+    "abu-al-harith": 88,
+    "ibn-wardan": 86,
+    "ibn-jammaz": 86,
+    "ruways": 85,
+    "rawh": 85,
+    "ishaq": 88
    }
   },
   {
@@ -865,8 +1455,8 @@
    "name_en": "Az-Zumar",
    "revelation": "makki",
    "word_count": 1172,
-   "first_number": 58998,
-   "last_number": 60169,
+   "first_number": 59005,
+   "last_number": 60176,
    "ayah_count": {
     "hafs": 75,
     "shubah": 75,
@@ -874,7 +1464,16 @@
     "qalun": 72,
     "duri": 72,
     "susi": 72,
-    "bazzi": 72
+    "bazzi": 72,
+    "hisham": 73,
+    "khalaf": 75,
+    "khallad": 75,
+    "abu-al-harith": 75,
+    "ibn-wardan": 72,
+    "ibn-jammaz": 72,
+    "ruways": 72,
+    "rawh": 72,
+    "ishaq": 75
    }
   },
   {
@@ -883,8 +1482,8 @@
    "name_en": "Ghāfir",
    "revelation": "makki",
    "word_count": 1219,
-   "first_number": 60170,
-   "last_number": 61388,
+   "first_number": 60177,
+   "last_number": 61395,
    "ayah_count": {
     "hafs": 85,
     "shubah": 85,
@@ -892,7 +1491,16 @@
     "qalun": 84,
     "duri": 84,
     "susi": 84,
-    "bazzi": 84
+    "bazzi": 84,
+    "hisham": 86,
+    "khalaf": 85,
+    "khallad": 85,
+    "abu-al-harith": 85,
+    "ibn-wardan": 84,
+    "ibn-jammaz": 84,
+    "ruways": 82,
+    "rawh": 82,
+    "ishaq": 85
    }
   },
   {
@@ -901,8 +1509,8 @@
    "name_en": "Fuṣṣilat",
    "revelation": "makki",
    "word_count": 794,
-   "first_number": 61389,
-   "last_number": 62182,
+   "first_number": 61396,
+   "last_number": 62189,
    "ayah_count": {
     "hafs": 54,
     "shubah": 54,
@@ -910,7 +1518,16 @@
     "qalun": 53,
     "duri": 53,
     "susi": 53,
-    "bazzi": 53
+    "bazzi": 53,
+    "hisham": 52,
+    "khalaf": 54,
+    "khallad": 54,
+    "abu-al-harith": 54,
+    "ibn-wardan": 53,
+    "ibn-jammaz": 53,
+    "ruways": 52,
+    "rawh": 52,
+    "ishaq": 54
    }
   },
   {
@@ -919,8 +1536,8 @@
    "name_en": "Ash-Shūra",
    "revelation": "makki",
    "word_count": 860,
-   "first_number": 62183,
-   "last_number": 63042,
+   "first_number": 62190,
+   "last_number": 63049,
    "ayah_count": {
     "hafs": 53,
     "shubah": 53,
@@ -928,7 +1545,16 @@
     "qalun": 50,
     "duri": 50,
     "susi": 50,
-    "bazzi": 50
+    "bazzi": 50,
+    "hisham": 50,
+    "khalaf": 53,
+    "khallad": 53,
+    "abu-al-harith": 53,
+    "ibn-wardan": 50,
+    "ibn-jammaz": 50,
+    "ruways": 50,
+    "rawh": 50,
+    "ishaq": 53
    }
   },
   {
@@ -937,8 +1563,8 @@
    "name_en": "Az-Zukhruf",
    "revelation": "makki",
    "word_count": 830,
-   "first_number": 63043,
-   "last_number": 63872,
+   "first_number": 63050,
+   "last_number": 63879,
    "ayah_count": {
     "hafs": 89,
     "shubah": 89,
@@ -946,7 +1572,16 @@
     "qalun": 89,
     "duri": 89,
     "susi": 89,
-    "bazzi": 89
+    "bazzi": 89,
+    "hisham": 88,
+    "khalaf": 89,
+    "khallad": 89,
+    "abu-al-harith": 89,
+    "ibn-wardan": 89,
+    "ibn-jammaz": 89,
+    "ruways": 89,
+    "rawh": 89,
+    "ishaq": 89
    }
   },
   {
@@ -955,8 +1590,8 @@
    "name_en": "Ad-Dukhān",
    "revelation": "makki",
    "word_count": 346,
-   "first_number": 63873,
-   "last_number": 64218,
+   "first_number": 63880,
+   "last_number": 64225,
    "ayah_count": {
     "hafs": 59,
     "shubah": 59,
@@ -964,7 +1599,16 @@
     "qalun": 56,
     "duri": 56,
     "susi": 56,
-    "bazzi": 56
+    "bazzi": 56,
+    "hisham": 56,
+    "khalaf": 59,
+    "khallad": 59,
+    "abu-al-harith": 59,
+    "ibn-wardan": 56,
+    "ibn-jammaz": 56,
+    "ruways": 57,
+    "rawh": 57,
+    "ishaq": 59
    }
   },
   {
@@ -973,8 +1617,8 @@
    "name_en": "Al-Jāthiyah",
    "revelation": "makki",
    "word_count": 488,
-   "first_number": 64219,
-   "last_number": 64706,
+   "first_number": 64226,
+   "last_number": 64713,
    "ayah_count": {
     "hafs": 37,
     "shubah": 37,
@@ -982,7 +1626,16 @@
     "qalun": 36,
     "duri": 36,
     "susi": 36,
-    "bazzi": 36
+    "bazzi": 36,
+    "hisham": 36,
+    "khalaf": 37,
+    "khallad": 37,
+    "abu-al-harith": 37,
+    "ibn-wardan": 36,
+    "ibn-jammaz": 36,
+    "ruways": 36,
+    "rawh": 36,
+    "ishaq": 37
    }
   },
   {
@@ -991,8 +1644,8 @@
    "name_en": "Al-Aḥqāf",
    "revelation": "makki",
    "word_count": 643,
-   "first_number": 64707,
-   "last_number": 65349,
+   "first_number": 64714,
+   "last_number": 65356,
    "ayah_count": {
     "hafs": 35,
     "shubah": 35,
@@ -1000,7 +1653,16 @@
     "qalun": 34,
     "duri": 34,
     "susi": 34,
-    "bazzi": 34
+    "bazzi": 34,
+    "hisham": 34,
+    "khalaf": 35,
+    "khallad": 35,
+    "abu-al-harith": 35,
+    "ibn-wardan": 34,
+    "ibn-jammaz": 34,
+    "ruways": 34,
+    "rawh": 34,
+    "ishaq": 35
    }
   },
   {
@@ -1009,8 +1671,8 @@
    "name_en": "Muḥammad",
    "revelation": "madani",
    "word_count": 539,
-   "first_number": 65350,
-   "last_number": 65888,
+   "first_number": 65357,
+   "last_number": 65895,
    "ayah_count": {
     "hafs": 38,
     "shubah": 38,
@@ -1018,7 +1680,16 @@
     "qalun": 39,
     "duri": 39,
     "susi": 39,
-    "bazzi": 39
+    "bazzi": 39,
+    "hisham": 39,
+    "khalaf": 38,
+    "khallad": 38,
+    "abu-al-harith": 38,
+    "ibn-wardan": 39,
+    "ibn-jammaz": 39,
+    "ruways": 40,
+    "rawh": 40,
+    "ishaq": 38
    }
   },
   {
@@ -1027,8 +1698,8 @@
    "name_en": "Al-Fatḥ",
    "revelation": "madani",
    "word_count": 560,
-   "first_number": 65889,
-   "last_number": 66448,
+   "first_number": 65896,
+   "last_number": 66455,
    "ayah_count": {
     "hafs": 29,
     "shubah": 29,
@@ -1036,7 +1707,16 @@
     "qalun": 29,
     "duri": 29,
     "susi": 29,
-    "bazzi": 29
+    "bazzi": 29,
+    "hisham": 29,
+    "khalaf": 29,
+    "khallad": 29,
+    "abu-al-harith": 29,
+    "ibn-wardan": 29,
+    "ibn-jammaz": 29,
+    "ruways": 29,
+    "rawh": 29,
+    "ishaq": 29
    }
   },
   {
@@ -1045,8 +1725,8 @@
    "name_en": "Al-Ḥujurāt",
    "revelation": "madani",
    "word_count": 347,
-   "first_number": 66449,
-   "last_number": 66795,
+   "first_number": 66456,
+   "last_number": 66802,
    "ayah_count": {
     "hafs": 18,
     "shubah": 18,
@@ -1054,7 +1734,16 @@
     "qalun": 18,
     "duri": 18,
     "susi": 18,
-    "bazzi": 18
+    "bazzi": 18,
+    "hisham": 18,
+    "khalaf": 18,
+    "khallad": 18,
+    "abu-al-harith": 18,
+    "ibn-wardan": 18,
+    "ibn-jammaz": 18,
+    "ruways": 18,
+    "rawh": 18,
+    "ishaq": 18
    }
   },
   {
@@ -1063,8 +1752,8 @@
    "name_en": "Qāf",
    "revelation": "makki",
    "word_count": 373,
-   "first_number": 66796,
-   "last_number": 67168,
+   "first_number": 66803,
+   "last_number": 67175,
    "ayah_count": {
     "hafs": 45,
     "shubah": 45,
@@ -1072,7 +1761,16 @@
     "qalun": 45,
     "duri": 45,
     "susi": 45,
-    "bazzi": 45
+    "bazzi": 45,
+    "hisham": 45,
+    "khalaf": 45,
+    "khallad": 45,
+    "abu-al-harith": 45,
+    "ibn-wardan": 45,
+    "ibn-jammaz": 45,
+    "ruways": 45,
+    "rawh": 45,
+    "ishaq": 45
    }
   },
   {
@@ -1081,8 +1779,8 @@
    "name_en": "Adh-Dhāriyāt",
    "revelation": "makki",
    "word_count": 360,
-   "first_number": 67169,
-   "last_number": 67528,
+   "first_number": 67176,
+   "last_number": 67535,
    "ayah_count": {
     "hafs": 60,
     "shubah": 60,
@@ -1090,7 +1788,16 @@
     "qalun": 60,
     "duri": 60,
     "susi": 60,
-    "bazzi": 60
+    "bazzi": 60,
+    "hisham": 60,
+    "khalaf": 60,
+    "khallad": 60,
+    "abu-al-harith": 60,
+    "ibn-wardan": 60,
+    "ibn-jammaz": 60,
+    "ruways": 60,
+    "rawh": 60,
+    "ishaq": 60
    }
   },
   {
@@ -1099,8 +1806,8 @@
    "name_en": "Aṭ-Ṭūr",
    "revelation": "makki",
    "word_count": 312,
-   "first_number": 67529,
-   "last_number": 67840,
+   "first_number": 67536,
+   "last_number": 67847,
    "ayah_count": {
     "hafs": 49,
     "shubah": 49,
@@ -1108,7 +1815,16 @@
     "qalun": 47,
     "duri": 47,
     "susi": 47,
-    "bazzi": 47
+    "bazzi": 47,
+    "hisham": 49,
+    "khalaf": 49,
+    "khallad": 49,
+    "abu-al-harith": 49,
+    "ibn-wardan": 47,
+    "ibn-jammaz": 47,
+    "ruways": 48,
+    "rawh": 48,
+    "ishaq": 49
    }
   },
   {
@@ -1117,8 +1833,8 @@
    "name_en": "An-Najm",
    "revelation": "makki",
    "word_count": 360,
-   "first_number": 67841,
-   "last_number": 68200,
+   "first_number": 67848,
+   "last_number": 68207,
    "ayah_count": {
     "hafs": 62,
     "shubah": 62,
@@ -1126,7 +1842,16 @@
     "qalun": 61,
     "duri": 61,
     "susi": 61,
-    "bazzi": 61
+    "bazzi": 61,
+    "hisham": 61,
+    "khalaf": 62,
+    "khallad": 62,
+    "abu-al-harith": 62,
+    "ibn-wardan": 61,
+    "ibn-jammaz": 61,
+    "ruways": 61,
+    "rawh": 61,
+    "ishaq": 62
    }
   },
   {
@@ -1135,8 +1860,8 @@
    "name_en": "Al-Qamar",
    "revelation": "makki",
    "word_count": 342,
-   "first_number": 68201,
-   "last_number": 68542,
+   "first_number": 68208,
+   "last_number": 68549,
    "ayah_count": {
     "hafs": 55,
     "shubah": 55,
@@ -1144,7 +1869,16 @@
     "qalun": 55,
     "duri": 55,
     "susi": 55,
-    "bazzi": 55
+    "bazzi": 55,
+    "hisham": 55,
+    "khalaf": 55,
+    "khallad": 55,
+    "abu-al-harith": 55,
+    "ibn-wardan": 55,
+    "ibn-jammaz": 55,
+    "ruways": 55,
+    "rawh": 55,
+    "ishaq": 55
    }
   },
   {
@@ -1153,8 +1887,8 @@
    "name_en": "Ar-Raḥmān",
    "revelation": "makki",
    "word_count": 351,
-   "first_number": 68543,
-   "last_number": 68893,
+   "first_number": 68550,
+   "last_number": 68900,
    "ayah_count": {
     "hafs": 78,
     "shubah": 78,
@@ -1162,7 +1896,16 @@
     "qalun": 77,
     "duri": 77,
     "susi": 77,
-    "bazzi": 77
+    "bazzi": 77,
+    "hisham": 78,
+    "khalaf": 78,
+    "khallad": 78,
+    "abu-al-harith": 78,
+    "ibn-wardan": 77,
+    "ibn-jammaz": 77,
+    "ruways": 76,
+    "rawh": 76,
+    "ishaq": 78
    }
   },
   {
@@ -1170,9 +1913,9 @@
    "name_ar": "الوَاقِعة",
    "name_en": "Al-Wāqi‘ah",
    "revelation": "makki",
-   "word_count": 379,
-   "first_number": 68894,
-   "last_number": 69272,
+   "word_count": 380,
+   "first_number": 68901,
+   "last_number": 69280,
    "ayah_count": {
     "hafs": 96,
     "shubah": 96,
@@ -1180,7 +1923,16 @@
     "qalun": 99,
     "duri": 99,
     "susi": 99,
-    "bazzi": 99
+    "bazzi": 99,
+    "hisham": 99,
+    "khalaf": 96,
+    "khallad": 96,
+    "abu-al-harith": 96,
+    "ibn-wardan": 99,
+    "ibn-jammaz": 99,
+    "ruways": 97,
+    "rawh": 97,
+    "ishaq": 96
    }
   },
   {
@@ -1189,8 +1941,8 @@
    "name_en": "Al-Ḥadīd",
    "revelation": "madani",
    "word_count": 574,
-   "first_number": 69273,
-   "last_number": 69846,
+   "first_number": 69281,
+   "last_number": 69854,
    "ayah_count": {
     "hafs": 29,
     "shubah": 29,
@@ -1198,7 +1950,16 @@
     "qalun": 28,
     "duri": 28,
     "susi": 28,
-    "bazzi": 28
+    "bazzi": 28,
+    "hisham": 28,
+    "khalaf": 29,
+    "khallad": 29,
+    "abu-al-harith": 29,
+    "ibn-wardan": 28,
+    "ibn-jammaz": 28,
+    "ruways": 29,
+    "rawh": 29,
+    "ishaq": 29
    }
   },
   {
@@ -1207,8 +1968,8 @@
    "name_en": "Al-Mujādilah",
    "revelation": "madani",
    "word_count": 472,
-   "first_number": 69847,
-   "last_number": 70318,
+   "first_number": 69855,
+   "last_number": 70326,
    "ayah_count": {
     "hafs": 22,
     "shubah": 22,
@@ -1216,7 +1977,16 @@
     "qalun": 21,
     "duri": 22,
     "susi": 22,
-    "bazzi": 21
+    "bazzi": 21,
+    "hisham": 22,
+    "khalaf": 22,
+    "khallad": 22,
+    "abu-al-harith": 22,
+    "ibn-wardan": 22,
+    "ibn-jammaz": 22,
+    "ruways": 22,
+    "rawh": 22,
+    "ishaq": 22
    }
   },
   {
@@ -1225,8 +1995,8 @@
    "name_en": "Al-Ḥashr",
    "revelation": "madani",
    "word_count": 445,
-   "first_number": 70319,
-   "last_number": 70763,
+   "first_number": 70327,
+   "last_number": 70771,
    "ayah_count": {
     "hafs": 24,
     "shubah": 24,
@@ -1234,7 +2004,16 @@
     "qalun": 24,
     "duri": 24,
     "susi": 24,
-    "bazzi": 24
+    "bazzi": 24,
+    "hisham": 24,
+    "khalaf": 24,
+    "khallad": 24,
+    "abu-al-harith": 24,
+    "ibn-wardan": 24,
+    "ibn-jammaz": 24,
+    "ruways": 24,
+    "rawh": 24,
+    "ishaq": 24
    }
   },
   {
@@ -1243,8 +2022,8 @@
    "name_en": "Al-Mumtaḥanah",
    "revelation": "madani",
    "word_count": 348,
-   "first_number": 70764,
-   "last_number": 71111,
+   "first_number": 70772,
+   "last_number": 71119,
    "ayah_count": {
     "hafs": 13,
     "shubah": 13,
@@ -1252,7 +2031,16 @@
     "qalun": 13,
     "duri": 13,
     "susi": 13,
-    "bazzi": 13
+    "bazzi": 13,
+    "hisham": 13,
+    "khalaf": 13,
+    "khallad": 13,
+    "abu-al-harith": 13,
+    "ibn-wardan": 13,
+    "ibn-jammaz": 13,
+    "ruways": 13,
+    "rawh": 13,
+    "ishaq": 13
    }
   },
   {
@@ -1261,8 +2049,8 @@
    "name_en": "Aṣ-Ṣaff",
    "revelation": "madani",
    "word_count": 221,
-   "first_number": 71112,
-   "last_number": 71332,
+   "first_number": 71120,
+   "last_number": 71340,
    "ayah_count": {
     "hafs": 14,
     "shubah": 14,
@@ -1270,7 +2058,16 @@
     "qalun": 14,
     "duri": 14,
     "susi": 14,
-    "bazzi": 14
+    "bazzi": 14,
+    "hisham": 14,
+    "khalaf": 14,
+    "khallad": 14,
+    "abu-al-harith": 14,
+    "ibn-wardan": 14,
+    "ibn-jammaz": 14,
+    "ruways": 14,
+    "rawh": 14,
+    "ishaq": 14
    }
   },
   {
@@ -1279,8 +2076,8 @@
    "name_en": "Al-Jumu‘ah",
    "revelation": "madani",
    "word_count": 175,
-   "first_number": 71333,
-   "last_number": 71507,
+   "first_number": 71341,
+   "last_number": 71515,
    "ayah_count": {
     "hafs": 11,
     "shubah": 11,
@@ -1288,7 +2085,16 @@
     "qalun": 11,
     "duri": 11,
     "susi": 11,
-    "bazzi": 11
+    "bazzi": 11,
+    "hisham": 11,
+    "khalaf": 11,
+    "khallad": 11,
+    "abu-al-harith": 11,
+    "ibn-wardan": 11,
+    "ibn-jammaz": 11,
+    "ruways": 11,
+    "rawh": 11,
+    "ishaq": 11
    }
   },
   {
@@ -1297,8 +2103,8 @@
    "name_en": "Al-Munāfiqūn",
    "revelation": "madani",
    "word_count": 180,
-   "first_number": 71508,
-   "last_number": 71687,
+   "first_number": 71516,
+   "last_number": 71695,
    "ayah_count": {
     "hafs": 11,
     "shubah": 11,
@@ -1306,7 +2112,16 @@
     "qalun": 11,
     "duri": 11,
     "susi": 11,
-    "bazzi": 11
+    "bazzi": 11,
+    "hisham": 11,
+    "khalaf": 11,
+    "khallad": 11,
+    "abu-al-harith": 11,
+    "ibn-wardan": 11,
+    "ibn-jammaz": 11,
+    "ruways": 11,
+    "rawh": 11,
+    "ishaq": 11
    }
   },
   {
@@ -1315,8 +2130,8 @@
    "name_en": "At-Taghābun",
    "revelation": "madani",
    "word_count": 241,
-   "first_number": 71688,
-   "last_number": 71928,
+   "first_number": 71696,
+   "last_number": 71936,
    "ayah_count": {
     "hafs": 18,
     "shubah": 18,
@@ -1324,7 +2139,16 @@
     "qalun": 18,
     "duri": 18,
     "susi": 18,
-    "bazzi": 18
+    "bazzi": 18,
+    "hisham": 18,
+    "khalaf": 18,
+    "khallad": 18,
+    "abu-al-harith": 18,
+    "ibn-wardan": 18,
+    "ibn-jammaz": 18,
+    "ruways": 18,
+    "rawh": 18,
+    "ishaq": 18
    }
   },
   {
@@ -1333,8 +2157,8 @@
    "name_en": "Aṭ-Ṭalāq",
    "revelation": "madani",
    "word_count": 287,
-   "first_number": 71929,
-   "last_number": 72215,
+   "first_number": 71937,
+   "last_number": 72223,
    "ayah_count": {
     "hafs": 12,
     "shubah": 12,
@@ -1342,7 +2166,16 @@
     "qalun": 12,
     "duri": 12,
     "susi": 12,
-    "bazzi": 12
+    "bazzi": 12,
+    "hisham": 12,
+    "khalaf": 12,
+    "khallad": 12,
+    "abu-al-harith": 12,
+    "ibn-wardan": 12,
+    "ibn-jammaz": 12,
+    "ruways": 11,
+    "rawh": 11,
+    "ishaq": 12
    }
   },
   {
@@ -1351,8 +2184,8 @@
    "name_en": "At-Taḥrīm",
    "revelation": "madani",
    "word_count": 249,
-   "first_number": 72216,
-   "last_number": 72464,
+   "first_number": 72224,
+   "last_number": 72472,
    "ayah_count": {
     "hafs": 12,
     "shubah": 12,
@@ -1360,7 +2193,16 @@
     "qalun": 12,
     "duri": 12,
     "susi": 12,
-    "bazzi": 12
+    "bazzi": 12,
+    "hisham": 12,
+    "khalaf": 12,
+    "khallad": 12,
+    "abu-al-harith": 12,
+    "ibn-wardan": 12,
+    "ibn-jammaz": 12,
+    "ruways": 12,
+    "rawh": 12,
+    "ishaq": 12
    }
   },
   {
@@ -1369,8 +2211,8 @@
    "name_en": "Al-Mulk",
    "revelation": "makki",
    "word_count": 333,
-   "first_number": 72465,
-   "last_number": 72797,
+   "first_number": 72473,
+   "last_number": 72805,
    "ayah_count": {
     "hafs": 30,
     "shubah": 30,
@@ -1378,7 +2220,16 @@
     "qalun": 31,
     "duri": 30,
     "susi": 31,
-    "bazzi": 31
+    "bazzi": 31,
+    "hisham": 30,
+    "khalaf": 30,
+    "khallad": 30,
+    "abu-al-harith": 30,
+    "ibn-wardan": 30,
+    "ibn-jammaz": 30,
+    "ruways": 30,
+    "rawh": 30,
+    "ishaq": 30
    }
   },
   {
@@ -1387,8 +2238,8 @@
    "name_en": "Al-Qalam",
    "revelation": "makki",
    "word_count": 300,
-   "first_number": 72798,
-   "last_number": 73097,
+   "first_number": 72806,
+   "last_number": 73105,
    "ayah_count": {
     "hafs": 52,
     "shubah": 52,
@@ -1396,7 +2247,16 @@
     "qalun": 52,
     "duri": 52,
     "susi": 52,
-    "bazzi": 52
+    "bazzi": 52,
+    "hisham": 52,
+    "khalaf": 52,
+    "khallad": 52,
+    "abu-al-harith": 52,
+    "ibn-wardan": 52,
+    "ibn-jammaz": 52,
+    "ruways": 52,
+    "rawh": 52,
+    "ishaq": 52
    }
   },
   {
@@ -1405,8 +2265,8 @@
    "name_en": "Al-Ḥāqqah",
    "revelation": "makki",
    "word_count": 258,
-   "first_number": 73098,
-   "last_number": 73355,
+   "first_number": 73106,
+   "last_number": 73363,
    "ayah_count": {
     "hafs": 52,
     "shubah": 52,
@@ -1414,7 +2274,16 @@
     "qalun": 52,
     "duri": 52,
     "susi": 52,
-    "bazzi": 52
+    "bazzi": 52,
+    "hisham": 51,
+    "khalaf": 52,
+    "khallad": 52,
+    "abu-al-harith": 52,
+    "ibn-wardan": 52,
+    "ibn-jammaz": 52,
+    "ruways": 51,
+    "rawh": 51,
+    "ishaq": 52
    }
   },
   {
@@ -1423,8 +2292,8 @@
    "name_en": "Al-Ma‘ārij",
    "revelation": "makki",
    "word_count": 217,
-   "first_number": 73356,
-   "last_number": 73572,
+   "first_number": 73364,
+   "last_number": 73580,
    "ayah_count": {
     "hafs": 44,
     "shubah": 44,
@@ -1432,7 +2301,16 @@
     "qalun": 44,
     "duri": 44,
     "susi": 44,
-    "bazzi": 44
+    "bazzi": 44,
+    "hisham": 43,
+    "khalaf": 44,
+    "khallad": 44,
+    "abu-al-harith": 44,
+    "ibn-wardan": 44,
+    "ibn-jammaz": 44,
+    "ruways": 44,
+    "rawh": 44,
+    "ishaq": 44
    }
   },
   {
@@ -1441,8 +2319,8 @@
    "name_en": "Nūḥ",
    "revelation": "makki",
    "word_count": 226,
-   "first_number": 73573,
-   "last_number": 73798,
+   "first_number": 73581,
+   "last_number": 73806,
    "ayah_count": {
     "hafs": 28,
     "shubah": 28,
@@ -1450,7 +2328,16 @@
     "qalun": 30,
     "duri": 30,
     "susi": 30,
-    "bazzi": 30
+    "bazzi": 30,
+    "hisham": 29,
+    "khalaf": 28,
+    "khallad": 28,
+    "abu-al-harith": 28,
+    "ibn-wardan": 30,
+    "ibn-jammaz": 30,
+    "ruways": 29,
+    "rawh": 29,
+    "ishaq": 28
    }
   },
   {
@@ -1459,8 +2346,8 @@
    "name_en": "Al-Jinn",
    "revelation": "makki",
    "word_count": 286,
-   "first_number": 73799,
-   "last_number": 74084,
+   "first_number": 73807,
+   "last_number": 74092,
    "ayah_count": {
     "hafs": 28,
     "shubah": 28,
@@ -1468,7 +2355,16 @@
     "qalun": 28,
     "duri": 28,
     "susi": 28,
-    "bazzi": 28
+    "bazzi": 28,
+    "hisham": 28,
+    "khalaf": 28,
+    "khallad": 28,
+    "abu-al-harith": 28,
+    "ibn-wardan": 28,
+    "ibn-jammaz": 28,
+    "ruways": 28,
+    "rawh": 28,
+    "ishaq": 28
    }
   },
   {
@@ -1477,8 +2373,8 @@
    "name_en": "Al-Muzzammil",
    "revelation": "makki",
    "word_count": 199,
-   "first_number": 74085,
-   "last_number": 74283,
+   "first_number": 74093,
+   "last_number": 74291,
    "ayah_count": {
     "hafs": 20,
     "shubah": 20,
@@ -1486,7 +2382,16 @@
     "qalun": 18,
     "duri": 20,
     "susi": 20,
-    "bazzi": 20
+    "bazzi": 20,
+    "hisham": 20,
+    "khalaf": 20,
+    "khallad": 20,
+    "abu-al-harith": 20,
+    "ibn-wardan": 20,
+    "ibn-jammaz": 20,
+    "ruways": 19,
+    "rawh": 19,
+    "ishaq": 20
    }
   },
   {
@@ -1495,8 +2400,8 @@
    "name_en": "Al-Muddaththir",
    "revelation": "makki",
    "word_count": 255,
-   "first_number": 74284,
-   "last_number": 74538,
+   "first_number": 74292,
+   "last_number": 74546,
    "ayah_count": {
     "hafs": 56,
     "shubah": 56,
@@ -1504,7 +2409,16 @@
     "qalun": 55,
     "duri": 56,
     "susi": 56,
-    "bazzi": 55
+    "bazzi": 55,
+    "hisham": 55,
+    "khalaf": 56,
+    "khallad": 56,
+    "abu-al-harith": 56,
+    "ibn-wardan": 56,
+    "ibn-jammaz": 56,
+    "ruways": 56,
+    "rawh": 56,
+    "ishaq": 56
    }
   },
   {
@@ -1513,8 +2427,8 @@
    "name_en": "Al-Qiyāmah",
    "revelation": "makki",
    "word_count": 164,
-   "first_number": 74539,
-   "last_number": 74702,
+   "first_number": 74547,
+   "last_number": 74710,
    "ayah_count": {
     "hafs": 40,
     "shubah": 40,
@@ -1522,7 +2436,16 @@
     "qalun": 39,
     "duri": 39,
     "susi": 39,
-    "bazzi": 39
+    "bazzi": 39,
+    "hisham": 39,
+    "khalaf": 40,
+    "khallad": 40,
+    "abu-al-harith": 40,
+    "ibn-wardan": 39,
+    "ibn-jammaz": 39,
+    "ruways": 39,
+    "rawh": 39,
+    "ishaq": 40
    }
   },
   {
@@ -1531,8 +2454,8 @@
    "name_en": "Al-Insān",
    "revelation": "makki",
    "word_count": 243,
-   "first_number": 74703,
-   "last_number": 74945,
+   "first_number": 74711,
+   "last_number": 74953,
    "ayah_count": {
     "hafs": 31,
     "shubah": 31,
@@ -1540,7 +2463,16 @@
     "qalun": 31,
     "duri": 31,
     "susi": 31,
-    "bazzi": 31
+    "bazzi": 31,
+    "hisham": 31,
+    "khalaf": 31,
+    "khallad": 31,
+    "abu-al-harith": 31,
+    "ibn-wardan": 31,
+    "ibn-jammaz": 31,
+    "ruways": 31,
+    "rawh": 31,
+    "ishaq": 31
    }
   },
   {
@@ -1549,8 +2481,8 @@
    "name_en": "Al-Mursalāt",
    "revelation": "makki",
    "word_count": 181,
-   "first_number": 74946,
-   "last_number": 75126,
+   "first_number": 74954,
+   "last_number": 75134,
    "ayah_count": {
     "hafs": 50,
     "shubah": 50,
@@ -1558,7 +2490,16 @@
     "qalun": 50,
     "duri": 50,
     "susi": 50,
-    "bazzi": 50
+    "bazzi": 50,
+    "hisham": 50,
+    "khalaf": 50,
+    "khallad": 50,
+    "abu-al-harith": 50,
+    "ibn-wardan": 50,
+    "ibn-jammaz": 50,
+    "ruways": 50,
+    "rawh": 50,
+    "ishaq": 50
    }
   },
   {
@@ -1567,8 +2508,8 @@
    "name_en": "An-Naba’",
    "revelation": "makki",
    "word_count": 173,
-   "first_number": 75127,
-   "last_number": 75299,
+   "first_number": 75135,
+   "last_number": 75307,
    "ayah_count": {
     "hafs": 40,
     "shubah": 40,
@@ -1576,7 +2517,16 @@
     "qalun": 40,
     "duri": 40,
     "susi": 40,
-    "bazzi": 41
+    "bazzi": 41,
+    "hisham": 40,
+    "khalaf": 40,
+    "khallad": 40,
+    "abu-al-harith": 40,
+    "ibn-wardan": 40,
+    "ibn-jammaz": 40,
+    "ruways": 41,
+    "rawh": 41,
+    "ishaq": 40
    }
   },
   {
@@ -1585,8 +2535,8 @@
    "name_en": "An-Nāzi‘āt",
    "revelation": "makki",
    "word_count": 179,
-   "first_number": 75300,
-   "last_number": 75478,
+   "first_number": 75308,
+   "last_number": 75486,
    "ayah_count": {
     "hafs": 46,
     "shubah": 46,
@@ -1594,7 +2544,16 @@
     "qalun": 45,
     "duri": 45,
     "susi": 45,
-    "bazzi": 45
+    "bazzi": 45,
+    "hisham": 45,
+    "khalaf": 46,
+    "khallad": 46,
+    "abu-al-harith": 46,
+    "ibn-wardan": 45,
+    "ibn-jammaz": 45,
+    "ruways": 45,
+    "rawh": 45,
+    "ishaq": 46
    }
   },
   {
@@ -1603,8 +2562,8 @@
    "name_en": "‘Abasa",
    "revelation": "makki",
    "word_count": 133,
-   "first_number": 75479,
-   "last_number": 75611,
+   "first_number": 75487,
+   "last_number": 75619,
    "ayah_count": {
     "hafs": 42,
     "shubah": 42,
@@ -1612,7 +2571,16 @@
     "qalun": 42,
     "duri": 42,
     "susi": 42,
-    "bazzi": 42
+    "bazzi": 42,
+    "hisham": 40,
+    "khalaf": 42,
+    "khallad": 42,
+    "abu-al-harith": 42,
+    "ibn-wardan": 41,
+    "ibn-jammaz": 41,
+    "ruways": 41,
+    "rawh": 41,
+    "ishaq": 42
    }
   },
   {
@@ -1621,8 +2589,8 @@
    "name_en": "At-Takwīr",
    "revelation": "makki",
    "word_count": 104,
-   "first_number": 75612,
-   "last_number": 75715,
+   "first_number": 75620,
+   "last_number": 75723,
    "ayah_count": {
     "hafs": 29,
     "shubah": 29,
@@ -1630,7 +2598,16 @@
     "qalun": 29,
     "duri": 29,
     "susi": 29,
-    "bazzi": 29
+    "bazzi": 29,
+    "hisham": 29,
+    "khalaf": 29,
+    "khallad": 29,
+    "abu-al-harith": 29,
+    "ibn-wardan": 28,
+    "ibn-jammaz": 28,
+    "ruways": 29,
+    "rawh": 29,
+    "ishaq": 29
    }
   },
   {
@@ -1639,8 +2616,8 @@
    "name_en": "Al-Infiṭār",
    "revelation": "makki",
    "word_count": 80,
-   "first_number": 75716,
-   "last_number": 75795,
+   "first_number": 75724,
+   "last_number": 75803,
    "ayah_count": {
     "hafs": 19,
     "shubah": 19,
@@ -1648,7 +2625,16 @@
     "qalun": 19,
     "duri": 19,
     "susi": 19,
-    "bazzi": 19
+    "bazzi": 19,
+    "hisham": 19,
+    "khalaf": 19,
+    "khallad": 19,
+    "abu-al-harith": 19,
+    "ibn-wardan": 19,
+    "ibn-jammaz": 19,
+    "ruways": 19,
+    "rawh": 19,
+    "ishaq": 19
    }
   },
   {
@@ -1657,8 +2643,8 @@
    "name_en": "Al-Muṭaffifīn",
    "revelation": "makki",
    "word_count": 169,
-   "first_number": 75796,
-   "last_number": 75964,
+   "first_number": 75804,
+   "last_number": 75972,
    "ayah_count": {
     "hafs": 36,
     "shubah": 36,
@@ -1666,7 +2652,16 @@
     "qalun": 36,
     "duri": 36,
     "susi": 36,
-    "bazzi": 36
+    "bazzi": 36,
+    "hisham": 36,
+    "khalaf": 36,
+    "khallad": 36,
+    "abu-al-harith": 36,
+    "ibn-wardan": 36,
+    "ibn-jammaz": 36,
+    "ruways": 36,
+    "rawh": 36,
+    "ishaq": 36
    }
   },
   {
@@ -1675,8 +2670,8 @@
    "name_en": "Al-Inshiqāq",
    "revelation": "makki",
    "word_count": 107,
-   "first_number": 75965,
-   "last_number": 76071,
+   "first_number": 75973,
+   "last_number": 76079,
    "ayah_count": {
     "hafs": 25,
     "shubah": 25,
@@ -1684,7 +2679,16 @@
     "qalun": 25,
     "duri": 25,
     "susi": 25,
-    "bazzi": 25
+    "bazzi": 25,
+    "hisham": 23,
+    "khalaf": 25,
+    "khallad": 25,
+    "abu-al-harith": 25,
+    "ibn-wardan": 25,
+    "ibn-jammaz": 25,
+    "ruways": 23,
+    "rawh": 25,
+    "ishaq": 25
    }
   },
   {
@@ -1693,8 +2697,8 @@
    "name_en": "Al-Burūj",
    "revelation": "makki",
    "word_count": 109,
-   "first_number": 76072,
-   "last_number": 76180,
+   "first_number": 76080,
+   "last_number": 76188,
    "ayah_count": {
     "hafs": 22,
     "shubah": 22,
@@ -1702,7 +2706,16 @@
     "qalun": 22,
     "duri": 22,
     "susi": 22,
-    "bazzi": 22
+    "bazzi": 22,
+    "hisham": 22,
+    "khalaf": 22,
+    "khallad": 22,
+    "abu-al-harith": 22,
+    "ibn-wardan": 22,
+    "ibn-jammaz": 22,
+    "ruways": 22,
+    "rawh": 22,
+    "ishaq": 22
    }
   },
   {
@@ -1711,8 +2724,8 @@
    "name_en": "Aṭ-Ṭāriq",
    "revelation": "makki",
    "word_count": 61,
-   "first_number": 76181,
-   "last_number": 76241,
+   "first_number": 76189,
+   "last_number": 76249,
    "ayah_count": {
     "hafs": 17,
     "shubah": 17,
@@ -1720,7 +2733,16 @@
     "qalun": 17,
     "duri": 16,
     "susi": 16,
-    "bazzi": 17
+    "bazzi": 17,
+    "hisham": 17,
+    "khalaf": 17,
+    "khallad": 17,
+    "abu-al-harith": 17,
+    "ibn-wardan": 16,
+    "ibn-jammaz": 16,
+    "ruways": 17,
+    "rawh": 17,
+    "ishaq": 17
    }
   },
   {
@@ -1729,8 +2751,8 @@
    "name_en": "Al-A‘lā",
    "revelation": "makki",
    "word_count": 72,
-   "first_number": 76242,
-   "last_number": 76313,
+   "first_number": 76250,
+   "last_number": 76321,
    "ayah_count": {
     "hafs": 19,
     "shubah": 19,
@@ -1738,7 +2760,16 @@
     "qalun": 19,
     "duri": 19,
     "susi": 19,
-    "bazzi": 19
+    "bazzi": 19,
+    "hisham": 19,
+    "khalaf": 19,
+    "khallad": 19,
+    "abu-al-harith": 19,
+    "ibn-wardan": 19,
+    "ibn-jammaz": 19,
+    "ruways": 19,
+    "rawh": 19,
+    "ishaq": 19
    }
   },
   {
@@ -1747,8 +2778,8 @@
    "name_en": "Al-Ghāshiyah",
    "revelation": "makki",
    "word_count": 92,
-   "first_number": 76314,
-   "last_number": 76405,
+   "first_number": 76322,
+   "last_number": 76413,
    "ayah_count": {
     "hafs": 26,
     "shubah": 26,
@@ -1756,7 +2787,16 @@
     "qalun": 26,
     "duri": 26,
     "susi": 26,
-    "bazzi": 26
+    "bazzi": 26,
+    "hisham": 26,
+    "khalaf": 26,
+    "khallad": 26,
+    "abu-al-harith": 26,
+    "ibn-wardan": 26,
+    "ibn-jammaz": 26,
+    "ruways": 26,
+    "rawh": 26,
+    "ishaq": 26
    }
   },
   {
@@ -1765,8 +2805,8 @@
    "name_en": "Al-Fajr",
    "revelation": "makki",
    "word_count": 137,
-   "first_number": 76406,
-   "last_number": 76542,
+   "first_number": 76414,
+   "last_number": 76550,
    "ayah_count": {
     "hafs": 30,
     "shubah": 30,
@@ -1774,7 +2814,16 @@
     "qalun": 32,
     "duri": 32,
     "susi": 32,
-    "bazzi": 32
+    "bazzi": 32,
+    "hisham": 30,
+    "khalaf": 30,
+    "khallad": 30,
+    "abu-al-harith": 30,
+    "ibn-wardan": 32,
+    "ibn-jammaz": 32,
+    "ruways": 29,
+    "rawh": 29,
+    "ishaq": 30
    }
   },
   {
@@ -1783,8 +2832,8 @@
    "name_en": "Al-Balad",
    "revelation": "makki",
    "word_count": 82,
-   "first_number": 76543,
-   "last_number": 76624,
+   "first_number": 76551,
+   "last_number": 76632,
    "ayah_count": {
     "hafs": 20,
     "shubah": 20,
@@ -1792,7 +2841,16 @@
     "qalun": 20,
     "duri": 20,
     "susi": 20,
-    "bazzi": 20
+    "bazzi": 20,
+    "hisham": 20,
+    "khalaf": 20,
+    "khallad": 20,
+    "abu-al-harith": 20,
+    "ibn-wardan": 20,
+    "ibn-jammaz": 20,
+    "ruways": 20,
+    "rawh": 20,
+    "ishaq": 20
    }
   },
   {
@@ -1801,8 +2859,8 @@
    "name_en": "Ash-Shams",
    "revelation": "makki",
    "word_count": 54,
-   "first_number": 76625,
-   "last_number": 76678,
+   "first_number": 76633,
+   "last_number": 76686,
    "ayah_count": {
     "hafs": 15,
     "shubah": 15,
@@ -1810,7 +2868,16 @@
     "qalun": 15,
     "duri": 16,
     "susi": 16,
-    "bazzi": 15
+    "bazzi": 15,
+    "hisham": 15,
+    "khalaf": 15,
+    "khallad": 15,
+    "abu-al-harith": 15,
+    "ibn-wardan": 16,
+    "ibn-jammaz": 16,
+    "ruways": 15,
+    "rawh": 15,
+    "ishaq": 15
    }
   },
   {
@@ -1819,8 +2886,8 @@
    "name_en": "Al-Lail",
    "revelation": "makki",
    "word_count": 71,
-   "first_number": 76679,
-   "last_number": 76749,
+   "first_number": 76687,
+   "last_number": 76757,
    "ayah_count": {
     "hafs": 21,
     "shubah": 21,
@@ -1828,7 +2895,16 @@
     "qalun": 21,
     "duri": 21,
     "susi": 21,
-    "bazzi": 21
+    "bazzi": 21,
+    "hisham": 21,
+    "khalaf": 21,
+    "khallad": 21,
+    "abu-al-harith": 21,
+    "ibn-wardan": 21,
+    "ibn-jammaz": 21,
+    "ruways": 21,
+    "rawh": 21,
+    "ishaq": 21
    }
   },
   {
@@ -1837,8 +2913,8 @@
    "name_en": "Aḍ-Ḍuḥā",
    "revelation": "makki",
    "word_count": 40,
-   "first_number": 76750,
-   "last_number": 76789,
+   "first_number": 76758,
+   "last_number": 76797,
    "ayah_count": {
     "hafs": 11,
     "shubah": 11,
@@ -1846,7 +2922,16 @@
     "qalun": 11,
     "duri": 11,
     "susi": 11,
-    "bazzi": 11
+    "bazzi": 11,
+    "hisham": 11,
+    "khalaf": 11,
+    "khallad": 11,
+    "abu-al-harith": 11,
+    "ibn-wardan": 11,
+    "ibn-jammaz": 11,
+    "ruways": 11,
+    "rawh": 11,
+    "ishaq": 11
    }
   },
   {
@@ -1855,8 +2940,8 @@
    "name_en": "Ash-Sharḥ",
    "revelation": "makki",
    "word_count": 27,
-   "first_number": 76790,
-   "last_number": 76816,
+   "first_number": 76798,
+   "last_number": 76824,
    "ayah_count": {
     "hafs": 8,
     "shubah": 8,
@@ -1864,7 +2949,16 @@
     "qalun": 8,
     "duri": 8,
     "susi": 8,
-    "bazzi": 8
+    "bazzi": 8,
+    "hisham": 8,
+    "khalaf": 8,
+    "khallad": 8,
+    "abu-al-harith": 8,
+    "ibn-wardan": 8,
+    "ibn-jammaz": 8,
+    "ruways": 8,
+    "rawh": 8,
+    "ishaq": 8
    }
   },
   {
@@ -1873,8 +2967,8 @@
    "name_en": "At-Tīn",
    "revelation": "makki",
    "word_count": 34,
-   "first_number": 76817,
-   "last_number": 76850,
+   "first_number": 76825,
+   "last_number": 76858,
    "ayah_count": {
     "hafs": 8,
     "shubah": 8,
@@ -1882,7 +2976,16 @@
     "qalun": 8,
     "duri": 8,
     "susi": 8,
-    "bazzi": 8
+    "bazzi": 8,
+    "hisham": 8,
+    "khalaf": 8,
+    "khallad": 8,
+    "abu-al-harith": 8,
+    "ibn-wardan": 8,
+    "ibn-jammaz": 8,
+    "ruways": 8,
+    "rawh": 8,
+    "ishaq": 8
    }
   },
   {
@@ -1891,8 +2994,8 @@
    "name_en": "Al-‘Alaq",
    "revelation": "makki",
    "word_count": 72,
-   "first_number": 76851,
-   "last_number": 76922,
+   "first_number": 76859,
+   "last_number": 76930,
    "ayah_count": {
     "hafs": 19,
     "shubah": 19,
@@ -1900,7 +3003,16 @@
     "qalun": 20,
     "duri": 20,
     "susi": 20,
-    "bazzi": 20
+    "bazzi": 20,
+    "hisham": 18,
+    "khalaf": 19,
+    "khallad": 19,
+    "abu-al-harith": 19,
+    "ibn-wardan": 20,
+    "ibn-jammaz": 20,
+    "ruways": 19,
+    "rawh": 19,
+    "ishaq": 19
    }
   },
   {
@@ -1909,8 +3021,8 @@
    "name_en": "Al-Qadr",
    "revelation": "makki",
    "word_count": 30,
-   "first_number": 76923,
-   "last_number": 76952,
+   "first_number": 76931,
+   "last_number": 76960,
    "ayah_count": {
     "hafs": 5,
     "shubah": 5,
@@ -1918,7 +3030,16 @@
     "qalun": 5,
     "duri": 5,
     "susi": 5,
-    "bazzi": 6
+    "bazzi": 6,
+    "hisham": 6,
+    "khalaf": 5,
+    "khallad": 5,
+    "abu-al-harith": 5,
+    "ibn-wardan": 5,
+    "ibn-jammaz": 5,
+    "ruways": 5,
+    "rawh": 5,
+    "ishaq": 5
    }
   },
   {
@@ -1927,8 +3048,8 @@
    "name_en": "Al-Bayyinah",
    "revelation": "madani",
    "word_count": 94,
-   "first_number": 76953,
-   "last_number": 77046,
+   "first_number": 76961,
+   "last_number": 77054,
    "ayah_count": {
     "hafs": 8,
     "shubah": 8,
@@ -1936,7 +3057,16 @@
     "qalun": 8,
     "duri": 8,
     "susi": 8,
-    "bazzi": 8
+    "bazzi": 8,
+    "hisham": 9,
+    "khalaf": 8,
+    "khallad": 8,
+    "abu-al-harith": 8,
+    "ibn-wardan": 8,
+    "ibn-jammaz": 8,
+    "ruways": 9,
+    "rawh": 9,
+    "ishaq": 8
    }
   },
   {
@@ -1945,8 +3075,8 @@
    "name_en": "Az-Zalzalah",
    "revelation": "madani",
    "word_count": 36,
-   "first_number": 77047,
-   "last_number": 77082,
+   "first_number": 77055,
+   "last_number": 77090,
    "ayah_count": {
     "hafs": 8,
     "shubah": 8,
@@ -1954,7 +3084,16 @@
     "qalun": 9,
     "duri": 8,
     "susi": 8,
-    "bazzi": 9
+    "bazzi": 9,
+    "hisham": 9,
+    "khalaf": 8,
+    "khallad": 8,
+    "abu-al-harith": 8,
+    "ibn-wardan": 8,
+    "ibn-jammaz": 8,
+    "ruways": 9,
+    "rawh": 9,
+    "ishaq": 8
    }
   },
   {
@@ -1963,8 +3102,8 @@
    "name_en": "Al-‘Ādiyāt",
    "revelation": "makki",
    "word_count": 40,
-   "first_number": 77083,
-   "last_number": 77122,
+   "first_number": 77091,
+   "last_number": 77130,
    "ayah_count": {
     "hafs": 11,
     "shubah": 11,
@@ -1972,7 +3111,16 @@
     "qalun": 11,
     "duri": 11,
     "susi": 11,
-    "bazzi": 11
+    "bazzi": 11,
+    "hisham": 11,
+    "khalaf": 11,
+    "khallad": 11,
+    "abu-al-harith": 11,
+    "ibn-wardan": 11,
+    "ibn-jammaz": 11,
+    "ruways": 11,
+    "rawh": 11,
+    "ishaq": 11
    }
   },
   {
@@ -1981,8 +3129,8 @@
    "name_en": "Al-Qāri‘ah",
    "revelation": "makki",
    "word_count": 36,
-   "first_number": 77123,
-   "last_number": 77158,
+   "first_number": 77131,
+   "last_number": 77166,
    "ayah_count": {
     "hafs": 11,
     "shubah": 11,
@@ -1990,7 +3138,16 @@
     "qalun": 10,
     "duri": 10,
     "susi": 10,
-    "bazzi": 10
+    "bazzi": 10,
+    "hisham": 8,
+    "khalaf": 11,
+    "khallad": 11,
+    "abu-al-harith": 11,
+    "ibn-wardan": 10,
+    "ibn-jammaz": 10,
+    "ruways": 8,
+    "rawh": 8,
+    "ishaq": 11
    }
   },
   {
@@ -1999,8 +3156,8 @@
    "name_en": "At-Takāthur",
    "revelation": "makki",
    "word_count": 28,
-   "first_number": 77159,
-   "last_number": 77186,
+   "first_number": 77167,
+   "last_number": 77194,
    "ayah_count": {
     "hafs": 8,
     "shubah": 8,
@@ -2008,7 +3165,16 @@
     "qalun": 8,
     "duri": 8,
     "susi": 8,
-    "bazzi": 8
+    "bazzi": 8,
+    "hisham": 8,
+    "khalaf": 8,
+    "khallad": 8,
+    "abu-al-harith": 8,
+    "ibn-wardan": 8,
+    "ibn-jammaz": 8,
+    "ruways": 8,
+    "rawh": 8,
+    "ishaq": 8
    }
   },
   {
@@ -2017,8 +3183,8 @@
    "name_en": "Al-‘Aṣr",
    "revelation": "makki",
    "word_count": 14,
-   "first_number": 77187,
-   "last_number": 77200,
+   "first_number": 77195,
+   "last_number": 77208,
    "ayah_count": {
     "hafs": 3,
     "shubah": 3,
@@ -2026,7 +3192,16 @@
     "qalun": 3,
     "duri": 3,
     "susi": 3,
-    "bazzi": 3
+    "bazzi": 3,
+    "hisham": 3,
+    "khalaf": 3,
+    "khallad": 3,
+    "abu-al-harith": 3,
+    "ibn-wardan": 3,
+    "ibn-jammaz": 3,
+    "ruways": 3,
+    "rawh": 3,
+    "ishaq": 3
    }
   },
   {
@@ -2035,8 +3210,8 @@
    "name_en": "Al-Humazah",
    "revelation": "makki",
    "word_count": 33,
-   "first_number": 77201,
-   "last_number": 77233,
+   "first_number": 77209,
+   "last_number": 77241,
    "ayah_count": {
     "hafs": 9,
     "shubah": 9,
@@ -2044,7 +3219,16 @@
     "qalun": 9,
     "duri": 9,
     "susi": 9,
-    "bazzi": 9
+    "bazzi": 9,
+    "hisham": 9,
+    "khalaf": 9,
+    "khallad": 9,
+    "abu-al-harith": 9,
+    "ibn-wardan": 9,
+    "ibn-jammaz": 9,
+    "ruways": 9,
+    "rawh": 9,
+    "ishaq": 9
    }
   },
   {
@@ -2053,8 +3237,8 @@
    "name_en": "Al-Fīl",
    "revelation": "makki",
    "word_count": 23,
-   "first_number": 77234,
-   "last_number": 77256,
+   "first_number": 77242,
+   "last_number": 77264,
    "ayah_count": {
     "hafs": 5,
     "shubah": 5,
@@ -2062,7 +3246,16 @@
     "qalun": 5,
     "duri": 5,
     "susi": 5,
-    "bazzi": 5
+    "bazzi": 5,
+    "hisham": 5,
+    "khalaf": 5,
+    "khallad": 5,
+    "abu-al-harith": 5,
+    "ibn-wardan": 5,
+    "ibn-jammaz": 5,
+    "ruways": 5,
+    "rawh": 5,
+    "ishaq": 5
    }
   },
   {
@@ -2071,8 +3264,8 @@
    "name_en": "Quraish",
    "revelation": "makki",
    "word_count": 17,
-   "first_number": 77257,
-   "last_number": 77273,
+   "first_number": 77265,
+   "last_number": 77281,
    "ayah_count": {
     "hafs": 4,
     "shubah": 4,
@@ -2080,7 +3273,16 @@
     "qalun": 5,
     "duri": 5,
     "susi": 5,
-    "bazzi": 5
+    "bazzi": 5,
+    "hisham": 4,
+    "khalaf": 4,
+    "khallad": 4,
+    "abu-al-harith": 4,
+    "ibn-wardan": 5,
+    "ibn-jammaz": 5,
+    "ruways": 4,
+    "rawh": 4,
+    "ishaq": 4
    }
   },
   {
@@ -2089,8 +3291,8 @@
    "name_en": "Al-Mā‘ūn",
    "revelation": "makki",
    "word_count": 25,
-   "first_number": 77274,
-   "last_number": 77298,
+   "first_number": 77282,
+   "last_number": 77306,
    "ayah_count": {
     "hafs": 7,
     "shubah": 7,
@@ -2098,7 +3300,16 @@
     "qalun": 6,
     "duri": 6,
     "susi": 6,
-    "bazzi": 6
+    "bazzi": 6,
+    "hisham": 6,
+    "khalaf": 7,
+    "khallad": 7,
+    "abu-al-harith": 7,
+    "ibn-wardan": 6,
+    "ibn-jammaz": 6,
+    "ruways": 7,
+    "rawh": 7,
+    "ishaq": 7
    }
   },
   {
@@ -2107,8 +3318,8 @@
    "name_en": "Al-Kauthar",
    "revelation": "makki",
    "word_count": 10,
-   "first_number": 77299,
-   "last_number": 77308,
+   "first_number": 77307,
+   "last_number": 77316,
    "ayah_count": {
     "hafs": 3,
     "shubah": 3,
@@ -2116,7 +3327,16 @@
     "qalun": 3,
     "duri": 3,
     "susi": 3,
-    "bazzi": 3
+    "bazzi": 3,
+    "hisham": 3,
+    "khalaf": 3,
+    "khallad": 3,
+    "abu-al-harith": 3,
+    "ibn-wardan": 3,
+    "ibn-jammaz": 3,
+    "ruways": 3,
+    "rawh": 3,
+    "ishaq": 3
    }
   },
   {
@@ -2125,8 +3345,8 @@
    "name_en": "Al-Kāfirūn",
    "revelation": "makki",
    "word_count": 26,
-   "first_number": 77309,
-   "last_number": 77334,
+   "first_number": 77317,
+   "last_number": 77342,
    "ayah_count": {
     "hafs": 6,
     "shubah": 6,
@@ -2134,7 +3354,16 @@
     "qalun": 6,
     "duri": 6,
     "susi": 6,
-    "bazzi": 6
+    "bazzi": 6,
+    "hisham": 6,
+    "khalaf": 6,
+    "khallad": 6,
+    "abu-al-harith": 6,
+    "ibn-wardan": 6,
+    "ibn-jammaz": 6,
+    "ruways": 6,
+    "rawh": 6,
+    "ishaq": 6
    }
   },
   {
@@ -2143,8 +3372,8 @@
    "name_en": "An-Naṣr",
    "revelation": "madani",
    "word_count": 19,
-   "first_number": 77335,
-   "last_number": 77353,
+   "first_number": 77343,
+   "last_number": 77361,
    "ayah_count": {
     "hafs": 3,
     "shubah": 3,
@@ -2152,7 +3381,16 @@
     "qalun": 3,
     "duri": 3,
     "susi": 3,
-    "bazzi": 3
+    "bazzi": 3,
+    "hisham": 3,
+    "khalaf": 3,
+    "khallad": 3,
+    "abu-al-harith": 3,
+    "ibn-wardan": 3,
+    "ibn-jammaz": 3,
+    "ruways": 3,
+    "rawh": 3,
+    "ishaq": 3
    }
   },
   {
@@ -2161,8 +3399,8 @@
    "name_en": "Al-Masad",
    "revelation": "makki",
    "word_count": 23,
-   "first_number": 77354,
-   "last_number": 77376,
+   "first_number": 77362,
+   "last_number": 77384,
    "ayah_count": {
     "hafs": 5,
     "shubah": 5,
@@ -2170,7 +3408,16 @@
     "qalun": 5,
     "duri": 5,
     "susi": 5,
-    "bazzi": 5
+    "bazzi": 5,
+    "hisham": 5,
+    "khalaf": 5,
+    "khallad": 5,
+    "abu-al-harith": 5,
+    "ibn-wardan": 5,
+    "ibn-jammaz": 5,
+    "ruways": 5,
+    "rawh": 5,
+    "ishaq": 5
    }
   },
   {
@@ -2179,8 +3426,8 @@
    "name_en": "Al-Ikhlāṣ",
    "revelation": "makki",
    "word_count": 15,
-   "first_number": 77377,
-   "last_number": 77391,
+   "first_number": 77385,
+   "last_number": 77399,
    "ayah_count": {
     "hafs": 4,
     "shubah": 4,
@@ -2188,7 +3435,16 @@
     "qalun": 4,
     "duri": 4,
     "susi": 4,
-    "bazzi": 5
+    "bazzi": 5,
+    "hisham": 5,
+    "khalaf": 4,
+    "khallad": 4,
+    "abu-al-harith": 4,
+    "ibn-wardan": 4,
+    "ibn-jammaz": 4,
+    "ruways": 4,
+    "rawh": 4,
+    "ishaq": 4
    }
   },
   {
@@ -2197,8 +3453,8 @@
    "name_en": "Al-Falaq",
    "revelation": "makki",
    "word_count": 23,
-   "first_number": 77392,
-   "last_number": 77414,
+   "first_number": 77400,
+   "last_number": 77422,
    "ayah_count": {
     "hafs": 5,
     "shubah": 5,
@@ -2206,7 +3462,16 @@
     "qalun": 5,
     "duri": 5,
     "susi": 5,
-    "bazzi": 5
+    "bazzi": 5,
+    "hisham": 5,
+    "khalaf": 5,
+    "khallad": 5,
+    "abu-al-harith": 5,
+    "ibn-wardan": 5,
+    "ibn-jammaz": 5,
+    "ruways": 5,
+    "rawh": 5,
+    "ishaq": 5
    }
   },
   {
@@ -2215,8 +3480,8 @@
    "name_en": "An-Nās",
    "revelation": "makki",
    "word_count": 20,
-   "first_number": 77415,
-   "last_number": 77434,
+   "first_number": 77423,
+   "last_number": 77442,
    "ayah_count": {
     "hafs": 6,
     "shubah": 6,
@@ -2224,7 +3489,16 @@
     "qalun": 6,
     "duri": 6,
     "susi": 6,
-    "bazzi": 7
+    "bazzi": 7,
+    "hisham": 7,
+    "khalaf": 6,
+    "khallad": 6,
+    "abu-al-harith": 6,
+    "ibn-wardan": 6,
+    "ibn-jammaz": 6,
+    "ruways": 6,
+    "rawh": 6,
+    "ishaq": 6
    }
   }
  ],
@@ -2281,7 +3555,7 @@
   {
    "path": "data/quran.sqlite.gz",
    "format": "sqlite",
-   "answers": "all seven muṣḥafs and the word index, queryable in SQL"
+   "answers": "every muṣḥaf and the word index, queryable in SQL"
   },
   {
    "path": "data/manifest.json",
@@ -2291,7 +3565,7 @@
   {
    "path": "data/reports/",
    "format": "markdown, csv, html",
-   "answers": "how the seven compare and how this was built, for people to read rather than to load"
+   "answers": "how the riwāyāt compare and how this was built, for people to read rather than to load"
   }
  ]
 }

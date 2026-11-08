@@ -20,12 +20,15 @@ from dataclasses import dataclass, field
 
 from .align import WRITTEN_JOINED, Column, align
 from .paths import DATA
-from .sources import Riwayah, load_all
+from .sources import TIER1, TIER2, Riwayah, load_all
 from .tokenize import Token, tokenize
 
 #: Ḥafṣ first because it is the most widely published text and the best
 #: starting point; the rest follow so that the closest relatives merge early.
-ORDER = ["hafs", "shubah", "bazzi", "qalun", "warsh", "duri", "susi"]
+#: The tier-1 (KFGQPC) muṣḥafs all precede the tier-2 ones, so a decoded text
+#: never seeds a column before a published package does.
+ORDER = ["hafs", "shubah", "bazzi", "qalun", "warsh", "duri", "susi"] + TIER2
+assert set(ORDER) == set(TIER1) | set(TIER2), "ORDER must name every registered riwāyah once"
 
 # Status of a canonical word, most specific first.
 STATUS_RASM = "rasm_variant"

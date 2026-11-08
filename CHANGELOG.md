@@ -9,6 +9,29 @@ This project has not had a tagged release yet; everything below is unreleased.
 
 ### Format
 
+- **Format 1.1: a second provenance tier, and nine more riwāyāt.** Every muṣḥaf
+  file now states `provenance.tier` (1: a KFGQPC data release, read as
+  published; 2: a document by someone else, decoded here) and
+  `provenance.authority`. Nine tier-2 muṣḥafs are added — `hisham`, `khalaf`,
+  `khallad`, `abu-al-harith`, `ibn-wardan`, `ibn-jammaz`, `ruways`, `rawh`,
+  `ishaq` — decoded from the islamweb PDFs of those riwāyāt with a
+  glyph table learned on Qālūn, Shuʿbah and Warsh (`docs/sources.md`, *Tier 2*;
+  `docs/method.md`, *Decoding*). A tier-2 file carries `provenance.decoder`
+  (the table, its checksum, its measured accuracy), `normalization.applied:
+  "decoded"`, a stand-in `font` with `guaranteed: false`, `layers.derived.text`
+  (notation, unknown glyphs, printed-number slips), and a `colors` /
+  `color_types` layer for the documents' colouring. `mushaf.key` may now
+  contain hyphens (the rāwī ids of `qiraat.json`). `data/word-index.json`
+  gains `tiers`; `data/catalog.json` gains `tier` and `authority` per riwāyah.
+  Additive for tier-1 files apart from `format_version`, `provenance.tier`,
+  `provenance.authority` and `font.guaranteed: true`. The schema is
+  `schema/mushaf-1.1.json`; `mushaf-1.0.json` is kept as published.
+  Tier 2 is never preferred over tier 1: only tier-1 editions vote on
+  counting anchors, the plene/defective ā warrant is tested on tier 1 alone,
+  and a tier-2 file's unexplained āyah ends are listed, not failed. The shared
+  numbering grows from 77,434 to 77,442 — eight words only tier-2 riwāyāt
+  read; tier-1 files are otherwise unchanged in content.
+
 - **The two counting questions are spelled the same way in both repositories,
   and a printed count names the release it was measured from.** The `counting`
   block gains `system_printed` — `system` again, under the name that says which

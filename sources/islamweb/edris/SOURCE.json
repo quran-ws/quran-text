@@ -1,0 +1,22 @@
+{
+  "slug": "edris",
+  "url": "https://dl2.islamweb.net/Audio_Path/quran_list/edris/quran.pdf",
+  "file": "quran.pdf",
+  "bytes": 8178628,
+  "sha256": "33eae11dd56cdd66ace674ca751b0c32256f58221ea0f0603aa2475a1270deb6",
+  "fetched": "2026-11-08",
+  "pdf": {
+    "format": "PDF 1.6",
+    "author": "res_hezzat",
+    "creator": "PScript5.dll Version 5.2.2",
+    "producer": "GPL Ghostscript 9.06",
+    "creationDate": "D:20170410094339+03'00'",
+    "modDate": "D:20200809130421+03'00'"
+  },
+  "extractor": {
+    "tool": "pipeline/tools/hqpb_extract.py",
+    "version": 15,
+    "pymupdf": "2.1"
+  },
+  "pages": 604
+}

@@ -223,6 +223,79 @@ apart in this order:
 The result is one `Column` per canonical word, holding at most one token from
 each riwāyah. Its position is the word's number.
 
+## 4b. Decoding (tier 2 only)
+
+The nine tier-2 riwāyāt do not arrive as text. Their documents (see
+`docs/sources.md`, *Tier 2*) are set in symbol fonts, so a word in the PDF is a
+sequence of glyph ids and the pipeline has to say, for every glyph, which
+codepoints it stands for. Three rules govern how that table was made, and they
+are what keep the method honest:
+
+1. **Nothing in the table is guessed.** Each entry comes from aligning a glyph
+   word of the document against the KFGQPC word at the same position — in the
+   Qālūn, Shuʿbah and Warsh documents, which KFGQPC also publishes. Inside
+   every āyah whose word count the two agree on, the n-th glyph word is paired
+   with the n-th KFGQPC word; glyphs already known pin the letters they stand
+   for, the letters left over go to the glyphs not yet known, and the combining
+   marks left over in each letter unit go to its unknown mark glyphs. Rounds
+   repeat until nothing new is learned. The first round, with nothing known
+   yet, is steered by the association between a glyph and the letters of the
+   words it occurs in — a statement about the corpus, not about any glyph.
+2. **Evidence is counted per distinct word, not per occurrence.** A word
+   printed three hundred times is one vote. This is what stopped frequent words
+   from "confirming" a wrong alignment by repetition, and it is why every entry
+   carries the number of distinct words that support it.
+3. **A glyph the calibration riwāyāt never print is identified the same way,
+   against the riwāyāt that do.** Abū Jaʿfar's ṣilah wāw, the imālah dot of
+   Ḥamzah's readers and the like occur in the target documents only; each word
+   containing one is paired with every KFGQPC word of the same rasm at its
+   position in the sūrah, across all seven KFGQPC texts, and the residual is
+   counted as above. Such entries are marked `method: "aligned-cross"`.
+
+4. **What alignment cannot settle is settled by shape, then by sight, and
+   both are on the record.** A glyph still unknown after step 3 is compared,
+   as a contour outline read from the embedded fonts, with every glyph the
+   table knows; an identical outline is the same design and takes its
+   reading (`method: "shape"`). What remains — some hundred and ten glyphs, most
+   with a few dozen occurrences — was read by the model from rendered crops
+   of the documents with the glyph boxed, and recorded in
+   `sources/islamweb/decoder/inspected.json` with the reader, the page and the
+   word (`method: "inspected"`). Thirteen of those are signs the crop did not
+   settle or that have no codepoint; they are entered as emitting nothing, and
+   `docs/known-issues.md` §18 lists them so that they are a known gap and not
+   a silent one. No human read any glyph.
+
+What the decoder then does is a lookup and nothing more (`qurantext/hqpb.py`):
+letters from the base glyphs, marks from the mark glyphs on each letter in the
+order the KFGQPC texts use, ligature glyphs (لله, لا, لأ) from their learned
+strings, NFC at the end. A glyph with no entry becomes U+FFFD and is counted;
+the build refuses to publish a file with any (`check_decoder`).
+
+**Notation.** The KFGQPC texts the table was learned from spell the same
+things differently between releases — the waṣl alef as U+0671 or as the
+Arabic Extended-B attached alefs, the sukūn as U+0652 or U+06E1 — so they were
+folded to one notation before learning, and the decoded text is in that
+notation: U+0671 for the waṣl alef with no vowel cue, U+0652 sukūn, the
+Unicode 9 open tanwīn, U+064A for the dotless final yāʾ, hamza seats kept.
+This is the 2022 KFGQPC notation; `layers.derived.text.notation` states it in
+every tier-2 file and the table file carries the full list.
+
+**Structure.** Āyah ends are the document's medallions, recognised by glyph
+id, and numbered by position within the sūrah; the medallion's printed number
+is compared and every disagreement listed (typists' slips, such as ٢٠ printed
+for 5:30 in the Qālūn file). Sūrahs begin at the printed header, or — the 2017
+files print none — at the basmalah ligature, or where the printed numbers
+restart at 1, 2, 3 (al-Tawbah). Lines are read, not reconstructed: each line
+is one typeset line of the document. Colours are carried per glyph and
+published per word (`colors`, `color_types`).
+
+**Measured, not asserted.** `sources/islamweb/decoder/calibration.json` holds,
+for each calibration riwāyah, the share of words whose rasm agrees with the
+KFGQPC text word for word and the share that agree exactly in the folded
+notation, plus, for each target, the number of glyph occurrences the table did
+not know. Every tier-2 file repeats the calibration figures in
+`provenance.decoder`.
+
 ## Identifiers
 
 - **`number`** — the shared number, a running integer over the whole corpus,
@@ -272,7 +345,12 @@ See `docs/format.md`, *Counting*.
 6. **Counting** — every `unexplained` point in a `counting` block is an
    acknowledged entry in `sources/counting/open-findings.json`, and every entry
    there still occurs.
-7. **Schema** — the field set of every file matches `schema/mushaf-1.0.json`.
+7. **Schema** — the field set of every file matches `schema/mushaf-1.1.json`.
+8. **Tier 2** — no tier-2 riwāyah duplicates a tier-1 one (`check_tier_precedence`);
+   no tier-2 file contains a glyph the table does not know (`check_decoder`);
+   a word the document colours as differing from Ḥafṣ does differ from Ḥafṣ
+   (`check_colors`). The round trip of `check_printed_text` runs for tier 2
+   against a fresh decoding of the stream.
 
 There is deliberately **no** check of āyah totals *per riwāyah*. An earlier
 version had one, and it was measuring an assumption: the riwāyah does not

@@ -1,0 +1,22 @@
+{
+  "slug": "qaloon",
+  "url": "https://dl2.islamweb.net/Audio_Path/quran_list/qaloon/quran.pdf",
+  "file": "quran.pdf",
+  "bytes": 5410737,
+  "sha256": "39426e403d15bc0d607ba3df5b17662556989b1404001a70c5556f483c4e2952",
+  "fetched": "2026-11-08",
+  "pdf": {
+    "format": "PDF 1.6",
+    "author": "res_hezzat",
+    "creator": "PScript5.dll Version 5.2.2",
+    "producer": "Acrobat Distiller 15.0 (Windows)",
+    "creationDate": "D:20180313103436+03'00'",
+    "modDate": "D:20190305110437+03'00'"
+  },
+  "extractor": {
+    "tool": "pipeline/tools/hqpb_extract.py",
+    "version": 15,
+    "pymupdf": "2.1"
+  },
+  "pages": 604
+}

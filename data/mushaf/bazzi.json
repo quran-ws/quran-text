@@ -1,6 +1,6 @@
 {
  "format": "quran-mushaf",
- "format_version": "1.0",
+ "format_version": "1.1",
  "generated": "2026-09-08",
  "mushaf": {
   "key": "bazzi",
@@ -31,7 +31,7 @@
     "surah": 78,
     "ayah": 40,
     "kufi": "78:40",
-    "number": 75288,
+    "number": 75296,
     "anchor": "قريبا",
     "counted": true,
     "authorities_named": false,
@@ -75,6 +75,8 @@
   "note": "words[i] and the word index's rasm_uthmani hold the release's own codepoints, unnormalised. NFC is canonically equivalent but is not what the package writes: it reorders the marks on a letter — the releases write a shaddah before its vowel, NFC after it, in 22,000 of Ḥafṣ's 84,000 tokens — and composes ا + ٓ into آ in 2,946 more. The derived forms (rasm, pointed, plain, and the search fold) are computed from the NFC form, so comparison is unaffected. For text comparison across datasets, normalize both strings to NFC before comparing."
  },
  "provenance": {
+  "tier": 1,
+  "authority": "KFGQPC",
   "text": {
    "package": "UthmanicBazzi-v-3.0.zip",
    "member": "UthmanicBazzi-v-3.0.docx",
@@ -94,6 +96,7 @@
   "member": "UthmanicBazzi-v-3.0.ttf",
   "sha256": "b5fc7fbe012f832be3212b398b523a2e1cb87faacf1e57a65e76522201af8f39",
   "publisher": "https://fonts.qurancomplex.gov.sa/",
+  "guaranteed": true,
   "note": "The text uses codepoints only this font is guaranteed to draw (Arabic Extended-B alefs, open tanwīn, the waqf signs). Ship it with the text; a general Arabic font will show gaps."
  },
  "layers": {
@@ -77566,16 +77569,24 @@
  ],
  "rasm_imlai": null,
  "numbering": {
-  "total": 77434,
+  "total": 77442,
   "missing": [
-   60522
+   4319,
+   20821,
+   28039,
+   33540,
+   40887,
+   44296,
+   57494,
+   60529,
+   69063
   ],
   "written_joined": [
    {
     "position": 73948,
     "numbers": [
-     73950,
-     73951
+     73958,
+     73959
     ]
    }
   ]

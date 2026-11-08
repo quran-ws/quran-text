@@ -20,7 +20,7 @@ from pathlib import Path
 from . import chars, paths
 from .build import Word
 from .normalize import fold_notation, rasm, rasm_uthmani
-from .sources import Riwayah
+from .sources import TIER1, Riwayah
 from .tokenize import tokenize
 
 # There is deliberately no table of expected āyah totals here.
@@ -101,8 +101,13 @@ def check_alif_splits(words: list[Word]) -> list[dict]:
         if w.status != "alif_variant":
             continue
         groups: dict[str, list[str]] = defaultdict(list)
+        # The warrant is about the publisher's hand, so only the publisher's own
+        # editions are partitioned; a decoded tier-2 text is reported separately.
         for key, form in w.forms.items():
-            groups[rasm(form)].append(key)
+            if key in TIER1:
+                groups[rasm(form)].append(key)
+        if len(groups) < 2:
+            continue
         splits[frozenset(frozenset(v) for v in groups.values())].append(w.id)
     if len(splits) <= 1:
         return []
@@ -304,6 +309,23 @@ def release_text(r: Riwayah) -> str:
                           _strip_trailing_heading, docx_paragraphs)
 
     spec = r.spec
+    if spec.primary_kind == "hqpb":
+        # The release is the decoded paragraph stream itself: decode again,
+        # independently of the loader, and compare character by character.
+        from . import hqpb
+        from .sources import ISLAMWEB
+        stream = hqpb.load_stream(ISLAMWEB / spec.slug / "glyphs.json.gz")
+        table = hqpb.load_table(ISLAMWEB / "decoder" / "table-v1.json")
+        paragraphs = hqpb.paragraphs(hqpb.decode_stream(stream, table))
+        kept, opened = [], False
+        for paragraph in paragraphs:
+            if _is_bare_basmalah(paragraph):
+                if not opened:
+                    kept.append(paragraph)
+                continue
+            opened = True
+            kept.append(paragraph)
+        return "".join(_AYAH_MARK.sub(" ", " ".join(kept)).split())
     path = _extract(spec.primary_zip, spec.primary_member)
     if spec.primary_kind == "csv":
         import csv
@@ -410,7 +432,7 @@ def check_mushaf_roundtrip(words, riwayahs) -> list[dict]:
 # the published files
 # --------------------------------------------------------------------------
 
-SCHEMA = paths.SCHEMA / "mushaf-1.0.json"
+SCHEMA = paths.SCHEMA / "mushaf-1.1.json"
 
 
 def check_numbering(docs: dict[str, dict]) -> list[dict]:
@@ -503,7 +525,7 @@ def check_positions(docs: dict[str, dict]) -> list[dict]:
 def check_schema_fields(docs: dict[str, dict], schema: Path = SCHEMA) -> list[dict]:
     """The muṣḥaf documents and the JSON Schema must agree on the field set.
 
-    ``schema/mushaf-1.0.json`` is published as the checkable specification and
+    ``schema/mushaf-1.1.json`` is published as the checkable specification and
     sets ``additionalProperties: false``.  A full JSON Schema validation would
     need a dependency this project does not take; comparing the field *names*
     needs none, and catches the drift that actually happens — a field emitted
@@ -535,3 +557,81 @@ def check_schema_fields(docs: dict[str, dict], schema: Path = SCHEMA) -> list[di
                                      "detail": f"{name} has fields not in the "
                                                f"schema: {sorted(extra)}"})
     return problems
+
+
+# --------------------------------------------------------------------------
+# tier 2
+# --------------------------------------------------------------------------
+
+def check_tier_precedence(riwayahs: list[Riwayah]) -> list[dict]:
+    """No tier-2 riwāyah may duplicate one that a tier-1 package publishes."""
+    tier1 = {r.key for r in riwayahs if r.spec.tier == 1}
+    return [{"check": "tier_precedence", "riwayah": r.key,
+             "detail": "a tier-2 text for a riwāyah that has a tier-1 package"}
+            for r in riwayahs if r.spec.tier == 2 and r.key in tier1]
+
+
+def check_decoder(riwayahs: list[Riwayah]) -> list[dict]:
+    """A tier-2 text may be published only when every glyph in it is known,
+    and no decoded word is longer than any word a package prints.
+
+    An unknown glyph is emitted as U+FFFD and counted in the file, so a reader
+    could see it; but a text with holes is not a text, so the build refuses it.
+    A decoded word whose rasm is longer than the longest tier-1 word is a line
+    the extractor failed to split into words (it happened once, when a sign
+    set above its line took the word spaces with it), not a reading.
+    """
+    from .normalize import rasm
+    out = []
+    longest = max((len(rasm(w)) for r in riwayahs if not r.decoded
+                   for a in getattr(r, "ayahs", []) for w in a.text.split()), default=0)
+    for r in riwayahs:
+        if not r.decoded:
+            continue
+        n = sum(r.decoded["unknown"].values())
+        if n:
+            worst = r.decoded["unknown"].most_common(3)
+            out.append({"check": "decoder_unknown_glyphs", "riwayah": r.key,
+                        "detail": f"{n} glyph occurrences the table does not know, "
+                                  f"{len(r.decoded['unknown'])} distinct, e.g. {worst}"})
+        if longest:
+            too_long = [(a.surah, a.ayah, w) for a in getattr(r, "ayahs", [])
+                        for w in a.text.split() if len(rasm(w)) > longest]
+            if too_long:
+                out.append({"check": "decoder_unsplit_words", "riwayah": r.key,
+                            "detail": f"{len(too_long)} decoded word(s) longer than any "
+                                      f"tier-1 word ({longest} rasm letters), e.g. {too_long[:3]}"})
+    return out
+
+
+def check_colors(docs: dict[str, dict], words: list[Word], threshold: float = 0.9) -> list[dict]:
+    """In a tier-2 file, a word coloured as «differing from Ḥafṣ» must differ from Ḥafṣ.
+
+    The documents colour the letter that differs from Ḥafṣ magenta.  That is a
+    claim the data can test: the decoded word must differ from the Ḥafṣ word at
+    the same number at least in its marks.  Precision below ``threshold`` means
+    the decoding or the alignment is wrong somewhere, and says where to look.
+    """
+    out = []
+    by_number = {w.id: w for w in words}
+    for key, doc in docs.items():
+        if doc["provenance"].get("tier", 1) != 2 or not doc.get("colors"):
+            continue
+        magenta = {i for i, t in enumerate(doc["color_types"]) if "#ff00ff" in t["colors"]}
+        from .mushaf import numbers_of
+        runs = numbers_of(doc)
+        checked = agree = 0
+        for position, t in doc["colors"]:
+            if t not in magenta or position >= len(runs):
+                continue
+            first, _last = runs[position]
+            w = by_number.get(first)
+            if w is None or "hafs" not in w.forms or key not in w.forms:
+                continue
+            checked += 1
+            if fold_notation(w.forms["hafs"]) != fold_notation(w.forms[key]):
+                agree += 1
+        if checked and agree / checked < threshold:
+            out.append({"check": "colors_differ_from_hafs", "riwayah": key,
+                        "detail": f"only {agree}/{checked} words coloured as differing from Ḥafṣ do"})
+    return out

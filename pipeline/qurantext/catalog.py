@@ -39,11 +39,11 @@ FILES = [
     {"path": "data/counting.json", "format": "quran-counting",
      "answers": "the six counting systems, their boundaries as numbers, and which system each edition follows"},
     {"path": "data/quran.sqlite.gz", "format": "sqlite",
-     "answers": "all seven muṣḥafs and the word index, queryable in SQL"},
+     "answers": "every muṣḥaf and the word index, queryable in SQL"},
     {"path": "data/manifest.json", "format": "quran-manifest",
      "answers": "the SHA-256 of every source package and every file here"},
     {"path": "data/reports/", "format": "markdown, csv, html",
-     "answers": "how the seven compare and how this was built, for people to read rather than to load"},
+     "answers": "how the riwāyāt compare and how this was built, for people to read rather than to load"},
 ]
 
 
@@ -65,6 +65,10 @@ def write_catalog(words: list[Word], riwayahs: list[Riwayah],
             "name_ar": r.name_ar,
             "qiraah_en": r.qiraah_en,
             "qiraah_ar": r.qiraah_ar,
+            # Provenance tier: 1 = a KFGQPC data release, 2 = decoded from an islamweb
+            # document.  See provenance in the muṣḥaf file and docs/sources.md.
+            "tier": docs[r.key]["provenance"]["tier"],
+            "authority": docs[r.key]["provenance"]["authority"],
             "counting_system": docs[r.key]["counting"]["system"],
             # The system this edition prints onto, and the one its qāriʾ is
             # associated with — different questions, and for Dūrī and Sūsī
