@@ -159,7 +159,10 @@ export class Mushaf {
   constructor(doc: object);
   /** The KFGQPC font this text is set in; ship it with the text. */
   readonly font: Font;
-  /** A CSS @font-face rule for this muṣḥaf's font. */
+  /**
+   * A CSS @font-face rule for this muṣḥaf's font, with `format()` read from the
+   * URL's extension. Throws when neither `url` nor `font.url` is set.
+   */
   fontFace(url?: string): string;
   /** Ḥafṣ, bundled with the package. */
   static hafs(): Promise<Mushaf>;

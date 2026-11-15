@@ -23,7 +23,10 @@ const w = Mushaf.fromJson(await (await fetch(url)).json());    // another riwāy
 ```
 
 The font the text needs is bundled too: add `m.fontFace()` to a stylesheet and
-use `m.font.family`. For another riwāyah pass its `data/fonts/` URL to `fontFace(url)`.
+use `m.font.family`. For another riwāyah pass the URL you serve its
+`data/fonts/` file from to `fontFace(url)`; with no URL it throws rather than
+write a rule that points nowhere. In Node the bundled font's URL is a `file:`
+URL, and `Mushaf.load()` finds the font in `data/fonts/` beside the file.
 
 Wrong numbers throw `RangeError`; a layer the file lacks (juz in Bazzī) throws
 with the reason from the file. The full API is in [`../README.md`](../README.md).
