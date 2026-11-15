@@ -101,7 +101,7 @@ archive's recorded checksum matches the file committed here, and re-downloading
 
 The seven `.docx` packages under *Used as primary sources* — the six `-v-3.0`
 releases and `UthmanicDouri_V20.zip` — were **obtained from the publisher's own
-site, `qurancomplex.gov.sa`**, as the maintainer records (#38). That is all that
+site, `qurancomplex.gov.sa`**, as the maintainer states in answer to #38. That is all that
 is known. The URL of each file and the day it was fetched were not kept, and
 `quran-ws/kfgqpc-resources` does not hold them: searching that archive for
 `-v-3.0`, for `UthmanicDouri_V20`, and for Bazzī in any form returns nothing,

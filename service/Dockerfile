@@ -16,11 +16,11 @@ COPY data data
 ENV QURAN_DATA=/srv/data
 EXPOSE 8000
 WORKDIR /srv/service
-# Behind a proxy, the scheme and host the visitor used arrive as
-# X-Forwarded-Proto/-For; uvicorn honours them only from addresses it trusts,
-# 127.0.0.1 by default, and the proxy is another container. Without this the
-# provenance header of every download named an http:// URL for an HTTPS-only
-# service (#30). The container publishes no port of its own: only the proxy
-# reaches it.
+# Behind a proxy, the scheme the visitor used arrives as X-Forwarded-Proto.
+# uvicorn honours it only from addresses it trusts, 127.0.0.1 by default, and
+# the proxy is another container. Without this the provenance header of every
+# download named an http:// URL for an HTTPS-only service (#30). The container
+# publishes no port of its own: only the proxy reaches it, and at text.quran.ws
+# the proxy sets the header itself rather than pass on the visitor's.
 CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000", \
      "--proxy-headers", "--forwarded-allow-ips", "*"]

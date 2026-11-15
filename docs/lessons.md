@@ -270,8 +270,9 @@ published text (`quran-ws/quran-text#21`).
 When the build stopped deleting the kashida, the editorial signs and the
 invisible controls, each derived form — rasm, pointed, plain, the notation
 fold — was given a list of what to skip, and the controls were left off every
-list. Fourteen right-to-left marks in Warsh and the two joiners at 17:7 went
-straight into the alignment key, and each made a `rasm_variant`: 60 became 75,
+list. Fourteen right-to-left marks in Warsh and the two joiners at 17:7 (Dūrī's
+and Sūsī's, in one word) went straight into the alignment key and made 15
+`rasm_variant`s: 60 became 75,
 and the headline 277 became 292. No check failed, because nothing compared the
 count against what the prose said, and the prose that disagreed was read as
 stale rather than as right (#34).

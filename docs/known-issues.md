@@ -353,8 +353,8 @@ is a seat.
 NFC does two separable things: it composes a letter with the mark after it, and
 it re-sorts the marks on a letter by combining class. The composition is what
 resolves the spellings above. The re-sort is what breaks an offset map: it
-reorders the marks in about 32,300 of Ḥafṣ's 77,432 words — the shaddah written
-before its vowel, 22,000 times, is most of it — so a span recorded against the
+reorders the marks in 22,114 of Ḥafṣ's 77,432 words — almost all of them a
+shaddah written before its vowel — so a span recorded against the
 published text points somewhere else afterwards, and nothing errors.
 `quran-ws/quran-tajweed` measured it: 12,484 of 147,255 spans moved (#24).
 

@@ -289,14 +289,14 @@ GEO_NOTE = ("The official host serves Saudi Arabia only; from elsewhere it "
             "times out. Use the mirror, which is the same bytes.")
 
 #: Where the seven primary packages came from, as far as it is known.  The
-#: maintainer records that they were obtained from the publisher's site; the
+#: maintainer states that they were obtained from the publisher's site; the
 #: URL of each file and the day it was fetched were not kept (#38).  Stated in
 #: the data, not only in the prose, because a consumer reading the manifest is
 #: exactly the person who needs to know a package cannot be re-fetched.
 PRIMARY_PORTAL = "https://qurancomplex.gov.sa"
 NO_ORIGIN_NOTE = (
     "Obtained from the publisher's site, qurancomplex.gov.sa, as the "
-    "maintainer records. The URL of the file and the date it was fetched were "
+    "maintainer states. The URL of the file and the date it was fetched were "
     "not kept, and the KFGQPC archive does not hold it, so it is verifiable "
     "against the SHA-256 above but cannot be fetched again from a recorded "
     "address. On 2026-11-15 the site's fonts section offered no download "
