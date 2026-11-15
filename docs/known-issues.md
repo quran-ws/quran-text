@@ -603,6 +603,17 @@ close: 77,356 of Ḥafṣ's 77,432 words are mapped, 4 āyāt cannot be paired a
 cannot be aligned to the word index. Those words get a `null` entry. An absent
 spelling is recoverable; a guessed one is not.
 
+**Not derived for the other six either** (#19). Two ways of borrowing Ḥafṣ's
+imlāʾī were weighed and neither is published. Inheriting it wherever the
+skeleton matches is wrong as a rule: 1:4 is `مَٰلِكِ` in Ḥafṣ, imlāʾī مالك,
+and `مَلِكِ` in Warsh, Qālūn, Dūrī, Sūsī and Bazzī — one skeleton, `ملك`, read
+two ways, which is exactly where the qirāʾāt differ, so the borrowed spelling
+would be the other reading's. Inheriting it only where the vowelled ʿUthmānī
+form is identical is far safer, but it is still a spelling made by rule rather
+than given by a release, and the rule here is that imlāʾī is published only
+where a release supplies it. A publisher's imlāʾī for any of the six would
+replace this gap outright.
+
 ### 11. The Ḥafṣ v2 CSV's juz column disagrees with the muṣḥaf's own printed marks
 
 Two of the thirty juz starts in `hafsData_v2-0.csv` do not fall where the
