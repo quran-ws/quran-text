@@ -1,7 +1,9 @@
 # What is in `data/`
 
-Everything is written by `python3 pipeline/build.py`. All text is UTF-8, NFC,
-with no BOM. Start with `data/catalog.json`: it lists the riwāyāt, the sūrahs, and every
+Everything is written by `python3 pipeline/build.py`. All text is UTF-8 with no
+BOM. The printed text keeps the release's own codepoints, not NFC; the derived
+forms (`rasm`, `pointed`, `plain`) are computed from NFC (`docs/format.md`).
+Start with `data/catalog.json`: it lists the riwāyāt, the sūrahs, and every
 file below with the question it answers.
 
 Two files are **normative**, specified in [`format.md`](format.md)

@@ -345,9 +345,26 @@ from the release without saying so.
 are one word: `fold_notation` normalises before comparing, so the cross-release
 report does not see it; `rasm`, `pointed` and `plain` are identical either way;
 and the search fold strips the hamzah. A consumer analysing letters — a tajwīd
-annotator deciding whether a yāʾ before a hamzah is a madd letter, say — should
-**normalise to NFC first**, exactly as every muṣḥaf file's `normalization` block
-says, or 35:43 will read as a yāʾ standing before a hamzah when it is a seat.
+annotator deciding whether a yāʾ before a hamzah is a madd letter, say — has to
+**compose** first, or 35:43 will read as a yāʾ standing before a hamzah when it
+is a seat.
+
+**If you record character offsets into `words`, compose but do not reorder.**
+NFC does two separable things: it composes a letter with the mark after it, and
+it re-sorts the marks on a letter by combining class. The composition is what
+resolves the spellings above. The re-sort is what breaks an offset map: it
+reorders the marks in about 32,300 of Ḥafṣ's 77,432 words — the shaddah written
+before its vowel, 22,000 times, is most of it — so a span recorded against the
+published text points somewhere else afterwards, and nothing errors.
+`quran-ws/quran-tajweed` measured it: 12,484 of 147,255 spans moved (#24).
+
+Composing alone keeps the order, so an offset map can follow it. In these seven
+files every composition NFC makes is of two adjacent characters, four pairs in
+all: `ا` + `ٓ` → `آ` (16,584 across the seven), `ي` + `ٔ` → `ئ` (46),
+`ے` + `ٔ` → `ۓ` (40), `ا` + `ٔ` → `أ` (1). Replace those, leave every other
+character where it is, and the result differs from NFC only in mark order.
+To compare two strings, NFC both: order does not matter there. To show the text,
+do neither (`docs/format.md`, *The text is the release's*).
 
 ---
 

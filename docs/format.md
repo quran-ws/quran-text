@@ -390,7 +390,11 @@ NFC writes it after, in 22,000 of Ḥafṣ's 84,000 tokens, and write `ا` + `ٓ
 where NFC composes `آ`, 2,946 times more. Both forms are canonically
 equivalent, and normalising would make the published text differ from the
 package it claims to be, so the package wins. **For text comparison across
-datasets, normalise both strings to NFC before comparing.** The derived forms —
+datasets, normalise both strings to NFC before comparing.** If you record
+character offsets, compose without reordering instead: NFC's re-sort of the
+marks moves positions inside about 32,300 Ḥafṣ words, and its compositions are
+four adjacent pairs that can be replaced in place (`docs/known-issues.md` §5c).
+The derived forms —
 `rasm`, `pointed`, `plain` in the word index, and the search fold — are
 computed from the NFC form already, so alignment, search and the word index are
 unaffected either way.
