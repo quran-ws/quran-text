@@ -525,6 +525,22 @@ be wrong, and that is what this entry exists to say.
 **rubu_al_hizb** sign, and the ḥizb proper is the marginal label these files do
 not carry. The name is imprecise and predates this entry.*
 
+**Qālūn: five inline ۞ the docx does not carry where the print does.** Found
+by haythemgataa (#53) and checked here against the docx data and against the
+KFGQPC 1440 AH Qālūn print, `qaloun-1.pdf` (SHA-256 `57386a90…06cc`, as listed
+by the Quran.ws mirror of KFGQPC files; the PDF page is the muṣḥaf page + 3):
+
+| āyah (Qālūn) | `qalun.json` | the print | page |
+|---|---|---|---|
+| 39:50 | ۞ on 39:51 instead | ۞ before قُلۡ يَٰعِبَادِيَ, «ربع» | 464 |
+| 44:48 | none | ۞ before إِنَّ ٱلۡمُتَّقِينَ, «ثمن» | 498 |
+| 80:33 | none | ۞ before فَإِذَا جَآءَتِ, «ثمن» | 585 |
+| 81:15 | none | ۞ before فَلَآ أُقۡسِمُ, «نصف» | 586 |
+| 83:7 | none | ۞ before كَلَّآ إِنَّ كِتَٰبَ, «ثمن» | 588 |
+
+Recorded, not corrected: `marks` holds the docx's ۞. A Qālūn thumn grid
+built from the docx's ۞ misses these four and puts the fifth an āyah late.
+
 ### 8. Waqf-mark conventions are not comparable between muṣḥafs
 
 Warsh and Qālūn print one general waqf sign 9,948 times. Ḥafṣ, Dūrī and Sūsī
@@ -616,7 +632,14 @@ that the document is the one consistent with the division it prints. A consumer
 computing rubu_al_hizbs from `juz_starts` will be one out in juz 4 and juz 11; one
 reading `marks` will not.
 
-*The two are recorded here rather than in `open-findings.json`, which holds
+**Qālūn has the same disagreement, at juz 20 and 22.** Its v2 CSV starts them
+at 27:58 and 33:31; the docx prints its ۞ at **27:61** and **33:35**, and the
+KFGQPC Qālūn print (`qaloun-1.pdf`, §7) has the ۞ there with «حزب» in the
+margin, on pages 382 and 422. At 27:58 and 33:31 the print has no mark. Found by
+haythemgataa (#53), checked here against both. `juz_starts` is still read from
+the CSV, as for Ḥafṣ.
+
+*These are recorded here rather than in `open-findings.json`, which holds
 disagreements about **āyah** counting. This is a disagreement about division.*
 
 ---
