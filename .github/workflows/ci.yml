@@ -8,7 +8,9 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    # Pinned, not ubuntu-latest: lib/python is tested on Python 3.9 below,
+    # and the Ubuntu 26.04 image that ubuntu-latest became has no 3.9 build.
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
 
