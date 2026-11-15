@@ -211,6 +211,32 @@ def test_bad_requests(url, fragment):
     assert fragment in r.json()["error"]
 
 
+@pytest.mark.parametrize("url,key", [
+    # The names #30's builder sent: neither exists, and both used to give a 200
+    # with every mark still on.
+    ("/download?edition=hafs&surah=1&script=plain", "script"),
+    ("/download?edition=hafs&surah=1&marks=0", "marks"),
+    ("/map?from=hafs&to=warsh&ayah=2:255&edition=warsh", "edition"),
+    ("/compare?ayah=2:255&marks=0", "marks"),
+])
+def test_an_unknown_parameter_is_refused_by_name(url, key):
+    error = get(url, expect=400).json()["error"]
+    assert f"unknown parameter {key!r}" in error
+    path = url.split("?")[0]
+    assert "takes:" in error
+    # The message lists what the endpoint does take, aliases as written.
+    if path == "/map":
+        assert "from" in error.split("takes:")[1]
+
+
+def test_every_declared_parameter_is_still_accepted():
+    get("/download?edition=hafs&text=plain&markers=sign&waqf=0&sajdah=0&sajdah_line=0"
+        "&division=0&sah=0&raised_dot=0&lines=1&pages=1&surah=1&by=ayah&format=txt"
+        "&prefix=0&nested=0&header=0&limit=2&inline=1")
+    get("/map?from=hafs&to=warsh&ayah=2:255&by=word&text=plain&format=csv&header=0&limit=2&inline=1")
+    get("/compare?ayah=2:255&waqf=1")
+
+
 def test_bazzi_has_no_juz():
     assert "no juz layer" in get("/download?edition=bazzi&juz=1", 400).json()["error"]
     assert "no juz layer" in get("/download?edition=bazzi&fields=surah,ayah,juz", 400).json()["error"]
@@ -343,3 +369,14 @@ def test_head_is_accepted_on_the_read_endpoints():
         # stood in for the endpoint's own, so HEAD contradicted GET.
         assert head.headers["content-type"] == get.headers["content-type"], path
         assert head.headers["content-length"] == get.headers["content-length"], path
+
+
+def test_a_font_is_served_as_a_font_without_a_mime_database(monkeypatch):
+    """The deploy image has no /etc/mime.types, so a guess from it sent the fonts
+    as text/plain.  Empty the guess and the answer must not change."""
+    import starlette.responses
+    monkeypatch.setattr(starlette.responses, "guess_type", lambda *a, **k: (None, None))
+    r = get("/files/fonts/UthmanicWarsh-v-3.0.ttf")
+    assert r.headers["content-type"] == "font/ttf"
+    assert get("/files/catalog.json").headers["content-type"].startswith("application/json")
+    assert get("/files/ayah-map.csv").headers["content-type"].startswith("text/csv")

@@ -69,7 +69,10 @@ is a pure function of its URL, so `Cache-Control` at the proxy is safe.
 
 Every response carries `Content-Disposition` with a descriptive filename and
 `X-Checksum-SHA256` of the body. Errors are `400 {"error": "…"}` with the
-edition's own counts in the message. Where an edition prints the basmalah of
+edition's own counts in the message. A parameter `/download`, `/map` or
+`/compare` does not take is an error too, named in the message with the list of
+the ones it does take: `marks=0` is not a way to turn the marks off, and it no
+longer looks like one. Where an edition prints the basmalah of
 al-Fātiḥah unnumbered (Warsh, Qālūn, Dūrī, Sūsī) it comes out as āyah `0`, as
 in the dataset's CSV view.
 

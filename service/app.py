@@ -18,7 +18,7 @@ from pathlib import Path
 from typing import Annotated
 from urllib.parse import quote
 
-from fastapi import FastAPI, HTTPException, Query, Request, Response
+from fastapi import Depends, FastAPI, HTTPException, Query, Request, Response
 from fastapi.responses import FileResponse, HTMLResponse, JSONResponse
 
 from dataset import EDITIONS, Dataset
@@ -41,6 +41,37 @@ app = FastAPI(
 )
 data = Dataset.load()
 
+#: Media types by extension, for every kind of file under data/.  Not guessed
+#: from the host: the deploy image has no /etc/mime.types, and the guess then
+#: fell back to text/plain, so the fonts went out as text.
+MEDIA_TYPES = {
+    ".json": "application/json", ".csv": "text/csv; charset=utf-8",
+    ".md": "text/markdown; charset=utf-8", ".html": "text/html; charset=utf-8",
+    ".gz": "application/gzip", ".ttf": "font/ttf", ".otf": "font/otf",
+    ".woff": "font/woff", ".woff2": "font/woff2",
+}
+
+
+def known_parameters_only(request: Request) -> None:
+    """Refuse a query key the endpoint does not declare.
+
+    FastAPI ignores one, so a wrong name was indistinguishable from a right
+    one: `marks=0` returned 200 with every mark still on (#30).  The file is a
+    pure function of its URL, which only holds if every part of the URL means
+    something.
+    """
+    route = request.scope.get("route")
+    declared = [p.alias for p in route.dependant.query_params] if route else []
+    unknown = [k for k in dict.fromkeys(request.query_params) if k not in declared]
+    if unknown:
+        path = request.url.path
+        raise BadRequest(f"unknown parameter {unknown[0]!r}; {path} takes: {', '.join(declared)}")
+
+
+#: The endpoints whose answer is built from the query.  Elsewhere a query is
+#: harmless, and a cache-busting `?t=` on /version or /files should still work.
+STRICT = [Depends(known_parameters_only)]
+
 
 @app.exception_handler(BadRequest)
 async def bad_request(_: Request, e: BadRequest):
@@ -56,7 +87,7 @@ Edition = Annotated[str, Query(description="Riwāyah: " + ", ".join(EDITIONS), p
 Flag = Annotated[bool, Query()]
 
 
-@app.get("/download", summary="Download the text with the options you choose")
+@app.get("/download", summary="Download the text with the options you choose", dependencies=STRICT)
 def download(
     request: Request,
     edition: Edition = "hafs",
@@ -134,7 +165,8 @@ def _canonical_url(request: Request) -> str:
     return base + ("?" + "&".join(f"{k}={quote(v, safe=':,-|')}" for k, v in params) if params else "")
 
 
-@app.get("/map", summary="Every āyah, or every word, of one riwāyah with its counterpart in the others")
+@app.get("/map", summary="Every āyah, or every word, of one riwāyah with its counterpart in the others",
+         dependencies=STRICT)
 def map_dataset(
     request: Request,
     source: Annotated[Edition, Query(alias="from", description="The riwāyah being mapped from; scope and references are in its own count")] = "hafs",
@@ -177,7 +209,7 @@ def editions() -> list[dict]:
 _DIFF_KIND = {"identical": "notation", "diacritic_variant": "vowels"}
 
 
-@app.get("/compare", summary="One āyah in every riwāyah, differing words flagged")
+@app.get("/compare", summary="One āyah in every riwāyah, differing words flagged", dependencies=STRICT)
 def compare(
     ayah: Annotated[str, Query(description="A Kūfī (Ḥafṣ) reference like `2:255`")] = "1:4",
     waqf: Flag = False,
@@ -240,6 +272,7 @@ def file(path: str) -> FileResponse:
     # A browser reads these directly: a player fetches mushaf/hafs.json to show
     # the words it highlights.
     return FileResponse(target, filename=target.name,
+                        media_type=MEDIA_TYPES.get(target.suffix, "application/octet-stream"),
                         headers={"Access-Control-Allow-Origin": "*"})
 
 
@@ -271,4 +304,5 @@ for _route, _handler in (
     ("/files", files),
     ("/files/{path:path}", file),
 ):
-    app.add_api_route(_route, _handler, methods=["HEAD"], include_in_schema=False)
+    app.add_api_route(_route, _handler, methods=["HEAD"], include_in_schema=False,
+                      dependencies=STRICT if _route in ("/download", "/map", "/compare") else None)
