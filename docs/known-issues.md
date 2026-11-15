@@ -240,8 +240,15 @@ drops it, so a query typed without one still matches.
 The invisible controls are kept on the same principle: 14 right-to-left marks
 `U+200F` in Warsh, and one zero-width joiner `U+200D` each in Dūrī and Sūsī.
 Both joiners are in the same word, 17:7 `لِيَسُ‍ُٔواْ`, at the place where Ḥafṣ,
-Warsh, Qālūn and Bazzī write a kashida. A consumer comparing strings should
-fold the controls out; `docs/SEARCH-FOLD.md` already does.
+Warsh, Qālūn and Bazzī write a kashida. Like the kashida they are not letters:
+the rasm, pointed, plain and folded forms drop them, so they reach neither the
+alignment nor the differences. A consumer comparing strings should fold them
+out too; `docs/SEARCH-FOLD.md` already does.
+
+For two months they did reach the comparison. When the build stopped deleting
+them, the derived forms were taught to skip the kashida and the editorial signs
+but not the controls, and each of the 15 words became a `rasm_variant` of its
+own: the published count read 75 and 292 where it is 60 and 277 (#34).
 
 One dotless beh `U+066E` in Bazzī and one small low seen `U+06E3` in Ḥafṣ v3.0
 occur exactly once each; both are published and neither affects the rasm.

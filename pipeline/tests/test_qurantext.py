@@ -257,6 +257,33 @@ class TestSplitByRasm(unittest.TestCase):
         self.assertEqual("".join(split_by_rasm(word, [3, 2])), word)
 
 
+class TestControls(unittest.TestCase):
+    """An invisible control the release wrote stays in the text and out of every
+    comparison form, as the kashida does (``docs/known-issues.md`` §4)."""
+
+    #: 60:12 in Warsh: يَٰٓأَيُّهَا with the right-to-left mark the release ends it with.
+    WARSH_YAAYYUHA = "\u064a\u064e\u0670\u0653\u0623\u064e\u064a\u0651\u064f\u0647\u064e\u0627\u200f"
+    #: 17:7 in Dūrī and Sūsī: a zero-width joiner where the others write a kashida.
+    DURI_LIYASUU = "\u0644\u0650\u064a\u064e\u0633\u064f\u200d\u064f\u0654\u0648\u0627\u0652"
+    HAFS_LIYASUU = "\u0644\u0650\u064a\u064e\u0633\u064f\u0640\u064f\u0654\u0648\u0627\u0652"
+
+    def test_the_text_keeps_the_control(self):
+        self.assertIn("\u200f", forms(self.WARSH_YAAYYUHA)["rasm_uthmani"])
+        self.assertIn("\u200d", forms(self.DURI_LIYASUU)["rasm_uthmani"])
+
+    def test_no_comparison_form_sees_it(self):
+        bare = self.WARSH_YAAYYUHA[:-1]
+        for name, f in (("rasm", rasm), ("rasm_plene", rasm_plene),
+                        ("pointed", pointed), ("plain", plain)):
+            with self.subTest(form=name):
+                self.assertEqual(f(self.WARSH_YAAYYUHA), f(bare))
+                self.assertNotIn("\u200f", f(self.WARSH_YAAYYUHA))
+
+    def test_a_joiner_where_others_write_a_kashida_is_the_same_rasm(self):
+        self.assertEqual(rasm(self.DURI_LIYASUU), rasm(self.HAFS_LIYASUU))
+        self.assertEqual(pointed(self.DURI_LIYASUU), pointed(self.HAFS_LIYASUU))
+
+
 class TestTokenize(unittest.TestCase):
     def test_division_symbol_is_not_a_word(self):
         toks = tokenize_ayah(2, 1, "۞ وَٱللَّهُ")

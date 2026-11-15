@@ -120,8 +120,8 @@ void main() {
     expect(idx.search('مالك').map((w) => w.number), contains(11));
     expect(idx.differing().length, 53128);
     const listed = {'rasm_variant', 'alif_variant', 'word_boundary', 'partial'};
-    expect(idx.differing().where((w) => listed.contains(w.status)).length, 284);
-    expect(idx.where((w) => listed.contains(w.status)).length, 292);
+    expect(idx.differing().where((w) => listed.contains(w.status)).length, 269);
+    expect(idx.where((w) => listed.contains(w.status)).length, 277);
     expect(hafs.numberingTotal, idx.total);
     expect(warsh.numberingTotal, idx.total);
     // The heading over sūrahs 2–114 is printed but not in words.

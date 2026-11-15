@@ -98,7 +98,7 @@ does not. The other 198 letter-level differences are an ā the two typesettings
 place differently, on the line in one hand and above it in the other. They are
 counted apart because the corpus says they belong apart: all 198 divide the
 seven riwāyāt along one line, Warsh+Qālūn against the rest, in both directions
-and without an exception, while the 60 divide them fourteen different ways.
+and without an exception, while the 60 divide them thirteen different ways.
 Ḥadhf/ithbāt al-alif does vary between the codices of the amṣār — but not by
 publisher. Rasm agreement between any two riwāyāt is **99.5 %–100 %**.
 

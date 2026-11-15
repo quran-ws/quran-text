@@ -131,8 +131,8 @@ class QuranTextTest {
         assertTrue(idx.search("مالك").any { it.number == 11 })
         assertEquals(53128, idx.differing().size)
         val listed = setOf("rasm_variant", "alif_variant", "word_boundary", "partial")
-        assertEquals(284, idx.differing().count { it.status in listed })
-        assertEquals(292, idx.count { it.status in listed })
+        assertEquals(269, idx.differing().count { it.status in listed })
+        assertEquals(277, idx.count { it.status in listed })
         assertEquals(idx.total, hafs.numberingTotal)
         assertEquals(idx.total, warsh.numberingTotal)
         // The heading over sūrahs 2–114 is printed but not in words.

@@ -113,7 +113,8 @@ def fold_notation(word: str) -> str:
     and its alef seat are stored.
     """
     folded = "".join(chars.NOTATION_FOLD.get(ch, ch) for ch in word
-                     if ch != chars.TATWEEL and ch not in chars.EDITORIAL)
+                     if ch != chars.TATWEEL and ch not in chars.EDITORIAL
+                     and ch not in chars.CONTROLS)
     folded = _TANWIN_BEFORE_ALEF.sub(r"\2\1", folded)
     return unicodedata.normalize("NFC", folded)
 
@@ -137,8 +138,9 @@ def _is_suppressed_hamzah(text: str, i: int) -> bool:
     for j, ch in enumerate(text[i + 2:], start=i + 2):
         if ch in chars.HAMZAH_ANY:
             return False         # the madd has its hamzah; the dagger is an ā
-        if ch in chars.ALL_MARKS or ch == chars.TATWEEL or ch in chars.EDITORIAL:
-            continue             # a mark, a seat, or an editorial sign
+        if ch in chars.ALL_MARKS or ch == chars.TATWEEL or ch in chars.EDITORIAL \
+                or ch in chars.CONTROLS:
+            continue             # a mark, a seat, an editorial sign or a control
         # A plain letter — but a madd over a *doubled* one is madd lāzim, a
         # genuine long ā before a shaddah (``تَتَّبِعَٰٓنِّ``, ``فَذَٰٓنِّكَ``), not a
         # hamzah.  Only an undoubled letter leaves the madd with nothing to be
@@ -188,8 +190,11 @@ def _letters(text: str, *, dagger_on_the_line: bool) -> str:
             out.append(chars.RASM_KEEP_MARKS_FOLD[ch])
             from_dagger = False
             continue
-        if ch in chars.ALL_MARKS or ch == chars.TATWEEL or ch in chars.EDITORIAL:
-            continue             # a mark, the seat one sits on, or annotation
+        if ch in chars.ALL_MARKS or ch == chars.TATWEEL or ch in chars.EDITORIAL \
+                or ch in chars.CONTROLS:
+            # A mark, the seat one sits on, annotation, or an invisible control:
+            # the release's controls stay in the text and out of the rasm.
+            continue
         letter = chars.RASM_FOLD.get(ch, ch)
         if not letter:
             continue             # hamzah: dropped, and no letter intervenes
@@ -288,7 +293,8 @@ def plain(word: str) -> str:
         if ch == "ٰ":         # superscript alif -> written alif
             out.append("ا")
             continue
-        if ch in _PLAIN_DROP or ch == chars.TATWEEL or ch in chars.EDITORIAL:
+        if ch in _PLAIN_DROP or ch == chars.TATWEEL or ch in chars.EDITORIAL \
+                or ch in chars.CONTROLS:
             continue
         out.append(_PLAIN_FOLD.get(ch, ch))
     return "".join(out)

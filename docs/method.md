@@ -133,18 +133,18 @@ that keeps what was added later is not a rasm:
   hamzah is not one of the qiraah's letters either.
 
 An alef that *is* on the line stays, whichever hand wrote it, so a difference in
-one is a difference in the rasm — 260 words. But **the bare rasm cannot settle
+one is a difference in the rasm — 258 words. But **the bare rasm cannot settle
 on its own which ā a codex put there**, because the two typesettings disagree
 about that in both directions: the Warsh/Qālūn set prints `هَارُوتَ` where the
 Kūfī set prints `هَٰرُوتَ`, and `مُبَٰرَك` where it prints `مُبَارَك`. A sixth form,
 `rasm_plene`, spells every ā out and so makes the two hands comparable. The 198
 words whose skeletons agree once it is applied get their own status,
-`alif_variant`; the 62 that remain are `rasm_variant`.
+`alif_variant`; the 60 that remain are `rasm_variant`.
 
 That split is drawn by the corpus, not chosen. **All 198 plene/defective words
 divide the seven riwāyāt along exactly one line — Warsh+Qālūn against the other
-five — in both directions and without a single exception. The 62 divide them
-fourteen different ways**: Bazzī alone seven times, Ḥafṣ+Shuʿbah alone six,
+five — in both directions and without a single exception. The 60 divide them
+thirteen different ways**: Bazzī alone seven times, Ḥafṣ+Shuʿbah alone six,
 Qālūn alone five, Sūsī alone once. Ḥadhf and ithbāt al-alif genuinely do vary
 between the codices of the amṣār — but a khilāf of the amṣār would sometimes put
 Makkah with Madinah, and this one never does, 198 times out of 198. What
@@ -159,11 +159,11 @@ words show the identical split at every occurrence in the corpus. Each book is
 consistent with itself. What no font can say is which of the two hands is the
 codex's.
 
-The 62 `rasm_variant` words are the received list, and the report tables them by
+The 60 `rasm_variant` words are the received list, and the report tables them by
 what the difference is. 56 are one skeleton with one letter more —
 `ووصى`/`وأوصى` at 2:132, `ٮرٮد`/`ٮرٮدد` (يَرۡتَدَّ/يَرۡتَدِدۡ) at 5:54,
 `ٮسٮهى`/`ٮسٮهٮه` (تَشۡتَهِي/تَشۡتَهِيهِ) at 43:71, `قال`/`قل` at 21:4 and 23:112,
-`لله`/`الله` at 23:87. 6 are one letter exchanged for another:
+`لله`/`الله` at 23:87. 4 are one letter exchanged for another:
 `كلمت`/`كلمة` at 7:137, `ولا`/`فلا` at 91:15.
 
 Telling those two apart needs one more fold. The rasm keeps the final letter

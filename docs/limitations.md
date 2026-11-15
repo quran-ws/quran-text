@@ -48,7 +48,7 @@ reasonably make differently:
   198 words are affected, and they get their own status, `alif_variant`, rather
   than being counted among the letters the codices disagree about — because all
   198 divide the seven riwāyāt along one line, Warsh+Qālūn against the rest,
-  where the 62 real letter differences divide them fourteen ways. That is enough
+  where the 60 real letter differences divide them thirteen ways. That is enough
   to say the class tracks the publisher; it is **not** enough to say which of
   the two hands is the codex's, or that no genuine ḥadhf khilāf is hiding inside
   the class. Deciding that needs a manuscript, not a font, and a project working
@@ -154,7 +154,7 @@ muṣḥaf. **No edition has an unexplained āyah end**: the last one — the Ba
 edition counting 78:40 ﴿قريبًا﴾ — is cited to al-Qāḍī's *al-Farāʾid al-Ḥisān*,
 which records khilāf inside the Makkī count at that word, and
 `open-findings.json` is now empty. The 258 letter-level variants in `data/reports/rasm-variants.md` —
-62 `rasm_variant` and 198 `alif_variant` — have not been checked against the
+60 `rasm_variant` and 198 `alif_variant` — have not been checked against the
 qirāʾāt literature one by one; spot checks against
 well-known variants (9:101 Ibn Kathīr's `مِن`, 57:24 the Madanī rasm omitting
 `هُوَ`, `مَٰلِكِ`/`مَلِكِ`, Bazzī's ṣilat al-mīm) all came out right, which is

@@ -147,7 +147,7 @@ word with the alef on the line in one hand and above it in the other. It is not
 counted as the codices disagreeing, and the reason is empirical rather than
 editorial: **all 198 of these words divide the seven riwāyāt along exactly one
 line — `qalun,warsh` against the other five — in both directions and without an
-exception, while the 60 `rasm_variant` words divide them fourteen different
+exception, while the 60 `rasm_variant` words divide them thirteen different
 ways.** Ḥadhf and ithbāt al-alif do vary between the codices of the amṣār, but
 they do not put Makkah with Madinah 198 times out of 198; a publisher's house
 style does. `validate.check_alif_splits` asserts the one-partition fact, so a
