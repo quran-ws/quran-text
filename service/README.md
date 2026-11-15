@@ -41,6 +41,7 @@ is a pure function of its URL, so `Cache-Control` at the proxy is safe.
 | `/compare?ayah=2:255` | one Kūfī āyah in all seven, differing words flagged |
 | `/map?from=warsh&to=duri&ayah=2:253` | the mapping dataset: every āyah (`by=ayah`, its counterpart āyāt and relation) or every word (`by=word`) of one riwāyah in the others, with the same scope and format options as `/download`; omit `to` for all six, omit the scope for the whole Qurʾān |
 | `/files`, `/files/{path}` | every file under `data/` with size and SHA-256, and the file |
+| `/version` | the dataset's release identity, for a client library checking for updates (below) |
 | `/docs` | the OpenAPI page with every parameter described |
 
 `/download` parameters — the common case is `/download?edition=hafs&format=txt`:
@@ -71,6 +72,34 @@ Every response carries `Content-Disposition` with a descriptive filename and
 edition's own counts in the message. Where an edition prints the basmalah of
 al-Fātiḥah unnumbered (Warsh, Qālūn, Dūrī, Sūsī) it comes out as āyah `0`, as
 in the dataset's CSV view.
+
+## `/version`
+
+The smallest document a client can fetch to learn whether the copy it holds is
+stale. The JS library's `Mushaf.checkForUpdate()` reads it; it is cached for an
+hour (`Cache-Control: public, max-age=3600`) and readable from any origin.
+
+```json
+{"format": "quran-version", "format_version": "1.0", "dataset": "2026-09-08",
+ "editions": {"hafs": {"source": "UthmanicHafs-v-3.0.zip", "source_sha256": "cdec…f013",
+                       "file": "mushaf/hafs.json", "file_sha256": "9b9e…8075",
+                       "ayah_count": 6236, "word_count": 77432}, …}}
+```
+
+| field | means |
+|---|---|
+| `format`, `format_version` | `quran-version`, `1.0`; a client ignores any other document |
+| `dataset` | the dataset's `generated` date, from `data/catalog.json` |
+| `editions.<key>.source` | the KFGQPC package the riwāyah was cut from |
+| `editions.<key>.source_sha256` | its SHA-256, as in the muṣḥaf file's `provenance.text.sha256` |
+| `editions.<key>.file` | the built file, relative to `/files/` on the same host |
+| `editions.<key>.file_sha256` | the built file's SHA-256, as in `data/manifest.json` |
+| `editions.<key>.ayah_count`, `word_count` | the riwāyah's own counts, from `data/catalog.json` |
+
+`file` is relative to the service, not to a fixed host, so a mirror serving
+`/version` and `/files/` side by side works unchanged:
+`checkForUpdate(url)` resolves the download link against the address that
+answered.
 
 ## Files
 

@@ -298,5 +298,6 @@ export interface UpdateStatus {
   localSource: string | null;
   latestSource: string | null;
   dataset: string | null;
+  /** The built file on the host that answered: a mirror's `url` gives a mirror's link. */
   downloadUrl: string;
 }
