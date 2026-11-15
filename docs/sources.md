@@ -97,25 +97,28 @@ archive's recorded checksum matches the file committed here, and re-downloading
 `UthmanicDouri_v2-0.zip` from the reachable copy reproduced
 `84e5569790f96b05896b8f44ebe8d82d98377a929ac0e87dd8af4dbec52cb0c1` exactly.
 
-### The primary text packages have no recorded origin
+### The primary text packages: from the publisher's site, with no file URL
 
-**This is a real gap, and it is stated rather than papered over.** The seven
-`.docx` packages under *Used as primary sources* — the six `-v-3.0` releases and
-`UthmanicDouri_V20.zip` — are pinned here by name and SHA-256 and **by nothing
-else**. No URL for any of them is recorded in this repository, in its history, or
-in `quran-ws/kfgqpc-resources`, which does not hold them: searching that archive
-for `-v-3.0`, for `UthmanicDouri_V20`, and for Bazzī in any form returns nothing,
+The seven `.docx` packages under *Used as primary sources* — the six `-v-3.0`
+releases and `UthmanicDouri_V20.zip` — were **obtained from the publisher's own
+site, `qurancomplex.gov.sa`**, as the maintainer records (#38). That is all that
+is known. The URL of each file and the day it was fetched were not kept, and
+`quran-ws/kfgqpc-resources` does not hold them: searching that archive for
+`-v-3.0`, for `UthmanicDouri_V20`, and for Bazzī in any form returns nothing,
 and none of the seven digests appear in it.
 
-They are therefore **verifiable but not re-fetchable**: we can prove the file we
-have is the file we built from, and we cannot obtain it again, nor check it
-against the publisher, nor tell when it is superseded.
+They are therefore **verifiable but not re-fetchable from a recorded address**:
+we can prove the file we have is the file we built from, and we can name the
+publisher's site it came from, but we cannot fetch it again from a known URL
+nor tell from one when it is superseded. On 2026-11-15 the site's fonts section
+listed its packages as «قريباً» ("coming soon") and offered no download. Each
+file states this under `provenance.text.origin`: `recorded` is `false`, because
+it means a URL, and `portal` names the site.
 
 No URL is guessed here to fill the gap. The `-v-3.0` family is not served from
 the `/quran-dev/` page that supplies the cross-checks above — that page still
 offered the v2 packages for all seven riwāyāt when the archive last captured it
 on 2026-09-07 — so a plausible-looking `resources_dev/` URL would be wrong.
-Where the file came from is an open question, tracked upstream.
 
 **One consequence, recorded because it already cost someone a day.** KFGQPC's
 own `release_info.version` field is a page-level counter, not the version in the
