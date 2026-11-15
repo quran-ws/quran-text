@@ -44,7 +44,8 @@ Mushaf
  ├─ span(start, end)    Span  — any run of positions
  ├─ wordAt / ayahAt / surahAt / pageAt / lineAt / juzAt (position)
  ├─ sajdat(), divisionMarks(), search(text)
- ├─ numberAt(position), wordByNumber(number)   — the numbering shared by all seven riwāyāt
+ ├─ numberAt(position), wordByNumber(number), numberingTotal, missingNumbers
+ │                       — the numbering shared by all seven riwāyāt
  └─ has("juz"), layers, counting, provenance, ayahCount, pageCount …
 ```
 
@@ -92,6 +93,9 @@ things:
 2. **The basmalah of al-Fātiḥah is unnumbered in Warsh, Qālūn, Dūrī and Sūsī.**
    There `surah(1).basmalah` holds it, `ayah(1, 1)` starts at الحمد, and
    `wordAt(0).ayah` is null. `basmalahCounted` says which case you are in.
+   The basmalah heading over sūrahs 2–114 is printed but is **not in `words`**:
+   `hasBasmalah` says the sūrah has one, and `basmalah` is null there. Draw the
+   heading yourself if you render whole sūrahs.
 3. **Bazzī has no juz layer and only Ḥafṣ has imlāʾī.** Check `has("juz")` /
    `has("rasm_imlai")` first; `juz(n)` on Bazzī fails with the reason from the file.
 

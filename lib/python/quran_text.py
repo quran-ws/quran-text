@@ -534,6 +534,9 @@ class Surah(Span):
         self.name_ar: str = info["name_ar"]
         self.name_en: str = info["name_en"]
         self.revelation: str = info["revelation"]
+        # Printed under a basmalah: all but Tawbah.  Over sūrahs 2–114 that
+        # heading is not one of ``words``; ``basmalah`` covers only a basmalah
+        # the file carries as words.
         self.has_basmalah: bool = info["has_basmalah"]
         self.ayah_count: int = info["ayah_count"]
         self._first_ayah: int = info["first_ayah"]
@@ -547,8 +550,10 @@ class Surah(Span):
 
     @property
     def basmalah(self) -> Optional[Span]:
-        """The basmalah where it is printed unnumbered before āyah 1 (Warsh,
-        Qālūn, Dūrī, Sūsī at al-Fātiḥah); ``None`` otherwise."""
+        """The basmalah words printed unnumbered before āyah 1: al-Fātiḥah in
+        Warsh, Qālūn, Dūrī and Sūsī.  ``None`` everywhere else: Ḥafṣ, Shuʿbah
+        and Bazzī number it as āyah 1:1, and the basmalah heading over sūrahs
+        2–114 is not in ``words`` (see ``has_basmalah``)."""
         first = self._m._doc["ayah_starts"][self._first_ayah]
         return Span(self._m, self.start, first) if first > self.start else None
 
@@ -845,6 +850,11 @@ class Mushaf:
         return self._numbers_cache
 
     @property
+    def numbering_total(self) -> int:
+        """How many shared numbers there are; the same in all seven files."""
+        return self._doc["numbering"]["total"]
+
+    @property
     def missing_numbers(self) -> frozenset:
         """The shared numbers this riwāyah does not read."""
         return frozenset(self._doc["numbering"]["missing"])
@@ -1074,7 +1084,11 @@ class WordIndex:
         return [IndexedWord(r) for r in self._by_plain.get(q, [])]
 
     def differing(self) -> list[IndexedWord]:
-        """Every number the riwāyāt spell in more than one way."""
+        """Every number whose spellings differ in any way, vowelling and
+        pointing included.  This is not the set in ``data/differences.json``. That
+        file is chosen by status (rasm_variant, alif_variant, word_boundary, partial),
+        and eight of its words are spelt alike wherever they are read, so they are not
+        here: filter the whole index on ``status`` for that set."""
         return [IndexedWord(r) for r in self._words if "groups" in r]
 
     def __len__(self) -> int:

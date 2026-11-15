@@ -351,6 +351,12 @@ final class Mushaf
         return $this->numbers;
     }
 
+    /** How many shared numbers there are; the same in all seven files. */
+    public function numberingTotal(): int
+    {
+        return $this->doc['numbering']['total'];
+    }
+
     /** The shared numbers this riwāyah does not read. @return array<int,true> */
     public function missingNumbers(): array
     {

@@ -89,6 +89,11 @@ No field holds both. A key that ends in `_starts` holds positions. Only the
   `surahs[k].first_ayah` the prefix sum, so `(sūrah, n)` → index into
   `ayah_starts` is `first_ayah + n − 1`. `surahs[k].has_basmalah` is false for
   Tawbah alone; whether the basmalah is *counted* is `counting.basmalah_counted`.
+- **The basmalah heading over sūrahs 2–114 is not in `words`.** No position
+  holds it: a sūrah's words start at its first āyah. `has_basmalah` says the
+  sūrah is headed by one, so a reader rendering `words` in order draws the
+  heading from that flag. Only al-Fātiḥah's basmalah is ever in `words` (the
+  rule above).
 - **`page_starts` is read** from the release's explicit page breaks;
   **`line_starts` is reconstructed** and declared under `layers.derived.line`
   with its score. A line is counted within the whole muṣḥaf; the views convert

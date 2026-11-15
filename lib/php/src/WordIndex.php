@@ -69,7 +69,14 @@ final class WordIndex implements \Countable, \IteratorAggregate
         return array_map(fn ($r) => new IndexedWord($r), $this->byPlain[Text::fold($text)] ?? []);
     }
 
-    /** Every number the riwāyāt spell in more than one way. @return IndexedWord[] */
+    /**
+     * Every number whose spellings differ in any way, vowelling and pointing included.
+     * This is not the set in data/differences.json. That file is chosen by status
+     * (rasm_variant, alif_variant, word_boundary, partial), and eight of its words
+     * are spelt alike wherever they are read, so they are not here: filter the whole
+     * index on status for that set.
+     * @return IndexedWord[]
+     */
     public function differing(): array
     {
         $out = [];

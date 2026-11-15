@@ -119,6 +119,12 @@ check('form', $idx->word(11)->form('warsh'), 'مَلِكِ');
 check('find', $idx->find(2, 255, 3)->rasm_uthmani(), 'إِلَٰهَ');
 check('index search', in_array(11, array_map(fn ($x) => $x->number(), $idx->search('مالك')), true), true);
 check('differing', count($idx->differing()), 53128);
+$listed = ['rasm_variant', 'alif_variant', 'word_boundary', 'partial'];
+check('differing listed', count(array_filter($idx->differing(), fn ($w) => in_array($w->status(), $listed, true))), 284);
+check('index listed', count(array_filter(iterator_to_array($idx, false), fn ($w) => in_array($w->status(), $listed, true))), 292);
+check('numbering total hafs', $hafs->numberingTotal(), $idx->total);
+check('numbering total warsh', $warsh->numberingTotal(), $idx->total);
+check('heading not in words', [$hafs->surah(2)->hasBasmalah, $hafs->surah(2)->basmalah(), $warsh->surah(2)->basmalah()], [true, null, null]);
 
 echo $failures === 0 ? "OK\n" : "$failures failure(s)\n";
 exit($failures === 0 ? 0 : 1);

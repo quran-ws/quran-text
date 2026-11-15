@@ -119,5 +119,14 @@ void main() {
     expect(idx.find(2, 255, 3)!.rasm_uthmani, 'إِلَٰهَ');
     expect(idx.search('مالك').map((w) => w.number), contains(11));
     expect(idx.differing().length, 53128);
+    const listed = {'rasm_variant', 'alif_variant', 'word_boundary', 'partial'};
+    expect(idx.differing().where((w) => listed.contains(w.status)).length, 284);
+    expect(idx.where((w) => listed.contains(w.status)).length, 292);
+    expect(hafs.numberingTotal, idx.total);
+    expect(warsh.numberingTotal, idx.total);
+    // The heading over sūrahs 2–114 is printed but not in words.
+    expect(hafs.surah(2).hasBasmalah, isTrue);
+    expect(hafs.surah(2).basmalah, isNull);
+    expect(warsh.surah(2).basmalah, isNull);
   });
 }

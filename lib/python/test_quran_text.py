@@ -142,6 +142,15 @@ class TestWordIndex(unittest.TestCase):
         self.assertEqual(idx.find(2, 255, 3).rasm_uthmani, "إِلَٰهَ")
         self.assertIn(11, [w.number for w in idx.search("مالك")])
         self.assertEqual(len(idx.differing()), 53128)
+        listed = {"rasm_variant", "alif_variant", "word_boundary", "partial"}
+        self.assertEqual(sum(w.status in listed for w in idx.differing()), 284)
+        self.assertEqual(sum(w.status in listed for w in idx), 292)
+        self.assertEqual(hafs.numbering_total, idx.total)
+        self.assertEqual(warsh.numbering_total, idx.total)
+        # The heading over sūrahs 2–114 is printed but not in words.
+        self.assertTrue(hafs.surah(2).has_basmalah)
+        self.assertIsNone(hafs.surah(2).basmalah)
+        self.assertIsNone(warsh.surah(2).basmalah)
 
 
 if __name__ == "__main__":

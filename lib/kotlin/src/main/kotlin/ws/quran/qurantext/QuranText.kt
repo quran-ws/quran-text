@@ -269,6 +269,11 @@ class Surah internal constructor(m: Mushaf, val number: Int, info: JSONObject) :
     val nameAr: String = info.getString("name_ar")
     val nameEn: String = info.getString("name_en")
     val revelation: String = info.getString("revelation")
+    /**
+     * Printed under a basmalah: all but Tawbah. Over sūrahs 2–114 that
+     * heading is not one of words; basmalah covers only a basmalah the
+     * file carries as words.
+     */
     val hasBasmalah: Boolean = info.getBoolean("has_basmalah")
     val ayahCount: Int = info.getInt("ayah_count")
     internal val firstAyahIndex: Int = info.getInt("first_ayah")
@@ -277,8 +282,10 @@ class Surah internal constructor(m: Mushaf, val number: Int, info: JSONObject) :
     fun ayah(number: Int): Ayah = Ayah(m, this.number, number)
 
     /**
-     * The basmalah where it is printed unnumbered before āyah 1 (Warsh,
-     * Qālūn, Dūrī, Sūsī at al-Fātiḥah); null otherwise.
+     * The basmalah words printed unnumbered before āyah 1: al-Fātiḥah in
+     * Warsh, Qālūn, Dūrī and Sūsī. Null everywhere else: Ḥafṣ, Shuʿbah and
+     * Bazzī number it as āyah 1:1, and the basmalah heading over sūrahs
+     * 2–114 is not in words (see [hasBasmalah]).
      */
     val basmalah: Span?
         get() {
@@ -483,6 +490,8 @@ class Mushaf(private val doc: JSONObject) {
             numbersCache = runs
             return runs
         }
+    /** How many shared numbers there are; the same in all seven files. */
+    val numberingTotal: Int get() = numberingBlock.getInt("total")
     /** The shared numbers this riwāyah does not read. */
     val missingNumbers: Set<Int> by lazy { numberingBlock.getJSONArray("missing").toIntArray().toHashSet() }
     /** The shared number of the word at [position]. */
@@ -644,7 +653,13 @@ class WordIndex(doc: JSONObject) : Iterable<IndexedWord> {
         return by[fold(text)]?.map { IndexedWord(it) } ?: emptyList()
     }
 
-    /** Every number the riwāyāt spell in more than one way. */
+    /**
+     * Every number whose spellings differ in any way, vowelling and pointing included.
+     * This is not the set in `data/differences.json`. That file is chosen by status
+     * (rasm_variant, alif_variant, word_boundary, partial), and eight of its words
+     * are spelt alike wherever they are read, so they are not here: filter the whole
+     * index on `status` for that set.
+     */
     fun differing(): List<IndexedWord> = (0 until records.length()).map { record(it) }.filter { it.has("groups") }.map { IndexedWord(it) }
 
     val size: Int get() = total

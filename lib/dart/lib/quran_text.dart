@@ -358,6 +358,9 @@ class Surah extends Span {
   final String nameAr;
   final String nameEn;
   final String revelation;
+  /// Printed under a basmalah: all but Tawbah. Over sūrahs 2–114 that
+  /// heading is not one of words; basmalah covers only a basmalah the
+  /// file carries as words.
   final bool hasBasmalah;
   final int ayahCount;
   final int _firstAyah;
@@ -375,8 +378,10 @@ class Surah extends Span {
   List<Ayah> get ayahs => [for (var n = 1; n <= ayahCount; n++) Ayah(_m, number, n)];
   Ayah ayah(int number) => Ayah(_m, this.number, number);
 
-  /// The basmalah where it is printed unnumbered before āyah 1 (Warsh,
-  /// Qālūn, Dūrī, Sūsī at al-Fātiḥah); null otherwise.
+  /// The basmalah words printed unnumbered before āyah 1: al-Fātiḥah in
+  /// Warsh, Qālūn, Dūrī and Sūsī. Null everywhere else: Ḥafṣ, Shuʿbah and
+  /// Bazzī number it as āyah 1:1, and the basmalah heading over sūrahs
+  /// 2–114 is not in words (see [hasBasmalah]).
   Span? get basmalah {
     final first = _m._ayahStarts[_firstAyah];
     return first > start ? Span(_m, start, first) : null;
@@ -649,6 +654,9 @@ class Mushaf {
     return _numbersCache!;
   }
 
+  /// How many shared numbers there are; the same in all seven files.
+  int get numberingTotal => (_doc['numbering'] as Map)['total'] as int;
+
   /// The shared numbers this riwāyah does not read.
   late final Set<int> missingNumbers = Set<int>.from((_doc['numbering'] as Map)['missing'] as List);
 
@@ -842,7 +850,11 @@ class WordIndex extends Iterable<IndexedWord> {
     return [for (final r in _byPlain![fold(text)] ?? const []) IndexedWord(r)];
   }
 
-  /// Every number the riwāyāt spell in more than one way.
+  /// Every number whose spellings differ in any way, vowelling and pointing included.
+  /// This is not the set in `data/differences.json`. That file is chosen by status
+  /// (rasm_variant, alif_variant, word_boundary, partial), and eight of its words are
+  /// spelt alike wherever they are read, so they are not here: filter the whole index
+  /// on `status` for that set.
   List<IndexedWord> differing() => [
         for (final r in _words.cast<Map<String, dynamic>>())
           if (r.containsKey('groups')) IndexedWord(r)

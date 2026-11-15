@@ -9,6 +9,11 @@ final class Surah extends Span
     public readonly string $nameAr;
     public readonly string $nameEn;
     public readonly string $revelation;
+    /**
+     * Printed under a basmalah: all but Tawbah. Over sūrahs 2–114 that
+     * heading is not one of words; basmalah covers only a basmalah the
+     * file carries as words.
+     */
     public readonly bool $hasBasmalah;
     public readonly int $ayahCount;
     /** @internal index into ayah_starts of āyah 1 */
@@ -46,8 +51,10 @@ final class Surah extends Span
     }
 
     /**
-     * The basmalah where it is printed unnumbered before āyah 1 (Warsh,
-     * Qālūn, Dūrī, Sūsī at al-Fātiḥah); null otherwise.
+     * The basmalah words printed unnumbered before āyah 1: al-Fātiḥah in
+     * Warsh, Qālūn, Dūrī and Sūsī. Null everywhere else: Ḥafṣ, Shuʿbah and
+     * Bazzī number it as āyah 1:1, and the basmalah heading over sūrahs
+     * 2–114 is not in words (see hasBasmalah).
      */
     public function basmalah(): ?Span
     {

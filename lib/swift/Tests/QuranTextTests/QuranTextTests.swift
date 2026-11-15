@@ -126,5 +126,14 @@ final class QuranTextTests: XCTestCase {
         XCTAssertEqual(idx.find(2, 255, 3)?.rasm_uthmani, "إِلَٰهَ")
         XCTAssertTrue(idx.search("مالك").contains { $0.number == 11 })
         XCTAssertEqual(idx.differing().count, 53128)
+        let listed: Set = ["rasm_variant", "alif_variant", "word_boundary", "partial"]
+        XCTAssertEqual(idx.differing().filter { listed.contains($0.status) }.count, 284)
+        XCTAssertEqual(idx.filter { listed.contains($0.status) }.count, 292)
+        XCTAssertEqual(Self.hafs.numberingTotal, idx.total)
+        XCTAssertEqual(Self.warsh.numberingTotal, idx.total)
+        // The heading over sūrahs 2–114 is printed but not in words.
+        XCTAssertTrue(Self.hafs.surah(2).hasBasmalah)
+        XCTAssertNil(Self.hafs.surah(2).basmalah)
+        XCTAssertNil(Self.warsh.surah(2).basmalah)
     }
 }

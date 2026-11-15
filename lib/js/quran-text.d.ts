@@ -113,11 +113,12 @@ export class Surah extends Span {
   readonly nameAr: string;
   readonly nameEn: string;
   readonly revelation: "makki" | "madani";
+  /** Printed under a basmalah (all but Tawbah); over sūrahs 2–114 that heading is not in `words`. */
   readonly hasBasmalah: boolean;
   readonly ayahCount: number;
   readonly ayahs: Ayah[];
   ayah(number: number): Ayah;
-  /** The unnumbered basmalah before āyah 1, where the edition prints it so. */
+  /** The basmalah words printed unnumbered before āyah 1 (al-Fātiḥah in Warsh, Qālūn, Dūrī, Sūsī); null otherwise. */
   readonly basmalah: Span | null;
   readonly firstPage: Page;
   readonly lastPage: Page;
@@ -228,6 +229,8 @@ export class Mushaf {
   numberAt(position: number): number;
   /** null where this muṣḥaf does not read the number. */
   wordByNumber(number: number): Word | null;
+  /** How many shared numbers there are; the same in all seven files. */
+  readonly numberingTotal: number;
   readonly missingNumbers: Set<number>;
 
   /** Every āyah printed with ۩. */
@@ -290,6 +293,7 @@ export class WordIndex implements Iterable<IndexedWord> {
   /** By Ḥafṣ coordinates: sūrah, āyah in the Kūfī count, 1-based word. */
   find(surah: number, ayah: number, index: number): IndexedWord | null;
   search(text: string): IndexedWord[];
+  /** Every number whose spellings differ in any way, vowelling and pointing included. This is not the set in `data/differences.json`. That file is chosen by status (rasm_variant, alif_variant, word_boundary, partial), and eight of its words are spelt alike wherever they are read, so they are not here: filter the whole index on `status` for that set. */
   differing(): IndexedWord[];
   [Symbol.iterator](): Iterator<IndexedWord>;
 }

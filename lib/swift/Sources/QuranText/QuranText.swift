@@ -309,6 +309,9 @@ public final class Surah: Span, CustomStringConvertible {
     public let nameAr: String
     public let nameEn: String
     public let revelation: String
+    /// Printed under a basmalah: all but Tawbah. Over sūrahs 2–114 that
+    /// heading is not one of words; basmalah covers only a basmalah the
+    /// file carries as words.
     public let hasBasmalah: Bool
     public let ayahCount: Int
     let firstAyahIndex: Int
@@ -327,8 +330,10 @@ public final class Surah: Span, CustomStringConvertible {
 
     public override var ayahs: [Ayah] { (1...ayahCount).map { Ayah(m, surah: number, number: $0) } }
     public func ayah(_ number: Int) -> Ayah { Ayah(m, surah: self.number, number: number) }
-    /// The basmalah where it is printed unnumbered before āyah 1 (Warsh,
-    /// Qālūn, Dūrī, Sūsī at al-Fātiḥah); nil otherwise.
+    /// The basmalah words printed unnumbered before āyah 1: al-Fātiḥah in
+    /// Warsh, Qālūn, Dūrī and Sūsī. Nil everywhere else: Ḥafṣ, Shuʿbah and
+    /// Bazzī number it as āyah 1:1, and the basmalah heading over sūrahs
+    /// 2–114 is not in words (see `hasBasmalah`).
     public var basmalah: Span? {
         let first = m.ayahStarts[firstAyahIndex]
         return first > start ? Span(m, start, first) : nil
@@ -576,6 +581,8 @@ public final class Mushaf {
         numbersCache = runs
         return runs
     }
+    /// How many shared numbers there are; the same in all seven files.
+    public var numberingTotal: Int { numbering["total"] as! Int }
     /// The shared numbers this riwāyah does not read.
     public private(set) lazy var missingNumbers: Set<Int> = Set(numbering["missing"] as! [Int])
     /// The shared number of the word at `position`.
@@ -749,7 +756,11 @@ public final class WordIndex: Sequence {
         }
         return (byPlain![fold(text)] ?? []).map { IndexedWord(raw: $0) }
     }
-    /// Every number the riwāyāt spell in more than one way.
+    /// Every number whose spellings differ in any way, vowelling and pointing included.
+    /// This is not the set in `data/differences.json`. That file is chosen by status
+    /// (rasm_variant, alif_variant, word_boundary, partial), and eight of its words
+    /// are spelt alike wherever they are read, so they are not here: filter the whole
+    /// index on `status` for that set.
     public func differing() -> [IndexedWord] { records.filter { $0["groups"] != nil }.map { IndexedWord(raw: $0) } }
     public var count: Int { total }
     public func makeIterator() -> AnyIterator<IndexedWord> {
