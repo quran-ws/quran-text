@@ -1,5 +1,15 @@
 # Changelog
 
+## Unreleased
+
+- `Hizb`, `RubuAlHizb` and `Thumn`: the 60 ḥizbs and their parts, as the
+  printed muṣḥaf marks them. `Mushaf.hizb(n)`, `rubuAlHizb(n)` and `thumn(n)`,
+  with `hizbAt`, `hizbCount`, `hizbs` and the same for the parts; `hizb`,
+  `rubuAlHizb` and `thumn` on `Word` and `Span`.
+- A muṣḥaf divides the ḥizb into four (Ḥafṣ, Shuʿbah) or into eight (Warsh,
+  Qālūn, Dūrī, Sūsī), never both; asking for the other throws `StateError`
+  with the reason from the file. Bazzī carries none of the three.
+
 ## 0.1.0
 
 First published release. The Dart binding has existed in this repository since

@@ -23,6 +23,8 @@ m.page(3).render(marks: [.waqf], ayahMarks: true, lines: true)
 m.page(3).lines                                                  // for a page layout
 m.surah(112).ayahs                                                 // [Ayah]
 m.juz(30)?.firstAyah?.key                                        // "78:1"
+m.hizb(60)?.firstAyah?.key                                       // "87:1"
+m.rubuAlHizb(2)?.numberInHizb                                    // 2; m.thumn(n) where the ḥizb is divided into eight
 m.word(1, 4, 1).number                                           // 11, the same word in every riwāyah
 m.sajdat()                                                       // every āyah printed with ۩
 m.search("مالك يوم الدين")                                       // [Span]
@@ -37,7 +39,8 @@ For another riwāyah add its `.ttf` from `data/fonts/` to your app.
 
 Lookups by number are checked with `precondition`, like array subscripts.
 Layers a file may lack come back as `nil`: `bazzi.juz(1)` is `nil` and
-`whyAbsent("juz")` says why. Waqf marks are combining characters, so inspect
+`whyAbsent("juz")` says why; so is `m.thumn(1)` for Ḥafṣ, which divides the
+ḥizb into four (`rubuAlHizb`), not eight. Waqf marks are combining characters, so inspect
 `unicodeScalars` rather than `Character`s when you need to find one in rendered
 text. The full API is in [`../README.md`](../README.md).
 

@@ -81,6 +81,39 @@ final class QuranTextTests: XCTestCase {
         XCTAssertNil(bazzi.wordAt(5).rasm_imlai)
     }
 
+    func testHizbAndItsParts() {
+        // Ḥafṣ divides the ḥizb into four; Warsh into eight; Bazzī's print was not read.
+        let warsh = Self.warsh, bazzi = Self.bazzi
+        XCTAssertEqual([hafs.hizbCount, hafs.rubuAlHizbCount, hafs.thumnCount], [60, 240, 0])
+        XCTAssertEqual([warsh.hizbCount, warsh.rubuAlHizbCount, warsh.thumnCount], [60, 0, 480])
+        XCTAssertEqual(hafs.hizb(1)?.firstAyah?.key, "1:1")
+        XCTAssertEqual(hafs.hizb(2)?.firstAyah?.key, "2:75")
+        XCTAssertEqual(hafs.hizb(60)?.firstAyah?.key, "87:1")
+        XCTAssertEqual(hafs.hizbs.count, 60)
+        XCTAssertEqual(hafs.hizbs.reduce(0) { $0 + $1.count }, hafs.wordCount)
+        XCTAssertEqual([hafs.rubuAlHizbs.count, hafs.thumns.count, warsh.thumns.count], [240, 0, 480])
+        let q = hafs.rubuAlHizb(2)!
+        XCTAssertEqual(q.firstAyah?.key, "2:26")
+        XCTAssertEqual([q.hizb!.number, q.numberInHizb], [1, 2])
+        XCTAssertEqual(hafs.rubuAlHizb(240)?.numberInHizb, 4)
+        let a = hafs.ayah(2, 255)
+        XCTAssertEqual([a.hizb!.number, a.rubuAlHizb!.number], [5, 17])
+        XCTAssertNil(a.thumn)
+        let t = warsh.thumn(480)!
+        XCTAssertEqual(t.firstAyah?.key, "106:1")
+        XCTAssertEqual([t.hizb!.number, t.numberInHizb], [60, 8])
+        XCTAssertEqual(warsh.wordAt(0).thumn?.number, 1)
+        XCTAssertEqual(warsh.thumn(9)?.description, "thumn 9")
+        // Where the print and the layout CSV start a juz at different āyāt, each layer keeps its own.
+        XCTAssertEqual([hafs.juz(4)?.firstAyah?.key, hafs.hizb(7)?.firstAyah?.key], ["3:92", "3:93"])
+        XCTAssertTrue(hafs.has("hizb") && hafs.has("rubu_al_hizb") && !hafs.has("thumn"))
+        XCTAssertNil(hafs.thumn(1))
+        XCTAssertTrue(hafs.whyAbsent("thumn")?.hasPrefix("this muṣḥaf divides the ḥizb into 4") ?? false)
+        XCTAssertNil(bazzi.hizb(1))
+        XCTAssertTrue(bazzi.whyAbsent("hizb")?.hasPrefix("no printed muṣḥaf") ?? false)
+        XCTAssertNil(bazzi.wordAt(5).hizb)
+    }
+
     func testSearch() {
         let hits = hafs.search("مالك يوم الدين")
         XCTAssertEqual(hits.count, 1)

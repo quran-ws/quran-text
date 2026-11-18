@@ -29,6 +29,7 @@ class MapOptions:
     to: tuple[str, ...] = ()
     surah: str | None = None
     juz: int | None = None
+    hizb: int | None = None
     page: str | None = None
     ayah: str | None = None
     by: str = "ayah"
@@ -54,7 +55,8 @@ class MapOptions:
 
     def scope_options(self) -> Options:
         """The scope, expressed as download options so ``select`` validates it."""
-        return Options(edition=self.source, surah=self.surah, juz=self.juz, page=self.page,
+        return Options(edition=self.source, surah=self.surah, juz=self.juz, hizb=self.hizb,
+                       page=self.page,
                        ayah=self.ayah, text=self.text)
 
     @property

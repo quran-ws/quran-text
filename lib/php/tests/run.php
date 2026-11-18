@@ -86,6 +86,34 @@ check('bazzi juzAt', $bazzi->wordAt(5)->juz(), null);
 check('bazzi has', $bazzi->has('juz'), false);
 check('bazzi rasm_imlai', $bazzi->wordAt(5)->rasm_imlai(), null);
 
+// Ḥafṣ divides the ḥizb into four; Warsh into eight; Bazzī's print was not read.
+check('hafs division counts', [$hafs->hizbCount(), $hafs->rubuAlHizbCount(), $hafs->thumnCount()], [60, 240, 0]);
+check('warsh division counts', [$warsh->hizbCount(), $warsh->rubuAlHizbCount(), $warsh->thumnCount()], [60, 0, 480]);
+check('hizb 1', $hafs->hizb(1)->firstAyah()->key(), '1:1');
+check('hizb 2', $hafs->hizb(2)->firstAyah()->key(), '2:75');
+check('hizb 60', $hafs->hizb(60)->firstAyah()->key(), '87:1');
+check('hizbs', count($hafs->hizbs()), 60);
+check('hizbs cover', array_sum(array_map('count', $hafs->hizbs())), $hafs->wordCount());
+check('rubuAlHizbs', count($hafs->rubuAlHizbs()), 240);
+check('thumns', [count($hafs->thumns()), count($warsh->thumns())], [0, 480]);
+$q = $hafs->rubuAlHizb(2);
+check('rubuAlHizb 2', [$q->firstAyah()->key(), $q->hizb()->number, $q->numberInHizb()], ['2:26', 1, 2]);
+check('rubuAlHizb 240', $hafs->rubuAlHizb(240)->numberInHizb(), 4);
+$a = $hafs->ayah(2, 255);
+check('ayah hizb', [$a->hizb()->number, $a->rubuAlHizb()->number], [5, 17]);
+check('ayah thumn', $a->thumn(), null);
+$t = $warsh->thumn(480);
+check('thumn 480', [$t->firstAyah()->key(), $t->hizb()->number, $t->numberInHizb()], ['106:1', 60, 8]);
+check('word thumn', $warsh->wordAt(0)->thumn()->number, 1);
+check('thumn class', [$warsh->thumn(9)::class, $warsh->thumn(9)->number], [QuranText\Thumn::class, 9]);
+// Where the print and the layout CSV start a juz at different āyāt, each layer keeps its own.
+check('juz 4 and hizb 7', [$hafs->juz(4)->firstAyah()->key(), $hafs->hizb(7)->firstAyah()->key()], ['3:92', '3:93']);
+check('hafs has divisions', [$hafs->has('hizb'), $hafs->has('rubu_al_hizb'), $hafs->has('thumn')], [true, true, false]);
+try { $hafs->thumn(1); check('hafs thumn', false, true); } catch (LogicException $e) { check('hafs thumn msg', str_contains($e->getMessage(), 'no thumn layer: this muṣḥaf divides the ḥizb into 4'), true); }
+try { $bazzi->hizb(1); check('bazzi hizb', false, true); } catch (LogicException $e) { check('bazzi hizb msg', str_contains($e->getMessage(), 'no hizb layer: no printed muṣḥaf'), true); }
+check('bazzi hizbAt', $bazzi->wordAt(5)->hizb(), null);
+try { $hafs->hizb(61); check('hizb range', false, true); } catch (OutOfRangeException $e) { check('hizb range msg', $e->getMessage(), 'hizb 61: there are 60'); }
+
 $hits = $hafs->search('مالك يوم الدين');
 check('search', count($hits), 1);
 check('search ayah', $hits[0]->firstAyah()->key(), '1:4');

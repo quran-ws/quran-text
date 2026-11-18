@@ -54,9 +54,10 @@ is a pure function of its URL, so `Cache-Control` at the proxy is safe.
 | `waqf` `sajdah` `division` | `1`/`0` | `1` | keep waqf marks, ۩, ۞ |
 | `lines` | `1`/`0` | `0` | break the text where the printed lines break |
 | `pages` | `1`/`0` | `0` | txt/md: a `# page N` line at every page turn |
-| `fields` | comma list of `surah ayah position number page line juz hafs` | `surah,ayah` (+`position,number` per word) | the columns of structured formats; `hafs` = the Kūfī reference and relation |
+| `fields` | comma list of `surah ayah position number page line juz hizb hafs` | `surah,ayah` (+`position,number` per word) | the columns of structured formats; `hafs` = the Kūfī reference and relation |
 | `surah` | `2` or `2-3` | — | scope |
 | `juz` | `1`–`30` | — | scope (not Bazzī, which has no juz layer) |
+| `hizb` | `1`–`60` | — | scope (not Bazzī, which has no hizb layer) |
 | `page` | `3` or `1-10` | — | scope |
 | `ayah` | `2:255` or `2:255-2:286` | — | scope, in the edition's own count |
 | `by` | `ayah` `word` | `ayah` | one record per āyah or per printed word |

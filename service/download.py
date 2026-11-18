@@ -33,7 +33,7 @@ FORMATS = ("txt", "json", "csv", "xml", "sql", "md")
 GRANULARITIES = ("ayah", "word")
 SIGN_LAYOUTS = ("columns", "attached")
 SIGN_KINDS = ("waqf", "sajdah", "sajdah_line", "division", "sah", "raised_dot")
-FIELDS = ("surah", "ayah", "position", "number", "page", "line", "juz", "hafs")
+FIELDS = ("surah", "ayah", "position", "number", "page", "line", "juz", "hizb", "hafs")
 DEFAULT_FIELDS = {"ayah": ("surah", "ayah"), "word": ("surah", "ayah", "position", "number")}
 
 
@@ -57,6 +57,7 @@ class Options:
     fields: tuple[str, ...] | None = None
     surah: str | None = None
     juz: int | None = None
+    hizb: int | None = None
     page: str | None = None
     ayah: str | None = None
     by: str = "ayah"
@@ -82,7 +83,7 @@ class Options:
             self.fields = DEFAULT_FIELDS[self.by]
         for f in self.fields:
             _one_of("fields", f, FIELDS)
-        scopes = [k for k in ("surah", "juz", "page", "ayah") if getattr(self, k) is not None]
+        scopes = [k for k in ("surah", "juz", "hizb", "page", "ayah") if getattr(self, k) is not None]
         if len(scopes) > 1:
             raise BadRequest(f"give one scope, not {', '.join(scopes)}")
         if self.limit is not None and self.limit < 1:
@@ -99,7 +100,7 @@ class Options:
 
     @property
     def scope(self) -> str:
-        for k in ("surah", "juz", "page", "ayah"):
+        for k in ("surah", "juz", "hizb", "page", "ayah"):
             v = getattr(self, k)
             if v is not None:
                 return f"{k} {v}"
@@ -142,6 +143,12 @@ def select(m: Mushaf, o: Options) -> Span:
             _check(1 <= o.juz <= m.juz_count, f"juz {o.juz}: there are {m.juz_count}")
             j = m.juz(o.juz)
             return m.span(j.start, j.end)
+        if o.hizb is not None:
+            if not m.has("hizb"):
+                raise BadRequest(m._absent("hizb"))
+            _check(1 <= o.hizb <= m.hizb_count, f"hizb {o.hizb}: there are {m.hizb_count}")
+            h = m.hizb(o.hizb)
+            return m.span(h.start, h.end)
         if o.page is not None:
             a, b = _range(o.page, "page")
             _check(1 <= a <= b <= m.page_count,
@@ -261,6 +268,8 @@ def records(data: Dataset, m: Mushaf, span: Span, o: Options) -> list[dict]:
             r["line"] = line.number if line else None
         if "juz" in o.fields:
             r["juz"] = unit.juz.number if unit.juz else None
+        if "hizb" in o.fields:
+            r["hizb"] = unit.hizb.number if unit.hizb else None
         if "hafs" in o.fields:
             r.update(_hafs_ref(data, m, surah, ayah))
         out.append(r)
@@ -289,6 +298,8 @@ def _word_records(data: Dataset, m: Mushaf, span: Span, o: Options) -> list[dict
             r["line"] = w.line.number if w.line else None
         if "juz" in o.fields:
             r["juz"] = w.juz.number if w.juz else None
+        if "hizb" in o.fields:
+            r["hizb"] = w.hizb.number if w.hizb else None
         if "hafs" in o.fields:
             r.update(_hafs_ref(data, m, surah, ayah))
         out.append(r)
@@ -326,7 +337,7 @@ def columns(o: Options) -> list[str]:
     cols += o.extra_forms
     if o.by == "word" and o.signs == "columns":
         cols += [k for k in SIGN_KINDS if k in o.mark_kinds]
-    cols += [f for f in ("page", "line", "juz") if f in o.fields]
+    cols += [f for f in ("page", "line", "juz", "hizb") if f in o.fields]
     if "hafs" in o.fields:
         cols += ["hafs", "hafs_relation"]
     return cols
@@ -340,6 +351,8 @@ def build(data: Dataset, o: Options, url: str = "") -> File:
         raise BadRequest(f"text=rasm_imlai: {m._absent('rasm_imlai')}; imlāʾī is published for Ḥafṣ only")
     if "juz" in o.fields and not m.has("juz"):
         raise BadRequest(m._absent("juz"))
+    if "hizb" in o.fields and not m.has("hizb"):
+        raise BadRequest(m._absent("hizb"))
     span = select(m, o)
     rows = records(data, m, span, o)
     meta = provenance(m, o, url, len(rows))
@@ -387,7 +400,7 @@ def header_lines(meta: dict) -> list[str]:
 
 def filename(m: Mushaf, o: Options) -> str:
     parts = ["quran", m.key, *o.forms]
-    for k in ("surah", "juz", "page", "ayah"):
+    for k in ("surah", "juz", "hizb", "page", "ayah"):
         v = getattr(o, k)
         if v is not None:
             parts.append(f"{k}{str(v).replace(':', '_').replace('–', '-')}")

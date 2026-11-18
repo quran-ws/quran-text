@@ -127,41 +127,60 @@ filename: the archive lists `UthmanicHafs_v2-0.zip` as "version 13.0" and both
 carelessly, that field makes it look as though Dūrī has a 3.0 release. It does
 not, and the sentence above about Dūrī still stands.
 
-## A printed muṣḥaf, read for what the packages omit
+## The printed muṣḥafs, read for what the packages omit
 
-**This is the only source here that is not a KFGQPC package**, and it is used
-for one thing the packages do not carry: the marginal division apparatus.
+**These are the only sources here that are not KFGQPC data packages**, and they
+are used for one thing the packages do not carry: the division marks in the
+margin.
 
-| | |
-|---|---|
-| file | `القرآن الكريم - المصحف العادي.pdf` |
-| from | [archive.org/details/quran-pdf-download-hafs](https://archive.org/details/quran-pdf-download-hafs) |
-| sha256 | `1cd2a1544860791a0b795e904680f4ad51bee0f692c35c1f764dc833bd1fe5f8` |
-| size | 243,640,743 bytes, 640 pages |
-| internal title | `standard39.pdf`, produced on Esko Automation Engine, 2019 |
+| muṣḥaf | print | SHA-256 |
+|---|---|---|
+| Ḥafṣ | [`standard39-2.pdf`](https://cdn.quran.ws/KFGQPC/resources/quran-hafs/standard39-2/standard39-2.pdf) | `5c4297de1fb6b654f641eed33242408d89432cbecf8a96ff5d297cb45fea7f07` |
+| Shuʿbah | [`shuba-1.pdf`](https://cdn.quran.ws/KFGQPC/resources/quran-qiraat/shuba-1/shuba-1.pdf) | `51cc438eb199ee3fa379dbd1ca35b4abcf2d1a4ad778f52dfdcdc9df1a564d05` |
+| Warsh | [`warsh39-1.pdf`](https://cdn.quran.ws/KFGQPC/resources/quran-qiraat/warsh39-1/warsh39-1.pdf) | `f33a6e55530548d9cbf7e0ab6d8154ba46eea12d227208ce849915b808850074` |
+| Qālūn | [`qaloun-1.pdf`](https://cdn.quran.ws/KFGQPC/resources/quran-qiraat/qaloun-1/qaloun-1.pdf) | `57386a907a400bbad0cbc16002acb314db08350b5c5aabd43a6362085fb306cc` |
+| Dūrī | [`douri-1.pdf`](https://cdn.quran.ws/KFGQPC/resources/quran-qiraat/douri-1/douri-1.pdf) | `918f24f92104407712224ebb0f3172f8c18f33dbddd1db85d16c3705e4644ea0` |
+| Sūsī | [`sousi-1.pdf`](https://cdn.quran.ws/KFGQPC/resources/quran-qiraat/sousi-1/sousi-1.pdf) | `265b50e718bedec3df1a9ece77480baeec22f73137fa3a01ab6efc071a65005a` |
 
-**Its provenance is weaker than the packages'**, and that is stated rather than
-glossed: it is a scan hosted on archive.org, it does not name its printing or
-year, and it is not published by KFGQPC as a data release. It is **not
-committed** — it is 232 MB, far past GitHub's limit, and the build does not read
-it.
+All six are KFGQPC's own PDFs of its printed muṣḥafs, fetched from the
+[Quran.ws mirror of KFGQPC files](https://quran-ws.github.io/kfgqpc-resources/),
+whose `SHA256SUMS` lists each one. **None is committed**: each is over 200 MB,
+far past GitHub's limit, and the build does not read them. What was read from
+them is in `sources/divisions/`, and each evidence file names its print and
+hash. There is **no Bazzī print** on the mirror, so Bazzī has no division
+layer.
 
-**What it was used for.** The `.docx` releases encode the inline ۞ and nothing
-else; the printed muṣḥaf also marks every rubu_al_hizb with a margin medallion reading
-«الحِزْبُ N» or «رُبْعُ / نِصْفُ / ثَلَاثَةُ أَرْبَاعِ الحِزْبِ N». Thirteen of
-those medallions were read to complete the 240 rubu_al_hizbs, which the packages alone
-cannot supply. See `docs/known-issues.md` §7.
+The Ḥafṣ print's internal title is `standard39.pdf`, produced on Esko
+Automation Engine in 2019. The thirteen Ḥafṣ readings first recorded here were
+taken from another copy of the same edition, hosted on
+[archive.org](https://archive.org/details/quran-pdf-download-hafs) as
+`القرآن الكريم - المصحف العادي.pdf` (SHA-256 `1cd2a154…e5f8`). All forty were
+read again from KFGQPC's own file, and the two agree.
 
-**It was verified against this repository before being trusted.** Its muṣḥaf
-page *n* is its PDF page *n+3*, and on page 151 its thirteen text lines match
-`data/mushaf/hafs.json` word for word, with the sūrah heading and the basmalah
-each taking a ruled line — the same layout the line reconstruction produces
-(§6). It has **no text layer**: every page is a 1344×1944 image, so nothing was
-extracted mechanically and each medallion was read.
+**What they were used for.** The `.docx` releases encode the inline ۞ and
+nothing else. The printed muṣḥaf marks every division with a label in its outer
+margin, including the ones that fall at a sūrah opening, where no ۞ is printed.
+Those labels were read to complete the 240 rubu_al_hizbs or 480 thumns of each
+muṣḥaf. See `docs/known-issues.md` §7 and `docs/format.md`, *Divisions*.
 
-**Where it contradicts a package it is not silently preferred.** At juz 4 and
-juz 11 its printed marks disagree with `hafsData_v2-0.csv`; §11 records the
-disagreement and `juz_starts` still follows the CSV.
+**How they were read.** The PDFs have **no text layer**: every page is an
+image. In each, muṣḥaf page *n* is PDF page *n+3*. Every page was rendered, and
+every label in the outer margin was located by its position on the page. The
+label's row was then matched to the row the data gives the division: each
+page has fifteen ruled rows, with a sūrah heading and a basmalah taking one
+each. Every label fell on an inline ۞ or on a recorded margin entry, and none
+was left over. The label at every ḥizb start and every margin-only label was
+then read by eye.
+
+**They were checked against this repository before being trusted.** On page 151
+of the Ḥafṣ print the thirteen text lines match `data/mushaf/hafs.json` word
+for word. In the Sūsī print the rows differ from the reconstruction on about
+seventeen pages, where a sūrah heading stands at the foot of the preceding
+page (`docs/known-issues.md` §7).
+
+**Where a print contradicts a package it is not silently preferred.** Six juz
+starts in the v2 CSVs are not where the prints put them. §11 records each, and
+`juz_starts` still follows the CSV.
 
 ## Counting-system boundaries
 

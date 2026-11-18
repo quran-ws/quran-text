@@ -117,6 +117,7 @@ def download(
         "plus `position,number` per word"))] = None,
     surah: Annotated[str | None, Query(description="Scope: one sūrah `2` or a range `2-3`")] = None,
     juz: Annotated[int | None, Query(description="Scope: one juz 1–30 (Bazzī has no juz layer)")] = None,
+    hizb: Annotated[int | None, Query(description="Scope: one ḥizb 1–60 (Bazzī has no hizb layer)")] = None,
     page: Annotated[str | None, Query(description="Scope: one page `3` or a range `1-10`")] = None,
     ayah: Annotated[str | None, Query(description=(
         "Scope: one āyah `2:255` or a range `2:255-2:286`, in this edition's own count"))] = None,
@@ -142,7 +143,7 @@ def download(
         sajdah_line=sajdah_line, division=division, sah=sah, raised_dot=raised_dot,
         lines=lines, pages=pages,
         fields=tuple(f.strip() for f in fields.split(",") if f.strip()) if fields is not None else None,
-        surah=surah, juz=juz, page=page, ayah=ayah, by=by, signs=signs, format=format,
+        surah=surah, juz=juz, hizb=hizb, page=page, ayah=ayah, by=by, signs=signs, format=format,
         prefix=prefix, nested=nested, header=header, limit=limit)
     try:
         data.mushaf(edition)
@@ -173,6 +174,7 @@ def map_dataset(
     to: Annotated[str | None, Query(description="Target riwāyāt, comma-separated; every other one when omitted")] = None,
     surah: Annotated[str | None, Query(description="Scope: one sūrah `2` or a range `2-3`")] = None,
     juz: Annotated[int | None, Query(description="Scope: one juz 1–30")] = None,
+    hizb: Annotated[int | None, Query(description="Scope: one ḥizb 1–60")] = None,
     page: Annotated[str | None, Query(description="Scope: one page `3` or a range `1-10`")] = None,
     ayah: Annotated[str | None, Query(description="Scope: one āyah `2:253` or a range `2:253-2:286`")] = None,
     by: Annotated[str, Query(description="One row per `ayah` (its counterpart āyāt and relation) or per `word` (its counterpart word)", enum=list(GRANULARITIES))] = "ayah",
@@ -188,7 +190,7 @@ def map_dataset(
     unnumbered or missing. Join your data on `number`, never on sūrah:āyah."""
     options = MapOptions(
         source=source, to=tuple(t.strip() for t in to.split(",") if t.strip()) if to else (),
-        surah=surah, juz=juz, page=page, ayah=ayah, by=by, text=text, format=format,
+        surah=surah, juz=juz, hizb=hizb, page=page, ayah=ayah, by=by, text=text, format=format,
         header=header, limit=limit)
     file = build_map(data, options, url=_canonical_url(request))
     disposition = "inline" if inline or limit or format == "json" else "attachment"

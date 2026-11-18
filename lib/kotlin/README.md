@@ -13,6 +13,9 @@ m.page(3).render(marks = setOf(MarkKind.waqf), ayahMarks = true, lines = true)
 m.page(3).lines                                                      // for a page layout
 m.surah(112).ayahs                                                     // List<Ayah>
 m.juz(30).firstAyah?.key                                             // "78:1"
+m.hizb(60).firstAyah?.key                                            // "87:1"
+m.rubuAlHizb(2).numberInHizb                                         // 2; m.thumn(n) where the ḥizb is in eight
+m.ayah(2, 255).hizb?.number                                          // 5
 m.word(1, 4, 1).number                                               // 11, the same word in every riwāyah
 m.sajdat()                                                           // every āyah printed with ۩
 m.search("مالك يوم الدين")                                           // List<Span>
@@ -27,7 +30,7 @@ The font the text needs is bundled too: `m.font.family` names it and
 For another riwāyah put its `.ttf` from `data/fonts/` in `assets/`.
 
 Wrong numbers throw `IllegalArgumentException`; a layer the file lacks (juz in
-Bazzī) throws `IllegalStateException` with the reason from the file. The full
+Bazzī, thumn in Ḥafṣ) throws `IllegalStateException` with the reason from the file. The full
 API is in [`../README.md`](../README.md).
 
 Test: `gradle test` in this directory (`-Dquran.data=…` to point at another `data/`).

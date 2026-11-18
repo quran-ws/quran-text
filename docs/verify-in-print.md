@@ -64,7 +64,25 @@ never printed at those (§7). Of the four disputed juz, only juz 7 has a mark
 standing on the boundary at all; at juz 4 and 11 the nearest marks are 15 and 19
 words away, which makes them neighbouring rubu_al_hizbs, not the division.
 
-**If answered:** Bazzī gets a juz layer. It has none today.
+**Answered for the other six, from their prints.** The margin of each printed
+muṣḥaf labels every juz start «الجزء N», and all six were read
+(`docs/known-issues.md` §7, §11). In shared word numbers:
+
+| juz | Ḥafṣ | Shuʿbah | Warsh | Qālūn | Dūrī | Sūsī |
+|---|---|---|---|---|---|---|
+| 4 | 7724 | 7724 | 7709 | 7709 | 7709 | 7709 |
+| 7 | 15312 | 15312 | 15312 | 15312 | 15338 | 15338 |
+| 11 | 25528 | 25528 | 25528 | 25528 | 25547 | 25547 |
+| 20 | 49117 | 49117 | 49117 | 49145 | 49117 | 49117 |
+| 22 | 54253 | 54253 | 54253 | 54325 | 54253 | 54253 |
+| 26 | 64707 | 64707 | 64707 | 64707 | 64707 | 64707 |
+
+The other 25 are the same word in all six. So **at juz 26 the six prints agree
+on 46:1**: the 45:32 above is in the Dūrī and Sūsī CSVs only, and their prints
+do not have it. The prints still differ from each other at juz 4, 7, 11, 20 and
+22, where Bazzī's own print is the only thing that can say which it follows.
+
+**If answered:** Bazzī gets a juz layer and a ḥizb layer. It has neither today.
 
 *`docs/known-issues.md` §9.*
 

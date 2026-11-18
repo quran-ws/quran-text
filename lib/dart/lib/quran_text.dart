@@ -9,11 +9,12 @@
 /// m.ayah(2, 255).render(marks: true, ayahMarks: true);
 /// m.page(3).lines;
 /// m.juz(30).firstAyah!.key;        // "78:1"
+/// m.hizb(60).firstAyah!.key;       // "87:1"; m.rubuAlHizb(n) or m.thumn(n) for its parts
 /// ```
 ///
 /// Everything is a slice of one `words` list.  A [Span] is a slice with
-/// [Span.text] and [Span.render]; [Surah], [Ayah], [Page], [Line] and [Juz]
-/// are spans that know their place.  Positions are 0-based indices into
+/// [Span.text] and [Span.render]; [Surah], [Ayah], [Page], [Line], [Juz],
+/// [Hizb], [RubuAlHizb] and [Thumn] are spans that know their place.  Positions are 0-based indices into
 /// `words`; sūrah, āyah, page, line and juz numbers are 1-based, as printed.
 /// Āyah numbers are in this edition's own count; use [AyahMap] to convert
 /// between editions.
@@ -125,6 +126,9 @@ class Word {
   Page get page => _m.pageAt(position);
   Line? get line => _m.lineAt(position);
   Juz? get juz => _m.juzAt(position);
+  Hizb? get hizb => _m.hizbAt(position);
+  RubuAlHizb? get rubuAlHizb => _m.rubuAlHizbAt(position);
+  Thumn? get thumn => _m.thumnAt(position);
 
   /// The shared number: the same word in every riwāyah.
   int get number => _m._numbers[position].$1;
@@ -232,6 +236,11 @@ class Span extends Iterable<Word> {
   /// The page the span starts on.
   Page get page => _m.pageAt(start);
   Juz? get juz => _m.juzAt(start);
+
+  /// The ḥizb the span starts in, as the printed muṣḥaf marks it.
+  Hizb? get hizb => _m.hizbAt(start);
+  RubuAlHizb? get rubuAlHizb => _m.rubuAlHizbAt(start);
+  Thumn? get thumn => _m.thumnAt(start);
 
   /// Every sign inside the span, with the word it is printed on.
   List<(Word, Mark)> get marks => [
@@ -467,6 +476,76 @@ class Juz extends Span {
   String toString() => 'juz $number';
 }
 
+// The ḥizb and its parts are read from the margin of the print, not from the
+// release (`layers.derived.divisions`).  A muṣḥaf divides the ḥizb into four
+// rubu_al_hizbs or into eight thumns, never both, and one whose print was not
+// read carries none of the three.
+
+List<int> _divisionStarts(Mushaf m, String layer, List<int>? starts, int number) {
+  if (starts == null) throw StateError(m._absent(layer));
+  if (number < 1 || number > starts.length) {
+    throw RangeError('$layer $number: there are ${starts.length}');
+  }
+  return starts;
+}
+
+/// One of the 60 ḥizbs.  `Hizb(2k-1)` starts where the print starts juz `k`,
+/// which is not always where `juz_starts` does (docs/known-issues.md §11).
+class Hizb extends Span {
+  final int number;
+
+  Hizb._(Mushaf m, List<int> starts, this.number)
+      : super(m, starts[number - 1], number < starts.length ? starts[number] : m.words.length);
+
+  factory Hizb(Mushaf m, int number) =>
+      Hizb._(m, _divisionStarts(m, 'hizb', m._hizbStarts, number), number);
+
+  @override
+  String toString() => 'hizb $number';
+}
+
+/// One of the 240 quarters of a muṣḥaf that divides the ḥizb into four.
+class RubuAlHizb extends Span {
+  final int number;
+
+  RubuAlHizb._(Mushaf m, List<int> starts, this.number)
+      : super(m, starts[number - 1], number < starts.length ? starts[number] : m.words.length);
+
+  factory RubuAlHizb(Mushaf m, int number) =>
+      RubuAlHizb._(m, _divisionStarts(m, 'rubu_al_hizb', m._rubuAlHizbStarts, number), number);
+
+  /// The ḥizb it sits in.
+  @override
+  Hizb get hizb => _m.hizbAt(start)!;
+
+  /// 1-based place inside its ḥizb: 1–4.
+  int get numberInHizb => (number - 1) % (_m._rubuAlHizbStarts!.length ~/ 60) + 1;
+
+  @override
+  String toString() => 'rubu_al_hizb $number';
+}
+
+/// One of the 480 eighths of a muṣḥaf that divides the ḥizb into eight.
+class Thumn extends Span {
+  final int number;
+
+  Thumn._(Mushaf m, List<int> starts, this.number)
+      : super(m, starts[number - 1], number < starts.length ? starts[number] : m.words.length);
+
+  factory Thumn(Mushaf m, int number) =>
+      Thumn._(m, _divisionStarts(m, 'thumn', m._thumnStarts, number), number);
+
+  /// The ḥizb it sits in.
+  @override
+  Hizb get hizb => _m.hizbAt(start)!;
+
+  /// 1-based place inside its ḥizb: 1–8.
+  int get numberInHizb => (number - 1) % (_m._thumnStarts!.length ~/ 60) + 1;
+
+  @override
+  String toString() => 'thumn $number';
+}
+
 /// One muṣḥaf file, `data/mushaf/<key>.json`.
 class Mushaf {
   final Map<String, dynamic> _doc;
@@ -491,6 +570,9 @@ class Mushaf {
   final List<int> _pageStarts;
   final List<int>? _lineStarts;
   final List<int>? _juzStarts;
+  final List<int>? _hizbStarts;
+  final List<int>? _rubuAlHizbStarts;
+  final List<int>? _thumnStarts;
   late final List<int> _surahFirstAyah;
   final Map<int, int> _ayahEnds = {};
   final Map<int, List<Mark>> _marksAt = {};
@@ -514,7 +596,11 @@ class Mushaf {
         _ayahStarts = List<int>.from(_doc['ayah_starts'] as List),
         _pageStarts = List<int>.from(_doc['page_starts'] as List),
         _lineStarts = _doc['line_starts'] == null ? null : List<int>.from(_doc['line_starts'] as List),
-        _juzStarts = _doc['juz_starts'] == null ? null : List<int>.from(_doc['juz_starts'] as List) {
+        _juzStarts = _doc['juz_starts'] == null ? null : List<int>.from(_doc['juz_starts'] as List),
+        _hizbStarts = _doc['hizb_starts'] == null ? null : List<int>.from(_doc['hizb_starts'] as List),
+        _rubuAlHizbStarts =
+            _doc['rubu_al_hizb_starts'] == null ? null : List<int>.from(_doc['rubu_al_hizb_starts'] as List),
+        _thumnStarts = _doc['thumn_starts'] == null ? null : List<int>.from(_doc['thumn_starts'] as List) {
     surahs = [for (var n = 1; n <= 114; n++) Surah._(this, n, (_doc['surahs'] as List)[n - 1])];
     _surahFirstAyah = [for (final s in surahs) s._firstAyah];
     for (var k = 0; k < _ayahStarts.length; k++) {
@@ -575,6 +661,9 @@ class Mushaf {
   int get pageCount => _pageStarts.length;
   int get lineCount => _lineStarts?.length ?? 0;
   int get juzCount => _juzStarts?.length ?? 0;
+  int get hizbCount => _hizbStarts?.length ?? 0;
+  int get rubuAlHizbCount => _rubuAlHizbStarts?.length ?? 0;
+  int get thumnCount => _thumnStarts?.length ?? 0;
 
   // -- units by number --
 
@@ -587,6 +676,9 @@ class Mushaf {
   Ayah ayah(int surah, int number) => Ayah(this, surah, number);
   Page page(int number) => Page(this, number);
   Juz juz(int number) => Juz(this, number);
+  Hizb hizb(int number) => Hizb(this, number);
+  RubuAlHizb rubuAlHizb(int number) => RubuAlHizb(this, number);
+  Thumn thumn(int number) => Thumn(this, number);
   Line line(int page, int number) => Page(this, page).line(number);
 
   /// Word [index] (1-based) of an āyah.
@@ -604,6 +696,10 @@ class Mushaf {
   List<Ayah> get ayahs => [for (var k = 0; k < ayahCount; k++) Ayah._fromIndex(this, k)];
   List<Page> get pages => [for (var n = 1; n <= pageCount; n++) Page(this, n)];
   List<Juz> get ajza => [for (var n = 1; n <= juzCount; n++) Juz(this, n)];
+  List<Hizb> get hizbs => [for (var n = 1; n <= hizbCount; n++) Hizb(this, n)];
+  List<RubuAlHizb> get rubuAlHizbs =>
+      [for (var n = 1; n <= rubuAlHizbCount; n++) RubuAlHizb(this, n)];
+  List<Thumn> get thumns => [for (var n = 1; n <= thumnCount; n++) Thumn(this, n)];
 
   // -- units by position --
 
@@ -619,6 +715,13 @@ class Mushaf {
       _lineStarts == null ? null : Line._fromIndex(this, _indexOf(_lineStarts!, position));
   Juz? juzAt(int position) =>
       _juzStarts == null ? null : Juz(this, _indexOf(_juzStarts!, position) + 1);
+  Hizb? hizbAt(int position) =>
+      _hizbStarts == null ? null : Hizb(this, _indexOf(_hizbStarts!, position) + 1);
+  RubuAlHizb? rubuAlHizbAt(int position) => _rubuAlHizbStarts == null
+      ? null
+      : RubuAlHizb(this, _indexOf(_rubuAlHizbStarts!, position) + 1);
+  Thumn? thumnAt(int position) =>
+      _thumnStarts == null ? null : Thumn(this, _indexOf(_thumnStarts!, position) + 1);
 
   List<Line> _linesBetween(int start, int end) {
     final starts = _lineStarts;

@@ -6,10 +6,11 @@
 //     m.ayah(2, 255).render(marks = MarkKind.all, ayahMarks = true)
 //     m.page(3).lines
 //     m.juz(30).firstAyah?.key          // "78:1"
+//     m.hizb(60).firstAyah?.key         // "87:1"; m.rubuAlHizb(n) or m.thumn(n) for its parts
 //
 // Everything is a slice of one `words` list.  A Span is a slice with `text`
-// and `render()`; Surah, Ayah, Page, Line and Juz are spans that know their
-// place.  Positions are 0-based indices into `words`; sūrah, āyah, page,
+// and `render()`; Surah, Ayah, Page, Line, Juz, Hizb, RubuAlHizb and Thumn
+// are spans that know their place.  Positions are 0-based indices into `words`; sūrah, āyah, page,
 // line and juz numbers are 1-based, as printed.  Āyah numbers are in this
 // edition's own count; use AyahMap to convert between editions.
 //
@@ -99,6 +100,9 @@ class Word internal constructor(private val m: Mushaf, val position: Int) {
     val page: Page get() = m.pageAt(position)
     val line: Line? get() = m.lineAt(position)
     val juz: Juz? get() = m.juzAt(position)
+    val hizb: Hizb? get() = m.hizbAt(position)
+    val rubuAlHizb: RubuAlHizb? get() = m.rubuAlHizbAt(position)
+    val thumn: Thumn? get() = m.thumnAt(position)
     /** The shared number: the same word in every riwāyah. */
     val number: Int get() = m.numbers[position].first
     /** Equal to [number] except where this muṣḥaf writes two numbers as one word. */
@@ -172,6 +176,10 @@ open class Span internal constructor(internal val m: Mushaf, val start: Int, val
     /** The page the span starts on. */
     open val page: Page get() = m.pageAt(start)
     val juz: Juz? get() = m.juzAt(start)
+    /** The ḥizb the span starts in, as the printed muṣḥaf marks it. */
+    open val hizb: Hizb? get() = m.hizbAt(start)
+    val rubuAlHizb: RubuAlHizb? get() = m.rubuAlHizbAt(start)
+    val thumn: Thumn? get() = m.thumnAt(start)
 
     /** Every sign inside the span, with the word it is printed on. */
     val marks: List<Pair<Word, Mark>>
@@ -337,6 +345,46 @@ class Juz internal constructor(m: Mushaf, val number: Int, starts: IntArray) :
     override fun toString() = "juz $number"
 }
 
+private fun checkDivision(layer: String, number: Int, starts: IntArray): Int {
+    require(number in 1..starts.size) { "$layer $number: there are ${starts.size}" }
+    return number
+}
+
+/**
+ * One unit of a division layer the printed muṣḥaf marks: a ḥizb or a part of one.
+ *
+ * The layer is read from the margin of the print, not from the release
+ * (`layers.derived.divisions`).  A muṣḥaf divides the ḥizb into four
+ * rubu_al_hizbs or into eight thumns, never both, and one whose print was
+ * not read carries none of the three.
+ */
+abstract class Division internal constructor(m: Mushaf, val number: Int, starts: IntArray, private val layer: String) :
+    Span(m, starts[checkDivision(layer, number, starts) - 1], if (number < starts.size) starts[number] else m.words.size) {
+    override fun toString() = "$layer $number"
+}
+
+/**
+ * One of the 60 ḥizbs.  `hizb(2k-1)` starts where the print starts juz `k`,
+ * which is not always where `juz_starts` does (docs/known-issues.md §11).
+ */
+class Hizb internal constructor(m: Mushaf, number: Int, starts: IntArray) : Division(m, number, starts, "hizb")
+
+/** A part of a ḥizb: a [RubuAlHizb] or a [Thumn]. */
+abstract class HizbPart internal constructor(m: Mushaf, number: Int, starts: IntArray, layer: String) :
+    Division(m, number, starts, layer) {
+    private val perHizb = starts.size / 60
+    /** The ḥizb it sits in. */
+    override val hizb: Hizb get() = m.hizbAt(start)!!
+    /** 1-based place inside its ḥizb: 1–4 for a rubu_al_hizb, 1–8 for a thumn. */
+    val numberInHizb: Int get() = (number - 1) % perHizb + 1
+}
+
+/** One of the 240 quarters of a muṣḥaf that divides the ḥizb into four. */
+class RubuAlHizb internal constructor(m: Mushaf, number: Int, starts: IntArray) : HizbPart(m, number, starts, "rubu_al_hizb")
+
+/** One of the 480 eighths of a muṣḥaf that divides the ḥizb into eight. */
+class Thumn internal constructor(m: Mushaf, number: Int, starts: IntArray) : HizbPart(m, number, starts, "thumn")
+
 // --- the muṣḥaf ---------------------------------------------------------------
 
 /** One muṣḥaf file, `data/mushaf/<key>.json`. */
@@ -374,6 +422,9 @@ class Mushaf(private val doc: JSONObject) {
     internal val pageStarts = doc.getJSONArray("page_starts").toIntArray()
     internal val lineStarts: IntArray? = doc.optJSONArray("line_starts")?.toIntArray()
     internal val juzStarts: IntArray? = doc.optJSONArray("juz_starts")?.toIntArray()
+    internal val hizbStarts: IntArray? = doc.optJSONArray("hizb_starts")?.toIntArray()
+    internal val rubuAlHizbStarts: IntArray? = doc.optJSONArray("rubu_al_hizb_starts")?.toIntArray()
+    internal val thumnStarts: IntArray? = doc.optJSONArray("thumn_starts")?.toIntArray()
     internal val lineStartSet: Set<Int> = lineStarts?.toSet() ?: emptySet()
     val surahs: List<Surah> = (1..114).map { Surah(this, it, doc.getJSONArray("surahs").getJSONObject(it - 1)) }
     private val surahFirstAyah = IntArray(114) { surahs[it].firstAyahIndex }
@@ -426,6 +477,9 @@ class Mushaf(private val doc: JSONObject) {
     val pageCount: Int get() = pageStarts.size
     val lineCount: Int get() = lineStarts?.size ?: 0
     val juzCount: Int get() = juzStarts?.size ?: 0
+    val hizbCount: Int get() = hizbStarts?.size ?: 0
+    val rubuAlHizbCount: Int get() = rubuAlHizbStarts?.size ?: 0
+    val thumnCount: Int get() = thumnStarts?.size ?: 0
 
     // -- units by number --
 
@@ -438,6 +492,13 @@ class Mushaf(private val doc: JSONObject) {
     fun page(number: Int): Page = Page(this, number)
     /** Throws [IllegalStateException] when the file has no juz layer (Bazzī); see [whyAbsent]. */
     fun juz(number: Int): Juz = Juz(this, number, juzStarts ?: throw IllegalStateException(absent("juz")))
+    /** Throws [IllegalStateException] when the file has no hizb layer (Bazzī); see [whyAbsent]. */
+    fun hizb(number: Int): Hizb = Hizb(this, number, hizbStarts ?: throw IllegalStateException(absent("hizb")))
+    /** Throws [IllegalStateException] when this muṣḥaf does not divide the ḥizb into four; see [whyAbsent]. */
+    fun rubuAlHizb(number: Int): RubuAlHizb =
+        RubuAlHizb(this, number, rubuAlHizbStarts ?: throw IllegalStateException(absent("rubu_al_hizb")))
+    /** Throws [IllegalStateException] when this muṣḥaf does not divide the ḥizb into eight; see [whyAbsent]. */
+    fun thumn(number: Int): Thumn = Thumn(this, number, thumnStarts ?: throw IllegalStateException(absent("thumn")))
     fun line(page: Int, number: Int): Line = Page(this, page).line(number)
     /** Word [index] (1-based) of an āyah. */
     fun word(surah: Int, ayah: Int, index: Int): Word = Ayah(this, surah, ayah).word(index)
@@ -450,6 +511,10 @@ class Mushaf(private val doc: JSONObject) {
     val ayahs: List<Ayah> get() = (0 until ayahCount).map { Ayah.fromIndex(this, it) }
     val pages: List<Page> get() = (1..pageCount).map { Page(this, it) }
     val ajza: List<Juz> get() = juzStarts?.let { s -> (1..s.size).map { Juz(this, it, s) } } ?: emptyList()
+    val hizbs: List<Hizb> get() = hizbStarts?.let { s -> (1..s.size).map { Hizb(this, it, s) } } ?: emptyList()
+    val rubuAlHizbs: List<RubuAlHizb>
+        get() = rubuAlHizbStarts?.let { s -> (1..s.size).map { RubuAlHizb(this, it, s) } } ?: emptyList()
+    val thumns: List<Thumn> get() = thumnStarts?.let { s -> (1..s.size).map { Thumn(this, it, s) } } ?: emptyList()
 
     private fun absent(layer: String) = "$nameEn has no $layer layer: ${whyAbsent(layer) ?: "not in this file"}"
 
@@ -461,6 +526,9 @@ class Mushaf(private val doc: JSONObject) {
     fun pageAt(position: Int): Page = Page(this, indexOf(pageStarts, position) + 1)
     fun lineAt(position: Int): Line? = lineStarts?.let { Line(this, indexOf(it, position)) }
     fun juzAt(position: Int): Juz? = juzStarts?.let { Juz(this, indexOf(it, position) + 1, it) }
+    fun hizbAt(position: Int): Hizb? = hizbStarts?.let { Hizb(this, indexOf(it, position) + 1, it) }
+    fun rubuAlHizbAt(position: Int): RubuAlHizb? = rubuAlHizbStarts?.let { RubuAlHizb(this, indexOf(it, position) + 1, it) }
+    fun thumnAt(position: Int): Thumn? = thumnStarts?.let { Thumn(this, indexOf(it, position) + 1, it) }
     internal fun linesBetween(start: Int, end: Int): List<Line> {
         val starts = lineStarts ?: return emptyList()
         return (indexOf(starts, start)..indexOf(starts, end - 1)).map { Line(this, it) }

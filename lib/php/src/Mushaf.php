@@ -12,6 +12,7 @@ namespace QuranText;
  *   $m->ayah(2, 255)->render(marks: true, ayahMarks: true);
  *   $m->page(3)->lines();
  *   $m->juz(30)->firstAyah()->key();          // "78:1"
+ *   $m->hizb(60)->firstAyah()->key();         // "87:1"; $m->rubuAlHizb($n) or $m->thumn($n) for its parts
  *
  * Positions are 0-based indices into $words; sūrah, āyah, page, line and juz
  * numbers are 1-based, as printed.  Āyah numbers are in this edition's own
@@ -186,6 +187,21 @@ final class Mushaf
         return count($this->doc['juz_starts'] ?? []);
     }
 
+    public function hizbCount(): int
+    {
+        return count($this->doc['hizb_starts'] ?? []);
+    }
+
+    public function rubuAlHizbCount(): int
+    {
+        return count($this->doc['rubu_al_hizb_starts'] ?? []);
+    }
+
+    public function thumnCount(): int
+    {
+        return count($this->doc['thumn_starts'] ?? []);
+    }
+
     // -- units by number --
 
     public function surah(int $number): Surah
@@ -210,6 +226,24 @@ final class Mushaf
     public function juz(int $number): Juz
     {
         return new Juz($this, $number);
+    }
+
+    /** Ḥizb $number of 60, as the printed muṣḥaf marks it. */
+    public function hizb(int $number): Hizb
+    {
+        return new Hizb($this, $number);
+    }
+
+    /** Quarter $number of 240, in a muṣḥaf that divides the ḥizb into four. */
+    public function rubuAlHizb(int $number): RubuAlHizb
+    {
+        return new RubuAlHizb($this, $number);
+    }
+
+    /** Eighth $number of 480, in a muṣḥaf that divides the ḥizb into eight. */
+    public function thumn(int $number): Thumn
+    {
+        return new Thumn($this, $number);
     }
 
     public function line(int $page, int $number): Line
@@ -267,6 +301,36 @@ final class Mushaf
         return $out;
     }
 
+    /** @return Hizb[] */
+    public function hizbs(): array
+    {
+        $out = [];
+        for ($n = 1; $n <= $this->hizbCount(); $n++) {
+            $out[] = new Hizb($this, $n);
+        }
+        return $out;
+    }
+
+    /** @return RubuAlHizb[] */
+    public function rubuAlHizbs(): array
+    {
+        $out = [];
+        for ($n = 1; $n <= $this->rubuAlHizbCount(); $n++) {
+            $out[] = new RubuAlHizb($this, $n);
+        }
+        return $out;
+    }
+
+    /** @return Thumn[] */
+    public function thumns(): array
+    {
+        $out = [];
+        for ($n = 1; $n <= $this->thumnCount(); $n++) {
+            $out[] = new Thumn($this, $n);
+        }
+        return $out;
+    }
+
     // -- units by position --
 
     public function wordAt(int $position): Word
@@ -300,6 +364,24 @@ final class Mushaf
     {
         $starts = $this->doc['juz_starts'] ?? null;
         return $starts ? new Juz($this, Text::indexOf($starts, $position) + 1) : null;
+    }
+
+    public function hizbAt(int $position): ?Hizb
+    {
+        $starts = $this->doc['hizb_starts'] ?? null;
+        return $starts ? new Hizb($this, Text::indexOf($starts, $position) + 1) : null;
+    }
+
+    public function rubuAlHizbAt(int $position): ?RubuAlHizb
+    {
+        $starts = $this->doc['rubu_al_hizb_starts'] ?? null;
+        return $starts ? new RubuAlHizb($this, Text::indexOf($starts, $position) + 1) : null;
+    }
+
+    public function thumnAt(int $position): ?Thumn
+    {
+        $starts = $this->doc['thumn_starts'] ?? null;
+        return $starts ? new Thumn($this, Text::indexOf($starts, $position) + 1) : null;
     }
 
     /** @internal @return Line[] */

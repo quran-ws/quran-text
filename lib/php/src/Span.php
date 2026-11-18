@@ -144,6 +144,22 @@ class Span implements \Countable, \IteratorAggregate
         return $this->mushaf->juzAt($this->start);
     }
 
+    /** The ḥizb the span starts in, as the printed muṣḥaf marks it. */
+    public function hizb(): ?Hizb
+    {
+        return $this->mushaf->hizbAt($this->start);
+    }
+
+    public function rubuAlHizb(): ?RubuAlHizb
+    {
+        return $this->mushaf->rubuAlHizbAt($this->start);
+    }
+
+    public function thumn(): ?Thumn
+    {
+        return $this->mushaf->thumnAt($this->start);
+    }
+
     /** Every sign inside the span, with the word it is printed on. @return array<int, array{word: Word, mark: Mark}> */
     public function marks(): array
     {

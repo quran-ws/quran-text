@@ -278,6 +278,39 @@
         "layout": {
           "$ref": "#/$defs/package"
         },
+        "divisions": {
+          "type": "object",
+          "description": "Where hizb_starts and the subdivision came from: the evidence file under sources/divisions/, and the printed mu\u1e63\u1e25af its margin was read from.",
+          "required": [
+            "evidence",
+            "sha256",
+            "print",
+            "used_for"
+          ],
+          "properties": {
+            "evidence": {
+              "type": "string"
+            },
+            "sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "print": {
+              "type": "object",
+              "required": [
+                "file",
+                "sha256",
+                "from"
+              ]
+            },
+            "used_for": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
         "policy": {
           "type": "string"
         }
@@ -475,6 +508,24 @@
     },
     "juz_starts": {
       "$ref": "#/$defs/starts"
+    },
+    "hizb_starts": {
+      "$ref": "#/$defs/starts",
+      "description": "The 60 \u1e25izbs, as the printed mu\u1e63\u1e25af marks them: every 4th of rubu_al_hizb_starts or every 8th of thumn_starts. Derived: see layers.derived.divisions. Absent when no printed mu\u1e63\u1e25af of the riw\u0101yah was read.",
+      "minItems": 60,
+      "maxItems": 60
+    },
+    "rubu_al_hizb_starts": {
+      "$ref": "#/$defs/starts",
+      "description": "The 240 rubu_al_hizbs of a mu\u1e63\u1e25af that divides the \u1e25izb into four. A file carries this or thumn_starts, never both.",
+      "minItems": 240,
+      "maxItems": 240
+    },
+    "thumn_starts": {
+      "$ref": "#/$defs/starts",
+      "description": "The 480 thumns of a mu\u1e63\u1e25af that divides the \u1e25izb into eight. A file carries this or rubu_al_hizb_starts, never both.",
+      "minItems": 480,
+      "maxItems": 480
     },
     "surahs": {
       "type": "array",

@@ -38,6 +38,8 @@ that array, addressed by position.**
   "page_starts": [0, 29, 65, "…"],
   "line_starts": [0, 4, 8, "…"],
   "juz_starts":  [0, 2522, "…"],
+  "hizb_starts": [0, 1196, "…"],
+  "rubu_al_hizb_starts": [0, 360, 662, 876, 1196, "…"],
 
   "surahs": [ { "number": 1, "name_ar": "الفَاتِحة", "name_en": "Al-Fātiḥah", "revelation": "makki",
                "has_basmalah": true, "ayah_count": 7, "first_ayah": 0 }, "…" ],
@@ -102,6 +104,12 @@ No field holds both. A key that ends in `_starts` holds positions. Only the
   word, to Ḥafṣ's.
 - **`juz_starts`** comes from the v2 CSV and is absent for Bazzī, which has
   none; `layers.absent` says why.
+- **`hizb_starts`** holds the 60 ḥizbs, and beside it a file carries the
+  subdivision its printed muṣḥaf uses: **`rubu_al_hizb_starts`**, 240 quarters,
+  in Ḥafṣ and Shuʿbah, or **`thumn_starts`**, 480 eighths, in Warsh, Qālūn,
+  Dūrī and Sūsī. Never both: these are two units, and the boundaries differ
+  between the two groups as well as the density. `hizb_starts` is every 4th
+  or every 8th entry of the subdivision. See *Divisions*.
 - **`marks`** is a list of `[position, type]` with `mark_types` interned per
   file and `mark_signs` naming every sign's codepoint. See *Marks*.
 - **`rasm_imlai`** is an array parallel to `words`, or `null` when the release
@@ -355,9 +363,51 @@ Two things follow, and a consumer needs both:
   markable rubu_al_hizbs; the other 40 are in the margin.
 
 So `marks` answers "what symbols does this edition print, and where", not "where
-are this muṣḥaf's divisions". Only `juz_starts` is a division layer, and
-`docs/known-issues.md` §11 records two points where even it disagrees with the
-edition's own marks. See §7 for the full reconstruction.
+are this muṣḥaf's divisions". The division layers answer that: `juz_starts`,
+`hizb_starts`, and `rubu_al_hizb_starts` or `thumn_starts`.
+
+## Divisions
+
+The releases cannot supply the ḥizb and its parts alone, because a division
+that falls at a sūrah opening is printed in the margin and the `.docx` carries
+no margin. So the layer is built from two things:
+
+| part | source |
+|---|---|
+| the opening of the Qurʾān at 1:1 | no muṣḥaf marks it |
+| every inline ۞ | the release, as `marks` |
+| the divisions marked only in the margin | read from the printed muṣḥaf, recorded in `sources/divisions/<key>-<unit>.json` |
+
+The build adds the three and **refuses to publish unless the grid closes**: 240
+or 480 in all, every margin reading on a word that carries no ۞ and on the page
+the evidence states. `layers.derived.divisions` gives the three counts, and
+`provenance.divisions` names the evidence file and the print it was read from,
+each with its SHA-256.
+
+| muṣḥaf | layer | inline ۞ | margin | print |
+|---|---|---|---|---|
+| Ḥafṣ | `rubu_al_hizb_starts` | 199 | 40 | `standard39-2.pdf` |
+| Shuʿbah | `rubu_al_hizb_starts` | 199 | 40 | `shuba-1.pdf` |
+| Warsh | `thumn_starts` | 435 | 44 | `warsh39-1.pdf` |
+| Qālūn | `thumn_starts` | 436 of 437 | 43 | `qaloun-1.pdf` |
+| Dūrī | `thumn_starts` | 433 | 46 | `douri-1.pdf` |
+| Sūsī | `thumn_starts` | 433 | 46 | `sousi-1.pdf` |
+| Bazzī | none | 199 | not read | no print was available |
+
+Three things a consumer needs:
+
+- **A file carries one subdivision.** `layers.absent` names the other with the
+  reason, and names all three for Bazzī.
+- **`hizb_starts` follows the print, `juz_starts` follows the v2 CSV, and they
+  disagree in six places.** A juz is two ḥizbs, so `hizb_starts[2·(k−1)]` is
+  where the printed muṣḥaf starts juz *k*. That is not `juz_starts[k−1]` at
+  juz 4 and 11 in Ḥafṣ, 20 and 22 in Qālūn, and 11 and 26 in Dūrī and Sūsī.
+  `layers.derived.divisions.juz_differs_from_layout` lists them per file, and
+  `docs/known-issues.md` §11 has the detail. Neither layer is corrected to the
+  other.
+- **The same division is not the same word across muṣḥafs.** Ḥafṣ and Shuʿbah
+  divide at the same 240 words, and Dūrī and Sūsī at the same 480, but only
+  183 of Ḥafṣ's 240 fall on a Qālūn thumn.
 
 *۞ is the **rubu_al_hizb** sign; the ḥizb proper is the marginal label these
 files do not carry.*
@@ -524,7 +574,9 @@ discovering a missing key at runtime. Bazzī:
 
 ```json
 "absent": { "juz": "no v2 package released for this riwāyah",
-            "rasm_imlai": "column not present in this riwāyah's release" }
+            "rasm_imlai": "column not present in this riwāyah's release",
+            "hizb": "no printed muṣḥaf of this riwāyah was read: …",
+            "rubu_al_hizb": "…", "thumn": "…" }
 ```
 
 Bazzī still has `page_starts`, because page comes from the `.docx` that every

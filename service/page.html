@@ -355,10 +355,12 @@
           <label class="opt"><input type="radio" name="scope" value="all" checked>whole Qurʾān</label>
           <label class="opt"><input type="radio" name="scope" value="surah">sūrah</label>
           <label class="opt" id="lbl-juz-scope"><input type="radio" name="scope" value="juz">juz</label>
+          <label class="opt" id="lbl-hizb-scope"><input type="radio" name="scope" value="hizb">ḥizb</label>
           <label class="opt"><input type="radio" name="scope" value="page">page</label>
           <label class="opt"><input type="radio" name="scope" value="ayah">āyah</label>
           <label class="opt opt-in" data-scope="surah" hidden><input type="text" name="surah" placeholder="2 or 2-3" inputmode="numeric" aria-label="sūrah"></label>
           <label class="opt opt-in" data-scope="juz" hidden><input type="number" name="juz" min="1" max="30" placeholder="1-30" aria-label="juz"></label>
+          <label class="opt opt-in" data-scope="hizb" hidden><input type="number" name="hizb" min="1" max="60" placeholder="1-60" aria-label="ḥizb"></label>
           <label class="opt opt-in" data-scope="page" hidden><input type="text" name="page" placeholder="3 or 1-10" inputmode="numeric" aria-label="page"></label>
           <label class="opt opt-in" data-scope="ayah" hidden><input type="text" name="ayah" placeholder="2:255 or 2:255-2:286" aria-label="āyah"></label>
         </div>
@@ -443,6 +445,7 @@
               <label class="opt"><input type="checkbox" name="f" value="page">page</label>
               <label class="opt"><input type="checkbox" name="f" value="line">line</label>
               <label class="opt" id="lbl-juz"><input type="checkbox" name="f" value="juz">juz</label>
+              <label class="opt" id="lbl-hizb"><input type="checkbox" name="f" value="hizb">ḥizb</label>
               <label class="opt" id="lbl-hafs"><input type="checkbox" name="f" value="hafs">Ḥafṣ āyah <span class="dim">and how the two relate</span></label>
             </div>
             <div class="hint">For csv, json, xml and sql. Every file already carries sūrah and āyah.</div>
@@ -731,6 +734,8 @@ page3 = m[<span class="s">"words"</span>][p[<span class="s">2</span>]:p[<span cl
     setEnabled("#lbl-rasm_imlai", c.has.rasm_imlai);
     setEnabled("#lbl-juz", c.has.juz);
     setEnabled("#lbl-juz-scope", c.has.juz);
+    setEnabled("#lbl-hizb", c.has.hizb);
+    setEnabled("#lbl-hizb-scope", c.has.hizb);
     setEnabled("#lbl-hafs", c.key !== "hafs");
     setEnabled("#lbl-waqf", (c.marks.waqf || 0) > 0);
     rawSelect(c.key);
@@ -782,6 +787,7 @@ page3 = m[<span class="s">"words"</span>][p[<span class="s">2</span>]:p[<span cl
   ${k("ayah_starts")}:  [${v("0, 4, 8")}, ${d("… " + e.ayah_count.toLocaleString())}],
   ${k("page_starts")}:  [${v("0, 29, 65")}, ${d("… " + e.page_count)}],
   ${k("juz_starts")}:   ${e.has.juz ? `[${v("0, 2522, 5101")}, ${d("… 30")}]` : v("null")},
+  ${k("hizb_starts")}:  ${e.has.hizb ? `[${v("0, 1196, 2522")}, ${d("… 60")}]` : v("null")},
 
   ${k("marks")}: [[${v("33, 0")}], [${v("34, 0")}], ${d("…")}],        ${d("// [position, mark_type]")}
   ${k("mark_types")}: [{ ${k("kind")}: ${v('"waqf"')}, ${k("sign")}: ${v('"ۖ"')} }, ${d("…")}]
@@ -1029,6 +1035,7 @@ access-control-allow-origin: *`;
     let sel = "m.all";
     if (scope === "surah") sel = `m.surah(${($("[name=surah]", form).value.split("-")[0] || "1")})`;
     if (scope === "juz") sel = `m.juz(${$("[name=juz]", form).value || 1})`;
+    if (scope === "hizb") sel = `m.hizb(${$("[name=hizb]", form).value || 1})`;
     if (scope === "page") sel = `m.page(${($("[name=page]", form).value.split("-")[0] || "1")})`;
     if (scope === "ayah") { const [s, a] = ($("[name=ayah]", form).value.split("-")[0] || "2:255").split(":"); sel = `m.ayah(${s || 2}, ${a || 255})`; }
     const jsMarks = marks.length === 3 ? "true" : `[${marks.map(x => `"${x}"`).join(", ")}]`;

@@ -59,6 +59,21 @@ final class Word
         return $this->mushaf->juzAt($this->position);
     }
 
+    public function hizb(): ?Hizb
+    {
+        return $this->mushaf->hizbAt($this->position);
+    }
+
+    public function rubuAlHizb(): ?RubuAlHizb
+    {
+        return $this->mushaf->rubuAlHizbAt($this->position);
+    }
+
+    public function thumn(): ?Thumn
+    {
+        return $this->mushaf->thumnAt($this->position);
+    }
+
     /** The shared number: the same word in every riwāyah. */
     public function number(): int
     {

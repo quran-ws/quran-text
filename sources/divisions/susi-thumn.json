@@ -1,0 +1,259 @@
+{
+  "_description": "The evidence for the 480 thumns of the Sūsī muṣḥaf: the divisions the printed muṣḥaf marks only in its margin. The build adds them to the ۞ the docx prints inline and to the opening of the Qurʾān at 1:1, and gets 433 + 46 + 1 = 480; it fails if that total does not close (pipeline/qurantext/divisions.py). The result is published as `hizb_starts` and `thumn_starts` in data/mushaf/susi.json. Nothing here is a word number: each entry is keyed by this edition's own `ayah`, and its division starts at that āyah's first word. `page` is this edition's.",
+  "_checked": "Every label in the print was located, not only the ones listed here: each page was rendered, each label in the outer margin was found by its position, and its page and row were matched to the data. All 479 labels fell on a ۞ or on an entry below, and no label was left over. Then the label at every ḥizb start, and every label listed here, was read.",
+  "_labels": "`label` is the margin text as printed, without its vowel marks. This print words its labels: «الحزب N» at a ḥizb start, «الجزء N الحزب M» where a juz starts too, and «ثمن ٢» to «ثمن ٨» between, numbered inside the ḥizb.",
+  "mushaf": "susi",
+  "unit": "thumn",
+  "total": 480,
+  "print": {
+    "file": "sousi-1.pdf",
+    "sha256": "265b50e718bedec3df1a9ece77480baeec22f73137fa3a01ab6efc071a65005a",
+    "from": "https://cdn.quran.ws/KFGQPC/resources/quran-qiraat/sousi-1/sousi-1.pdf",
+    "page_offset": 3
+  },
+  "margin_division_marks": [
+    {
+      "ayah": "4:1",
+      "page": 77,
+      "label": "ثمن ٥"
+    },
+    {
+      "ayah": "6:1",
+      "page": 128,
+      "label": "ثمن ٦"
+    },
+    {
+      "ayah": "7:1",
+      "page": 151,
+      "label": "الحزب ١٦"
+    },
+    {
+      "ayah": "9:1",
+      "page": 187,
+      "label": "ثمن ٥"
+    },
+    {
+      "ayah": "14:1",
+      "page": 255,
+      "label": "ثمن ٤"
+    },
+    {
+      "ayah": "15:1",
+      "page": 262,
+      "label": "الجزء ١٤ الحزب ٢٧"
+    },
+    {
+      "ayah": "16:1",
+      "page": 267,
+      "label": "ثمن ٥"
+    },
+    {
+      "ayah": "17:1",
+      "page": 282,
+      "label": "الجزء ١٥ الحزب ٢٩"
+    },
+    {
+      "ayah": "18:1",
+      "page": 293,
+      "label": "ثمن ٢"
+    },
+    {
+      "ayah": "20:1",
+      "page": 312,
+      "label": "الحزب ٣٢"
+    },
+    {
+      "ayah": "21:1",
+      "page": 322,
+      "label": "الجزء ١٧ الحزب ٣٣"
+    },
+    {
+      "ayah": "22:1",
+      "page": 332,
+      "label": "الحزب ٣٤"
+    },
+    {
+      "ayah": "23:1",
+      "page": 342,
+      "label": "الجزء ١٨ الحزب ٣٥"
+    },
+    {
+      "ayah": "27:1",
+      "page": 377,
+      "label": "ثمن ٥"
+    },
+    {
+      "ayah": "28:1",
+      "page": 385,
+      "label": "ثمن ٤"
+    },
+    {
+      "ayah": "33:1",
+      "page": 418,
+      "label": "ثمن ٥"
+    },
+    {
+      "ayah": "38:1",
+      "page": 453,
+      "label": "ثمن ٢"
+    },
+    {
+      "ayah": "40:1",
+      "page": 467,
+      "label": "ثمن ٥"
+    },
+    {
+      "ayah": "44:1",
+      "page": 496,
+      "label": "ثمن ٤"
+    },
+    {
+      "ayah": "45:1",
+      "page": 499,
+      "label": "ثمن ٦"
+    },
+    {
+      "ayah": "46:1",
+      "page": 502,
+      "label": "الجزء ٢٦ الحزب ٥١"
+    },
+    {
+      "ayah": "49:1",
+      "page": 515,
+      "label": "ثمن ٣"
+    },
+    {
+      "ayah": "51:1",
+      "page": 520,
+      "label": "ثمن ٨"
+    },
+    {
+      "ayah": "52:1",
+      "page": 523,
+      "label": "ثمن ٢"
+    },
+    {
+      "ayah": "53:1",
+      "page": 526,
+      "label": "ثمن ٤"
+    },
+    {
+      "ayah": "55:1",
+      "page": 531,
+      "label": "الحزب ٥٤"
+    },
+    {
+      "ayah": "58:1",
+      "page": 542,
+      "label": "الجزء ٢٨ الحزب ٥٥"
+    },
+    {
+      "ayah": "61:1",
+      "page": 551,
+      "label": "ثمن ٨"
+    },
+    {
+      "ayah": "62:1",
+      "page": 553,
+      "label": "الحزب ٥٦"
+    },
+    {
+      "ayah": "63:1",
+      "page": 554,
+      "label": "ثمن ٢"
+    },
+    {
+      "ayah": "67:1",
+      "page": 562,
+      "label": "الجزء ٢٩ الحزب ٥٧"
+    },
+    {
+      "ayah": "68:1",
+      "page": 564,
+      "label": "ثمن ٣"
+    },
+    {
+      "ayah": "70:1",
+      "page": 568,
+      "label": "ثمن ٦"
+    },
+    {
+      "ayah": "72:1",
+      "page": 572,
+      "label": "الحزب ٥٨"
+    },
+    {
+      "ayah": "75:1",
+      "page": 577,
+      "label": "ثمن ٥"
+    },
+    {
+      "ayah": "76:1",
+      "page": 578,
+      "label": "ثمن ٦"
+    },
+    {
+      "ayah": "78:1",
+      "page": 582,
+      "label": "الجزء ٣٠ الحزب ٥٩"
+    },
+    {
+      "ayah": "79:1",
+      "page": 583,
+      "label": "ثمن ٢"
+    },
+    {
+      "ayah": "82:1",
+      "page": 587,
+      "label": "ثمن ٥"
+    },
+    {
+      "ayah": "87:1",
+      "page": 591,
+      "label": "الحزب ٦٠"
+    },
+    {
+      "ayah": "89:1",
+      "page": 593,
+      "label": "ثمن ٢"
+    },
+    {
+      "ayah": "90:1",
+      "page": 594,
+      "label": "ثمن ٣"
+    },
+    {
+      "ayah": "92:1",
+      "page": 595,
+      "label": "ثمن ٤"
+    },
+    {
+      "ayah": "95:1",
+      "page": 597,
+      "label": "ثمن ٥"
+    },
+    {
+      "ayah": "98:1",
+      "page": 598,
+      "label": "ثمن ٦"
+    },
+    {
+      "ayah": "107:1",
+      "page": 602,
+      "label": "ثمن ٨"
+    }
+  ],
+  "_juz": "Where the print starts a juz at a different āyah from the v2 CSV's `jozz` column. `juz_starts` still follows the CSV (docs/known-issues.md §11); `hizb_starts` follows the print.",
+  "juz_differs_from_layout": [
+    {
+      "juz": 11,
+      "print": "9:95",
+      "layout": "9:93"
+    },
+    {
+      "juz": 26,
+      "print": "46:1",
+      "layout": "45:32"
+    }
+  ]
+}

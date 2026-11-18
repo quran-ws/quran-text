@@ -40,6 +40,15 @@
      "archive": "https://github.com/quran-ws/kfgqpc-resources",
      "archive_commit": "925b94346c2bd6a82df92a5ba3cfbec0bc63c512"
     }
+   },
+   "divisions": {
+    "evidence": "sources/divisions/hafs-rubu-al-hizb.json",
+    "sha256": "851f54e36d9ab72909b0c77ae9116072f2a8f86ab428e74689d98935c3a37a3a",
+    "print": {
+     "file": "standard39-2.pdf",
+     "sha256": "5c4297de1fb6b654f641eed33242408d89432cbecf8a96ff5d297cb45fea7f07",
+     "from": "https://cdn.quran.ws/KFGQPC/resources/quran-hafs/standard39-2/standard39-2.pdf"
+    }
    }
   },
   "shubah": {
@@ -66,6 +75,15 @@
      "geo_restricted": "The official host serves Saudi Arabia only; from elsewhere it times out. Use the mirror, which is the same bytes.",
      "archive": "https://github.com/quran-ws/kfgqpc-resources",
      "archive_commit": "925b94346c2bd6a82df92a5ba3cfbec0bc63c512"
+    }
+   },
+   "divisions": {
+    "evidence": "sources/divisions/shubah-rubu-al-hizb.json",
+    "sha256": "9119646bc9a0203074fb73e53c5087da0dde555bee55da3ceb5f9ca0ac15e21e",
+    "print": {
+     "file": "shuba-1.pdf",
+     "sha256": "51cc438eb199ee3fa379dbd1ca35b4abcf2d1a4ad778f52dfdcdc9df1a564d05",
+     "from": "https://cdn.quran.ws/KFGQPC/resources/quran-qiraat/shuba-1/shuba-1.pdf"
     }
    }
   },
@@ -94,6 +112,15 @@
      "archive": "https://github.com/quran-ws/kfgqpc-resources",
      "archive_commit": "925b94346c2bd6a82df92a5ba3cfbec0bc63c512"
     }
+   },
+   "divisions": {
+    "evidence": "sources/divisions/warsh-thumn.json",
+    "sha256": "685eb6d9c6da4ea4819437e8412ca7adffc4f662497dec5f218942024e679b1c",
+    "print": {
+     "file": "warsh39-1.pdf",
+     "sha256": "f33a6e55530548d9cbf7e0ab6d8154ba46eea12d227208ce849915b808850074",
+     "from": "https://cdn.quran.ws/KFGQPC/resources/quran-qiraat/warsh39-1/warsh39-1.pdf"
+    }
    }
   },
   "qalun": {
@@ -120,6 +147,15 @@
      "geo_restricted": "The official host serves Saudi Arabia only; from elsewhere it times out. Use the mirror, which is the same bytes.",
      "archive": "https://github.com/quran-ws/kfgqpc-resources",
      "archive_commit": "925b94346c2bd6a82df92a5ba3cfbec0bc63c512"
+    }
+   },
+   "divisions": {
+    "evidence": "sources/divisions/qalun-thumn.json",
+    "sha256": "e788f189b825bf30e8f9006438be74194128078079753438685b9d0e0ea9733c",
+    "print": {
+     "file": "qaloun-1.pdf",
+     "sha256": "57386a907a400bbad0cbc16002acb314db08350b5c5aabd43a6362085fb306cc",
+     "from": "https://cdn.quran.ws/KFGQPC/resources/quran-qiraat/qaloun-1/qaloun-1.pdf"
     }
    }
   },
@@ -148,6 +184,15 @@
      "archive": "https://github.com/quran-ws/kfgqpc-resources",
      "archive_commit": "925b94346c2bd6a82df92a5ba3cfbec0bc63c512"
     }
+   },
+   "divisions": {
+    "evidence": "sources/divisions/duri-thumn.json",
+    "sha256": "d95c2350c9b6b2375d9aaeea9e80954c4d6df0140d9781dce866af5e595902b8",
+    "print": {
+     "file": "douri-1.pdf",
+     "sha256": "918f24f92104407712224ebb0f3172f8c18f33dbddd1db85d16c3705e4644ea0",
+     "from": "https://cdn.quran.ws/KFGQPC/resources/quran-qiraat/douri-1/douri-1.pdf"
+    }
    }
   },
   "susi": {
@@ -174,6 +219,15 @@
      "geo_restricted": "The official host serves Saudi Arabia only; from elsewhere it times out. Use the mirror, which is the same bytes.",
      "archive": "https://github.com/quran-ws/kfgqpc-resources",
      "archive_commit": "925b94346c2bd6a82df92a5ba3cfbec0bc63c512"
+    }
+   },
+   "divisions": {
+    "evidence": "sources/divisions/susi-thumn.json",
+    "sha256": "b6e0408682e0df8fee4b0ca2247c81c962d46247d21f54dd17ffc9fd22621e99",
+    "print": {
+     "file": "sousi-1.pdf",
+     "sha256": "265b50e718bedec3df1a9ece77480baeec22f73137fa3a01ab6efc071a65005a",
+     "from": "https://cdn.quran.ws/KFGQPC/resources/quran-qiraat/sousi-1/sousi-1.pdf"
     }
    }
   },
@@ -278,8 +332,8 @@
   },
   {
    "path": "data/mushaf/bazzi.json",
-   "bytes": 2004402,
-   "sha256": "24b83f98e37ea13562dec78bfefb142805538050e94e4271fac7b24124c81a8e"
+   "bytes": 2004855,
+   "sha256": "a5577304701089267a2cdec2e82d7dcb6e880f6280e9df9bcde80bfcde5f8e82"
   },
   {
    "path": "data/mushaf/bazzi.nested.json.gz",
@@ -293,13 +347,13 @@
   },
   {
    "path": "data/mushaf/duri.json",
-   "bytes": 2048144,
-   "sha256": "872e942debfe289be90a27cb6868e7828fe966c28da339c6629d91929ba619ca"
+   "bytes": 2054326,
+   "sha256": "4b70645b22d8ef275eacde7587370400fce8312f4ff54074f2d5b58311e9afcb"
   },
   {
    "path": "data/mushaf/duri.nested.json.gz",
-   "bytes": 1322234,
-   "sha256": "68e07a099b15435c4f3026815e04b6aa35d8d87b8acc64736c0d436952e9c62e"
+   "bytes": 1322443,
+   "sha256": "932fbeed50d9f910fb33bf257eec6750d1bff30c7ace024f66d6cb57d4cc1146"
   },
   {
    "path": "data/mushaf/hafs.csv.gz",
@@ -308,13 +362,13 @@
   },
   {
    "path": "data/mushaf/hafs.json",
-   "bytes": 3121188,
-   "sha256": "7cef27a65185d5e36010691d8307e2e8ee7244cfbe69be2a72c1d269c9a28f54"
+   "bytes": 3125284,
+   "sha256": "ceae055b6c9a46be1a5caaab0b2c365e5d4f78de771bd4718cb3f506b8d7a419"
   },
   {
    "path": "data/mushaf/hafs.nested.json.gz",
-   "bytes": 1753525,
-   "sha256": "6f23f3845880cb3ed02669a1b6393473861eaa2018df5aa92e27d3650e97129b"
+   "bytes": 1753705,
+   "sha256": "2c8b90b36c600fdf75b73ba7d80bfaf3c09cb00a133f890effb3fd1ded9adff1"
   },
   {
    "path": "data/mushaf/qalun.csv.gz",
@@ -323,13 +377,13 @@
   },
   {
    "path": "data/mushaf/qalun.json",
-   "bytes": 2158474,
-   "sha256": "3408beb9bf69e57e1d8f9cdc424d8e66720dbe93705675c42ddfe57ef0c2539c"
+   "bytes": 2164681,
+   "sha256": "e80d4523823332777bb7562127a5e526384c2d1d1623d5fb54153cd1184f48f1"
   },
   {
    "path": "data/mushaf/qalun.nested.json.gz",
-   "bytes": 1326046,
-   "sha256": "de1aa3c9f2bfc54f2c192667a7eafa3a4b58d551f8cff329306dfe5a54f51615"
+   "bytes": 1326236,
+   "sha256": "63f5a3cc85bb5bd48bb95a20d10fa90a51161e5d34266c747fc076312a4d7b08"
   },
   {
    "path": "data/mushaf/shubah.csv.gz",
@@ -338,13 +392,13 @@
   },
   {
    "path": "data/mushaf/shubah.json",
-   "bytes": 1995588,
-   "sha256": "7c88d422cff019fd984c0a53296af3622ed08bf67449cac18231c075d7c229fb"
+   "bytes": 1999280,
+   "sha256": "f5fc82afaf1e478f4df6d2f2f94a9a00ef9927a525bb765491700b590ddac460"
   },
   {
    "path": "data/mushaf/shubah.nested.json.gz",
-   "bytes": 1306453,
-   "sha256": "e6a64eecda1a04dabc0a61020cee695ef9dcaf8b7bd2685b0c33b29fd00e0602"
+   "bytes": 1306667,
+   "sha256": "f27720a5110e370524d855003e2942347a9a9910bf1b423421c3c72184cb83d4"
   },
   {
    "path": "data/mushaf/susi.csv.gz",
@@ -353,13 +407,13 @@
   },
   {
    "path": "data/mushaf/susi.json",
-   "bytes": 2034630,
-   "sha256": "f75d9b932abb944e3cf0b74aa626c7e4ac47495d42b58eb516620a880f7fbc1c"
+   "bytes": 2040812,
+   "sha256": "dd11ebdb7d36eb25962bca99260cef593f2401bf2ac0a1ac2ff7416b61042745"
   },
   {
    "path": "data/mushaf/susi.nested.json.gz",
-   "bytes": 1320573,
-   "sha256": "16dea0c1638526d7842c2af0f719cef10184e7211c8fb8997c46cd282adb941e"
+   "bytes": 1320775,
+   "sha256": "3b25b3c26b1ea225020623926591982c0dafb27d7b02d4187dc683ef8df59e9a"
   },
   {
    "path": "data/mushaf/warsh.csv.gz",
@@ -368,18 +422,18 @@
   },
   {
    "path": "data/mushaf/warsh.json",
-   "bytes": 2161413,
-   "sha256": "aab29707408306ba77dbbdb6084ff2ca684dba711e3ca2acab456f8f3b14e707"
+   "bytes": 2167208,
+   "sha256": "4304dfe9b74b618067ac11c19bc78fd2520c975a1e920d1c9611a5055f2bccd7"
   },
   {
    "path": "data/mushaf/warsh.nested.json.gz",
-   "bytes": 1338293,
-   "sha256": "1287ec03fcc5221caf7b75e3768106bf233ad27cead5b493e5cfc2950c489f34"
+   "bytes": 1338515,
+   "sha256": "5ebd64a0acddf22e4715b72152b3bc69058a5727ce6a0b53e01e91d98a1fa744"
   },
   {
    "path": "data/quran.sqlite.gz",
-   "bytes": 20423329,
-   "sha256": "37e964f6cbff2a6d9bd5500c003616c1bbcb51d8ccaad2338871677ac9569688"
+   "bytes": 20445859,
+   "sha256": "6d46bd6a8cf3bc574153b0a726ceaeb64fdca6fcc721b627f4291a0669a1296e"
   },
   {
    "path": "data/reports/COMPARISON.md",
@@ -394,7 +448,7 @@
   {
    "path": "data/reports/compare.html",
    "bytes": 2070889,
-   "sha256": "401a05f1a1ac92fbf5901df03d8674e05106b8360090397313a04e288b399210"
+   "sha256": "efcd99376e6d9ae239d6c54b060321f5f768e974eb5d05f4325f36d76959f541"
   },
   {
    "path": "data/reports/rasm-variants.md",

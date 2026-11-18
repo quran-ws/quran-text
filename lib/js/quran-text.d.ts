@@ -1,6 +1,6 @@
 /** quran-text — read the muṣḥaf files of the quran-text dataset. */
 
-export type Layer = "surahs" | "ayahs" | "pages" | "lines" | "juz" | "marks" | "rasm_imlai";
+export type Layer = "surahs" | "ayahs" | "pages" | "lines" | "juz" | "hizb" | "rubu_al_hizb" | "thumn" | "marks" | "rasm_imlai";
 export type MarkKind = "waqf" | "division" | "sajdah" | "sajdah_line" | "sah" | "raised_dot";
 export type Relation = "same" | "merged" | "split" | "shifted" | "unnumbered";
 
@@ -38,6 +38,9 @@ export class Word {
   readonly page: Page;
   readonly line: Line | null;
   readonly juz: Juz | null;
+  readonly hizb: Hizb | null;
+  readonly rubuAlHizb: RubuAlHizb | null;
+  readonly thumn: Thumn | null;
   /** The shared number: the same word in every riwāyah. */
   readonly number: number;
   readonly numberLast: number;
@@ -69,6 +72,10 @@ export class Span implements Iterable<Word> {
   /** The page the span starts on. */
   readonly page: Page;
   readonly juz: Juz | null;
+  /** The ḥizb the span starts in, as the printed muṣḥaf marks it. */
+  readonly hizb: Hizb | null;
+  readonly rubuAlHizb: RubuAlHizb | null;
+  readonly thumn: Thumn | null;
   readonly marks: { word: Word; mark: Mark }[];
   /** The index-th word of the span, 1-based. */
   word(index: number): Word;
@@ -145,6 +152,28 @@ export class Juz extends Span {
   readonly number: number;
 }
 
+/** One of the 60 ḥizbs, as the printed muṣḥaf marks them. */
+export class Hizb extends Span {
+  readonly number: number;
+  readonly hizb: Hizb;
+}
+
+/** One of the 240 quarters of a muṣḥaf that divides the ḥizb into four. */
+export class RubuAlHizb extends Span {
+  readonly number: number;
+  readonly hizb: Hizb;
+  /** 1-based place inside its ḥizb: 1–4. */
+  readonly numberInHizb: number;
+}
+
+/** One of the 480 eighths of a muṣḥaf that divides the ḥizb into eight. */
+export class Thumn extends Span {
+  readonly number: number;
+  readonly hizb: Hizb;
+  /** 1-based place inside its ḥizb: 1–8. */
+  readonly numberInHizb: number;
+}
+
 export interface Font {
   /** e.g. "KFGQPC HAFS Uthmanic Script" — the name to use in CSS or a Typeface. */
   family: string;
@@ -203,12 +232,20 @@ export class Mushaf {
   readonly pageCount: number;
   readonly lineCount: number;
   readonly juzCount: number;
+  readonly hizbCount: number;
+  readonly rubuAlHizbCount: number;
+  readonly thumnCount: number;
 
   surah(number: number): Surah;
   /** Āyah `number` of `surah` in this edition's own count. */
   ayah(surah: number, number: number): Ayah;
   page(number: number): Page;
   juz(number: number): Juz;
+  hizb(number: number): Hizb;
+  /** Throws in a muṣḥaf that divides the ḥizb into eight. */
+  rubuAlHizb(number: number): RubuAlHizb;
+  /** Throws in a muṣḥaf that divides the ḥizb into four. */
+  thumn(number: number): Thumn;
   line(page: number, number: number): Line;
   /** Word `index` (1-based) of an āyah. */
   word(surah: number, ayah: number, index: number): Word;
@@ -217,6 +254,9 @@ export class Mushaf {
   readonly ayahs: Ayah[];
   readonly pages: Page[];
   readonly ajza: Juz[];
+  readonly hizbs: Hizb[];
+  readonly rubuAlHizbs: RubuAlHizb[];
+  readonly thumns: Thumn[];
 
   wordAt(position: number): Word;
   ayahAt(position: number): Ayah | null;
@@ -224,6 +264,9 @@ export class Mushaf {
   pageAt(position: number): Page;
   lineAt(position: number): Line | null;
   juzAt(position: number): Juz | null;
+  hizbAt(position: number): Hizb | null;
+  rubuAlHizbAt(position: number): RubuAlHizb | null;
+  thumnAt(position: number): Thumn | null;
 
   /** The shared number of the word at `position`. */
   numberAt(position: number): number;

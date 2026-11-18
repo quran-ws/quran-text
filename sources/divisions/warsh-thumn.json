@@ -1,0 +1,236 @@
+{
+  "_description": "The evidence for the 480 thumns of the Warsh muṣḥaf: the divisions the printed muṣḥaf marks only in its margin. The build adds them to the ۞ the docx prints inline and to the opening of the Qurʾān at 1:1, and gets 435 + 44 + 1 = 480; it fails if that total does not close (pipeline/qurantext/divisions.py). The result is published as `hizb_starts` and `thumn_starts` in data/mushaf/warsh.json. Nothing here is a word number: each entry is keyed by this edition's own `ayah`, and its division starts at that āyah's first word. `page` is this edition's.",
+  "_checked": "Every label in the print was located, not only the ones listed here: each page was rendered, each label in the outer margin was found by its position, and its page and row were matched to the data. All 479 labels fell on a ۞ or on an entry below, and no label was left over. Then the label at every ḥizb start, and every label listed here, was read.",
+  "_labels": "`label` is the margin text as printed, without its vowel marks. This print words its labels: «حزب» at a ḥizb start, «الجزء N الحزب M» where a juz starts too, then «ثمن», «ربع», «ثمن», «نصف الحزب», «ثمن», «ربع», «ثمن». The third quarter reads «ربع», not «ثلاثة أرباع».",
+  "mushaf": "warsh",
+  "unit": "thumn",
+  "total": 480,
+  "print": {
+    "file": "warsh39-1.pdf",
+    "sha256": "f33a6e55530548d9cbf7e0ab6d8154ba46eea12d227208ce849915b808850074",
+    "from": "https://cdn.quran.ws/KFGQPC/resources/quran-qiraat/warsh39-1/warsh39-1.pdf",
+    "page_offset": 3
+  },
+  "margin_division_marks": [
+    {
+      "ayah": "6:1",
+      "page": 128,
+      "label": "ثمن"
+    },
+    {
+      "ayah": "14:1",
+      "page": 255,
+      "label": "ثمن"
+    },
+    {
+      "ayah": "15:1",
+      "page": 262,
+      "label": "الجزء ١٤ الحزب ٢٧"
+    },
+    {
+      "ayah": "16:1",
+      "page": 267,
+      "label": "نصف الحزب"
+    },
+    {
+      "ayah": "17:1",
+      "page": 282,
+      "label": "الجزء ١٥ الحزب ٢٩"
+    },
+    {
+      "ayah": "18:1",
+      "page": 293,
+      "label": "ثمن"
+    },
+    {
+      "ayah": "20:1",
+      "page": 312,
+      "label": "حزب"
+    },
+    {
+      "ayah": "21:1",
+      "page": 322,
+      "label": "الجزء ١٧ الحزب ٣٣"
+    },
+    {
+      "ayah": "22:1",
+      "page": 332,
+      "label": "حزب"
+    },
+    {
+      "ayah": "23:1",
+      "page": 342,
+      "label": "الجزء ١٨ الحزب ٣٥"
+    },
+    {
+      "ayah": "26:1",
+      "page": 367,
+      "label": "نصف الحزب"
+    },
+    {
+      "ayah": "28:1",
+      "page": 385,
+      "label": "ثمن"
+    },
+    {
+      "ayah": "33:1",
+      "page": 418,
+      "label": "نصف الحزب"
+    },
+    {
+      "ayah": "34:1",
+      "page": 428,
+      "label": "ثمن"
+    },
+    {
+      "ayah": "38:1",
+      "page": 453,
+      "label": "ثمن"
+    },
+    {
+      "ayah": "40:1",
+      "page": 467,
+      "label": "نصف الحزب"
+    },
+    {
+      "ayah": "45:1",
+      "page": 499,
+      "label": "ثمن"
+    },
+    {
+      "ayah": "46:1",
+      "page": 502,
+      "label": "الجزء ٢٦ الحزب ٥١"
+    },
+    {
+      "ayah": "49:1",
+      "page": 515,
+      "label": "ربع"
+    },
+    {
+      "ayah": "51:1",
+      "page": 520,
+      "label": "ثمن"
+    },
+    {
+      "ayah": "55:1",
+      "page": 531,
+      "label": "حزب"
+    },
+    {
+      "ayah": "56:1",
+      "page": 534,
+      "label": "ربع"
+    },
+    {
+      "ayah": "58:1",
+      "page": 542,
+      "label": "الجزء ٢٨ الحزب ٥٥"
+    },
+    {
+      "ayah": "60:1",
+      "page": 549,
+      "label": "ثمن"
+    },
+    {
+      "ayah": "61:1",
+      "page": 551,
+      "label": "ثمن"
+    },
+    {
+      "ayah": "62:1",
+      "page": 553,
+      "label": "حزب"
+    },
+    {
+      "ayah": "63:1",
+      "page": 554,
+      "label": "ثمن"
+    },
+    {
+      "ayah": "65:1",
+      "page": 558,
+      "label": "نصف الحزب"
+    },
+    {
+      "ayah": "66:1",
+      "page": 560,
+      "label": "ربع"
+    },
+    {
+      "ayah": "67:1",
+      "page": 562,
+      "label": "الجزء ٢٩ الحزب ٥٧"
+    },
+    {
+      "ayah": "70:1",
+      "page": 568,
+      "label": "ثمن"
+    },
+    {
+      "ayah": "72:1",
+      "page": 572,
+      "label": "حزب"
+    },
+    {
+      "ayah": "75:1",
+      "page": 577,
+      "label": "نصف الحزب"
+    },
+    {
+      "ayah": "76:1",
+      "page": 578,
+      "label": "ثمن"
+    },
+    {
+      "ayah": "78:1",
+      "page": 582,
+      "label": "الجزء ٣٠ الحزب ٥٩"
+    },
+    {
+      "ayah": "79:1",
+      "page": 583,
+      "label": "ثمن"
+    },
+    {
+      "ayah": "81:1",
+      "page": 586,
+      "label": "ثمن"
+    },
+    {
+      "ayah": "82:1",
+      "page": 587,
+      "label": "نصف الحزب"
+    },
+    {
+      "ayah": "87:1",
+      "page": 591,
+      "label": "حزب"
+    },
+    {
+      "ayah": "90:1",
+      "page": 594,
+      "label": "ربع"
+    },
+    {
+      "ayah": "92:1",
+      "page": 595,
+      "label": "ثمن"
+    },
+    {
+      "ayah": "94:1",
+      "page": 596,
+      "label": "نصف الحزب"
+    },
+    {
+      "ayah": "98:1",
+      "page": 598,
+      "label": "ثمن"
+    },
+    {
+      "ayah": "106:1",
+      "page": 602,
+      "label": "ثمن"
+    }
+  ]
+}

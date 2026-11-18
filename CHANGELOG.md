@@ -9,6 +9,24 @@ This project has not had a tagged release yet; everything below is unreleased.
 
 ### Format
 
+- **The ḥizb and its parts are published as layers.** A muṣḥaf file gains
+  `hizb_starts`, the 60 ḥizbs, and the subdivision its printed muṣḥaf uses:
+  `rubu_al_hizb_starts` (240) in Ḥafṣ and Shuʿbah, `thumn_starts` (480) in
+  Warsh, Qālūn, Dūrī and Sūsī. A file carries one subdivision, never both, and
+  `layers.absent` names the other with the reason. The releases alone cannot
+  supply the layer, because a division at a sūrah opening is printed in the
+  margin and the `.docx` has no margin, so the margin of each printed muṣḥaf
+  was read and recorded in `sources/divisions/`, keyed by āyah. The build adds
+  those readings to the inline ۞ and fails unless each grid closes.
+  `provenance.divisions` names the evidence file and the print, each with its
+  SHA-256, and `layers.derived.divisions` gives the counts. **Bazzī has none of
+  the three**: no printed Bazzī muṣḥaf was available. `juz_starts` is unchanged
+  and still follows the v2 CSV; it differs from the print at six juz starts,
+  which each file lists under
+  `layers.derived.divisions.juz_differs_from_layout` (#53, #61, #63). The six
+  client libraries expose `hizb`, `rubu_al_hizb` and `thumn` beside `juz`, and
+  `/download` takes a `hizb` scope and field. Additive: no existing key
+  changes.
 - **The two counting questions are spelled the same way in both repositories,
   and a printed count names the release it was measured from.** The `counting`
   block gains `system_printed` — `system` again, under the name that says which

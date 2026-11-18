@@ -84,6 +84,36 @@ class TestAyah(unittest.TestCase):
         self.assertFalse(bazzi.has("juz"))
         self.assertIsNone(bazzi.word_at(5).rasm_imlai)
 
+    def test_hizb_and_its_parts(self):
+        # Ḥafṣ divides the ḥizb into four; Warsh into eight; Bazzī's print was not read.
+        self.assertEqual((hafs.hizb_count, hafs.rubu_al_hizb_count, hafs.thumn_count), (60, 240, 0))
+        self.assertEqual((warsh.hizb_count, warsh.rubu_al_hizb_count, warsh.thumn_count), (60, 0, 480))
+        self.assertEqual(hafs.hizb(1).first_ayah.key, "1:1")
+        self.assertEqual(hafs.hizb(2).first_ayah.key, "2:75")
+        self.assertEqual(hafs.hizb(60).first_ayah.key, "87:1")
+        self.assertEqual(len(hafs.hizbs), 60)
+        self.assertEqual(sum(len(h) for h in hafs.hizbs), hafs.word_count)
+        q = hafs.rubu_al_hizb(2)
+        self.assertEqual((q.first_ayah.key, q.hizb.number, q.number_in_hizb), ("2:26", 1, 2))
+        self.assertEqual(hafs.rubu_al_hizb(240).number_in_hizb, 4)
+        a = hafs.ayah(2, 255)
+        self.assertEqual((a.hizb.number, a.rubu_al_hizb.number), (5, 17))
+        self.assertIsNone(a.thumn)
+        t = warsh.thumn(480)
+        self.assertEqual((t.first_ayah.key, t.hizb.number, t.number_in_hizb), ("106:1", 60, 8))
+        self.assertEqual(warsh.word_at(0).thumn.number, 1)
+        self.assertEqual(repr(warsh.thumn(9)), "Thumn(9)")
+        # Where the print and the layout CSV start a juz at different āyāt, each layer keeps its own.
+        self.assertEqual((hafs.juz(4).first_ayah.key, hafs.hizb(7).first_ayah.key), ("3:92", "3:93"))
+        self.assertTrue(hafs.has("hizb") and hafs.has("rubu_al_hizb") and not hafs.has("thumn"))
+        with self.assertRaisesRegex(KeyError, "no thumn layer: this muṣḥaf divides the ḥizb into 4"):
+            hafs.thumn(1)
+        with self.assertRaisesRegex(KeyError, "no hizb layer: no printed muṣḥaf"):
+            bazzi.hizb(1)
+        self.assertIsNone(bazzi.word_at(5).hizb)
+        with self.assertRaises(IndexError):
+            hafs.hizb(61)
+
     def test_search(self):
         hits = hafs.search("مالك يوم الدين")
         self.assertEqual(len(hits), 1)

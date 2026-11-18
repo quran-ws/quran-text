@@ -40,9 +40,12 @@ Mushaf
  ├─ page(n)             Page  — lines, line(n), ayahs, surahs, next(), previous()
  ├─ line(page, n)       Line  — page, number within the page, ayahs
  ├─ juz(n)              Juz   — ayahs, pages, firstAyah, lastAyah
+ ├─ hizb(n)             Hizb  — one of the 60, as the printed muṣḥaf marks them
+ ├─ rubuAlHizb(n)       RubuAlHizb — one of 240, in Ḥafṣ and Shuʿbah; hizb, numberInHizb
+ ├─ thumn(n)            Thumn — one of 480, in Warsh, Qālūn, Dūrī and Sūsī; hizb, numberInHizb
  ├─ word(surah, ayah, i) Word  — text, rasm_imlai, number, marks, page, line, juz, render()
  ├─ span(start, end)    Span  — any run of positions
- ├─ wordAt / ayahAt / surahAt / pageAt / lineAt / juzAt (position)
+ ├─ wordAt / ayahAt / surahAt / pageAt / lineAt / juzAt / hizbAt / rubuAlHizbAt / thumnAt (position)
  ├─ sajdat(), divisionMarks(), search(text)
  ├─ numberAt(position), wordByNumber(number), numberingTotal, missingNumbers
  │                       — the numbering shared by all seven riwāyāt

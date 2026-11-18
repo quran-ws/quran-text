@@ -6,10 +6,12 @@
     m.ayah(2, 255).render(marks=True, ayah_marks=True)
     m.page(3).lines                           # the printed lines
     m.juz(30).first_ayah.key                  # "78:1"
+    m.hizb(60).first_ayah.key                 # "87:1"; m.rubu_al_hizb(n) or m.thumn(n) for its parts
 
 Everything is a slice of one ``words`` array.  A :class:`Span` is a slice with
 ``text`` and ``render``; :class:`Surah`, :class:`Ayah`, :class:`Page`,
-:class:`Line` and :class:`Juz` are spans that know their place.  Positions are
+:class:`Line`, :class:`Juz`, :class:`Hizb`, :class:`RubuAlHizb` and
+:class:`Thumn` are spans that know their place.  Positions are
 0-based indices into ``words``; sūrah, āyah, page, line and juz numbers are
 1-based, as printed.  Āyah numbers are in *this edition's own count*; use
 :class:`AyahMap` to convert between editions.
@@ -26,12 +28,12 @@ from bisect import bisect_right
 from dataclasses import dataclass
 from typing import Iterable, Optional, Union
 
-__all__ = ["Mushaf", "Surah", "Ayah", "Page", "Line", "Juz", "Word", "Mark", "Font", "AyahMatch",
+__all__ = ["Mushaf", "Surah", "Ayah", "Page", "Line", "Juz", "Hizb", "RubuAlHizb", "Thumn", "Word", "Mark", "Font", "AyahMatch",
            "Span", "AyahMap", "MappedAyah", "WordIndex", "IndexedWord",
            "ayah_mark", "fold", "Layer"]
 
 AYAH_MARK = "۝"
-Layer = str  # "surahs" | "ayahs" | "pages" | "lines" | "juz" | "marks" | "rasm_imlai"
+Layer = str  # "surahs" | "ayahs" | "pages" | "lines" | "juz" | "hizb" | "rubu_al_hizb" | "thumn" | "marks" | "rasm_imlai"
 
 
 # --- text helpers ------------------------------------------------------------
@@ -207,6 +209,18 @@ class Word:
         return self._m.juz_at(self.position)
 
     @property
+    def hizb(self) -> Optional["Hizb"]:
+        return self._m.hizb_at(self.position)
+
+    @property
+    def rubu_al_hizb(self) -> Optional["RubuAlHizb"]:
+        return self._m.rubu_al_hizb_at(self.position)
+
+    @property
+    def thumn(self) -> Optional["Thumn"]:
+        return self._m.thumn_at(self.position)
+
+    @property
     def number(self) -> int:
         """The shared number: the same word in every riwāyah."""
         return self._m._numbers[self.position][0]
@@ -357,6 +371,19 @@ class Span:
     @property
     def juz(self) -> Optional["Juz"]:
         return self._m.juz_at(self.start)
+
+    @property
+    def hizb(self) -> Optional["Hizb"]:
+        """The ḥizb the span starts in, as the printed muṣḥaf marks it."""
+        return self._m.hizb_at(self.start)
+
+    @property
+    def rubu_al_hizb(self) -> Optional["RubuAlHizb"]:
+        return self._m.rubu_al_hizb_at(self.start)
+
+    @property
+    def thumn(self) -> Optional["Thumn"]:
+        return self._m.thumn_at(self.start)
 
     @property
     def marks(self) -> list[tuple[Word, Mark]]:
@@ -647,6 +674,62 @@ class Juz(Span):
         return f"Juz({self.number})"
 
 
+class _Division(Span):
+    """One unit of a division layer the printed muṣḥaf marks: a ḥizb or a part of one.
+
+    The layer is read from the margin of the print, not from the release
+    (``layers.derived.divisions``).  A muṣḥaf divides the ḥizb into four
+    rubu_al_hizbs or into eight thumns, never both, and one whose print was
+    not read carries none of the three.
+    """
+
+    _layer = ""
+
+    def __init__(self, mushaf: "Mushaf", number: int):
+        starts = mushaf._doc.get(f"{self._layer}_starts")
+        if not starts:
+            raise KeyError(mushaf._absent(self._layer))
+        if not 1 <= number <= len(starts):
+            raise IndexError(f"{self._layer} {number}: there are {len(starts)}")
+        end = starts[number] if number < len(starts) else len(mushaf.words)
+        super().__init__(mushaf, starts[number - 1], end)
+        self.number = number
+
+    def __repr__(self) -> str:
+        return f"{type(self).__name__}({self.number})"
+
+
+class Hizb(_Division):
+    """One of the 60 ḥizbs.  ``Hizb(2k-1)`` starts where the print starts juz ``k``,
+    which is not always where ``juz_starts`` does (docs/known-issues.md §11)."""
+
+    _layer = "hizb"
+
+
+class _HizbPart(_Division):
+    @property
+    def hizb(self) -> Hizb:
+        return self._m.hizb_at(self.start)
+
+    @property
+    def number_in_hizb(self) -> int:
+        """1-based place inside its ḥizb: 1–4 for a rubu_al_hizb, 1–8 for a thumn."""
+        per = len(self._m._doc[f"{self._layer}_starts"]) // 60
+        return (self.number - 1) % per + 1
+
+
+class RubuAlHizb(_HizbPart):
+    """One of the 240 quarters of a muṣḥaf that divides the ḥizb into four."""
+
+    _layer = "rubu_al_hizb"
+
+
+class Thumn(_HizbPart):
+    """One of the 480 eighths of a muṣḥaf that divides the ḥizb into eight."""
+
+    _layer = "thumn"
+
+
 # --- the muṣḥaf ---------------------------------------------------------------
 
 class Mushaf:
@@ -762,6 +845,18 @@ class Mushaf:
     def juz_count(self) -> int:
         return len(self._doc.get("juz_starts") or [])
 
+    @property
+    def hizb_count(self) -> int:
+        return len(self._doc.get("hizb_starts") or [])
+
+    @property
+    def rubu_al_hizb_count(self) -> int:
+        return len(self._doc.get("rubu_al_hizb_starts") or [])
+
+    @property
+    def thumn_count(self) -> int:
+        return len(self._doc.get("thumn_starts") or [])
+
     # -- units by number --
 
     def surah(self, number: int) -> Surah:
@@ -778,6 +873,15 @@ class Mushaf:
 
     def juz(self, number: int) -> Juz:
         return Juz(self, number)
+
+    def hizb(self, number: int) -> Hizb:
+        return Hizb(self, number)
+
+    def rubu_al_hizb(self, number: int) -> RubuAlHizb:
+        return RubuAlHizb(self, number)
+
+    def thumn(self, number: int) -> Thumn:
+        return Thumn(self, number)
 
     def line(self, page: int, number: int) -> Line:
         return Page(self, page).line(number)
@@ -808,6 +912,18 @@ class Mushaf:
     def ajza(self) -> list[Juz]:
         return [Juz(self, n) for n in range(1, self.juz_count + 1)]
 
+    @property
+    def hizbs(self) -> list[Hizb]:
+        return [Hizb(self, n) for n in range(1, self.hizb_count + 1)]
+
+    @property
+    def rubu_al_hizbs(self) -> list[RubuAlHizb]:
+        return [RubuAlHizb(self, n) for n in range(1, self.rubu_al_hizb_count + 1)]
+
+    @property
+    def thumns(self) -> list[Thumn]:
+        return [Thumn(self, n) for n in range(1, self.thumn_count + 1)]
+
     # -- units by position --
 
     def word_at(self, position: int) -> Word:
@@ -830,6 +946,18 @@ class Mushaf:
     def juz_at(self, position: int) -> Optional[Juz]:
         starts = self._doc.get("juz_starts")
         return Juz(self, _index_of(starts, position) + 1) if starts else None
+
+    def hizb_at(self, position: int) -> Optional[Hizb]:
+        starts = self._doc.get("hizb_starts")
+        return Hizb(self, _index_of(starts, position) + 1) if starts else None
+
+    def rubu_al_hizb_at(self, position: int) -> Optional[RubuAlHizb]:
+        starts = self._doc.get("rubu_al_hizb_starts")
+        return RubuAlHizb(self, _index_of(starts, position) + 1) if starts else None
+
+    def thumn_at(self, position: int) -> Optional[Thumn]:
+        starts = self._doc.get("thumn_starts")
+        return Thumn(self, _index_of(starts, position) + 1) if starts else None
 
     # -- the shared numbering --
 

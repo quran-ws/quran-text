@@ -87,6 +87,40 @@ class QuranTextTest {
         assertNull(bazzi.wordAt(5).rasm_imlai)
     }
 
+    @Test fun hizbAndItsParts() {
+        // Ḥafṣ divides the ḥizb into four; Warsh into eight; Bazzī's print was not read.
+        assertEquals(listOf(60, 240, 0), listOf(hafs.hizbCount, hafs.rubuAlHizbCount, hafs.thumnCount))
+        assertEquals(listOf(60, 0, 480), listOf(warsh.hizbCount, warsh.rubuAlHizbCount, warsh.thumnCount))
+        assertEquals("1:1", hafs.hizb(1).firstAyah!!.key)
+        assertEquals("2:75", hafs.hizb(2).firstAyah!!.key)
+        assertEquals("87:1", hafs.hizb(60).firstAyah!!.key)
+        assertEquals(60, hafs.hizbs.size)
+        assertEquals(hafs.wordCount, hafs.hizbs.sumOf { it.size })
+        assertEquals(240, hafs.rubuAlHizbs.size)
+        assertEquals(480, warsh.thumns.size)
+        assertTrue(hafs.thumns.isEmpty())
+        val q = hafs.rubuAlHizb(2)
+        assertEquals(listOf("2:26", 1, 2), listOf(q.firstAyah!!.key, q.hizb.number, q.numberInHizb))
+        assertEquals(4, hafs.rubuAlHizb(240).numberInHizb)
+        val a = hafs.ayah(2, 255)
+        assertEquals(listOf(5, 17), listOf(a.hizb!!.number, a.rubuAlHizb!!.number))
+        assertNull(a.thumn)
+        val t = warsh.thumn(480)
+        assertEquals(listOf("106:1", 60, 8), listOf(t.firstAyah!!.key, t.hizb.number, t.numberInHizb))
+        assertEquals(1, warsh.wordAt(0).thumn!!.number)
+        assertEquals("thumn 9", warsh.thumn(9).toString())
+        // Where the print and the layout CSV start a juz at different āyāt, each layer keeps its own.
+        assertEquals(listOf("3:92", "3:93"), listOf(hafs.juz(4).firstAyah!!.key, hafs.hizb(7).firstAyah!!.key))
+        assertTrue(hafs.has("hizb") && hafs.has("rubu_al_hizb") && !hafs.has("thumn"))
+        val e = assertFailsWith<IllegalStateException> { hafs.thumn(1) }
+        assertTrue(e.message!!.contains("no thumn layer: this muṣḥaf divides the ḥizb into 4"))
+        val b = assertFailsWith<IllegalStateException> { bazzi.hizb(1) }
+        assertTrue(b.message!!.contains("no hizb layer: no printed muṣḥaf"))
+        assertNull(bazzi.wordAt(5).hizb)
+        val r = assertFailsWith<IllegalArgumentException> { hafs.hizb(61) }
+        assertEquals("hizb 61: there are 60", r.message)
+    }
+
     @Test fun search() {
         val hits = hafs.search("مالك يوم الدين")
         assertEquals(1, hits.size)

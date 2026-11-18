@@ -6,16 +6,18 @@
 //     m.ayah(2, 255).render(marks: .all, ayahMarks: true)
 //     m.page(3).lines
 //     m.juz(30)?.firstAyah?.key          // "78:1"
+//     m.hizb(60)?.firstAyah?.key         // "87:1"; m.rubuAlHizb(n) or m.thumn(n) for its parts
 //
 // Everything is a slice of one `words` array.  A Span is a slice with `text`
-// and `render`; Surah, Ayah, Page, Line and Juz are spans that know their
-// place.  Positions are 0-based indices into `words`; sūrah, āyah, page,
+// and `render`; Surah, Ayah, Page, Line, Juz, Hizb, RubuAlHizb and Thumn are
+// spans that know their place.  Positions are 0-based indices into `words`; sūrah, āyah, page,
 // line and juz numbers are 1-based, as printed.  Āyah numbers are in this
 // edition's own count; use AyahMap to convert between editions.
 //
 // Lookups by number are checked with `precondition`, like array subscripts:
 // asking for āyah 287 of sūrah 2 is a programming error, not a runtime
-// condition.  Layers a file may lack (juz, lines, imlāʾī) come back as `nil`.
+// condition.  Layers a file may lack (juz, hizb and its parts, lines, imlāʾī)
+// come back as `nil`.
 //
 // No dependencies.  Foundation only.
 
@@ -122,6 +124,9 @@ public struct Word: CustomStringConvertible {
     public var page: Page { m.pageAt(position) }
     public var line: Line? { m.lineAt(position) }
     public var juz: Juz? { m.juzAt(position) }
+    public var hizb: Hizb? { m.hizbAt(position) }
+    public var rubuAlHizb: RubuAlHizb? { m.rubuAlHizbAt(position) }
+    public var thumn: Thumn? { m.thumnAt(position) }
     /// The shared number: the same word in every riwāyah.
     public var number: Int { m.numbers[position].first }
     /// Equal to `number` except where this muṣḥaf writes two numbers as one word.
@@ -203,6 +208,10 @@ public class Span: Sequence {
     /// The page the span starts on.
     public var page: Page { m.pageAt(start) }
     public var juz: Juz? { m.juzAt(start) }
+    /// The ḥizb the span starts in, as the printed muṣḥaf marks it.
+    public var hizb: Hizb? { m.hizbAt(start) }
+    public var rubuAlHizb: RubuAlHizb? { m.rubuAlHizbAt(start) }
+    public var thumn: Thumn? { m.thumnAt(start) }
 
     /// Every sign inside the span, with the word it is printed on.
     public var marks: [(word: Word, mark: Mark)] {
@@ -396,6 +405,55 @@ public final class Juz: Span, CustomStringConvertible {
     public var description: String { "juz \(number)" }
 }
 
+/// One unit of a division layer the printed muṣḥaf marks: a ḥizb or a part of one.
+///
+/// The layer is read from the margin of the print, not from the release.  A
+/// muṣḥaf divides the ḥizb into four rubu_al_hizbs or into eight thumns, never
+/// both, and one whose print was not read carries none of the three.
+public class Division: Span, CustomStringConvertible {
+    public let number: Int
+    let layer: String
+
+    init(_ m: Mushaf, _ number: Int, starts: [Int], layer: String) {
+        precondition(number >= 1 && number <= starts.count, "\(layer) \(number): there are \(starts.count)")
+        self.number = number
+        self.layer = layer
+        super.init(m, starts[number - 1], number < starts.count ? starts[number] : m.words.count)
+    }
+
+    public var description: String { "\(layer) \(number)" }
+}
+
+/// One of the 60 ḥizbs.  `hizb(2k-1)` starts where the print starts juz `k`,
+/// which is not always where `juz_starts` does.
+public final class Hizb: Division {
+    init(_ m: Mushaf, _ number: Int, starts: [Int]) { super.init(m, number, starts: starts, layer: "hizb") }
+}
+
+/// A part of a ḥizb: a `RubuAlHizb` or a `Thumn`.
+public class HizbPart: Division {
+    /// 1-based place inside its ḥizb: 1–4 for a rubu_al_hizb, 1–8 for a thumn.
+    public let numberInHizb: Int
+
+    override init(_ m: Mushaf, _ number: Int, starts: [Int], layer: String) {
+        numberInHizb = (number - 1) % Swift.max(starts.count / 60, 1) + 1
+        super.init(m, number, starts: starts, layer: layer)
+    }
+
+    /// The ḥizb this part sits in.
+    public override var hizb: Hizb? { m.hizbAt(start) }
+}
+
+/// One of the 240 quarters of a muṣḥaf that divides the ḥizb into four.
+public final class RubuAlHizb: HizbPart {
+    init(_ m: Mushaf, _ number: Int, starts: [Int]) { super.init(m, number, starts: starts, layer: "rubu_al_hizb") }
+}
+
+/// One of the 480 eighths of a muṣḥaf that divides the ḥizb into eight.
+public final class Thumn: HizbPart {
+    init(_ m: Mushaf, _ number: Int, starts: [Int]) { super.init(m, number, starts: starts, layer: "thumn") }
+}
+
 // MARK: - the muṣḥaf
 
 /// One muṣḥaf file, `data/mushaf/<key>.json`.
@@ -427,6 +485,9 @@ public final class Mushaf {
     let pageStarts: [Int]
     let lineStarts: [Int]?
     let juzStarts: [Int]?
+    let hizbStarts: [Int]?
+    let rubuAlHizbStarts: [Int]?
+    let thumnStarts: [Int]?
     let lineStartSet: Set<Int>
     private var surahFirstAyah: [Int] = []
     var ayahEnds: [Int: Int] = [:]
@@ -465,6 +526,9 @@ public final class Mushaf {
         pageStarts = try field("page_starts")
         lineStarts = doc["line_starts"] as? [Int]
         juzStarts = doc["juz_starts"] as? [Int]
+        hizbStarts = doc["hizb_starts"] as? [Int]
+        rubuAlHizbStarts = doc["rubu_al_hizb_starts"] as? [Int]
+        thumnStarts = doc["thumn_starts"] as? [Int]
         lineStartSet = Set(lineStarts ?? [])
         numbering = try field("numbering")
         fontBlock = try field("font")
@@ -514,13 +578,16 @@ public final class Mushaf {
 
     /// `has("juz")`, `has("rasm_imlai")`, `has("lines")` …
     public func has(_ layer: String) -> Bool { layers.contains(layer) }
-    /// Why a layer is absent, e.g. Bazzī's juz.
+    /// Why a layer is absent, e.g. Bazzī's juz, or Ḥafṣ's thumn.
     public func whyAbsent(_ layer: String) -> String? { absentLayers[layer] }
     public var wordCount: Int { words.count }
     public var ayahCount: Int { ayahStarts.count }
     public var pageCount: Int { pageStarts.count }
     public var lineCount: Int { lineStarts?.count ?? 0 }
     public var juzCount: Int { juzStarts?.count ?? 0 }
+    public var hizbCount: Int { hizbStarts?.count ?? 0 }
+    public var rubuAlHizbCount: Int { rubuAlHizbStarts?.count ?? 0 }
+    public var thumnCount: Int { thumnStarts?.count ?? 0 }
 
     // MARK: units by number
 
@@ -533,6 +600,12 @@ public final class Mushaf {
     public func page(_ number: Int) -> Page { Page(self, number) }
     /// nil when the file has no juz layer (Bazzī); see `whyAbsent("juz")`.
     public func juz(_ number: Int) -> Juz? { juzStarts.map { Juz(self, number, starts: $0) } }
+    /// nil when the file has no hizb layer (Bazzī); see `whyAbsent("hizb")`.
+    public func hizb(_ number: Int) -> Hizb? { hizbStarts.map { Hizb(self, number, starts: $0) } }
+    /// nil when the muṣḥaf does not divide the ḥizb into four; see `whyAbsent("rubu_al_hizb")`.
+    public func rubuAlHizb(_ number: Int) -> RubuAlHizb? { rubuAlHizbStarts.map { RubuAlHizb(self, number, starts: $0) } }
+    /// nil when the muṣḥaf does not divide the ḥizb into eight; see `whyAbsent("thumn")`.
+    public func thumn(_ number: Int) -> Thumn? { thumnStarts.map { Thumn(self, number, starts: $0) } }
     public func line(_ page: Int, _ number: Int) -> Line { Page(self, page).line(number) }
     /// Word `index` (1-based) of an āyah.
     public func word(_ surah: Int, _ ayah: Int, _ index: Int) -> Word { Ayah(self, surah: surah, number: ayah).word(index) }
@@ -545,6 +618,9 @@ public final class Mushaf {
     public var ayahs: [Ayah] { (0..<ayahCount).map { Ayah(self, index: $0) } }
     public var pages: [Page] { (1...pageCount).map { Page(self, $0) } }
     public var ajza: [Juz] { juzStarts.map { s in (1...s.count).map { Juz(self, $0, starts: s) } } ?? [] }
+    public var hizbs: [Hizb] { hizbStarts.map { s in (1...s.count).map { Hizb(self, $0, starts: s) } } ?? [] }
+    public var rubuAlHizbs: [RubuAlHizb] { rubuAlHizbStarts.map { s in (1...s.count).map { RubuAlHizb(self, $0, starts: s) } } ?? [] }
+    public var thumns: [Thumn] { thumnStarts.map { s in (1...s.count).map { Thumn(self, $0, starts: s) } } ?? [] }
 
     // MARK: units by position
 
@@ -557,6 +633,9 @@ public final class Mushaf {
     public func pageAt(_ position: Int) -> Page { Page(self, indexOf(pageStarts, position) + 1) }
     public func lineAt(_ position: Int) -> Line? { lineStarts.map { Line(self, index: indexOf($0, position)) } }
     public func juzAt(_ position: Int) -> Juz? { juzStarts.map { Juz(self, indexOf($0, position) + 1, starts: $0) } }
+    public func hizbAt(_ position: Int) -> Hizb? { hizbStarts.map { Hizb(self, indexOf($0, position) + 1, starts: $0) } }
+    public func rubuAlHizbAt(_ position: Int) -> RubuAlHizb? { rubuAlHizbStarts.map { RubuAlHizb(self, indexOf($0, position) + 1, starts: $0) } }
+    public func thumnAt(_ position: Int) -> Thumn? { thumnStarts.map { Thumn(self, indexOf($0, position) + 1, starts: $0) } }
     func linesBetween(_ start: Int, _ end: Int) -> [Line] {
         guard let starts = lineStarts else { return [] }
         return (indexOf(starts, start)...indexOf(starts, end - 1)).map { Line(self, index: $0) }

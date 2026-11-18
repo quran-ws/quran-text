@@ -23,6 +23,8 @@ $m->ayah(2, 255)->render(marks: true, ayahMarks: true);        // with waqf mark
 $m->page(3)->render(marks: true, ayahMarks: true, lines: true);
 $m->surah(112)->ayahs();                                           // [Ayah, …]
 $m->juz(30)->firstAyah()->key();                                 // "78:1"
+$m->hizb(60)->firstAyah()->key();                                // "87:1"; rubuAlHizb($n) or thumn($n) for its parts
+$m->ayah(2, 255)->rubuAlHizb()->numberInHizb();                  // 1, the first quarter of ḥizb 5
 $m->word(1, 4, 1)->number();                                     // 11, the same word in every riwāyah
 $m->sajdat();                                                    // every āyah printed with ۩
 $m->search('مالك يوم الدين');                                    // [Span]
@@ -35,8 +37,13 @@ The font the text needs is bundled too: `$m->font()->family` names it and
 `$m->font()->path` is the `.ttf` to serve. For another riwāyah `load()` finds
 its font beside `data/fonts/`.
 
+A muṣḥaf divides the ḥizb into four (`rubuAlHizb`: Ḥafṣ, Shuʿbah) or into
+eight (`thumn`: Warsh, Qālūn, Dūrī, Sūsī), never both; `hizbs()`,
+`rubuAlHizbs()` and `thumns()` list them, and `hizb()`, `rubuAlHizb()` and
+`thumn()` on a word or a span give the one it is in, or `null`.
+
 Wrong numbers throw `OutOfRangeException`; a layer the file lacks (juz in
-Bazzī) throws `LogicException` with the reason from the file. One muṣḥaf takes
+Bazzī, thumn in Ḥafṣ) throws `LogicException` with the reason from the file. One muṣḥaf takes
 about 20 MB; the word index (`WordIndex`) needs a few hundred MB, so load it in
 a CLI or a queue worker, not a web request. The full API is in
 [the repository README](https://github.com/quran-ws/quran-text/blob/main/README.md).

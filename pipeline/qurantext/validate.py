@@ -464,7 +464,8 @@ def check_positions(docs: dict[str, dict]) -> list[dict]:
     for key, doc in docs.items():
         n = len(doc["words"])
         for layer in ("surah_starts", "ayah_starts", "page_starts",
-                      "line_starts", "juz_starts"):
+                      "line_starts", "juz_starts", "hizb_starts",
+                      "rubu_al_hizb_starts", "thumn_starts"):
             starts = doc.get(layer)
             if starts is None:
                 continue

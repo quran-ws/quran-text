@@ -13,6 +13,8 @@ m.ayah(2, 255).render({ marks: true, ayahMarks: true })      // with waqf marks 
 m.page(3).render({ marks: true, ayahMarks: true, lines: true })
 m.surah(112).ayahs                                               // [Ayah, …]
 m.juz(30).firstAyah.key                                        // "78:1"
+m.hizb(60).firstAyah.key                                       // "87:1"
+m.rubuAlHizb(2).numberInHizb                                   // 2; m.thumn(n) where the muṣḥaf divides the ḥizb into eight
 m.word(1, 4, 1).number                                         // 11, the same word in every riwāyah
 m.sajdat()                                                     // every āyah printed with ۩
 m.search("مالك يوم الدين")                                     // [Span]
@@ -28,7 +30,7 @@ use `m.font.family`. For another riwāyah pass the URL you serve its
 write a rule that points nowhere. In Node the bundled font's URL is a `file:`
 URL, and `Mushaf.load()` finds the font in `data/fonts/` beside the file.
 
-Wrong numbers throw `RangeError`; a layer the file lacks (juz in Bazzī) throws
+Wrong numbers throw `RangeError`; a layer the file lacks (juz in Bazzī, thumn in Ḥafṣ) throws
 with the reason from the file. The full API is in [`../README.md`](../README.md).
 
 Test: `node --test` in this directory.

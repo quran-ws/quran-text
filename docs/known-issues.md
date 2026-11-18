@@ -496,7 +496,47 @@ holds 8 rubu_al_hizbs, so the grid is countable rather than estimated. For Ḥaf
 | medallions read from the printed muṣḥaf | 13 |
 | **total** | **240**, and every juz holds exactly 8 |
 
-**The assembled 240 are recorded** in `sources/divisions/hafs-rubu-al-hizb.json`, each with the source that fixes it — a printed ۞, a juz start, a count that leaves one candidate, or a margin medallion read from the print. It is evidence, not a published layer: `data/` still carries no `rubu_al_hizb_starts`.
+**The divisions of six muṣḥafs are now assembled and published.** Each print
+was read in full: every page was rendered, every label in the outer margin was
+located by its position, and its page and row were matched to the data. In all
+six, every label fell on an inline ۞ or on a sūrah opening (in Qālūn, also on
+the five places below), and none was left over.
+
+| muṣḥaf | inline ۞ | margin only | total | print |
+|---|---|---|---|---|
+| Ḥafṣ | 199 | 40 | 240 | `standard39-2.pdf` |
+| Shuʿbah | 199 | 40 | 240 | `shuba-1.pdf` |
+| Warsh | 435 | 44 | 480 | `warsh39-1.pdf` |
+| Qālūn | 436 | 43 | 480 | `qaloun-1.pdf` |
+| Dūrī | 433 | 46 | 480 | `douri-1.pdf` |
+| Sūsī | 433 | 46 | 480 | `sousi-1.pdf` |
+
+Each total counts the opening at 1:1, which no muṣḥaf marks. The margin
+readings are recorded in `sources/divisions/`, one file per muṣḥaf, keyed by
+āyah, with the label as printed. The build adds them to the inline ۞ and
+publishes `hizb_starts` with `rubu_al_hizb_starts` or `thumn_starts`
+(`docs/format.md`, *Divisions*); it fails unless each grid closes.
+
+What reading all six showed:
+
+- **Ḥafṣ and Shuʿbah divide at the same 240 words**, and **Dūrī and Sūsī at
+  the same 480**. Warsh shares 337 of its 480 with Qālūn and 295 with Dūrī.
+- **The prints word their labels differently.** Ḥafṣ and Shuʿbah print «الحزب
+  N» and «ربع / نصف / ثلاثة أرباع الحزب N». Dūrī and Sūsī print «الحزب N» and
+  «ثمن ٢» to «ثمن ٨». Warsh prints «حزب», «ثمن», «ربع», «نصف الحزب», and Qālūn
+  the same without numbers anywhere. All but Qālūn print «الجزء N الحزب M»
+  where a juz starts. In Warsh and Qālūn the third quarter reads «ربع».
+- **Not every margin label is a division.** The sajdah has a smaller label of
+  its own, and Ḥafṣ and Shuʿbah print a note at each saktah. One of those, at
+  18:1 in Ḥafṣ, stands beside a sūrah opening and is not a rubu_al_hizb.
+- **The Sūsī print puts a sūrah heading at the foot of the preceding page** in
+  at least seventeen places, with the basmalah at the top of the next. The
+  line reconstruction (§6) assumes the heading and the basmalah share a page,
+  so on those pages its rows are one off the print's.
+
+**Bazzī is not assembled.** No printed Bazzī muṣḥaf was available, and the
+release prints 199 of the 240. Its ۞ stand at the same 199 words as Ḥafṣ's, so
+the Ḥafṣ grid is the likely answer, but it is not published as one.
 
 The absences concentrate where sūrahs are short: juz 28 is missing 4 of 8, juz
 29 5, and juz 30 prints **one** mark for its eight divisions.
@@ -538,8 +578,8 @@ by the Quran.ws mirror of KFGQPC files; the PDF page is the muṣḥaf page + 3)
 | 81:15 | none | ۞ before فَلَآ أُقۡسِمُ, «نصف» | 586 |
 | 83:7 | none | ۞ before كَلَّآ إِنَّ كِتَٰبَ, «ثمن» | 588 |
 
-Recorded, not corrected: `marks` holds the docx's ۞. A Qālūn thumn grid
-built from the docx's ۞ misses these four and puts the fifth an āyah late.
+Recorded, not corrected: `marks` holds the docx's ۞. `thumn_starts` follows
+the print: it has these five, and not the ۞ at 39:51.
 
 ### 8. Waqf-mark conventions are not comparable between muṣḥafs
 
@@ -649,6 +689,27 @@ KFGQPC Qālūn print (`qaloun-1.pdf`, §7) has the ۞ there with «حزب» in t
 margin, on pages 382 and 422. At 27:58 and 33:31 the print has no mark. Found by
 haythemgataa (#53), checked here against both. `juz_starts` is still read from
 the CSV, as for Ḥafṣ.
+
+**Dūrī and Sūsī have it too, at juz 11 and 26.** Their v2 CSVs start those
+juz at 9:93 and 45:32. The prints (`douri-1.pdf`, `sousi-1.pdf`) carry the
+label «الجزء ١١ الحزب ٢١» at **9:95**, on a ۞ the docx also prints, and
+«الجزء ٢٦ الحزب ٥١» at **46:1**, the opening of al-Aḥqāf. At 9:93 and 45:32
+neither print has a label. This settles the question §9 left open about juz
+26: the Dūrī and Sūsī prints start it at 46:1, with the other editions, and
+only their CSVs say 45:32.
+
+**Shuʿbah and Warsh have no such disagreement**: all thirty juz starts in their
+CSVs are where their prints put «الجزء N».
+
+| muṣḥaf | juz | the CSV's `jozz` | the print |
+|---|---|---|---|
+| Ḥafṣ | 4, 11 | 3:92, 9:94 | 3:93, 9:93 |
+| Qālūn | 20, 22 | 27:58, 33:31 | 27:61, 33:35 |
+| Dūrī, Sūsī | 11, 26 | 9:93, 45:32 | 9:95, 46:1 |
+
+`juz_starts` still follows the CSV in every file. `hizb_starts` follows the
+print, so `hizb_starts[2·(k−1)]` is where the print starts juz *k*, and each
+file lists its differences under `layers.derived.divisions.juz_differs_from_layout`.
 
 *These are recorded here rather than in `open-findings.json`, which holds
 disagreements about **āyah** counting. This is a disagreement about division.*

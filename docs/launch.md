@@ -22,9 +22,9 @@ conversation, so the list survives.
 - [x] CI covers the service suite too — 39 tests, which needed pytest and
       fastapi and so had never run
 - [x] GitHub homepage and topics set
-- [x] the 240 `rubu_al_hizb` positions recorded with their provenance in
-      `sources/divisions/hafs-rubu-al-hizb.json`, so the thirteen medallion
-      readings survive
+- [x] the divisions of six muṣḥafs recorded with their evidence in
+      `sources/divisions/`, read from the printed muṣḥafs, and published as
+      `hizb_starts` with `rubu_al_hizb_starts` or `thumn_starts` (#61)
 
 ## Blocking
 
@@ -67,7 +67,6 @@ conversation, so the list survives.
 - [ ] **Ship with the two open questions in `verify-in-print.md`** — Bazzī's juz
       26, and the six āyahs with no `rasm_imlai` — or resolve them first. Both
       are documented rather than hidden, which is what a known-issues file is for.
-- [ ] **Publish the divisions as a layer?** The 240 `rubu_al_hizb` positions are
-      recorded with their provenance in `sources/divisions/hafs-rubu-al-hizb.json`,
-      but `data/` still carries no `rubu_al_hizb_starts` or `hizb_starts`. Adding
-      them would give Bazzī a juz layer without depending on a v2 CSV.
+- [x] **Publish the divisions as a layer.** Done for six muṣḥafs (#61). Bazzī
+      has none: no printed Bazzī muṣḥaf was available to read the margin from,
+      so it still has no juz layer either.

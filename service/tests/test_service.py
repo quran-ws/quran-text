@@ -147,6 +147,20 @@ def test_fields_and_hafs_reference_for_warsh():
     assert a["page"] and a["line"] and a["juz"] == 3
 
 
+def test_hizb_scope_and_field():
+    doc = get("/download?edition=hafs&format=json&fields=surah,ayah,juz,hizb&ayah=2:255").json()
+    a = doc["ayahs"][0]
+    assert a["juz"] == 3 and a["hizb"] == 5
+    r = get("/download?edition=hafs&format=json&hizb=60")
+    first, last = r.json()["ayahs"][0], r.json()["ayahs"][-1]
+    assert (first["surah"], first["ayah"]) == (87, 1) and (last["surah"], last["ayah"]) == (114, 6)
+    assert r.headers["content-disposition"].endswith("quran-hafs-rasm_uthmani-hizb60.json")
+    words = get("/download?edition=warsh&format=json&by=word&fields=surah,ayah,position,number,hizb&hizb=2").json()
+    assert {w["hizb"] for w in words["words"]} == {2}
+    rows = get("/map?from=hafs&to=warsh&hizb=60&format=json&header=0").json()["rows"]
+    assert (rows[0]["surah"], rows[0]["ayah"]) == (87, 1)
+
+
 def test_per_word_records():
     doc = get("/download?edition=hafs&format=json&by=word&ayah=7:206").json()
     words = doc["words"]
@@ -201,8 +215,11 @@ def test_limit_previews():
     ("/download?edition=hafs&surah=3-2", "runs backwards"),
     ("/download?edition=hafs&page=605", "604 pages"),
     ("/download?edition=hafs&juz=31", "there are 30"),
+    ("/download?edition=hafs&hizb=61", "there are 60"),
+    ("/download?edition=hafs&hizb=0", "there are 60"),
     ("/download?edition=hafs&ayah=abc", "write surah:ayah"),
     ("/download?edition=hafs&surah=2&juz=1", "give one scope"),
+    ("/download?edition=hafs&juz=1&hizb=1", "give one scope"),
     ("/download?edition=nope", "unknown edition"),
     ("/download?edition=hafs&fields=colour", "fields="),
 ])
@@ -243,6 +260,12 @@ def test_bazzi_has_no_juz():
     assert get("/download?edition=bazzi&page=1").status_code == 200
 
 
+def test_bazzi_has_no_hizb():
+    assert "no hizb layer" in get("/download?edition=bazzi&hizb=1", 400).json()["error"]
+    assert "no hizb layer" in get("/download?edition=bazzi&fields=surah,ayah,hizb", 400).json()["error"]
+    assert "no hizb layer" in get("/map?from=bazzi&hizb=1", 400).json()["error"]
+
+
 def test_rasm_imlai_only_for_hafs():
     assert "Ḥafṣ only" in get("/download?edition=warsh&text=rasm_imlai", 400).json()["error"]
     assert get("/download?edition=hafs&text=rasm_imlai&surah=1").status_code == 200
@@ -270,6 +293,11 @@ def test_editions():
     e = {x["key"]: x for x in get("/editions").json()}
     assert e["bazzi"]["has"]["juz"] is False and e["hafs"]["has"]["rasm_imlai"] is True
     assert e["warsh"]["ayah_count"] == 6214
+    assert e["bazzi"]["has"]["hizb"] is False and e["bazzi"]["hizb_count"] == 0
+    assert e["hafs"]["hizb_count"] == 60
+    assert [k for k in e if e[k]["has"]["hizb"]] == ["hafs", "shubah", "warsh", "qalun", "duri", "susi"]
+    assert [k for k in e if e[k]["has"]["rubu_al_hizb"]] == ["hafs", "shubah"]
+    assert [k for k in e if e[k]["has"]["thumn"]] == ["warsh", "qalun", "duri", "susi"]
 
 
 def test_compare():

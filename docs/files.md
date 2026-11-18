@@ -43,7 +43,8 @@ from them.
 ## `data/mushaf/<key>.json` and its views
 
 One muṣḥaf: `words` by position, with `ayah_starts`, `page_starts`,
-`line_starts`, `juz_starts`, `marks`, and the `numbering` block that maps
+`line_starts`, `juz_starts`, `hizb_starts`, `rubu_al_hizb_starts` or
+`thumn_starts`, `marks`, and the `numbering` block that maps
 positions onto the shared numbers. Specified in
 [`format.md`](format.md), schema `schema/mushaf-1.0.json`.
 

@@ -15,6 +15,9 @@ m.page(3).render(marks: true, ayahMarks: true, lines: true);
 m.page(3).lines;                                                  // for a page layout
 m.surah(112).ayahs;                                                 // [Ayah, …]
 m.juz(30).firstAyah!.key;                                         // "78:1"
+m.hizb(60).firstAyah!.key;                                        // "87:1"
+m.rubuAlHizb(2).numberInHizb;                                     // 2 of 4; Ḥafṣ and Shuʿbah
+w.thumn(480).hizb.number;                                         // 60; Warsh, Qālūn, Dūrī and Sūsī (w below)
 m.word(1, 4, 1).number;                                           // 11, the same word in every riwāyah
 m.sajdat();                                                       // every āyah printed with ۩
 m.search('مالك يوم الدين');                                       // [Span]
@@ -28,7 +31,7 @@ The font the text needs is bundled and declared in the package's pubspec, so
 For another riwāyah add its `.ttf` from `data/fonts/` to your own `fonts:`.
 
 `marks` takes `true` or a set of `MarkKind` (`{MarkKind.waqf}`). Wrong numbers
-throw `RangeError`; a layer the file lacks (juz in Bazzī) throws `StateError`
+throw `RangeError`; a layer the file lacks (juz in Bazzī, thumn in Ḥafṣ) throws `StateError`
 with the reason from the file. The full API is in [`../README.md`](../README.md).
 
 Test: `dart test` in this directory.

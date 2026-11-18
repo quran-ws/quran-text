@@ -76,6 +76,43 @@ void main() {
     expect(bazzi.wordAt(5).rasm_imlai, isNull);
   });
 
+  test('hizb and its parts', () {
+    // Ḥafṣ divides the ḥizb into four; Warsh into eight; Bazzī's print was not read.
+    expect([hafs.hizbCount, hafs.rubuAlHizbCount, hafs.thumnCount], [60, 240, 0]);
+    expect([warsh.hizbCount, warsh.rubuAlHizbCount, warsh.thumnCount], [60, 0, 480]);
+    expect(hafs.hizb(1).firstAyah!.key, '1:1');
+    expect(hafs.hizb(2).firstAyah!.key, '2:75');
+    expect(hafs.hizb(60).firstAyah!.key, '87:1');
+    expect(hafs.hizbs.length, 60);
+    expect(hafs.hizbs.fold<int>(0, (n, h) => n + h.length), hafs.wordCount);
+    final q = hafs.rubuAlHizb(2);
+    expect([q.firstAyah!.key, q.hizb.number, q.numberInHizb], ['2:26', 1, 2]);
+    expect(hafs.rubuAlHizb(240).numberInHizb, 4);
+    final a = hafs.ayah(2, 255);
+    expect([a.hizb!.number, a.rubuAlHizb!.number], [5, 17]);
+    expect(a.thumn, isNull);
+    final t = warsh.thumn(480);
+    expect([t.firstAyah!.key, t.hizb.number, t.numberInHizb], ['106:1', 60, 8]);
+    expect(warsh.wordAt(0).thumn!.number, 1);
+    expect(warsh.thumn(9).toString(), 'thumn 9');
+    // Where the print and the layout CSV start a juz at different āyāt, each layer keeps its own.
+    expect([hafs.juz(4).firstAyah!.key, hafs.hizb(7).firstAyah!.key], ['3:92', '3:93']);
+    expect([hafs.has('hizb'), hafs.has('rubu_al_hizb'), hafs.has('thumn')], [true, true, false]);
+    expect(
+        () => hafs.thumn(1),
+        throwsA(isA<StateError>().having((e) => e.message, 'message',
+            contains('no thumn layer: this muṣḥaf divides the ḥizb into 4'))));
+    expect(
+        () => bazzi.hizb(1),
+        throwsA(isA<StateError>()
+            .having((e) => e.message, 'message', contains('no hizb layer: no printed muṣḥaf'))));
+    expect(bazzi.wordAt(5).hizb, isNull);
+    expect(
+        () => hafs.hizb(61),
+        throwsA(isA<RangeError>()
+            .having((e) => e.message, 'message', 'hizb 61: there are 60')));
+  });
+
   test('search', () {
     final hits = hafs.search('مالك يوم الدين');
     expect(hits.length, 1);

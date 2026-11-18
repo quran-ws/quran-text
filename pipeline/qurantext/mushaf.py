@@ -36,7 +36,7 @@ import json
 from collections import defaultdict
 from pathlib import Path
 
-from . import chars, counting, fonts, rasm_imlai, sources
+from . import chars, counting, divisions, fonts, rasm_imlai, sources
 from . import paths, stamp
 from .build import DATA, Word
 from .word_index import boundary_events
@@ -541,6 +541,7 @@ def write_mushafs(words: list[Word], riwayahs: list[Riwayah]) -> dict[str, dict]
             doc["layers"]["present"].append("rasm_imlai")
             doc["layers"]["absent"].pop("rasm_imlai", None)
         doc["counting"] = counting.derive(doc, words)
+        divisions.apply(doc)
         _dump(MUSHAF_DIR / f"{r.key}.json", doc)
         docs[r.key] = doc
     return docs
