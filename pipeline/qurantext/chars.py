@@ -121,9 +121,9 @@ ORTHOGRAPHIC_MARKS = {
     "ٔ",  # ٔ hamzah above
     "ٕ",  # ٕ hamzah below
     "ٖ",  # ٖ subscript alef      (v2 open tanwīn al-kasr)
-    "ٗ",  # ٗ inverted dammah      (v2 open tanwīn al-ḍamm)
+    "ٗ",  # ٗ inverted dammah      (v2 open tanwīn al-fatḥ)
     "ٜ",  # ٜ vowel sign dot below
-    "ٞ",  # ٞ fathah with two dots (v2 open tanwīn al-fatḥ)
+    "ٞ",  # ٞ fathah with two dots (v2 open tanwīn al-ḍamm)
     "ٰ",  # ٰ superscript alef
     "۟",  # ۟ small high rounded zero
     "۠",  # ۠ small high upright rectangular zero
@@ -159,8 +159,11 @@ ATTACHED_ALEF_DECOMP = {
 }
 
 NOTATION_FOLD = {
-    "ٞ": "ࣰ",  # fathah with two dots  -> open tanwīn al-fatḥ
-    "ٗ": "ࣱ",  # inverted dammah       -> open tanwīn al-ḍamm
+    # The v2 (V20) set writes the open tanwīn al-fatḥ with U+0657 and al-ḍamm with U+065E, not the
+    # other way round: against the other six riwāyāt's spelling of the same word, Dūrī's U+0657 sits
+    # where they have U+08F0 2,894 times (U+08F1: 0), and U+065E where they have U+08F1 1,796 times.
+    "ٗ": "ࣰ",  # inverted dammah       -> open tanwīn al-fatḥ
+    "ٞ": "ࣱ",  # fathah with two dots  -> open tanwīn al-ḍamm
     "ٖ": "ࣲ",  # subscript alef       -> open tanwīn al-kasr
     "ۡ": "ْ",  # KFGQPC sukun head    -> sukun
     "۟": "۠",  # rounded zero         -> rectangular zero
