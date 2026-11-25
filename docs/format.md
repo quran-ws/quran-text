@@ -429,7 +429,7 @@ need a second copy of the words. `data/print/<key>.json` (`quran-print-layers
 | `marks`, `mark_types` | the waqf signs of the print, as in a muṣḥaf file. They replace the base's waqf marks and no other kind |
 | `layers.present`, `layers.absent` | what was read and what was not. **An absent layer is unknown, not the base's** |
 | `layers.proof` | how many readings were proved in which way |
-| `provenance` | the evidence files with their SHA-256, the scans, the method, the lists the reading started from, the open questions |
+| `provenance` | the evidence files with their SHA-256, the scans, the method, the lists it was checked against, the open questions |
 | `unproved` | candidates no reading proved. They are in no layer |
 
 `words_sha256` is of the words joined with one line feed. A reader checks it

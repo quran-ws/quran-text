@@ -133,7 +133,7 @@ def document(key: str, base: dict) -> dict:
                          for n, b in raw.items()],
             "prints": info["prints"],
             "method": info["method"],
-            "starting_points": info["starting_points"],
+            "checked_against": info["checked_against"],
             "open_questions": info["open_questions"],
         },
         "layers": {

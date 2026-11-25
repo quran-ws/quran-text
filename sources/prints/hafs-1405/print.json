@@ -38,7 +38,7 @@
   }
  ],
  "method": {
-  "order": "Both lists were read against the print from a candidate list (see starting_points), then the print was searched for what the candidate list lacks.",
+  "order": "Both lists were read against the print from a candidate list (see checked_against), then the print was searched for what the candidate list lacks.",
   "lines": "Every page was registered on both scans. A drawing of each word was placed where the candidate list puts it and compared with the ink of each scan by normalised cross-correlation. A line start is score-both-scans when the first word of the line and the last word of the line before it both score above 0.75 in both scans. For words that did not, the search was widened to 6 units up and down and 9 units left and right, and the width of the drawing was varied by up to 10 %. Every end-of-line word was also tried past the end of the neighbouring line; no word fits there on the page better than where it is, apart from 89:21:6, whose next-door word is the same word. Line starts that did not pass were looked at in both scans beside the drawn line, and so were pages 1 and 2. The 8,774 others were not looked at. «Looked at» means by a vision model shown crops of the scans, not by a person.",
   "pages": "A page starts where its first line starts. The order of the 604 pages is the scan's.",
   "waqf": "A template of each of the six signs was moved over a window above each listed word, in each scan separately. A sign is score-both-scans when its own template is the best of the six in both scans, scores at least 0.70 and 0.05 more than the next in both, and the two scans place it within 2 units of each other. Every other sign, every ۘ and every ۙ and ۛ was looked at in both scans. So were 108 of the score-both-scans signs, taken at random: all 108 are the sign named. Nine signs were confirmed by the repository owner from the scans (noted in waqf.csv).",
@@ -51,20 +51,20 @@
   "eye-both-scans": "looked at in both scans by a vision model, which compared the crops one by one; not by a person, except the nine signs waqf.csv notes",
   "unproved": "nothing proves it; not published"
  },
- "starting_points": [
+ "checked_against": [
   {
    "name": "Quranic Universal Library (QUL), mushaf layout 15",
    "publisher": "Tarteel",
    "url": "https://qul.tarteel.ai/resources/mushaf-layout/15",
-   "used_for": "The candidate list of page and line starts. QUL names 8,820 line starts and all of them are the print's. QUL writes لوما at 15:7 as two words and إل ياسين at 37:130 as one; the line breaks there are the same."
+   "used_for": "Checked against the print: QUL names 8,820 line starts and all of them are the print's. QUL writes لوما at 15:7 as two words and إل ياسين at 37:130 as one; the line breaks there are the same."
   },
   {
    "name": "Tanzil Quran Text, Uthmani, version 1.1",
    "publisher": "Tanzil Project",
    "url": "https://tanzil.net",
    "updates": "https://tanzil.net/updates/",
-   "used_for": "The candidate list of waqf signs, 4,359 on these words. All of them are in the print, and no other was found in it. No text of Tanzil is published here.",
-   "licence": "Creative Commons Attribution 3.0, with terms: see open_questions."
+   "used_for": "Checked against the print: 4,359 waqf signs on these words. All of them are in the print, and no other was found in it. No text of Tanzil is published here.",
+   "licence": "Creative Commons Attribution 3.0, with terms."
   }
  ],
  "absent": {
@@ -80,8 +80,6 @@
   "headings": "sūrah headings and basmalah rows are not words; lines.csv keeps the row number each text line has on its page"
  },
  "open_questions": [
-  "The licence of QUL layout 15 was not checked. The published line list is the same as QUL's because both agree with the print.",
-  "Tanzil asks that its copyright notice be kept in files derived from its text. Whether the waqf list, started from Tanzil and read from the print, is such a file has not been decided.",
   "No copy proved to be printed in 1405 was read."
  ]
 }

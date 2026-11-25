@@ -233,6 +233,6 @@ from a fresh clone.
 
 `sources/prints/hafs-1405/` holds what was read from two scans of the Madinah
 muṣḥaf approved in 1405H: `print.json` (the scans with their SHA-256 and
-colophons, the method, the credited starting points, the open questions),
+colophons, the method, the lists it was checked against, the open questions),
 `lines.csv` and `waqf.csv`. The scans are not committed. See
 [`print-1405.md`](print-1405.md).

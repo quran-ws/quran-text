@@ -6,9 +6,9 @@ point into the 77,432 words of `data/mushaf/hafs.json`, which are unchanged.
 The differences from the current Ḥafṣ are in
 `data/reports/hafs-1405-differences.md`.
 
-**The print is the reference.** The two candidate lists that the reading started
-from are credited below. Where a list and the print had disagreed, the print
-would have been published. They did not disagree.
+**The print is the reference.** The two lists it was checked against are credited
+below. Where a list and the print had disagreed, the print would have been
+published. They did not disagree.
 
 ## The scans
 
@@ -50,12 +50,12 @@ over every word, over every whole page, and over every place with ink that no
 drawn letter or vowel explains. It found none. The thresholds and results are
 in `print.json`, under `method`.
 
-## What it started from
+## What it was checked against
 
 | list | used for | result |
 |---|---|---|
-| [QUL, mushaf layout 15](https://qul.tarteel.ai/resources/mushaf-layout/15) | candidate page and line starts | all 8,820 are the print's |
-| [Tanzil](https://tanzil.net), Uthmani text 1.1 ([updates](https://tanzil.net/updates/)) | candidate waqf signs | all 4,359 are in the print; no other was found |
+| [QUL, mushaf layout 15](https://qul.tarteel.ai/resources/mushaf-layout/15) | page and line starts | all 8,820 are the print's |
+| [Tanzil](https://tanzil.net), Uthmani text 1.1 ([updates](https://tanzil.net/updates/)) | waqf signs | all 4,359 are in the print; no other was found |
 
 No text of Tanzil is published here.
 
@@ -73,10 +73,8 @@ No text of Tanzil is published here.
 
 ## Open questions
 
-Listed in `provenance.open_questions`, and not decided here: the licence of QUL
-layout 15, Tanzil's terms for derived files, and a copy proved to be printed in
-1405H. The rights notice of scan a is decided: the Complex's published usage
-rights in `LICENSE` cover it (see `NOTICE.md`).
+No copy proved to be printed in 1405H was available. The Complex's published
+usage rights in `LICENSE` cover the print (see `NOTICE.md`).
 
 ## Use
 

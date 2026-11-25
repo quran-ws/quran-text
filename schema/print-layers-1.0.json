@@ -39,12 +39,12 @@
     "provenance": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["evidence", "prints", "method", "starting_points", "open_questions"],
+      "required": ["evidence", "prints", "method", "checked_against", "open_questions"],
       "properties": {
         "evidence": { "type": "array", "items": { "type": "object", "required": ["path", "sha256"] } },
         "prints": { "type": "array", "items": { "type": "object", "required": ["id", "file", "sha256", "colophon"] } },
         "method": { "type": "object" },
-        "starting_points": { "type": "array", "description": "The lists the work on the print began from or was compared with, each credited and linked.", "items": { "type": "object", "required": ["name", "url", "used_for"] } },
+        "checked_against": { "type": "array", "description": "The lists the work on the print began from or was compared with, each credited and linked.", "items": { "type": "object", "required": ["name", "url", "used_for"] } },
         "open_questions": { "type": "array", "items": { "type": "string" } }
       }
     },
