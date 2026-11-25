@@ -61,6 +61,14 @@ copied verbatim from
 [quranpedia/qiraat-ayah-map](https://github.com/quranpedia/qiraat-ayah-map)
 (MIT) at a pinned commit; see `sources/counting/UPSTREAM.md`.
 
+`sources/prints/` and `data/print/` hold positions and signs read from scans of a
+printed muṣḥaf of the King Fahd Complex. The Complex's published usage rights,
+reproduced in full in `LICENSE`, allow free use inside and outside the Kingdom.
+Their limits are on printing muṣḥafs inside the Kingdom and importing them for
+commercial sale. The repository owner decided that these terms cover the print,
+including its line «حقوق الطبع محفوظة». The lists the reading was checked
+against are credited in `docs/print-1405.md`.
+
 ## Attribution: waived in products, asked for on republication
 
 **Building this data into an application, website, service, API, bot, tool,

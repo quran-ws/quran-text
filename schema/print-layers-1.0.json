@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/quran-ws/quran-text/main/schema/print-layers-1.0.json",
+  "title": "quran-print-layers 1.0",
+  "description": "Where one printed edition breaks its pages and lines, and which waqf signs it prints, as positions into the words of a muṣḥaf file. It holds no words.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["format", "format_version", "generated", "edition", "base", "provenance", "layers", "page_starts", "line_starts", "marks", "mark_types", "unproved"],
+  "properties": {
+    "format": { "const": "quran-print-layers" },
+    "format_version": { "type": "string", "pattern": "^\\d+\\.\\d+$" },
+    "generated": { "type": "string", "format": "date" },
+    "edition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["key", "name_en", "name_ar", "riwayah", "approved", "note"],
+      "properties": {
+        "key": { "type": "string" },
+        "name_en": { "type": "string" },
+        "name_ar": { "type": "string" },
+        "riwayah": { "type": "string" },
+        "approved": { "type": "string", "description": "The date of the review committee's decision, as the print states it." },
+        "note": { "type": "string" }
+      }
+    },
+    "base": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "The muṣḥaf file every position indexes. A reader checks words_sha256 before using the layers.",
+      "required": ["mushaf", "file", "word_count", "words_sha256", "words_sha256_of"],
+      "properties": {
+        "mushaf": { "type": "string" },
+        "file": { "type": "string" },
+        "word_count": { "type": "integer" },
+        "words_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "words_sha256_of": { "type": "string" }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["evidence", "prints", "method", "checked_against", "open_questions"],
+      "properties": {
+        "evidence": { "type": "array", "items": { "type": "object", "required": ["path", "sha256"] } },
+        "prints": { "type": "array", "items": { "type": "object", "required": ["id", "file", "sha256", "colophon"] } },
+        "method": { "type": "object" },
+        "checked_against": { "type": "array", "description": "The lists the work on the print began from or was compared with, each credited and linked.", "items": { "type": "object", "required": ["name", "url", "used_for"] } },
+        "open_questions": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "layers": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["present", "absent", "proof_vocabulary", "proof", "waqf_by_sign"],
+      "properties": {
+        "present": { "type": "array", "items": { "type": "string" } },
+        "absent": { "type": "object", "additionalProperties": { "type": "string" } },
+        "proof_vocabulary": { "type": "object", "additionalProperties": { "type": "string" } },
+        "proof": { "type": "object", "description": "How many rows of each layer were proved in which way." },
+        "waqf_by_sign": { "type": "object", "additionalProperties": { "type": "integer" } }
+      }
+    },
+    "page_starts": { "type": "array", "items": { "type": "integer" }, "minItems": 604, "maxItems": 604 },
+    "line_starts": { "type": "array", "items": { "type": "integer" } },
+    "marks": { "type": "array", "items": { "type": "array", "prefixItems": [{ "type": "integer" }, { "type": "integer" }], "minItems": 2, "maxItems": 2 } },
+    "mark_types": { "type": "array", "items": { "type": "object", "required": ["kind", "side", "sign"] } },
+    "unproved": { "type": "object", "required": ["waqf"], "description": "Candidates that nothing in the print proved. They are not in the layers.", "properties": { "waqf": { "type": "array" } } }
+  }
+}

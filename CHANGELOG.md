@@ -9,6 +9,14 @@ This project has not had a tagged release yet; everything below is unreleased.
 
 ### Format
 
+- **A printed edition can be published as layers without its words.** New
+  `data/print/hafs-1405.json` (`quran-print-layers 1.0`,
+  `schema/print-layers-1.0.json`): the page starts, line starts and waqf signs
+  of the Madinah muṣḥaf approved in 1405H, read from two scans, as positions
+  into the unchanged Ḥafṣ words. The evidence is `sources/prints/hafs-1405/`,
+  the method and limits are in `docs/print-1405.md`, and the differences from
+  the current Ḥafṣ are in `data/reports/hafs-1405-differences.md`. Additive: no
+  existing key changes.
 - **What the font draws beyond the codepoints is published, and normalisation
   is measured.** New `data/font-glyphs/<key>.json`, one per muṣḥaf
   (`quran-font-glyphs 1.0`, `schema/font-glyphs-1.0.json`). It lists every

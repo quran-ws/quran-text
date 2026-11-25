@@ -2,9 +2,12 @@
 
 `data/mushaf/<key>.json` publishes one muṣḥaf on its own. `data/word-index.json`
 publishes the shared numbering that means the same word in all seven.
+`data/print/<key>.json` publishes layers of another printed edition over the
+words of one muṣḥaf; see *Print layers*.
 
 This document is the specification. **Only `data/mushaf/<key>.json` and
-`data/word-index.json` (with `data/word-index.csv`) are normative.** The nested,
+`data/word-index.json` (with `data/word-index.csv`) are normative,** and
+`data/print/<key>.json` for its own format, `quran-print-layers`. The nested,
 CSV and SQLite forms are generated from them and are labelled views; a consumer
 may read them, but a claim about "the format" refers to the files above.
 [`files.md`](files.md) lists every file under `data/`, the views of these two
@@ -411,6 +414,26 @@ Three things a consumer needs:
 
 *۞ is the **rubu_al_hizb** sign; the ḥizb proper is the marginal label these
 files do not carry.*
+
+## Print layers
+
+A printed edition that sets the same words on other pages and lines does not
+need a second copy of the words. `data/print/<key>.json` (`quran-print-layers
+1.0`, `schema/print-layers-1.0.json`) holds only what was read from the print:
+
+| key | holds |
+|---|---|
+| `edition` | which printed edition |
+| `base` | the muṣḥaf file whose `words` every position indexes, with their count and SHA-256 |
+| `page_starts`, `line_starts` | positions, as in a muṣḥaf file |
+| `marks`, `mark_types` | the waqf signs of the print, as in a muṣḥaf file. They replace the base's waqf marks and no other kind |
+| `layers.present`, `layers.absent` | what was read and what was not. **An absent layer is unknown, not the base's** |
+| `layers.proof` | how many readings were proved in which way |
+| `provenance` | the evidence files with their SHA-256, the scans, the method, the lists it was checked against, the open questions |
+| `unproved` | candidates no reading proved. They are in no layer |
+
+`words_sha256` is of the words joined with one line feed. A reader checks it
+before using a position, and the build fails if the words change.
 
 ## The text is the release's, codepoint for codepoint
 

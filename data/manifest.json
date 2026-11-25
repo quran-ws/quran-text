@@ -11,7 +11,8 @@
   "data/mushaf/susi.json",
   "data/mushaf/bazzi.json",
   "data/word-index.json",
-  "data/word-index.csv"
+  "data/word-index.csv",
+  "data/print/hafs-1405.json"
  ],
  "note": "Only the files listed under `normative` define the format. Everything else is a generated view of them.",
  "sources": {
@@ -257,6 +258,45 @@
     "open-findings.json": "2727a65263c329a5dd76b9199c4fe03e651a9655f1a28c49f38cd946f176740f",
     "declared.json": "feba23ee612ddd2008797432cdaa3c73f3e5ddc2de4ca880c6b6f76c07b22980"
    }
+  },
+  "print-hafs-1405": {
+   "evidence": [
+    {
+     "path": "sources/prints/hafs-1405/print.json",
+     "sha256": "757f8e48f14d22f69d6d752671f6f0d8035c473731be69d9df45ff60d376bd40"
+    },
+    {
+     "path": "sources/prints/hafs-1405/lines.csv",
+     "sha256": "6efb8ae49361f40494dd4aaac2a8e2f56ea272a54d85fac4c4f14086686da6a3"
+    },
+    {
+     "path": "sources/prints/hafs-1405/waqf.csv",
+     "sha256": "f8b29bda47a33a376397d0b5371435854a993e7d97e1cc3ec8e7bf76861f22ee"
+    }
+   ],
+   "prints": [
+    {
+     "id": "a",
+     "file": "مصحف-المدينة_1406.pdf",
+     "sha256": "513014d52aa8d72bc2cb86c4c6431d77b46b3931790b402b1813be6887e022d8",
+     "pdf_pages": 627,
+     "page_offset": 5,
+     "resolution": "931 × 1398 px per page, 150 dpi, colour JPEG",
+     "colophon": "«تم طبع هذا المصحف الشريف في مجمع الملك فهد ... بإشراف وزارة الحج والأوقاف ... عام ١٤٠٦هـ» and «حقوق الطبع محفوظة لمجمع الملك فهد لطباعة المصحف الشريف». The committee's decision is dated 1405.",
+     "same_images": "A PDF named «01. مصحف المدينة ملون القديم - 1405_1984.pdf» (SHA-256 2199245a98a64ad0782d35adeb14ac2e03f63505e96581eaecaa041daa1a3775) holds the same images; four pages were compared and are byte-identical. It is the same scan under another year, so it is not a third witness.",
+     "committed": false
+    },
+    {
+     "id": "b",
+     "file": "02. مصحف المدينة الإصدار القديم - 1405_1985.pdf",
+     "sha256": "c3d68d9a85e7ab8fea022da42b480e923b4f81f3e6d72d1d3cd6b8b778b26988",
+     "pdf_pages": 624,
+     "page_offset": "1 to 3, found page by page",
+     "resolution": "759 × 1100 px per page, 72 dpi, 8-bit palette",
+     "colophon": "No year of printing. The committee's decision is dated 1405. The closing page names «وزارة الشؤون الإسلامية والأوقاف والدعوة والإرشاد», where copy a names «وزارة الحج والأوقاف», so the 1985 in the file name is not supported by the book, and this is probably a later printing.",
+     "committed": false
+    }
+   ]
   }
  },
  "files": [
@@ -272,8 +312,8 @@
   },
   {
    "path": "data/catalog.json",
-   "bytes": 45282,
-   "sha256": "ad247eec55de52825585685c4f7c2b4f5f990284e96c1f8d73498de40c2b5345"
+   "bytes": 45552,
+   "sha256": "4fdcb9f38f76284fa736f2e10e259e5c1d37d32ff449ecead416a16e695d4929"
   },
   {
    "path": "data/counting.json",
@@ -466,6 +506,11 @@
    "sha256": "5ebd64a0acddf22e4715b72152b3bc69058a5727ce6a0b53e01e91d98a1fa744"
   },
   {
+   "path": "data/print/hafs-1405.json",
+   "bytes": 195890,
+   "sha256": "25c4c3c176827ae646154e64585a0fd044354a8893328d04b8596bb619206d42"
+  },
+  {
    "path": "data/quran.sqlite.gz",
    "bytes": 20445859,
    "sha256": "6d46bd6a8cf3bc574153b0a726ceaeb64fdca6fcc721b627f4291a0669a1296e"
@@ -484,6 +529,16 @@
    "path": "data/reports/compare.html",
    "bytes": 2070889,
    "sha256": "efcd99376e6d9ae239d6c54b060321f5f768e974eb5d05f4325f36d76959f541"
+  },
+  {
+   "path": "data/reports/hafs-1405-differences.csv",
+   "bytes": 379265,
+   "sha256": "1dae3b09cd4697e2480078828e74f6c0f569e78c4f611282ad69df83ea549bc1"
+  },
+  {
+   "path": "data/reports/hafs-1405-differences.md",
+   "bytes": 18276,
+   "sha256": "4c390075925b1fcbd412fd767559e450b3291c3aa1c8e45d1f032c17d172aa6b"
   },
   {
    "path": "data/reports/rasm-variants.md",

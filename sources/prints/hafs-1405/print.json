@@ -1,0 +1,85 @@
+{
+ "_description": "What was read from the print for data/print/hafs-1405.json, and how. The rows are in lines.csv (one per printed line that carries words of the text: page, row on the page, first word, how it was proved) and waqf.csv (one per printed sign). A word is named surah:ayah:word in the āyah count of the base muṣḥaf. The columns ending in _a and _b are match scores in scan a and scan b; they are empty where a page was read by eye only.",
+ "edition": {
+  "key": "hafs-1405",
+  "name_en": "Madinah muṣḥaf approved in 1405H",
+  "name_ar": "مصحف المدينة النبوية المجاز سنة ١٤٠٥هـ",
+  "riwayah": "hafs",
+  "approved": "1405-05-01",
+  "note": "Named by the date of the review committee's decision, the first of Jumādā al-Ūlā 1405H, which both scanned copies print in their closing pages. Neither scan is proved to be a copy printed in 1405: see provenance.prints."
+ },
+ "base": {
+  "mushaf": "hafs",
+  "word_count": 77432,
+  "ayah_count": 6236,
+  "words_sha256": "e83dc4584ca675086c37b6dacf89406beffb431e9c0623d6b513900d4f92bd6b"
+ },
+ "prints": [
+  {
+   "id": "a",
+   "file": "مصحف-المدينة_1406.pdf",
+   "sha256": "513014d52aa8d72bc2cb86c4c6431d77b46b3931790b402b1813be6887e022d8",
+   "pdf_pages": 627,
+   "page_offset": 5,
+   "resolution": "931 × 1398 px per page, 150 dpi, colour JPEG",
+   "colophon": "«تم طبع هذا المصحف الشريف في مجمع الملك فهد ... بإشراف وزارة الحج والأوقاف ... عام ١٤٠٦هـ» and «حقوق الطبع محفوظة لمجمع الملك فهد لطباعة المصحف الشريف». The committee's decision is dated 1405.",
+   "same_images": "A PDF named «01. مصحف المدينة ملون القديم - 1405_1984.pdf» (SHA-256 2199245a98a64ad0782d35adeb14ac2e03f63505e96581eaecaa041daa1a3775) holds the same images; four pages were compared and are byte-identical. It is the same scan under another year, so it is not a third witness.",
+   "committed": false
+  },
+  {
+   "id": "b",
+   "file": "02. مصحف المدينة الإصدار القديم - 1405_1985.pdf",
+   "sha256": "c3d68d9a85e7ab8fea022da42b480e923b4f81f3e6d72d1d3cd6b8b778b26988",
+   "pdf_pages": 624,
+   "page_offset": "1 to 3, found page by page",
+   "resolution": "759 × 1100 px per page, 72 dpi, 8-bit palette",
+   "colophon": "No year of printing. The committee's decision is dated 1405. The closing page names «وزارة الشؤون الإسلامية والأوقاف والدعوة والإرشاد», where copy a names «وزارة الحج والأوقاف», so the 1985 in the file name is not supported by the book, and this is probably a later printing.",
+   "committed": false
+  }
+ ],
+ "method": {
+  "order": "Both lists were read against the print from a candidate list (see checked_against), then the print was searched for what the candidate list lacks.",
+  "lines": "Every page was registered on both scans. A drawing of each word was placed where the candidate list puts it and compared with the ink of each scan by normalised cross-correlation. A line start is score-both-scans when the first word of the line and the last word of the line before it both score above 0.75 in both scans. For words that did not, the search was widened to 6 units up and down and 9 units left and right, and the width of the drawing was varied by up to 10 %. Every end-of-line word was also tried past the end of the neighbouring line; no word fits there on the page better than where it is, apart from 89:21:6, whose next-door word is the same word. Line starts that did not pass were looked at in both scans beside the drawn line, and so were pages 1 and 2. The 8,774 others were not looked at. «Looked at» means by a vision model shown crops of the scans, not by a person.",
+  "pages": "A page starts where its first line starts. The order of the 604 pages is the scan's.",
+  "waqf": "A template of each of the six signs was moved over a window above each listed word, in each scan separately. A sign is score-both-scans when its own template is the best of the six in both scans, scores at least 0.70 and 0.05 more than the next in both, and the two scans place it within 2 units of each other. Every other sign, every ۘ and every ۙ and ۛ was looked at in both scans. So were 108 of the score-both-scans signs, taken at random: all 108 are the sign named. Nine signs were confirmed by the repository owner from the scans (noted in waqf.csv).",
+  "waqf_completeness": "Pages 1 and 2 were looked at whole: three signs. Then three searches of the other pages without any list. (1) The window above each of the 77,367 words of pages 3 to 604 was read with all six templates: no word outside the list scores above 0.71 for a sign other than ۘ. (2) Both scans of every page were searched whole, with no word boxes: no unlisted place scores above 0.75 for ۖ ۗ ۙ ۚ ۛ in both scans; and no unlisted place scores above 0.78 in either scan alone, except the pronoun's small yāʾ at 3:65, which was looked at. (3) The places found by (2) down to 0.55 that no drawn letter or vowel covers were sorted by score, and the best of each sign, 292 in all, were looked at: the only waqf signs among them are ones already listed. The rest are āyah numerals, the basmalah, headings and vowels beside a misplaced drawing. For ۘ, which resembles a ḍammah, only (3) counts.",
+  "base_signs": "The 55 words where the current Ḥafṣ prints a waqf sign or a saktah sīn and the list has none were looked at in both scans: no waqf sign is printed at any of them.",
+  "units": "1 unit is 1/345 of the page frame's width."
+ },
+ "proof_vocabulary": {
+  "score-both-scans": "matched in both scans by the measure in method",
+  "eye-both-scans": "looked at in both scans by a vision model, which compared the crops one by one; not by a person, except the nine signs waqf.csv notes",
+  "unproved": "nothing proves it; not published"
+ },
+ "checked_against": [
+  {
+   "name": "Quranic Universal Library (QUL), mushaf layout 15",
+   "publisher": "Tarteel",
+   "url": "https://qul.tarteel.ai/resources/mushaf-layout/15",
+   "used_for": "Checked against the print: QUL names 8,820 line starts and all of them are the print's. QUL writes لوما at 15:7 as two words and إل ياسين at 37:130 as one; the line breaks there are the same."
+  },
+  {
+   "name": "Tanzil Quran Text, Uthmani, version 1.1",
+   "publisher": "Tanzil Project",
+   "url": "https://tanzil.net",
+   "updates": "https://tanzil.net/updates/",
+   "used_for": "Checked against the print: 4,359 waqf signs on these words. All of them are in the print, and no other was found in it. No text of Tanzil is published here.",
+   "licence": "Creative Commons Attribution 3.0, with terms."
+  }
+ ],
+ "absent": {
+  "words": "the words are the base muṣḥaf's; the letters and vowels of the print were not read as text",
+  "letters_and_vowels": "not read from the print",
+  "sajdah": "not read from the print",
+  "sajdah_line": "not read from the print",
+  "division": "the ۞ was not read from the print",
+  "hizb": "not read from the print",
+  "rubu_al_hizb": "not read from the print",
+  "juz": "not read from the print",
+  "saktah": "the small sīn was seen at 18:1, 69:28, 75:27 and 83:14 but not read as a layer",
+  "headings": "sūrah headings and basmalah rows are not words; lines.csv keeps the row number each text line has on its page"
+ },
+ "open_questions": [
+  "No copy proved to be printed in 1405 was read."
+ ]
+}
