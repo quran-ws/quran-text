@@ -129,8 +129,8 @@ not, and the sentence above about Dūrī still stands.
 
 ## The printed muṣḥafs, read for what the packages omit
 
-**These are the only sources here that are not KFGQPC data packages**, and they
-are used for one thing the packages do not carry: the division marks in the
+**These and the two scans of the 1405H edition (below) are the only sources here
+that are not KFGQPC data packages**. They are used for one thing the packages do not carry: the division marks in the
 margin.
 
 | muṣḥaf | print | SHA-256 |
@@ -228,3 +228,11 @@ Two inputs exceed GitHub's hard 100 MB per-file limit and are excluded by
 Neither is used by the build, so the pipeline runs without them. Everything the
 build reads **is** committed, so `python3 pipeline/build.py` reproduces `data/`
 from a fresh clone.
+
+## The 1405H print, read for page starts, line starts and waqf signs
+
+`sources/prints/hafs-1405/` holds what was read from two scans of the Madinah
+muṣḥaf approved in 1405H: `print.json` (the scans with their SHA-256 and
+colophons, the method, the credited starting points, the open questions),
+`lines.csv` and `waqf.csv`. The scans are not committed. See
+[`print-1405.md`](print-1405.md).

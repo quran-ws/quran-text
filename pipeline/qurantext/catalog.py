@@ -42,6 +42,8 @@ FILES = [
      "answers": "the six counting systems, their boundaries as numbers, and which system each edition follows"},
     {"path": "data/quran.sqlite.gz", "format": "sqlite",
      "answers": "all seven muṣḥafs and the word index, queryable in SQL"},
+    {"path": "data/print/<key>.json", "format": "quran-print-layers", "normative": True,
+     "answers": "where another printed edition breaks its pages and lines, and which waqf signs it prints, as layers over the words of one muṣḥaf; it holds no words"},
     {"path": "data/manifest.json", "format": "quran-manifest",
      "answers": "the SHA-256 of every source package and every file here"},
     {"path": "data/reports/", "format": "markdown, csv, html",

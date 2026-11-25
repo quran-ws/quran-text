@@ -547,7 +547,7 @@ def write_mushafs(words: list[Word], riwayahs: list[Riwayah]) -> dict[str, dict]
     return docs
 
 
-def write_manifest(docs: dict[str, dict]) -> dict:
+def write_manifest(docs: dict[str, dict], prints: dict[str, dict]) -> dict:
     """Every emitted file and every source package, each with its SHA-256.
 
     A dataset becomes citable when a reader can prove which release a file came
@@ -563,7 +563,8 @@ def write_manifest(docs: dict[str, dict]) -> dict:
         "format_version": FORMAT_VERSION,
         "generated": stamp.generated(),
         "normative": [f"data/mushaf/{k}.json" for k in docs]
-                     + ["data/word-index.json", "data/word-index.csv"],
+                     + ["data/word-index.json", "data/word-index.csv"]
+                     + [f"data/print/{k}.json" for k in prints],
         "note": "Only the files listed under `normative` define the format. "
                 "Everything else is a generated view of them.",
         "sources": {
@@ -572,6 +573,8 @@ def write_manifest(docs: dict[str, dict]) -> dict:
                    if isinstance(part, dict)}
                for k, doc in docs.items()},
             "qiraat-ayah-map": counting.provenance(),
+            **{f"print-{k}": {n: doc["provenance"][n] for n in ("evidence", "prints")}
+               for k, doc in prints.items()},
         },
         "files": [
             {"path": p.relative_to(paths.ROOT).as_posix(),

@@ -61,6 +61,11 @@ copied verbatim from
 [quranpedia/qiraat-ayah-map](https://github.com/quranpedia/qiraat-ayah-map)
 (MIT) at a pinned commit; see `sources/counting/UPSTREAM.md`.
 
+`sources/prints/` and `data/print/` hold facts read from scans of a printed
+muṣḥaf whose book reserves printing rights, with credited starting points. What
+licence covers them is an **open question**, listed in `provenance.open_questions`
+of each file and in `docs/print-1405.md`. The table above does not answer it.
+
 ## Attribution: waived in products, asked for on republication
 
 **Building this data into an application, website, service, API, bot, tool,

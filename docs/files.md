@@ -20,6 +20,7 @@ from them.
 | know which counting system an edition follows, and the boundaries of all six | `counting.json` |
 | query in SQL | `quran.sqlite.gz` |
 | count signs from the text, or draw it with another font | `font-glyphs/<key>.json` |
+| set the Ḥafṣ words on the pages and lines of the 1405H print, or read its waqf signs | `print/hafs-1405.json` |
 | verify what you downloaded | `manifest.json` |
 | read the findings and how this was built | `reports/` |
 
@@ -59,6 +60,14 @@ file says so and gives the two conventions that put the signs back.
 | `mushaf/<key>.csv.gz` | one row per word: `position, surah, ayah, position_in_ayah, page, line, juz, number, number_last, text, rasm_imlai, marks, resegmented`; `ayah` is `0` for the unnumbered basmalah |
 
 A sūrah, a page or a juz is one slice of `words`, so there is no per-sūrah file.
+
+## `data/print/<key>.json`
+
+Layers of another printed edition over the words of one muṣḥaf: page starts,
+line starts and waqf signs, and no words. Schema
+`schema/print-layers-1.0.json`; specified in `format.md`, *Print layers*; the
+one edition published is described in [`print-1405.md`](print-1405.md).
+`reports/<key>-differences.md` and `.csv` list where it differs from its base.
 
 ## `data/fonts/`
 

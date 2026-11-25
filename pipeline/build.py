@@ -23,6 +23,7 @@ from qurantext.ayah_map import write_ayah_map    # noqa: E402
 from qurantext.build import build_words          # noqa: E402
 from qurantext.catalog import write_catalog      # noqa: E402
 from qurantext.mushaf import write_manifest, write_mushafs  # noqa: E402
+from qurantext.print_layers import check_prints, write_prints  # noqa: E402
 from qurantext.report import write_report        # noqa: E402
 from qurantext.sources import load_all           # noqa: E402
 from qurantext.validate import (check_ayah_numbers, check_index,  # noqa: E402
@@ -91,11 +92,17 @@ def main() -> int:
     write_csv(docs)
     write_sqlite(docs, word_index)
 
+    print("publishing the layers read from print ...")
+    prints = write_prints(docs)
+    for key, doc in prints.items():
+        print(f"  {key}: {len(doc['page_starts'])} pages, {len(doc['line_starts']):,} lines, "
+              f"{len(doc['marks']):,} waqf signs, {len(doc['unproved']['waqf'])} unproved")
+
     print("writing the reports ...")
     write_report(words, riwayahs, docs)
     write_viewer(words, riwayahs)
     write_catalog(words, riwayahs, docs)
-    write_manifest(docs)
+    write_manifest(docs, prints)
     sync_bundled_hafs(docs["hafs"])
 
     problems = (check_index(words, riwayahs)
@@ -108,7 +115,8 @@ def main() -> int:
                 + check_numbering(docs)
                 + check_positions(docs)
                 + counting.check_unexplained(docs)
-                + check_schema_fields(docs))
+                + check_schema_fields(docs)
+                + check_prints(prints, docs))
     print(f"checks: {len(problems)} finding(s)")
     for p in problems:
         print(f"  - [{p['check']}] {p.get('riwayah', '')} {p['detail']}")
