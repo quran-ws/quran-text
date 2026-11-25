@@ -73,9 +73,10 @@ No text of Tanzil is published here.
 
 ## Open questions
 
-Listed in `provenance.open_questions`, and not decided here: the rights notice
-of scan a, the licence of QUL layout 15, Tanzil's terms for derived files, and a
-copy proved to be printed in 1405H.
+Listed in `provenance.open_questions`, and not decided here: the licence of QUL
+layout 15, Tanzil's terms for derived files, and a copy proved to be printed in
+1405H. The rights notice of scan a is decided: the Complex's published usage
+rights in `LICENSE` cover it (see `NOTICE.md`).
 
 ## Use
 
